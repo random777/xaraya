@@ -134,7 +134,7 @@
                     </td>
                     <td class="xar-item-actions">
                         <xar:comment>Info Icon</xar:comment>
-                        <a href="#$modinfo['infourl']#&amp;theme=print" onclick="window.open(this.getAttribute('href'));return false;" title="#xarML('Info')#"><img src="#$icon_info#" alt="#xarML('Info')#" /></a>
+                        <a href="#$modinfo['infourl']#&amp;theme=print" class="xar-icon" onclick="window.open(this.getAttribute('href'));return false;" title="#xarML('Info')#"><img src="#$icon_info#" alt="#xarML('Info')#" /></a>
 
                         <xar:if condition="$modinfo['actionurl'] eq ''">
                             <img src="#$modinfo['actionimg1']#" alt="#$modinfo['actionlabel']#" title="#$modinfo['actionlabel']#" class="xar-icon-disabled" />
@@ -172,14 +172,14 @@
         <a href="http://www.xaraya.com/documentation/rfcs/rfc0013.html">RFC-13</a>
     </p>
     <div class="xar-accent-outline xar-margin-thick xar-padding-thick">
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/activate.png','base')#" alt="#xarML('Activate')#" /> <xar:mlstring>Activate</xar:mlstring></span> 
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/deactivate.png','base')#" alt="#xarML('Deactivate')#" /> <xar:mlstring>Deactivate</xar:mlstring></span> 
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/software-install.png','base')#" alt="#xarML('Install')#" /> <xar:mlstring>Install</xar:mlstring></span> 
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/software-upgrade.png','base')#" alt="#xarML('Upgrade')#" /> <xar:mlstring>Upgrade</xar:mlstring></span> 
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/remove.png','base')#" alt="#xarML('Remove')#" /> <xar:mlstring>Remove</xar:mlstring></span> 
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/dialog-warning.png','base')#" alt="#xarML('Warning')#" /> <xar:mlstring>Warning</xar:mlstring></span> 
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/dialog-error.png','base')#" alt="#xarML('Error')#" /> <xar:mlstring>Error</xar:mlstring></span> 
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/hooks.png','base')#" alt="#xarML('Hooks')#" /> <xar:mlstring>Hooks</xar:mlstring></span> 
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/modify-config.png','base')#" alt="#xarML('Modify Config')#" /><xar:mlstring>Modify Config</xar:mlstring></span>
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/activate.png','base')#" class="xar-icon" alt="#xarML('Activate')#" /> <xar:mlstring>Activate</xar:mlstring></span> 
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/deactivate.png','base')#" class="xar-icon" alt="#xarML('Deactivate')#" /> <xar:mlstring>Deactivate</xar:mlstring></span> 
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/software-install.png','base')#" class="xar-icon" alt="#xarML('Install')#" /> <xar:mlstring>Install</xar:mlstring></span> 
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/software-upgrade.png','base')#" class="xar-icon" alt="#xarML('Upgrade')#" /> <xar:mlstring>Upgrade</xar:mlstring></span> 
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/remove.png','base')#" class="xar-icon" alt="#xarML('Remove')#" /> <xar:mlstring>Remove</xar:mlstring></span> 
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/dialog-warning.png','base')#" class="xar-icon" alt="#xarML('Warning')#" /> <xar:mlstring>Warning</xar:mlstring></span> 
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/dialog-error.png','base')#" class="xar-icon" alt="#xarML('Error')#" /> <xar:mlstring>Error</xar:mlstring></span> 
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/hooks.png','base')#" class="xar-icon" alt="#xarML('Hooks')#" /> <xar:mlstring>Hooks</xar:mlstring></span> 
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/modify-config.png','base')#" class="xar-icon" alt="#xarML('Modify Config')#" /><xar:mlstring>Modify Config</xar:mlstring></span>
     </div>
 </div>

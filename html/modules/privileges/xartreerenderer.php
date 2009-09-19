@@ -258,7 +258,7 @@ class xarTreeRenderer
                      'admin',
                      'viewroles',
                      array('pid'=>$object['pid'])) .
-                     '" title="'.xarML('Show the Groups/Users this Privilege is assigned to').'">
+                     '" title="'.xarML('Show the Groups/Users this Privilege is assigned to').'" class="xar-icon">
                         <img src="'. $this->icon_groups .'" />
                      </a>';
 

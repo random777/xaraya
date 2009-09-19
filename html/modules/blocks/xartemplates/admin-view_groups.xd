@@ -52,10 +52,10 @@
                     </xar:if>
                 </td>
                 <td class="xar-item-actions">
-                    <a href="#xarModUrl('blocks', 'admin', 'modify_group', array('gid' => $group['id']))#" title="#xarML('Modify')#">
+                    <a href="#xarModUrl('blocks', 'admin', 'modify_group', array('gid' => $group['id']))#" class="xar-icon" title="#xarML('Modify')#">
                         <img src="#$icon_modify#" alt="#xarML('Modify')#" />
                     </a>
-                    <a href="#$group['deleteurl']#" onclick="return xar_base_confirmLink(this, '#xarVarPrepForDisplay($group['deleteconfirm'])#')" title="#xarML('Delete')#">
+                    <a href="#$group['deleteurl']#" onclick="return xar_base_confirmLink(this, '#xarVarPrepForDisplay($group['deleteconfirm'])#')" class="xar-icon" title="#xarML('Delete')#">
                         <img src="#$icon_delete#" alt="#xarML('Delete')#" />
                     </a>
                 </td>

@@ -162,7 +162,7 @@
                         </xar:if>
                     </td>
                     <td class="xar-nowrap xar-item-actions">
-                        <a href="#$themeinfo['infourl']#&amp;theme=print" title="#$infolabel#" onclick="window.open(this.getAttribute('href'));return false;" class="xar-icon">
+                        <a href="#$themeinfo['infourl']#&amp;theme=print" title="#$infolabel#" class="xar-icon" onclick="window.open(this.getAttribute('href'));return false;" class="xar-icon">
                             <img src="#$infoimg#" alt="#$infolabel#" />
                         </a>
 
@@ -202,13 +202,13 @@
 </div>
 <div class="xar-mod-foot xar-align-center">
     <div class="xar-accent-outline xar-margin-thick xar-padding-thick">
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/activate.png','base')#" alt="#$imgactivate#" /> #$imgactivate#</span>
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/deactivate.png','base')#" alt="#$imgdeactivate#" /> #$imgdeactivate#</span>
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/set-default.png','base')#" alt="#$imgsetdefault#" /> #$imgsetdefault#</span>
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/software-upgrade.png','base')#" alt="#$imgupgrade#" /> #$imgupgrade#</span>
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/software-install.png','base')#" alt="#$imginstall#" /> #$imginstall#</span>
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/remove.png','base')#" alt="#$imgremove#" /> #$imgremove#</span>
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/dialog-warning.png','base')#" alt="#$imgwarning#" /> #$imgwarning#</span>
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/activate.png','base')#" class="xar-icon" alt="#$imgactivate#" /> #$imgactivate#</span>
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/deactivate.png','base')#" class="xar-icon" alt="#$imgdeactivate#" /> #$imgdeactivate#</span>
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/set-default.png','base')#" class="xar-icon" alt="#$imgsetdefault#" /> #$imgsetdefault#</span>
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/software-upgrade.png','base')#" class="xar-icon" alt="#$imgupgrade#" /> #$imgupgrade#</span>
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/software-install.png','base')#" class="xar-icon" alt="#$imginstall#" /> #$imginstall#</span>
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/remove.png','base')#" class="xar-icon" alt="#$imgremove#" /> #$imgremove#</span>
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/dialog-warning.png','base')#" class="xar-icon" alt="#$imgwarning#" /> #$imgwarning#</span>
     </div>
 </div>
 <xar:if condition="xarSessionSetVar('statusmsg', '')"></xar:if>

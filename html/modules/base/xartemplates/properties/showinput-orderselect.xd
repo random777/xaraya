@@ -15,10 +15,10 @@
     <div class="xar-floatleft">
         <div class="xar-floatleft">
             <button id="#$id#_up" onclick="return xar_base_reorder('#$id#_list', true, '#$id#');" title="#xarML('Move Up')#" class="xar-displayblock xar-margin-thickbottom">
-                <img src="#$up_arrow_src#" alt="#xarML('Up Arrow')#" />
+                <img src="#$up_arrow_src#" alt="#xarML('Up Arrow')#" class="xar-icon" />
             </button>
             <button id="#$id#_down" onclick="return xar_base_reorder('#$id#_list', false, '#$id#');" title="#xarML('Move Down')#" class="xar-displayblock xar-margin-thicktop">
-                <img src="#$down_arrow_src#" alt="#xarML('Down Arrow')#" />
+                <img src="#$down_arrow_src#" alt="#xarML('Down Arrow')#" class="xar-icon" />
             </button>
         </div>
 

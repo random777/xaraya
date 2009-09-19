@@ -94,10 +94,10 @@
                         #$state_desc[$block['state']]# 
                     </td>
                     <td class="xar-item-actions">
-                        <a href="#xarModURL('blocks','admin','modify_instance',array('bid' =&gt; $block['bid']))#" title="#xarML('Modify')#">
+                       <a href="#xarModURL('blocks','admin','modify_instance',array('bid' =&gt; $block['bid']))#" class="xar-icon" title="#xarML('Modify')#">
                             <img src="#$icon_modify#" alt="#xarML('Modify')#" />
                         </a>
-                        <a href="#$block.deleteurl#" onclick="return xar_base_confirmLink(this, '#xarVarPrepForDisplay($block['deleteconfirm'])#')" title="#xarML('Delete')#">
+                        <a href="#$block.deleteurl#" onclick="return xar_base_confirmLink(this, '#xarVarPrepForDisplay($block['deleteconfirm'])#')" class="xar-icon" title="#xarML('Delete')#">
                             <img src="#$icon_delete#" alt="#xarML('Delete')#" />
                         </a>
                     </td>

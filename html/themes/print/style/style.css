@@ -131,3 +131,18 @@ TD.xar-alt {}
 .xar-error {
    color: #FF0000;
 }
+a.xar-icon {            
+    text-decoration: none;
+}
+a.xar-icon img{
+    vertical-align: text-top;   
+}
+img.xar-icon {
+    vertical-align: text-top;   
+}
+img.xar-icon-disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    vertical-align: text-top;   
+}
+

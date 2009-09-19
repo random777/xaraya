@@ -52,21 +52,21 @@ function installer_core_configuration_load($args)
 
     if(in_array('p1',$args)) {
         installer_core_readaccess();
-        xarAssignPrivilege('ReadAccess','Users');
+        xarPrivileges::assign('ReadAccess','Users');
     }
     else {
         installer_core_casualaccess();
-        xarAssignPrivilege('CasualAccess','Users');
+        xarPrivileges::assign('CasualAccess','Users');
     }
 
     if(in_array('p2',$args)) {
         installer_core_readaccess();
         installer_core_readnoncore();
-        xarAssignPrivilege('ReadNonCore','Everybody');
+        xarPrivileges::assign('ReadNonCore','Everybody');
    }
     else {
         if(in_array('p1',$args)) installer_core_casualaccess();
-        xarAssignPrivilege('CasualAccess','Everybody');
+        xarPrivileges::assign('CasualAccess','Everybody');
     }
 
     return true;

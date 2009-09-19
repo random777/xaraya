@@ -67,22 +67,22 @@ function installer_community_configuration_load($args)
 
     if(in_array('p1',$args)) {
         installer_community_readaccess();
-        xarAssignPrivilege('ReadAccess','Users');
+        xarPrivileges::assign('ReadAccess','Users');
     }
     else {
         installer_community_casualaccess();
-        xarAssignPrivilege('CasualAccess','Users');
+        xarPrivileges::assign('CasualAccess','Users');
     }
 
     if(in_array('p2',$args)) {
         // Only do readaccess if we havent already done so
         if(!in_array('p1',$args)) installer_community_readaccess();
         installer_community_readnoncore();
-        xarAssignPrivilege('ReadNonCore','Everybody');
+        xarPrivileges::assign('ReadNonCore','Everybody');
    }
     else {
         if(in_array('p1',$args)) installer_community_casualaccess();
-        xarAssignPrivilege('CasualAccess','Everybody');
+        xarPrivileges::assign('CasualAccess','Everybody');
     }
 
     return true;

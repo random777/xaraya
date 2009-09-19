@@ -125,21 +125,6 @@ function xarRemoveRoleMemberByID($childId, $parentId)
 }
 
 /**
- * xarAssignPrivilege: assign a privilege to a role
- *
- * This is a wrapper function
- *
- * @access public
- * @param  string  privilege name
- * @param  string role name
- * @return bool
- */
-function xarAssignPrivilege($privilege,$role)
-{
-    return xarPrivileges::assign($privilege,$role);
-}
-
-/**
  * xarRemovePrivileges: removes the privileges registered by a module from the database
  *
  * This is a wrapper function

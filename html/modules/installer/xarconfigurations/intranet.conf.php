@@ -62,23 +62,23 @@ function installer_intranet_configuration_load($args)
 // load the privileges chosen
 
     installer_intranet_casualaccess();
-    xarAssignPrivilege('CasualAccess','Everybody');
+    xarPrivileges::assign('CasualAccess','Everybody');
 
 // now do the necessary loading for each item
 
     if(in_array('p1',$args)) {
         installer_intranet_readaccess();
         installer_intranet_readnoncore();
-        xarAssignPrivilege('ReadNonCore','Users');
+        xarPrivileges::assign('ReadNonCore','Users');
     }
     else {
-        xarAssignPrivilege('CasualAccess','Users');
+        xarPrivileges::assign('CasualAccess','Users');
     }
 
     if(in_array('p2',$args)) {
         installer_intranet_oversightprivilege();
         installer_intranet_oversightrole();
-        xarAssignPrivilege('Oversight','Oversight');
+        xarPrivileges::assign('Oversight','Oversight');
         if(!in_array('p1',$args)) {
             xarPrivileges::register('DenyPrivileges','All','privileges','All','All','ACCESS_NONE','Exclude access to the Privileges modules');
         }

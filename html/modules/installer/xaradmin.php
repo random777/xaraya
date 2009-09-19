@@ -952,10 +952,10 @@ function installer_admin_confirm_configuration()
         * assign(Privilege,Role)
         *********************************************************************/
 
-        xarAssignPrivilege('Administration','Administrators');
-        xarAssignPrivilege('GeneralLock','Everybody');
-        xarAssignPrivilege('GeneralLock','Administrators');
-        xarAssignPrivilege('GeneralLock','Users');
+        xarPrivileges::assign('Administration','Administrators');
+        xarPrivileges::assign('GeneralLock','Everybody');
+        xarPrivileges::assign('GeneralLock','Administrators');
+        xarPrivileges::assign('GeneralLock','Users');
 
         // disable caching of module state in xarMod.php
         $GLOBALS['xarMod_noCacheState'] = true;

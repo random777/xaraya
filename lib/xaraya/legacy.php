@@ -156,4 +156,8 @@ function xarMakePrivilegeMember($childName, $parentName)
 {
     return xarPrivileges::makeMember($childName, $parentName);
 }
+function xarAssignPrivilege($privilege,$role)
+{
+    return xarPrivileges::assign($privilege,$role);
+}
 ?>

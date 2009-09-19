@@ -68,20 +68,20 @@ function installer_public_configuration_load($args)
 
     if(in_array('p1',$args)) {
         installer_public_moderatenoncore();
-        xarAssignPrivilege('ModerateNonCore','Users');
+        xarPrivileges::assign('ModerateNonCore','Users');
     }
     else {
         installer_public_readnoncore();
-        xarAssignPrivilege('ReadNonCore','Users');
+        xarPrivileges::assign('ReadNonCore','Users');
     }
 
     if(in_array('p2',$args)) {
         installer_public_commentnoncore();
-        xarAssignPrivilege('CommentNonCore','Everybody');
+        xarPrivileges::assign('CommentNonCore','Everybody');
    }
     else {
         if(in_array('p1',$args)) installer_public_readnoncore2();
-        xarAssignPrivilege('ReadNonCore','Everybody');
+        xarPrivileges::assign('ReadNonCore','Everybody');
     }
 
     return true;

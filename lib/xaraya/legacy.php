@@ -192,5 +192,16 @@ function xarDefineInstance($module,$type,$query,$propagate=0,$table2='',$childId
 }
 function xarFindRole($name) { return xarRoles::findRole($name);  }
 function xarUFindRole($name){ return xarRoles::ufindRole($name); }
+function xarReturnPrivilege($pid,$name,$realm,$module,$component,$instance,$level)
+{
+    return xarModAPIFunc('privileges','admin','returnprivilege',array(
+        'pid' => $pid,
+        'name' => $name,
+        'realm' => $realm,
+        'module' => $module,
+        'component' => $component,
+        'instance' => $instance,
+        'level' => $level));
+}
 
 ?>

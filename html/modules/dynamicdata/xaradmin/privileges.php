@@ -99,7 +99,15 @@ function dynamicdata_admin_privileges($args)
 
     if (!empty($apply)) {
         // create/update the privilege
-        $pid = xarReturnPrivilege($extpid,$extname,$extrealm,$extmodule,$extcomponent,$newinstance,$extlevel);
+        $pid = xarModAPIFunc('privileges','admin','returnprivilege',array(
+        'pid' => $extpid,
+        'name' => $extname,
+        'realm' => $extrealm,
+        'module' => $extmodule,
+        'component' => $extcomponent,
+        'instance' => $newinstance,
+        'level' => $extlevel));
+        
         if (empty($pid)) {
             return; // throw back
         }

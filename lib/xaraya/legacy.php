@@ -134,4 +134,13 @@ function &xarDBNewDataDict(Connection &$dbconn, $mode = 'READONLY')
 {
     throw new ApiDeprecationException(array('xarDBNewDataDict','[TO BE DETERMINED]'));
 }
+
+/**
+ * Legacy function from the cleancore scenario
+ *
+**/
+function xarMakeRoleMemberByName($childName, $parentName)
+{
+    return xarRoles::makeMemberByName($childName, $parentName);
+}
 ?>

@@ -69,20 +69,6 @@ function xarMakeUser($name,$uname,$email,$pass='',$dateReg='',$valCode='',$state
     return xarRoles::makeUser($name,$uname,$email,$pass,$dateReg,$valCode,$state,$authModule);
 }
 
-/**
- * xarMakeRoleMemberByName: create a parent-child relationship in the database between two roles
- *
- * This is a wrapper function
- *
- * @access public
- * @param  string child name
- * @param  string parent name
- * @return bool
- */
-function xarMakeRoleMemberByName($childName, $parentName)
-{
-    return xarRoles::makeMemberByName($childName, $parentName);
-}
 
 /**
  * xarMakeRoleMemberByUname: create a parent-child relationship in the database between two roles

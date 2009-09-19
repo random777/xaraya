@@ -116,8 +116,8 @@ function installer_intranet_oversightrole()
     $rolefields['password'] = MD5('password');
     $user->createItem($rolefields);
 
-    xarMakeRoleMemberByName('Oversight','Administrators');
-    xarMakeRoleMemberByName('Overseer','Oversight');
+    xarRoles::makeMemberByName('Oversight','Administrators');
+    xarRoles::makeMemberByName('Overseer','Oversight');
 }
 
 function installer_intranet_casualaccess()

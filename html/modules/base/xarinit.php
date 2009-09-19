@@ -466,12 +466,12 @@ function base_init()
                 'jquery' => array(
                         'displayname' => 'jQuery',
                         'version' => '1.3.2',
-                        'module' => 'base'
+                        'module' => 'base',
+                        'file' => 'jquery-1.3.2.min.js'
                 )
     );
     xarModSetVar('base', 'RegisteredFrameworks', serialize($registeredframeworks));
     xarModSetVar('base', 'DefaultFramework', 'jquery');
-    xarModSetVar('base', 'DefaultFrameworkFile', 'jquery-1.3.2.min.js');
     xarModSetVar('base','AutoLoadDefaultFramework', 1);
 
     // jQuery plugins list

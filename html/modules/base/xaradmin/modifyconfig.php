@@ -80,14 +80,22 @@ function base_admin_modifyconfig()
     }
     $data['frameworks'] = xarModAPIFunc('base','javascript','getframeworkinfo',array('all' => true));
     $data['defaultframework'] = xarModGetVar('base','DefaultFramework');
-    $data['defaultframeworkfile'] = xarModGetVar('base', 'DefaultFrameworkFile');
     $data['autoloaddefaultframework'] = xarModGetVar('base','AutoLoadDefaultFramework');
-    $fwinfo = isset($data['frameworks'][$data['defaultframework']]) ? $data['frameworks'][$data['defaultframework']] : array();
-    if (!empty($fwinfo)) {
-        $basedir = 'xartemplates/includes/' . $data['defaultframework'];
+    $releasenumber=xarModGetVar('base','releasenumber');
+    $data['releasenumber']=isset($releasenumber) ? $releasenumber:10;
+
+    if ($data['tab'] == 'jquery') {
+        $fwname = 'jquery';
+        $data['fwinfo'] = xarModAPIFunc('base','javascript','getframeworkinfo',array('name' => $fwname));
+        $plugins = xarModAPIFunc('base','javascript','getplugininfo',array('framework' => $fwname, 'all' => true));
+        if (is_array($plugins)) {
+            ksort($plugins);
+            $data['plugins'] = $plugins;
+        }
+        $basedir = 'xartemplates/includes/' . $fwname;
         $fwfiles = xarModAPIFunc('base', 'user', 'browse_files',
             array(
-                'module' => $fwinfo['module'],
+                'module' => $data['fwinfo']['module'],
                 'basedir' => $basedir,
                 'match_re' => true,
                 'match_preg' => '/\.js$/',
@@ -98,17 +106,7 @@ function base_admin_modifyconfig()
                 $data['fwfiles'][] = array('id' => $fwfn, 'name' => $fwfn);
             }
         }
-    }
-    $releasenumber=xarModGetVar('base','releasenumber');
-    $data['releasenumber']=isset($releasenumber) ? $releasenumber:10;
-
-    if ($data['tab'] == 'jquery') {
-        $data['fwinfo'] = xarModAPIFunc('base','javascript','getframeworkinfo',array('name' => 'jquery'));
-        $plugins = xarModAPIFunc('base','javascript','getplugininfo',array('framework' => 'jquery', 'all' => true));
-        if (is_array($plugins)) {
-            ksort($plugins);
-            $data['plugins'] = $plugins;
-        }
+        $data['defaultframeworkfile'] = $data['fwinfo']['file'];
     }
 
     // TODO: delete after new backend testing

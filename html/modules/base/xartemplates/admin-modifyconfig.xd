@@ -630,21 +630,7 @@
                         </xar:foreach>
                     </select>
                 </div>
-                <div class="xar-form-input-wrapper">
-                    <xar:if condition="!empty($fwfiles)">
-                        <label for="defaultframeworkfile" title="#xarML('Choose the framework file to load for the default Javascript framework')#" class="xar-form-label help">
-                            <xar:mlstring>Framework File</xar:mlstring>:
-                        </label>
-                        <xar:data-input type="dropdown" name="defaultframeworkfile" id="defaultframeworkfile" value="$defaultframeworkfile" options="$fwfiles" />
-                        <xar:if condition="empty($defaultframeworkfile)">
-                        <span class="xar-error"><xar:mlstring>Please select a file to use with this framework.</xar:mlstring></span>
-                        </xar:if>
-                    <xar:else />
-                        <p class="xar-form-container-after xar-error">
-                            <xar:mlstring>Error: No framework files found!</xar:mlstring>
-                        </p>
-                    </xar:if>
-                </div>
+
 
                 <p><xar:mlstring>Further options may be available in each framework's host module.  For jQuery, see the tab above.</xar:mlstring></p>
                 <div class="xar-form-input-wrapper-after">
@@ -678,9 +664,10 @@
         </form>
         <xar:elseif condition="$tab eq 'jquery'" />
             <h3>
-                <xar:mlstring>jQuery Info</xar:mlstring>
+                <a name="jsframework"></a><xar:mlstring>jQuery Info</xar:mlstring>
             </h3>
-
+        <form action="#xarModUrl('base', 'admin', 'updateconfig')#" method="post" enctype="application/x-www-form-urlencoded">
+            <fieldset>
             <div class="xar-form-input-wrapper">
                 <label class="xar-form-label">
                     <xar:mlstring>Version:</xar:mlstring>
@@ -694,6 +681,28 @@
                 #$fwinfo.module#
             </div>
 
+            <div class="xar-form-input-wrapper">
+                <xar:if condition="!empty($fwfiles)">
+                    <label for="defaultframeworkfile" title="#xarML('Choose the framework file to load for the framework')#" class="xar-form-label help">
+                        <xar:mlstring>Framework File</xar:mlstring>:
+                    </label>
+                    <xar:data-input type="dropdown" name="defaultframeworkfile" id="defaultframeworkfile" value="$defaultframeworkfile" options="$fwfiles" />
+                    <xar:if condition="empty($defaultframeworkfile)">
+                    <span class="xar-error"><xar:mlstring>Please select a file to use with this framework.</xar:mlstring></span>
+                    </xar:if>
+                <xar:else />
+                    <p class="xar-form-container-after xar-error">
+                        <xar:mlstring>Error: No framework files found!</xar:mlstring>
+                    </p>
+                </xar:if>
+            </div>
+            </fieldset>
+        </form>
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />
+            </div>
             <h3>
                 <xar:mlstring>jQuery Plugins</xar:mlstring>
             </h3>

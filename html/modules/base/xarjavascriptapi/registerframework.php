@@ -55,6 +55,23 @@ function base_javascriptapi_getframeworkinfo($args)
         return;
     }
 
+    $basedir = 'xartemplates/includes/' . strtolower($name);
+    $fwfiles = xarModAPIFunc('base', 'user', 'browse_files',
+        array(
+            'module' => $module,
+            'basedir' => $basedir,
+            'match_re' => true,
+            'match_preg' => '/\.js$/',
+            'levels' => 1
+        ));
+
+    if (!isset($file) || empty($fwfiles) || !in_array($file, $fwfiles)) {
+        $msg = xarML('Missing framework file');
+        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
+                        new SystemException($msg));
+        return;
+    }
+
     $module = strtolower($module);
     $name = strtolower($name);
 
@@ -77,11 +94,11 @@ function base_javascriptapi_getframeworkinfo($args)
         return;
     }
 
-    $fwinfo[$name] = array('displayname' => $displayname, 'version' => $version, 'module' => $module);
+    $fwinfo[$name] = array('displayname' => $displayname, 'version' => $version, 'module' => $module, 'file' => $file);
     ksort($fwinfo);
-    xarModSetVar('base','RegisteredFrameworks');
+    xarModSetVar('base','RegisteredFrameworks' serialize($fwinfo));
 
-    xarModSetVar($module, $name . '.plugins', unserialize(array()));
+    xarModSetVar($module, $name . '.plugins', serialize(array()));
 }
 
 ?>

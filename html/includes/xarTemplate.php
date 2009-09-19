@@ -420,11 +420,10 @@ function xarTplGetJavaScript($position = '', $index = '')
         }
         $autoload = xarModGetVar('base','AutoLoadDefaultFramework');
         $basefw = xarModGetVar('base','DefaultFramework');
-        $fwfile = xarModGetVar('base', 'DefaultFrameworkFile');
         // Autoload framework, only if we have valid framework info
-        if ($autoload && isset($fwinfo[$basefw]) && !empty($fwfile)) {
+        if ($autoload && isset($fwinfo[$basefw])) {
             // load the base framework into globals array
-            xarModAPIFunc('base', 'javascript', 'init', array('module' => $fwinfo[$basefw]['module'], 'name' => $basefw, 'file' => $fwfile));
+            xarModAPIFunc('base', 'javascript', 'init', array('module' => $fwinfo[$basefw]['module'], 'name' => $basefw, 'file' => $fwinfo[$basefw]['file']));
         }
 
         $head_pre = array();

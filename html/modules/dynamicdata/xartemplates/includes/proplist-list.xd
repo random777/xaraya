@@ -18,20 +18,21 @@
 <xar:set name="uptitle">xarML('Move this property up')</xar:set>
 <xar:set name="downtitle">xarML('Move this property down')</xar:set>
 <xar:foreach in="$fields" value="$field">
-    <xar:set name="r">"jQuery('#fieldwrapper_".$field['id']."').css('display','none');jQuery('#fieldname_".$field['id']."').click(function() { jQuery('#fieldwrapper_".$field['id']."').toggle(); } );"</xar:set>
+    <xar:set name="r">"jQuery('#fieldwrapper_".$field['id']."').css('display','none');jQuery('#fieldname_".$field['id']."').click(function() { jQuery('#fieldwrapper_".$field['id']."').toggle(); } ).hover(function() {jQuery(this).css('cursor', 'pointer');});"</xar:set>
     <xar:base-js-event name="ready" code="$r" />
     <fieldset>
         <legend>
-            <xar:mlstring>Property</xar:mlstring>
+            <span id="fieldname_#$field.id#" title="#xarML('Click to toggle field visibility for this property')#">
             <xar:if condition="!empty($field['name'])">
-                <a id="fieldname_#$field.id#" title="#xarML('Click to toggle field visibility for this property')#">
-                    #$field['name']#
-                </a>
+                #$field['name']#
+                <xar:if condition="!empty($field['label'])">
+                    "#$field['label']#"
+                </xar:if>
             <xar:else />
-                <a id="fieldname_#$field.id#" title="#xarML('Click to toggle field visibility for this property')#">
-                    <xar:mlstring>[unnamed property]</xar:mlstring></a>
+                <xar:mlstring>[unnamed property]</xar:mlstring>
             </xar:if>
             [#$labels['id']#: #$field['id']#]
+            </span>
             <xar:if condition="$total gt 1">
                 <span class="xar-nowrap">
                 <xar:if condition="($i gt 1)">

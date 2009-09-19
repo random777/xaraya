@@ -185,5 +185,6 @@ function xarMakeUser($name,$uname,$email,$pass='',$dateReg='',$valCode='',$state
 {
     return xarRoles::makeUser($name,$uname,$email,$pass,$dateReg,$valCode,$state,$authModule);
 }
+function xarMakeGroup($name,$uname='') { return xarRoles::makeGroup($name,$uname); }
 
 ?>

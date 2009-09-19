@@ -207,5 +207,10 @@ function xarPrivExists($name)
 {
     return (bool)xarPrivileges::findPrivilege($name);
 }
+function xarMaskExists($name,$module="All",$component="All")
+{
+    if ($mask == "All") $mask = 0;
+    return (bool)xarMasks::getMask($name,$module,$component,true);
+}
 
 ?>

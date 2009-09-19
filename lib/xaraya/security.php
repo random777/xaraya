@@ -44,17 +44,6 @@ if (file_exists(sys::varpath() . '/security/on.touch')) {
 sys::import('modules.privileges.class.privileges');
 sys::import('modules.roles.class.roles');
 
-/**
- * xarMakeGroup: create an entry in the database for a group
- *
- * This is a wrapper function
- *
- * @access  public
- * @param   string name
- * @return  bool
- */
-function xarMakeGroup($name,$uname='') { return xarRoles::makeGroup($name,$uname); }
-
 
 /**
  * xarMakeRoleMemberByUname: create a parent-child relationship in the database between two roles

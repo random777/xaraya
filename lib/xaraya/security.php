@@ -211,24 +211,6 @@ function xarIsAncestor($name1, $name2)
 }
 
 /**
- * xarTree: creates a tree object
- *
- * This is a wrapper function
- *
- * @access  public
- * @param   string name
- * @return  object role
- * @todo    what is this doing here?
- */
-function xarTree()
-{
-    // Since the class xarTreeRenderer exists in both roles and privileges this can lead to errors.
-    sys::import('modules.roles.xartreerenderer');
-    $tree = new xarTreeRenderer();
-    return $tree;
-}
-
-/**
  * xarReturnPrivilege: stores a privilege from an external wizard in the repository.
  *
  * This is a wrapper function
@@ -249,20 +231,6 @@ function xarReturnPrivilege($pid,$name,$realm,$module,$component,$instance,$leve
         'component' => $component,
         'instance' => $instance,
         'level' => $level));
-}
-
-/**
- * xarSecurityLevel: gets a security level based on its name.
- *
- * This is a wrapper function
- *
- * @access  public
- * @param   integer levelname
- * @return  security level
- */
-function xarSecurityLevel($levelname)
-{
-    return xarMasks::xarSecLevel($levelname);
 }
 
 /**

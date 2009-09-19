@@ -172,4 +172,8 @@ function xarUnregisterMask($name)
 {
     return xarMasks::unregister($name);
 }
+function xarSecurityLevel($levelname)
+{
+    return xarMasks::xarSecLevel($levelname);
+}
 ?>

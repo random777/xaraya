@@ -63,24 +63,6 @@ function xarMakeRoleMemberByUname($childName, $parentName)
     return $parent->addMember($child);
 }
 
-/**
- * xarRemoveRoleMemberByID: destroys a parent-child relationship in the database between two roles
- *
- * This is a wrapper function
- *
- * @access public
- * @param  string child ID
- * @param  string parent ID
- * @return bool
- */
-function xarRemoveRoleMemberByID($childId, $parentId)
-{
-    $parent = xarRoles::getRole($parentId);
-    $child = xarRoles::getRole($childId);
-
-    return $parent->removeMember($child);
-}
-
 function xarIsParent($name1, $name2)
 {
     $role1 = xarRoles::findRole($name1);

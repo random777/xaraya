@@ -212,5 +212,20 @@ function xarMaskExists($name,$module="All",$component="All")
     if ($mask == "All") $mask = 0;
     return (bool)xarMasks::getMask($name,$module,$component,true);
 }
+function xarRemovePrivileges($module)
+{
+    // Get the pids for the module
+    $modulePrivileges = xarPrivileges::findPrivilegesForModule($module);
+    foreach ($modulePrivileges as $modulePrivilege) {
+        $modulePrivilege->remove();
+    }
+}
+function xarMakeRoleMemberByID($childId, $parentId)
+{
+    $parent = xarRoles::getRole($parentId);
+    $child = xarRoles::getRole($childId);
+
+    return $parent->addMember($child);
+}
 
 ?>

@@ -64,24 +64,6 @@ function xarMakeRoleMemberByUname($childName, $parentName)
 }
 
 /**
- * xarMakeRoleMemberByID: create a parent-child relationship in the database between two roles
- *
- * This is a wrapper function
- *
- * @access public
- * @param  string child ID
- * @param  string parent ID
- * @return bool
- */
-function xarMakeRoleMemberByID($childId, $parentId)
-{
-    $parent = xarRoles::getRole($parentId);
-    $child = xarRoles::getRole($childId);
-
-    return $parent->addMember($child);
-}
-
-/**
  * xarRemoveRoleMemberByID: destroys a parent-child relationship in the database between two roles
  *
  * This is a wrapper function

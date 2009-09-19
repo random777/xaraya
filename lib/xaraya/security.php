@@ -125,31 +125,6 @@ function xarRemoveRoleMemberByID($childId, $parentId)
 }
 
 /**
- * xarRegisterPrivilege: create an entry in the database for a privilege
- *
- * This is a wrapper function
- *
- * @access public
- * @param  string name
- * @param  integer realm
- * @param  string module
- * @param  string component
- * @param  string instance
- * @param  integer level
- * @param  string description
- * @return bool
- */
-function xarRegisterPrivilege($name,$realm,$module,$component,$instance,$level,$description='')
-{
-    // Check if the privilege already exists
-    $privilege = xarPrivileges::findPrivilege($name);
-    if (!$privilege) {
-        return xarPrivileges::register($name,$realm,$module,$component,$instance,xarSecurityLevel($level),$description);
-    }
-    return;
-}
-
-/**
  * xarMakePrivilegeMember: create a parent-child relationship in the database between two privileges
  *
  * This is a wrapper function

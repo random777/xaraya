@@ -143,4 +143,13 @@ function xarMakeRoleMemberByName($childName, $parentName)
 {
     return xarRoles::makeMemberByName($childName, $parentName);
 }
+function xarRegisterPrivilege($name,$realm,$module,$component,$instance,$level,$description='')
+{
+    // Check if the privilege already exists
+    $privilege = xarPrivileges::findPrivilege($name);
+    if (!$privilege) {
+        return xarPrivileges::register($name,$realm,$module,$component,$instance,xarSecurityLevel($level),$description);
+    }
+    return true;
+}
 ?>

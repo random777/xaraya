@@ -176,4 +176,9 @@ function xarSecurityLevel($levelname)
 {
     return xarMasks::xarSecLevel($levelname);
 }
+function xarCurrentRole()
+{
+    return xarRoles::getRole(xarSessionGetVar('role_id'));
+}
+
 ?>

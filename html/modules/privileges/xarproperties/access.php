@@ -163,7 +163,7 @@ class AccessProperty extends DataProperty
             if (xarUserIsLoggedIn()) $access = true;
         } elseif ($this->group) {
             $group = xarRoles::getRole($this->group);
-            $thisuser = xarCurrentRole();
+            $thisuser = xarRoles::getRole(xarSession::getVar('role_id'));
             if (is_object($group)) {
                 if ($thisuser->isAncestor($group)) $access = true;
             } 

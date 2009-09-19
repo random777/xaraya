@@ -173,22 +173,8 @@ function xarDefineInstance($module,$type,$query,$propagate=0,$table2='',$childId
  */
 function xarGetGroups() { return xarRoles::getgroups(); }
 
-/**
- * xarFindRole: returns a role object by its name
- *
- * This is a wrapper function
- *
- * @access  public
- * @param   string name
- * @return  object role
- */
 function xarFindRole($name) { return xarRoles::findRole($name);  }
 function xarUFindRole($name){ return xarRoles::ufindRole($name); }
-
-function xarCurrentRole()
-{
-    return xarRoles::getRole(xarSessionGetVar('role_id'));
-}
 
 function xarIsParent($name1, $name2)
 {

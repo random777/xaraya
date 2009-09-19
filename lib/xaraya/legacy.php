@@ -241,5 +241,24 @@ function xarMakeRoleMemberByUname($childName, $parentName)
 
     return $parent->addMember($child);
 }
+function xarIsParent($name1, $name2)
+{
+    $role1 = xarRoles::findRole($name1);
+    $role2 = xarRoles::ufindRole($name2);
+    if (is_object($role1) && is_object($role2)) {
+        return $role2->isParent($role1);
+    }
+    return false;
+}
+
+function xarIsAncestor($name1, $name2)
+{
+    $role1 = xarRoles::findRole($name1);
+    $role2 = xarRoles::ufindRole($name2);
+    if (is_object($role1) && is_object($role2)) {
+        return $role2->isAncestor($role1);
+    }
+    return false;
+}
 
 ?>

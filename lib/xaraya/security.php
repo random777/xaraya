@@ -44,26 +44,6 @@ if (file_exists(sys::varpath() . '/security/on.touch')) {
 sys::import('modules.privileges.class.privileges');
 sys::import('modules.roles.class.roles');
 
-function xarIsParent($name1, $name2)
-{
-    $role1 = xarRoles::findRole($name1);
-    $role2 = xarRoles::ufindRole($name2);
-    if (is_object($role1) && is_object($role2)) {
-        return $role2->isParent($role1);
-    }
-    return false;
-}
-
-function xarIsAncestor($name1, $name2)
-{
-    $role1 = xarRoles::findRole($name1);
-    $role2 = xarRoles::ufindRole($name2);
-    if (is_object($role1) && is_object($role2)) {
-        return $role2->isAncestor($role1);
-    }
-    return false;
-}
-
 /**
  * xarSecurityCheck: check a role's privileges against the masks of a component
  *

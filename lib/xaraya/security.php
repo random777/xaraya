@@ -117,9 +117,6 @@ function xarRemovePrivileges($module)
     }
 }
 
-function xarFindRole($name) { return xarRoles::findRole($name);  }
-function xarUFindRole($name){ return xarRoles::ufindRole($name); }
-
 function xarIsParent($name1, $name2)
 {
     $role1 = xarRoles::findRole($name1);

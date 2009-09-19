@@ -44,9 +44,10 @@ function modules_adminapi_standarddeinstall($args)
      // Delete the base group created by this module if it exists
      // Move the descendants to the Users group
     try {
-        $role = xarFindRole(ucfirst($module) . 'Group');
+        sys::import('modules.roles.class.roles');
+        $role = xarRoles::findRole(ucfirst($module) . 'Group');
         if (!empty($role)) {
-            $usersgroup = xarFindRole('Users');
+            $usersgroup = xarRoles::findRole('Users');
             $descendants = $role->getDescendants();
             foreach ($descendants as $item) {
                 $parents = $item->getParents();

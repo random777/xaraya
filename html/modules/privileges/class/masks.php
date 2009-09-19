@@ -359,8 +359,9 @@ class xarMasks extends Object
                 break;
             case "group":
                 //get some info on the user
-                $thisname=xarUserGetVar('uname');
-                $role = xarUFindRole($thisname);
+                $thisname = xarUserGetVar('uname');
+                sys::import('modules.roles.class.roles');
+                $role = xarRoles::ufindRole($thisname);
                 $parent='Everybody'; //set a default
                 //We now have primary parent implemented
                 //Use primary parent if implemented else get first parent??

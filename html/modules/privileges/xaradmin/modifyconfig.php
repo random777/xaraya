@@ -57,7 +57,8 @@ function privileges_admin_modifyconfig()
              $data['testmask'] = $testmask;
              $settestergroup=xarModVars::get('privileges','testergroup');
              if (!isset($settestergroupp) || empty($settestergroup)) {
-                 $settestergrouprole = xarFindRole('Administrators');
+                 sys::import('modules.roles.class.roles');
+                 $settestergrouprole = xarRoles::findRole('Administrators');
                  $settestergroup = $settestergrouprole->getID();
              }
              if (!isset($testergroup) || empty($testergroup)) {

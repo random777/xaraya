@@ -163,15 +163,6 @@ function xarDefineInstance($module,$type,$query,$propagate=0,$table2='',$childId
     return xarPrivileges::defineInstance($module,$type,$query,$propagate,$table2,$childId,$parentId,$description);
 }
 
-/**
- * xarGetGroups: returns an array of all the groups in the database
- *
- * This is a wrapper function
- *
- * @access public
- * @return array of strings
- */
-function xarGetGroups() { return xarRoles::getgroups(); }
 
 function xarFindRole($name) { return xarRoles::findRole($name);  }
 function xarUFindRole($name){ return xarRoles::ufindRole($name); }

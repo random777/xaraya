@@ -180,5 +180,6 @@ function xarCurrentRole()
 {
     return xarRoles::getRole(xarSessionGetVar('role_id'));
 }
+function xarGetGroups() { return xarRoles::getgroups(); }
 
 ?>

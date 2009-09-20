@@ -29,7 +29,7 @@ function themes_adminapi_remove($args)
 
     // Get theme information
     $themeInfo = xarThemeGetInfo($regid);
-    $defaultTheme = xarModVars::get('themes','default');
+    $defaultTheme = xarConfigVars::get(null, 'Site.DefaultTheme');
 
     // Bail out if we're trying to remove the default theme
     if ($defaultTheme == $themeInfo['name'] ) {

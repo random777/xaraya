@@ -28,7 +28,7 @@ function themes_admin_setdefault()
     if (!xarSecurityCheck('AdminTheme')) return;
     if (!xarVarFetch('id', 'int:1:', $defaulttheme)) return;
 
-    $whatwasbefore = xarModVars::get('themes', 'default');
+    $whatwasbefore = xarConfigVars::get(null, 'Site.DefaultTheme');
 
     if (!isset($defaulttheme)) {
         $defaulttheme = $whatwasbefore;

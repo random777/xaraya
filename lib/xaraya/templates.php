@@ -80,10 +80,8 @@ function xarTplGetThemeName()
     if(isset($GLOBALS['xarTpl_themeName'])) return  $GLOBALS['xarTpl_themeName'];
     // If it is not set, set it return the default theme.
     // TODO: PHP 5.0/5.1 DO NOT AGREE ON method_exists / is_callable
-    if (method_exists('xarModVars','Get')) {
-        $defaultTheme = xarModVars::get('themes', 'default');
-        if (!empty($defaultTheme)) xarTplSetThemeName($defaultTheme);
-    }
+    $defaultTheme = xarConfigVars::get(null, 'Site.DefaultTheme');
+    if (!empty($defaultTheme)) xarTplSetThemeName($defaultTheme);
     assert('isset($GLOBALS["xarTpl_themeName"]; /* Themename could not be set properly */');
     return $GLOBALS['xarTpl_themeName'];
 }

@@ -59,7 +59,7 @@ function themes_init()
     $query = xarDBCreateTable($tables['themes'], $fields);
     $result =& $dbconn->Execute($query);
 
-    xarModVars::set('themes', 'default', 'default');
+    xarConfigVars::set(null, 'Site.DefaultTheme', 'default');
     xarModVars::set('themes', 'selsort', 'nameasc');
 
     // Make sure we dont miss empty variables (which were not passed thru)

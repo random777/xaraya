@@ -342,7 +342,7 @@ class xarMasks extends Object
             //perhaps something for later.
             // <mrb> i dont grok this, theme can be realm?
             case "theme":
-                $mask->setRealm(xarModVars::get('themes', 'default'));
+                $mask->setRealm(xarConfigVars::get(null, 'Site.DefaultTheme'));
                 break;
             case "domain":
                 $host = xarServer::getHost();

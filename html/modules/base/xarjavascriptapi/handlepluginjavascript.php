@@ -27,11 +27,12 @@ function base_javascriptapi_handlepluginjavascript($args)
     extract($args);
 
     $name = strtolower($name);
-    $framework = strtolower($framework);
-
+    
     if (!isset($framework)) {
         $framework = xarModGetVar('base','DefaultFramework');
     }
+    $framework = strtolower($framework);
+
     $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => $framework));
     if (!is_array($fwinfo)) {
         $msg = xarML('Could not retreive info for framework #(1)', $name);
@@ -39,7 +40,6 @@ function base_javascriptapi_handlepluginjavascript($args)
                         new SystemException($msg));
         return;
     }
-    extract($fwinfo);
 
     $module = $fwinfo['module'];
 

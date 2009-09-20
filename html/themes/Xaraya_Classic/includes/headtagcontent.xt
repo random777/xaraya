@@ -16,10 +16,6 @@
     <script type="text/javascript" src="#$classicthemedir#/scripts/switch_styles.js"></script>
 </xar:if>
 <xar:comment>Head JavaScript - required for all themes</xar:comment>
-<xar:comment>
-<xar:base-js-framework file="jquery-1.3.2.min.js" />
-</xar:comment>
-<xar:base-js-plugin name="thickbox" framework="jquery" file="thickbox-compressed.js" style="thickbox.css" />
 
 <xar:comment>Main CSS rules (note: all default parameters in the tag can be omitted)</xar:comment>
 <xar:style />
@@ -55,7 +51,6 @@
     OLD WAY: #$tpl:additionalStyles#
     NEW WAY: (starting from core RC3+) with the following attribute-less tag
 </xar:comment>
-
 
 <xar:additional-styles />
 <xar:base-render-javascript position="head" />

@@ -18,9 +18,12 @@
 <xar:set name="uptitle">xarML('Move this property up')</xar:set>
 <xar:set name="downtitle">xarML('Move this property down')</xar:set>
 
-<xar:set name="r">"jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(function() { jQuery(this).parent().children('div.fieldwrapper').toggle(); } ).css('cursor','pointer');"</xar:set>
-<xar:base-js-event name="ready" code="$r" />
-
+<xar:set name="togglecode">"jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(function() { jQuery(this).parent().children('div.fieldwrapper').toggle(); } ).css('cursor','pointer');"</xar:set>
+<xar:base-js-framework />
+<xar:base-js-plugin name="thickbox" framework="jquery" file="thickbox.js" style="thickbox.css" />
+<xar:base-js-event name="ready" code="$togglecode" />
+<xar:set name="tbcode">"tb_init('div.fieldwrapper a');var tb_width = Math.floor(jQuery(window).width() * .85);var tb_height = Math.floor(jQuery(window).height() * .85);var tb_params = '&pageName=module&width=' + tb_width + '&height=' + tb_height;jQuery('div.fieldwrapper a').each(function() { this.href = this.href + tb_params; });"</xar:set>
+<xar:base-js-event name="ready" code="$tbcode" />
 <xar:foreach in="$fields" value="$field">
     <fieldset>
         <legend>

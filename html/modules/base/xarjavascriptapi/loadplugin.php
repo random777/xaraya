@@ -81,7 +81,7 @@ function base_javascriptapi_loadplugin($args)
     $filepath = xarModAPIfunc('base', 'javascript', '_findfile', array('module' => $modName, 'filename' => "$framework/plugins/$name/$file"));
 
     if (empty($filepath)) {
-        $msg = xarML('Plugin file \'#(1)\' (#(2) in #(3) could not be found', $file, $name, $framework);
+        $msg = xarML('Plugin file \'#(1)\' (#(2) in #(3)) could not be found', $file, $name, $framework);
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
                         new SystemException($msg));
         return;

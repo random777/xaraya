@@ -357,7 +357,8 @@ function xarLocaleGetFormattedTime($length = 'short',$timestamp = null, $addoffs
     } elseif ($timestamp >= 0) {
         if ($addoffset) {
             // adjust for the user's timezone offset
-            $timestamp += xarMLS_userOffset($timestamp) * 3600;
+            sys::import('modules.roles.class.roles');
+            $timestamp += xarRoles::userOffset($timestamp) * 3600;
         }
     } else {
         // invalid dates < 0 (e.g. from strtotime) return an empty date string
@@ -435,7 +436,8 @@ function xarLocaleFormatDate($format = null, $timestamp = null, $addoffset = tru
     } elseif ($timestamp >= 0) {
         if ($addoffset) {
             // adjust for the user's timezone offset
-            $timestamp += xarMLS_userOffset($timestamp) * 3600;
+            sys::import('modules.roles.class.roles');
+            $timestamp += xarRoles::userOffset($timestamp) * 3600;
         }
     } else {
         // invalid dates < 0 (e.g. from strtotime) return an empty date string
@@ -606,7 +608,8 @@ function xarMLS_strftime($format=null,$timestamp=null)
                 break;
 
             case '%z' :
-                $user_offset = (string) xarMLS_userOffset($timestamp);
+                sys::import('modules.roles.class.roles');
+                $user_offset = (string) xarRoles::userOffset($timestamp);
                 // check to see if this is a negative or positive offset
                 $f_offset = strstr($user_offset,'-')  ? '-' : '+';
                 $user_offset = str_replace('-','',$user_offset); // replace the - if it exists

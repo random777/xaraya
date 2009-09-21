@@ -289,5 +289,46 @@ class xarRoles extends Object
         $role->getItem(array('itemid' => $row['id']));
         return $role;
     }
+
+    /**
+     *  Returns a valid timestamp for the current user.  It will
+     *  make adjustments for timezone and should be used in gmstrftime
+     *  or gmdate functions only.
+     *
+     *  @access protected
+     *  @return int unix timestamp.
+     */
+    static function userTime($time=null,$flag=1)
+    {
+        // get the current UTC time
+        if (!isset($time)) {
+            $time = time();
+        }
+        if ($flag) $time += self::userOffset($time) * 3600;
+        // return the corrected timestamp
+        return $time;
+    }
+
+    /**
+     *  Returns the user's current tz offset (+ daylight saving) in hours
+     *
+     *  @access protected
+     *  @param int $timestamp optional unix timestamp that we want to get the offset for
+     *  @return float tz offset + possible daylight saving adjustment
+     */
+    static function userOffset($timestamp = null)
+    {
+        sys::import('xaraya.structures.datetime');
+        $datetime = new XarDateTime();
+        $datetime->setTimeStamp($timestamp);
+        if (xarUserIsLoggedIn()) {
+            $usertz = xarModItemVars::get('roles','usertimezone',xarSession::getVar('role_id'));
+        } else {
+            $usertz = xarModVars::get('roles','usertimezone');
+        }
+        $useroffset = $datetime->getTZOffset($usertz);
+
+        return $useroffset/3600;
+    }
 }
 ?>

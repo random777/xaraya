@@ -310,7 +310,7 @@ function xarLocaleGetFormattedDate($length = 'short', $timestamp = null, $addoff
     $locale_format = str_replace('yyyy','%Y',$locale_format);
     $locale_format = str_replace('yy','%y',$locale_format);
 
-    return xarLocaleFormatDate($locale_format,$timestamp,$addoffset);
+    return xarLocaleFormatDate($locale_format,$timestamp);
 }
 
 /**
@@ -383,7 +383,7 @@ function xarLocaleGetFormattedTime($length = 'short',$timestamp = null)
     if (strpos($locale_format,'s') !== false)
         $locale_format = str_replace('s',sprintf('%1d',gmstrftime('%S',$timestamp)),$locale_format);
 
-    return xarLocaleFormatDate($locale_format,$timestamp,$addoffset);
+    return xarLocaleFormatDate($locale_format,$timestamp);
 }
 
 /**

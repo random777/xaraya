@@ -282,7 +282,6 @@ function xarLocaleGetFormattedUTCDate($length = 'short', $timestamp = null, $add
  * @access public
  * @param string $length what date locale we want (short|medium|long)
  * @param int $timestamp optional unix timestamp in UTC to format
- * @param bool $addoffset add user timezone offset (default true)
  * @todo Check the exceptions when $length is not in the $validlengths (assert on it?)
  */
 function xarLocaleGetFormattedDate($length = 'short', $timestamp = null, $addoffset = true)
@@ -333,7 +332,6 @@ function xarLocaleGetFormattedUTCTime($length = 'short',$timestamp = null, $addo
  * @access public
  * @param string $length what time locale we want (short|medium|long)
  * @param int $timestamp optional unix timestamp in UTC to format
- * @param bool $addoffset add user timezone offset (default true)
  * @todo MichelV: why are the formatting rules not the same as PHP rules for strftime?
  */
 function xarLocaleGetFormattedTime($length = 'short',$timestamp = null)

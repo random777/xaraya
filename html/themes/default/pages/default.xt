@@ -7,7 +7,7 @@
         <head>
             <xar:blockgroup name="header" id="header" />
             <title>
-                <xar:var name="tpl:pageTitle" />
+                <xar:page-title />
             </title>
             <link rel='icon' href="favicon.ico" />
             <xar:style scope="common" />

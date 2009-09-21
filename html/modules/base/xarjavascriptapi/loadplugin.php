@@ -99,7 +99,7 @@ function base_javascriptapi_loadplugin($args)
     $args['file'] = $file;
     $args['filepath'] = $filepath;
 
-    if (isset($style)) {
+    if (isset($style) && !empty($style)) {
         if(is_string($style)) {
             $style = explode(';', $style);
         }

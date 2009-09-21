@@ -20,10 +20,26 @@
 
 <xar:set name="togglecode">"jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(function() { jQuery(this).parent().children('div.fieldwrapper').toggle(); } ).css('cursor','pointer');"</xar:set>
 <xar:base-js-framework />
-<xar:base-js-plugin name="thickbox" framework="jquery" file="thickbox.js" style="thickbox.css" />
+<xar:base-js-plugin name="ui" framework="jquery" file="jquery-ui-1.7.2.custom.min.js" style="jquery-ui-1.7.2.custom.css" />
+<xar:base-js-plugin name="bgiframe" framework="jquery" file="jquery.bgiframe.min.js"  />
 <xar:base-js-event name="ready" code="$togglecode" />
-<xar:set name="tbcode">"tb_init('div.fieldwrapper a');var tb_width = Math.floor(jQuery(window).width() * .85);var tb_height = Math.floor(jQuery(window).height() * .85);var tb_params = '&pageName=module&width=' + tb_width + '&height=' + tb_height;jQuery('div.fieldwrapper a').each(function() { this.href = this.href + tb_params; });"</xar:set>
-<xar:base-js-event name="ready" code="$tbcode" />
+<xar:set name="dialogcode">"
+var dialog_width = Math.floor(jQuery(window).width() * .85);
+var dialog_height = Math.floor(jQuery(window).height() * .85);
+jQuery('div.fieldwrapper a').click(function() { 
+jQuery('#"."xardialogtarget').remove();
+jQuery('body').append('<div id=\'xardialogtarget\' style=\'display: none;\'></div>');
+jQuery('#" . "xardialogtarget').load(this.getAttribute('href') + '&pageName=module').dialog({
+title: jQuery(this).text(),
+width: dialog_width,
+height: dialog_height,
+bgiframe: true,
+modal: true
+});
+return false;
+});
+"</xar:set>
+<xar:base-js-event name="ready" code="$dialogcode" />
 <xar:foreach in="$fields" value="$field">
     <fieldset>
         <legend>

@@ -336,7 +336,7 @@ function xarLocaleGetFormattedUTCTime($length = 'short',$timestamp = null, $addo
  * @param bool $addoffset add user timezone offset (default true)
  * @todo MichelV: why are the formatting rules not the same as PHP rules for strftime?
  */
-function xarLocaleGetFormattedTime($length = 'short',$timestamp = null, $addoffset = true)
+function xarLocaleGetFormattedTime($length = 'short',$timestamp = null)
 {
     $length = strtolower($length);
     $validLengths = array('short','medium','long');
@@ -349,22 +349,12 @@ function xarLocaleGetFormattedTime($length = 'short',$timestamp = null, $addoffs
         if (isset($timestamp) && $timestamp === false) {
             return '';
         }
-        if ($addoffset) {
-            $timestamp = xarMLS_userTime();
-        } else {
-            $timestamp = time();
-        }
+        $timestamp = time();
     } elseif ($timestamp >= 0) {
-        if ($addoffset) {
-            // adjust for the user's timezone offset
-            sys::import('modules.roles.class.roles');
-            $timestamp += xarRoles::userOffset($timestamp) * 3600;
-        }
     } else {
         // invalid dates < 0 (e.g. from strtotime) return an empty date string
         return '';
     }
-    $addoffset = false;
 
     // the locale data should already be a static var in the main loader script
     // so we no longer need to make it a static in this function
@@ -399,14 +389,14 @@ function xarLocaleGetFormattedTime($length = 'short',$timestamp = null, $addoffs
 /**
  *  Wrapper to xarLocaleFormatDate without timezone offset
  */
-function xarLocaleFormatUTCDate($format = null, $time = null, $addoffset = false)
+function xarLocaleFormatUTCDate($format = null, $time = null)
 {
     if(!isset($time)) {
         $time = time();
     }
 
     // pass this to the regular function, but without using the timezone offset here
-    return xarLocaleFormatDate($format,$time,$addoffset);
+    return xarLocaleFormatDate($format,$time);
 }
 
 /**
@@ -419,7 +409,7 @@ function xarLocaleFormatUTCDate($format = null, $time = null, $addoffset = false
  * @return date string
  *
  */
-function xarLocaleFormatDate($format = null, $timestamp = null, $addoffset = true)
+function xarLocaleFormatDate($format = null, $timestamp = null)
 {
     // CHECKME: should we default to current time only when timestamp is not set at all ?
     //if (!isset($timestamp)) {
@@ -428,17 +418,8 @@ function xarLocaleFormatDate($format = null, $timestamp = null, $addoffset = tru
         if (isset($timestamp) && $timestamp === false) {
             return '';
         }
-        if ($addoffset) {
-            $timestamp = xarMLS_userTime();
-        } else {
-            $timestamp = time();
-        }
+        $timestamp = time();
     } elseif ($timestamp >= 0) {
-        if ($addoffset) {
-            // adjust for the user's timezone offset
-            sys::import('modules.roles.class.roles');
-            $timestamp += xarRoles::userOffset($timestamp) * 3600;
-        }
     } else {
         // invalid dates < 0 (e.g. from strtotime) return an empty date string
         return '';
@@ -481,7 +462,7 @@ function xarMLS_strftime($format=null,$timestamp=null)
 {
     // if we don't have a timestamp, get the user's current time
     if(!isset($timestamp)) {
-        $timestamp = xarMLS_userTime();
+        $timestamp = time();
     } elseif ($timestamp < 0) {
         // invalid dates < 0 (e.g. from strtotime) return an empty date string
         return '';

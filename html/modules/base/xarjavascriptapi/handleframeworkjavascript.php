@@ -41,6 +41,7 @@ function base_javascriptapi_handleframeworkjavascript($args)
                         new SystemException($msg));
         return;
     }
+
     extract($fwinfo);
 
     if (empty($module)) {

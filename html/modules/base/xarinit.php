@@ -467,7 +467,8 @@ function base_init()
                         'displayname' => 'jQuery',
                         'version' => '1.3.2',
                         'module' => 'base',
-                        'file' => 'jquery-1.3.2.min.js'
+                        'file' => 'jquery-1.3.2.min.js',
+                        'status' => 1
                 )
     );
     xarModSetVar('base', 'RegisteredFrameworks', serialize($registeredframeworks));

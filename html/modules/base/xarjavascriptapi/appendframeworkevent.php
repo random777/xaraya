@@ -42,6 +42,10 @@ function base_javascriptapi_appendframeworkevent($args)
         return;
     }
 
+    if ($fwinfo['status'] != 1) {
+        return '';
+    }
+
     if (!isset($modName) || !xarModIsAvailable($modName)) {
         $modName = $fwinfo['module'];
     }

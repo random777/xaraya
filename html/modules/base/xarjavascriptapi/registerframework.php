@@ -72,6 +72,8 @@ function base_javascriptapi_getframeworkinfo($args)
         return;
     }
 
+    if (!isset($status)) $status = 1;
+
     $module = strtolower($module);
     $name = strtolower($name);
 
@@ -94,7 +96,7 @@ function base_javascriptapi_getframeworkinfo($args)
         return;
     }
 
-    $fwinfo[$name] = array('displayname' => $displayname, 'version' => $version, 'module' => $module, 'file' => $file);
+    $fwinfo[$name] = array('displayname' => $displayname, 'version' => $version, 'module' => $module, 'file' => $file, 'status' => 1);
     ksort($fwinfo);
     xarModSetVar('base','RegisteredFrameworks' serialize($fwinfo));
 

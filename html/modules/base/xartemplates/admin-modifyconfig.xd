@@ -718,7 +718,7 @@
                         <label for="defaultframeworkfile" title="#xarML('Choose the framework file to load for the framework')#" class="xar-form-label help">
                             <xar:mlstring>Framework File</xar:mlstring>:
                         </label>
-                        <xar:data-input type="dropdown" name="defaultframeworkfile" id="defaultframeworkfile" value="$fwinfo['file']" options="$fwfiles" />#$fwinfo['file']#
+                        <xar:data-input type="dropdown" name="defaultframeworkfile" id="defaultframeworkfile" value="$fwinfo['file']" options="$fwfiles" />
                         <xar:if condition="empty($fwinfo['file'])">
                         <span class="xar-error"><xar:mlstring>Please select a file to use with this framework.</xar:mlstring></span>
                         </xar:if>

@@ -23,7 +23,7 @@ function base_javascriptapi_init($args)
     extract($args);
 
     if (isset($name)) {
-        $name = strtolower($name); 
+        $name = strtolower($name);
     } else {
         $name = xarModGetVar('base','DefaultFramework');
     }
@@ -54,6 +54,10 @@ function base_javascriptapi_init($args)
         return;
     }
 
+    if ($fwinfo['status'] != 1) {
+        return '';
+    }
+
     if($modName != $fwinfo['module']) {
         $modName = $fwinfo['module'];
     }
@@ -81,7 +85,7 @@ function base_javascriptapi_init($args)
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
                         new SystemException($msg));
         return;
-    }        
+    }
 
     $GLOBALS['xarTpl_JavaScript'][$name][$file] = array(
             'type' => 'src',

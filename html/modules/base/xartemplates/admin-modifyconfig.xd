@@ -101,19 +101,19 @@
                 </a>
             </dd>
         </xar:if>
-        <xar:if condition="$tab eq 'jquery'">
+        <xar:if condition="$tab eq 'javascript'">
             <dd class="active">
                 <a href="#xarServerGetCurrentURL()#">
                     <xar:mlstring>
-                        jQuery
+                        JavaScript
                     </xar:mlstring>
                 </a>
             </dd>
             <xar:else />
             <dd>
-                <a href="#xarModURL('base', 'admin', 'modifyconfig', array('tab' => 'jquery'))#">
+                <a href="#xarModURL('base', 'admin', 'modifyconfig', array('tab' => 'javascript'))#">
                     <xar:mlstring>
-                        jQuery
+                        JavaScript
                     </xar:mlstring>
                 </a>
             </dd>
@@ -612,38 +612,7 @@
                     </table>
                 </div>
             </fieldset>
-            <fieldset>
-                <legend>
-                    <a name="jsframework"></a><xar:mlstring>Javascript</xar:mlstring>
-                </legend>
-                <div class="xar-form-input-wrapper">
-                    <label for="DefaultFramework" title="#xarML('Set the default Javascript framework to use.')#" class="xar-form-label">
-                        <xar:mlstring>Default Framework:</xar:mlstring>
-                    </label>
-                    <select id="defaultframework" name="defaultframework">
-                        <xar:foreach in="$frameworks" key="$fw" value="$fwinfo">
-                            <xar:if condition="$fw eq $defaultframework">
-                                <option value="#$fw#" selected="selected">#$fwinfo.displayname# (#$fwinfo.module#)</option>
-                            <xar:else />
-                                <option value="#$fw#">#$fwinfo.displayname# (#$fwinfo.module#)</option>
-                            </xar:if>
-                        </xar:foreach>
-                    </select>
-                </div>
 
-
-                <p><xar:mlstring>Further options may be available in each framework's host module.  For jQuery, see the tab above.</xar:mlstring></p>
-                <div class="xar-form-input-wrapper-after">
-                    <xar:if condition="$autoloaddefaultframework">
-                        <input type="checkbox" name="autoloaddefaultframework" id="autoloaddefaultframework" checked="checked" value ="1" />
-                    <xar:else />
-                        <input type="checkbox" name="autoloaddefaultframework" id="autoloaddefaultframework" value ="1" />
-                    </xar:if>
-                    <label for="autoloaddefaultframework" title="#xarML('Automatically load the default framework on every page request.')#">
-                        <xar:mlstring>Automatically load default framework</xar:mlstring>
-                    </label>
-                </div>
-            </fieldset>
             <fieldset>
                 <legend>
                     <xar:mlstring>Extension Release Feeds</xar:mlstring>
@@ -662,49 +631,118 @@
                 <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />
             </div>
         </form>
-        <xar:elseif condition="$tab eq 'jquery'" />
-            <h3>
-                <a name="jsframework"></a><xar:mlstring>jQuery Info</xar:mlstring>
-            </h3>
+    <xar:elseif condition="$tab eq 'javascript'" />
+        <dl class="xar-tabs">
+            <dt class="help" title="#xarML('View or modify installed frameworks')#">
+                <xar:mlstring>
+                    Frameworks:
+                </xar:mlstring>
+            </dt>
+            <xar:set name="activeclass">empty($framework)?'active':''</xar:set>
+            <dd class="#$activeclass#">
+                <a href="#xarModURL('base', 'admin', 'modifyconfig', array('tab' => 'javascript'))#">
+                    <xar:mlstring>Default</xar:mlstring>
+                </a>
+            </dd>
+            <xar:if condition="!empty($frameworks)">
+                <xar:foreach in="$frameworks" key="$fwname" value="$fwinfo">
+                    <xar:set name="activeclass">$fwname == $framework?'active':''</xar:set>
+                    <dd class="#$activeclass#">
+                        <a href="#xarModURL('base', 'admin', 'modifyconfig', array('tab' => 'javascript', 'framework' => $fwname))#">
+                            #$fwinfo['displayname']#
+                        </a>
+                    </dd>
+                </xar:foreach>
+            </xar:if>
+        </dl>
         <form action="#xarModUrl('base', 'admin', 'updateconfig')#" method="post" enctype="application/x-www-form-urlencoded">
+            <xar:if condition="empty($framework)">
+            <h3><xar:mlstring>JavaScript Frameworks</xar:mlstring></h3>
             <fieldset>
-            <div class="xar-form-input-wrapper">
-                <label class="xar-form-label">
-                    <xar:mlstring>Version:</xar:mlstring>
-                </label>
-                #$fwinfo.version#
-            </div>
-            <div class="xar-form-input-wrapper">
-                <label class="xar-form-label">
-                    <xar:mlstring>Host Module:</xar:mlstring>
-                </label>
-                #$fwinfo.module#
-            </div>
-
-            <div class="xar-form-input-wrapper">
-                <xar:if condition="!empty($fwfiles)">
-                    <label for="defaultframeworkfile" title="#xarML('Choose the framework file to load for the framework')#" class="xar-form-label help">
-                        <xar:mlstring>Framework File</xar:mlstring>:
+                <legend>
+                    <a name="jsframework"></a><xar:mlstring>Default Settings</xar:mlstring>
+                </legend>
+                <div class="xar-form-input-wrapper">
+                    <label for="DefaultFramework" title="#xarML('Set the default Javascript framework to use.')#" class="xar-form-label">
+                        <xar:mlstring>Default Framework:</xar:mlstring>
                     </label>
-                    <xar:data-input type="dropdown" name="defaultframeworkfile" id="defaultframeworkfile" value="$defaultframeworkfile" options="$fwfiles" />
-                    <xar:if condition="empty($defaultframeworkfile)">
-                    <span class="xar-error"><xar:mlstring>Please select a file to use with this framework.</xar:mlstring></span>
+                    <select id="defaultframework" name="defaultframework">
+                        <xar:foreach in="$frameworks" key="$fw" value="$fwinfo">
+                            <xar:if condition="$fw eq $defaultframework">
+                                <option value="#$fw#" selected="selected">#$fwinfo.displayname# (#$fwinfo.module#)</option>
+                            <xar:else />
+                                <option value="#$fw#">#$fwinfo.displayname# (#$fwinfo.module#)</option>
+                            </xar:if>
+                        </xar:foreach>
+                    </select>
+                </div>
+                <div class="xar-form-input-wrapper-after">
+                    <xar:if condition="$autoloaddefaultframework">
+                        <input type="checkbox" name="autoloaddefaultframework" id="autoloaddefaultframework" checked="checked" value ="1" />
+                    <xar:else />
+                        <input type="checkbox" name="autoloaddefaultframework" id="autoloaddefaultframework" value ="1" />
                     </xar:if>
-                <xar:else />
-                    <p class="xar-form-container-after xar-error">
-                        <xar:mlstring>Error: No framework files found!</xar:mlstring>
-                    </p>
-                </xar:if>
-            </div>
+                    <label for="autoloaddefaultframework" title="#xarML('Automatically load the default framework on every page request.')#">
+                        <xar:mlstring>Automatically load default framework</xar:mlstring>
+                    </label>
+                </div>
+                <p class="xar-form-container-after"><xar:mlstring>Note: This does not stop the framework being loaded, but it will only load if the framework, its plugins or events are called during the page request.</xar:mlstring></p>
+                <p><xar:mlstring>Further options may be available in each framework's host module.  See tabs above.</xar:mlstring></p>
             </fieldset>
-        </form>
+            <xar:else />
+            <h3>
+                <xar:ml>
+                <xar:mlstring>#(1) Framework</xar:mlstring>
+                <xar:mlvar>#$fwinfo['displayname']#</xar:mlvar>
+                </xar:ml>
+            </h3>
+            <fieldset>
+                <div class="xar-form-input-wrapper">
+                    <label class="xar-form-label">
+                        <xar:mlstring>Version:</xar:mlstring>
+                    </label>
+                    #$fwinfo.version#
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label class="xar-form-label">
+                        <xar:mlstring>Host Module:</xar:mlstring>
+                    </label>
+                    #$fwinfo.module#
+                </div>
+                <div class="xar-form-input-wrapper-after">
+                    <xar:data-input type="checkbox" name="fwstatus" id="fwstatus" value="$fwinfo['status']" />
+                    <label for="fwstatus"><xar:mlstring>Enable this framework?</xar:mlstring>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <xar:if condition="!empty($fwfiles)">
+                        <label for="defaultframeworkfile" title="#xarML('Choose the framework file to load for the framework')#" class="xar-form-label help">
+                            <xar:mlstring>Framework File</xar:mlstring>:
+                        </label>
+                        <xar:data-input type="dropdown" name="defaultframeworkfile" id="defaultframeworkfile" value="$fwinfo['file']" options="$fwfiles" />#$fwinfo['file']#
+                        <xar:if condition="empty($fwinfo['file'])">
+                        <span class="xar-error"><xar:mlstring>Please select a file to use with this framework.</xar:mlstring></span>
+                        </xar:if>
+                    <xar:else />
+                        <p class="xar-form-container-after xar-error">
+                            <xar:mlstring>Error: No framework files found!</xar:mlstring>
+                        </p>
+                    </xar:if>
+                </div>
+            </fieldset>
+            </xar:if>
             <div class="xar-form-footer">
                 <input type="hidden" name="authid" id="authid" value="#$authid#" />
                 <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                <input type="hidden" name="framework" id="framework" value="#$framework#" />
                 <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />
             </div>
+        </form>
+        <xar:if condition="!empty($framework) && !empty($plugins)">
             <h3>
-                <xar:mlstring>jQuery Plugins</xar:mlstring>
+                <xar:ml>
+                <xar:mlstring>#(1) Plugins</xar:mlstring>
+                <xar:mlvar>#$fwinfo['displayname']#</xar:mlvar>
+                </xar:ml>
             </h3>
 
             <table class="xar-fullwidth">
@@ -735,6 +773,7 @@
                     <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
                 </xar:foreach>
             </table>
+        </xar:if>
     </xar:if>
     <xar:if condition="xarSessionSetVar('statusmsg', '')"></xar:if>
 </div>

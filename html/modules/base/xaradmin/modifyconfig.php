@@ -78,36 +78,57 @@ function base_admin_modifyconfig()
         else $active = false;
         $data['locales'][] = array('name' => $locale, 'active' => $active);
     }
-    $data['frameworks'] = xarModAPIFunc('base','javascript','getframeworkinfo',array('all' => true));
-    $data['defaultframework'] = xarModGetVar('base','DefaultFramework');
-    $data['autoloaddefaultframework'] = xarModGetVar('base','AutoLoadDefaultFramework');
-    $releasenumber=xarModGetVar('base','releasenumber');
-    $data['releasenumber']=isset($releasenumber) ? $releasenumber:10;
 
-    if ($data['tab'] == 'jquery') {
-        $fwname = 'jquery';
-        $data['fwinfo'] = xarModAPIFunc('base','javascript','getframeworkinfo',array('name' => $fwname));
-        $plugins = xarModAPIFunc('base','javascript','getplugininfo',array('framework' => $fwname, 'all' => true));
-        if (is_array($plugins)) {
-            ksort($plugins);
-            $data['plugins'] = $plugins;
-        }
-        $basedir = 'xartemplates/includes/' . $fwname;
-        $fwfiles = xarModAPIFunc('base', 'user', 'browse_files',
-            array(
-                'module' => $data['fwinfo']['module'],
-                'basedir' => $basedir,
-                'match_re' => true,
-                'match_preg' => '/\.js$/',
-                'levels' => 1
-            ));
-        if (!empty($fwfiles)) {
-            foreach ($fwfiles as $fwfn) {
-                $data['fwfiles'][] = array('id' => $fwfn, 'name' => $fwfn);
+    // Javascript tab
+    if ($data['tab'] == 'javascript') {
+        if (!xarVarFetch('framework', 'pre:trim:lower:str:1', $fwname, NULL, XARVAR_DONT_SET)) return;
+        $frameworks = xarModAPIFunc('base','javascript','getframeworkinfo',array('all' => true));
+        if (!empty($fwname) && isset($frameworks[$fwname])) {
+            $data['fwinfo'] = $frameworks[$fwname];
+            $plugins = xarModAPIFunc('base','javascript','getplugininfo',array('framework' => $fwname, 'all' => true));
+            if (is_array($plugins)) {
+                ksort($plugins);
+                $data['plugins'] = $plugins;
+            }
+            $data['fwfiles'] = array();
+            // Get details for the module if we have a valid module id.
+            if (!empty($data['fwinfo']['module'])) {
+                $modId = xarModGetIDFromName($data['fwinfo']['module']);
+                $modInfo = xarModGetInfo($modId);
+                if (!empty($modInfo)) {
+                    $modOsDir = $modInfo['osdirectory'];
+                }
+            }
+            $themedir = xarTplGetThemeDir();
+            $basedirs = array();
+            // The search path for the framework file(s).
+            if (isset($modOsDir)) {
+                $basedirs[] = $themedir . '/modules/' . $modOsDir . '/includes/' . $fwname;
+                $basedirs[] = $themedir . '/modules/' . $modOsDir . '/xarincludes/' . $fwname;
+                $basedirs[] = 'modules/' . $modOsDir . '/xartemplates/includes/' . $fwname;
+                foreach($basedirs as $basedir) {
+                    $fwfiles = xarModAPIFunc('base', 'user', 'browse_files',
+                        array(
+                            'basedir' => $basedir,
+                            'match_re' => true,
+                            'match_preg' => '/\.js$/',
+                            'levels' => 1
+                        ));
+                    if (!empty($fwfiles)) {
+                        foreach ($fwfiles as $fwfile) {
+                            $data['fwfiles'][$fwfile] = array('id' => $fwfile, 'name' => $fwfile);
+                        }
+                    }
+                }
             }
         }
-        $data['defaultframeworkfile'] = $data['fwinfo']['file'];
+        $data['framework'] = $fwname;
+        $data['frameworks'] = $frameworks;
+        $data['defaultframework'] = xarModGetVar('base','DefaultFramework');
+        $data['autoloaddefaultframework'] = xarModGetVar('base','AutoLoadDefaultFramework');
     }
+    $releasenumber=xarModGetVar('base','releasenumber');
+    $data['releasenumber']=isset($releasenumber) ? $releasenumber:10;
 
     // TODO: delete after new backend testing
     // $data['translationsBackend'] = xarConfigGetVar('Site.MLS.TranslationsBackend');

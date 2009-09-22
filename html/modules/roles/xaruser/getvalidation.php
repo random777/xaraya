@@ -104,11 +104,12 @@ function roles_user_getvalidation()
                 throw new DataNotFoundException(array(),'The validation codes do not match');
             }
 
+            sys::import('modules.roles.class.roles');
             if ($pending == 1 && ($status['id'] != xarModVars::get('roles','admin')))  {
                 // Update the user status table to reflect a pending account.
                 if (!xarModAPIFunc('roles', 'user', 'updatestatus',
                                     array('uname' => $uname,
-                                          'state' => ROLES_STATE_PENDING)));
+                                          'state' => xarRoles::ROLES_STATE_PENDING)));
 
                 /*Send Pending Email toggable ?   User email
                 if (!xarModAPIFunc( 'authentication',
@@ -125,7 +126,7 @@ function roles_user_getvalidation()
                 // Update the user status table to reflect a validated account.
                 if (!xarModAPIFunc('roles', 'user', 'updatestatus',
                                     array('uname' => $uname,
-                                          'state' => ROLES_STATE_ACTIVE))) return;
+                                          'state' => xarRoles::ROLES_STATE_ACTIVE))) return;
                 //send welcome email (option)
                 if (xarModVars::get($regmodule, 'sendwelcomeemail')) {
                     if (!xarModAPIFunc('roles','admin','senduseremail',

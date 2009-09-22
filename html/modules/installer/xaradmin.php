@@ -925,25 +925,26 @@ function installer_admin_confirm_configuration()
         * register(Name,Realm,Module,Component,Instance,Level,Description)
         *********************************************************************/
 
-        xarRegisterPrivilege('Administration','All','All','All','All','ACCESS_ADMIN',xarML('Admin access to all modules'));
-        xarRegisterPrivilege('GeneralLock','All',null,'All','All','ACCESS_NONE',xarML('A container privilege for denying access to certain roles'));
-        xarRegisterPrivilege('LockEverybody','All','roles','Roles','Everybody','ACCESS_NONE',xarML('Deny access to Everybody role'));
-        xarRegisterPrivilege('LockAnonymous','All','roles','Roles','Anonymous','ACCESS_NONE',xarML('Deny access to Anonymous role'));
-        xarRegisterPrivilege('LockAdministrators','All','roles','Roles','Administrators','ACCESS_NONE',xarML('Deny access to Administrators role'));
-        xarRegisterPrivilege('LockAdministration','All','privileges','Privileges','Administration','ACCESS_NONE',xarML('Deny access to Administration privilege'));
-        xarRegisterPrivilege('LockGeneralLock','All','privileges','Privileges','GeneralLock','ACCESS_NONE',xarML('Deny access to GeneralLock privilege'));
+        sys::import('modules.privileges.class.privileges');
+        xarPrivileges::register('Administration','All','All','All','All','ACCESS_ADMIN',xarML('Admin access to all modules'));
+        xarPrivileges::register('GeneralLock','All',null,'All','All','ACCESS_NONE',xarML('A container privilege for denying access to certain roles'));
+        xarPrivileges::register('LockEverybody','All','roles','Roles','Everybody','ACCESS_NONE',xarML('Deny access to Everybody role'));
+        xarPrivileges::register('LockAnonymous','All','roles','Roles','Anonymous','ACCESS_NONE',xarML('Deny access to Anonymous role'));
+        xarPrivileges::register('LockAdministrators','All','roles','Roles','Administrators','ACCESS_NONE',xarML('Deny access to Administrators role'));
+        xarPrivileges::register('LockAdministration','All','privileges','Privileges','Administration','ACCESS_NONE',xarML('Deny access to Administration privilege'));
+        xarPrivileges::register('LockGeneralLock','All','privileges','Privileges','GeneralLock','ACCESS_NONE',xarML('Deny access to GeneralLock privilege'));
 
         /*********************************************************************
         * Arrange the  privileges in a hierarchy
         * Format is
-        * xarMakePrivilegeMember(Child,Parent)
+        * xarPrivileges::makeMember(Child,Parent)
         *********************************************************************/
 
-        xarMakePrivilegeMember('LockEverybody','GeneralLock');
-        xarMakePrivilegeMember('LockAnonymous','GeneralLock');
-        xarMakePrivilegeMember('LockAdministrators','GeneralLock');
-        xarMakePrivilegeMember('LockAdministration','GeneralLock');
-        xarMakePrivilegeMember('LockGeneralLock','GeneralLock');
+        xarPrivileges::makeMember('LockEverybody','GeneralLock');
+        xarPrivileges::makeMember('LockAnonymous','GeneralLock');
+        xarPrivileges::makeMember('LockAdministrators','GeneralLock');
+        xarPrivileges::makeMember('LockAdministration','GeneralLock');
+        xarPrivileges::makeMember('LockGeneralLock','GeneralLock');
 
         /*********************************************************************
         * Assign the default privileges to groups/users
@@ -951,10 +952,10 @@ function installer_admin_confirm_configuration()
         * assign(Privilege,Role)
         *********************************************************************/
 
-        xarAssignPrivilege('Administration','Administrators');
-        xarAssignPrivilege('GeneralLock','Everybody');
-        xarAssignPrivilege('GeneralLock','Administrators');
-        xarAssignPrivilege('GeneralLock','Users');
+        xarPrivileges::assign('Administration','Administrators');
+        xarPrivileges::assign('GeneralLock','Everybody');
+        xarPrivileges::assign('GeneralLock','Administrators');
+        xarPrivileges::assign('GeneralLock','Users');
 
         // disable caching of module state in xarMod.php
         $GLOBALS['xarMod_noCacheState'] = true;

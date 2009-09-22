@@ -30,6 +30,7 @@ function authsystem_admin_createpassword()
      if (empty($pass)) {
             throw new BadParameterException(null,xarML('Problem generating new password'));
      }
+     sys::import('modules.roles.class.roles');
      $role = xarRoles::get($id);
      $modifiedstatus = $role->setPass($pass);
      $modifiedrole = $role->updateItem();

@@ -104,7 +104,7 @@
       <id>101</id>
       <label>Show last password update?</label>
       <type>calendar</type>
-      <defaultvalue>xarMLS_userTime()</defaultvalue>
+      <defaultvalue>xarRoles::userTime()</defaultvalue>
       <source>module variable: roles</source>
       <status>66</status>
       <seq>11</seq>
@@ -114,7 +114,7 @@
       <id>102</id>
       <label>Show last login?</label>
       <type>calendar</type>
-      <defaultvalue>xarMLS_userTime()</defaultvalue>
+      <defaultvalue>xarRoles::userTime()</defaultvalue>
       <source>module variable: roles</source>
       <status>66</status>
       <seq>12</seq>

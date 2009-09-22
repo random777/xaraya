@@ -50,7 +50,8 @@ function mail_admin_sendtest()
     if (!empty($when)) {
         $when .= ' GMT';
         $when = strtotime($when);
-        $when -= xarMLS_userOffset() * 3600;
+        sys::import('modules.roles.class.roles');
+        $when -= xarRoles::userOffset() * 3600;
     } else {
         $when = 0;
     }

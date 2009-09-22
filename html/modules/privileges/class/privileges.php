@@ -133,6 +133,12 @@ class xarPrivileges extends xarMasks
     {
         parent::initialize();
 
+        $privilege = self::findPrivilege($name);
+        if ($privilege) return true;
+
+        sys::import('modules.privileges.class.securitylevel');
+        $level = SecurityLevel::get($level);
+        
         $realmid = null;
         if($realm != 'All') {
             $stmt = parent::$dbconn->prepareStatement('SELECT id FROM '.parent::$realmstable .' WHERE name=?');
@@ -180,6 +186,7 @@ class xarPrivileges extends xarMasks
         $privid = $privilege->getID();
 
         // find the role for the assignation and get its ID
+        sys::import('modules.roles.class.roles');
         $role = xarRoles::findRole($rolename);
         $roleid = $role->getID();
 

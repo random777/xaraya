@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
-    <title>#$tpl:pageTitle#</title>
+    <title><xar:page-title /></title>
     <xar:blockgroup name="header" id="header" />
     <base href="&xar-baseurl;index.php" />
     <!-- Main CSS rules (note: all default parameters in the tag can be omitted) -->

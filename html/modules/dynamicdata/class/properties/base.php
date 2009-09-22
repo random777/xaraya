@@ -659,6 +659,7 @@ class DataProperty extends Object implements iDataProperty
 
         if (empty($allconfigproperties)) {
             $xartable = xarDB::getTables();
+            sys::import('modules.roles.class.xarQuery');
             $q = new xarQuery('SELECT',$xartable['dynamic_configurations']);
             if (!$q->run()) return;
             $allconfigproperties = $q->output();

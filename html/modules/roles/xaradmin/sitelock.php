@@ -64,8 +64,9 @@ function roles_admin_sitelock($args)
         elseif ($cmd == 'add') {
             if (!xarVarFetch('newname', 'str', $newname, NULL, XARVAR_DONT_SET)) return;
             if (isset($newname)) {
-                $r = xaruFindRole($newname);
-                if (!$r) $r = xarFindRole($newname);
+                sys::import('modules.roles.class.roles');
+                $r = xarRoles::ufindRole($newname);
+                if (!$r) $r = xarRoles::findRole($newname);
                 if($r) {
                     $newid  = $r->getID();
                     $newname = $r->isUser() ? $r->getUser() : $r->getName();
@@ -92,9 +93,7 @@ function roles_admin_sitelock($args)
                               'notifymsg' => $notifymsg);
             xarModVars::set('roles', 'lockdata', serialize($lockdata));
             xarResponse::Redirect(xarModURL('roles', 'admin', 'sitelock'));
-        }
-
-        elseif ($cmd == 'toggle') {
+        } elseif ($cmd == 'toggle') {
 
             // turn the site on or off
             $toggle = $toggle ? 0 : 1;
@@ -102,6 +101,7 @@ function roles_admin_sitelock($args)
             // Find the users to be notified
             // First get the roles
             $rolesarray = array();
+            sys::import('modules.roles.class.roles');
             for($i=0; $i < $rolesCount; $i++) {
                 if($roles[$i]['notify'] == 1) {
                     $rolesarray[] = xarRoles::get($roles[$i]['id']);

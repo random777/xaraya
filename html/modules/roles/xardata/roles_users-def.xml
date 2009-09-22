@@ -74,7 +74,7 @@
       <id>41</id>
       <label>Reg. Date</label>
       <type>calendar</type>
-      <defaultvalue>xarMLS_userTime()</defaultvalue>
+      <defaultvalue>xarRoles::userTime()</defaultvalue>
       <source>xar_roles.date_reg</source>
       <status>66</status>
       <seq>7</seq>

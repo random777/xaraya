@@ -64,10 +64,11 @@ function roles_userapi_get($args)
     if (!empty($email)) {
         $q->eq('email',$email);
     }
-    if (!empty($state) && $state == ROLES_STATE_CURRENT) {
-        $q->ne('state',ROLES_STATE_DELETED);
+    sys::import('modules.roles.class.roles');
+    if (!empty($state) && $state == xarRoles::ROLES_STATE_CURRENT) {
+        $q->ne('state',xarRoles::ROLES_STATE_DELETED);
     }
-    elseif (!empty($state) && $state != ROLES_STATE_ALL) {
+    elseif (!empty($state) && $state != xarRoles::ROLES_STATE_ALL) {
         $q->eq('state',(int)$state);
     }
     if (!empty($itemtype)) {

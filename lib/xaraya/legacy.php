@@ -134,4 +134,135 @@ function &xarDBNewDataDict(Connection &$dbconn, $mode = 'READONLY')
 {
     throw new ApiDeprecationException(array('xarDBNewDataDict','[TO BE DETERMINED]'));
 }
+
+/**
+ * Legacy function from the cleancore scenario
+ *
+**/
+function xarMakeRoleMemberByName($childName, $parentName)
+{
+    return xarRoles::makeMemberByName($childName, $parentName);
+}
+function xarRegisterPrivilege($name,$realm,$module,$component,$instance,$level,$description='')
+{
+    // Check if the privilege already exists
+    $privilege = xarPrivileges::findPrivilege($name);
+    if (!$privilege) {
+        return xarPrivileges::register($name,$realm,$module,$component,$level,$description);
+    }
+    return true;
+}
+function xarMakePrivilegeMember($childName, $parentName)
+{
+    return xarPrivileges::makeMember($childName, $parentName);
+}
+function xarAssignPrivilege($privilege,$role)
+{
+    return xarPrivileges::assign($privilege,$role);
+}
+function xarRemoveInstances($module)
+{
+    return xarPrivileges::removeInstances($module);
+}
+function xarRegisterMask($name,$realm,$module,$component,$instance,$level,$description='')
+{
+    return xarMasks::register($name,$realm,$module,$component,$level,$description);
+}
+function xarUnregisterMask($name)
+{
+    return xarMasks::unregister($name);
+}
+function xarSecurityLevel($levelname)
+{
+    return xarMasks::xarSecLevel($levelname);
+}
+function xarCurrentRole()
+{
+    return xarRoles::getRole(xarSessionGetVar('role_id'));
+}
+function xarGetGroups() { return xarRoles::getgroups(); }
+function xarMakeUser($name,$uname,$email,$pass='',$dateReg='',$valCode='',$state=3,$authModule= 0)
+{
+    return xarRoles::makeUser($name,$uname,$email,$pass,$dateReg,$valCode,$state,$authModule);
+}
+function xarMakeGroup($name,$uname='') { return xarRoles::makeGroup($name,$uname); }
+function xarDefineInstance($module,$type,$query,$propagate=0,$table2='',$childId='',$parentId='',$description='')
+{
+    return xarPrivileges::defineInstance($module,$type,$query,$propagate,$table2,$childId,$parentId,$description);
+}
+function xarFindRole($name) { return xarRoles::findRole($name);  }
+function xarUFindRole($name){ return xarRoles::ufindRole($name); }
+function xarReturnPrivilege($pid,$name,$realm,$module,$component,$instance,$level)
+{
+    return xarModAPIFunc('privileges','admin','returnprivilege',array(
+        'pid' => $pid,
+        'name' => $name,
+        'realm' => $realm,
+        'module' => $module,
+        'component' => $component,
+        'instance' => $instance,
+        'level' => $level));
+}
+function xarPrivExists($name)
+{
+    return (bool)xarPrivileges::findPrivilege($name);
+}
+function xarMaskExists($name,$module="All",$component="All")
+{
+    if ($mask == "All") $mask = 0;
+    return (bool)xarMasks::getMask($name,$module,$component,true);
+}
+function xarRemovePrivileges($module)
+{
+    // Get the pids for the module
+    $modulePrivileges = xarPrivileges::findPrivilegesForModule($module);
+    foreach ($modulePrivileges as $modulePrivilege) {
+        $modulePrivilege->remove();
+    }
+}
+function xarMakeRoleMemberByID($childId, $parentId)
+{
+    $parent = xarRoles::getRole($parentId);
+    $child = xarRoles::getRole($childId);
+
+    return $parent->addMember($child);
+}
+function xarRemoveRoleMemberByID($childId, $parentId)
+{
+    $parent = xarRoles::getRole($parentId);
+    $child = xarRoles::getRole($childId);
+
+    return $parent->removeMember($child);
+}
+function xarMakeRoleMemberByUname($childName, $parentName)
+{
+    $parent = xarRoles::ufindRole($parentName);
+    $child = xarRoles::ufindRole($childName);
+
+    return $parent->addMember($child);
+}
+function xarIsParent($name1, $name2)
+{
+    $role1 = xarRoles::findRole($name1);
+    $role2 = xarRoles::ufindRole($name2);
+    if (is_object($role1) && is_object($role2)) {
+        return $role2->isParent($role1);
+    }
+    return false;
+}
+
+function xarIsAncestor($name1, $name2)
+{
+    $role1 = xarRoles::findRole($name1);
+    $role2 = xarRoles::ufindRole($name2);
+    if (is_object($role1) && is_object($role2)) {
+        return $role2->isAncestor($role1);
+    }
+    return false;
+}
+function xarRemoveMasks($module)
+{
+    return xarMasks::removeMasks($modid);
+}
+
 ?>

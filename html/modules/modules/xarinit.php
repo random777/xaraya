@@ -182,16 +182,19 @@ function modules_init()
                          array($modulesmodid,'disableoverview',false),
                          // expertlist
                          array($modulesmodid,'expertlist','0'),
-                         // the configuration settings pertaining to modules for the base module
-                         array($modulesmodid,'defaultmoduletype','user'),
-                         array($modulesmodid,'defaultmodule','base'),
-                         array($modulesmodid,'defaultmodulefunction','main'),
                          array($modulesmodid,'defaultdatapath','lib/'));
 
         foreach($modvars as &$modvar) {
             $stmt->executeUpdate($modvar);
         }
-        // We're done, thanks, commit the thingie
+
+        $defaulturl = array(
+                    'defaultmodule' => 'base',
+                    'defaultmoduletype' => 'user',
+                    'defaultmodulefunction' => 'main',
+                    );
+        xarConfigVars::set(null, 'Site.DefaultURL', $defaulturl);
+
         $dbconn->commit();
     } catch (Exception $e) {
         // Damn

@@ -33,6 +33,7 @@ function roles_user_display($args)
 
     if ($id) {
         // Get role information
+        sys::import('modules.roles.class.roles');
         $role = xarRoles::get($id);
 
         if (!$role) return;
@@ -52,7 +53,7 @@ function roles_user_display($args)
         $data['name'] = $name;
         //get the data for a user
         $data['basetype'] = xarModAPIFunc('dynamicdata','user','getbaseitemtype',array('moduleid' => 27, 'itemtype' => $itemtype));
-        if ($data['basetype'] == ROLES_USERTYPE) {
+        if ($data['basetype'] == xarRoles::ROLES_USERTYPE) {
             sys::import('modules.dynamicdata.class.objects.master');
             $object = DataObjectMaster::getObject(array('name' => 'roles_users'));
             $object->tplmodule = $args['tplmodule'];   // roles/xartemplates/objects/

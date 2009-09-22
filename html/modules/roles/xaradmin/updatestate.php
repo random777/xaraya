@@ -41,17 +41,18 @@ function roles_admin_updatestate()
                                    'id'     => $data['groupid'])));
     }
     //Get the notice message
+    sys::import('modules.roles.class.roles');
     switch ($data['status']) {
-        case ROLES_STATE_INACTIVE :
+        case xarRoles::ROLES_STATE_INACTIVE :
             $mailtype = 'deactivation';
         break;
-        case ROLES_STATE_NOTVALIDATED :
+        case xarRoles::ROLES_STATE_NOTVALIDATED :
             $mailtype = 'validation';
         break;
-        case ROLES_STATE_ACTIVE :
+        case xarRoles::ROLES_STATE_ACTIVE :
             $mailtype = 'welcome';
         break;
-        case ROLES_STATE_PENDING :
+        case xarRoles::ROLES_STATE_PENDING :
             $mailtype = 'pending';
         break;
         default:
@@ -74,7 +75,7 @@ function roles_admin_updatestate()
         //check if the user must be updated :
         $role = xarRoles::get($id);
         if ($role->getState() != $data['status']) {
-            if ($data['status'] == ROLES_STATE_NOTVALIDATED) $valcode = xarModAPIFunc('roles','user','makepass');
+            if ($data['status'] == xarRoles::ROLES_STATE_NOTVALIDATED) $valcode = xarModAPIFunc('roles','user','makepass');
             else $valcode = null;
             //Update the user
             if (!xarModAPIFunc('roles', 'admin', 'stateupdate',

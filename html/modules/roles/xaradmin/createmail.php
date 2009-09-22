@@ -16,6 +16,7 @@ function roles_admin_createmail()
     // Security check
     if (!xarSecurityCheck('MailRoles')) return;
 
+    sys::import('modules.roles.class.roles');
     if (!xarVarFetch('id',       'int:0:', $id,        -1, XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('ids',      'isset',  $ids,     NULL, XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('state',    'int:0:', $state,      xarRoles::ROLES_STATE_ALL, XARVAR_NOT_REQUIRED)) return;

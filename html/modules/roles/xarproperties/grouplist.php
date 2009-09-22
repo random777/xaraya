@@ -121,6 +121,7 @@ class GroupListProperty extends SelectProperty
     {
         $this->value = $itemid;
         $value = 0;
+        sys::import('modules.roles.class.roles');
         $basegroup = xarRoles::get($this->initialization_basegroup);
         if (!empty($basegroup)) {
             $xartable = xarDB::getTables();
@@ -164,6 +165,7 @@ class GroupListProperty extends SelectProperty
             // It's a row in an objectlist
             $data['value'] = $this->retrieveValue($data['_itemid']);
         }
+        sys::import('modules.roles.class.roles');
         $group = xarRoles::get($data['value']);
         if (!empty($group)) {
             $data['value'] = $group->getName();

@@ -6,7 +6,7 @@
 dtd="xhtml1-strict">
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
         <head>
-            <title>#$tpl:pageTitle#</title>
+            <title><xar:page-title /></title>
             <base href="&xar-baseurl;index.php" />
             <style type="text/css">@import url(&xar-baseurl;#xarTplGetThemeDir()#/style/style.css);</style>
             <xar:style scope="module" module="base" file="xarcore-xhtml1-strict" />

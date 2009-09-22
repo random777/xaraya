@@ -80,10 +80,8 @@ function xarTplGetThemeName()
     if(isset($GLOBALS['xarTpl_themeName'])) return  $GLOBALS['xarTpl_themeName'];
     // If it is not set, set it return the default theme.
     // TODO: PHP 5.0/5.1 DO NOT AGREE ON method_exists / is_callable
-    if (method_exists('xarModVars','Get')) {
-        $defaultTheme = xarModVars::get('themes', 'default');
-        if (!empty($defaultTheme)) xarTplSetThemeName($defaultTheme);
-    }
+    $defaultTheme = xarConfigVars::get(null, 'Site.DefaultTheme');
+    if (!empty($defaultTheme)) xarTplSetThemeName($defaultTheme);
     assert('isset($GLOBALS["xarTpl_themeName"]; /* Themename could not be set properly */');
     return $GLOBALS['xarTpl_themeName'];
 }
@@ -224,42 +222,12 @@ function xarTplSetDoctype($doctypeName)
  * @access public
  * @global string xarTpl_pageTitle
  * @param  string $title
- * @param  string $module
- * @todo   this needs to be moved into the templating domain somehow
  * @return bool
  */
-function xarTplSetPageTitle($title = NULL, $module = NULL)
+function xarTplSetPageTitle($title = NULL)
 {
     xarLogMessage("TPL: Setting pagetitle to $title");
-    // TODO: PHP 5.0/5.1 DO NOT AGREE ON method_exists / is_callable!!!
-    if (!method_exists('xarModVars','Get')){
-        $GLOBALS['xarTpl_pageTitle'] = $title;
-    } else {
-        $order      = xarModVars::get('themes', 'SiteTitleOrder');
-        $separator  = xarModVars::get('themes', 'SiteTitleSeparator');
-        if (empty($module)) {
-            // FIXME: the ucwords is layout stuff which doesn't belong here
-            $module = ucwords(xarMod::getDisplayName());
-        }
-        switch(strtolower($order)) {
-            case 'default':
-            default:
-                $GLOBALS['xarTpl_pageTitle'] = xarModVars::get('themes', 'SiteName') . $separator . $module . $separator . $title;
-            break;
-            case 'sp':
-                $GLOBALS['xarTpl_pageTitle'] = xarModVars::get('themes', 'SiteName') . $separator . $title;
-            break;
-            case 'mps':
-                $GLOBALS['xarTpl_pageTitle'] = $module . $separator . $title . $separator .  xarModVars::get('themes', 'SiteName');
-            break;
-            case 'pms':
-                $GLOBALS['xarTpl_pageTitle'] = $title . $separator .  $module . $separator . xarModVars::get('themes', 'SiteName');
-            break;
-            case 'to':
-                $GLOBALS['xarTpl_pageTitle'] = $title;
-            break;
-        }
-    }
+    if (!empty($title)) $GLOBALS['xarTpl_pageTitle'] = $title;
     return true;
 }
 
@@ -357,9 +325,6 @@ function xarTplModule($modName, $modType, $funcName, $tplData = array(), $templa
     $tplData['_bl_module_name'] = $modName;
     $tplData['_bl_module_type'] = $modType;
     $tplData['_bl_module_func'] = $funcName;
-    $tpl = (object) null;
-    $tpl->pageTitle = xarTplGetPageTitle();
-    $tplData['tpl'] = $tpl;
 
     // TODO: make this work different, for example:
     // 1. Only create a link somewhere on the page, when clicked opens a page with the variables on that page
@@ -612,11 +577,7 @@ function xarTpl_renderPage($mainModuleOutput, $pageTemplate = NULL)
     $pageTemplate = xarVarPrepForOS($pageTemplate);
     $sourceFileName = xarTplGetThemeDir() . "/pages/$pageTemplate.xt";
 
-    $tpl = (object) null; // Create an object to hold the 'specials'
-    $tpl->pageTitle = xarTplGetPageTitle();
-
     $tplData = array(
-        'tpl'                      => $tpl,
         '_bl_mainModuleOutput'     => $mainModuleOutput,
     );
 

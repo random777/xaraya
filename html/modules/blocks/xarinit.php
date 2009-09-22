@@ -226,7 +226,8 @@ function blocks_init()
        Old functionality in modules still exists.
        Note that the old instances and masks and code in the files was not 'matched' so don't think they worked properly in any case.
     */
-    xarRemoveInstances('blocks');
+    sys::import('modules.privileges.class.privileges');
+    xarPrivileges::removeInstances('blocks');
     //setup the new ones
     $dbconn = xarDB::getConn();
     $xartable = xarDB::getTables();
@@ -237,6 +238,7 @@ function blocks_init()
     $blockInstancesTable = $prefix . '_block_instances';
 
     //Set up the block group instances for this module - these are the same as previously defined and retained
+    sys::import('modules.privileges.class.privileges');
     $query1 = "SELECT DISTINCT name FROM $blockGroupsTable";
     $query2 = "SELECT DISTINCT id FROM $blockGroupsTable";
     $instances = array(array('header'  => 'Group Name:',
@@ -246,7 +248,7 @@ function blocks_init()
                          'query'   => $query2,
                          'limit'   => 20));
 
-    xarDefineInstance('blocks','BlockGroup',$instances);
+    xarPrivileges::defineInstance('blocks','BlockGroup',$instances);
 
     //The block instances differ and now defined on name (not title)
     //These need to be upgraded
@@ -262,7 +264,7 @@ function blocks_init()
                        array('header' => 'Block Name:',
                              'query' => $query3,
                              'limit' => 20));
-    xarDefineInstance('blocks','Block',$instances);
+    xarPrivileges::defineInstance('blocks','Block',$instances);
 
     //Define an instance that refers to items that a block contains
     $query1 = "SELECT DISTINCT instances.name FROM $blockInstancesTable as instances LEFT JOIN $blockTypesTable as btypes ON btypes.id = instances.type_id";
@@ -274,27 +276,27 @@ function blocks_init()
                        array('header' => 'Module Name:',
                              'query' => $query2,
                              'limit' => 20));
-    xarDefineInstance('blocks','BlockItem',$instances);
+    xarPrivileges::defineInstance('blocks','BlockItem',$instances);
 
     //Set up the security masks
-     xarRemoveMasks('blocks');
+     xarMasks::removeMasks('blocks');
      /* remove and redefine new ones. The old ones do not seem to be working in any case in installs */
 
     //Unsure if this  Comment is used at all but left for compatiblity with prior setup
-    xarRegisterMask('CommentBlock','All','blocks','All','All','ACCESS_EDIT');
+    xarMasks::register('CommentBlock','All','blocks','All','All','ACCESS_EDIT');
 
     // Blockgroups - in case people can edit block group
-    xarRegisterMask('EditBlockGroup',  'All', 'blocks', 'Blockgroup', 'All', 'ACCESS_EDIT');
+    xarMasks::register('EditBlockGroup',  'All', 'blocks', 'Blockgroup', 'All', 'ACCESS_EDIT');
     //Blocks block? could be a use ...
-    xarRegisterMask('ReadBlocksBlock', 'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_OVERVIEW');
+    xarMasks::register('ReadBlocksBlock', 'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_OVERVIEW');
     //And standard masks for the rest - keep names the same as any prior so minimal sec checks in templates still work
-    xarRegisterMask('ViewBlock',    'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_OVERVIEW');
-    xarRegisterMask('ReadBlock',    'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_READ');
-    xarRegisterMask('ModerateBlock','All', 'blocks', 'Block', 'All:All:All', 'ACCESS_MODERATE');
-    xarRegisterMask('EditBlock',    'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_EDIT');
-    xarRegisterMask('AddBlock',     'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_ADD');
-    xarRegisterMask('DeleteBlock',  'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_DELETE');
-    xarRegisterMask('AdminBlock',   'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_ADMIN');
+    xarMasks::register('ViewBlock',    'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_OVERVIEW');
+    xarMasks::register('ReadBlock',    'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_READ');
+    xarMasks::register('ModerateBlock','All', 'blocks', 'Block', 'All:All:All', 'ACCESS_MODERATE');
+    xarMasks::register('EditBlock',    'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_EDIT');
+    xarMasks::register('AddBlock',     'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_ADD');
+    xarMasks::register('DeleteBlock',  'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_DELETE');
+    xarMasks::register('AdminBlock',   'All', 'blocks', 'Block', 'All:All:All', 'ACCESS_ADMIN');
 
     // Installation complete; check for upgrades
     return blocks_upgrade('2.0.0');

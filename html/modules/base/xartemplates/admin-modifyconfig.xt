@@ -104,21 +104,17 @@
                     template for this frontpage. You can customize and override this template in
                     your theme.</p>
                     <div class="xar-form-input-wrapper">
-                        <label for="defaultmodule"
-                        title="#xarML('The default module to be loaded on your base url.')#"
-                        class="xar-form-label">Default Module:</label>
-                        <xar:if condition="xarModVars::get('modules', 'defaultmoduletype') == 'admin'">
-
+                        <label for="defaultmodule" title="#xarML('The default module to be loaded on your base url.')#" class="xar-form-label">
+                            Default Module:
+                        </label>
+                        <xar:if condition="$defaultmoduletype == 'admin'">
                             <xar:set name="filter">array('AdminCapable' =&gt; 1)</xar:set>
                         <xar:else />
                             <xar:set name="filter">array('UserCapable' =&gt; 1)</xar:set>
                         </xar:if>
-                        <xar:set name="value">
-                            <xar:var scope="module" module="modules" name="defaultmodule" />
-                        </xar:set>
-                        <xar:data-input type="module" name="defaultmodule" id="defaultmodule" filter="$filter" value="$value" store_prop="name" />
+                        <xar:data-input type="module" name="defaultmodule" id="defaultmodule" filter="$filter" value="$defaultmodule" store_prop="name" />
                     </div>
-                    <xar:if condition="(int)xarModVars::get('modules', 'defaultmodule') eq (int)xarMod::getID('base')">
+                    <xar:if condition="$defaultmodule eq 'base'">
 
                         <div class="xar-form-input-wrapper">
                             <label for="alternatepagetemplate" title="#xarML('Use an alternate default page template.')#" class="xar-form-label">
@@ -146,19 +142,13 @@
                         <xar:set name="options">
                             array( array('id' =&gt; 'admin', 'name' =&gt; 'Admin'), array('id' =&gt; 'user', 'name' =&gt; 'User'), )
                         </xar:set>
-                        <xar:set name="value">
-                            <xar:var scope="module" module="modules" name="defaultmoduletype" />
-                        </xar:set>
-                        <xar:data-input type="dropdown" name="defaulttype" id="defaulttype" options="$options" value="$value" />
+                        <xar:data-input type="dropdown" name="defaulttype" id="defaulttype" options="$options" value="$defaultmoduletype" />
                     </div>
                     <div class="xar-form-input-wrapper">
                         <label for="defaultfunction" title="#xarML('The default function of module to be loaded.')#" class="xar-form-label">
                             Default Module Function:
                         </label>
-                        <xar:set name="value">
-                            <xar:var scope="module" module="modules" name="defaultmodulefunction" />
-                        </xar:set>
-                        <input type="text" id="defaultfunction" name="defaultfunction" value="#$value#" maxlength="100" class="xar-form-textlong" />
+                        <input type="text" id="defaultfunction" name="defaultfunction" value="#$defaultmodulefunction#" maxlength="100" class="xar-form-textlong" />
                     </div>
                 </fieldset>
                 <fieldset>

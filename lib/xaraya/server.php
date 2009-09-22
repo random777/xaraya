@@ -483,9 +483,7 @@ class xarRequest extends Object
             // If $modName is still empty we use the default module/type/func to be loaded in that such case
             if (empty(self::$defaultRequestInfo)) {
 
-                self::$defaultRequestInfo = array(xarModVars::get('modules', 'defaultmodule'),
-                                                  xarModVars::get('modules', 'defaultmoduletype'),
-                                                  xarModVars::get('modules', 'defaultmodulefunction'));
+                self::$defaultRequestInfo = array_values(xarConfigVars::get(null, 'Site.DefaultURL'));
             }
             $requestInfo = self::$defaultRequestInfo;
         }

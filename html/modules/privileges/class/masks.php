@@ -163,6 +163,10 @@ class xarMasks extends Object
         // Check if the mask has already been registered, and update it if necessary.
         // FIXME: make mask names unique across modules (+ across realms) ?
         // FIXME: is module/name enough? Perhaps revisit this with realms in mind.
+
+        sys::import('modules.privileges.class.securitylevel');
+        $level = SecurityLevel::get($level);
+
         if($module == 'All') {
             $module_id = self::PRIVILEGES_ALL;
         } elseif($module == null) {
@@ -235,11 +239,14 @@ class xarMasks extends Object
      * *
      * @author  Marc Lutolf <marcinmilan@xaraya.com>
      * @access  public
-     * @param   module name
+     * @param   module id or 'All'
      * @return  boolean
     */
     public static function removemasks($module_id)
     {
+        if ($module_id == "All") $module_id = xarMasks::PRIVILEGES_ALL;
+        if (!is_numeric($module_id)) $module_id = xarMod::getID($module_id);
+
         self::initialize();
         $query = "DELETE FROM " . self::$privilegestable . " WHERE itemtype = ? AND module_id = ?";
         //Execute the query, bail if an exception was thrown
@@ -335,7 +342,7 @@ class xarMasks extends Object
             //perhaps something for later.
             // <mrb> i dont grok this, theme can be realm?
             case "theme":
-                $mask->setRealm(xarModVars::get('themes', 'default'));
+                $mask->setRealm(xarConfigVars::get(null, 'Site.DefaultTheme'));
                 break;
             case "domain":
                 $host = xarServer::getHost();
@@ -355,8 +362,9 @@ class xarMasks extends Object
                 break;
             case "group":
                 //get some info on the user
-                $thisname=xarUserGetVar('uname');
-                $role = xarUFindRole($thisname);
+                $thisname = xarUserGetVar('uname');
+                sys::import('modules.roles.class.roles');
+                $role = xarRoles::ufindRole($thisname);
                 $parent='Everybody'; //set a default
                 //We now have primary parent implemented
                 //Use primary parent if implemented else get first parent??

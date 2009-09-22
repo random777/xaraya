@@ -28,6 +28,7 @@ function roles_admin_addprivilege()
     }        
 
     // Call the Roles class and get the role
+    sys::import('modules.roles.class.roles');
     $role = xarRoles::get($roleid);
 
     // Call the Privileges class and get the privilege

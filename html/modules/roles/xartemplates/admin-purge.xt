@@ -76,10 +76,10 @@
                                 </select>
                         </td>
                         <td class="xar-align-center">
-                            <xar:set name="options">array( array('id' =&gt; ROLES_STATE_ACTIVE,
-                            'name' =&gt; 'Active'), array('id' =&gt; ROLES_STATE_INACTIVE, 'name'
-                            =&gt; 'Inactive'), array('id' =&gt; ROLES_STATE_NOTVALIDATED, 'name'
-                            =&gt; 'Not Validated'), array('id' =&gt; ROLES_STATE_PENDING, 'name'
+                            <xar:set name="options">array( array('id' =&gt; xarRoles::ROLES_STATE_ACTIVE,
+                            'name' =&gt; 'Active'), array('id' =&gt; xarRoles::ROLES_STATE_INACTIVE, 'name'
+                            =&gt; 'Inactive'), array('id' =&gt; xarRoles::ROLES_STATE_NOTVALIDATED, 'name'
+                            =&gt; 'Not Validated'), array('id' =&gt; xarRoles::ROLES_STATE_PENDING, 'name'
                             =&gt; 'Pending'), )</xar:set>
                             <xar:data-input type="dropdown" name="recallstate" options="$options"
                             value="$recallstate" />
@@ -170,11 +170,11 @@
                             <xar:set name="options">
                                 array(
                                     array('id' => -1, 'name' => ''),
-                                    array('id' => ROLES_STATE_ACTIVE, 'name' => 'Active'),
-                                    array('id' => ROLES_STATE_DELETED, 'name' => 'Deleted'),
-                                    array('id' => ROLES_STATE_INACTIVE, 'name' => 'Inactive'),
-                                    array('id' => ROLES_STATE_NOTVALIDATED, 'name' => 'Not Validated'),
-                                    array('id' => ROLES_STATE_PENDING, 'name' => 'Pending'),
+                                    array('id' => xarRoles::ROLES_STATE_ACTIVE, 'name' => 'Active'),
+                                    array('id' => xarRoles::ROLES_STATE_DELETED, 'name' => 'Deleted'),
+                                    array('id' => xarRoles::ROLES_STATE_INACTIVE, 'name' => 'Inactive'),
+                                    array('id' => xarRoles::ROLES_STATE_NOTVALIDATED, 'name' => 'Not Validated'),
+                                    array('id' => xarRoles::ROLES_STATE_PENDING, 'name' => 'Pending'),
                                 )
                             </xar:set>
                             <xar:data-input type="dropdown" name="purgestate" options="$options" value="$purgestate" />

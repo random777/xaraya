@@ -24,6 +24,7 @@ function roles_userapi_addmember($args)
     if (!isset($gid)) throw new EmptyParameterException('gid');
     if (!isset($id)) throw new EmptyParameterException('id');
 
+    sys::import('modules.roles.class.roles');
     $group = xarRoles::get($gid);
     if($group->isUser()) throw new IDNotFoundException($gid);
 

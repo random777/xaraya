@@ -22,6 +22,7 @@
                     $data['anonassignments'] = array();
                     $data['groupassignments'] = array();
                     $data['userassignments'] = array();
+                    sys::import('modules.roles.class.roles');
                     foreach ($assignments as $assignment) {
                         if ($assignment['role_id'] == xarConfigVars::get(null,'Site.User.AnonymousUID'))
                             $data['anonassignments'][] = $assignment;

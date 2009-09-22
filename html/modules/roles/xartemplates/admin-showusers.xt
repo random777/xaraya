@@ -29,7 +29,7 @@
         '#xarVarPrepForDisplay($search)#'</xar:if>(#$totalselect#)</h2>
         <!-- TODO set the active tab here -->
         <!-- Show the general tab list for roles -->
-        <xar:set name="basetype">ROLES_GROUPTYPE</xar:set>
+        <xar:set name="basetype">xarRoles::ROLES_GROUPTYPE</xar:set>
         <xar:template file="tablist" />
         <xar:if condition="$selstyle eq '0'">
         <xar:elseif condition="$selstyle eq '1'"/>
@@ -142,7 +142,7 @@
                         </select>
                     </td>
                     <td class="xar-align-center">
-                        <xar:set name="firstline">array('id' =&gt; ROLES_STATE_CURRENT, 'name'
+                        <xar:set name="firstline">array('id' =&gt; xarRoles::ROLES_STATE_CURRENT, 'name'
                         =&gt; 'All')</xar:set>
                         <xar:data-input type="dropdown" name="state" value="$state"
                         options="$statelist" firstline="$firstline"

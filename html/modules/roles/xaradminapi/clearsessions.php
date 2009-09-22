@@ -36,6 +36,7 @@ function roles_adminapi_clearsessions($spared)
         while ($result->next()) {
             list($thissession, $thisid) = $result->fields;
             foreach ($spared as $id) {
+                sys::import('modules.roles.class.roles');
                 $thisrole = xarRoles::get($thisid);
                 $thatrole = xarRoles::get($id);
                 if (!$thisid == $id && !$thisrole->isParent($thatrole)) {

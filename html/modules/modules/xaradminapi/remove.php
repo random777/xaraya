@@ -66,7 +66,8 @@ function modules_adminapi_remove($args)
         }
 
         // Delete any masks still around
-        xarRemoveMasks($modinfo['name']);
+        sys::import('modules.privileges.class.masks');
+        xarMasks::removeMasks($modinfo['name']);
         // Call any 'category' delete hooks assigned for that module
         // (notice we're using the module name as object id, and adding an
         // extra parameter telling xarModCallHooks for *which* module we're
@@ -93,9 +94,10 @@ function modules_adminapi_remove($args)
         }
 
         // Check whether the module was the default module
-        $defaultmod = xarModVars::get('modules', 'defaultmodule');
-        if ($modinfo['name'] == $defaultmod) {
-            xarModVars::set('modules', 'defaultmodule','base');
+        $defaulturl = xarConfigVars::get(null, 'Site.DefaultURL');
+        if ($modinfo['name'] == $defaulturl['defaultmodule']) {
+            $defaulturl['defaultmodule'] = 'base';
+            xarConfigVars::set(null, 'Site.DefaultURL', $defaulturl);
         }
         $dbconn->commit();
     } catch (Exception $e) {

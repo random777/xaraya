@@ -173,7 +173,8 @@ function roles_user_usermenu($args)
                 $utimezone = $usertimezonedata['timezone'];
 
                 $item['module'] = 'roles';
-                $item['itemtype'] = ROLES_USERTYPE;
+                sys::import('modules.roles.class.roles');
+                $item['itemtype'] = xarRoles::ROLES_USERTYPE;
 
                 $hooks = xarModCallHooks('item','modify',$id,$item);
                 if (isset($hooks['dynamicdata'])) {

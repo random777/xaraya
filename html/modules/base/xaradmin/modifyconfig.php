@@ -22,6 +22,8 @@ function base_admin_modifyconfig()
     if (!xarVarFetch('phase', 'str:1:100', $phase, 'modify', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
     if (!xarVarFetch('tab', 'str:1:100', $data['tab'], 'display', XARVAR_NOT_REQUIRED)) return;
 
+    $defaulturl = xarConfigVars::get(null, 'Site.DefaultURL');
+    $data = array_merge($data, $defaulturl);
     $localehome = sys::varpath() . "/locales";
     if (!file_exists($localehome)) {
         throw new DirectoryNotFoundException($localehome);
@@ -84,9 +86,9 @@ function base_admin_modifyconfig()
                 case 'display':
                     if (!xarVarFetch('alternatepagetemplate','checkbox',$alternatePageTemplate,false, XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('alternatepagetemplatename','str',$alternatePageTemplateName,'',XARVAR_NOT_REQUIRED)) return;
-                    if (!xarVarFetch('defaultmodule',  'str:1:', $defaultModuleName, xarModVars::get('modules', 'defaultmodule'), XARVAR_NOT_REQUIRED)) return;
-                    if (!xarVarFetch('defaulttype',    'str:1:', $defaultModuleType, xarModVars::get('modules', 'defaultmoduletype'), XARVAR_NOT_REQUIRED)) return;
-                    if (!xarVarFetch('defaultfunction','str:1:', $defaultModuleFunction,xarModVars::get('modules', 'defaultmodulefunction'),XARVAR_NOT_REQUIRED)) return;
+                    if (!xarVarFetch('defaultmodule',  'str:1:', $defaultModuleName, $defaulturl['defaultmodule'], XARVAR_NOT_REQUIRED)) return;
+                    if (!xarVarFetch('defaulttype',    'str:1:', $defaultModuleType, $defaulturl['defaultmoduletype'], XARVAR_NOT_REQUIRED)) return;
+                    if (!xarVarFetch('defaultfunction','str:1:', $defaultModuleFunction,$defaulturl['defaultmodulefunction'],XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('defaultdatapath','str:1:', $defaultDataPath, xarModVars::get('modules', 'defaultdatapath'),XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('shorturl','checkbox',$enableShortURLs,false,XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('htmlenitites','checkbox',$FixHTMLEntities,false,XARVAR_NOT_REQUIRED)) return;
@@ -99,10 +101,12 @@ function base_admin_modifyconfig()
                         $itemid = $data['module_settings']->updateItem();
                     }
 
-                    xarModVars::set('modules', 'defaultmodule', $defaultModuleName);
-                    xarModVars::set('modules', 'defaultmoduletype',$defaultModuleType);
-                    xarModVars::set('modules', 'defaultmodulefunction',$defaultModuleFunction);
-                    xarModVars::set('modules', 'defaultdatapath',$defaultDataPath);
+                    $defaulturl = array(
+                                'defaultmodule' => $defaultModuleName,
+                                'defaultmoduletype' => $defaultModuleType,
+                                'defaultmodulefunction' => $defaultModuleFunction,
+                                );
+                    xarConfigVars::set(null, 'Site.DefaultURL', $defaulturl);
                     xarModVars::set('base','UseAlternatePageTemplate', ($alternatePageTemplate ? 1 : 0));
                     xarModVars::set('base','AlternatePageTemplateName', $alternatePageTemplateName);
 

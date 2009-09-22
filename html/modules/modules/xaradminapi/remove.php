@@ -94,9 +94,10 @@ function modules_adminapi_remove($args)
         }
 
         // Check whether the module was the default module
-        $defaultmod = xarModVars::get('modules', 'defaultmodule');
-        if ($modinfo['name'] == $defaultmod) {
-            xarModVars::set('modules', 'defaultmodule','base');
+        $defaulturl = xarConfigVars::get(null, 'Site.DefaultURL');
+        if ($modinfo['name'] == $defaulturl['defaultmodule']) {
+            $defaulturl['defaultmodule'] = 'base';
+            xarConfigVars::set(null, 'Site.DefaultURL', $defaulturl);
         }
         $dbconn->commit();
     } catch (Exception $e) {

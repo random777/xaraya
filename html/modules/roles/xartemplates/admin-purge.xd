@@ -4,7 +4,14 @@
 <xar:set name="statenotvalidated">ROLES_STATE_NOTVALIDATED</xar:set>
 <xar:set name="stateactive">ROLES_STATE_ACTIVE</xar:set>
 <xar:set name="statepending">ROLES_STATE_PENDING</xar:set>
-<xar:base-include-javascript module="base" filename="checkall.js" position="head" />
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:set name="rolescode">"
+jQuery('a#" . "items_checkall').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').attr('checked',true);return false; });
+jQuery('a#" . "items_checknone').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').attr('checked',false);return false; });
+jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').each(function() { jQuery(this).attr('checked', !jQuery(this).attr('checked')); });return false; });
+"</xar:set>
+<xar:base-js-event name="ready" code="$rolescode" />
+
 <xar:style scope="module" module="base" file="navtabs" />
 <xar:style scope="module" file="privileges" />
 <div class="xar-mod-head">
@@ -53,7 +60,7 @@
             <xar:mlstring>Recall Deleted Groups and Users</xar:mlstring>
         </h3>
 
-        <form method="post" action="&xar-modurl-roles-admin-purge;" enctype="application/x-www-form-urlencoded" >
+        <form method="post" action="&xar-modurl-roles-admin-purge;" enctype="application/x-www-form-urlencoded" id="state_form" id="state_form">
             <xar:comment> Module List Sort and Filter Controls table </xar:comment>
             <table class="xar-item-controls">
                 <tr>
@@ -207,7 +214,7 @@
             <xar:mlstring>Note: Purged users cannot be recalled. Groups and some special users cannot be purged.</xar:mlstring>
         </p>
 
-        <form method="post" action="&xar-modurl-roles-admin-purge;" enctype="application/x-www-form-urlencoded" name="purge">
+        <form method="post" action="&xar-modurl-roles-admin-purge;" enctype="application/x-www-form-urlencoded" id="state_form">
 
             <xar:comment>Roles List Sort and Filter Controls table</xar:comment>
             <table class="xar-item-controls">
@@ -326,11 +333,15 @@
                 </table>
 
                 <div class="xar-align-right">
-                    <a href="javascript:void(0);" onclick="xar_base_checkall(document.forms['purge'],true);return false;">
-                        <xar:mlstring>Check All</xar:mlstring>
+                    <xar:mlstring>Check</xar:mlstring>:
+                    <a href="#" id="items_checkall">
+                        <xar:mlstring>All</xar:mlstring>
                     </a> |
-                    <a href="javascript:void(0);" onclick="xar_base_checkall(document.forms['purge'],false);return false;">
-                        <xar:mlstring>Uncheck All</xar:mlstring>
+                    <a href="#" id="items_checknone">
+                        <xar:mlstring>None</xar:mlstring>
+                    </a> |
+                    <a href="#" id="items_checktoggle">
+                        <xar:mlstring>Toggle</xar:mlstring>
                     </a>
                 </div>
 

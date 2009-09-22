@@ -6,9 +6,16 @@
 <xar:set name="statepending">ROLES_STATE_PENDING</xar:set>
 <xar:set name="modstatus">xarSessionGetVar('statusmsg')</xar:set>
 <xar:set name="nsort">($sort == 'asc') ? 'desc' : 'asc'</xar:set>
-<xar:base-include-javascript module="base" filename="checkall.js" position="head" />
 <xar:base-include-javascript module="roles" filename="xarTree.js" position="head" />
 <xar:base-include-javascript module="roles" filename="tree.js" position="head" />
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:set name="rolescode">"
+jQuery('form table.xar-item-controls select').change(function() { this.form.submit(); })
+jQuery('a#" . "items_checkall').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').attr('checked',true);return false; });
+jQuery('a#" . "items_checknone').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').attr('checked',false);return false; });
+jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').each(function() { jQuery(this).attr('checked', !jQuery(this).attr('checked')); });return false; });
+"</xar:set>
+<xar:base-js-event name="ready" code="$rolescode" />
 <xar:style scope="module" module="base" file="navtabs" />
 <xar:style scope="module" file="roletree" />
 
@@ -131,7 +138,7 @@
             </tr>
             <tr>
                 <td class="xar-align-center">
-                    <select name="selstyle" id="selstyle" onchange="this.form.submit()">
+                    <select name="selstyle" id="selstyle">
                         <xar:foreach in="$style" key="$key" value="$value">
                             <xar:if condition="$key eq $selstyle">
                                 <option value="#$key#" selected="selected">#$value#</option>
@@ -143,7 +150,7 @@
                 </td>
                 <td class="xar-align-center">
                     <xar:set name="prevgroup">""</xar:set>
-                    <select name="uid" id="groupuid" onchange="this.form.submit()">
+                    <select name="uid" id="groupuid">
                         <xar:if condition="$groupuid eq 0">
                             <option value="0" selected="selected">
                                 <xar:mlstring>All Users</xar:mlstring> - #$totalusers#
@@ -170,7 +177,7 @@
                     </select>
                 </td>
                 <td class="xar-align-center">
-                    <select name="state" id="state" onchange="this.form.submit()">
+                    <select name="state" id="state">
                         <xar:if condition="$state eq $statecurrent">
                             <option value="#$statecurrent#" selected="selected">
                                 <xar:mlstring>All</xar:mlstring>
@@ -237,7 +244,7 @@
             </xar:if>
         </p>
     <xar:else />
-        <form method="post" action="&xar-modurl-roles-admin-updatestate;" name="state">
+        <form method="post" action="&xar-modurl-roles-admin-updatestate;" id="state_form">
             <div class="xar-form-input-wrapper">
                 <label for="status" title="#xarML('TITLE')#" class="xar-form-label">
                     <xar:mlstring>Change State Of Selected Users:</xar:mlstring>
@@ -392,11 +399,15 @@
             </table>
 
             <div class="xar-align-right">
-                <a href="javascript:void(0);" onclick="xar_base_checkall(document.forms['state'],true);return false;">
-                    <xar:mlstring>Check All</xar:mlstring>
+                <xar:mlstring>Check</xar:mlstring>:
+                <a href="#" id="items_checkall">
+                    <xar:mlstring>All</xar:mlstring>
                 </a> |
-                <a href="javascript:void(0);" onclick="xar_base_checkall(document.forms['state'],false);return false;">
-                    <xar:mlstring>Uncheck All</xar:mlstring>
+                <a href="#" id="items_checknone">
+                    <xar:mlstring>None</xar:mlstring>
+                </a> |
+                <a href="#" id="items_checktoggle">
+                    <xar:mlstring>Toggle</xar:mlstring>
                 </a>
             </div>
 

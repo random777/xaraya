@@ -29,12 +29,14 @@ var dialog_height = Math.floor(jQuery(window).height() * .85);
 jQuery('div.fieldwrapper a').click(function() { 
 jQuery('#"."xardialogtarget').remove();
 jQuery('body').append('<div id=\'xardialogtarget\' style=\'display: none;\'></div>');
-jQuery('#" . "xardialogtarget').load(this.getAttribute('href') + '&pageName=module').dialog({
+jQuery('#" . "xardialogtarget').load(this.getAttribute('href') + '&pageName=module .xar-mod-body > *').dialog({
 title: jQuery(this).text(),
 width: dialog_width,
 height: dialog_height,
 bgiframe: true,
-modal: true
+modal: true,
+draggable: false,
+resizable: false
 });
 return false;
 });

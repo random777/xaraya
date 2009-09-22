@@ -1,15 +1,55 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
-<xar:set name="alttext"><xar:mlstring>Click Here to Pick up the date</xar:mlstring></xar:set>
-
+<xar:set name="alttext"><xar:mlstring>Click here to set the date</xar:mlstring></xar:set>
+<xar:base-js-plugin name="ui" framework="jquery" file="jquery-ui-1.7.2.custom.min.js" style="jquery-ui-1.7.2.custom.css" />
+<xar:base-js-plugin name="bgiframe" framework="jquery" file="jquery.bgiframe.min.js" />
+<xar:set name="calcode">"
+jQuery('#" . $id . "').datepicker({
+    altField: '#" . $id . "',
+    beforeShow: function(){
+        jQuery('#"."ui-datepicker-div').css('z-index', 9000); // TODO: make this relative to the target element
+    },
+    dateFormat: 'yy-mm-dd', // TODO: convert date format stings, finish locale integration
+    dayNames: [
+        '".xarML('Sunday')."',
+        '".xarML('Monday')."',
+        '".xarML('Tuesday')."',
+        '".xarML('Wednesday')."',
+        '".xarML('Thursday')."',
+        '".xarML('Friday')."',
+        '".xarML('Saturday')."'  
+    ],
+    monthNames: [
+        '".xarML('January')."',
+        '".xarML('February')."',
+        '".xarML('March')."',
+        '".xarML('April')."',
+        '".xarML('May')."',
+        '".xarML('June')."',
+        '".xarML('July')."',
+        '".xarML('August')."',
+        '".xarML('September')."',
+        '".xarML('October')."',
+        '".xarML('November')."',
+        '".xarML('December')."'  
+    ],
+    closeText: '" . xarML('Done') . "',
+    currentText: '" . xarML('Today') . "',
+    nextText: '" . xarML('Next') . "',
+    prevText: '" . xarML('Prev') . "',
+    showButtonPanel: true
+});
+jQuery('#" . $id . "').after(' <a class=\"xar-icon\" id=\"" . $id . "_calendaricon\" class=\"xar-icon\" title=\"" . $alttext . "\" style=\"cursor: pointer;\"><img src=\"" . xarTplGetImage('icons/office-calendar.png','base') . "\" alt=\"" . $alttext . "\" /></a>');
+jQuery('#" . $id . "_calendaricon').click(function() { jQuery('#" . $id . "').datepicker('show'); return false; });
+"</xar:set>
+<xar:base-js-event name="ready" code="$calcode" />
 <xar:if condition="empty($tabindex)">
     <input class="xar-form-textlong" type="text" name="#$name#" id="#$id#" value="#xarLocaleFormatDate($dateformat,$value)#" size="20" maxlength="19" />
 <xar:else />
     <input class="xar-form-textlong" type="text" name="#$name#" id="#$id#" value="#xarLocaleFormatDate($dateformat,$value)#" size="20" maxlength="19" tabindex="#$tabindex#" />
 </xar:if>
-
-<a href="javascript:xar_base_calendar_init('#$id#','#$baseuri#')" class="xar-icon" title="#$alttext#"><img src="#xarTplGetImage('icons/office-calendar.png','base')#" style="width:16px; height:16px; border: none" alt="#$alttext#" /></a>
-
+<noscript>
+Format: #$dateformat#
+</noscript>
 <xar:if condition="!empty($invalid)">
     <span class="xar-error">#$invalid#</span>
 </xar:if>
-

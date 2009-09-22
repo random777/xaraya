@@ -129,9 +129,9 @@ class Dynamic_Calendar_Property extends Dynamic_Property
         }
 
         // include calendar javascript
-        xarModAPIFunc('base','javascript','modulefile',
-                      array('module' => 'base',
-                            'filename' => 'calendar.js'));
+//        xarModAPIFunc('base','javascript','modulefile',
+//                      array('module' => 'base',
+//                            'filename' => 'calendar.js'));
 
         // $timeval = xarLocaleFormatDate($dateformat, $value);
         $data['baseuri']    = xarServerGetBaseURI();

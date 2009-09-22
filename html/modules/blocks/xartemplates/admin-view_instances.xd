@@ -1,6 +1,10 @@
 <xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
 <xar:style scope="common" />
-<xar:base-include-javascript module="base" filename="confirmlink.js" />
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:set name="blockscode">"
+jQuery('table.xar-items a#"."[id^=delete]').click(function() { var c = confirm('" . xarML('Delete this block instance?') . " ' + jQuery.trim(jQuery(this).parent().parent().children(':first').text())); if (c) { this.setAttribute('href', this.getAttribute('href') + '&confirm=1'); } return c; });"</xar:set>
+<xar:base-js-event name="ready" code="$blockscode" />
+
 <div class="xar-mod-head">
     <span class="xar-mod-title"><xar:mlstring>Blocks Administration</xar:mlstring></span>
 </div>
@@ -97,7 +101,7 @@
                        <a href="#xarModURL('blocks','admin','modify_instance',array('bid' =&gt; $block['bid']))#" class="xar-icon" title="#xarML('Modify')#">
                             <img src="#$icon_modify#" alt="#xarML('Modify')#" />
                         </a>
-                        <a href="#$block.deleteurl#" onclick="return xar_base_confirmLink(this, '#xarVarPrepForDisplay($block['deleteconfirm'])#')" class="xar-icon" title="#xarML('Delete')#">
+                        <a href="#$block.deleteurl#" id="delete_#$block.bid#" class="xar-icon" title="#xarML('Delete')#">
                             <img src="#$icon_delete#" alt="#xarML('Delete')#" />
                         </a>
                     </td>

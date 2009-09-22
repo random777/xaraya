@@ -50,7 +50,7 @@
             <xsl:text>';</xsl:text>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:text>$order='xarModVars::get('themes', 'SiteTitleOrder')';</xsl:text>
+            <xsl:text>$order=xarModVars::get('themes', 'SiteTitleOrder');</xsl:text>
           </xsl:otherwise>
         </xsl:choose>
 

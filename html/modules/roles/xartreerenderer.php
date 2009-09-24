@@ -31,22 +31,10 @@ class xarTreeRenderer
     // some variables we'll need to hold drawing info
     var $html;
     var $nodeindex;
-    var $indent;
     var $level;
     var $isbranch;
     var $drawchildren;
     var $alreadydone;
-
-    // convenience variables to hold strings referring to pictures
-    var $expandedbox;
-    var $collapsedbox;
-    var $L;
-    var $T;
-    var $I;
-    var $B;
-    var $emptybox;
-    var $bigblank;
-    var $smallblank;
 
     var $icon_users;
     var $icon_delete;
@@ -60,17 +48,6 @@ class xarTreeRenderer
      */
     function xarTreeRenderer($allowtoggle=0)
     {
-        $this->smallblank = xarTplObject('roles', 'spacer', 'small');
-        $this->L = xarTplObject('roles', 'L', 'drawing');
-        $this->T = xarTplObject('roles', 'T', 'drawing');
-        $this->I = xarTplObject('roles', 'I', 'drawing');
-        $this->B = xarTplObject('roles', 'B', 'drawing');
-        $this->emptybox = xarTplObject('roles', 'emptybox', 'drawing');
-
-        $data['onclick'] = $allowtoggle ? "toggleBranch(this,this.parentNode.lastChild)" : "";
-        $this->expandedbox  = xarTplObject('roles', 'expandedbox', 'drawing', $data);
-        $this->collapsedbox = xarTplObject('roles', 'collapsedbox', 'drawing', $data);
-
         $this->roles = new xarRoles();
         $this->setitem(1, "deleteitem");
         $this->setitem(2, "leafitem");
@@ -172,7 +149,6 @@ class xarTreeRenderer
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'INVALID_ENTITY', new SystemException('A tree must be defined before attempting to display.'));
         }
         $this->nodeindex = 0;
-        $this->indent = array();
         $this->level = 0;
         $this->alreadydone = array();
         $data['content'] = $this->drawbranch($tree);
@@ -208,38 +184,40 @@ class xarTreeRenderer
             $this->alreadydone[] = $object['uid'];
         }
         // is this a branch?
-        $this->isbranch = count($node['children']) > 0 ? true : false;
+        $isbranch = count($node['children']) > 0 ? true : false;
         // now begin adding rows to the string
 
 
-//-------------------- Assemble the data for a single row
-        $html = "";
+        //-------------------- Assemble the data for a single row
+        $html = "<span class=\"xar-roletree-icons\">";
         for ($i=1,$max = count($this->treeitems); $i <= $max; $i++) {
             $func = $this->treeitems[$i];
             $html .= $this->{$func}();
+            if ($func == 'testitem') {
+                $html .= "</span>";
+            }
         }
-
-//-------------------- We've finished this row; now do the children of this role
+        //-------------------- We've finished this row; now do the children of this role
         $ind = 0;
+        if ($isbranch) {
+            $html .= "<ul>";
+        }
         foreach($node['children'] as $subnode) {
             $ind = $ind + 1;
-            // if this is the last child, get ready to draw an "L", otherwise a sideways "T"
-            if ($ind == count($node['children'])) {
-                $this->indent[] = $this->L;
-            } else {
-                $this->indent[] = $this->T;
-            }
             // draw this child
             $html .= $this->drawbranch($subnode);
-            // we're done; remove the indent string
-            array_pop($this->indent);
         }
+        if ($isbranch) {
+            $html .= "</ul>";
+        }
+
+
         $this->level --;
 
-//-------------------- Put everything in the container
+        //-------------------- Put everything in the container
             $data['nodeindex'] = $this->nodeindex;
             $data['content'] = $html;
-            if ($this->isbranch) {
+            if ($isbranch) {
                 $data['type'] = "branch";
             } else {
                 $data['type'] = "leaf";
@@ -264,9 +242,6 @@ class xarTreeRenderer
     function drawindent()
     {
         $html = '';
-        foreach ($this->indent as $column) {
-            $html .= $column;
-        }
         return $html;
     }
 
@@ -364,24 +339,13 @@ class xarTreeRenderer
 
     function treeitem()
     {
-        $html = $this->smallblank;
-        $html .= $this->drawindent();
+        $html = '';
         if ($this->isbranch) {
             if ($this->nodeindex != 1) {
-                $lastindent = array_pop($this->indent);
-                if ($lastindent == $this->L) {
-                    $this->indent[] = $this->smallblank . $this->smallblank;
-                } else {
-                    $this->indent[] = $this->I . $this->smallblank;
-                }
-                $html .= $this->B;
             }
-            $html .= $this->expandedbox;
         } else {
             if ($this->nodeindex != 1) {
-                $html .= $this->B;
             }
-            $html .= $this->emptybox;
         }
         return $html;
     }

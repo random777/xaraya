@@ -490,6 +490,7 @@ function base_init()
         'dimensions' => array('version' => '1.2', 'displayname' => 'dimensions'),
         'easing' => array('version' => '1.3', 'displayname' => 'Easing'),
         'fancybox' => array('version' => '1.2.1', 'displayname' => 'FancyBox'),
+        'form' => array('version' => '2.32', 'displayname' => 'jQuery Form Plugin'),
         'hoverintent' => array('version' => 'r5', 'displayname' => 'hoverIntent'),
         'hovertip' => array('version' => 'unknown', 'displayname' => 'Hovertip'),
         'ifixpng' => array('version' => '2.1', 'displayname' => 'ifixpng'),
@@ -509,9 +510,11 @@ function base_init()
         'tablesorter' => array('version' => '2.0.3', 'displayname' => 'TableSorter'),
         'thickbox' => array('version' => '3.1', 'displayname' => 'Thickbox'),
         'tooltip' => array('version' => '1.3', 'displayname' => 'Tooltip'),
+        'treeview' => array('version' => '1.4', 'displayname' => 'Treeview'),
         'truncator' => array('version' => 'unknown', 'displayname' => 'HTML Truncator'),
         'ui' => array('version' => '1.7.2', 'displayname' => 'jQuery UI'),
         'uitablefilter' => array('version' => 'unknown', 'displayname' => 'uiTableFilter'),
+        'validate' => array('version' => '1.5.5', 'displayname' => 'jQuery validation plug-in'),
         'xpath' => array('version' => 'unknown', 'displayname' => 'Simple XPath Compatibility')
     );
     xarModSetVar('base', 'jquery.plugins', serialize($plugins));

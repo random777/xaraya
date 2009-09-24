@@ -1,4 +1,4 @@
-<span style="padding-left: 1em">
+<span>
     <a href="#$leafitemurl#" title="#$leafitemtitle#">#$leafitemtext#</a> | 
     <a href="#roleleaf#$uid#" onclick="document.location.hash='roleleaf#$uid#';return false;"><xar:mlstring>children shown above</xar:mlstring></a>
 </span>

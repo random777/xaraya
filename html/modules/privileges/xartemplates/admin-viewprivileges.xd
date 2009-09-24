@@ -1,20 +1,11 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
-<xar:style scope="module" file="privtree" />
-<xar:base-include-javascript module="privileges" filename="xarTree.js" />
-<script type="text/javascript">
-<!--
-    var oldOnLoadFunction = (window.onload) ? window.onload : new Function("","return true;"); 
-    function doOnLoad(){
-        oldOnLoadFunction();      
-        xarTree_init();
-    }
-    var oldOnUnloadFunction = (window.onunload) ? window.onunload : new Function("","return true;"); 
-    function doOnUnload(){
-        oldOnUnloadFunction();      
-        xarTree_init();
-    }
-// -->
-</script>
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:base-js-plugin name="treeview" framework="jquery" file="jquery.treeview.min.js" style="jquery.treeview.css" />
+<xar:set name="treecode">"
+jQuery('div#"."treewrapper > ul').treeview();
+jQuery('div#"."treewrapper span.xar-privtree-icons').css({'float': 'left', 'margin': '0 .5em'});
+"</xar:set>
+<xar:base-js-event name="ready" code="$treecode" />
 <div class="xar-mod-head">
     <span class="xar-mod-title"><xar:mlstring>Privileges Administration</xar:mlstring></span>
 </div>
@@ -25,7 +16,9 @@
     </h2>
     <xar:template file="tablist" />
     <br />
-    <xar:loop name="$trees">
-        #$loop:item['tree']#
-    </xar:loop>
+    <div id="treewrapper">
+        <xar:loop name="$trees">
+            #$loop:item['tree']#
+        </xar:loop>
+    </div>
 </div>

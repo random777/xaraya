@@ -1,4 +1,32 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:set name="mailcode">"
+if (!jQuery('#"."htmluseheadfoot').is(':checked')) {
+    jQuery('#"."mailmodifyconfig textarea[id^=html]').parent().hide();
+}
+if (!jQuery('#"."textuseheadfoot').is(':checked')) {
+    jQuery('#"."mailmodifyconfig textarea[id^=text]').parent().hide();
+}
+jQuery('#"."htmluseheadfoot').click(function() {
+    jQuery('#"."mailmodifyconfig textarea[id^=html]').parent().toggle();
+});
+jQuery('#"."textuseheadfoot').click(function() {
+    jQuery('#"."mailmodifyconfig textarea[id^=text]').parent().toggle();
+});
+var changeServer = function() {
+    var l = document.getElementById('server');
+    for (var i = 0; i " . chr(60) . " l.length; i++) {
+        if(l.value == l.options[i].value) {
+            jQuery('#"."server_' + l.options[i].value).show();
+        } else {
+            jQuery('#"."server_' + l.options[i].value).hide();
+        }
+    }    
+}
+changeServer(document.getElementById('server'));
+jQuery('#"."server').change(changeServer);
+"</xar:set>
+<xar:base-js-event name="ready" code="$mailcode" />
 <script language="JavaScript">
 <!--
     // Enter name of mandatory fields
@@ -16,7 +44,7 @@
         <xar:mlstring>Modify Mail Configuration</xar:mlstring>
     </h2>
 
-    <form method="post" action="&xar-modurl-mail-admin-updateconfig;" onsubmit="return xar_base_formCheck(this, mail_fieldRequired, mail_fieldDescription);" enctype="application/x-www-form-urlencoded" >
+    <form method="post" id="mailmodifyconfig" action="&xar-modurl-mail-admin-updateconfig;" onsubmit="return xar_base_formCheck(this, mail_fieldRequired, mail_fieldDescription);" enctype="application/x-www-form-urlencoded" >
 
         <fieldset>
             <legend>
@@ -93,16 +121,16 @@
 
             <div class="xar-form-input-wrapper-after">
                 <xar:if condition="xarModGetVar('mail', 'htmluseheadfoot')">
-                    <input type="checkbox" name="htmluseheadfoot" id="htmluseheadfoot" value="1" checked="checked" onchange="this.form.submit();" />
+                    <input type="checkbox" name="htmluseheadfoot" id="htmluseheadfoot" value="1" checked="checked" />
                 <xar:else />
-                    <input type="checkbox" name="htmluseheadfoot" id="htmluseheadfoot" value="1" onchange="this.form.submit();" />
+                    <input type="checkbox" name="htmluseheadfoot" id="htmluseheadfoot" value="1" />
                 </xar:if>
                 <label for="htmluseheadfoot" title="#xarML('Check this box if you would like to setup HTML headers and footers on the HTML email you send out.')#">
                     <xar:mlstring>Use HTML Header/Footer</xar:mlstring>
                 </label>
             </div>
 
-            <xar:if condition="xarModGetVar('mail', 'htmluseheadfoot')">
+<xar:comment><xar:if condition="xarModGetVar('mail', 'htmluseheadfoot')"></xar:comment>
                     <div class="xar-form-input-wrapper">
                         <label for="htmlheader" title="#xarML('Enter the header that you wish displayed in your HTML emails.')#" class="xar-form-label">
                             <xar:mlstring>HTML Email Header:</xar:mlstring>
@@ -116,7 +144,7 @@
                         </label>
                         <textarea name="htmlfooter" id="htmlfooter" class="xar-form-textarealarge">#xarModGetVar('mail', 'htmlfooter', 1)#</textarea>
                     </div>
-            </xar:if>
+<xar:comment></xar:if></xar:comment>
         </fieldset>
 
         <fieldset>
@@ -126,16 +154,16 @@
 
             <div class="xar-form-input-wrapper-after">
                 <xar:if condition="xarModGetVar('mail', 'textuseheadfoot')">
-                    <input type="checkbox" name="textuseheadfoot" id="textuseheadfoot" value="1" checked="checked" onchange="this.form.submit();"/>
+                    <input type="checkbox" name="textuseheadfoot" id="textuseheadfoot" value="1" checked="checked" />
                 <xar:else />
-                    <input type="checkbox" name="textuseheadfoot" id="textuseheadfoot" value="1" onchange="this.form.submit();" />
+                    <input type="checkbox" name="textuseheadfoot" id="textuseheadfoot" value="1" />
                 </xar:if>
                 <label for="textuseheadfoot" title="#xarML('Check this box if you would like to setup text headers and footers on the text emails you send out.')#">
                     <xar:mlstring>Use Text Header/Footer</xar:mlstring>
                 </label>
             </div>
 
-            <xar:if condition="xarModGetVar('mail', 'textuseheadfoot')">
+<xar:comment><xar:if condition="xarModGetVar('mail', 'textuseheadfoot')"></xar:comment>
                 <div class="xar-form-input-wrapper">
                     <label for="textheader" title="#xarML('Enter the header that you wish displayed in your HTML emails.')#" class="xar-form-label">
                         <xar:mlstring>Text Email Header:</xar:mlstring>
@@ -149,7 +177,7 @@
                     </label>
                     <textarea name="textfooter" id="textfooter" class="xar-form-textarealarge">#xarModGetVar('mail', 'textfooter', 1)#</textarea>
                 </div>
-            </xar:if>
+<xar:comment></xar:if></xar:comment>
         
 
         <div class="xar-form-input-wrapper">
@@ -217,33 +245,34 @@
             <label for="server" title="#xarML('Select the default method to send mail  Mail should work in most cases, however Windows installs might need to use the SMTP method.')#" class="xar-form-label">
                 <xar:mlstring>Default Method to Send Mail:</xar:mlstring>
             </label>
-            <select name="server" onchange="this.form.submit();" id="server">
-                <xar:if condition="xarModGetVar('mail', 'server') eq 'smtp'">
-                    <option label="SMTP" value="smtp" selected="selected">SMTP</option>
-                    <option label="SendMail" value="sendmail">SendMail</option>
-                    <option label="Mail" value="mail">Mail</option>
-                    <option label="Mail" value="qmail">QMail</option>
-                <xar:elseif condition="xarModGetVar('mail', 'server') eq 'sendmail'" />
-                    <option label="SMTP" value="smtp">SMTP</option>
-                    <option label="SendMail" value="sendmail" selected="selected">SendMail</option>
-                    <option label="Mail" value="mail">Mail</option>
-                    <option label="Mail" value="qmail">QMail</option>
-                <xar:elseif condition="xarModGetVar('mail', 'server') eq 'mail'" />
-                    <option label="SMTP" value="smtp">SMTP</option>
-                    <option label="SendMail" value="sendmail">SendMail</option>
-                    <option label="Mail" value="mail" selected="selected">Mail</option>
-                    <option label="Mail" value="qmail">QMail</option>
-                <xar:elseif condition="xarModGetVar('mail', 'server') eq 'qmail'" />
-                    <option label="SMTP" value="smtp">SMTP</option>
-                    <option label="SendMail" value="sendmail">SendMail</option>
-                    <option label="Mail" value="mail">Mail</option>
-                    <option label="Mail" value="qmail" selected="selected">QMail</option>
+            <xar:set name="server">xarModGetVar('mail', 'server')</xar:set>
+            <select name="server" id="server">
+                <xar:if condition="$server eq 'smtp'">
+                    <option value="smtp" selected="selected">SMTP</option>
+                    <option value="sendmail">SendMail</option>
+                    <option value="mail">Mail</option>
+                    <option value="qmail">QMail</option>
+                <xar:elseif condition="$server eq 'sendmail'" />
+                    <option value="smtp">SMTP</option>
+                    <option value="sendmail" selected="selected">SendMail</option>
+                    <option value="mail">Mail</option>
+                    <option value="qmail">QMail</option>
+                <xar:elseif condition="$server eq 'mail'" />
+                    <option value="smtp">SMTP</option>
+                    <option value="sendmail">SendMail</option>
+                    <option value="mail" selected="selected">Mail</option>
+                    <option value="qmail">QMail</option>
+                <xar:elseif condition="$server eq 'qmail'" />
+                    <option value="smtp">SMTP</option>
+                    <option value="sendmail">SendMail</option>
+                    <option value="mail">Mail</option>
+                    <option value="qmail" selected="selected">QMail</option>
                 </xar:if>
             </select>
         </div>
     </fieldset>
-        <xar:if condition="xarModGetVar('mail', 'server') eq 'sendmail'">
-            <fieldset class="xar-clearboth">
+<xar:comment><xar:if condition="$server eq 'sendmail'"></xar:comment>
+            <fieldset class="xar-clearboth" id="server_sendmail">
                 <legend>
                     <xar:mlstring>Sendmail Options</xar:mlstring>
                 </legend>
@@ -256,10 +285,10 @@
                 </div>
 
             </fieldset>
-        </xar:if>
+<xar:comment></xar:if></xar:comment>
 
-        <xar:if condition="xarModGetVar('mail', 'server') eq 'smtp'">
-            <fieldset class="xar-clearboth">
+<xar:comment><xar:if condition="$server eq 'smtp'"></xar:comment>
+            <fieldset class="xar-clearboth" id="server_smtp">
                 <legend>
                     <xar:mlstring>SMTP Options</xar:mlstring>
                 </legend>
@@ -280,9 +309,9 @@
 
                 <div class="xar-form-input-wrapper-after">
                     <xar:if condition="xarModGetVar('mail', 'smtpAuth')">
-                        <input type="checkbox" name="smtpAuth" id="smtpAuth" value="1" checked="checked" onchange="this.form.submit();" />
+                        <input type="checkbox" name="smtpAuth" id="smtpAuth" value="1" checked="checked" />
                     <xar:else />
-                        <input type="checkbox" name="smtpAuth" id="smtpAuth" value="1" onchange="this.form.submit();" />
+                        <input type="checkbox" name="smtpAuth" id="smtpAuth" value="1" />
                     </xar:if>
                     <label for="smtpAuth" ttitle="#xarML('If your SMTP server requires authentification, check the box.')#">
                         <xar:mlstring>SMTP Requires Authentication</xar:mlstring>
@@ -338,7 +367,7 @@
                 </xar:if>
 
             </fieldset>
-        </xar:if>
+<xar:comment></xar:if></xar:comment>
 
         <fieldset class="xar-clearboth">
             <legend><xar:mlstring>Filtering Options</xar:mlstring></legend>

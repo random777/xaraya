@@ -1,8 +1,10 @@
 <script type="text/javascript">
+//<![CDATA[
 // ready event
 jQuery(document).ready(function () {
     #$data#
 });
 // end ready
+//]]>
 </script>
 

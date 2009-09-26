@@ -11,6 +11,9 @@
 <xar:set name="rolescode">"
 jQuery('div#"."treewrapper > ul').treeview();
 jQuery('div#"."treewrapper span.xar-roletree-icons').css({'float': 'left', 'margin': '0 .5em'});
+jQuery('#"."treewrapper a').click(function(event) {
+    event.stopPropagation();
+});
 jQuery('form table.xar-item-controls select').change(function() { this.form.submit(); })
 jQuery('a#" . "items_checkall').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').attr('checked',true);return false; });
 jQuery('a#" . "items_checknone').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').attr('checked',false);return false; });

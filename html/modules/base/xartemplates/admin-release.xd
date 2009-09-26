@@ -1,4 +1,12 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:set name="basecode">"
+jQuery('#"."releaselist a').click(function() {
+    window.open(this.getAttribute('href'));
+    return false;
+});
+"</xar:set>
+<xar:base-js-event name="ready" code="$basecode" />
 <div class="xar-mod-head">
     <span class="xar-mod-title"><xar:mlstring>Base Administration</xar:mlstring></span>
 </div>
@@ -12,11 +20,11 @@
     </h2>
     <xar:if condition="empty($warning)">
         <xar:if condition="!empty($feedcontent)">
-        <ul>
+        <ul id="releaselist">
             <xar:foreach in="$feedcontent" value="$release">
             <li>
                 <xar:if condition="!empty($release['link'])">
-                    <a href="#$release['link']#" onclick="window.open(this.getAttribute('href'));return false;">#$release['title']#</a>: 
+                    <a href="#$release['link']#">#$release['title']#</a>: 
                 <xar:else />
                     #$release['title']#: 
                 </xar:if>

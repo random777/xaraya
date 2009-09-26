@@ -1,6 +1,11 @@
 <xar:comment>
     License: GPL http://www.gnu.org/copyleft/gpl.html 
 </xar:comment>
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:set name="mailcode">"
+jQuery('#"."mailtype').change(function() { this.form.submit(); });
+"</xar:set>
+<xar:base-js-event name="ready" code="$mailcode" />
 <xar:if condition="xarModGetVar('base','editor') eq 'htmlarea'">
     <xar:template file="htmlarea_insert" module="htmlarea" type="module" />
 </xar:if>
@@ -67,7 +72,7 @@
                         Name: 
                     </xar:mlstring>
                 </label>
-                <select name="mailtype" id="mailtype" onchange="this.form.submit()">
+                <select name="mailtype" id="mailtype">
                     <xar:loop name="$templates">
                         <xar:if condition="$mailtype eq $loop:item['key']">
                             <option value="#$loop:item['key']#" selected="selected">

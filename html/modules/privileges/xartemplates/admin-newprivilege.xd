@@ -1,26 +1,15 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
-<xar:base-include-javascript module="privileges" filename="xarTree.js" />
-<script type="javascript">
-<!--
-    var oldOnLoadFunction = (window.onload) ? window.onload : new Function("","return true;");
-    function doOnLoad() {
-         oldOnLoadFunction();
-         xarTree_init();
-    }
-    var oldOnUnloadFunction = (window.onunload) ? window.onunload : new Function("","return true;");
-    function doOnUnload() {
-         oldOnUnloadFunction();
-         xarTree_init();
-    }
-
-    window.onload = doOnLoad;
-    window.onunload = doOnUnload;
-    
-    function setaction(target){
-    document.forms['privilegeform'].action = target;
-    document.forms['privilegeform'].submit();}
-// -->
-</script>
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:base-js-plugin name="treeview" framework="jquery" file="jquery.treeview.min.js" style="jquery.treeview.css" />
+<xar:set name="privscode">"
+var reloadform = function() {
+    this.form.action='" . xarModURL('privileges','admin','newprivilege', array(), false) . "';        
+    ;this.form.submit();
+}
+jQuery('input[type=radio][id^=ptype]').click(reloadform);
+jQuery('#"."pmodule').add('#"."pcomponent').change(reloadform);
+"</xar:set>    
+<xar:base-js-event name="ready" code="$privscode" />
 <div class="xar-mod-head">
     <span class="xar-mod-title"><xar:mlstring>Privileges Administration</xar:mlstring></span>
 </div>
@@ -43,7 +32,7 @@
             </div>
             <xar:if condition="$ptype eq 'empty'">
                 <div class="xar-form-input-wrapper-after">
-                    <input type="radio" name="ptype" id="ptype_empty" value="empty" checked="checked" onclick="this.form.action='&xar-modurl-privileges-admin-newprivilege;';this.form.submit();" />
+                    <input type="radio" name="ptype" id="ptype_empty" value="empty" checked="checked" />
                     <label for="ptype_empty" title="#xarML('This privilege will have no children')#">
                         <xar:mlstring>
                             empty
@@ -51,7 +40,7 @@
                     </label>
                 </div>
                 <div class="xar-form-input-wrapper-after">
-                    <input type="radio" name="ptype" id="ptype_full" value="full" onclick="this.form.action='&xar-modurl-privileges-admin-newprivilege;';this.form.submit();" />
+                    <input type="radio" name="ptype" id="ptype_full" value="full" />
                     <label for="ptype_full" title="#xarML('This privilege will have children')#">
                         <xar:mlstring>
                             with rights
@@ -60,7 +49,7 @@
                 </div>
                 <xar:else />
                 <div class="xar-form-input-wrapper-after">
-                    <input type="radio" name="ptype" id="ptype_empty" value="empty" onclick="this.form.action='&xar-modurl-privileges-admin-newprivilege;';this.form.submit();" />
+                    <input type="radio" name="ptype" id="ptype_empty" value="empty" />
                     <label for="ptype_empty" title="#xarML('This privilege will have no children')#">
                         <xar:mlstring>
                             empty
@@ -68,7 +57,7 @@
                     </label>
                 </div>
                 <div class="xar-form-input-wrapper-after">
-                    <input type="radio" name="ptype" id="ptype_full" value="full" checked="checked" onclick="this.form.action='&xar-modurl-privileges-admin-newprivilege;';this.form.submit();" />
+                    <input type="radio" name="ptype" id="ptype_full" value="full" checked="checked" />
                     <label for="ptype_full" title="#xarML('This privilege will have children')#">
                         <xar:mlstring>
                             with rights
@@ -123,7 +112,7 @@
                             Module:
                         </xar:mlstring>
                     </label>
-                    <select name="pmodule" id="pmodule" onchange="javascript:this.form.action = '&xar-modurl-privileges-admin-newprivilege;';this.form.submit();">
+                    <select name="pmodule" id="pmodule">
                         <xar:loop name="$modules">
                             <xar:if condition="strtolower($loop:item['name']) eq strtolower($pmodule)">
                                 <option value="#$loop:item['name']#" selected="selected">
@@ -143,7 +132,7 @@
                             Component:
                         </xar:mlstring>
                     </label>
-                    <select name="pcomponent" id="pcomponent" onchange="this.form.action = '&xar-modurl-privileges-admin-newprivilege;';this.form.submit();">
+                    <select name="pcomponent" id="pcomponent">
                         <xar:loop name="$components">
                             <xar:if condition="$loop:item['name'] eq $pcomponent">
                                 <option value="#$loop:item['name']#" selected="selected">

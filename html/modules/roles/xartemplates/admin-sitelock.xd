@@ -1,4 +1,25 @@
 <xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:set name="rolescode">"
+jQuery('#"."sitelock').click(function() {
+    this.form.action='" . xarModURL('roles','admin','sitelock',array('cmd'=>'toggle'), false) . "';
+    this.form.submit();
+});
+jQuery('#"."addgroup').click(function() {
+    this.form.action='" . xarModURL('roles','admin','sitelock',array('cmd'=>'add'), false) . "';
+    this.form.submit();
+});
+jQuery('button[id^=delete]').click(function() {
+    var idsplit = this.getAttribute('href').split('_', 2);
+    var roleid = idsplit[1];
+    this.form.action = '" . xarModURL('roles','admin','sitelock',array('cmd'=>'delete'), false) . "&uid=' + roleid;
+    this.form.submit();
+});
+jQuery('#"."savesitelock').click(function() {
+    this.form.action='" . xarModURL('roles','admin','sitelock',array('cmd'=>'save'), false) . "';
+    this.form.submit();
+});
+"</xar:set>
+<xar:base-js-event name="ready" code="$rolescode" />
 <div class="xar-mod-head">
     <span class="xar-mod-title"><xar:mlstring>Roles Administration</xar:mlstring></span>
 </div>
@@ -17,10 +38,10 @@
                 </xar:mlstring>
             </legend>
             <div class="xar-form-input-wrapper">
-                    <label for="FOR" title="#xarML('TITLE')#" class="xar-form-label">
+                    <label class="xar-form-label">
                         #$statusmessage#
                     </label>
-                    <input type="button" value="#$togglelabel#" onclick="this.form.action='&xar-modurl-roles-admin-sitelock;&amp;cmd=toggle';this.form.submit();" />
+                    <input type="button" id="sitelock" value="#$togglelabel#" />
                 </div>
         </fieldset>
 
@@ -57,9 +78,7 @@
                         </label>
         
                         <xar:if condition="count($roles) gt 1">
-                            <input type="button" value="#$deletelabel#" onclick="this.form.action = '&xar-modurl-roles-admin-sitelock;&amp;cmd=delete&amp;uid=#$loop:item['uid']#';this.form.submit();" class="xar-margin-thickleft" />
-                        <xar:else />
-                            <input type="button" value="#$deletelabel#" onclick="this.form.action = '&xar-modurl-roles-admin-sitelock;&amp;cmd=delete&amp;uid=#$loop:item['uid']#';this.form.submit();" disabled="disabled" class="xar-margin-thickleft" />
+                            <input type="button" id="delete_#$loop:item['uid']#" value="#$deletelabel#" class="xar-margin-thickleft" />
                         </xar:if>
                     </div>
                 </xar:loop>
@@ -69,7 +88,7 @@
                         <xar:mlstring>Add Group:</xar:mlstring>
                     </label>
                     <input type="text" name="newname" id="newname" value="" class="xar-form-textlong xar-margin-thickright" />
-                    <input type="button" value="#xarML('Add')#" onclick="this.form.action='&xar-modurl-roles-admin-sitelock;&amp;cmd=add';this.form.submit();" class="xar-margin-thickleft" />
+                    <input type="button" id="addgroup" value="#xarML('Add')#" class="xar-margin-thickleft" />
                 </div>
         </fieldset>
 
@@ -142,7 +161,7 @@
         <div class="xar-form-footer">
             <input type="hidden" name="serialroles" id="serialroles" value="#$serialroles#" />
             <input type="hidden" name="toggle" id="toggle" value="#$toggle#" />
-            <input type="button" value="#xarML('Save Site Lock Settings')#"  tabindex="2" onclick="this.form.action='&xar-modurl-roles-admin-sitelock;&amp;cmd=save';this.form.submit();" />
+            <input type="button" id="savesitelock" value="#xarML('Save Site Lock Settings')#" />
         </div>
     </form>
 </div>

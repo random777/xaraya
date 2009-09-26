@@ -1,4 +1,9 @@
 <xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:set name="ddcode">"
+jQuery('form table.xar-item-controls select').add('form table.xar-item-controls input[type=checkbox]').change(function() { this.form.submit(); })
+"</xar:set>
+<xar:base-js-event name="ready" code="$ddcode" />
 <div class="xar-mod-head">
     <span class="xar-mod-title">
         <xar:mlstring>Dynamic Data Administration</xar:mlstring>
@@ -14,7 +19,7 @@
     </h2>
     <xar:template type="module" file="utility-menu" />
     <form method="post" action="&xar-modurl-dynamicdata-admin-query;">
-        <table xar-item-controls">
+        <table class="xar-item-controls">
             <tr>
                 <td>
                     <label for="itemid">
@@ -23,7 +28,7 @@
                 </td>
                 <td>
                     <input type="hidden" name="olditemid" value="#$olditemid#" />
-                    <select name="itemid" id="itemid" onchange="submit()">
+                    <select name="itemid" id="itemid">
                         <option value=""></option>
                         <xar:foreach in="$objects" value="$item">
                             <xar:if condition="!empty($itemid) and $itemid eq $item['objectid']">
@@ -41,7 +46,7 @@
                 </td>
                 <td>
                     <input type="hidden" name="oldquery" value="#$oldquery#" />
-                    <select name="query" id="query" onchange="submit()">
+                    <select name="query" id="query">
                         <option value=""></option>
                         <xar:foreach in="$queries" value="$item">
                             <xar:if condition="!empty($query) and $query eq $item">
@@ -67,9 +72,9 @@
                 </td>
                 <td>
                     <xar:if condition="!empty($groupby)">
-                        <input type="checkbox" name="groupby" id="groupby" value="1" checked="checked" onchange="submit()" />
+                        <input type="checkbox" name="groupby" id="groupby" value="1" checked="checked" />
                         <xar:else />
-                        <input type="checkbox" name="groupby" id="groupby" value="1" onchange="submit()" />
+                        <input type="checkbox" name="groupby" id="groupby" value="1" />
                     </xar:if>
                 </td>
             </tr>
@@ -82,7 +87,7 @@
                     </td>
                     <td>
                         <input type="hidden" name="oldjoin" value="#$oldjoin#" />
-                        <select name="join" id="join" onchange="submit()">
+                        <select name="join" id="join">
                             <option value=""></option>
                             <xar:foreach in="$jointables" value="$item">
                                 <xar:if condition="!empty($join) and $join eq $item">
@@ -104,7 +109,7 @@
                 </td>
                 <td>
                     <input type="hidden" name="oldtable" value="#$oldtable#" />
-                    <select name="table" id="table" onchange="submit()">
+                    <select name="table" id="table">
                         <option value=""></option>
                         <xar:foreach in="$tables" value="$item">
                             <xar:if condition="!empty($table) and $table eq $item">

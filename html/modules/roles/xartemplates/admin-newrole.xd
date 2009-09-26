@@ -13,6 +13,15 @@
 <xar:set name="statepending">
     ROLES_STATE_PENDING
 </xar:set>
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:base-js-plugin name="treeview" framework="jquery" file="jquery.treeview.min.js" style="jquery.treeview.css" />
+<xar:set name="rolescode">"
+jQuery('select#"."ptype').change(function() {  
+    this.form.action = '". xarModURL('roles','admin','newrole', array(), false) . "';
+    this.form.submit();
+});
+"</xar:set>
+<xar:base-js-event name="ready" code="$rolescode" />
 <div class="xar-mod-head">
     <span class="xar-mod-title">
         <xar:mlstring>
@@ -53,7 +62,7 @@
                         Type:
                     </xar:mlstring>
                 </label>
-                <select name="ptype" id="ptype" onchange="this.form.action='&xar-modurl-roles-admin-newrole;';this.form.submit();">
+                <select name="ptype" id="ptype">
                     <xar:if condition="$ptype eq 1">
                         <option value="1" selected="selected">
                             Group

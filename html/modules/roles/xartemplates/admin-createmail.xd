@@ -1,3 +1,13 @@
+
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:set name="rolescode">"
+jQuery('form table.xar-item-controls select').change(function() { this.form.submit(); })
+jQuery('form table.xar-item-controls input[type=checkbox]').click(function() { this.form.submit(); })
+jQuery('#"."cancelbutton').click(function() {
+    history.go(-1);
+});
+"</xar:set>
+<xar:base-js-event name="ready" code="$rolescode" />
 <xar:comment>
     License: GPL http://www.gnu.org/copyleft/gpl.html
 </xar:comment>
@@ -126,7 +136,7 @@
             </tr>
             <tr>
                 <td class="xar-align-center">
-                    <select name="selstyle" id="selstyle" onchange="this.form.submit()">
+                    <select name="selstyle" id="selstyle">
                         <xar:foreach in="$style" key="$key" value="$value">
                             <xar:if condition="$key eq $selstyle">
                                 <option value="#$key#" selected="selected">
@@ -141,7 +151,7 @@
                     </select>
                 </td>
                 <td class="xar-align-center">
-                    <select name="uid" id="uid" onchange="this.form.submit()">
+                    <select name="uid" id="uid">
                         <xar:if condition="$type eq 'single'">
                             <option value="#$uid#" selected="selected">
                                 <xar:mlstring>
@@ -191,7 +201,7 @@
                     </select>
                 </td>
                 <td class="xar-align-center">
-                    <select name="state" id="state" size="1" tabindex="5" onchange="this.form.submit()">
+                    <select name="state" id="state" size="1" tabindex="5">
                         <xar:if condition="$uid eq -1">
                             <option value="#$state#" selected="selected">
                                     &nbsp;
@@ -273,14 +283,14 @@
                 <xar:if condition="$uid gt 0">
                     <td  class="xar-align-center xar-valign-middle">
                         <xar:if condition="$includesubgroups eq 0">
-                            <input type="checkbox" name="includesubgroups" id="includesubgroups" value="1" onchange="this.form.submit()" />
+                            <input type="checkbox" name="includesubgroups" id="includesubgroups" value="1" />
                             <xar:else />
-                            <input type="checkbox" name="includesubgroups" id="includesubgroups" value="1" checked="checked" onchange="this.form.submit()" />
+                            <input type="checkbox" name="includesubgroups" id="includesubgroups" value="1" checked="checked" />
                         </xar:if>
                     </td>
                 </xar:if>
                 <td class="xar-align-center">
-                    <select name="mailtype" id="mailtype" size="1" tabindex="5" onchange="this.form.submit()">
+                    <select name="mailtype" id="mailtype" size="1" tabindex="5">
                         <xar:loop name="$templates">
                             <xar:if condition="$mailtype eq $loop:item['key']">
                                 <option value="#$loop:item['key']#" selected="selected">
@@ -471,7 +481,7 @@
             <xar:else />
                 <input type="submit" value="#xarML('Send')#" class="xar-margin-thickright" />
             </xar:if>
-            <input type="button" value="#xarML('Cancel')#" onclick="history.go(-1);" class="xar-margin-thickright" />
+            <input type="button" id="cancelbutton" value="#xarML('Cancel')#" class="xar-margin-thickright" />
         </div>
     </form>
     <p>

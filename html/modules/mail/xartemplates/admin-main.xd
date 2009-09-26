@@ -17,7 +17,7 @@
         <xar:mlstring>The mail module controls the ways that your site sends mail to users or groups of users.
         This is a utility module that takes information from other modules installed on your site and formats
         the mail for them. At its heart, this module is using the </xar:mlstring>
-        <a href="http://phpmailer.sourceforge.net" onclick="window.open(this.getAttribute('href'));return false;">
+        <a href="http://phpmailer.sourceforge.net">
         <xar:mlstring>phpmailer</xar:mlstring></a> <xar:mlstring>classes for processing. These classes extend Xaraya to 
         allow you to use SMTP, SendMail or the normal PHP Mail functions.</xar:mlstring>
     </p>

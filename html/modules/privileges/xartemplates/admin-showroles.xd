@@ -4,6 +4,9 @@
 <xar:set name="treecode">"
 jQuery('div#"."treewrapper > ul').treeview();
 jQuery('div#"."treewrapper span.xar-privtree-icons').css({'float': 'left', 'margin': '0 .5em'}); 
+jQuery('#"."treewrapper a').click(function(event) {
+    event.stopPropagation();
+});
 "</xar:set>
 <xar:base-js-event name="ready" code="$treecode" />
 <div class="xar-mod-head">

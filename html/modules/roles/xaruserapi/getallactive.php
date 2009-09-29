@@ -15,6 +15,7 @@
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  * @param bool $include_anonymous whether or not to include anonymous user (default true)
  * @param bool $include_myself whether or not to include current user (default true)
+ * @param string $group comma-separated list of group names or IDs
  * @returns array
  * @return array of users, or false on failure
  * @todo Merge this whole function into the getall() API to (a) Avoid duplication and (b) provide additional selection features.
@@ -47,13 +48,31 @@ function roles_userapi_getallactive($args)
     }
 
     if (empty($filter)){
-            $filter = time() - (xarConfigGetVar('Site.Session.InactivityTimeout') * 60);
+        $filter = time() - (xarConfigGetVar('Site.Session.InactivityTimeout') * 60);
     }
 
     $roles = array();
 
-// Security Check
+    // Security Check
     if(!xarSecurityCheck('ViewRoles')) return;
+
+    // Restriction by group.
+    if (!empty($group)) {
+        $groups = explode(',', $group);
+        $group_list = array();
+        foreach ($groups as $group) {
+            $group = xarModAPIFunc(
+                'roles', 'user', 'get',
+                array(
+                    (is_numeric($group) ? 'uid' : 'name') => $group,
+                    'type' => 1
+                )
+            );
+            if (isset($group['uid']) && is_numeric($group['uid'])) {
+                $group_list[] = (int) $group['uid'];
+            }
+        }
+    }
 
     // Get database setup
     $dbconn =& xarDBGetConn();
@@ -61,17 +80,29 @@ function roles_userapi_getallactive($args)
 
     $sessioninfoTable = $xartable['session_info'];
     $rolestable = $xartable['roles'];
+    $rolemembtable = $xartable['rolemembers'];
 
     $bindvars = array();
-    $query = "SELECT DISTINCT a.xar_uid,
-                     a.xar_uname,
-                     a.xar_name,
-                     a.xar_email,
-                     a.xar_date_reg,
-                     b.xar_ipaddr
-              FROM $rolestable a, $sessioninfoTable b
-              WHERE a.xar_uid = b.xar_uid AND b.xar_lastused > ? AND a.xar_uid > 1";
-    $bindvars[] = $filter;
+    if (empty($group_list)) {
+        $query = "SELECT DISTINCT a.xar_uid, a.xar_uname, a.xar_name,  a.xar_email, a.xar_date_reg, b.xar_ipaddr
+                  FROM $rolestable a, $sessioninfoTable b
+                  WHERE a.xar_uid = b.xar_uid AND b.xar_lastused > ? AND a.xar_uid > 1";
+        $bindvars[] = $filter;
+    } else {
+        $query = "SELECT DISTINCT a.xar_uid, a.xar_uname, a.xar_name,  a.xar_email, a.xar_date_reg, b.xar_ipaddr
+                  FROM $rolestable a, $sessioninfoTable b, $rolemembtable AS c
+                  WHERE a.xar_uid = b.xar_uid AND b.xar_lastused > ? AND a.xar_uid > 1
+                  AND a.xar_uid = c.xar_uid";
+        $bindvars[] = $filter;
+
+        if (count($group_list) > 1) {
+            $query .= ' AND c.xar_parentid in (?' . str_repeat(',?',count($group_list)-1) . ')';
+            $bindvars = array_merge($bindvars, $group_list);
+        } else {
+            $query .= ' AND c.xar_parentid = ?';
+            $bindvars[] = $group_list[0];
+        }
+    }
 
     if (isset($selection)) $query .= $selection;
 

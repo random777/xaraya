@@ -22,10 +22,12 @@ function roles_onlineblock_init()
 {
     // No parameters accepted by this block.
     return array(
+        'groups' => array(),
+        'max_users' => 20,
         'nocache' => 0, // cache by default
         'pageshared' => 1, // share across pages
         'usershared' => 1, // share for group members
-        'cacheexpire' => null
+        'cacheexpire' => null,
     );
 }
 
@@ -37,7 +39,9 @@ function roles_onlineblock_info()
     return array(
         'text_type' => 'Online',
         'module' => 'roles',
-        'text_type_long' => 'Display who is online'
+        'text_type_long' => 'Display who is online',
+        'func_update' => 'roles_onlineblock_update',
+        'allow_multiple' => true,
     );
 }
 
@@ -61,7 +65,6 @@ function roles_onlineblock_display($blockinfo)
         'roles', 'user', 'countallactive',
         array('count_users' => true, 'include_anonymous' => false)
     );
-
     if (empty($args['numusers'])) {
         $args['numusers'] = 0;
     }
@@ -73,7 +76,9 @@ function roles_onlineblock_display($blockinfo)
             'order' => 'name',
             'startnum' => 0,
             'include_anonymous' => false,
-            'include_myself' => true
+            'include_myself' => true,
+            'group' => (!empty($vars['groups']) ? implode(',', $vars['groups']) : NULL),
+            'numitems' => (!empty($vars['max_users']) ? $vars['max_users'] : NULL),
         )
     );
 

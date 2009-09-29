@@ -181,9 +181,9 @@ function roles_userapi_getallactive($args)
 
     // cfr. xarcachemanager - this approach might change later
     $expire = xarModGetVar('roles', 'cache.userapi.getallactive');
-    if ($startnum == 0) {
+    if ($startnum == 0 && $numitems == -1) {
         if (!empty($expire)){
-            $result = $dbconn->CacheExecute($expire, $query,$bindvars);
+            $result = $dbconn->CacheExecute($expire, $query, $bindvars);
         } else {
             $result = $dbconn->Execute($query, $bindvars);
         }

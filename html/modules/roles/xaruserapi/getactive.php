@@ -15,7 +15,7 @@
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  * @param bool $include_anonymous whether or not to include anonymous user
  * @returns array
- * @return array of users, or false on failure
+ * @return array of users, empty string, or false on failure
  */
 function roles_userapi_getactive($args)
 {
@@ -23,50 +23,25 @@ function roles_userapi_getactive($args)
 
     if (!empty($uid) && !is_numeric($uid)) {
         $msg = xarML('Wrong arguments to roles_userapi_get.');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION,
-                    'BAD_PARAM',
-                     new SystemException($msg));
+        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
         return false;
     }
 
-    if (empty($filter)){
-            $filter = time() - (xarConfigGetVar('Site.Session.InactivityTimeout') * 60);
-    }
-
-    $roles = array();
-
     // Security Check
-    if(!xarSecurityCheck('ReadRole')) return;
+    if (!xarSecurityCheck('ReadRole')) return;
 
-    // Get database setup
-    $dbconn =& xarDBGetConn();
-    $xartable =& xarDBGetTables();
+    // We are only interested in the user ID (not sure why though).
+    // Since the uid is mandatory, we will either get a single record or not.
+    $args['mode'] = 'UID';
+    $users = xarModAPIfunc('roles', 'user', 'getallactive', $args);
 
-    $sessioninfoTable = $xartable['session_info'];
-
-    $query = "SELECT xar_uid
-              FROM $sessioninfoTable
-              WHERE xar_lastused > ? AND xar_uid = ?";
-    $bindvars = array((int)$filter,(int)$uid);
-    $result =& $dbconn->Execute($query,$bindvars);
-    if (!$result) return;
-
-    // Put users into result array
-    for (; !$result->EOF; $result->MoveNext()) {
-        $uid = $result->fields;
-    // FIXME: add some instances here
-        if (xarSecurityCheck('ReadRole',0)) {
-            $sessions[] = array('uid'       => $uid);
-        }
-    }
-
-    $result->Close();
-
-    // Return the users
-    if (empty($sessions)){
+    if (empty($users)){
         $sessions = '';
+    } else {
+        $sessions = array('uid' => array_shift($users));
     }
 
     return $sessions;
 }
+
 ?>

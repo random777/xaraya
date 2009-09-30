@@ -206,7 +206,8 @@ function roles_userapi_getallactive($args)
         for (; !$result->EOF; $result->MoveNext())
         {
             if ($mode == 'UID') {
-                $sessions[] = array('uid' => $uid);
+                list($uid) = $result->fields;
+                $sessions[] = $uid;
             } else {
                 list($uid, $uname, $name, $email, $date_reg, $ipaddr) = $result->fields;
                 if (xarSecurityCheck('ViewRoles', 0, 'Roles', "$uname"))

@@ -10,6 +10,7 @@
         <caption>
             <xar:mlstring>Edit Items</xar:mlstring>
         </caption>
+        <thead>
         <tr>
             <th>
                 <xar:mlstring>Title</xar:mlstring>
@@ -30,6 +31,8 @@
                 <xar:mlstring>Insert Blank</xar:mlstring>
             </th>
         </tr>
+        </thead>
+        <tbody>
         <xar:loop name="$contentlines">
             <tr>
                 <td>
@@ -56,6 +59,7 @@
                 </td>
             </tr>
         </xar:loop>
+        </tbody>
     </table>
 
     <xar:comment>
@@ -63,6 +67,7 @@
             <caption>
                 <xar:mlstring>Modify Structure (TODO obviously)</xar:mlstring>
             </caption>
+            <thead>
             <tr>
                 <th>
                     <xar:mlstring>Edit</xar:mlstring>
@@ -71,12 +76,15 @@
                     <xar:mlstring>Preview</xar:mlstring>
                 </th>
             </tr>
+            </thead>
+            <tbody>
             <tr>
                 <td>
                 </td>
                 <td>
                 </td>
             </tr>
+            </tbody>
         </table>
     </xar:comment>
 </xar:if>

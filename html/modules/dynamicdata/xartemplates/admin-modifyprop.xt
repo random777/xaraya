@@ -104,6 +104,7 @@
 
         <!-- don't accept updates for this (for now) -->
         <table class="xar-items">
+            <thead>
             <tr>
                 <th>
                     <xar:mlstring>Name</xar:mlstring>
@@ -124,6 +125,8 @@
                     <xar:mlstring>Validation</xar:mlstring>
                 </th>
             </tr>
+            </thead>
+            <tbody>
             <xar:foreach in="$static" value="$field">
                 <tr>
                     <td>
@@ -146,6 +149,7 @@
                     </td>
                 </tr>
             </xar:foreach>
+            </tbody>
         </table>
       </fieldset>
 

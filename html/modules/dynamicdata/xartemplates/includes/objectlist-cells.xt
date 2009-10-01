@@ -1,4 +1,5 @@
 <table class="xar-items">
+    <thead>
     <tr>
         <th> |
             <xar:foreach in="$properties" key="$name">
@@ -6,6 +7,8 @@
             </xar:foreach>
         </th>
     </tr>
+    </thead>
+    <tbody>
     <!-- for this layout, we'll use xar:data-input here -->
     <xar:foreach in="$items" key="$itemid" value="$fields">
         <tr>
@@ -27,4 +30,5 @@
             </xar:foreach>
         </td>
     </tr>
+    </tbody>
 </table>

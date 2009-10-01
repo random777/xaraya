@@ -82,12 +82,15 @@
                     <xar:mlstring>Block Parameters Customisable Through &lt;xar:block&gt; Tag</xar:mlstring>
                 </legend>
                 <table class="xar-items">
+                    <thead>
                     <tr>
                         <th><xar:mlstring>Name</xar:mlstring></th>
                         <th><xar:mlstring>Default</xar:mlstring></th>
                         <th><xar:mlstring>Datatype</xar:mlstring></th>
                         <th><xar:mlstring>Properties</xar:mlstring></th>
                     </tr>
+                    </thead>
+                    <tbody>
                     <xar:loop name="$params">
                         <tr>
                             <td>#xarVarPrepForDisplay($loop:item.name)#</td>
@@ -108,6 +111,7 @@
                             </td>
                         </tr>
                     </xar:loop>
+                    </tbody>
                 </table>
             </fieldset>
         </xar:if>
@@ -119,12 +123,15 @@
             <a href="&xar-modurl-blocks-admin-new_type;"><xar:mlstring>Add New Block Type</xar:mlstring></a>
         </h4>
         <table class="xar-items">
+            <thead>
             <tr>
                 <th title="#xarML('The module listed is the module from which this block originates')#"><xar:mlstring>Module</xar:mlstring></th>
                 <th title="#xarML('The block type indicates the type of block that can be selected.')#"><xar:mlstring>Type</xar:mlstring></th>
                 <th title="#xarML('A short description of what the block does.')#"><xar:mlstring>Description</xar:mlstring></th>
                 <th><xar:mlstring>Actions</xar:mlstring></th>
             </tr>
+            </thead>
+            <tbody>
             <xar:loop name="$block_types" id="foo2">
                 <tr>
                     <td><a href="#$loop:item['modurl']#" title="#xarML('Administer module')#">#$loop:item['module']#</a></td>
@@ -143,6 +150,7 @@
                     </td>
                 </tr>
             </xar:loop>
+            </tbody>
         </table>
     </xar:if>
 </div>

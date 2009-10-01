@@ -63,6 +63,17 @@
     <div class="xar-form-container-after">
         <xar:set name="idx">0</xar:set>
         <table>
+        <thead>
+            <tr>
+                <th>
+                    <xar:mlstring>Value</xar:mlstring>
+                </th>
+                <th>
+                    <xar:mlstring>Option Text</xar:mlstring>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
         <xar:foreach in="$options" value="$option" >
             <tr>
                 <xar:if condition="$option['id'] ne $option['name']">
@@ -87,6 +98,8 @@
             <td>
                 <input type="text" name="#$name#[options][#$idx#][name]" id="#$id#_options_#$idx#_name" value="" size="30" />
             </td>
+            </tr>
+            </tbody>
         </table>
         <p class="xar-margin-nonetop">
             <xar:mlstring>Specify your own id =&gt; name options here</xar:mlstring>

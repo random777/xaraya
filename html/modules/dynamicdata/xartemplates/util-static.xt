@@ -26,6 +26,7 @@
                 </a>
             </p>
             <table class="xar-fullwidth">
+                <thead>
                 <tr>
                     <th>
                         <xar:mlstring>
@@ -58,6 +59,8 @@
                         </xar:mlstring>
                     </th>
                 </tr>
+                </thead>
+                <tbody>
                 <xar:foreach in="$fields" value="$field">
                     <tr>
                         <td>
@@ -80,6 +83,7 @@
                         </td>
                     </tr>
                 </xar:foreach>
+                </tbody>
             </table>
             <form method="post" action="&xar-modurl-dynamicdata-util-importprops;">
                 <div class="xar-form-footer">

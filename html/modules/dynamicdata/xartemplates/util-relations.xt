@@ -36,6 +36,7 @@
     <xar:if condition="!empty($modid)">
         <xar:if condition="count($relations) gt 0">
             <table class="xar-clearboth">
+                <thead>
                 <tr>
                     <th>
                         <xar:mlstring>
@@ -58,6 +59,8 @@
                         </xar:mlstring>
                     </th>
                 </tr>
+                </thead>
+                <tbody>
                 <xar:foreach in="$relations" value="$relation">
                     <xar:if condition="count($relation['links']) gt 0">
                         <xar:foreach in="$relation['links']" value="$link">
@@ -101,6 +104,7 @@
                         </tr>
                     </xar:if>
                 </xar:foreach>
+                </tbody>
             </table>
             <xar:else />
             <p>
@@ -176,6 +180,7 @@
             </xar:mlstring>
         </a>
         <table>
+            <thead>
             <tr>
                 <th>
                     <xar:mlstring>
@@ -208,6 +213,8 @@
                     </xar:mlstring>
                 </th>
             </tr>
+            </thead>
+            <tbody>
             <xar:foreach in="$fields" key="$name" value="$property">
                 <tr>
                     <td>
@@ -233,6 +240,7 @@
                     </td>
                 </tr>
             </xar:foreach>
+            </tbody>
         </table>
         <xar:set name="authid">
             #xarSecGenAuthKey()# 
@@ -393,6 +401,7 @@
         <xar:if condition="!empty($relations[$table])">
             <form method="post" action="&xar-modurl-dynamicdata-util-relations;">
                 <table>
+                    <thead>
                     <tr>
                         <th>
                             <xar:mlstring>
@@ -423,6 +432,8 @@
                             </xar:mlstring>
                         </th>
                     </tr>
+                    </thead>
+                    <tbody>
                     <xar:foreach in="$relations[$table]" key="$where" value="$links">
 <!-- TODO: check this section, it contains greater than signs, dummy xar:sets and some other hackery -->
                         <xar:if condition="is_numeric($where)">
@@ -575,6 +586,7 @@
                             </xar:if>
                         </xar:foreach>
                     </xar:foreach>
+                    </tbody>
                 </table>
                 <div class="xar-form-footer">
                     <input type="hidden" name="objectid" value="#$objectid#" />

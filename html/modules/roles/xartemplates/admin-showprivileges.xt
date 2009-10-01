@@ -57,6 +57,7 @@
     <xar:else />
         <div class="xar-fullwidth xar-overflow-auto xar-area-large">
             <table class="xar-items">
+                <thead>
                 <tr>
                     <th><xar:mlstring>Name</xar:mlstring></th>
                     <xar:if condition="xarModGetVar('privileges','showrealms')">
@@ -69,6 +70,8 @@
                     <th><xar:mlstring>Override</xar:mlstring></th>
                     <th><xar:mlstring>From Group</xar:mlstring></th>
                 </tr>
+                </thead>
+                <tbody>
                 <xar:loop name="$inherited">
                   <tr>
                     <td>
@@ -99,6 +102,7 @@
                     </td>
                   </tr>
                 </xar:loop>
+                </tbody>
             </table>
         </div>
     </xar:if>
@@ -124,6 +128,7 @@
         </p>
 
         <table class="xar-fullwidth">
+          <thead>
           <tr>
             <th><xar:mlstring>Name</xar:mlstring></th>
             <xar:if condition="xarModGetVar('privileges','showrealms')">
@@ -136,6 +141,8 @@
             <th><xar:mlstring>Override</xar:mlstring></th>
             <th>&nbsp;</th>
           </tr>
+          </thead>
+          <tbody>
           <xar:loop name="$privileges">
             <tr>
               <td>
@@ -176,6 +183,7 @@
               </td>
             </tr>
           </xar:loop>
+          </tbody>
         </table>
       </xar:if>
       <xar:if condition="$ptype eq 1">

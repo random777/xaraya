@@ -302,6 +302,7 @@
                         <xar:mlstring>Always available in a user role, and can  be retrieved as <strong>xarUserGetVar('varname')</strong></xar:mlstring>
                     </p>
                     <table class="xar-items">
+                        <thead>
                         <tr>
                             <th style="width: 100px">
                                 <xar:mlstring>Name</xar:mlstring>
@@ -310,6 +311,8 @@
                                 <xar:mlstring>Description</xar:mlstring>
                             </th>
                         </tr>
+                        </thead>
+                        </tbody>
                         <tr>
                             <td style="width: 100px">
                                 uname
@@ -334,6 +337,7 @@
                                 <xar:mlstring>The user's email address. The email address can be defined by the site administrator to be unique or not.</xar:mlstring>
                             </td>
                         </tr>
+                        </tbody>
                     </table>
                 </fieldset>
                 <fieldset>
@@ -347,6 +351,7 @@
                     </p>
 
                     <table class="xar-items">
+                        <thead>
                         <tr>
                             <th style="width: 100px">
                                 <xar:mlstring>Name</xar:mlstring>
@@ -358,6 +363,8 @@
                                 &nbsp;
                             </th>
                         </tr>
+                        </thead>
+                        <tbody>
                         <tr>
                             <td style="width: 100px">
                                 userhome
@@ -455,6 +462,7 @@
                                 </xar:if>
                             </td>
                         </tr>
+                        </tbody>
                     </table>
                 </fieldset>
                 <div class="xar-form-footer">

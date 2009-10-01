@@ -49,6 +49,7 @@
             Theme List Filter Controls table
         </xar:comment>
         <table class="xar-item-controls">
+            <thead>
             <tr>
                 <th>
                     <label for="selfilter">
@@ -66,6 +67,8 @@
                     </label>
                 </th>
             </tr>
+            </thead>
+            <tbody>
             <tr>
                 <td class="xar-align-center">
                     <select name="selfilter" id="selfilter" onchange="this.form.submit()">
@@ -101,6 +104,7 @@
                     <input type="submit" name="reload" id="reload" value="#xarML('Refresh')#" />
                 </td>
             </tr>
+            </tbody>
         </table>
         <xar:if condition="$modstatus">
             <xar:comment>
@@ -118,6 +122,7 @@
         </xar:comment>
 
         <table class="xar-items">
+            <thead>
             <tr>
                 <th>
                     <a href="#$sorturl#" title="#$sortlabel#">
@@ -140,6 +145,8 @@
                     <xar:mlstring>Actions</xar:mlstring>
                 </th>
             </tr>
+            </thead>
+            <tbody>
             <xar:set name="rowclass">'xar-norm'</xar:set>
             <xar:foreach in="$listrowsitems" value="$themeinfo">
                 <tr class="#$rowclass#">
@@ -197,6 +204,7 @@
                 </tr>
                 <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
             </xar:foreach>
+            </tbody>
         </table>
     </form>
 </div>

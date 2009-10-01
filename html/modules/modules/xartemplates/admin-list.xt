@@ -35,6 +35,7 @@
     <form method="post" action="&xar-modurl-modules-admin-settings;">
         <xar:comment> Module List Sort and Filter Controls table </xar:comment>
         <table class="xar-item-controls">
+            <thead>
             <tr>
                 <th>
                     <label class="xar-mod-title" for="filter"><xar:mlstring>View</xar:mlstring></label>
@@ -49,6 +50,8 @@
                     <label class="xar-mod-title" for="reload"><xar:mlstring>Action</xar:mlstring></label>
                 </th>
             </tr>
+            </thead>
+            <tbody>
             <tr>
                 <td class="xar-align-center">
                     <select name="selfilter" id="selfilter" onchange="this.form.submit()">
@@ -86,6 +89,7 @@
                     <input type="submit" name="reload" id="reload" value="#$reloadlabel#" />
                 </td>
             </tr>
+            </tbody>
         </table>
         <xar:if condition="$modstatus">
             <xar:comment> lets display latest status on core modules upgrades if any </xar:comment>
@@ -97,6 +101,7 @@
             </p>
         </xar:if>
         <table class="xar-items">
+            <thead>
             <tr>
                 <th>
                     <xar:mlstring>Name</xar:mlstring>
@@ -111,6 +116,8 @@
                     <xar:mlstring>Actions</xar:mlstring>
                 </th>
             </tr>
+            </thead>
+            <tbody>
             <xar:set name="rowclass">'xar-norm'</xar:set>
             <xar:foreach in="$listrowsitems" value="$modinfo">
                 <tr class="#$rowclass#">
@@ -163,6 +170,7 @@
                 </tr>
                 <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
             </xar:foreach>
+            </tbody>
         </table>
     </form>
 </div>

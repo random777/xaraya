@@ -17,6 +17,7 @@
     </p>
 
     <table>
+        <thead>
         <tr>
             <th>
                 <xar:mlstring>Module</xar:mlstring>
@@ -28,6 +29,8 @@
                 <xar:mlstring>Filesystem Version</xar:mlstring>
             </th>
         </tr>
+        </thead>
+        <tbody>
         <tr>
             <td>
                 #$modname#
@@ -39,6 +42,7 @@
                 #$fileversion#
             </td>
         </tr>
+        </tbody>
     </table>
 
     <p>

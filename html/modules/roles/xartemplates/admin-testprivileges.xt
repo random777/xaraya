@@ -67,6 +67,7 @@
     <fieldset>
       <legend><xar:mlstring>Click On The Mask You Want To Test Privileges Against:</xar:mlstring></legend>
       <table class="xar-items">
+        <thead>
         <tr>
           <th><xar:mlstring>Mask</xar:mlstring></th>
           <xar:if condition="xarModGetVar('privileges','showrealms')">
@@ -77,6 +78,8 @@
           <th><xar:mlstring>Instance</xar:mlstring></th>
           <th><xar:mlstring>Level</xar:mlstring></th>
         </tr>
+        </thead>
+        <tbody>
         <xar:foreach in="$masks" value="$mask">
           <tr>
             <td>
@@ -95,6 +98,7 @@
             </td>
           </tr>
         </xar:foreach>
+        </tbody>
       </table>
     </fieldset>
   </xar:if>
@@ -102,6 +106,7 @@
     <fieldset>
       <legend><xar:mlstring>Masks:</xar:mlstring></legend>
       <table class="xar-items">
+        <thead>
         <tr>
           <th>
             <xar:mlstring>Mask</xar:mlstring>    
@@ -124,6 +129,8 @@
             <xar:mlstring>Level</xar:mlstring>            
           </th>
         </tr>
+        </thead>
+        <tbody>
         <xar:loop name="$testmasks">
           <tr>
             <td>
@@ -148,13 +155,15 @@
             </td>
           </tr>
         </xar:loop>
+        </tbody>
       </table>
     </fieldset>
     
     <fieldset>
       <legend><xar:mlstring>Privileges:</xar:mlstring></legend>
-      <table class="xar-items">
-        <xar:if condition="$testresult ne false">
+      <xar:if condition="$testresult ne false">
+        <table class="xar-items">
+          <thead>
           <tr>
             <th>
               <xar:mlstring>Privilege</xar:mlstring>    
@@ -177,6 +186,8 @@
               <xar:mlstring>Level</xar:mlstring>            
             </th>
           </tr>
+          </thead>
+          <tbody>
           <tr>
             <td>
               #$rname#
@@ -199,8 +210,9 @@
               #$rlevel#
             </td>
           </tr>
-        </xar:if>
-      </table>
+          </tbody>
+        </table>
+      </xar:if>
       
       <p class="xar-align-center">
         #$resultdisplay#

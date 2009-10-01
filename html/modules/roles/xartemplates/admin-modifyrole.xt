@@ -254,10 +254,13 @@
     <fieldset>
         <legend><xar:mlstring>Group Memberships</xar:mlstring></legend>
         <table class="xar-items">
+            <thead>
             <tr>
                 <th><xar:mlstring>Group</xar:mlstring></th>
                 <th><xar:mlstring>Remove</xar:mlstring></th>
             </tr>
+            </thead>
+            <tbody>
             <xar:set name="icon_remove">xarTplGetImage('icons/remove.png', 'base')</xar:set>
             <xar:loop name="$parents">
                 <tr>
@@ -281,6 +284,7 @@
                     </td>
                 </tr>
             </xar:loop>
+            </tbody>
         </table>
         <xar:if condition="$frozen">
             <p>

@@ -104,6 +104,7 @@
     <form method="post" action="&xar-modurl-roles-admin-showusers;&amp;reload=reload">
         <xar:comment> Module List Sort and Filter Controls table </xar:comment>
         <table class="xar-item-controls">
+            <thead>
             <tr>
                 <th>
                     <label for="selstyle" title="#xarML('Select display type')#">
@@ -129,6 +130,8 @@
                     <xar:mlstring>Action</xar:mlstring>
                 </th>
             </tr>
+            </thead>
+            <tbody>
             <tr>
                 <td class="xar-align-center">
                     <select name="selstyle" id="selstyle" onchange="this.form.submit()">
@@ -225,6 +228,7 @@
                     <input type="submit" name="reload" id="reload" value="#xarML('Reload')#" />
                 </td>
             </tr>
+            </tbody>
         </table>
     </form>
 
@@ -263,6 +267,7 @@
             </xar:if>
 
             <table class="xar-items">
+                <thead>
                 <tr>
                     <th>
                         <a href="&xar-modurl-roles-admin-showusers;&amp;state=#$state#&amp;uid=#$groupuid#&amp;order=xar_name&amp;sort=#$nsort#&amp;search=#$search#">
@@ -328,6 +333,8 @@
                         <xar:mlstring>Action</xar:mlstring>
                     </th>
                 </tr>
+                </thead>
+                <tbody>
                 <xar:set name="rowclass">'xar-norm'</xar:set>
                 <xar:loop name="$users">
                     <tr class="#$rowclass#">
@@ -389,6 +396,7 @@
                     <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
                 </xar:loop>
                 <!-- end loop over users -->
+                </tbody>
             </table>
 
             <div class="xar-align-right">

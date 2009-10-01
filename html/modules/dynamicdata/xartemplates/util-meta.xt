@@ -36,6 +36,7 @@
             <xar:set name="icon_export">xarTplGetImage('icons/export-xml.png','base')</xar:set>
             <xar:set name="icon_add">xarTplGetImage('icons/add.png','base')</xar:set>
             <table>
+                <thead>
                 <tr>
                     <th>
                         <xar:mlstring>Name</xar:mlstring>
@@ -44,6 +45,8 @@
                         <xar:mlstring>Actions</xar:mlstring>
                     </th>
                 </tr>
+                </thead>
+                <tbody>
                 <xar:foreach in="$tables" key="$curtable" value="$fields">
                     <tr>
                         <td>
@@ -67,6 +70,7 @@
                         </td>
                     </tr>
                 </xar:foreach>
+                </tbody>
             </table>
         <xar:else />
             <h3>
@@ -98,6 +102,7 @@
             </p>
 
             <table>
+                <thead>
                 <tr>
                     <th>
                         <xar:mlstring>Name</xar:mlstring>
@@ -118,6 +123,8 @@
                         <xar:mlstring>Validation</xar:mlstring>
                     </th>
                 </tr>
+                </thead>
+                <tbody>
                 <xar:foreach in="$tables" key="$curtable" value="$fields">
                     <xar:if condition="!empty($table) and $curtable eq $table">
                         <xar:foreach in="$fields" value="$field">
@@ -144,6 +151,7 @@
                         </xar:foreach>
                     </xar:if>
                 </xar:foreach>
+                </tbody>
             </table>
         </xar:if>    
 

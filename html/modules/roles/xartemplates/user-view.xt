@@ -99,6 +99,7 @@
         </xar:if>
         <xar:set name="usersendemails">xarModGetVar('roles', 'usersendemails')</xar:set>
         <table class="xar-items">
+            <thead>
             <tr>
             <xar:if condition="$phase eq 'active' and xarSecurityCheck('AdminRole',0)">
                 <th class="xar-thirdwidth">
@@ -132,6 +133,8 @@
                 </xar:foreach>
             </xar:if>
             </tr>
+            </thead>
+            <tbody>
             <xar:loop name="$items">
                 <xar:if condition="(($loop:index + 1) % 2)">
                     <xar:set name="item_class">'xar-norm'</xar:set>
@@ -180,6 +183,7 @@
                 </xar:if>
                 </tr>
             </xar:loop>
+            </tbody>
         </table>
 
         <!-- add the pager here -->

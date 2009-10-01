@@ -1,12 +1,15 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 <xar:if condition="empty($layout) or $layout eq 'default'">
     <table class="xar-items">
+    <thead>
     <tr>
         <xar:foreach in="$labels" value="$item">
             <th>#$item['label']#</th>
         </xar:foreach>
         <th><xar:mlstring>Options</xar:mlstring></th>
     </tr>
+    </thead>
+    <tbody>
     <xar:foreach in="$items" value="$item">
     <tr>
     <!-- we don't use xar:data-form or xar:data-input here, because this
@@ -29,6 +32,7 @@
         <td><a href="#$newlink#"><xar:mlstring>New</xar:mlstring></a></td>
     </tr>
     </xar:if>
+    </tbody>
     </table>
 
     <xar:if condition="!empty($prevurl) or !empty($nexturl)">
@@ -49,11 +53,14 @@
 
 <xar:elseif condition="$layout eq 'cells'" />
     <table class="xar-items">
+    <thead>
     <tr>
         <xar:foreach in="$labels" value="$item">
             <th>#$item['label']#</th>
         </xar:foreach>
     </tr>
+    </thead>
+    <tbody>
     <xar:foreach in="$items" value="$item">
     <tr>
         <xar:foreach in="$item['fields']" value="$field">
@@ -69,6 +76,7 @@
         <td><a href="#$newlink#"><xar:mlstring>New</xar:mlstring></a></td>
     </tr>
     </xar:if>
+    </tbody>
     </table>
 
     <xar:if condition="!empty($prevurl) or !empty($nexturl)">

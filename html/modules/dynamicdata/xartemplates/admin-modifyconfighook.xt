@@ -11,6 +11,7 @@
 
     <xar:if condition="!empty($fields)">
         <table class="xar-items">
+            <thead>
             <tr>
                 <th>#$labels.id#</th>
                 <th>#$labels.name#</th>
@@ -20,6 +21,8 @@
                 <th>#$labels.source#</th>
                 <th>#$labels.validation#</th>
             </tr>
+            </thead>
+            <tbody>
             <xar:foreach in="$fields" value="$field">
                 <tr>
                     <td>#$field.id#</td>
@@ -33,6 +36,7 @@
                     <td><xar:var name="field.validation" prep="true"/></td>
                 </tr>
             </xar:foreach>
+            </tbody>
         </table>
     <xar:else />
         <p>

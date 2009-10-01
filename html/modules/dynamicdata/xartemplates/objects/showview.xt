@@ -40,6 +40,7 @@
     </xar:if>
     <xar:elseif condition="$layout eq 'list'" />
     <table class="xar-items">
+        <thead>
         <tr>
             <xar:foreach in="$properties" key="$name">
                 <th>
@@ -50,6 +51,8 @@
                 <th>&#160;</th>
             </xar:if>
         </tr>
+        </thead>
+        <tbody>
         <xar:foreach in="$items" key="$itemid" value="$fields">
             <tr>
                 <!-- we could use xar:data-display here too, instead of looping over fields ourselves -->
@@ -78,6 +81,7 @@
                 </xar:if>
             </tr>
         </xar:foreach>
+        </tbody>
     </table>
     <xar:if condition="!empty($prevurl) or !empty($nexturl)">
         <div class="xar-align-center">
@@ -90,6 +94,7 @@
     </xar:if>
     <xar:elseif condition="$layout eq 'subform'" />
     <table class="xar-items">
+        <thead>
         <tr>
             <xar:foreach in="$properties" key="$name">
                 <th>
@@ -100,6 +105,8 @@
                 <th>&#160;</th>
             </xar:if>
         </tr>
+        </thead>
+        <tbody>
         <xar:foreach in="$items" key="$itemid" value="$fields">
             <tr>
                 <xar:foreach in="$properties" key="$name">
@@ -127,6 +134,7 @@
                 </xar:if>
             </tr>
         </xar:foreach>
+        </tbody>
     </table>
     <xar:if condition="!empty($prevurl) or !empty($nexturl)">
         <div class="xar-align-center">

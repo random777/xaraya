@@ -26,6 +26,7 @@
         <xar:set name="icon_delete">xarTplGetImage('icons/delete.png','base')</xar:set>
         <xar:set name="icon_modify">xarTplGetImage('icons/modify.png','base')</xar:set>
         <table class="xar-items">
+            <thead>
             <tr>
                 <th>
                     <xar:mlstring>Name</xar:mlstring>
@@ -49,6 +50,8 @@
                     <xar:mlstring>Actions</xar:mlstring>
                 </th>
             </tr>
+            </thead>
+            <tbody>
             <xar:foreach in="$blocks" value="$block">
                 <tr>
                     <td>
@@ -103,6 +106,7 @@
                     </td>
                 </tr>
             </xar:foreach>
+            </tbody>
         </table>
     </form>
 </div>

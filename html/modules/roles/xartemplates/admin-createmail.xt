@@ -78,6 +78,7 @@
             Module List Sort and Filter Controls table 
         </xar:comment>
         <table class="xar-item-controls">
+            <thead>
             <tr>
                 <th class="xar-nowrap">
                     <label for="filter" title="#xarML('Select display type')#">
@@ -124,6 +125,8 @@
                     </label>
                 </th>
             </tr>
+            </thead>
+            <tbody>
             <tr>
                 <td class="xar-align-center">
                     <select name="selstyle" id="selstyle" onchange="this.form.submit()">
@@ -299,6 +302,7 @@
                     <input type="submit" name="reload" id="reload" value="#xarML('Reload')#" />
                 </td>
             </tr>
+            </tbody>
         </table>
     </form>
     <xar:if condition="$modstatus">
@@ -343,6 +347,7 @@
             </p>
           <xar:else />
           <table class="xar-items">
+            <thead>
             <tr>
               <th>
                 <a href="&xar-modurl-roles-admin-createmail;&amp;state=#$state#&amp;order=name">
@@ -380,6 +385,8 @@
                 </a>
               </th>
             </tr>
+            </thead>
+            <tbody>
             <xar:loop name="$users">
               <tr>
                 <td>
@@ -419,6 +426,7 @@
             </xar:loop>
             <!-- end loop over users -->
             <!-- if there is a pager show it in the last row -->
+            </tbody>
           </table>
           <xar:if condition="!empty($pager)">
             <div class="xar-align-center">

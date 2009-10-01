@@ -22,6 +22,7 @@
     <p>[ <a href="#$addurl#"><xar:mlstring>Add a new Tag</xar:mlstring></a> ]</p>
     
     <table class="xar-items">
+        <thead>
         <tr>
             <th>
                 <xar:mlstring>Name</xar:mlstring>
@@ -33,9 +34,11 @@
                 <xar:mlstring>Actions</xar:mlstring>
             </th>
         </tr>
+        </thead>
         <xar:set name="icon_modify">xarTplGetImage('icons/modify.png', 'base')</xar:set>
         <xar:set name="icon_delete">xarTplGetImage('icons/delete.png', 'base')</xar:set>
         <xar:set name="rowclass">'xar-norm'</xar:set>
+        <tbody>
         <xar:foreach in="$tags" value="$item">
             <tr class="#$rowclass#">
                 <td>
@@ -51,5 +54,6 @@
             </tr>
             <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
         </xar:foreach> 
+        </tbody>
     </table>    
 </div>

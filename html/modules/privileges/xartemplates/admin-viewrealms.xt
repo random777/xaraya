@@ -11,6 +11,7 @@
         <xar:set name="icon_modify">xarTplGetImage('icons/modify.png', 'base')</xar:set>
         <xar:set name="icon_delete">xarTplGetImage('icons/delete.png', 'base')</xar:set>
         <table class="xar-items">
+            <thead>
             <tr>
                 <th>
                     <xar:mlstring>Name</xar:mlstring>
@@ -19,6 +20,8 @@
                     <xar:mlstring>Actions</xar:mlstring>
                 </th>
             </tr>
+            </thead>
+            <tbody>
             <xar:loop name="$realms">
                 <tr>
                     <td >
@@ -30,6 +33,7 @@
                     </td>
                 </tr>
             </xar:loop>
+            </tbody>
         </table>
     <xar:else />
     <h2>

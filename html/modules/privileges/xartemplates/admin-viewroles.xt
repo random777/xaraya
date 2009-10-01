@@ -90,6 +90,7 @@
         </p>
       <xar:else />
         <table class="xar-items">
+          <thead>
           <tr>
                 <th>
                     <xar:mlstring>Type</xar:mlstring>
@@ -101,6 +102,8 @@
                     <xar:mlstring>Actions</xar:mlstring>
                 </th>
             </tr>
+            </thead>
+            <tbody>
             <xar:set name="icon_remove">xarTplGetImage('icons/remove.png','base')</xar:set>
             <xar:foreach in="$roles" value="$role">
                 <tr>
@@ -123,6 +126,7 @@
                     </td>
                 </tr>
             </xar:foreach>
+            </tbody>
         </table>
       </xar:if>
 

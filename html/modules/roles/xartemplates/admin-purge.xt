@@ -56,6 +56,7 @@
         <form method="post" action="&xar-modurl-roles-admin-purge;" enctype="application/x-www-form-urlencoded" >
             <xar:comment> Module List Sort and Filter Controls table </xar:comment>
             <table class="xar-item-controls">
+                <thead>
                 <tr>
                        <th>
                            <label for="recallsearch" title="#xarML('Search for users with either their display name, login name or email matching the string')#">
@@ -73,6 +74,8 @@
                            </label>
                        </th>
                    </tr>
+                    </thead>
+                    <tbody>
                    <tr>
                        <td class="xar-align-center">
                            <input type="text" name="recallsearch" id="recallsearch" value="#$recallsearch#" maxlength="255" class="xar-form-textmedium xar-margin-thickright" />
@@ -114,6 +117,7 @@
                             </select>
                         </td>
                     </tr>
+                    </tbody>
                 </table>
 
                 <xar:if condition="count($recallroles) eq 0">
@@ -126,6 +130,7 @@
                 <xar:else />
 
                     <table class="xar-items">
+                        <thead>
                         <tr>
                             <th>
                                 <xar:mlstring>Display name</xar:mlstring>
@@ -146,6 +151,8 @@
                                 <xar:mlstring>Recall</xar:mlstring>
                             </th>
                         </tr>
+                        </thead>
+                        <tbody>
                         <xar:loop name="$recallroles">
                             <xar:if condition="$loop:item['unique'] eq 1">
                                <xar:set name="recallclass">'xar-norm-outline'</xar:set>
@@ -175,6 +182,7 @@
                             </tr>
                         </xar:loop>
                         <!-- end loop over users -->
+                        </tbody>
                     </table>
 
                     <div class="xar-form-footer">
@@ -211,6 +219,7 @@
 
             <xar:comment>Roles List Sort and Filter Controls table</xar:comment>
             <table class="xar-item-controls">
+                <thead>
                 <tr>
                     <th>
                         <label for="purgesearch" title="#xarML('Search for users with either their display name, login name or email matching the string')#">
@@ -223,6 +232,8 @@
                         </label>
                     </th>
                 </tr>
+                </thead>
+                <tbody>
                 <tr>
                     <td class="xar-align-center">
                         <input type="text" name="purgesearch" id="purgesearch" value="#$purgesearch#" maxlength="255" class="xar-form-textmedium xar-margin-thickright" />
@@ -264,6 +275,7 @@
                         <input type="submit" name="search" id="search_state" value="#xarML('Search')#" class="xar-margin-thickright" />
                     </td>
                 </tr>
+                </tbody>
             </table>
 
             <xar:if condition="count($purgeusers) eq 0">
@@ -280,6 +292,7 @@
                 </p>
             <xar:else />
                 <table class="xar-items">
+                    <thead>
                     <tr>
                         <th>
                             <xar:mlstring>Display name</xar:mlstring>
@@ -300,6 +313,8 @@
                             <xar:mlstring>Purge?</xar:mlstring>
                         </th>
                     </tr>
+                    </thead>
+                    <tbody>
                     <xar:loop name="$purgeusers">
                         <tr class="xar-norm-outline">
                             <td>
@@ -323,6 +338,7 @@
                         </tr>
                     </xar:loop>
                     <!-- end loop over users -->
+                    </tbody>
                 </table>
 
                 <div class="xar-align-right">

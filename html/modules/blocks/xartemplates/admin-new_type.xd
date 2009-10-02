@@ -1,13 +1,33 @@
 <xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
-<xar:base-include-javascript module="base" filename="formcheck.js" />
-<script type="text/javascript">
-<!--
-    // Enter name of mandatory fields
-    //var blocks_fieldRequired = Array("modulename", "blockname");
-    // Enter field description to appear in the dialog box
-    //var blocks_fieldDescription = Array("Module Name", "Block Name");
-//-->
-</script>
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:base-js-plugin name="validate" framework="jquery" file="jquery.validate.min.js"  />
+<xar:set name="blockscode">"
+jQuery('#"."newblocktypeform').validate({     
+    rules: {
+        moduleid: {
+            required: true
+        },
+        blockname: {
+            required: true
+        }
+    },            
+    messages: {     
+        moduleid: {
+            required: '" . xarML('* Required') . "'
+        },
+        blockname: {
+            required: '" . xarML('* Required') . "'
+        }
+    },
+    errorClass: 'xar-error',
+    errorElement: 'div'
+
+});
+jQuery('#"."scan').click(function() {
+    jQuery('#"."blockname').rules('remove', 'required');
+});
+"</xar:set>
+<xar:base-js-event name="ready" code="$blockscode" />       
 <xar:style scope="common" />
 <div class="xar-mod-head">
     <span class="xar-mod-title">
@@ -18,7 +38,7 @@
   <xar:template type="module" file="admin-menu" />
   <h2><xar:mlstring>Add new block type</xar:mlstring></h2>
 
-    <form action="#xarModURL('blocks', 'admin', 'new_type')#" method="post" onsubmit="return xar_base_formCheck(this, blocks_fieldRequired, blocks_fieldDescription);" enctype="application/x-www-form-urlencoded">
+    <form action="#xarModURL('blocks', 'admin', 'new_type')#" id="newblocktypeform" method="post" enctype="application/x-www-form-urlencoded">
         <fieldset>
             <legend>
                 <xar:mlstring>
@@ -32,6 +52,9 @@
                     </xar:mlstring>
                 </label>
                 <xar:data-input type="module" name="moduleid" id="moduleid" value="$moduleid" />
+            </div>
+            <div class="xar-form-input-wrapper-after">
+                <input type="submit" name="scan" id="scan" value="#xarML('Scan Module')#" />
             </div>
             <div class="xar-form-input-wrapper">
                 <label for="blockname" title="#xarML('This is the exact name of the block.  It must be case specific, otherwise the block will not function correctly.')#" class="xar-form-label">
@@ -56,7 +79,6 @@
                     <xar:else />
                     <input type="text" name="blockname" id="blockname" value="" maxlength="255" class="xar-form-textlong" />
                 </xar:if>
-                <input type="submit" name="scan" value="#xarML('Scan Module')#" />
             </div>
         </fieldset>
         <div class="xar-form-footer">

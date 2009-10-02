@@ -1,13 +1,41 @@
 <xar:comment>
     License: GPL http://www.gnu.org/copyleft/gpl.html
 </xar:comment>
-<xar:base-include-javascript module="base" filename="formcheck.js" />
-<xar:comment> IDs of mandatory fields and descriptions for formcheck </xar:comment>
-<script type="text/javascript">
-    var base_alertMsg = "#xarML('Please complete the following fields:')#";
-    var base_fieldRequired = Array("defaultfunction");
-    var base_fieldDescription = Array("#xarML('Default Module Function:')#");
-</script>
+<xar:style scope="common" />
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:base-js-plugin name="validate" framework="jquery" file="jquery.validate.min.js"  />
+<xar:set name="basecode">"
+jQuery('#"."displayform').validate({
+    rules: {
+        defaultfunction: {
+            required: true
+        },
+        alternatepagetemplatename: {
+            required: function (element) {
+                return jQuery('#"."alternatepagetemplate:checked');
+            }
+        },
+        themedir: {
+            required: true
+        }
+    },
+    messages: {
+        defaultfunction: {
+            required: '" . xarML('* Required') . "'
+        },
+        alternatepagetemplatename: {
+            required: '" . xarML('* Required if the above box is checked') . "'
+        },
+        themedir: {
+            required: '" . xarML('* Required') . "'
+        }
+    },
+    errorClass: 'xar-error',
+    errorElement: 'div'
+
+});
+"</xar:set>
+<xar:base-js-event name="ready" code="$basecode" />
 <xar:style scope="module" module="base" file="navtabs" />
 <div class="xar-mod-head">
     <span class="xar-mod-title">
@@ -123,7 +151,7 @@
         ------------------- Begin Site Display Options ---------------------
     </xar:comment>
     <xar:if condition="$tab eq 'display'">
-        <form action="#xarModUrl('base', 'admin', 'updateconfig')#" method="post" onsubmit="return xar_base_formCheck(this, base_fieldRequired, base_fieldDescription, base_alertMsg);" enctype="application/x-www-form-urlencoded">
+        <form action="#xarModUrl('base', 'admin', 'updateconfig')#" method="post" id="displayform" enctype="application/x-www-form-urlencoded">
                <fieldset>
                 <legend>
                     <xar:mlstring>
@@ -316,11 +344,11 @@
         </xar:set>
         <xar:if condition="!empty($authmodules) and count($authmodules) gt 1">
             <xar:base-include-javascript module="base" filename="orderitem.js" position="head" />
-<script type="text/javascript">
+            <script type="text/javascript">
                 xar_base_reorder_warn = '#xarML('You must select the authentication module you want to move.')#';
             </script>
         </xar:if>
-        <form action="#xarModUrl('base', 'admin', 'updateconfig')#" method="post" onsubmit="return xar_base_formCheck(this, base_fieldRequired, base_fieldDescription);" enctype="application/x-www-form-urlencoded">
+        <form action="#xarModUrl('base', 'admin', 'updateconfig')#" id="securityform" method="post" enctype="application/x-www-form-urlencoded">
             <fieldset>
                 <legend>
                     <xar:mlstring>
@@ -483,7 +511,7 @@
             ----------------- Begin Locale Options -------------------
         </xar:comment>
         <xar:elseif condition="$tab eq 'locales'" />
-        <form action="#xarModUrl('base', 'admin', 'updateconfig')#" method="post" onsubmit="return xar_base_formCheck(this, base_fieldRequired, base_fieldDescription);" enctype="application/x-www-form-urlencoded">
+        <form action="#xarModUrl('base', 'admin', 'updateconfig')#" id="localesform" method="post" enctype="application/x-www-form-urlencoded">
             <xar:template file="modifyconfig-locales" module="base" type="module" />
             <div class="xar-form-footer">
                 <input type="hidden" name="authid" id="authid" value="#$authid#" />
@@ -496,7 +524,7 @@
             ----------------- Begin Other Options -------------------
         </xar:comment>
         <xar:elseif condition="$tab eq 'other'" />
-        <form action="#xarModUrl('base', 'admin', 'updateconfig')#" method="post" onsubmit="return xar_base_formCheck(this, base_fieldRequired, base_fieldDescription);" enctype="application/x-www-form-urlencoded">
+        <form action="#xarModUrl('base', 'admin', 'updateconfig')#" id="otherform" method="post" enctype="application/x-www-form-urlencoded">
             <fieldset>
                 <legend>
                     <xar:mlstring>
@@ -655,7 +683,7 @@
                 </xar:foreach>
             </xar:if>
         </dl>
-        <form action="#xarModUrl('base', 'admin', 'updateconfig')#" method="post" enctype="application/x-www-form-urlencoded">
+        <form action="#xarModUrl('base', 'admin', 'updateconfig')#" id="jsform" method="post" enctype="application/x-www-form-urlencoded">
             <xar:if condition="empty($framework)">
             <h3><xar:mlstring>JavaScript Frameworks</xar:mlstring></h3>
             <fieldset>

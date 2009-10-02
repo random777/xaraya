@@ -1,16 +1,26 @@
 <xar:comment>
     License: GPL http://www.gnu.org/copyleft/gpl.html
 </xar:comment>
-<xar:base-include-javascript module="base" filename="formcheck.js" />
-<script type="text/javascript">
-<!--
-    // Enter name of mandatory fields
-    var blocks_fieldRequired = Array("group_name");
-    // Enter field description to appear in the dialog box
-    var blocks_fieldDescription = Array("Name");
-//-->
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:base-js-plugin name="validate" framework="jquery" file="jquery.validate.min.js"  />
+<xar:set name="blockscode">"
+jQuery('#"."newblockgroupform').validate({
+    rules: {
+        group_name: {
+            required: true
+        }
+    },
+    messages: {
+        group_name: {
+            required: '" . xarML('* Required') . "'
+        }
+    },
+    errorClass: 'xar-error',
+    errorElement: 'div'
 
-</script> 
+});
+"</xar:set>
+<xar:base-js-event name="ready" code="$blockscode" />
 <xar:style scope="common" />
 <div class="xar-mod-head">
     <span class="xar-mod-title">
@@ -22,7 +32,7 @@
 <div class="xar-mod-body">
   <xar:template type="module" file="admin-menu" />
   <h2><xar:mlstring>Add new blockgroup</xar:mlstring></h2>
-    <form action="#xarModURL('blocks', 'admin', 'create_group')#" method="post" onsubmit="return xar_base_formCheck(this, blocks_fieldRequired, blocks_fieldDescription);" enctype="application/x-www-form-urlencoded">
+    <form action="#xarModURL('blocks', 'admin', 'create_group')#" id="newblockgroupform" method="post" enctype="application/x-www-form-urlencoded">
         <fieldset>
             <legend>
                 <xar:mlstring>
@@ -40,7 +50,7 @@
             <div class="xar-form-input-wrapper">
                 <label for="group_template" title="#xarML('If you wish to override the default template you may do so by entering a template name.  Otherwise the default.xt template will be used.')#" class="xar-form-label">
                     <xar:mlstring>
-                        Default Template (optional): 
+                        Default Template: 
                     </xar:mlstring>
                 </label>
                 <input type="text" name="group_template" id="group_template" value="" maxlength="255" class="xar-form-textlong" />

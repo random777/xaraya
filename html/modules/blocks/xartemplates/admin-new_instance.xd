@@ -1,13 +1,24 @@
 <xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
-<xar:base-include-javascript module="base" filename="formcheck.js" />
-<script type="text/javascript">
-<!--
-    // Enter name of mandatory fields
-    var blocks_fieldRequired = Array("block_name");
-    // Enter field description to appear in the dialog box
-    var blocks_fieldDescription = Array("Name");
-//-->
-</script> 
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:base-js-plugin name="validate" framework="jquery" file="jquery.validate.min.js"  />
+<xar:set name="blockscode">"
+jQuery('#"."newblockform').validate({
+    rules: {
+        block_name: {     
+            required: true
+        } 
+    },
+    messages: {
+        block_name: {     
+            required: '" . xarML('* Required') . "'
+        }
+    },
+    errorClass: 'xar-error',
+    errorElement: 'div'
+
+});
+"</xar:set>
+<xar:base-js-event name="ready" code="$blockscode" />
 <div class="xar-mod-head">
     <span class="xar-mod-title">
         <xar:mlstring>Blocks Administration</xar:mlstring>
@@ -19,7 +30,7 @@
         <xar:mlstring>Add Instance</xar:mlstring>
     </h2>
 
-    <form action="#xarModURL('blocks', 'admin', 'create_instance')#" method="post" onsubmit="return xar_base_formCheck(this, blocks_fieldRequired, blocks_fieldDescription);" enctype="application/x-www-form-urlencoded">
+    <form action="#xarModURL('blocks', 'admin', 'create_instance')#" id="newblockform" method="post" enctype="application/x-www-form-urlencoded">
         <fieldset>
             <legend>
                 <xar:mlstring>Instance Parameters</xar:mlstring>
@@ -54,7 +65,7 @@
 
             <div class="xar-form-input-wrapper">
                 <label for="block_template" title="#xarML('Instance templates that you want to use for this block instance.')#" class="xar-form-label">
-                    <xar:mlstring>Instance Template (optional):</xar:mlstring>
+                    <xar:mlstring>Instance Template:</xar:mlstring>
                 </label>
                 <input type="text" name="block_template" id="block_template" value="" maxlength="255" class="xar-form-textlong" />
                 <xar:mlstring>(Specified as <code>outer<strong>;</strong>inner</code>)</xar:mlstring>
@@ -62,7 +73,7 @@
 
             <div class="xar-form-input-wrapper">
                 <label for="block_groups" title="#xarML('Initial block group to place this block into (optional)')#" class="xar-form-label">
-                    <xar:mlstring>Block Group (optional):</xar:mlstring>
+                    <xar:mlstring>Block Group:</xar:mlstring>
                 </label>
                 <select name="block_groups[][gid]" id="block_groups">
                     <option value="">

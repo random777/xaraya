@@ -51,12 +51,6 @@ function mail_admin_modifyconfig()
     }else{
         $data['redirectaddress']='';
     }
-    // Include 'formcheck' JavaScript.
-    // TODO: move this to a template widget when available.
-    xarModAPIfunc(
-        'base', 'javascript', 'modulefile',
-        array('module'=>'base', 'filename'=>'formcheck.js')
-    );
 
     if (xarModIsAvailable('scheduler')) {
         $data['intervals'] = xarModAPIFunc('scheduler','user','intervals');

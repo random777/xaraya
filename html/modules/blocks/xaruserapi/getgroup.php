@@ -13,7 +13,6 @@
 /*
  * Retrieve a group raw data.
  * @author Jim McDonald, Paul Rosania
- * @todo Is this function called anywhere?
 */
 
 function blocks_userapi_getgroup($args)

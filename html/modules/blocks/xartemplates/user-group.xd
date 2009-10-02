@@ -1,7 +1,7 @@
-<div class="xar-block-display-wrapper">
+<div class="xar-blockgroup-display-wrapper">
   <!-- The div is there to ensure that this template in itself has a root tag
        and the block is erm... blocklevel :-)
        The class is for easy handling of content by external systems
   -->
-  <xar:block instance="$name" template="$template" />
+  <xar:blockgroup name="$name" template="$template" />
 </div>

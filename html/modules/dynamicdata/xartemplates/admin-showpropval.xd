@@ -29,6 +29,9 @@
         <div>#$showval#</div>
       </fieldset>
       <div class="xar-form-footer">
+        <xar:if condition="xarRequestIsAJAX()">            
+             <input type="hidden" name="pageName" id="pageName" value="module" />
+        </xar:if>
         <input type="submit" name="preview" value="#xarML('Preview')#" /> 
         <input type="submit" name="confirm" value="#xarML('Update')#" />
       </div>

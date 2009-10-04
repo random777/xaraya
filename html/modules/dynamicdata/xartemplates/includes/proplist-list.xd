@@ -17,31 +17,61 @@
 <xar:set name="downicon">xarTPLGetImage('icons/go-down.png', 'base')</xar:set>
 <xar:set name="uptitle">xarML('Move this property up')</xar:set>
 <xar:set name="downtitle">xarML('Move this property down')</xar:set>
-
-<xar:set name="togglecode">"jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(function() { jQuery(this).parent().children('div.fieldwrapper').toggle(); } ).css('cursor','pointer');"</xar:set>
 <xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
 <xar:base-js-plugin name="ui" framework="jquery" file="jquery-ui-1.7.2.custom.min.js" style="jquery-ui-1.7.2.custom.css" />
 <xar:base-js-plugin name="bgiframe" framework="jquery" file="jquery.bgiframe.min.js"  />
-<xar:base-js-event name="ready" code="$togglecode" />
-<xar:set name="dialogcode">"
-var dialog_width = Math.floor(jQuery(window).width() * .85);
-var dialog_height = Math.floor(jQuery(window).height() * .85);
-jQuery('div.fieldwrapper a').click(function() { 
-jQuery('#"."xardialogtarget').remove();
-jQuery('body').append('<div id=\'xardialogtarget\' style=\'display: none;\'></div>');
-jQuery('#" . "xardialogtarget').load(this.getAttribute('href') + '&pageName=module .xar-mod-body > *').dialog({
-title: jQuery(this).text(),
-width: dialog_width,
-height: dialog_height,
-bgiframe: true,
-modal: true,
-draggable: false,
-resizable: false
-});
-return false;
-});
+<xar:base-js-plugin name="form" framework="jquery" file="jquery.form.js"  />
+<xar:set name="ddcode">"
+	var prop_trigger = function() {
+		jQuery(this).parent().children('div.fieldwrapper').toggle();
+	}
+
+	jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(prop_trigger).css('cursor','pointer');
+
+	var dialog_width = Math.floor(jQuery(window).width() * .85);
+	var dialog_height = Math.floor(jQuery(window).height() * .85);
+
+	var dialog_submit = function() {
+	    jQuery(this).ajaxSubmit();
+	    return false;
+	}
+
+	response_callback = function(responseText, statusText) {
+		jQuery('#"."xardialogtarget').children().remove();
+		// *no* idea why this is necessary, or why *only* this trick makes .xar-mod-body accessible
+		responseText = '<div>' + responseText + '</div>';
+		jQuery(responseText).find('.xar-mod-body').children().appendTo('#"."xardialogtarget');
+	}
+	var form_options = {
+		target: '#"."xardialogtarget',
+		success: response_callback
+	};
+
+	var load_callback = function() {
+	    jQuery('#"."xardialogtarget form').ajaxForm(form_options).submit(dialog_submit);
+	}
+
+	var dialog_trigger = function() {
+		jQuery('#"."xardialogtarget').remove();
+		jQuery('body').append('<div id=\'xardialogtarget\' style=\'display: none;\'></div>');
+		jQuery('#" . "xardialogtarget').load(this.getAttribute('href') + '&pageName=module .xar-mod-body > *', null, load_callback).dialog(
+			{
+				title: jQuery(this).text(),
+				width: dialog_width,
+				height: dialog_height,
+				bgiframe: true,
+				modal: true,
+				draggable: false,
+				resizable: false,
+				buttons: {'" . xarML('Close') . "': function() { jQuery(this).dialog('close');}}
+			}
+		);
+		return false;
+	}
+
+	jQuery('div.fieldwrapper a').click(dialog_trigger);
 "</xar:set>
-<xar:base-js-event name="ready" code="$dialogcode" />
+<xar:base-js-event name="ready" code="$ddcode" />
 <xar:foreach in="$fields" value="$field">
     <fieldset>
         <legend>

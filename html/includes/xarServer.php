@@ -616,6 +616,34 @@ function xarRequestIsLocalReferer()
 }
 
 /**
+ * Check to see if this request is AJAX
+ *
+ * @access public
+ * @return bool true if AJAX request, false otherwise
+ */
+function xarRequestIsAJAX()
+{
+    static $isAjax = NULL;
+
+    if ($isAjax === NULL) {
+        // Most JS frameworks send a 'X-Requested-With' header with a value of
+        // 'XMLHttpRequest' when the request is made in an AJAX context.
+        //
+        // For those that don't, we catch a URL param named 'xhr',  which when
+        // present and not null, also signifies AJAX context.
+        if (xarServerGetVar('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest') {
+            $isAjax = true;
+        } elseif (xarRequestGetVar('xhr') !== NULL) {
+            $isAjax = true;
+        } else {
+            $isAjax = false;
+        }
+    }
+
+    return $isAjax;
+}
+
+/**
  * Set Short URL Variables
  *
  * @access public

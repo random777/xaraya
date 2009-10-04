@@ -87,7 +87,15 @@ function dynamicdata_admin_showpropval($args)
                     $return_url = xarModURL('dynamicdata', 'admin', 'modifyprop',
                                             array('itemid' => $myobject->properties['objectid']->value));
                 }
-                xarResponseRedirect($return_url);
+                if (xarRequestIsAJAX()) {
+                    $confirm = array(
+                        'short' => xarML('The update was successful.'),
+                        'title' => xarML('Validation for "#(1)" Updated', $myobject->properties['name']->value)
+                    );
+                    return xarTplModule('base','message','confirm', $confirm);
+                } else {
+                    xarResponseRedirect($return_url);
+                }
                 return true;
             }
         } else {

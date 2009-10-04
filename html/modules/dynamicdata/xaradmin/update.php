@@ -22,7 +22,7 @@
 function dynamicdata_admin_update($args)
 {
     extract($args);
-
+//if(xarRequestIsAJAX()){ die('ajax'); } else { die('not ajax'); }
     if(!xarVarFetch('objectid',   'isset', $objectid,    NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('modid',      'isset', $modid,       NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('itemtype',   'isset', $itemtype,    NULL, XARVAR_DONT_SET)) {return;}
@@ -123,17 +123,37 @@ function dynamicdata_admin_update($args)
         }
     }
 
+    $confirm = array(
+                    'short' => xarML('The update was successful.')
+                );
+
+
     if (!empty($return_url)) {
         xarResponseRedirect($return_url);
     } elseif ($myobject->objectid == 2) { // for dynamic properties, return to modifyprop
-        xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'modifyprop',
+        if(xarRequestIsAjAX()) {
+            $confirm['title'] = xarML('Property "#(1)" Updated', $myobject->properties['name']->value);
+            return xarTplModule('base','message','confirm', $confirm);
+        } else {
+            xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'modifyprop',
                                       array('itemid' => $myobject->properties['objectid']->value)));
+        }
     } elseif (!empty($table)) {
-        xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
+        if(xarRequestIsAjAX()) {
+            $confirm['title'] = xarML('Object "#(1)" Updated', $myobject->properties['name']->value);
+            return xarTplModule('base','message','confirm', $confirm);
+        } else {
+            xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
                                       array('table' => $table)));
+        }
     } else {
-        xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
-                                      array('itemid' => $myobject->objectid)));
+        if(xarRequestIsAJAX()) {
+            $confirm['title'] = xarML('Object "#(1)" Updated', $myobject->properties['name']->value);
+            return xarTplModule('base','message','confirm', $confirm);
+        } else {
+            xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
+                                          array('itemid' => $myobject->objectid)));
+        }
     }
 
     // Return

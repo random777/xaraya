@@ -62,8 +62,10 @@
             <input type="hidden" name="ip" id="ip" value="#$ip#" />
             <input type="hidden" name="groupuid" id="groupuid" value="#$groupuid#" />
             <input type="hidden" name="state" id="state" value="#$state#" />
-            <input type="submit" value="#xarML('Send')#" class="xar-margin-thickright" />
-            <input type="button" value="#xarML('Cancel')#" onclick="history.go(-1);" class="xar-margin-thickleft" />
+            <input type="submit" value="#xarML('Send')#" class="xar-margin-thick" />
+            <p>
+                <a href="#xarModURL('roles', 'admin', 'showusers')#"><xar:mlstring>Cancel</xar:mlstring></a>
+            </p>
         </div>
 
         <p>

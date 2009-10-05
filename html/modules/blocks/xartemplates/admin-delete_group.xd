@@ -56,10 +56,9 @@
             <input type="hidden" name="confirm" id="confirm" value="true" />
             <input type="hidden" name="gid" id="gid" value="#$group['id']#" />
             <input type="submit" value="#xarML('Delete Group')#" class="xar-margin-thick" />
-            <xar:set name="returnurl">
-                #xarModURL('blocks', 'admin', 'view_groups')# 
-            </xar:set>
-            <input type="button" value="#xarML('Cancel')#" class="xar-margin-thick" onclick="window.location='#$returnurl#';" />
+            <p>
+                <a href="#xarModURL('blocks', 'admin', 'view_groups')#"><xar:mlstring>Cancel</xar:mlstring></a>
+            </p>
         </div>
     </form>
 </div>

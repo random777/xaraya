@@ -1,13 +1,17 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 
 <xar:if condition="!empty($value)">
+    <xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+    <xar:set name="ddcode">"jQuery('#". $id . "_clear').click(function() { jQuery('#". $id . "_hidden'.value('');jQuery('#". $id . "_text'.children().remove(); });"</xar:set>  
+    <xar:base-js-event name="ready" code="$ddcode" />
+
     <xar:comment>we're using a hidden field to keep track of any previously uploaded file here</xar:comment>
     <div id="#$id#_text">
         <xar:ml>
             <xar:mlstring>Uploaded file: #(1)</xar:mlstring>
             <xar:mlvar>#xarVarPrepForDisplay($fileName)#</xar:mlvar>
         </xar:ml>
-        <input type="button" onclick="document.getElementById('#$id#_hidden').value='';document.getElementById('#$id#_text').innerHTML='';" value="#xarML('Clear')#" />
+        <input type="button" id="#$id#_clear" value="#xarML('Clear')#" />
     </div>
     <input type="hidden" name="#$name#" id="#$id#_hidden" value="#xarVarPrepForDisplay($fileName)#" />
 </xar:if>

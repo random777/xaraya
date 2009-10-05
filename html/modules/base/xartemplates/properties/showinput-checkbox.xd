@@ -1,15 +1,14 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
-
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
 <xar:if condition="isset($onchange)">
-  <xar:set name="evt_change">$onchange</xar:set>
-<xar:else/>
- <xar:set name="evt_change">'return true;'</xar:set>
+  <xar:set name="ddcode">"jQuery('#". $id . "').change(function() { " . $onchange . "})"</xar:set>
+  <xar:base-js-event name="ready" code="$ddcode" />
 </xar:if>
 
 <xar:if condition="$checked">
-  <input type="checkbox" onchange="#$evt_change#" name="#$name#" value="1" id="#$id#" tabindex="#$tabindex#" checked="checked" />
+  <input type="checkbox" name="#$name#" value="1" id="#$id#" tabindex="#$tabindex#" checked="checked" />
 <xar:else/>
-  <input type="checkbox" onchange="#$evt_change#" name="#$name#" value="1" id="#$id#" tabindex="#$tabindex#" />
+  <input type="checkbox" name="#$name#" value="1" id="#$id#" tabindex="#$tabindex#" />
 </xar:if>
 
 <xar:if condition="!empty($invalid)">

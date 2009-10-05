@@ -12,13 +12,16 @@
     <xar:set name="class">'xar-form-textlong'</xar:set>
 </xar:if>
 <xar:comment>On focus event</xar:comment>
-<xar:if condition="!isset($onfocus)">
-  <xar:set name="onfocus">'return true;'</xar:set>
+
+<xar:if condition="isset($onfocus)">
+  <xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+  <xar:set name="ddcode">"jQuery('#". $id . "').focus(function() { " . $onfocus . "})"</xar:set>
+  <xar:base-js-event name="ready" code="$ddcode" />
 </xar:if>
 <xar:if condition="empty($datatype_class)">
     <xar:set name="datatype_class">''</xar:set>
 </xar:if>
-<input style="" type="text" name="#$name#" value="#$value#" size="#$size#" maxlength="#$maxlength#" id="#$id#" tabindex="#$tabindex#" class="#$class# #$datatype_class#" onfocus="#$onfocus#"/>
+<input style="" type="text" name="#$name#" value="#$value#" size="#$size#" maxlength="#$maxlength#" id="#$id#" tabindex="#$tabindex#" class="#$class# #$datatype_class#" />
 <xar:if condition="!empty($invalid)">
     <span class="xar-error">#$invalid#</span>
 </xar:if>

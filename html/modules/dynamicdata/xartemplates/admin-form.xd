@@ -1,4 +1,9 @@
 <xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:set name="ddcode">"
+jQuery('#"."preview__form').submit(function() { return false; });
+"</xar:set>
+<xar:base-js-event name="ready" code="$ddcode" />
 <div class="xar-mod-head">
     <span class="xar-mod-title"><xar:mlstring>Dynamic Data Administration</xar:mlstring></span>
 </div>
@@ -11,7 +16,7 @@
     </h2>
 
     <xar:set name="objectid">#$object:objectid#</xar:set>
-    <form method="post" action="&xar-modurl-dynamicdata-admin-form;">
+    <form method="post" id="previewcontrolform" action="&xar-modurl-dynamicdata-admin-form;">
         <div class="xar-form-footer">
             <input type="hidden" name="objectid" value="#$objectid#" />
             <input type="hidden" name="theme" value="print" />
@@ -19,7 +24,7 @@
         </div>
     </form>
 
-    <form action="" onsubmit="return false;">
+    <form action="" id="preview__form">
         <div>
             <xar:data-form object="$object" />
         </div>

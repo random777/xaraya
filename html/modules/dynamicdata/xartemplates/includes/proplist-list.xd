@@ -38,9 +38,7 @@
 
 	response_callback = function(responseText, statusText) {
 		jQuery('#"."xardialogtarget').children().remove();
-		// *no* idea why this is necessary, or why *only* this trick makes .xar-mod-body accessible
-		responseText = '<div>' + responseText + '</div>';
-		jQuery(responseText).find('.xar-mod-body').children().appendTo('#"."xardialogtarget');
+		jQuery(responseText).filter('.xar-mod-body').children().appendTo('#"."xardialogtarget');
 	}
 	var form_options = {
 		target: '#"."xardialogtarget',

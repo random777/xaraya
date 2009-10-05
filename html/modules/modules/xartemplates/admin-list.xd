@@ -18,7 +18,8 @@ height: dialog_height,
 bgiframe: true,
 modal: true,
 draggable: false,
-resizable: false
+resizable: false,
+buttons: {'" . xarML('Close') . "': function() { jQuery(this).dialog('close');}}
 });
 return false;
 });

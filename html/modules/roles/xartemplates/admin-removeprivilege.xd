@@ -76,7 +76,9 @@
             <input type="hidden" name="privid" id="privid" value="#$privid#" />
             <input type="hidden" name="confirmation" id="confirmation" value="1" />
             <input type="submit" value="#$removelabel#" class="xar-margin-thickright" />    
-            <input type="button" onclick="window.location='&xar-modurl-roles-admin-showprivileges;&amp;uid=#$roleid#';" value="#xarML('Cancel Removal')#" class="xar-margin-thichleft" />
+            <p>
+                <a href="#xarModURL('roles', 'admin', 'showprivileges', array('uid' => $roleid))#"><xar:mlstring>Cancel</xar:mlstring></a>
+            </p>
         </div>
     </form>
 </div>

@@ -3,6 +3,14 @@
 <xar:set name="ddcode">"
 jQuery('#"."preview__form').submit(function() { return false; });
 "</xar:set>
+<xar:if condition="xarRequestIsAJAX()">
+<xar:set name="ddcode">$ddcode . "
+jQuery('#"."previewcontrolform').submit(function() {
+
+return false;
+});
+"</xar:set>
+</xar:if>
 <xar:base-js-event name="ready" code="$ddcode" />
 <div class="xar-mod-head">
     <span class="xar-mod-title"><xar:mlstring>Dynamic Data Administration</xar:mlstring></span>
@@ -15,14 +23,20 @@ jQuery('#"."preview__form').submit(function() { return false; });
         </xar:ml>
     </h2>
 
-    <xar:set name="objectid">#$object:objectid#</xar:set>
-    <form method="post" id="previewcontrolform" action="&xar-modurl-dynamicdata-admin-form;">
-        <div class="xar-form-footer">
-            <input type="hidden" name="objectid" value="#$objectid#" />
-            <input type="hidden" name="theme" value="print" />
-            <input type="submit" value="#xarML('Refresh')#" />
-        </div>
-    </form>
+    <xar:if condition="!xarRequestIsAJAX()">
+        <xar:set name="objectid">#$object:objectid#</xar:set>
+        <form method="post" id="previewcontrolform" action="&xar-modurl-dynamicdata-admin-form;">
+            <div class="xar-form-footer">
+                <input type="hidden" name="objectid" value="#$objectid#" />
+                <xar:if condition="xarRequestIsAJAX()">
+                    <input type="hidden" name="pageName" value="module" />
+                <xar:else />
+                    <input type="hidden" name="theme" value="print" />
+                </xar:if>
+                <input type="submit" value="#xarML('Refresh')#" />
+            </div>
+        </form>
+    </xar:if>
 
     <form action="" id="preview__form">
         <div>

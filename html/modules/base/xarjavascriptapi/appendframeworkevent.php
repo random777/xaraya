@@ -3,7 +3,7 @@
  * Base JavaScript management functions
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -18,16 +18,25 @@
  * @param string $args['name']         Name of the event (required)
  * @param string $args['file']         Filename containing code (required), or
  * @param string $args['code']         String containing code (required)
+ * @param string $args['once']         Whether to include the soruce in the event multiple times
+ *                                     Value must evaluate to true, otherwise false (default false)
  * @return bool
  */
 function base_javascriptapi_appendframeworkevent($args)
 {
     extract($args);
 
+    static $sources = array();
+
     if (isset($name)) { $name = strtolower($name); }
     if (isset($framework)) { $framework = strtolower($framework); }
     if (isset($modName)) { $modName = strtolower($modName); }
     if (isset($file)) { $file = strtolower($file); }
+    if (isset($once) &&  ($once == 1 || strtolower($once) == 'true')) {
+        $once = true;
+    } else {
+        $once = false;
+    }
 
     if (!isset($framework)) {
         $framework = xarModGetVar('base','DefaultFramework');
@@ -72,6 +81,11 @@ function base_javascriptapi_appendframeworkevent($args)
         $GLOBALS['xarTpl_JavaScript'][$framework. '_events'] = array();
     }
 
+    // make sure we have a $sources entry for this event
+    if (!isset($sources[$framework . '_' . $name])) {
+        $sources[$framework . '_' . $name] = array();
+    }
+
     if (isset($file) && !empty($file)) {
         $filepath = xarModAPIfunc('base', 'javascript', '_findfile', array(
             'module' => $modName,
@@ -93,21 +107,29 @@ function base_javascriptapi_appendframeworkevent($args)
         $args['filepath'] = $filepath;
     }
 
+    $codehash = md5($code);
+
     if (!isset($GLOBALS['xarTpl_JavaScript'][$framework . '_events'][$name])) {
         $GLOBALS['xarTpl_JavaScript'][$framework . '_events'][$name] = array(
                 'type' => 'framework_event',
-                'data' => $code . "\n",
+                'data' => "\n",
                 'tplfile' => "$framework/events/$name",
                 'tplmodule' => $modName
             );
-    } else {
+    }
+    if((in_array($codehash, $sources[$framework . '_' . $name]) && !$once) || !in_array($codehash, $sources[$framework . '_' . $name])) {
         $GLOBALS['xarTpl_JavaScript'][$framework . '_events'][$name]['data'] .= $code . "\n";
+    }
+
+    if (!in_array($codehash, $sources[$framework . '_' . $name])) {
+        $sources[$framework . '_' . $name][] = $codehash;
     }
 
     // pass to framework's appendframeworkevent function
     $args['name'] = $name;
     $args['modName'] = $modName;
     $args['framework'] = $framework;
+    $args['once'] = $once;
 
     $append = xarModAPIFunc($modName, $framework, 'appendframeworkevent', $args);
 

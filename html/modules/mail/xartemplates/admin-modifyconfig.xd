@@ -91,14 +91,6 @@ jQuery('#"."mailmodifyconfig').validate({
 });
 "</xar:set>
 <xar:base-js-event name="ready" code="$mailcode" />
-<script language="JavaScript">
-<!--
-    // Enter name of mandatory fields
-    var mail_fieldRequired = Array("adminname", "adminmail");
-    // Enter field description to appear in the dialog box
-    var mail_fieldDescription = Array("Admin Name", "Admin Email");
-//-->
-</script>
 <div class="xar-mod-head">
     <span class="xar-mod-title"><xar:mlstring>Mail Administration</xar:mlstring></span>
 </div>
@@ -194,21 +186,19 @@ jQuery('#"."mailmodifyconfig').validate({
                 </label>
             </div>
 
-<xar:comment><xar:if condition="xarModGetVar('mail', 'htmluseheadfoot')"></xar:comment>
-                    <div class="xar-form-input-wrapper">
-                        <label for="htmlheader" title="#xarML('Enter the header that you wish displayed in your HTML emails.')#" class="xar-form-label">
-                            <xar:mlstring>HTML Email Header:</xar:mlstring>
-                        </label>
-                        <textarea name="htmlheader" id="htmlheader" class="xar-form-textarealarge">#xarModGetVar('mail', 'htmlheader', 1)#</textarea>
-                    </div>
+            <div class="xar-form-input-wrapper">
+                <label for="htmlheader" title="#xarML('Enter the header that you wish displayed in your HTML emails.')#" class="xar-form-label">
+                    <xar:mlstring>HTML Email Header:</xar:mlstring>
+                </label>
+                <textarea name="htmlheader" id="htmlheader" class="xar-form-textarealarge">#xarModGetVar('mail', 'htmlheader', 1)#</textarea>
+            </div>
 
-                    <div class="xar-form-input-wrapper">
-                        <label for="htmlfooter" title="#xarML('Enter the footer that you wish displayed in your HTML emails.')#" class="xar-form-label">
-                            <xar:mlstring>HTML Email Footer:</xar:mlstring>
-                        </label>
-                        <textarea name="htmlfooter" id="htmlfooter" class="xar-form-textarealarge">#xarModGetVar('mail', 'htmlfooter', 1)#</textarea>
-                    </div>
-<xar:comment></xar:if></xar:comment>
+            <div class="xar-form-input-wrapper">
+                <label for="htmlfooter" title="#xarML('Enter the footer that you wish displayed in your HTML emails.')#" class="xar-form-label">
+                    <xar:mlstring>HTML Email Footer:</xar:mlstring>
+                </label>
+                <textarea name="htmlfooter" id="htmlfooter" class="xar-form-textarealarge">#xarModGetVar('mail', 'htmlfooter', 1)#</textarea>
+            </div>
         </fieldset>
 
         <fieldset>
@@ -227,211 +217,205 @@ jQuery('#"."mailmodifyconfig').validate({
                 </label>
             </div>
 
-<xar:comment><xar:if condition="xarModGetVar('mail', 'textuseheadfoot')"></xar:comment>
-                <div class="xar-form-input-wrapper">
-                    <label for="textheader" title="#xarML('Enter the header that you wish displayed in your HTML emails.')#" class="xar-form-label">
-                        <xar:mlstring>Text Email Header:</xar:mlstring>
-                    </label>
-                    <textarea name="textheader" id="textheader" class="xar-form-textarealarge">#xarModGetVar('mail', 'textheader', 1)#</textarea>
-                </div>
+            <div class="xar-form-input-wrapper">
+                <label for="textheader" title="#xarML('Enter the header that you wish displayed in your HTML emails.')#" class="xar-form-label">
+                    <xar:mlstring>Text Email Header:</xar:mlstring>
+                </label>
+                <textarea name="textheader" id="textheader" class="xar-form-textarealarge">#xarModGetVar('mail', 'textheader', 1)#</textarea>
+            </div>
 
-                <div class="xar-form-input-wrapper">
-                    <label for="textfooter" title="#xarML('Enter the footer that you wish displayed in your HTML emails.')#" class="xar-form-label">
-                        <xar:mlstring>Text Email Footer:</xar:mlstring>
-                    </label>
-                    <textarea name="textfooter" id="textfooter" class="xar-form-textarealarge">#xarModGetVar('mail', 'textfooter', 1)#</textarea>
-                </div>
-<xar:comment></xar:if></xar:comment>
+            <div class="xar-form-input-wrapper">
+                <label for="textfooter" title="#xarML('Enter the footer that you wish displayed in your HTML emails.')#" class="xar-form-label">
+                    <xar:mlstring>Text Email Footer:</xar:mlstring>
+                </label>
+                <textarea name="textfooter" id="textfooter" class="xar-form-textarealarge">#xarModGetVar('mail', 'textfooter', 1)#</textarea>
+            </div>
         
 
-        <div class="xar-form-input-wrapper">
-            <label for="wordwrap" title="#xarML('Enter the default word wrap for text email messages.')#" class="xar-form-label">
-                <xar:mlstring>Default Word Wrap Size:</xar:mlstring>
-            </label>
-            <input type="text" name="wordwrap" id="wordwrap" value="#xarModGetVar('mail', 'wordwrap', 1)#" maxlength="5" class="xar-form-textshort" />
-        </div>
+            <div class="xar-form-input-wrapper">
+                <label for="wordwrap" title="#xarML('Enter the default word wrap for text email messages.')#" class="xar-form-label">
+                    <xar:mlstring>Default Word Wrap Size:</xar:mlstring>
+                </label>
+                <input type="text" name="wordwrap" id="wordwrap" value="#xarModGetVar('mail', 'wordwrap', 1)#" maxlength="5" class="xar-form-textshort" />
+            </div>
 
-        <div class="xar-form-input-wrapper">
-            <label for="priority" title="#xarML('Enter the priority to send messages.')#" class="xar-form-label">
-                <xar:mlstring>Default Message Priority:</xar:mlstring>
-            </label>
-            <select name="priority" id="priority">
-                <xar:if condition="xarModGetVar('mail', 'priority') eq '1'">
-                    <option label="High" value="1" selected="selected"><xar:mlstring>High</xar:mlstring></option>
-                    <option label="Normal" value="3"><xar:mlstring>Normal</xar:mlstring></option>
-                    <option label="Low" value="5"><xar:mlstring>Low</xar:mlstring></option>
-                <xar:elseif condition="xarModGetVar('mail', 'priority') eq '3'" />
-                    <option label="High" value="1"><xar:mlstring>High</xar:mlstring></option>
-                    <option label="Normal" value="3" selected="selected"><xar:mlstring>Normal</xar:mlstring></option>
-                    <option label="Low" value="5"><xar:mlstring>Low</xar:mlstring></option>
-                <xar:elseif condition="xarModGetVar('mail', 'priority') eq '5'" />
-                    <option label="High" value="1"><xar:mlstring>High</xar:mlstring></option>
-                    <option label="Normal" value="3"><xar:mlstring>Normal</xar:mlstring></option>
-                    <option label="Low" value="5" selected="selected"><xar:mlstring>Low</xar:mlstring></option>
-                </xar:if>
-            </select>
-        </div>
+            <div class="xar-form-input-wrapper">
+                <label for="priority" title="#xarML('Enter the priority to send messages.')#" class="xar-form-label">
+                    <xar:mlstring>Default Message Priority:</xar:mlstring>
+                </label>
+                <select name="priority" id="priority">
+                    <xar:if condition="xarModGetVar('mail', 'priority') eq '1'">
+                        <option label="High" value="1" selected="selected"><xar:mlstring>High</xar:mlstring></option>
+                        <option label="Normal" value="3"><xar:mlstring>Normal</xar:mlstring></option>
+                        <option label="Low" value="5"><xar:mlstring>Low</xar:mlstring></option>
+                    <xar:elseif condition="xarModGetVar('mail', 'priority') eq '3'" />
+                        <option label="High" value="1"><xar:mlstring>High</xar:mlstring></option>
+                        <option label="Normal" value="3" selected="selected"><xar:mlstring>Normal</xar:mlstring></option>
+                        <option label="Low" value="5"><xar:mlstring>Low</xar:mlstring></option>
+                    <xar:elseif condition="xarModGetVar('mail', 'priority') eq '5'" />
+                        <option label="High" value="1"><xar:mlstring>High</xar:mlstring></option>
+                        <option label="Normal" value="3"><xar:mlstring>Normal</xar:mlstring></option>
+                        <option label="Low" value="5" selected="selected"><xar:mlstring>Low</xar:mlstring></option>
+                    </xar:if>
+                </select>
+            </div>
 
-        <div class="xar-form-input-wrapper">
-            <label for="encoding" title="#xarML('Enter the encoding to send messages.')#" class="xar-form-label">
-                <xar:mlstring>Default Encoding:</xar:mlstring>
-            </label>
-            <select name="encoding" id="encoding">
-                <xar:if condition="$encoding eq '7bit'">
-                    <option label="7bit" value="7bit" selected="selected">7bit</option>
-                <xar:else />
-                    <option label="7bit" value="7bit">7bit</option>
-                </xar:if>
-                <xar:if condition="$encoding eq '8bit'">
-                    <option label="8bit" value="8bit" selected="selected">8bit</option>
-                <xar:else />
-                    <option label="8bit" value="8bit">8bit</option>
-                </xar:if>
-                <xar:if condition="$encoding eq 'binary'">
-                    <option label="binary" value="binary" selected="selected">binary</option>
-                <xar:else />
-                    <option label="binary" value="binary">binary</option>
-                </xar:if>
-                <xar:if condition="$encoding eq 'quoted-printable'">
-                    <option label="quoted-printable" value="quoted-printable" selected="selected">quoted-printable</option>
-                <xar:else />
-                    <option label="quoted-printable" value="quoted-printable">quoted-printable</option>
-                </xar:if>
-                <xar:if condition="$encoding eq 'base64'">
-                    <option label="base64" value="base64" selected="selected">base64</option>
-                <xar:else />
-                    <option label="base64" value="base64">base64</option>
-                </xar:if>
-            </select>
-        </div>
-
-        <div class="xar-form-input-wrapper">
-            <label for="server" title="#xarML('Select the default method to send mail  Mail should work in most cases, however Windows installs might need to use the SMTP method.')#" class="xar-form-label">
-                <xar:mlstring>Default Method to Send Mail:</xar:mlstring>
-            </label>
-            <xar:set name="server">xarModGetVar('mail', 'server')</xar:set>
-            <select name="server" id="server">
-                <xar:if condition="$server eq 'smtp'">
-                    <option value="smtp" selected="selected">SMTP</option>
-                    <option value="sendmail">SendMail</option>
-                    <option value="mail">Mail</option>
-                    <option value="qmail">QMail</option>
-                <xar:elseif condition="$server eq 'sendmail'" />
-                    <option value="smtp">SMTP</option>
-                    <option value="sendmail" selected="selected">SendMail</option>
-                    <option value="mail">Mail</option>
-                    <option value="qmail">QMail</option>
-                <xar:elseif condition="$server eq 'mail'" />
-                    <option value="smtp">SMTP</option>
-                    <option value="sendmail">SendMail</option>
-                    <option value="mail" selected="selected">Mail</option>
-                    <option value="qmail">QMail</option>
-                <xar:elseif condition="$server eq 'qmail'" />
-                    <option value="smtp">SMTP</option>
-                    <option value="sendmail">SendMail</option>
-                    <option value="mail">Mail</option>
-                    <option value="qmail" selected="selected">QMail</option>
-                </xar:if>
-            </select>
-        </div>
-    </fieldset>
-<xar:comment><xar:if condition="$server eq 'sendmail'"></xar:comment>
-            <fieldset class="xar-clearboth" id="server_sendmail">
-                <legend>
-                    <xar:mlstring>Sendmail Options</xar:mlstring>
-                </legend>
-
-                <div class="xar-form-input-wrapper">
-                    <label for="sendmailpath" title="#xarML('Enter the path to sendmail.')#" class="xar-form-label">
-                        <xar:mlstring>Path to Sendmail:</xar:mlstring>
-                    </label>
-                    <input type="text" name="sendmailpath" id="sendmailpath" value="#xarModGetVar('mail', 'sendmailpath', 1)#" maxlength="100" class="xar-form-textlong" />
-                </div>
-
-            </fieldset>
-<xar:comment></xar:if></xar:comment>
-
-<xar:comment><xar:if condition="$server eq 'smtp'"></xar:comment>
-            <fieldset class="xar-clearboth" id="server_smtp">
-                <legend>
-                    <xar:mlstring>SMTP Options</xar:mlstring>
-                </legend>
-
-                <div class="xar-form-input-wrapper">
-                    <label for="smtpHost" title="#xarML('Enter your SMTP host name:  IE mail.xaraya.com.')#" class="xar-form-label">
-                        <xar:mlstring>SMTP Host:</xar:mlstring>
-                    </label>
-                    <input type="text" name="smtpHost" id="smtpHost" value="#xarModGetVar('mail', 'smtpHost', 1)#" maxlength="100" class="xar-form-textlong" />
-                </div>
-
-                <div class="xar-form-input-wrapper">
-                    <label for="smtpPort" title="#xarML('Enter your SMTP port.')#" class="xar-form-label">
-                        <xar:mlstring>SMTP Port:</xar:mlstring>
-                    </label>
-                    <input type="text" name="smtpPort" id="smtpPort" value="#xarModGetVar('mail', 'smtpPort')#" maxlength="5" class="xar-form-textshort" />
-                </div>
-
-                <div class="xar-form-input-wrapper-after">
-                    <xar:if condition="xarModGetVar('mail', 'smtpAuth')">
-                        <input type="checkbox" name="smtpAuth" id="smtpAuth" value="1" checked="checked" />
+            <div class="xar-form-input-wrapper">
+                <label for="encoding" title="#xarML('Enter the encoding to send messages.')#" class="xar-form-label">
+                    <xar:mlstring>Default Encoding:</xar:mlstring>
+                </label>
+                <select name="encoding" id="encoding">
+                    <xar:if condition="$encoding eq '7bit'">
+                        <option label="7bit" value="7bit" selected="selected">7bit</option>
                     <xar:else />
-                        <input type="checkbox" name="smtpAuth" id="smtpAuth" value="1" />
+                        <option label="7bit" value="7bit">7bit</option>
                     </xar:if>
-                    <label for="smtpAuth" ttitle="#xarML('If your SMTP server requires authentification, check the box.')#">
-                        <xar:mlstring>SMTP Requires Authentication</xar:mlstring>
-                    </label>
-                </div>
+                    <xar:if condition="$encoding eq '8bit'">
+                        <option label="8bit" value="8bit" selected="selected">8bit</option>
+                    <xar:else />
+                        <option label="8bit" value="8bit">8bit</option>
+                    </xar:if>
+                    <xar:if condition="$encoding eq 'binary'">
+                        <option label="binary" value="binary" selected="selected">binary</option>
+                    <xar:else />
+                        <option label="binary" value="binary">binary</option>
+                    </xar:if>
+                    <xar:if condition="$encoding eq 'quoted-printable'">
+                        <option label="quoted-printable" value="quoted-printable" selected="selected">quoted-printable</option>
+                    <xar:else />
+                        <option label="quoted-printable" value="quoted-printable">quoted-printable</option>
+                    </xar:if>
+                    <xar:if condition="$encoding eq 'base64'">
+                        <option label="base64" value="base64" selected="selected">base64</option>
+                    <xar:else />
+                        <option label="base64" value="base64">base64</option>
+                    </xar:if>
+                </select>
+            </div>
 
+            <div class="xar-form-input-wrapper">
+                <label for="server" title="#xarML('Select the default method to send mail  Mail should work in most cases, however Windows installs might need to use the SMTP method.')#" class="xar-form-label">
+                    <xar:mlstring>Default Method to Send Mail:</xar:mlstring>
+                </label>
+                <xar:set name="server">xarModGetVar('mail', 'server')</xar:set>
+                <select name="server" id="server">
+                    <xar:if condition="$server eq 'smtp'">
+                        <option value="smtp" selected="selected">SMTP</option>
+                        <option value="sendmail">SendMail</option>
+                        <option value="mail">Mail</option>
+                        <option value="qmail">QMail</option>
+                    <xar:elseif condition="$server eq 'sendmail'" />
+                        <option value="smtp">SMTP</option>
+                        <option value="sendmail" selected="selected">SendMail</option>
+                        <option value="mail">Mail</option>
+                        <option value="qmail">QMail</option>
+                    <xar:elseif condition="$server eq 'mail'" />
+                        <option value="smtp">SMTP</option>
+                        <option value="sendmail">SendMail</option>
+                        <option value="mail" selected="selected">Mail</option>
+                        <option value="qmail">QMail</option>
+                    <xar:elseif condition="$server eq 'qmail'" />
+                        <option value="smtp">SMTP</option>
+                        <option value="sendmail">SendMail</option>
+                        <option value="mail">Mail</option>
+                        <option value="qmail" selected="selected">QMail</option>
+                    </xar:if>
+                </select>
+            </div>
+        </fieldset>
+
+        <fieldset class="xar-clearboth" id="server_sendmail">
+            <legend>
+                <xar:mlstring>Sendmail Options</xar:mlstring>
+            </legend>
+
+            <div class="xar-form-input-wrapper">
+                <label for="sendmailpath" title="#xarML('Enter the path to sendmail.')#" class="xar-form-label">
+                    <xar:mlstring>Path to Sendmail:</xar:mlstring>
+                </label>
+                <input type="text" name="sendmailpath" id="sendmailpath" value="#xarModGetVar('mail', 'sendmailpath', 1)#" maxlength="100" class="xar-form-textlong" />
+            </div>
+
+        </fieldset>
+
+        <fieldset class="xar-clearboth" id="server_smtp">
+            <legend>
+                <xar:mlstring>SMTP Options</xar:mlstring>
+            </legend>
+
+            <div class="xar-form-input-wrapper">
+                <label for="smtpHost" title="#xarML('Enter your SMTP host name:  IE mail.xaraya.com.')#" class="xar-form-label">
+                    <xar:mlstring>SMTP Host:</xar:mlstring>
+                </label>
+                <input type="text" name="smtpHost" id="smtpHost" value="#xarModGetVar('mail', 'smtpHost', 1)#" maxlength="100" class="xar-form-textlong" />
+            </div>
+
+            <div class="xar-form-input-wrapper">
+                <label for="smtpPort" title="#xarML('Enter your SMTP port.')#" class="xar-form-label">
+                    <xar:mlstring>SMTP Port:</xar:mlstring>
+                </label>
+                <input type="text" name="smtpPort" id="smtpPort" value="#xarModGetVar('mail', 'smtpPort')#" maxlength="5" class="xar-form-textshort" />
+            </div>
+
+            <div class="xar-form-input-wrapper-after">
                 <xar:if condition="xarModGetVar('mail', 'smtpAuth')">
-                    <div class="xar-form-input-wrapper">
-                        <label for="smtpUserName" title="#xarML('Enter your SMTP username.')#" class="xar-form-label">
-                            <xar:mlstring>SMTP Username:</xar:mlstring>
-                        </label>
-                        <input type="text" name="smtpUserName" id="smtpUserName" value="#xarModGetVar('mail', 'smtpUserName', 1)#" maxlength="100" class="xar-form-textmedium" />
-                    </div>
-
-                    <div class="xar-form-input-wrapper">
-                        <label for="smtpPassword" title="#xarML('Enter your new SMTP password.')#" class="xar-form-label">
-                            <xar:mlstring>SMTP Password:</xar:mlstring>
-                        </label>
-                        <input type="password" name="smtpPassword" id="smtpPassword" value="" maxlength="30" class="xar-form-textmedium" />
-                    </div>
+                    <input type="checkbox" name="smtpAuth" id="smtpAuth" value="1" checked="checked" />
+                <xar:else />
+                    <input type="checkbox" name="smtpAuth" id="smtpAuth" value="1" />
                 </xar:if>
+                <label for="smtpAuth" ttitle="#xarML('If your SMTP server requires authentification, check the box.')#">
+                    <xar:mlstring>SMTP Requires Authentication</xar:mlstring>
+                </label>
+            </div>
+
+            <xar:if condition="xarModGetVar('mail', 'smtpAuth')">
+                <div class="xar-form-input-wrapper">
+                    <label for="smtpUserName" title="#xarML('Enter your SMTP username.')#" class="xar-form-label">
+                        <xar:mlstring>SMTP Username:</xar:mlstring>
+                    </label>
+                    <input type="text" name="smtpUserName" id="smtpUserName" value="#xarModGetVar('mail', 'smtpUserName', 1)#" maxlength="100" class="xar-form-textmedium" />
+                </div>
 
                 <div class="xar-form-input-wrapper">
-                    <label for="interval" title="#xarML('Specify the interval to check for mails to send.')#" class="xar-form-label">
-                        <xar:mlstring>Support Scheduled Mail:</xar:mlstring>
+                    <label for="smtpPassword" title="#xarML('Enter your new SMTP password.')#" class="xar-form-label">
+                        <xar:mlstring>SMTP Password:</xar:mlstring>
                     </label>
-                    <xar:if condition="xarModIsAvailable('scheduler')">
-                        <select name="interval" id="interval">
-                            <option value=""><xar:mlstring>not supported</xar:mlstring></option>
-                            <xar:foreach in="$intervals" key="$id" value="$name">
-                                <xar:if condition="!empty($interval) and $interval eq $id">
-                                    <option value="#$id#" selected="selected">#$name#</option>
-                                <xar:else/>
-                                    <option value="#$id#">#$name#</option>
-                                </xar:if>
-                            </xar:foreach>
-                        </select>
-                    <xar:else/>
-                        <input type="hidden" name="interval" value="" />
-                        <xar:mlstring>You need to install the 'scheduler' module for this</xar:mlstring>
-                    </xar:if>
+                    <input type="password" name="smtpPassword" id="smtpPassword" value="" maxlength="30" class="xar-form-textmedium" />
                 </div>
-                <xar:if condition="!empty($unsent)">
-                    <p>
-                        <xar:ml>
-                            <xar:mlstring>Mails Scheduled: #(1)</xar:mlstring>
-                            <xar:mlvar>#$unsent#</xar:mlvar>
-                        </xar:ml>
-                    </p>
-                    <p>
-                        <xar:mlstring>Please note that if you stop the scheduler or if it isn't triggered, previously scheduled mails will not be sent.</xar:mlstring>
-                    </p>
-                </xar:if>
+            </xar:if>
 
-            </fieldset>
-<xar:comment></xar:if></xar:comment>
+            <div class="xar-form-input-wrapper">
+                <label for="interval" title="#xarML('Specify the interval to check for mails to send.')#" class="xar-form-label">
+                    <xar:mlstring>Support Scheduled Mail:</xar:mlstring>
+                </label>
+                <xar:if condition="xarModIsAvailable('scheduler')">
+                    <select name="interval" id="interval">
+                        <option value=""><xar:mlstring>not supported</xar:mlstring></option>
+                        <xar:foreach in="$intervals" key="$id" value="$name">
+                            <xar:if condition="!empty($interval) and $interval eq $id">
+                                <option value="#$id#" selected="selected">#$name#</option>
+                            <xar:else/>
+                                <option value="#$id#">#$name#</option>
+                            </xar:if>
+                        </xar:foreach>
+                    </select>
+                <xar:else/>
+                    <input type="hidden" name="interval" value="" />
+                    <xar:mlstring>You need to install the 'scheduler' module for this</xar:mlstring>
+                </xar:if>
+            </div>
+            <xar:if condition="!empty($unsent)">
+                <p>
+                    <xar:ml>
+                        <xar:mlstring>Mails Scheduled: #(1)</xar:mlstring>
+                        <xar:mlvar>#$unsent#</xar:mlvar>
+                    </xar:ml>
+                </p>
+                <p>
+                    <xar:mlstring>Please note that if you stop the scheduler or if it isn't triggered, previously scheduled mails will not be sent.</xar:mlstring>
+                </p>
+            </xar:if>
+        </fieldset>
 
         <fieldset class="xar-clearboth">
             <legend><xar:mlstring>Filtering Options</xar:mlstring></legend>
@@ -453,7 +437,6 @@ jQuery('#"."mailmodifyconfig').validate({
                     <textarea name="replacestrings" id="replacestrings" class="xar-form-textarealarge">#$replacestrings#</textarea>
                 </div>
             </div>
-
         </fieldset>
         
         <fieldset>

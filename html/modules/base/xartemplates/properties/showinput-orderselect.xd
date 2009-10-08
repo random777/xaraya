@@ -1,9 +1,51 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:set name="propcode">"
+jQuery('div#[id^=xar_orderselect]').show();
+jQuery('div#[id^=xar_orderselect]').parent().find('noscript').remove();
+jQuery('div#[id^=xar_orderselect]').parent().find('input[id$=_hidden]').each(function() {
+    var i = jQuery(this).attr('id');
+    i = i.replace(/_hidden$/, '');
+    jQuery(this).attr('id', i);
+});
 
-<xar:base-include-javascript module="base" filename="orderitem.js" position="head" />
-<script type="text/javascript">
-    xar_base_reorder_warn = '#xarML('You must select an option to move.')#';
-</script>
+jQuery('div#[id^=xar_orderselect] button').click(function() {
+    var b = (jQuery(this).attr('id').match(/_up$/) != null ? true : false);
+    var baseID = jQuery(this).attr('id').replace(/_[a-z]+$/, '');
+    var sel = jQuery('#' + baseID + '_list')[0];
+    var opts = sel.options;
+    var idx = sel.selectedIndex;
+
+    if (idx == -1) {
+        return false;
+    }
+    var nxidx = idx + ( b ? -1 : 1)
+    if (nxidx " . chr(60) . " 0) {
+        nxidx = opts.length - 1;
+    } else if (nxidx " . chr(62) . "= opts.length) {
+        nxidx = 0;
+    }
+    var tmpVal = opts[nxidx].value;
+    var tmpTxt = opts[nxidx].text;
+    var tmp = opts[nxidx];
+    var len = opts.length;
+    var v = '';
+
+    opts[nxidx].text = opts[idx].text;
+    opts[nxidx].value = opts[idx].value;
+    opts[idx].text = tmpTxt;
+    opts[idx].value = tmpVal;
+    sel.selectedIndex = nxidx;
+
+    for (var i = 0; i " . chr(60) . " len; i++) {
+        v += ';' + opts[i].value;
+    }
+    jQuery('#' + baseID).val(v.substring(1, v.length));
+
+    return false;
+});
+"</xar:set>
+<xar:base-js-event name="ready" code="$propcode" once="true" />
 
 <xar:if condition="count($options) gt 10">
     <xar:set name="size">10</xar:set>
@@ -12,12 +54,12 @@
 </xar:if>
 
 <xar:if condition="count($options) gt 0">
-    <div class="xar-floatleft">
+    <div class="xar-floatleft" id="xar_orderselect_#$id#" style="display: none;">
         <div class="xar-floatleft">
-            <button id="#$id#_up" onclick="return xar_base_reorder('#$id#_list', true, '#$id#');" title="#xarML('Move Up')#" class="xar-displayblock xar-margin-thickbottom">
+            <button id="#$id#_up" title="#xarML('Move Up')#" class="xar-displayblock xar-margin-thickbottom">
                 <img src="#$up_arrow_src#" alt="#xarML('Up Arrow')#" class="xar-icon" />
             </button>
-            <button id="#$id#_down" onclick="return xar_base_reorder('#$id#_list', false, '#$id#');" title="#xarML('Move Down')#" class="xar-displayblock xar-margin-thicktop">
+            <button id="#$id#_down" title="#xarML('Move Down')#" class="xar-displayblock xar-margin-thicktop">
                 <img src="#$down_arrow_src#" alt="#xarML('Down Arrow')#" class="xar-icon" />
             </button>
         </div>
@@ -27,12 +69,16 @@
                 <option value="#$option.id#">#$option.name#</option>
             </xar:foreach>
         </select>
-        <input type="hidden" name="#$name#" id="#$id#" value="#$value#" />
+        <input type="hidden" name="#$name#" id="#$id#_hidden" value="#$value#" />
     </div>
 <xar:else />
+    <input type="hidden" name="#$name#" id="#$id#_hidden" value="#$value#" />
     <xar:mlstring>No options specified in validation field.</xar:mlstring>
 </xar:if>
-
+<noscript>
+    <input type="text" name="#$name#" id="#$id#" value="#$value#" class="xar-form-textlong" />
+    <span><xar:mlstring>Arrange the individual values, separating them with ';'.</xar:mlstring></span>
+</noscript> 
 <xar:if condition="!empty($invalid)">
     <span class="xar-error">#$invalid#</span>
 </xar:if>

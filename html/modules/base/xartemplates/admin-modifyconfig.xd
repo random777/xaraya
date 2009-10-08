@@ -339,15 +339,13 @@ jQuery('#"."displayform').validate({
             ----------------- Begin Security Options -------------------
         </xar:comment>
         <xar:elseif condition="$tab eq 'security'" />
-        <xar:set name="authmodules">
+        <xar:set name="authmodulestmp">
             #xarConfigGetVar('Site.User.AuthenticationModules')#
         </xar:set>
-        <xar:if condition="!empty($authmodules) and count($authmodules) gt 1">
-            <xar:base-include-javascript module="base" filename="orderitem.js" position="head" />
-            <script type="text/javascript">
-                xar_base_reorder_warn = '#xarML('You must select the authentication module you want to move.')#';
-            </script>
-        </xar:if>
+        <xar:set name="authmodules">array()</xar:set>
+        <xar:foreach in="$authmodulestmp" value="$amod">
+            <xar:set name="a">array_push($authmodules, array('id' => $amod, 'name' => $amod))</xar:set>
+        </xar:foreach>
         <form action="#xarModUrl('base', 'admin', 'updateconfig')#" id="securityform" method="post" enctype="application/x-www-form-urlencoded">
             <fieldset>
                 <legend>
@@ -426,37 +424,15 @@ jQuery('#"."displayform').validate({
                     <input type="text" id="sessiontimeout" name="sessiontimeout" value="#xarConfigGetVar('Site.Session.InactivityTimeout')#" maxlength="3" class="xar-form-textshort" />
                 </div>
                 <div class="xar-form-input-wrapper">
-                    <label for="authmodules" title="#xarML('Change the order of authentication')#" class="xar-form-label">
+                    <label for="authmodules_list" title="#xarML('Change the order of authentication')#" class="xar-form-label">
                         <xar:mlstring>
                             Authentication Modules:
                         </xar:mlstring>
                     </label>
                     <xar:if condition="!empty($authmodules) and count($authmodules) gt 1">
-                        <div class="xar-floatleft">
-                            <div class="xar-floatleft">
-                                <button onclick="return xar_base_reorder('authmodules', true, 'authmodule_order');" title="#xarML('Move Up')#" class="xar-displayblock xar-margin-thickbottom">
-                                    <img src="#xarTplGetImage('icons/go-up.png','base')#" alt="#xarML('Up Arrow')#" />
-                                </button>
-                                <button onclick="return xar_base_reorder('authmodules', false, 'authmodule_order');" title="#xarML('Move Down')#" class="xar-displayblock xar-margin-thicktop">
-                                    <img src="#xarTplGetImage('icons/go-down.png','base')#" alt="#xarML('Down Arrow')#" />
-                                </button>
-                            </div>
-                            <div class="xar-floatleft xar-margin-thickleft">
-                                <xar:set name="size">
-                                    count($authmodules)
-                                </xar:set>
-                                <select name="authmodules" id="authmodules" size="#$size#">
-                                    <xar:foreach in="$authmodules" value="$authmodule">
-                                        <option value="#$authmodule#">
-                                            #$authmodule#
-                                        </option>
-                                    </xar:foreach>
-                                </select>
-                                <input type="hidden" name="authmodule_order" id="authmodule_order" value="" />
-                            </div>
-                        </div>
-                        <xar:else />
-                        #$authmodules[0]#
+                        <xar:data-input type="orderselect" options="$authmodules" name="authmodule_order" />
+                    <xar:else />
+                        #$authmodulestmp[0]#
                     </xar:if>
                 </div>
                 <div class="xar-form-input-wrapper">
@@ -739,7 +715,9 @@ jQuery('#"."displayform').validate({
                 </div>
                 <div class="xar-form-input-wrapper-after">
                     <xar:data-input type="checkbox" name="fwstatus" id="fwstatus" value="$fwinfo['status']" />
-                    <label for="fwstatus"><xar:mlstring>Enable this framework?</xar:mlstring>
+                    <label for="fwstatus">
+                        <xar:mlstring>Enable this framework?</xar:mlstring>
+                    </label>
                 </div>
                 <div class="xar-form-input-wrapper">
                     <xar:if condition="!empty($fwfiles)">
@@ -765,7 +743,7 @@ jQuery('#"."displayform').validate({
                 <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />
             </div>
         </form>
-        <xar:if condition="!empty($framework) && !empty($plugins)">
+        <xar:if condition="!empty($framework) and !empty($plugins)">
             <h3>
                 <xar:ml>
                 <xar:mlstring>#(1) Plugins</xar:mlstring>

@@ -3,7 +3,7 @@
  * Modify the dynamic properties for a module and itemtype
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -159,7 +159,7 @@ function dynamicdata_admin_modifyprop()
     $data['fieldstatusprop'] =& Dynamic_Property_Master::getProperty(array('type' => 'fieldstatus'));
 
     // We have to specify this here, the js expects non xml urls and the => makes the template invalied
-    $data['urlform'] = xarModURL('dynamicdata','admin','form',array('objectid' => $data['objectid'], 'theme' => 'print'),false);
+    $data['urlform'] = xarModURL('dynamicdata','admin','form',array('objectid' => $data['objectid']));
     $data['layout'] = $layout;
 
     if (empty($details)) {

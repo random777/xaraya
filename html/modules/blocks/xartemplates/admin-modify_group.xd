@@ -1,8 +1,49 @@
 <xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
-<xar:base-include-javascript module="base" filename="orderitem.js" position="head" />
-<script type="text/javascript">
-    xar_base_reorder_warn = '#xarML('You must select the block to move.')#';
-</script>
+<xar:set name="groupcode">"
+jQuery('div#[id^=xar_orderselect]').show();
+jQuery('div#[id^=xar_orderselect]').parent().find('noscript').remove();
+jQuery('div#[id^=xar_orderselect]').parent().find('input[id$=_hidden]').each(function() {
+    var i = jQuery(this).attr('id');
+    i = i.replace(/_hidden$/, '');
+    jQuery(this).attr('id', i);
+});
+
+jQuery('div#[id^=xar_orderselect] button').click(function() {
+    var b = (jQuery(this).attr('id').match(/_up$/) != null ? true : false);
+    var baseID = jQuery(this).attr('id').replace(/_[a-z]+$/, '');
+    var sel = jQuery('#' + baseID + '_list')[0];
+    var opts = sel.options;
+    var idx = sel.selectedIndex;
+
+    if (idx == -1) {
+        return false;
+    }
+    var nxidx = idx + ( b ? -1 : 1)
+    if (nxidx " . chr(60) . " 0) {
+        nxidx = opts.length - 1;
+    } else if (nxidx " . chr(62) . "= opts.length) {
+        nxidx = 0;
+    }
+    var tmpVal = opts[nxidx].value;
+    var tmpTxt = opts[nxidx].text;
+    var tmp = opts[nxidx];
+    var len = opts.length;
+    var v = '';
+
+    opts[nxidx].text = opts[idx].text;
+    opts[nxidx].value = opts[idx].value;
+    opts[idx].text = tmpTxt;
+    opts[idx].value = tmpVal;
+    sel.selectedIndex = nxidx;
+
+    for (var i = 0; i " . chr(60) . " len; i++) {
+        v += ';' + opts[i].value;
+    }
+    jQuery('#' + baseID).val(v.substring(1, v.length));
+    return false;
+});
+"</xar:set>
+<xar:base-js-event name="ready" code="$groupcode" once="true" />
 
 <div class="xar-mod-head">
     <span class="xar-mod-title"><xar:mlstring>Blocks Administration</xar:mlstring></span>
@@ -40,33 +81,25 @@
                 <xar:mlstring>Members:</xar:mlstring>
             </label>
             <xar:if condition="$instance_count gt 0">
-                <xar:set name="r">"jQuery('#js_group_instances').show();"</xar:set>
-                <xar:base-js-event name="ready" code="$r" />
-                <div id="js_group_instances" class="xar-floatleft xar-displaynone">
+                <div class="xar-floatleft" id="xar_orderselect_group_instance_order" style="display: none;">
                     <div class="xar-floatleft">
-                        <button onclick="return xar_base_reorder('group_instances', true, 'group_instance_order');" title="#$moveuplabel#" class="xar-displayblock xar-margin-thickbottom">
-                            <img src="#$up_arrow_src#" alt="#xarML('Up Arrow')#" />
+                        <button id="group_instance_order_up" title="#xarML('Move Up')#" class="xar-displayblock xar-margin-thickbottom">
+                            <img src="#$up_arrow_src#" alt="#xarML('Up Arrow')#" class="xar-icon" />
                         </button>
-                        <button onclick="return xar_base_reorder('group_instances', false, 'group_instance_order');" title="#$movedownlabel#" class="xar-displayblock xar-margin-thicktop">
-                            <img src="#$down_arrow_src#" alt="#xarML('Down Arrow')#" />
+                        <button id="group_instance_order_down" title="#xarML('Move Down')#" class="xar-displayblock xar-margin-thicktop">
+                            <img src="#$down_arrow_src#" alt="#xarML('Down Arrow')#" class="xar-icon" />
                         </button>
                     </div>
-                    <div class="xar-floatleft xar-margin-thickleft">
-                        <xar:if condition="$instance_count gt 2">
-                            <xar:set name="list_size">#$instance_count#</xar:set>
-                        <xar:else />
-                            <xar:set name="list_size">3</xar:set>
-                        </xar:if>
-                        <select name="group_instances" id="group_instances" size="#$instance_count#">
-                            <xar:loop name="$group['instances']">
-                                <xar:if condition="empty($loop:item['title'])">
-                                    <option value="#$loop:item['id']#">#$loop:item['name']#</option>
-                                <xar:else />
-                                    <option value="#$loop:item['id']#">#$loop:item['name']# (#$loop:item['title']#)</option>
-                                </xar:if>
-                            </xar:loop>
-                        </select>
-                    </div>
+
+                    <xar:set name="group_instance_order">''</xar:set>
+                    <select name="group_instance_order_list" id="group_instance_order_list" size="#$instance_count#" class="xar-margin-thickleft">
+                        <xar:foreach in="$group['instances']" value="$option">
+                            <option value="#$option.id#">#$option.name#</option>
+                            <xar:set name="group_instance_order">$group_instance_order . ';' . $option['id']</xar:set>
+                        </xar:foreach>
+                    </select>
+                    <xar:set name="group_instance_order">substr($group_instance_order, 1)</xar:set>
+                    <input type="hidden" name="group_instance_order" id="group_instance_order_hidden" value="#$group_instance_order#" />
                 </div>
                 <noscript>
                 <table id="group_instances">
@@ -121,7 +154,6 @@
         <div class="xar-form-footer">
             <input type="hidden" name="authid" id="authid" value="#$authid#" />
             <input type="hidden" name="gid" id="gid" value="#$group['id']#" />
-            <input type="hidden" name="group_instance_order" id="group_instance_order" value="" />
             <input type="submit" value="#xarML('Update Group')#" class="xar-margin-thick" />
         </div>
 

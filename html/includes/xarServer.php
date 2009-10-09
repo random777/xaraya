@@ -176,10 +176,16 @@ function xarServerGetHost()
  *
  * @author Marco Canini <marco@xaraya.com>
  * @access public
+ * @param secure bool enable https
  * @return string current HTTP protocol
  */
-function xarServerGetProtocol()
+function xarServerGetProtocol($secure = false)
 {
+    // https was explicitly called for
+    if(isset($secure) && ($secure === true || $secure == 1)) {
+        return 'https';
+    }
+
     if (function_exists('xarConfigGetVar')){
         if (xarConfigGetVar('Site.Core.EnableSecureServer') == true){
             if (preg_match('/^http:/', $_SERVER['REQUEST_URI'])) {
@@ -200,16 +206,24 @@ function xarServerGetProtocol()
  * get base URL for Xaraya
  *
  * @access public
+ * @param secure bool enable https
  * @return string base URL for Xaraya
  */
-function xarServerGetBaseURL()
+function xarServerGetBaseURL($secure = false)
 {
     static $baseurl = null;
+    static $issecure = null;
 
-    if (isset($baseurl))  return $baseurl;
+    if(isset($secure) && ($secure != true || $secure != 1)) {
+        $secure = false;
+    }
+
+    if (isset($baseurl) && isset($issecure) && $issecure == $secure) return $baseurl;
+
+    $issecure = $secure;
 
     $server = xarServerGetHost();
-    $protocol = xarServerGetProtocol();
+    $protocol = xarServerGetProtocol($secure);
     $path = xarServerGetBaseURI();
 
     $baseurl = "$protocol://$server$path/";

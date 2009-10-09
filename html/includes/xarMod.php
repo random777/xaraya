@@ -1130,10 +1130,11 @@ function xarMod__URLaddParametersToPath($args, $path, $pini, $psep)
  * @param fragment string document fragment target (e.g. somesite.com/index.php?foo=bar#target)
  *                        Should not be equal to an HTML ID used on same page, some browsers don't find the anchor then.
  * @param entrypoint array of arguments for different entrypoint than index.php
+ * @param secure bool for https
  * @return mixed absolute URL for call, or false on failure
  * @todo allow for an alternative entry point (e.g. stream.php) without affecting the other parameters
  */
-function xarModURL($modName = NULL, $modType = 'user', $funcName = 'main', $args = array(), $generateXMLURL = NULL, $fragment = NULL, $entrypoint = array())
+function xarModURL($modName = NULL, $modType = 'user', $funcName = 'main', $args = array(), $generateXMLURL = NULL, $fragment = NULL, $entrypoint = array(), $secure = false)
 {
     // Parameter separator and initiator.
     $psep = '&';
@@ -1281,7 +1282,7 @@ function xarModURL($modName = NULL, $modType = 'user', $funcName = 'main', $args
     }
 
     // Return the URL.
-    return xarServerGetBaseURL() . $path;
+    return xarServerGetBaseURL($secure) . $path;
 }
 
 

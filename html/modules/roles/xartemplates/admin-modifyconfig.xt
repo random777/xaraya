@@ -1,0 +1,683 @@
+<xar:comment>
+    License: GPL http://www.gnu.org/copyleft/gpl.html
+</xar:comment>
+<xar:style scope="module" module="base" file="navtabs" />
+<div class="xar-mod-head">
+    <span class="xar-mod-title">
+        <xar:mlstring>
+            Roles Administration
+        </xar:mlstring>
+    </span>
+</div>
+<div class="xar-mod-body">
+  <xar:template type="module" file="admin-menu" />
+    <h2>
+        <xar:mlstring>
+            Modify Configuration
+        </xar:mlstring>
+    </h2>
+    <div>
+        <dl class="xar-tabs">
+            <dt class="help">
+                <xar:mlstring>
+                    Configure:
+                </xar:mlstring>
+            </dt>
+            <xar:if condition="$tab eq 'general'">
+                <dd class="active">
+                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=general">
+                        <xar:mlstring>
+                            General
+                        </xar:mlstring>
+                    </a>
+                </dd>
+            <xar:else />
+                <dd>
+                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=general">
+                        <xar:mlstring>
+                            General
+                        </xar:mlstring>
+                    </a>
+                </dd>
+            </xar:if>
+            <xar:if condition="$tab eq 'restrictions'">
+                <dd class="active">
+                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=restrictions">
+                        <xar:mlstring>
+                            Restrictions
+                        </xar:mlstring>
+                    </a>
+                </dd>
+                <xar:else />
+                <dd>
+                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=restrictions">
+                        <xar:mlstring>
+                            Restrictions
+                        </xar:mlstring>
+                    </a>
+                </dd>
+            </xar:if>
+            <xar:if condition="$tab eq 'duvs'">
+                <dd class="active">
+                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=duvs">
+                        <xar:mlstring>
+                            User Variables
+                        </xar:mlstring>
+                    </a>
+                </dd>
+                <xar:else />
+                <dd>
+                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=duvs">
+                        <xar:mlstring>
+                            User Variables
+                        </xar:mlstring>
+                    </a>
+                </dd>
+            </xar:if>
+            <xar:if condition="$tab eq 'hooks'">
+                <dd class="active">
+                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=hooks">
+                        <xar:mlstring>
+                            User Hooks
+                        </xar:mlstring>
+                    </a>
+                </dd>
+            <xar:else />
+                <dd>
+                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=hooks">
+                        <xar:mlstring>
+                            User Hooks
+                        </xar:mlstring>
+                    </a>
+                </dd>
+            </xar:if>
+            <xar:comment>
+                <xar:if condition="$tab eq 'grouphooks'">
+                    <dd class="active">
+                        <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=grouphooks">
+                            <xar:mlstring>
+                                Group Hooks
+                            </xar:mlstring>
+                        </a>
+                    </dd>
+                <xar:else />
+                    <dd>
+                        <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=grouphooks">
+                            <xar:mlstring>
+                                Group Hooks
+                            </xar:mlstring>
+                        </a>
+                    </dd>
+                </xar:if>
+            </xar:comment>
+            <xar:if condition="$tab eq 'memberlist'">
+                <dd class="active">
+                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=memberlist">
+                        <xar:mlstring>
+                            Member Options
+                        </xar:mlstring>
+                    </a>
+                </dd>
+            <xar:else />
+                <dd>
+                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=memberlist">
+                        <xar:mlstring>
+                            Member Options
+                        </xar:mlstring>
+                    </a>
+                </dd>
+            </xar:if>
+        </dl>
+    </div>
+    <xar:comment>
+        ------------------- Begin General Options ---------------------
+    </xar:comment>
+    <xar:if condition="$tab eq 'general'">
+        <form method="post" action="&xar-modurl-roles-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
+            <fieldset>
+                <legend>
+                    <xar:mlstring>
+                        Page Layout
+                    </xar:mlstring>
+                </legend>
+                <div class="xar-form-input-wrapper">
+                    <label for="itemsperpage" title="#xarML('Number of users to show on each page.')#" class="xar-form-label">
+                        <xar:mlstring>
+                            Users Per Page:
+                        </xar:mlstring>
+                    </label>
+                    <input type="text" name="itemsperpage" id="itemsperpage" value="#xarModGetVar('roles', 'itemsperpage')#" maxlength="3" class="xar-form-textshort" />
+                </div>
+                <div class="xar-form-input-wrapper-after">
+                    <xar:if condition="xarModGetVar('roles', 'SupportShortURLs')">
+                        <input type="checkbox" name="shorturls" id="shorturls" value="1" checked="checked" />
+                        <xar:else />
+                        <input type="checkbox" name="shorturls" id="shorturls" value="1" />
+                    </xar:if>
+                    <label for="shorturls" title="#xarML('Enable short URLs for Roles module')#">
+                        <xar:mlstring>
+                            Enable Short URLs
+                        </xar:mlstring>
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    <xar:mlstring>
+                        Default Group and Site Administrator
+                    </xar:mlstring>
+                </legend>
+                <div class="xar-form-input-wrapper">
+                    <label for="siteadmin" title="#xarML('Select the admin user that cannot be deleted')#" class="xar-form-label">
+                        <xar:mlstring>
+                            Designated Site Admin:
+                        </xar:mlstring>
+                    </label>
+                    <select name="siteadmin" id="siteadmin">
+                        <xar:loop name="$siteadmins">
+                            <xar:if condition="$loop:item['id'] eq xarModGetVar('roles','admin')">
+                                <option name="#$loop:item['id']#" id="#$loop:item['id']#" value="#$loop:item['id']#" selected="selected">
+                                    #$loop:item['name']#
+                                </option>
+                                <xar:else />
+                                <option name="#$loop:item['id']#" id="#$loop:item['id']#" value="#$loop:item['id']#">
+                                    #$loop:item['name']#
+                                </option>
+                            </xar:if>
+                        </xar:loop>
+                    </select>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="defaultgroup" title="#xarML('New Users automatically get assigned to this Group')#" class="xar-form-label">
+                        <xar:mlstring>
+                            Default Group For New Users:
+                        </xar:mlstring>
+                    </label>
+                    <select name="defaultgroup" id="defaultgroup">
+                        <xar:loop name="$groups">
+                            <xar:if condition="$loop:item['name'] eq $defaultgroup">
+                                <option name="#$loop:item['name']#" id="#$loop:item['name']#" value="#$loop:item['name']#" selected="selected">
+                                    #$loop:item['name']#
+                                </option>
+                                <xar:else />
+                                <option name="#$loop:item['name']#" id="#$loop:item['name']#" value="#$loop:item['name']#">
+                                    #$loop:item['name']#
+                                </option>
+                            </xar:if>
+                        </xar:loop>
+                    </select>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    <xar:mlstring>
+                        Default Authentication &amp; Registration Modules
+                    </xar:mlstring>
+                </legend>
+                <div class="xar-form-input-wrapper">
+                    <label for="defaultauthmodule" title="#xarML('Select the module that manages authentication of users')#" class="xar-form-label">
+                        <xar:mlstring>
+                            Authentication:
+                        </xar:mlstring>
+                    </label>
+                    <xar:data-input type="module" name="defaultauthmodule" class="Authentication" value="$defaultauthmod" />
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="defaultregmodule" title="#xarML('Select the module that manages registration of users')#" class="xar-form-label">
+                        <xar:mlstring>
+                            Registration:
+                        </xar:mlstring>
+                    </label>
+                    <xar:data-input type="module" name="defaultregmodule" class="Registration" value="$defaultregmod" />
+                </div>
+            </fieldset>
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="phase" id="phase" value="update" />
+                <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                <input type="submit" value="#xarML('Update Roles Configuration')#" />
+            </div>
+        </form>
+       <xar:comment>
+            - - - - - - - - - - - - - - - - - Begin Restrictions Options - - - - - - - - - - - - - - - - - - -
+        </xar:comment>  
+        <xar:elseif condition="$tab eq 'restrictions'" />
+            <form method="post" action="&xar-modurl-roles-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
+            <fieldset>
+                <legend>
+                    <xar:mlstring>
+                        Emails
+                    </xar:mlstring>
+                </legend>
+                <div class="xar-form-input-wrapper-after">
+                    <xar:if condition="xarModGetVar('roles', 'uniqueemail')">
+                        <input type="checkbox" name="uniqueemail" id="uniqueemail" value="1" checked="checked" />
+                    <xar:else />
+                        <input type="checkbox" name="uniqueemail" id="uniqueemail" value="1" />
+                    </xar:if>
+                    <label for="uniqueemail" title="#xarML('Require each user account to have a distinct email address')#">
+                        <xar:mlstring>
+                                Email Address Must Be Unique To Each Registered User
+                            </xar:mlstring>
+                    </label>
+                </div>
+                <div class="xar-form-input-wrapper">
+                        <label for="disallowedemails" title="#xarML('Email addresses which cannot be used')#" class="xar-form-label">
+                            <xar:mlstring>
+                                Disallowed Email Addresses:
+                            </xar:mlstring>
+                        </label>
+                        <div class="xar-form-container-after">
+                            <textarea name="disallowedemails" id="disallowedemails" class="xar-form-textarealarge">#$emails# </textarea>
+                        </div>
+                        <p class="xar-clearboth">
+                            <xar:mlstring>
+                                Note: Enter each email on a single line. Do not separate with comma, etc
+                            </xar:mlstring>
+                        </p>
+                    </div>
+              
+            </fieldset>
+         
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="phase" id="phase" value="update" />
+                <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                <input type="submit" value="#xarML('Update Roles Configuration')#" />
+            </div>
+        </form>
+        
+        <xar:comment>
+            - - - - - - - - - - - - - - - - - Begin User Variable Options - - - - - - - - - - - - - - - - - - -
+        </xar:comment>
+        <xar:elseif condition="$tab eq 'duvs'" />
+            <form method="post" action="&xar-modurl-roles-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>
+                            Basic User Variables
+                        </xar:mlstring>
+                    </legend>
+                    <p>
+                        <xar:mlstring>Always available in a user role, and can  be retrieved as <strong>xarUserGetVar('varname')</strong></xar:mlstring>
+                    </p>
+                    <table class="xar-items">
+                        <thead>
+                        <tr>
+                            <th style="width: 100px">
+                                <xar:mlstring>Name</xar:mlstring>
+                            </th>
+                            <th style="width: 400px">
+                                <xar:mlstring>Description</xar:mlstring>
+                            </th>
+                        </tr>
+                        </thead>
+                        </tbody>
+                        <tr>
+                            <td style="width: 100px">
+                                uname
+                            </td>
+                            <td style="width: 400px">
+                                <xar:mlstring>The handle or nick under which the user is known to the site. The uname is unique to each user.</xar:mlstring>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 100px">
+                                name
+                            </td>
+                            <td style="width: 400px">
+                                <xar:mlstring>The user's display name, as shown in the members list and other displays. The name need not be unique.</xar:mlstring>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 100px">
+                                email
+                            </td>
+                            <td style="width: 400px">
+                                <xar:mlstring>The user's email address. The email address can be defined by the site administrator to be unique or not.</xar:mlstring>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>
+                            Dynamic Roles Variables
+                        </xar:mlstring>
+                    </legend>
+                    <p>
+                        <xar:mlstring>Optional in a user role. Once activated they can be retrieved as <strong>xarUserGetVar('varname')</strong></xar:mlstring>
+                    </p>
+
+                    <table class="xar-items">
+                        <thead>
+                        <tr>
+                            <th style="width: 100px">
+                                <xar:mlstring>Name</xar:mlstring>
+                            </th>
+                            <th style="width: 400px">
+                                <xar:mlstring>Description</xar:mlstring>
+                            </th>
+                            <th style="width: 50px">
+                                &nbsp;
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="width: 100px">
+                                userhome
+                            </td>
+                            <td style="width: 400px">
+                                      <xar:mlstring>The role's home page, which is initially displayed when the user logs in. The home page can be role/user specific or inherited from the direct parent group. The home page is specified in a similar manner to user menu item shortcuts in the modify or edit role page.</xar:mlstring>
+                            </td>
+                            <td style="width: 50px; text-align: center;">
+                                <xar:if condition="xarModGetVar('roles','setuserhome')">
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','setuserhome' => 0))#">
+                                        <xar:mlstring>Deactivate</xar:mlstring>
+                                    </a>
+                                <xar:else />
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','setuserhome' => 1))#">
+                                        <xar:mlstring>Activate</xar:mlstring>
+                                    </a>
+                                </xar:if>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 100px">
+                                primaryparent
+                            </td>
+                            <td style="width: 400px">
+                                <xar:mlstring>The role's primary parent group.
+                                A primary parent take precendence over other parent groups for realm and user role home settings.</xar:mlstring>
+                            </td>
+                            <td style="width: 50px; text-align: center;">
+                                <xar:if condition="xarModGetVar('roles','setprimaryparent')">
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','setprimaryparent' => 0))#">
+                                        <xar:mlstring>Deactivate</xar:mlstring>
+                                    </a>
+                                <xar:else />
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','setprimaryparent' => 1))#">
+                                        <xar:mlstring>Activate</xar:mlstring>
+                                    </a>
+                                </xar:if>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 100px">
+                                passwordupdate
+                            </td>
+                            <td style="width: 400px">
+                                <xar:mlstring>The date and time this role's password was last changed.</xar:mlstring>
+                            </td>
+                            <td style="width: 50px; text-align: center;">
+                                <xar:if condition="xarModGetVar('roles','setpasswordupdate')">
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','setpasswordupdate' => 0))#">
+                                        <xar:mlstring>Deactivate</xar:mlstring>
+                                    </a>
+                                <xar:else />
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','setpasswordupdate' => 1))#">
+                                        <xar:mlstring>Activate</xar:mlstring>
+                                    </a>
+                                </xar:if>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 100px">
+                                userlastlogin
+                            </td>
+                            <td style="width: 400px">
+                                <xar:mlstring>The date and time this role last logged in.</xar:mlstring>
+                            </td>
+                            <td style="width: 50px; text-align: center;">
+                                <xar:if condition="xarModGetVar('roles','setuserlastlogin')">
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','setuserlastlogin' => 0))#">
+                                        <xar:mlstring>Deactivate</xar:mlstring>
+                                    </a>
+                                <xar:else />
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','setuserlastlogin' => 1))#">
+                                        <xar:mlstring>Activate</xar:mlstring>
+                                    </a>
+                                </xar:if>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 100px">
+                                usertimezone
+                            </td>
+                            <td style="width: 400px">
+                                <xar:mlstring>This role's timezone.</xar:mlstring>
+                            </td>
+                            <td style="width: 50px; text-align: center;">
+                                <xar:if condition="xarModGetVar('roles','setusertimezone')">
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','setusertimezone' => 0))#">
+                                        <xar:mlstring>Deactivate</xar:mlstring>
+                                    </a>
+                                <xar:else />
+                                    <a href="#xarModURL('roles','admin','modifyconfig',array('phase' => 'links', 'tab' => 'duvs','setusertimezone' => 1))#">
+                                        <xar:mlstring>Activate</xar:mlstring>
+                                    </a>
+                                </xar:if>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="phase" id="phase" value="update" />
+                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                    <input type="submit" value="#xarML('Update Roles Configuration')#" />
+                </div>
+            </form>
+        <xar:comment>
+            - - - - - - - - - - - - - - - - - Begin User Hooks Options - - - - - - - - - - - - - - - - - - -
+        </xar:comment>
+        <xar:elseif condition="$tab eq 'hooks'" />
+        <xar:if condition="!empty($hooks)">
+          <form method="post" action="&xar-modurl-roles-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
+              <fieldset>
+                <legend><xar:mlstring>Default Hooks For Users</xar:mlstring></legend>
+
+                <xar:foreach in="$hooks" key="$hookmodule">
+                    #$hooks[$hookmodule]#
+                </xar:foreach>
+              </fieldset>
+              <div class="xar-form-footer">
+                  <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                  <input type="hidden" name="phase" id="phase" value="update" />
+                  <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                  <input type="submit" value="#xarML('Update Roles Configuration')#" />
+              </div>
+            </form>
+            <xar:else />
+            <p>
+                <xar:mlstring>
+                    No hooks are enabled for Users.
+                </xar:mlstring>
+            </p>
+        </xar:if>
+        <xar:comment>
+            ----------------- Begin Group Hooks Options -------------------
+        </xar:comment>
+        <xar:elseif condition="$tab eq 'grouphooks'" />
+        <xar:if condition="!empty($hooks)">
+            <form method="post" action="&xar-modurl-roles-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                  <legend><xar:mlstring>Default Hooks For Groups</xar:mlstring></legend>
+
+                  <xar:foreach in="$hooks" key="$hookmodule">
+                    #$hooks[$hookmodule]#
+                  </xar:foreach>
+                </fieldset>
+                <div class="xar-form-footer">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="phase" id="phase" value="update" />
+                    <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                    <input type="submit" value="#xarML('Update Roles Configuration')#" />
+                </div>
+            </form>
+            <xar:else />
+            <p>
+                <xar:mlstring>
+                    No hooks are enabled for Groups.
+                </xar:mlstring>
+            </p>
+        </xar:if>
+        <xar:comment>
+            ----------------- Begin Member List Options -------------------
+        </xar:comment>
+        <xar:elseif condition="$tab eq 'memberlist'" />
+        <form method="post" action="&xar-modurl-roles-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
+            <fieldset>
+                <legend>
+                    <xar:mlstring>
+                        Member Options
+                    </xar:mlstring>
+                </legend>
+
+                <div class="xar-form-input-wrapper-after">
+                    <xar:if condition="xarModGetVar('roles', 'searchbyemail')">
+                        <input type="checkbox" name="searchbyemail" id="searchbyemail" value="1" checked="checked" />
+                        <xar:else />
+                        <input type="checkbox" name="searchbyemail" id="searchbyemail" value="1" />
+                    </xar:if>
+                    <label for="searchbyemail" title="#xarML('Allow user search by email address')#">
+                        <strong><xar:mlstring>
+                            Allow Searching By Email
+                        </xar:mlstring></strong>
+                    </label>
+                </div>
+                <p class="xar-form-container-after">
+                    <xar:mlstring>
+                        CAUTION: this may reveal enough information to compromise a user's login.
+                    </xar:mlstring>
+                </p>
+                <div class="xar-form-input-wrapper-after">
+                    <xar:if condition="xarModGetVar('roles', 'usersendemails')">
+                        <input type="checkbox" name="usersendemails" id="usersendemails" value="1" checked="checked" tabindex="2"/>
+                    <xar:else />
+                        <input type="checkbox" name="usersendemails" id="usersendemails" value="1" tabindex="2"/>
+                    </xar:if>
+                    <label for="usersendemails" title="#xarML('Allow users to send emails?')#">
+                        <strong><xar:mlstring>
+                            Allow User Email Page?
+                        </xar:mlstring></strong>
+                    </label>
+                </div>
+                <p class="xar-form-container-after">
+                    <xar:mlstring>Allows members to send an email via a form to other users. Users must switch this option on in their own account.</xar:mlstring>
+                </p>
+
+                <div class="xar-form-input-wrapper-after xar-padding-thicktop">
+                    <xar:if condition="xarModGetVar('roles', 'usereditaccount')">
+                        <input type="checkbox" name="usereditaccount" id="usereditaccount" value="1" checked="checked" />
+                        <xar:else />
+                        <input type="checkbox" name="usereditaccount" id="usereditaccount" value="1" />
+                    </xar:if>
+                    <label for="usereditaccount" title="#xarML('Allow users to edit their account details')#">
+                        <strong><xar:mlstring>
+                            Allow users to edit their member account details
+                        </xar:mlstring></strong>
+                    </label>
+                </div>
+                 <p class="xar-form-input-wrapper-after">
+                    <xar:mlstring>
+                         This toggles the Roles hook to the Roles module.
+                    </xar:mlstring>
+                </p>
+                <div class="xar-form-input-wrapper-after xar-padding-thicktop">
+                    <xar:if condition="xarModGetVar('roles', 'requirevalidation')">
+                        <input type="checkbox" name="requirevalidation" id="requirevalidation" value="1" checked="checked" />
+                        <xar:else />
+                        <input type="checkbox" name="requirevalidation" id="requirevalidation" value="1" />
+                    </xar:if>
+                    <label for="requirevalidation" title="#xarML('Require users to revalidate when they change email address?')#">
+                        <strong><xar:mlstring>
+                            Members must validate if they change their email account?
+                        </xar:mlstring></strong>
+                    </label>
+                </div>
+
+
+                <div class="xar-form-input-wrapper-after xar-padding-thicktop">
+                    <xar:if condition="xarModGetVar('roles', 'displayrolelist')">
+                        <input type="checkbox" name="displayrolelist" id="displayrolelist" value="1" checked="checked" />
+                        <xar:else />
+                        <input type="checkbox" name="displayrolelist" id="displayrolelist" value="1" />
+                    </xar:if>
+                    <label for="displayrolelist" title="#xarML('Display roles (memberlist) in user menu?')#">
+                        <strong><xar:mlstring>
+                            Display member list as Roles menu option?
+                        </xar:mlstring></strong>
+                    </label>
+                </div>
+                <p class="xar-form-container-after xar-padding-bottomthick">
+                        <xar:mlstring>NOTE: This is a convenience option. The members list is available
+                        regardless of its inclusion in the menu, for all users that have Read privileges for Roles.</xar:mlstring>
+                </p>
+            </fieldset>
+            <fieldset>
+                <legend><xar:mlstring>User Homepage Options</xar:mlstring></legend>
+                <xar:if condition="xarModGetVar('roles', 'setuserhome')">
+
+                <div class="xar-form-input-wrapper-after xar-padding-thicktop">
+                    <xar:if condition="xarModGetVar('roles', 'loginredirect')">
+                        <input type="checkbox" name="loginredirect" id="loginredirect" value="1" checked="checked" />
+                        <xar:else />
+                        <input type="checkbox" name="loginredirect" id="loginredirect" value="1" />
+                    </xar:if>
+                    <label for="loginredirect" title="#xarML('Redirect users to Home Page on login?')#">
+                        <strong><xar:mlstring>
+                           Redirect users to Home Page on login?
+                        </xar:mlstring></strong>
+                    </label>
+                </div>
+
+                <div class="xar-form-input-wrapper-after xar-padding-thicktop">
+                    <xar:if condition="xarModGetVar('roles', 'allowuserhomeedit')">
+                        <input type="checkbox" name="userhomeedit" id="userhomeedit" value="1" checked="checked" />
+                        <xar:else />
+                        <input type="checkbox" name="userhomeedit" id="userhomeedit" value="1" />
+                    </xar:if>
+                    <label for="userhomeedit" title="#xarML('Allow users to edit their user home page in their account')#">
+                        <strong><xar:mlstring>
+                            Allow users to set Home Page in their member account
+                        </xar:mlstring></strong>
+                    </label>
+                </div>
+
+                <div class="xar-form-input-wrapper-after xar-padding-thicktop">
+                    <xar:if condition="xarModGetVar('roles', 'allowexternalurl')">
+                        <input type="checkbox" name="allowexternalurl" id="allowexternalurl" value="1" checked="checked" />
+                        <xar:else />
+                        <input type="checkbox" name="allowexternalurl" id="allowexternalurl" value="1" />
+                    </xar:if>
+                    <label for="allowexternalurl" title="#xarML('Allow users to set external URLS for their user home page')#">
+                        <strong><xar:mlstring>
+                            Allow users to set external URLS in their Home Page?
+                        </xar:mlstring></strong>
+                    </label>
+                </div>
+
+                <xar:else />
+                <div class="xar-form-input-wrapper-after xar-padding-thicktop">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <label for="allowuserhomeedit" title="#xarML('Allow users to edit their user home page in their account')#">
+                        <strong><xar:mlstring>Allow users to set Home Page in their member account</xar:mlstring></strong>
+                            <br /><xar:mlstring> (options for Home Page are only available if the dynamic roles user variable 'userhome' is activated)</xar:mlstring>
+                    </label>
+                </div>
+                </xar:if>
+            </fieldset>
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="phase" id="phase" value="update" />
+                <input type="hidden" name="tab" id="tab" value="#$tab#" />
+                <input type="submit" value="#xarML('Update Roles Configuration')#" />
+            </div>
+        </form>
+    </xar:if>
+</div>

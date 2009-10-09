@@ -41,7 +41,7 @@ class Dynamic_Object_Master
 
     // optional layout inside the templates
     var $layout = 'default';
-    // optional sub-template, e.g. user-objectview-[template].xd (defaults to the object name)
+    // optional sub-template, e.g. user-objectview-[template].xt (defaults to the object name)
     var $template = '';
     // optional module where the object templates reside (defaults to 'dynamicdata')
     var $tplmodule = 'dynamicdata';

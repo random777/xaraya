@@ -30,12 +30,16 @@ function roles_adminapi_getmessagestrings($args)
     }
 
     $messaginghome = xarCoreGetVarDirPath() . "/messaging/" . $module;
-    if (!file_exists($messaginghome . "/" . $template . "-subject.xd")) {
+    $messagesubject = $messaginghome . "/" . $template . "-subject.xt";
+    if (!file_exists($messagesubject)) {
+        $messagesubject = $messaginghome . "/" . $template . "-subject.xd";
+    }
+    if (!file_exists($messagesubject)) {
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_FILE_NOT_EXIST', new SystemException('The subject template was not found.'));
         return;
     }
     $string = '';
-    $fd = fopen($messaginghome . "/" . $template . "-subject.xd", 'r');
+    $fd = fopen($messagesubject, 'r');
     while(!feof($fd)) {
         $line = fgets($fd, 1024);
         $string .= $line;
@@ -43,12 +47,16 @@ function roles_adminapi_getmessagestrings($args)
     $subject = $string;
     fclose($fd);
 
-    if (!file_exists($messaginghome . "/" . $template . "-message.xd")) {
+    $messagemessage = $messaginghome . "/" . $template . "-message.xt";
+    if (!file_exists($messagemessage)) {
+        $messagemessage = $messaginghome . "/" . $template . "-message.xd";
+    }
+    if (!file_exists($messagemessage)) {
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_FILE_NOT_EXIST', new SystemException('The message template was not found.'));
         return;
     }
     $string = '';
-    $fd = fopen($messaginghome . "/" . $template . "-message.xd", 'r');
+    $fd = fopen($messagemessage, 'r');
     while(!feof($fd)) {
         $line = fgets($fd, 1024);
         $string .= $line;

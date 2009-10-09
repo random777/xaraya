@@ -3,7 +3,7 @@
  * Handle the user supplied data for login information
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -53,7 +53,7 @@ function authsystem_user_login()
 
     // Fetch and validate the values entered into the login form
     // Username
-    if (!xarVarFetch('uname','str:1:100',$uname))
+    if (!xarVarFetch('uname','pre:trim:str:1:100',$uname))
     {
         xarErrorFree();
         $msg = xarML('You must provide a username.');
@@ -61,7 +61,7 @@ function authsystem_user_login()
         return;
     }
     // Password
-    if (!xarVarFetch('pass','str:1:100',$pass))
+    if (!xarVarFetch('pass','pre:trim:str:1:100',$pass))
     {
         xarErrorFree();
         $msg = xarML('You must provide a password.');
@@ -74,7 +74,7 @@ function authsystem_user_login()
 
     // By default redirect to the base URL on the site
     $redirect=xarServerGetBaseURL();
-    if (!xarVarFetch('redirecturl','str:1:254',$redirecturl,$redirect,XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('redirecturl','pre:trim:str:1:254',$redirecturl,$redirect,XARVAR_NOT_REQUIRED)) return;
     // If the redirect URL contains authsystem go to base url
     // CHECKME: <mrb> why is this?
     if (preg_match('/authsystem/',$redirecturl)) {

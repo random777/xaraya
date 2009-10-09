@@ -22,10 +22,13 @@ function roles_onlineblock_init()
 {
     // No parameters accepted by this block.
     return array(
+        'groups' => array(),
+        'max_users' => 20,
         'nocache' => 0, // cache by default
         'pageshared' => 1, // share across pages
         'usershared' => 1, // share for group members
-        'cacheexpire' => null);
+        'cacheexpire' => null,
+    );
 }
 
 /**
@@ -36,7 +39,9 @@ function roles_onlineblock_info()
     return array(
         'text_type' => 'Online',
         'module' => 'roles',
-        'text_type_long' => 'Display who is online'
+        'text_type_long' => 'Display who is online',
+        'func_update' => 'roles_onlineblock_update',
+        'allow_multiple' => true,
     );
 }
 
@@ -56,90 +61,63 @@ function roles_onlineblock_display($blockinfo)
         $vars = $blockinfo['content'];
     }
 
-    // Database setup
-    // TODO: do we need this query? I'd have thought userapi/getallactive gives
-    // us everything we need.
-    $dbconn =& xarDBGetConn();
-    $xartable =& xarDBGetTables();
-    $sessioninfotable = $xartable['session_info'];
-    $activetime = time() - (xarConfigGetVar('Site.Session.InactivityTimeout') * 60);
-    if($dbconn->databaseType == 'sqlite') {
-        $sql = "SELECT COUNT(*)
-                FROM (SELECT DISTINCT xar_uid FROM $sessioninfotable
-                      WHERE xar_lastused > ? AND xar_uid > 2)";
-    } else {
-        $sql = "SELECT COUNT(DISTINCT xar_uid)
-            FROM $sessioninfotable
-            WHERE xar_lastused > ? AND xar_uid > 2";
-    }
-    $result = $dbconn->Execute($sql, array($activetime));
-    if (!$result) {return false;}
-    list($args['numusers']) = $result->fields;
-    $result->Close();
+    $args['numusers'] = xarModAPIfunc(
+        'roles', 'user', 'countallactive',
+        array('count_users' => true, 'include_anonymous' => false)
+    );
     if (empty($args['numusers'])) {
         $args['numusers'] = 0;
     }
 
     // FIXME: there could be many active users, but we only want a handful of them.
-    $zz = xarModAPIFunc(
+    $sessions = xarModAPIFunc(
         'roles', 'user', 'getallactive',
         array(
             'order' => 'name',
             'startnum' => 0,
             'include_anonymous' => false,
-            'include_myself' => true
+            'include_myself' => true,
+            'group' => (!empty($vars['groups']) ? implode(',', $vars['groups']) : NULL),
+            'numitems' => (!empty($vars['max_users']) ? $vars['max_users'] : NULL),
         )
     );
 
-    if (!empty($zz)) {
-        foreach ($zz as $key => $aa) {
+    if (!empty($sessions)) {
+        foreach ($sessions as $key => $session) {
             $args['test1'][$key] = array(
                 'uid' => $aa['uid'],
-                'name' => $aa['name'],
+                'name' => $session['name'],
                 'userurl' => xarModURL(
                     'roles', 'user', 'display',
-                    array('uid' => $aa['uid'])
+                    array('uid' => $session['uid'])
                 ),
                 'total' => '',
                 'unread' => '',
-                'messagesurl' => ''
+                'messagesurl' => '',
             );
 
-            if ($aa['name'] == xarUserGetVar('name')) {
+            if ($session['name'] == xarUserGetVar('name')) {
                 if (xarModIsAvailable('messages')) {
                     $args['test1'][$key]['total'] = xarModAPIFunc(
                         'messages', 'user', 'count_total',
-                        array('uid'=>$aa['uid'])
+                        array('uid'=>$session['uid'])
                     );
 
                     $args['test1'][$key]['unread'] = xarModAPIFunc(
                         'messages', 'user', 'count_unread',
-                        array('uid'=>$aa['uid'])
+                        array('uid'=>$session['uid'])
                     );
 
                     $args['test1'][$key]['messagesurl'] =xarModURL(
                         'messages', 'user', 'display',
-                        array('uid'=>$aa['uid'])
+                        array('uid'=>$session['uid'])
                     );
                 }
             }
         }
     }
 
-
-    if($dbconn->databaseType == 'sqlite') {
-        $query2 = "SELECT COUNT(*)
-                   FROM (SELECT DISTINCT xar_ipaddr FROM $sessioninfotable
-                         WHERE xar_lastused > ? AND xar_uid = 2)";
-    } else {
-        $query2 = "SELECT COUNT(DISTINCT xar_ipaddr)
-               FROM $sessioninfotable
-               WHERE xar_lastused > ? AND xar_uid = 2";
-    }
-    $result2 = $dbconn->Execute($query2, array($activetime));
-    if (!$result2) {return false;}
-    list($args['numguests']) = $result2->fields;
-    $result2->Close();
+    $args['numguests'] = xarModAPIfunc('roles', 'user', 'countallactive', array('uid' => 2));
     if (empty($args['numguests'])) {
         $args['numguests'] = 0;
     }
@@ -161,17 +139,17 @@ function roles_onlineblock_display($blockinfo)
 
     // Make sure we have a lastuser
     if (!empty($uid)) {
-        if(!is_numeric($uid)) {
-        //Remove this further down the line
+        if (!is_numeric($uid)) {
+            // Remove this further down the line
             $status = xarModAPIFunc(
-            'roles', 'user', 'get',
-            array('uname' => $uid)
+                'roles', 'user', 'get',
+                array('uname' => $uid)
             );
 
         } else {
             $status = xarModAPIFunc(
-            'roles', 'user', 'get',
-            array('uid' => $uid)
+                'roles', 'user', 'get',
+                array('uid' => $uid)
             );
 
         }

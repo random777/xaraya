@@ -13,75 +13,26 @@
 /**
  * count all active users
  * @author Marc Lutolf <marcinmilan@xaraya.com>
- * @param bool $include_anonymous whether or not to include anonymous user
+ * @param bool $count_users Count sessions only, unless 'count_users' is true. Default false
+ * @params See getallactive for further parameters supported
  * @returns integer
- * @return number of users
+ * @return number of users with active sessions or number of sessions sessions 
  */
 function roles_userapi_countallactive($args)
 {
     extract($args);
 
-    if (!isset($include_anonymous)) {
-        $include_anonymous = true;
+    // Security Check
+    if (!xarSecurityCheck('ReadRole')) return;
+
+    // We can count users (non-anonymous sessions) or sessions. Default to sessions.
+    if (!empty($count_users)) {
+        $args['mode'] = 'COUNTUSERS';
     } else {
-        $include_anonymous = (bool) $include_anonymous;
+        $args['mode'] = 'COUNTSESS';
     }
 
-    // Optional arguments.
-    if (empty($filter)){
-            $filter = time() - (xarConfigGetVar('Site.Session.InactivityTimeout') * 60);
-    }
-
-// Security Check
-    if(!xarSecurityCheck('ReadRole')) return;
-
-    // Get database setup
-    $dbconn =& xarDBGetConn();
-    $xartable =& xarDBGetTables();
-
-    $sessioninfoTable = $xartable['session_info'];
-    $rolestable = $xartable['roles'];
-
-    $bindvars = array();
-    $query = "SELECT COUNT(*)
-              FROM $rolestable a, $sessioninfoTable b
-              WHERE a.xar_uid = b.xar_uid AND b.xar_lastused > ? AND a.xar_uid > 1";
-    $bindvars[] = $filter;
-
-    if (isset($selection)) $query .= $selection;
-
-    // if we aren't including anonymous in the query,
-    // then find the anonymous user's uid and add
-    // a where clause to the query
-    if (!$include_anonymous) {
-        $anon = xarModAPIFunc('roles','user','get',array('uname'=>'anonymous'));
-        $query .= " AND a.xar_uid != ?";
-        $bindvars[] = (int) $anon['uid'];
-    }
-    if (!$include_myself) {
-        $thisrole = xarModAPIFunc('roles','user','get',array('uname'=>'myself'));
-        $query .= " AND a.xar_uid != ?";
-        $bindvars[] = (int) $thisrole['uid'];
-    }
-
-    $query .= " AND xar_type = 0";
-
-// cfr. xarcachemanager - this approach might change later
-    $expire = xarModGetVar('roles','cache.userapi.countallactive');
-    if (!empty($expire)){
-        $result = $dbconn->CacheExecute($expire,$query,$bindvars);
-    } else {
-        $result = $dbconn->Execute($query,$bindvars);
-    }
-    if (!$result) return;
-
-    // Obtain the number of users
-    list($numroles) = $result->fields;
-
-    $result->Close();
-
-    // Return the number of users
-    return $numroles;
+    return xarModAPIfunc('roles', 'user', 'getallactive', $args);
 }
 
 ?>

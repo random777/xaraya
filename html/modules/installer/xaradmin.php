@@ -19,7 +19,7 @@
 /* TODO: temp change so this will run for upgrade as well. Need to address this in better way. */
 if (!file_exists('install.php') and !file_exists('upgrade.php')) {xarCore_die(xarML('Already installed'));}
 
-/* FOR UPGRADE: Add instruction text needed before upgrade for a specific upgrade to admin-upgrade1.xd
+/* FOR UPGRADE: Add instruction text needed before upgrade for a specific upgrade to admin-upgrade1.xt
                 Add upgrade code to installer_admin_upgrade2() function, currently sorted by version upgrade
                 Any misc upgrade scripts not related to any specific version to installer_admin_upgrade3() eg flush cache
 */

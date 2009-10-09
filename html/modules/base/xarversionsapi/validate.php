@@ -11,41 +11,37 @@
  * @link http://xaraya.com/index.php/release/68.html
  */
 /**
- * Validate the format of a version number against some rule.
+ * Validate the format of a version number.
  *
  * @author Jason Judge
  * @param $args['ver'] string version number to validate
- * @param $args['rule'] string rule name to validate against
- * @return boolean indicating whether the rule was passed (NULL for parameter error)
+ * @return boolean indicating whether the validation was passed (NULL for parameter error)
             result of validation: true or false
  */
 function base_versionsapi_validate($args)
 {
-    extract($args);
+    extract($args, EXTR_PREFIX_INVALID, 'p');
 
-    // Rules could include:
-    // - numeric only
-    // - strict number of levels
-    // - implied '0' on empty levels allowed
-
-    if (!isset($ver) || !isset($rule)) {
-        return;
-    }
-
-    // Set of rules. These can be extended as needed.
-    $regex = array();
-
-    // [n].n[.n ...]
-    $regex['application'] = '/^\d*\.\d+(\.\d+)*$/';
-    // n[.n ...]
-    $regex['module'] = '/^\d+(\.\d+)*$/';
-
-    if (isset($regex[$rule])) {
-        if (preg_match($regex[$rule], $ver)) {
-            return true;
+     if (!isset($ver)) {
+        if (isset($p_0)) {
+            $ver = $p_0;
         } else {
-          return false;
+            // The given verison number is missing
+            $msg = xarML('The application version number was not provided');
+            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
+            return false;
         }
+     }
+
+    // We only have one universal rule now
+    // [major].[minor].[micro]
+    // with -[suffix][rev] being optional
+    $regex = '/^([1-9]\d*|0)\.([1-9]\d*|0)\.([1-9]\d*|0)(-(a|b|rc)([1-9]\d*))?$/';
+
+    if (preg_match($regex, $ver)) {
+        return true;
+    } else {
+        return false;
     }
 
     return;

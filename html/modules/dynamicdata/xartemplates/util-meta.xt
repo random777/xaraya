@@ -1,0 +1,223 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:style scope="module" file="dd" />
+<div class="xar-mod-head">
+    <span class="xar-mod-title">
+        <xar:mlstring>
+            Dynamic Data Administration
+        </xar:mlstring>
+    </span>
+</div>
+<div class="xar-mod-body">
+   <xar:template type="module" file="admin-menu" />
+   <h2><xar:mlstring>Utilities - Meta Table Definitions</xar:mlstring></h2>
+   <xar:template type="module" file="utility-menu" />
+
+    <xar:if condition="empty($export)">
+        <xar:if condition="!empty($databases)">
+            <h3>
+                <xar:mlstring>Select A Database:</xar:mlstring>
+            </h3>
+
+            <ul>
+                <xar:foreach in="$databases" value="$database">
+                    <li>
+                        <a href="&xar-modurl-dynamicdata-util-meta;&amp;db=#$database#">#$database#</a>
+                        <xar:if condition="!empty($db) and $database eq $db">
+                            <xar:mlstring>(*)</xar:mlstring>
+                        </xar:if>
+                    </li>
+                </xar:foreach>
+            </ul>
+        </xar:if>
+
+        <xar:if condition="empty($table)">
+            <xar:set name="icon_display">xarTplGetImage('icons/display.png','base')</xar:set>
+            <xar:set name="icon_test">xarTplGetImage('icons/test.png','base')</xar:set>
+            <xar:set name="icon_export">xarTplGetImage('icons/export-xml.png','base')</xar:set>
+            <xar:set name="icon_add">xarTplGetImage('icons/add.png','base')</xar:set>
+            <table>
+                <thead>
+                <tr>
+                    <th>
+                        <xar:mlstring>Name</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Actions</xar:mlstring>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <xar:foreach in="$tables" key="$curtable" value="$fields">
+                    <tr>
+                        <td>
+                            <a href="&xar-modurl-dynamicdata-util-meta;&amp;table=#$curtable#">
+                                #$curtable# 
+                            </a>
+                        </td>
+                        <td class="xar-align-center">
+                            <a href="&xar-modurl-dynamicdata-admin-view;&amp;table=#$curtable#" title="#xarML('View')#" class="xar-icon">
+                                <img src="#$icon_display#" alt="#xarML('View')#" />
+                            </a>
+                            <a href="&xar-modurl-dynamicdata-admin-query;&amp;table=#$curtable#" title="#xarML('Query')#" class="xar-icon">
+                                <img src="#$icon_test#" alt="#xarML('Query')#" />
+                            </a>
+                            <a href="&xar-modurl-dynamicdata-util-meta;&amp;table=#$curtable#&amp;export=1" title="#xarML('Export XML')#" class="xar-icon">
+                                <img src="#$icon_export#" alt="#xarML('Export XML')#" />
+                            </a>
+                            <a href="&xar-modurl-dynamicdata-util-relations;&amp;table=#$curtable#" title="#xarML('Add Relation')#" class="xar-icon">
+                                <img src="#$icon_add#" alt="#xarML('Add Relation')#" />
+                            </a>
+                        </td>
+                    </tr>
+                </xar:foreach>
+                </tbody>
+            </table>
+        <xar:else />
+            <h3>
+                #$table#
+            </h3>
+
+            <p>
+                <a href="&xar-modurl-dynamicdata-admin-view;&amp;table=#$table#">
+                    <xar:mlstring>View</xar:mlstring>
+                </a>
+                | 
+                <a href="&xar-modurl-dynamicdata-admin-query;&amp;table=#$table#">
+                    <xar:mlstring>
+                        Query 
+                    </xar:mlstring>
+                </a>
+                | 
+                <a href="&xar-modurl-dynamicdata-util-meta;&amp;table=#$table#&amp;export=1">
+                    <xar:mlstring>
+                        Export XML 
+                    </xar:mlstring>
+                </a>
+                | 
+                <a href="&xar-modurl-dynamicdata-util-relations;&amp;table=#$table#">
+                    <xar:mlstring>
+                        Add Relation 
+                    </xar:mlstring>
+                </a>
+            </p>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>
+                        <xar:mlstring>Name</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Label</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Type</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Default</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Source</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Validation</xar:mlstring>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <xar:foreach in="$tables" key="$curtable" value="$fields">
+                    <xar:if condition="!empty($table) and $curtable eq $table">
+                        <xar:foreach in="$fields" value="$field">
+                            <tr>
+                                <td>
+                                    #$field['name']# 
+                                </td>
+                                <td>
+                                    #$field['label']# 
+                                </td>
+                                <td>
+                                    <xar:data-output property="$prop" value="$field['type']" />
+                                </td>
+                                <td>
+                                    #$field['default']# 
+                                </td>
+                                <td>
+                                    #$field['source']# 
+                                </td>
+                                <td>
+                                    #$field['validation']# 
+                                </td>
+                            </tr>
+                        </xar:foreach>
+                    </xar:if>
+                </xar:foreach>
+                </tbody>
+            </table>
+        </xar:if>    
+
+        <p class="xar-align-center">
+            <a href="&xar-modurl-dynamicdata-util-meta;&amp;export=1">
+                <xar:mlstring>Export all tables to XML</xar:mlstring>
+            </a>
+            |
+            <a href="&xar-modurl-dynamicdata-util-meta;&amp;showdb=1">
+                <xar:mlstring>Show other databases</xar:mlstring>
+            </a>
+        </p>
+    <xar:else />
+        <form method="post" action="&xar-modurl-dynamicdata-util-import;">
+            <fieldset>
+                <legend>
+                    <xar:ml>
+                        <xar:mlstring>Metatable definition for #(1)</xar:mlstring>
+                        <xar:mlvar>#$table#</xar:mlvar>
+                    </xar:ml>
+                </legend>
+                <div class="xar-form-input-wrapper">
+                    <label for="xml" class="xar-form-label">
+                        <xar:mlstring>Definition:</xar:mlstring>
+                    </label>
+                    <div class="xar-form-container-after">
+                        <textarea name="xml" id="xml" class="xar-form-textarealarge">
+&lt;objects&gt;
+    <xar:foreach in="$tables" key="$curtable" value="$fields">
+        <xar:set name="tablename">strtr($curtable,'.','_')</xar:set>
+        &lt;object name="#$tablename#"&gt;
+            &lt;label&gt;#$curtable#&lt;/label&gt;
+            &lt;moduleid&gt;182&lt;/moduleid&gt;
+            &lt;itemtype&gt;-1&lt;/itemtype&gt;
+            &lt;urlparam&gt;itemid&lt;/urlparam&gt;
+            &lt;maxid&gt;0&lt;/maxid&gt;
+            &lt;config&gt;&lt;/config&gt;
+            &lt;isalias&gt;0&lt;/isalias&gt;
+            &lt;properties&gt;
+                <xar:foreach in="$fields" key="$name" value="$field">
+                    &lt;property name="#$name#"&gt;
+                        <xar:foreach in="$field" key="$key" value="$value">
+                            <xar:if condition="$key ne 'name'">
+                                &lt;#$key#&gt;#$value#&lt;/#$key#&gt;
+                            </xar:if>
+                        </xar:foreach>
+                    &lt;/property&gt;
+                </xar:foreach>
+            &lt;/properties&gt;
+        &lt;/object&gt;
+    </xar:foreach>
+&lt;/objects&gt;
+                        </textarea>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" value="#xarSecGenAuthKey()#" />
+                <input type="submit" value="#xarML('Import Table Definition')#" />
+            </div>
+        </form>
+
+        <p class="xar-align-center">
+            <a href="&xar-modurl-dynamicdata-util-meta;">
+                <xar:mlstring>Show Table Definitions</xar:mlstring>
+            </a>
+        </p>
+    </xar:if>
+</div>

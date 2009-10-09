@@ -1,0 +1,434 @@
+<xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:set name="statecurrent">ROLES_STATE_CURRENT</xar:set>
+<xar:set name="stateinactive">ROLES_STATE_INACTIVE</xar:set>
+<xar:set name="statenotvalidated">ROLES_STATE_NOTVALIDATED</xar:set>
+<xar:set name="stateactive">ROLES_STATE_ACTIVE</xar:set>
+<xar:set name="statepending">ROLES_STATE_PENDING</xar:set>
+<xar:set name="modstatus">xarSessionGetVar('statusmsg')</xar:set>
+<xar:set name="nsort">($sort == 'asc') ? 'desc' : 'asc'</xar:set>
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:base-js-plugin name="treeview" framework="jquery" file="jquery.treeview.min.js" style="jquery.treeview.css" />
+<xar:set name="rolescode">"
+jQuery('div#"."treewrapper > ul').treeview();
+jQuery('div#"."treewrapper span.xar-roletree-icons').css({'float': 'left', 'margin': '0 .5em'});
+jQuery('#"."treewrapper a').click(function(event) {
+    event.stopPropagation();
+});
+jQuery('form table.xar-item-controls select').change(function() { this.form.submit(); })
+jQuery('a#" . "items_checkall').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').attr('checked',true);return false; });
+jQuery('a#" . "items_checknone').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').attr('checked',false);return false; });
+jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').each(function() { jQuery(this).attr('checked', !jQuery(this).attr('checked')); });return false; });
+"</xar:set>
+<xar:base-js-event name="ready" code="$rolescode" />
+<xar:style scope="module" module="base" file="navtabs" />
+
+<xar:set name="icon_password">xarTplGetImage('icons/user-password.png','base')</xar:set>
+<xar:set name="icon_info">xarTplGetImage('icons/info.png','base')</xar:set>
+<xar:set name="icon_privileges">xarTplGetImage('icons/privileges.png','base')</xar:set>
+<xar:set name="icon_delete">xarTplGetImage('icons/delete.png','base')</xar:set>
+<xar:set name="icon_modify">xarTplGetImage('icons/modify.png','base')</xar:set>
+<xar:set name="icon_test">xarTplGetImage('icons/test.png','base')</xar:set>
+<xar:set name="icon_sortasc">xarTplGetImage('icons/sorted-asc.png','base')</xar:set>
+<xar:set name="icon_sortdesc">xarTplGetImage('icons/sorted-desc.png','base')</xar:set>
+
+
+<div class="xar-mod-head">
+    <span class="xar-mod-title"><xar:mlstring>Roles Administration</xar:mlstring></span>
+</div>
+<div class="xar-mod-body">
+   <xar:template type="module" file="admin-menu" />
+    <h2>
+        #xarVarPrepForDisplay($title)#:
+        <a href="&xar-modurl-roles-admin-modifyrole;&amp;uid=#$groupuid#" title="#xarML('Modify role')#">#xarVarPrepForDisplay($groupname)#</a>
+        <xar:if condition="$search ne ''">
+            <xar:mlstring>matching</xar:mlstring>
+            '#xarVarPrepForDisplay($search)#'
+        </xar:if>
+        (#$totalselect#)
+    </h2>
+
+    <xar:comment>TODO set the active tab here</xar:comment>
+    <!-- Show the general tab list for roles -->
+    <xar:set name="ptype">1</xar:set>
+    <xar:template file="tablist" />
+
+    <xar:if condition="$selstyle eq '0'">
+    <xar:elseif condition="$selstyle eq '1'"/>
+        <fieldset>
+            <legend><xar:mlstring>Role hierarchy</xar:mlstring></legend>
+            <div id="treewrapper">
+                #$roletree#
+            </div>
+        </fieldset>
+    <xar:elseif condition="$selstyle eq '2'"/>
+        <div>
+            <dl class="xar-tabs">
+                <dt class="help" title="#xarML('Click on a group tab to display users from that group')#">
+                    <xar:mlstring>
+                        Groups
+                    </xar:mlstring>
+                    :
+                </dt>
+                <xar:if condition="$groupuid eq 0">
+                    <dd class="active">
+                        <a href="&xar-modurl-roles-admin-showusers;&amp;uid=0&amp;state=#$state#&amp;order=#$order#&amp;search=#$search#&amp;reload=reload">
+                            <xar:mlstring>All Users</xar:mlstring> (#$totalusers#)</a>
+                    </dd>
+                <xar:else/>
+                    <dd>
+                        <a href="&xar-modurl-roles-admin-showusers;&amp;uid=0&amp;state=#$state#&amp;order=#$order#&amp;search=#$search#&amp;reload=reload">
+                            <xar:mlstring>All Users </xar:mlstring> (#$totalusers#)</a>
+                    </dd>
+                </xar:if>
+                <xar:set name="prevgroup">""</xar:set>
+                <xar:for start="$i=0" test="$i lt count($groups)" iter="$i++">
+                    <xar:if condition="$prevgroup ne $groups[$i]['name']">
+                        <xar:if condition="$groupuid eq $groups[$i]['uid']">
+                            <dd class="active">
+                                <a href="&xar-modurl-roles-admin-showusers;&amp;uid=#$groups[$i]['uid']#&amp;state=#$state#&amp;order=#$order#&amp;search=#$search#&amp;reload=reload" title="#xarML('Display the users in this group')#">
+                                    #xarVarPrepForDisplay($groups[$i]['name'])# (#$groups[$i]['users']#)
+                                </a>
+                            </dd>
+                        <xar:else/>
+                            <dd>
+                                <a href="&xar-modurl-roles-admin-showusers;&amp;uid=#$groups[$i]['uid']#&amp;state=#$state#&amp;order=#$order#&amp;search=#$search#&amp;reload=reload" title="#xarML('Display the users in this group')#">
+                                    #xarVarPrepForDisplay($groups[$i]['name'])# (#$groups[$i]['users']#)
+                                </a>
+                            </dd>
+                        </xar:if>
+                    </xar:if>
+                    <xar:set name="prevgroup">#xarVarPrepForDisplay($groups[$i]['name'])#</xar:set>
+                </xar:for>
+            </dl>
+        </div>
+    </xar:if>
+
+    <form method="post" action="&xar-modurl-roles-admin-showusers;&amp;reload=reload">
+        <xar:comment> Module List Sort and Filter Controls table </xar:comment>
+        <table class="xar-item-controls">
+            <thead>
+            <tr>
+                <th>
+                    <label for="selstyle" title="#xarML('Select display type')#">
+                        <xar:mlstring>Style</xar:mlstring>
+                    </label>
+                </th>
+                <th>
+                    <label for="groupuid" title="#xarML('Select a group to display its users')#">
+                        <xar:mlstring>Groups</xar:mlstring>
+                    </label>
+                </th>
+                <th>
+                    <label for="state" title="#xarML('Select the state of users')#">
+                        <xar:mlstring>State</xar:mlstring>
+                    </label>
+                </th>
+                <th>
+                    <label for="search" title="#xarML('Search for users with either their display name, login name or email matching the string')#">
+                        <xar:mlstring>Search</xar:mlstring>
+                    </label>
+                </th>
+                <th>
+                    <xar:mlstring>Action</xar:mlstring>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="xar-align-center">
+                    <select name="selstyle" id="selstyle">
+                        <xar:foreach in="$style" key="$key" value="$value">
+                            <xar:if condition="$key eq $selstyle">
+                                <option value="#$key#" selected="selected">#$value#</option>
+                            <xar:else />
+                                <option value="#$key#">#$value#</option>
+                            </xar:if>
+                        </xar:foreach>
+                    </select>
+                </td>
+                <td class="xar-align-center">
+                    <xar:set name="prevgroup">""</xar:set>
+                    <select name="uid" id="groupuid">
+                        <xar:if condition="$groupuid eq 0">
+                            <option value="0" selected="selected">
+                                <xar:mlstring>All Users</xar:mlstring> - #$totalusers#
+                            </option>
+                        <xar:else/>
+                            <option value="0">
+                                <xar:mlstring>All Users</xar:mlstring> - #$totalusers#
+                            </option>
+                        </xar:if>
+                        <xar:for start="$i=0" test="$i lt count($groups)" iter="$i++">
+                            <xar:if condition="$prevgroup ne $groups[$i]['name']">
+                                <xar:if condition="$groups[$i]['uid'] eq $groupuid">
+                                    <option value="#$groups[$i]['uid']#" selected="selected">
+                                        #xarVarPrepForDisplay($groups[$i]['name'])# - #$groups[$i]['users']#
+                                    </option>
+                                <xar:else/>
+                                    <option value="#$groups[$i]['uid']#">
+                                        #xarVarPrepForDisplay($groups[$i]['name'])# - #$groups[$i]['users']#
+                                    </option>
+                                </xar:if>
+                            </xar:if>
+                            <xar:set name="prevgroup">#xarVarPrepForDisplay($groups[$i]['name'])#</xar:set>
+                        </xar:for>
+                    </select>
+                </td>
+                <td class="xar-align-center">
+                    <select name="state" id="state">
+                        <xar:if condition="$state eq $statecurrent">
+                            <option value="#$statecurrent#" selected="selected">
+                                <xar:mlstring>All</xar:mlstring>
+                            </option>
+                        <xar:else/>
+                            <option value="#$statecurrent#">
+                                <xar:mlstring>All</xar:mlstring>
+                            </option>
+                        </xar:if>
+                        <xar:if condition="$state eq $stateinactive">
+                            <option value="#$stateinactive#" selected="selected">
+                                <xar:mlstring>Inactive</xar:mlstring>
+                            </option>
+                            <xar:else/>
+                            <option value="#$stateinactive#">
+                                <xar:mlstring>Inactive</xar:mlstring>
+                            </option>
+                        </xar:if>
+                        <xar:if condition="$state eq $statenotvalidated">
+                            <option value="#$statenotvalidated#" selected="selected">
+                                <xar:mlstring>Not Validated</xar:mlstring>
+                            </option>
+                        <xar:else/>
+                            <option value="#$statenotvalidated#">
+                                <xar:mlstring>Not Validated</xar:mlstring>
+                            </option>
+                        </xar:if>
+                        <xar:if condition="$state eq $stateactive">
+                            <option value="#$stateactive#" selected="selected">
+                                <xar:mlstring>Active</xar:mlstring>
+                            </option>
+                        <xar:else/>
+                            <option value="#$stateactive#">
+                                <xar:mlstring>Active</xar:mlstring>
+                            </option>
+                        </xar:if>
+                        <xar:if condition="$state eq $statepending">
+                            <option value="#$statepending#" selected="selected">
+                                <xar:mlstring>Pending</xar:mlstring>
+                            </option>
+                        <xar:else/>
+                            <option value="#$statepending#">
+                                <xar:mlstring>Pending</xar:mlstring>
+                            </option>
+                        </xar:if>
+                    </select>
+                </td>
+                <td class="xar-align-center">
+                    <input type="text" name="search" id="search" value="#$search#" maxlength="255" class="xar-form-textshort" />
+                </td>
+                <td class="xar-align-center">
+                    <input type="submit" name="reload" id="reload" value="#xarML('Reload')#" />
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <xar:comment> the Roles Lists table-based styles (borrow from the Modules list)</xar:comment>
+    <xar:if condition="count($users) eq 0">
+        <p>
+            #$message#
+            <xar:if condition="$search ne ''">
+                <xar:mlstring>matching</xar:mlstring> '#$search#'
+            </xar:if>
+        </p>
+    <xar:else />
+        <form method="post" action="&xar-modurl-roles-admin-updatestate;" id="state_form">
+            <div class="xar-form-input-wrapper">
+                <label for="status" title="#xarML('TITLE')#" class="xar-form-label">
+                    <xar:mlstring>Change State Of Selected Users:</xar:mlstring>
+                </label>
+                <select name="status" id="status" class="xar-margin-thickright">
+                    <option value="#$stateinactive#"><xar:mlstring>Inactive</xar:mlstring></option>
+                    <option value="#$statenotvalidated#"><xar:mlstring>Not Validated</xar:mlstring></option>
+                    <option value="#$stateactive#" selected="selected"><xar:mlstring>Active</xar:mlstring></option>
+                    <option value="#$statepending#"><xar:mlstring>Pending</xar:mlstring></option>
+                </select>
+                <input type="hidden" name="groupuid" id="groupuid" value="#$groupuid#"/>
+                <input type="hidden" name="state" id="state" value="#$state#"/>
+                <input type="hidden" name="order" id="order" value="#$order#"/>
+                <input type="hidden" name="search" id="search" value="#xarVarPrepForDisplay($search)#"/>
+                <input type="hidden" name="authid" id="authid" value="#$authid#"/>
+                <input type="submit" value="#xarML('Change Status')#" class="xar-margin-thick-left" />
+            </div>
+
+            <xar:if condition="!empty($invalid)">
+                <p class="xar-error xar-clearboth">
+                    #$invalid#
+                </p>
+            </xar:if>
+
+            <table class="xar-items">
+                <thead>
+                <tr>
+                    <th>
+                        <a href="&xar-modurl-roles-admin-showusers;&amp;state=#$state#&amp;uid=#$groupuid#&amp;order=xar_name&amp;sort=#$nsort#&amp;search=#$search#">
+                            <xar:mlstring>Display name</xar:mlstring>
+                        </a>
+                        <xar:if condition="$order eq 'xar_name'">
+                            <xar:if condition="$sort eq 'asc'">
+                                <img src="#$icon_sortasc#" alt="#xarML('Ascending order')#" class="xar-icon" />
+                            <xar:else />
+                                <img src="#$icon_sortdesc#" alt="#xarML('Descending order')#" />
+                            </xar:if>
+                        </xar:if>
+                    </th>
+                    <th>
+                        <a href="&xar-modurl-roles-admin-showusers;&amp;state=#$state#&amp;uid=#$groupuid#&amp;order=xar_uname&amp;sort=#$nsort#&amp;search=#$search#">
+                            <xar:mlstring>Login</xar:mlstring>
+                        </a>
+                        <xar:if condition="$order eq 'xar_uname'">
+                            <xar:if condition="$sort eq 'asc'">
+                                <img src="#$icon_sortasc#" alt="#xarML('Ascending order')#" class="xar-icon" />
+                            <xar:else />
+                                <img src="#$icon_sortdesc#" alt="#xarML('Descending order')#" />
+                            </xar:if>
+                        </xar:if>
+                    </th>
+                    <th>
+                        <a href="&xar-modurl-roles-admin-showusers;&amp;state=#$state#&amp;uid=#$groupuid#&amp;order=xar_email&amp;sort=#$nsort#&amp;search=#$search#">
+                            <xar:mlstring>Email</xar:mlstring>
+                        </a>
+                        <xar:if condition="$order eq 'xar_email'">
+                            <xar:if condition="$sort eq 'asc'">
+                                <img src="#$icon_sortasc#" alt="#xarML('Ascending order')#" class="xar-icon" />
+                            <xar:else />
+                                <img src="#$icon_sortdesc#" alt="#xarML('Descending order')#" />
+                            </xar:if>
+                        </xar:if>
+                    </th>
+                    <th>
+                        <a href="&xar-modurl-roles-admin-showusers;&amp;state=#$state#&amp;uid=#$groupuid#&amp;order=xar_date_reg&amp;sort=#$nsort#&amp;search=#$search#">
+                            <xar:mlstring>Date Registered</xar:mlstring>
+                        </a>
+                        <xar:if condition="$order eq 'xar_date_reg'">
+                            <xar:if condition="$sort eq 'asc'">
+                                <img src="#$icon_sortasc#" alt="#xarML('Ascending order')#" class="xar-icon" />
+                            <xar:else />
+                                <img src="#$icon_sortdesc#" alt="#xarML('Descending order')#" />
+                            </xar:if>
+                        </xar:if>
+                    </th>
+                    <th>
+                        <a href="&xar-modurl-roles-admin-showusers;&amp;state=#$state#&amp;uid=#$groupuid#&amp;order=xar_state&amp;sort=#$nsort#&amp;search=#$search#">
+                            <xar:mlstring>State</xar:mlstring>
+                        </a>
+                        <xar:if condition="$order eq 'xar_state'">
+                            <xar:if condition="$sort eq 'asc'">
+                                <img src="#$icon_sortasc#" alt="#xarML('Ascending order')#" class="xar-icon" />
+                            <xar:else />
+                                <img src="#$icon_sortdesc#" alt="#xarML('Descending order')#" />
+                            </xar:if>
+                        </xar:if>
+                    </th>
+                    <th colspan="2">
+                        <xar:mlstring>Action</xar:mlstring>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <xar:set name="rowclass">'xar-norm'</xar:set>
+                <xar:loop name="$users">
+                    <tr class="#$rowclass#">
+                        <td>
+                            <xar:if condition="!$loop:item['frozen']">
+                                <a href="&xar-modurl-roles-admin-displayrole;&amp;uid=#$loop:item.uid#">#xarVarPrepForDisplay($loop:item['name'])#</a>
+                                <xar:else/>
+                                #xarVarPrepForDisplay($loop:item['name'])#
+                            </xar:if>
+                        </td>
+                        <td>
+                            #xarVarPrepForDisplay($loop:item['uname'])#
+                        </td>
+                        <td>
+                            <xar:if condition="!$loop:item['frozen']">
+                                <a href="&xar-modurl-roles-admin-createmail;&amp;uid=#$loop:item.uid#" title="#xarML('Email this user')#">#xarVarPrepForDisplay($loop:item['email'])#</a>
+                                <xar:else/>
+                                <xar:mlstring>None</xar:mlstring>
+                            </xar:if>
+                        </td>
+                        <td class="xar-align-center">
+                            #xarLocaleFormatDate('%m/%d/%Y',$loop:item['date_reg'])#
+                        </td>
+                        <td class="xar-align-center">
+                            <xar:if condition="$loop:item['state'] eq $stateinactive">
+                                <xar:mlstring>Inactive</xar:mlstring>
+                                <xar:elseif condition="$loop:item['state'] eq $statenotvalidated"/>
+                                <xar:mlstring>Not Validated</xar:mlstring>
+                                <xar:elseif condition="$loop:item['state'] eq $stateactive"/>
+                                <xar:mlstring>Active</xar:mlstring>
+                                <xar:elseif condition="$loop:item['state'] eq $statepending"/>
+                                <xar:mlstring>Pending</xar:mlstring>
+                            </xar:if>
+                        </td>
+                        <td class="xar-item-actions">
+                            <xar:if condition="!$loop:item['frozen']">
+                                <xar:if condition="xarModGetVar('roles', 'askpasswordemail')">
+                                    <!-- only show this option if password notification is active else we get change without anyone knowing see bug #5719-->
+                                    <a href="&xar-modurl-roles-admin-createpassword;&amp;uid=#$loop:item.uid#&amp;state=#$state#&amp;groupuid=#$groupuid#" title="#xarML('Generate a new password for this User')#" class="xar-icon"><img src="#$icon_password#" alt="#xarML('Generate a new password for this User')#" /></a>
+                                </xar:if>
+                                <a href="&xar-modurl-roles-admin-modifyrole;&amp;uid=#$loop:item.uid##modify" title="#xarML('Modify this user')#" class="xar-icon"><img src="#$icon_modify#" alt="#xarML('Modify this user')#" /></a>
+                                <a href="&xar-modurl-roles-admin-deleterole;&amp;uid=#$loop:item.uid#" title="#xarML('Delete this User')#" class="xar-icon"><img src="#$icon_delete#" alt="#xarML('Delete this User')#" /></a>
+                            <xar:else />
+                                <xar:if condition="xarModGetVar('roles', 'askpasswordemail')">
+                                    <img src="#$icon_password#" class="xar-icon-disabled" alt="#xarML('Generate a new password for this User')#" title="#xarML('Generate a new password for this User')#" />
+								</xar:if>
+                                <img src="#$icon_modify#" class="xar-icon-disabled" alt="#xarML('Modify this user')#" title="#xarML('Modify this user')#" />
+                                <img src="#$icon_delete#" class="xar-icon-disabled" alt="#xarML('Delete this User')#" title="#xarML('Delete this User')#" />
+                            </xar:if>
+                            <a href="&xar-modurl-roles-admin-showprivileges;&amp;uid=#$loop:item.uid#" title="#xarML('Show the Privileges assigned to this User')#" class="xar-icon"><img src="#$icon_privileges#" alt="#xarML('Show the Privileges assigned to this User')#" /></a>
+                            <a href="&xar-modurl-roles-admin-testprivileges;&amp;uid=#$loop:item.uid#" title="#xarML('Test the Privileges of this User')#" class="xar-icon"><img src="#$icon_test#" alt="#xarML('Test the Privileges of this User')#" /></a>
+                        </td>
+                        <td class="xar-item-actions">
+                            <xar:if condition="!$loop:item['frozen']">
+                                <input type="checkbox" name="uids[#$loop:item['uid']#]" id="uids_#$loop:item['uid']#" value="1"/>
+                            </xar:if>
+                        </td>
+                    </tr>
+                    <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
+                </xar:loop>
+                <!-- end loop over users -->
+                </tbody>
+            </table>
+
+            <div class="xar-align-right">
+                <xar:mlstring>Check</xar:mlstring>:
+                <a href="#" id="items_checkall">
+                    <xar:mlstring>All</xar:mlstring>
+                </a> |
+                <a href="#" id="items_checknone">
+                    <xar:mlstring>None</xar:mlstring>
+                </a> |
+                <a href="#" id="items_checktoggle">
+                    <xar:mlstring>Toggle</xar:mlstring>
+                </a>
+            </div>
+
+            <xar:if condition="!empty($pager)">
+                <div class="xar-align-center">
+                    #$pager#
+                </div>
+            </xar:if>
+        </form>
+    </xar:if>
+    <!-- always show the new user link -->
+    <p>
+      <a href="&xar-modurl-roles-admin-newrole;&amp;ptype=0&amp;pparentid=#$groupuid#" title="#xarML('Add a new user')#">
+        <xar:mlstring>Add a New User to this Group</xar:mlstring>
+      </a>
+      |
+      <a href="&xar-modurl-roles-admin-createmail;">
+        <xar:mlstring>Email Users In This Group</xar:mlstring>
+      </a>
+    </p>
+</div>

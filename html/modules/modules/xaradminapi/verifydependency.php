@@ -102,8 +102,7 @@ function modules_adminapi_verifydependency($args)
 
             if (xarModAPIFunc('base','versions','compare',array(
                 'ver1'      => $conditions['minversion'],
-                'ver2'      => $dbMods[$module_id]['version'],
-                'normalize' => 'numeric')) < 0) {
+                'ver2'      => $dbMods[$module_id]['version'])) < 0) {
                 //Need to add some info for the user
                 return false; // 1st version is bigger
             }
@@ -112,8 +111,7 @@ function modules_adminapi_verifydependency($args)
            /*
             if (xarModAPIFunc('base','versions','compare',array(
                 'ver1'       => $conditions['maxversion'],
-                'ver2'       => $dbMods[$module_id]['version'],
-                'normalize'  => 'numeric')) > 0) {
+                'ver2'       => $dbMods[$module_id]['version'])) > 0) {
                 //Need to add some info for the user
                 return false; // 1st version is smaller
             }

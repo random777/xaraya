@@ -42,8 +42,8 @@ function mail_adminapi_updatemessagestrings($args)
         return;
     }
 
-    $filename = $messaginghome . '/' . $template . '-subject.xd';
-    if (is_writable($filename)) {
+    $filename = $messaginghome . '/' . $template . '-subject.xt';
+    if (file_exists($filename) && is_writable($filename)) {
         unlink($filename);
         if (!$handle = fopen($filename, 'a')) {
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_FILE_NOT_EXIST', new SystemException('Cannot open the template.'));
@@ -54,10 +54,24 @@ function mail_adminapi_updatemessagestrings($args)
             return;
         }
         fclose($handle);
+    } else {
+        $filename = $messaginghome . '/' . $template . '-subject.xd';
+        if (is_writable($filename)) {
+            unlink($filename);
+            if (!$handle = fopen($filename, 'a')) {
+                xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_FILE_NOT_EXIST', new SystemException('Cannot open the template.'));
+                return;
+            }
+            if (fwrite($handle, $subject) === FALSE) {
+                xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_FILE_NOT_EXIST', new SystemException('Cannot write the template.'));
+                return;
+            }
+            fclose($handle);
+        }
     }
 
-    $filename = $messaginghome . '/' . $template . '-message.xd';
-    if (is_writable($filename)) {
+    $filename = $messaginghome . '/' . $template . '-message.xt';
+    if (file_exists($filename) && is_writable($filename)) {
         unlink($filename);
         if (!$handle = fopen($filename, 'a')) {
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_FILE_NOT_EXIST', new SystemException('Cannot open the template.'));
@@ -68,6 +82,20 @@ function mail_adminapi_updatemessagestrings($args)
             return;
         }
         fclose($handle);
+    } else {
+        $filename = $messaginghome . '/' . $template . '-message.xd';
+        if (is_writable($filename)) {
+            unlink($filename);
+            if (!$handle = fopen($filename, 'a')) {
+                xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_FILE_NOT_EXIST', new SystemException('Cannot open the template.'));
+                return;
+            }
+            if (fwrite($handle, $message) === FALSE) {
+                xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_FILE_NOT_EXIST', new SystemException('Cannot write the template.'));
+                return;
+            }
+            fclose($handle);
+        }
     }
 
     return true;

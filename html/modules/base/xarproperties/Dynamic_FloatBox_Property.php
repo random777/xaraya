@@ -48,6 +48,11 @@ class Dynamic_FloatBox_Property extends Dynamic_TextBox_Property
     // The datatype this property handles.
     var $datatype = 'number';
 
+    // Bug 6422: add constructor for php > 5.2.6
+    function Dynamic_FloatBox_Property($args)
+    {
+        return parent::Dynamic_TextBox_Property($args);
+    }
     // Convert the current locale data into a nested array.
     // TODO: allow a subsection to be extracted without having
     // to process the whole thing.

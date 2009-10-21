@@ -1,50 +1,40 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
-<table class="xar-norm">
-    <tr>
-        <td>
-            <xar:mlstring>Rows</xar:mlstring>
-        </td>
-        <td>
-            <input type="text" name="#$name#[rows]" id="#$id#_rows" value="#$rows#" size="4" tabindex="#$tabindex#" />
-            (<xar:ml><xar:mlstring>default: #(1)</xar:mlstring><xar:mlvar>#$defaultrows#</xar:mlvar></xar:ml>)
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <xar:mlstring>Columns</xar:mlstring>
-        </td>
-        <td>
-            <input type="text" name="#$name#[cols]" id="#$id#_cols" value="#$cols#" size="4" tabindex="#$tabindex#" />
-            (<xar:ml><xar:mlstring>default: #(1)</xar:mlstring><xar:mlvar>#$defaultcols#</xar:mlvar></xar:ml>)
-        </td>
-    </tr>
-    <tr>
-        <td>
-        
-            <xar:mlstring>Class</xar:mlstring>
-        </td>
-        <td>
-            <input type="text" name="#$name#[classname]" id="#$id#_classname" value="#$classname#" size="25" tabindex="#$tabindex#" />
-            <xar:if condition="empty($defaultclass)">
-                <xar:set name="defaultclass">'NONE'</xar:set>
-            </xar:if>
-            <xar:ml>
-                <xar:mlstring>Default class: <strong>#(1)</strong>. </xar:mlstring>
-                <xar:mlvar>#$defaultclass#</xar:mlvar>
-            </xar:ml>
-            <xar:mlstring>A class set here will override a class set in the showinput property template.</xar:mlstring>
-        </td>
-    </tr>  
-    <tr>
-        <td>
-            <xar:mlstring>Other rule</xar:mlstring>
-        </td>
-        <td>
-            <input type="text" name="#$name#[other]" id="#$id#_other" value="#$other#" size="50" tabindex="#$tabindex#" />
-        </td>
-    </tr>
-</table>
-
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_rows" title="#xarML('Number of rows in the textarea')#" class="xar-form-label">
+        <xar:mlstring>Rows:</xar:mlstring>
+    </label>
+    <input type="text" name="#$name#[rows]" id="#$id#_rows" value="#$rows#" size="4" tabindex="#$tabindex#" />
+    (<xar:ml><xar:mlstring>default: #(1)</xar:mlstring><xar:mlvar>#$defaultrows#</xar:mlvar></xar:ml>)
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_cols" title="#xarML('Number of columns in the textarea')#" class="xar-form-label">
+        <xar:mlstring>Columns:</xar:mlstring>
+    </label>
+    <input type="text" name="#$name#[cols]" id="#$id#_cols" value="#$cols#" size="4" tabindex="#$tabindex#" />
+    (<xar:ml><xar:mlstring>default: #(1)</xar:mlstring><xar:mlvar>#$defaultcols#</xar:mlvar></xar:ml>)
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_classname" title="#xarML('CSS class')#" class="xar-form-label">
+        <xar:mlstring>Class:</xar:mlstring>
+    </label>
+    <input type="text" name="#$name#[classname]" id="#$id#_classname" value="#$classname#" size="25" tabindex="#$tabindex#" />
+    <xar:if condition="empty($defaultclass)">
+        <xar:set name="defaultclass">'NONE'</xar:set>
+    </xar:if>
+    <xar:ml>
+        <xar:mlstring>Default class: <strong>#(1)</strong>. </xar:mlstring>
+        <xar:mlvar>#$defaultclass#</xar:mlvar>
+    </xar:ml>
+    <xar:mlstring>A class set here will override a class set in the showinput property template.</xar:mlstring>
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_other" title="#xarML('Other validation rules')#" class="xar-form-label">
+        <xar:mlstring>Other rule:</xar:mlstring>
+    </label>
+    <input type="text" name="#$name#[other]" id="#$id#_other" value="#$other#" size="50" tabindex="#$tabindex#" />
+</div>
 <xar:if condition="!empty($invalid)">
+<div>
     <span class="xar-error">#$invalid#</span>
+</div>
 </xar:if>

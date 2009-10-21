@@ -1,31 +1,24 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
-<table class="xar-norm">
-  <tr>
-    <td>
-      <xar:mlstring>Minimum value</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[min]" id="#$id#_min" value="#$min#" size="4" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>Maximum value</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[max]" id="#$id#_max" value="#$max#" size="4" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>Other rule</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[other]" id="#$id#_other" value="#$other#" size="50" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-</table>
-
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_min" class="xar-form-label">
+        <xar:mlstring>Minimum value:</xar:mlstring>
+    </label>
+    <input type="text" name="#$name#[min]" id="#$id#_min" value="#$min#" size="4" tabindex="#$tabindex#" />
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_max" class="xar-form-label">
+        <xar:mlstring>Maximum value:</xar:mlstring>
+    </label>
+    <input type="text" name="#$name#[max]" id="#$id#_max" value="#$max#" size="4" tabindex="#$tabindex#" />
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_other" class="xar-form-label">
+        <xar:mlstring>Other rule:</xar:mlstring>
+    </label>
+    <input type="text" name="#$name#[other]" id="#$id#_other" value="#$other#" size="50" tabindex="#$tabindex#" />
+</div>
 <xar:if condition="!empty($invalid)">
+<div>
     <span class="xar-error">#$invalid#</span>
+</div>
 </xar:if>

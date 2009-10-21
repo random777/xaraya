@@ -1,55 +1,46 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
-<table class="xar-norm">
-  <tr>
-    <td>
-      <xar:mlstring>Groups</xar:mlstring>
-    </td>
-    <td> <xar:comment> TODO: replace with dropdown / multi-select list of groups + adapt code ? </xar:comment>
-      <input type="text" name="#$name#[grouplist]" id="#$id#_grouplist" value="#$grouplist#" size="#$size#" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>State</xar:mlstring>
-    </td>
-    <td> <xar:comment> TODO: replace with dropdown / multi-select list of states + adapt code ? </xar:comment>
-      <input type="text" name="#$name#[userstate]" id="#$id#_userstate" value="#$userstate#" size="5" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>Fields</xar:mlstring>
-    </td>
-    <td> <xar:comment> TODO: replace with dropdown / multi-select list of fields + adapt code ? </xar:comment>
-      <input type="text" name="#$name#[showlist]" id="#$id#_showlist" value="#$showlist#" size="#$size#" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>Order</xar:mlstring>
-    </td>
-    <td> <xar:comment> TODO: replace with dropdown / multi-select list of fields + adapt code ? </xar:comment>
-      <input type="text" name="#$name#[orderlist]" id="#$id#_orderlist" value="#$orderlist#" size="#$size#" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>Glue</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[showglue]" id="#$id#_showglue" value="#$showglue#" size="5" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>Other rule</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[other]" id="#$id#_other" value="#$other#" size="#$size#" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-</table>
-
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_grouplist" class="xar-form-label">
+        <xar:mlstring>Groups:</xar:mlstring>
+    </label>
+    <xar:comment> TODO: replace with dropdown / multi-select list of groups + adapt code ? </xar:comment>
+    <input type="text" name="#$name#[grouplist]" id="#$id#_grouplist" value="#$grouplist#" size="#$size#" tabindex="#$tabindex#" />
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_userstate" class="xar-form-label">
+        <xar:mlstring>State:</xar:mlstring>
+    </label>
+    <xar:comment> TODO: replace with dropdown / multi-select list of states + adapt code ? </xar:comment>
+    <input type="text" name="#$name#[userstate]" id="#$id#_userstate" value="#$userstate#" size="5" tabindex="#$tabindex#" />
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_showlist" class="xar-form-label">
+        <xar:mlstring>Fields:</xar:mlstring>
+    </label>
+    <xar:comment> TODO: replace with dropdown / multi-select list of fields + adapt code ? </xar:comment>
+    <input type="text" name="#$name#[showlist]" id="#$id#_showlist" value="#$showlist#" size="#$size#" tabindex="#$tabindex#" />
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_orderlist" class="xar-form-label">
+        <xar:mlstring>Order:</xar:mlstring>
+    </label>
+    <xar:comment> TODO: replace with dropdown / multi-select list of fields + adapt code ? </xar:comment>
+    <input type="text" name="#$name#[orderlist]" id="#$id#_orderlist" value="#$orderlist#" size="#$size#" tabindex="#$tabindex#" />
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_showglue" class="xar-form-label">
+        <xar:mlstring>Glue:</xar:mlstring>
+    </label>
+    <input type="text" name="#$name#[showglue]" id="#$id#_showglue" value="#$showglue#" size="5" tabindex="#$tabindex#" />
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_other" class="xar-form-label">
+        <xar:mlstring>Other rule:</xar:mlstring>
+    </label>
+    <input type="text" name="#$name#[other]" id="#$id#_other" value="#$other#" size="#$size#" tabindex="#$tabindex#" />
+</div>
 <xar:if condition="!empty($invalid)">
+<div>
     <span class="xar-error">#$invalid#</span>
+</div>
 </xar:if>

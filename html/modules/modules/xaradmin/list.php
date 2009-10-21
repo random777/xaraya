@@ -3,7 +3,7 @@
  * List modules and current settings
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -191,6 +191,8 @@ function modules_admin_list()
 
             $listrows[$i]['actionimg1']         = $img_install;
             $listrows[$i]['actionimg2']         = $img_remove;
+            $listrows[$i]['actionclass1']       = 'xar-install';
+            $listrows[$i]['actionclass2']       = 'xar-remove';
 
             $listrows[$i]['configurl']          = '';
 
@@ -208,6 +210,8 @@ function modules_admin_list()
 
             $listrows[$i]['actionimg1']         = $img_activate;
             $listrows[$i]['actionimg2']         = $img_remove;
+            $listrows[$i]['actionclass1']       = 'xar-activate';
+            $listrows[$i]['actionclass2']       = 'xar-remove';
 
             $listrows[$i]['configurl']          = '';
 
@@ -224,6 +228,9 @@ function modules_admin_list()
 
                 $listrows[$i]['actionimg1']     = $img_deactivate;
                 $listrows[$i]['actionimg2']     = $img_remove;
+
+                $listrows[$i]['actionclass1']   = 'xar-deactivate';
+                $listrows[$i]['actionclass2']   = 'xar-remove';
             }else{
                 $listrows[$i]['actionlabel']    = xarML('[core module]');
                 $listrows[$i]['actionlabel2']   = xarML('[core module]');
@@ -232,6 +239,9 @@ function modules_admin_list()
 
                 $listrows[$i]['actionimg1']     = $img_install;
                 $listrows[$i]['actionimg2']     = $img_remove;
+
+                $listrows[$i]['actionclass1']   = 'xar-install';
+                $listrows[$i]['actionclass2']   = 'xar-remove';
             }
         }elseif($mod['state'] == XARMOD_STATE_MISSING_FROM_UNINITIALISED ||
                 $mod['state'] == XARMOD_STATE_MISSING_FROM_INACTIVE ||
@@ -248,6 +258,9 @@ function modules_admin_list()
 
             $listrows[$i]['actionimg1']         = $img_warning;
             $listrows[$i]['actionimg2']         = $img_remove;
+
+            $listrows[$i]['actionclass1']         = 'xar-missing';
+            $listrows[$i]['actionclass2']         = 'xar-remove';
 
             $listrows[$i]['configurl']          = '';
 
@@ -267,6 +280,9 @@ function modules_admin_list()
             $listrows[$i]['actionimg1']         = $img_error;
             $listrows[$i]['actionimg2']         = $img_remove;
 
+            $listrows[$i]['actionclass1']         = 'xar-errorstate';
+            $listrows[$i]['actionclass2']         = 'xar-remove';
+
             $listrows[$i]['configurl']          = '';
 
         }elseif($mod['state'] == XARMOD_STATE_UPGRADED){
@@ -281,6 +297,9 @@ function modules_admin_list()
             $listrows[$i]['actionimg1']         = $img_upgrade;
             $listrows[$i]['actionimg2']         = $img_remove;
 
+            $listrows[$i]['actionclass1']         = 'xar-upgrade';
+            $listrows[$i]['actionclass2']         = 'xar-remove';
+
             $listrows[$i]['configurl']          = '';
 
         } else {
@@ -293,6 +312,9 @@ function modules_admin_list()
 
             $listrows[$i]['actionimg1']         = $img_error;
             $listrows[$i]['actionimg2']         = $img_remove;
+
+            $listrows[$i]['actionclass1']         = 'xar-errorstate';
+            $listrows[$i]['actionclass2']         = 'xar-remove';
 
             $listrows[$i]['configurl']          = '';
 

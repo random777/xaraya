@@ -1,74 +1,63 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
-<table class="xar-norm">
 <xar:if condition="empty($ishooked)">
-  <tr>
-    <td colspan="2">
-      <strong><xar:mlstring>Note: the uploads module is not hooked</xar:mlstring></strong>
-    </td>
-  </tr>
+    <p class="xar-error">
+        <xar:mlstring>Note: the uploads module is not hooked</xar:mlstring>
+    </p>
 <xar:else/>
-  <tr>
-    <td>
-      <xar:mlstring>Methods</xar:mlstring>
-    </td>
-    <td>
-      <xar:foreach in="$methods" key="$method" value="$checked">
-        <label for="#$id#_methods_#$method#">#$method#</label>
-        <xar:if condition="!empty($checked)">
-          <input type="checkbox" name="#$name#[methods][#$method#]" id="#$id#_methods_#$method#" value="1" tabindex="#$tabindex#" checked="checked" />
-        <xar:else/>
-          <input type="checkbox" name="#$name#[methods][#$method#]" id="#$id#_methods_#$method#" value="1" tabindex="#$tabindex#" />
-        </xar:if>
-        <br/>
-      </xar:foreach>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <label for="#$id#_basedir">
-      <xar:mlstring>Upload Directory</xar:mlstring>
-      </label>
-    </td>
-    <td>
-      <input type="text" name="#$name#[basedir]" id="#$id#_basedir" value="#$basedir#" size="#$size#" tabindex="#$tabindex#" />
-      <br/>
-      <xar:mlstring>
-        Note : {user} will be replaced by the current user uploading the file
-        - e.g. var/uploads/{user} -&gt; var/uploads/myusername_123
-      </xar:mlstring>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <label for="#$id#_importdir">
-      <xar:mlstring>Trusted Directory</xar:mlstring>
-      </label>
-    </td>
-    <td>
-      <input type="text" name="#$name#[importdir]" id="#$id#_importdir" value="#$importdir#" size="#$size#" tabindex="#$tabindex#" />
-      <br/>
-      <xar:mlstring>
-        Note : {user} will be replaced by the current user importing the file
-        - e.g. var/imports/{user} -&gt; var/imports/myusername_123
-      </xar:mlstring>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <strong><xar:mlstring>Note: the uploads module is hooked</xar:mlstring></strong>
-    </td>
-  </tr>
-</xar:if>
-  <tr>
-    <td>
-      <xar:mlstring>Other rule</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[other]" id="#$id#_other" value="#$other#" size="#$size#" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-</table>
+    <p>
+        <strong><xar:mlstring>Note: the uploads module is hooked</xar:mlstring></strong>
+    </p>
+    <div class="xar-form-input-wrapper">
+        <label class="xar-form-label">
+            <xar:mlstring>Methods:</xar:mlstring>
+        </label>
+        <div class="xar-form-container-after">
+            <xar:foreach in="$methods" key="$method" value="$checked">
+                <div>
+                    <xar:if condition="!empty($checked)">
+                        <input type="checkbox" name="#$name#[methods][#$method#]" id="#$id#_methods_#$method#" value="1" tabindex="#$tabindex#" checked="checked" />
+                    <xar:else/>
+                        <input type="checkbox" name="#$name#[methods][#$method#]" id="#$id#_methods_#$method#" value="1" tabindex="#$tabindex#" />
+                    </xar:if>
+                    <label for="#$id#_methods_#$method#">
+                        #$method#
+                    </label>
+                </div>
+          </xar:foreach>
+        </div>
+    </div>
+    <div class="xar-form-input-wrapper">
+        <label for="#$id#_basedir" class="xar-form-label">
+            <xar:mlstring>Upload Directory:</xar:mlstring>
+        </label>
+        <div class="xar-form-container-after">
+            <input type="text" name="#$name#[basedir]" id="#$id#_basedir" value="#$basedir#" size="#$size#" tabindex="#$tabindex#" />
+            <div>
+                <xar:mlstring>Note: {user} will be replaced by the current user uploading the file - e.g. var/uploads/{user} -&gt; var/uploads/myusername_123</xar:mlstring>
+            </div>
+        </div>
+    </div>
+    <div class="xar-form-input-wrapper">
+        <label for="#$id#_importdir" class="xar-form-label">
+            <xar:mlstring>Trusted Directory:</xar:mlstring>
+        </label>
+        <div class="xar-form-container-after">
+            <input type="text" name="#$name#[importdir]" id="#$id#_importdir" value="#$importdir#" size="#$size#" tabindex="#$tabindex#" />
+            <div>
+                <xar:mlstring>Note: {user} will be replaced by the current user importing the file - e.g. var/imports/{user} -&gt; var/imports/myusername_123</xar:mlstring>
+            </div>
+        </div>
+    </div>
 
+</xar:if>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_other" class="xar-form-label">
+        <xar:mlstring>Other rule:</xar:mlstring>
+    </label>
+    <input type="text" name="#$name#[other]" id="#$id#_other" value="#$other#" size="#$size#" tabindex="#$tabindex#" />
+</div>
 <xar:if condition="!empty($invalid)">
+<div>
     <span class="xar-error">#$invalid#</span>
+</div>
 </xar:if>

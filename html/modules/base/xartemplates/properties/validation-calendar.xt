@@ -1,68 +1,65 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
-<table class="xar-norm">
-  <tr>
-    <td>
-      <xar:mlstring>Store as</xar:mlstring>
-    </td>
-    <td>
-      <select name="#$name#[dbformat]" id="#$id#_dbformat" tabindex="#$tabindex#">
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_dbformat" class="xar-form-label">
+        <xar:mlstring>Store as:</xar:mlstring>
+    </label>
+    <select name="#$name#[dbformat]" id="#$id#_dbformat" tabindex="#$tabindex#">
         <xar:set name="timestamp">#xarMLS_userTime()#</xar:set>
         <xar:set name="datetime">#xarLocaleFormatDate('%Y-%m-%d %H:%M:%S')#</xar:set>
         <xar:set name="date">#xarLocaleFormatDate('%Y-%m-%d')#</xar:set>
         <xar:comment>
-          Note : timestamp is not an option for ExtendedDate
+            Note : timestamp is not an option for ExtendedDate
         </xar:comment>
         <xar:if condition="empty($class) or $class ne 'dynamic_extendeddate_property'">
-          <option value="">
-            <xar:ml>
-              <xar:mlstring>timestamp : #(1)</xar:mlstring>
-              <xar:mlvar>#$timestamp#</xar:mlvar>
-            </xar:ml>
-          </option>
+            <option value="">
+                <xar:ml>
+                    <xar:mlstring>timestamp : #(1)</xar:mlstring>
+                    <xar:mlvar>#$timestamp#</xar:mlvar>
+                </xar:ml>
+            </option>
         </xar:if>
         <xar:if condition="!empty($dbformat) and $dbformat == 'datetime'">
-          <option value="datetime" selected="selected">
-            <xar:ml>
-              <xar:mlstring>datetime : #(1)</xar:mlstring>
-              <xar:mlvar>#$datetime#</xar:mlvar>
-            </xar:ml>
-          </option>
+            <option value="datetime" selected="selected">
+                <xar:ml>
+                    <xar:mlstring>datetime : #(1)</xar:mlstring>
+                    <xar:mlvar>#$datetime#</xar:mlvar>
+              </xar:ml>
+            </option>
         <xar:else/>
-          <option value="datetime">
-            <xar:ml>
-              <xar:mlstring>datetime : #(1)</xar:mlstring>
-              <xar:mlvar>#$datetime#</xar:mlvar>
-            </xar:ml>
-          </option>
+            <option value="datetime">
+                <xar:ml>
+                    <xar:mlstring>datetime : #(1)</xar:mlstring>
+                    <xar:mlvar>#$datetime#</xar:mlvar>
+                </xar:ml>
+            </option>
         </xar:if>
         <xar:if condition="!empty($dbformat) and $dbformat == 'date'">
-          <option value="date" selected="selected">
-            <xar:ml>
-              <xar:mlstring>date : #(1)</xar:mlstring>
-              <xar:mlvar>#$date#</xar:mlvar>
-            </xar:ml>
-          </option>
+            <option value="date" selected="selected">
+                <xar:ml>
+                    <xar:mlstring>date : #(1)</xar:mlstring>
+                    <xar:mlvar>#$date#</xar:mlvar>
+                </xar:ml>
+            </option>
         <xar:else/>
-          <option value="date">
-            <xar:ml>
-              <xar:mlstring>date : #(1)</xar:mlstring>
-              <xar:mlvar>#$date#</xar:mlvar>
-            </xar:ml>
-          </option>
+            <option value="date">
+                <xar:ml>
+                    <xar:mlstring>date : #(1)</xar:mlstring>
+                    <xar:mlvar>#$date#</xar:mlvar>
+                </xar:ml>
+            </option>
         </xar:if>
-      </select>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>Other rule</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[other]" id="#$id#_other" value="#$other#" size="50" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-</table>
-
+    </select>
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_other" class="xar-form-label">
+        <xar:mlstring>Other rule:</xar:mlstring>
+    </label>
+    <div class="xar-form-container-after">
+      <input type="text" name="#$name#[other]" id="#$id#_other" value="#$other#" size="40" />
+    </div>
+</div>
 <xar:if condition="!empty($invalid)">
+<div>
     <span class="xar-error">#$invalid#</span>
+</div>
 </xar:if>

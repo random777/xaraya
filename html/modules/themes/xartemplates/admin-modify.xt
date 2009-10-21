@@ -86,7 +86,7 @@
 
         <div class="xar-form-input-wrapper-after">
             <input type="checkbox" name="return" id="return" value="1" /> 
-            <label for="return" title="#xarML('TITLE')#">
+            <label for="return">
                 <xar:mlstring>Update and return to this screen</xar:mlstring>
             </label>
         </div>

@@ -3,7 +3,7 @@
  * Base Module Initialisation
  *
  * @package modules
- * @copyright (C) 2005-2007 The Digital Development Foundation
+ * @copyright (C) 2005-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -509,6 +509,7 @@ function base_init()
         'supersubs' => array('version' => '0.2b', 'displayname' => 'Supersubs'),
         'tablesorter' => array('version' => '2.0.3', 'displayname' => 'TableSorter'),
         'thickbox' => array('version' => '3.1', 'displayname' => 'Thickbox'),
+        'timepicker' => array('version' => '0.2.1', 'displayname' => 'jQuery UI Timepicker'),
         'tooltip' => array('version' => '1.3', 'displayname' => 'Tooltip'),
         'treeview' => array('version' => '1.4', 'displayname' => 'Treeview'),
         'truncator' => array('version' => 'unknown', 'displayname' => 'HTML Truncator'),

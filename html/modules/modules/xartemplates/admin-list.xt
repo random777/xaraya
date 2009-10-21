@@ -8,11 +8,11 @@ jQuery('form table.xar-item-controls select').add('form table.xar-item-controls 
 var dialog_width = Math.floor(jQuery(window).width() * .85);
 var dialog_height = Math.floor(jQuery(window).height() * .85);
 
-jQuery('a.xar-info').click(function() {
+jQuery('a.xar-info, a.xar-errorstate, a.xar-missing').click(function() {
 jQuery('#"."xardialogtarget').remove();
 jQuery('body').append('<div id=\'xardialogtarget\' style=\'display: none;\'></div>');
 jQuery('#" . "xardialogtarget').load(this.getAttribute('href').replace('&theme=print', '&pageName=module') + ' .xar-mod-body > *').dialog({
-title: '" . xarML('Module Info') . "',
+title: jQuery(this).attr('title'),
 width: dialog_width,
 height: dialog_height,
 bgiframe: true,
@@ -167,18 +167,18 @@ return false;
                     </td>
                     <td class="xar-item-actions">
                         <xar:comment>Info Icon</xar:comment>
-                        <a href="#$modinfo['infourl']#&amp;theme=print" class="xar-info xar-icon" title="#xarML('Info')#"><img src="#$icon_info#" alt="#xarML('Info')#" /></a>
+                        <a href="#$modinfo['infourl']#&amp;theme=print" class="xar-info xar-icon" title="#xarML('Module Info')#"><img src="#$icon_info#" alt="#xarML('Info')#" /></a>
 
                         <xar:if condition="$modinfo['actionurl'] eq ''">
                             <img src="#$modinfo['actionimg1']#" alt="#$modinfo['actionlabel']#" title="#$modinfo['actionlabel']#" class="xar-icon-disabled" />
                         <xar:else />
-                            <a href="#$modinfo['actionurl']#" title="#$modinfo['actionlabel']#" class="xar-icon"><img src="#$modinfo['actionimg1']#" alt="#$modinfo['actionlabel']#" /></a>
+                            <a href="#$modinfo['actionurl']#" title="#$modinfo['actionlabel']#" class="xar-icon #$modinfo['actionclass1']#"><img src="#$modinfo['actionimg1']#" alt="#$modinfo['actionlabel']#" /></a>
                         </xar:if>
 
                         <xar:if condition="$modinfo['removeurl'] eq ''">
-                            <img src="#$modinfo['actionimg2']#" alt="Remove" title="Remove" class="xar-icon-disabled" />
+                            <img src="#$modinfo['actionimg2']#" alt="#xarML('Remove')#" title="#xarML('Remove')#" class="xar-icon-disabled" />
                         <xar:else />
-                            <a href="#$modinfo['removeurl']#" title="#$modinfo['actionlabel2']#" class="xar-icon"><img src="#$modinfo['actionimg2']#" alt="#$modinfo['actionlabel2']#" /></a>
+                            <a href="#$modinfo['removeurl']#" title="#$modinfo['actionlabel2']#" class="xar-icon #$modinfo['actionclass2']#"><img src="#$modinfo['actionimg2']#" alt="#$modinfo['actionlabel2']#" /></a>
                         </xar:if>
 
                         <xar:if condition="$modinfo['modid'] ne 1 and ($modinfo['state'] eq XARMOD_STATE_INACTIVE or $modinfo['state'] eq XARMOD_STATE_ACTIVE)">

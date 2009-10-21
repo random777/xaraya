@@ -3,7 +3,7 @@
  * List themes and current settings
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -197,6 +197,8 @@ function themes_admin_list()
             $listrows[$i]['actionimg1']         = $img_initialise;
             $listrows[$i]['actionimg2']         = $img_remove;
 
+            $listrows[$i]['actionclass1']       = 'xar-initialise';
+            $listrows[$i]['actionclass2']       = 'xar-remove';
 
         }elseif($theme['state'] == 1){
             // this theme is 'Uninitialised'   - set labels and links
@@ -211,6 +213,8 @@ function themes_admin_list()
             $listrows[$i]['actionimg1']         = $img_initialise;
             $listrows[$i]['actionimg2']         = $img_remove;
 
+            $listrows[$i]['actionclass1']       = 'xar-initialise';
+            $listrows[$i]['actionclass2']       = 'xar-remove';
 
         }elseif($theme['state'] == 2){
             // this theme is 'Inactive'        - set labels and links
@@ -225,6 +229,10 @@ function themes_admin_list()
 
             $listrows[$i]['actionimg1']         = $img_activate;
             $listrows[$i]['actionimg2']         = $img_remove;
+
+            $listrows[$i]['actionclass1']       = 'xar-activate';
+            $listrows[$i]['actionclass2']       = 'xar-remove';
+
         }elseif($theme['state'] == 3){
             // this theme is 'Active'          - set labels and links
             $statelabel = xarML('Active');
@@ -235,18 +243,25 @@ function themes_admin_list()
                 $listrows[$i]['actionlabel']    = xarML('Deactivate');
                 $listrows[$i]['actionurl']      = $deactivateurl;
                 $listrows[$i]['removeurl']      = '';
-                $listrows[$i]['removelabel']        = xarML('Remove');
+                $listrows[$i]['removelabel']    = xarML('Remove');
 
                 $listrows[$i]['actionimg1']     = $img_deactivate;
                 $listrows[$i]['actionimg2']     = $img_remove;
+
+                $listrows[$i]['actionclass1']   = 'xar-deactivate';
+                $listrows[$i]['actionclass2']   = 'xar-remove';
+
             }else{
                 $listrows[$i]['actionlabel']    = xarML('[core theme]');
                 $listrows[$i]['actionurl']      = '';
                 $listrows[$i]['removeurl']      = '';
-                $listrows[$i]['removelabel']        = xarML('Remove');
+                $listrows[$i]['removelabel']    = xarML('Remove');
 
                 $listrows[$i]['actionimg1']     = $img_deactivate;
                 $listrows[$i]['actionimg2']     = $img_remove;
+
+                $listrows[$i]['actionclass1']   = 'xar-deactivate';
+                $listrows[$i]['actionclass2']   = 'xar-remove';
             }
         }elseif($theme['state'] == 4 ||
                 $theme['state'] == 7 ||
@@ -258,12 +273,15 @@ function themes_admin_list()
 
             $listrows[$i]['removelabel']        = xarML('Missing');
             $listrows[$i]['actionlabel']        = xarML('Warning');
-            $listrows[$i]['actionurl']          = '';
+            $listrows[$i]['actionurl']          = xarModURL('themes','admin','viewerror', array('id' => $thisthemeid, 'authid' => $authid));
             $listrows[$i]['removeurl']          = $removeurl;
             $listrows[$i]['removelabel']        = xarML('Remove');
 
             $listrows[$i]['actionimg1']         = $img_warning;
             $listrows[$i]['actionimg2']         = $img_remove;
+
+            $listrows[$i]['actionclass1']       = 'xar-missing';
+            $listrows[$i]['actionclass2']       = 'xar-remove';
 
         }elseif($theme['state'] == 5){
             // this theme is 'Upgraded'        - set labels and links
@@ -278,6 +296,8 @@ function themes_admin_list()
             $listrows[$i]['actionimg1']         = $img_upgrade;
             $listrows[$i]['actionimg2']         = $img_remove;
 
+            $listrows[$i]['actionclass1']       = 'xar-upgrade';
+            $listrows[$i]['actionclass2']       = 'xar-remove';
         }
 
         // nearly done

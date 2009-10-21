@@ -149,8 +149,6 @@ form {
     display: block;
 }
 
-button { border: 2px outset #f0f0f0; }
-
 input, select, textarea {}
 
 legend {
@@ -162,7 +160,7 @@ legend {
     min-width:15em;
     display:block;
     background-image: url(../images/gradients.png);
-    background-position: 0px -410px;
+    background-position: 0px -270px;
     background-repeat: repeat-x;
 }
 
@@ -173,15 +171,15 @@ fieldset {
 }
 
 label.xar-form-label {
-    padding: 2px;
     text-align: right;
-    padding-left: 5px;
-    margin: 0 5px 0 0;
+    padding-right: .5em;
     font-weight: bold;
     color: #333366;
     background-color: #f9f9f9;
-    border:1px solid #f0f0f0;
     clear:left;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -khtml-box-sizing: border-box;
 }
 
 /* reset for table header labels to preserve table styles */

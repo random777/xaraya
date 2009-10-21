@@ -49,7 +49,7 @@ jQuery('#" . $id . "').datepicker({
     amText: '" . xarML('am') . "',
     pmText: '" . xarML('pm') . "'
 });
-jQuery('#" . $id . "').after(' ".chr(60)."a class=\"xar-icon\" id=\"" . $id . "_calendaricon\" class=\"xar-icon\" title=\"" . $alttext . "\" style=\"cursor: pointer;\"".chr(62).chr(60)."img src=\"" . xarTplGetImage('icons/office-calendar.png','base') . "\" alt=\"" . $alttext . "\" /".chr(60).chr(62)."/a".chr(60)."');
+jQuery('#" . $id . "').after(' ".chr(60)."a class=\"xar-icon\" id=\"" . $id . "_calendaricon\" class=\"xar-icon\" title=\"" . $alttext . "\" style=\"cursor: pointer;\"".chr(62).chr(60)."img src=\"" . xarTplGetImage('icons/office-calendar.png','base') . "\" alt=\"" . $alttext . "\" /".chr(62).chr(60)."/a".chr(62)."');
 jQuery('#" . $id . "_calendaricon').click(function() { jQuery('#" . $id . "').datepicker('show'); return false; });
 "</xar:set>
 <xar:base-js-event name="ready" code="$calcode" />

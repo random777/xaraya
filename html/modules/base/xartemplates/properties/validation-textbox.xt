@@ -1,40 +1,35 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
-<table class="xar-norm">
-  <tr>
-    <td>
-      <xar:mlstring>Minimum length</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[min]" id="#$id#_min" value="#$min#" size="4" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>Maximum length</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[max]" id="#$id#_max" value="#$max#" size="4" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>Regular expression</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[regex]" id="#$id#_regex" value="#$regex#" size="30" tabindex="#$tabindex#" />
-      <xar:mlstring>PCRE syntax, e.g. /^[A-Z]+\d*$/</xar:mlstring>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>Other rule</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[other]" id="#$id#_other" value="#$other#" size="50" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-</table>
-
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_min" class="xar-form-label">
+        <xar:mlstring>Minimum length:</xar:mlstring>
+    </label>
+    <input type="text" name="#$name#[min]" id="#$id#_min" value="#$min#" size="4" tabindex="#$tabindex#" />
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_max" class="xar-form-label">
+        <xar:mlstring>Maximum length:</xar:mlstring>
+    </label>
+    <input type="text" name="#$name#[max]" id="#$id#_max" value="#$max#" size="4" tabindex="#$tabindex#" />
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_regex" class="xar-form-label">
+        <xar:mlstring>Regular expression:</xar:mlstring>
+    </label>
+    <div class="xar-form-container-after">
+        <input type="text" name="#$name#[regex]" id="#$id#_regex" value="#$regex#" size="30" tabindex="#$tabindex#" />
+        <div>
+            <xar:mlstring>PCRE syntax, e.g. /^[A-Z]+\d*$/</xar:mlstring>
+        </div>
+    </div>
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_other" class="xar-form-label">
+        <xar:mlstring>Other rule:</xar:mlstring>
+    </label>
+    <input type="text" name="#$name#[other]" id="#$id#_other" value="#$other#" size="50" tabindex="#$tabindex#" />
+</div>
 <xar:if condition="!empty($invalid)">
+<div>
     <span class="xar-error">#$invalid#</span>
+</div>
 </xar:if>

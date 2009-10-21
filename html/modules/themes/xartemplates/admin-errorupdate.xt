@@ -1,0 +1,74 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-head">
+    <span class="xar-mod-title"><xar:mlstring>Themes Administration</xar:mlstring></span>
+</div>
+<div class="xar-mod-body">
+    <h2>
+        <xar:mlstring>Theme Error Information</xar:mlstring>
+    </h2>
+    <!-- Error Information -->
+
+    <h3>
+        <xar:mlstring>An error has been detected in the theme versions!</xar:mlstring>
+    </h3>
+
+    <p>
+        <xar:mlstring>There is a discrepancy between the theme version stored in the database and the theme version found in the file system.  If you continue to run with an older version of the theme files, you can severely corrupt your data.</xar:mlstring>
+    </p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>
+                <xar:mlstring>Theme</xar:mlstring>
+            </th>
+            <th>
+                <xar:mlstring>Database Version</xar:mlstring>
+            </th>
+            <th>
+                <xar:mlstring>Filesystem Version</xar:mlstring>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                #$themename#
+            </td>
+            <td>
+                #$dbversion#
+            </td>
+            <td>
+                #$fileversion#
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <xar:mlstring>The theme has been marked inactive until this discrepancy is corrected.</xar:mlstring>
+    </p>
+
+    <h3>
+        <xar:mlstring>You have two choices:</xar:mlstring>
+    </h3>
+
+    <ul>
+        <li>
+            <strong>
+                <xar:mlstring>Update the theme's files.</xar:mlstring> 
+            </strong>
+            <xar:mlstring>Download the latest version of theme</xar:mlstring>&nbsp;#$themename#&nbsp;<xar:mlstring>from</xar:mlstring>&nbsp;<a href="http://www.xaraya.com">www.xaraya.com</a>&nbsp;<xar:mlstring>and update your file system.</xar:mlstring>
+        </li>
+        <li>
+            <strong>
+                <xar:mlstring>Update the theme version in the database.</xar:mlstring> 
+            </strong>
+        </li>
+    </ul>
+
+    <p>
+        <xar:mlstring>If themes files are up to date, you can update the database to the current version.  Only do this if you are absolutely certain the theme files are up to date.</xar:mlstring>
+    </p>
+
+</div>

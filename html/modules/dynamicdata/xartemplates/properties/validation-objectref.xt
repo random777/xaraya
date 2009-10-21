@@ -1,18 +1,21 @@
-<fieldset>
-    <legend>
-        <xar:mlstring>Define object and property to reference</xar:mlstring>
-    </legend>
-        
-    <label><xar:mlstring>Which object contains the property to reference</xar:mlstring></label>
+<div class="xar-form-input-wrapper">
     <xar:set name="field">$name.'[objectid]'</xar:set>
+    <label for="#$field#" title="#xarML('Which object contains the property to reference')#" class="xar-form-label">
+        <xar:mlstring>Object:</xar:mlstring>
+    </label>
     <xar:data-input type="object" value="$objectid" name="$field"  />
-    <br/>
-    <label><xar:mlstring>Which property should be use as the value to DISPLAY?</xar:mlstring></label>
+</div>
+<div class="xar-form-input-wrapper">
     <xar:set name="field">$name.'[display_propid]'</xar:set>
+    <label for="#$field#" title="#xarML('Which property should be use as the value to DISPLAY?')#" class="xar-form-label">
+        <xar:mlstring>Display Property:</xar:mlstring>
+    </label>
     <xar:data-input type="dropdown" options="$properties" value="$display_propid" name="$field"/>
-    <br/>
-    <label><xar:mlstring>Which property should be used as the value to STORE?</xar:mlstring></label>
+</div>
+<div class="xar-form-input-wrapper">
     <xar:set name="field">$name.'[store_propid]'</xar:set>
+    <label for="#$field#" title="#xarML('Which property should be used as the value to STORE?')#" class="xar-form-label">
+        <xar:mlstring>Stored Property:</xar:mlstring>
+    </label>
     <xar:data-input type="dropdown" options="$properties" value="$store_propid" name="$field"/>
-    
-</fieldset>
+</div>

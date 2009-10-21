@@ -128,7 +128,8 @@
       <input type="text" name="#$name#[other]" id="#$id#_other" value="#$other#" size="40" />
     </div>
 </div>
-
 <xar:if condition="!empty($invalid)">
+<div>
     <span class="xar-error">#$invalid#</span>
+</div>
 </xar:if>

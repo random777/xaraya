@@ -1,64 +1,57 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
-<table class="xar-norm">
-  <tr>
-    <td>
-       <xar:mlstring>Directory</xar:mlstring>
-    </td> 
-    <td>
-      #$bltbasedir#
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>Type</xar:mlstring>
-    </td>
-    <td>
-      <select name="#$name#[blttype]" id="#$id#_blttype" tabindex="#$tabindex#" >
-            <xar:if condition="$blttype eq 'module'">
-                <option value="module" selected="selected">module</option>
-            <xar:else />
-                <option value="module">module</option>
-            </xar:if>
-            <xar:if condition="$blttype eq 'theme'">
-                <option value="theme" selected="selected">theme</option>
-            <xar:else />
-                <option value="theme">theme</option>
-            </xar:if>
-            <xar:if condition="$blttype eq 'system'">
-                <option value="system" selected="selected">system</option>
-            <xar:else />
-                <option value="system">system</option>
-            </xar:if>
-        </select>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>Module</xar:mlstring>
-      <xar:mlstring>(only if Type module is selected)</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[bltmodule]" id="#$id#_bltmodule" value="#$bltmodule#" size="20" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>Sub-directory</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[bltsubdir]" id="#$id#_bltsubdir" value="#$bltsubdir#" size="20" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <xar:mlstring>Subdata array</xar:mlstring>
-    </td>
-    <td>
-      <input type="text" name="#$name#[bltsubdata]" id="#$id#_bltsubdata" value="#$bltsubdata#" size="40" tabindex="#$tabindex#" />
-    </td>
-  </tr>
-</table>
-
+<div class="xar-form-input-wrapper">
+    <label class="xar-form-label">
+        <xar:mlstring>Directory:</xar:mlstring>
+    </label>
+    #$bltbasedir#
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_blttype" class="xar-form-label">
+        <xar:mlstring>Type:</xar:mlstring>
+    </label>
+    <select name="#$name#[blttype]" id="#$id#_blttype" tabindex="#$tabindex#" >
+        <xar:if condition="$blttype eq 'module'">
+            <option value="module" selected="selected">module</option>
+        <xar:else />
+            <option value="module">module</option>
+        </xar:if>
+        <xar:if condition="$blttype eq 'theme'">
+            <option value="theme" selected="selected">theme</option>
+        <xar:else />
+            <option value="theme">theme</option>
+        </xar:if>
+        <xar:if condition="$blttype eq 'system'">
+            <option value="system" selected="selected">system</option>
+        <xar:else />
+            <option value="system">system</option>
+        </xar:if>
+    </select>
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_bltmodule" class="xar-form-label">
+        <xar:mlstring>Module:</xar:mlstring>
+    </label>
+    <div class="xar-form-container-after">
+        <input type="text" name="#$name#[bltmodule]" id="#$id#_bltmodule" value="#$bltmodule#" size="20" tabindex="#$tabindex#" />
+        <div>
+            <xar:mlstring>(only if Type module is selected)</xar:mlstring>
+        </div>
+    </div>
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_bltsubdir" class="xar-form-label">
+        <xar:mlstring>Sub-directory:</xar:mlstring>
+    </label>
+    <input type="text" name="#$name#[bltsubdir]" id="#$id#_bltsubdir" value="#$bltsubdir#" size="20" tabindex="#$tabindex#" />
+</div>
+<div class="xar-form-input-wrapper">
+    <label for="#$id#_bltsubdata" class="xar-form-label">
+        <xar:mlstring>Subdata array:</xar:mlstring>
+    </label>
+    <input type="text" name="#$name#[bltsubdata]" id="#$id#_bltsubdata" value="#$bltsubdata#" size="40" tabindex="#$tabindex#" />
+</div>
 <xar:if condition="!empty($invalid)">
+<div>
     <span class="xar-error">#$invalid#</span>
+</div>
 </xar:if>

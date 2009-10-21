@@ -3,7 +3,7 @@
  * Get all themes in the database
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -14,19 +14,31 @@
  * Get all themes in the database
  *
  * @author Marty Vance
- * @param none
+ * @param $args['regid'] - optional regid to retrieve
  * @return array of themes in the database
  */
-function themes_adminapi_getdbthemes()
+function themes_adminapi_getdbthemes($args)
 {
     $dbconn =& xarDBGetConn();
     $xartable =& xarDBGetTables();
+    extract($args);
+
+    // Check for $regid
+    $themeregid = 0;
+    if (isset($regid)) {
+        $themeregid = $regid;
+    }
 
     $dbThemes = array();
 
     // Get all themes in DB
     $sql = "SELECT xar_regid
               FROM $xartable[themes]";
+
+    if ($themeregid > 0) {
+        $sql .= " WHERE $xartable[themes].xar_regid = $themeregid";
+    }
+
     $result = $dbconn->Execute($sql);
     if (!$result) return;
     if (!$result) {

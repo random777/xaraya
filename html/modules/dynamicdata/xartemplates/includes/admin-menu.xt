@@ -19,7 +19,7 @@
              <xar:set name="tabclass">''</xar:set>
         </xar:if>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-dynamicdata-admin-view;">
+          <a href="#xarModURL('dynamicdata','admin','view')#">
             <xar:mlstring>Manage DD Objects</xar:mlstring>
           </a>
         </dd>
@@ -28,7 +28,7 @@
     <xar:sec mask="AdminDynamicData" catch="false">
         <xar:set name="tabclass">$activetab=='modifyconfig'?'active':''</xar:set>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-dynamicdata-admin-modifyconfig;">
+          <a href="#xarModURL('dynamicdata','admin','modifyconfig')#">
             <xar:mlstring>List Property Types</xar:mlstring>
           </a>
         </dd>
@@ -41,7 +41,7 @@
         </xar:if>
 
         <dd class="#$tabclass#">
-            <a href="&xar-modurl-dynamicdata-admin-utilities;" >
+            <a href="#xarModURL('dynamicdata','admin','utilities')#" >
                 <xar:mlstring>Utilities</xar:mlstring>
             </a>
         </dd>
@@ -49,7 +49,7 @@
     <xar:sec mask="EditDynamicData" catch="false">
     <xar:set name="tabclass">($activetab=='main' or $activetab=='overview')?'active':''</xar:set>
     <dd class="#$tabclass#">
-      <a href="&xar-modurl-dynamicdata-admin-overview;">
+      <a href="#xarModURL('dynamicdata','admin','overview')#">
         <xar:mlstring>Overview</xar:mlstring>
       </a>
     </dd>

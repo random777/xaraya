@@ -1,7 +1,7 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 <xar:set name="active_step">6</xar:set>
 <div id="main_right">
-	<xar:template file="status" />
+    <xar:template file="status" />
 </div>
 <div id="main_left">
     <h1>
@@ -21,7 +21,7 @@
         <p class="xar-error"><strong>#$msg#</strong></p>
     </xar:if>
 
-    <form action="&xar-modurl-installer-admin-create_administrator;" method="post">
+    <form action="#xarModURL('installer','admin','create_administrator')#" method="post">
         <div class="xar-form-input-wrapper">
             <label class="xar-form-label" for="install_admin_name">
                 <xar:mlstring>Display Name</xar:mlstring>
@@ -32,8 +32,8 @@
             <label class="xar-form-label" for="install_admin_username">
                 <xar:mlstring>Username</xar:mlstring>
             </label>
-			<div class="xar-form-input-container-after">
-	            <input type="text" name="install_admin_username" id="install_admin_username" maxlength="80" value="#xarML('Admin')#" />
+            <div class="xar-form-input-container-after">
+                <input type="text" name="install_admin_username" id="install_admin_username" maxlength="80" value="#xarML('Admin')#" />
                 <xar:mlstring>(Used for logon)</xar:mlstring>
             </div>
         </div>
@@ -60,7 +60,7 @@
             <xar:mlstring>Your Administrator password is the key to your Xaraya installation. Choose something that you will remember and do not share it or write it down. As a rule of thumb, it should not contain any words, and should contain a mix of upper and lower case letters, numbers and punctuation.</xar:mlstring>
         </p>
 
-		<div class="xar-form-footer">
+        <div class="xar-form-footer">
             <input type="submit" name="create" id="create" value="#xarML('Continue')#" />
             <input type="hidden" name="install_language" id="install_language" value="#$language#" />
         </div>

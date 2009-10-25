@@ -42,7 +42,7 @@
         <p>
             <xar:mlstring>
             You can use Realms to 'slice' or divide your site into different areas. You can 'slice' in various ways, such as by theme or domain name.
-            You must </xar:mlstring><a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=realms" title="#xarML('Enable the Realms options')#"><xar:mlstring>enable Realms on your site</xar:mlstring></a>
+            You must </xar:mlstring><a href="#xarModURL('privileges','admin','modifyconfig',array('tab' => 'realms'))#" title="#xarML('Enable the Realms options')#"><xar:mlstring>enable Realms on your site</xar:mlstring></a>
             <xar:mlstring> in the Privileges config options. The realms create and modify options will then display here.</xar:mlstring>
         </p>
     </xar:if>

@@ -12,7 +12,7 @@
     <xar:sec mask="AdminTheme" catch="false">
         <xar:set name="tabclass">$activetab=='list'?'active':''</xar:set>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-themes-admin-list;">
+          <a href="#xarModURL('themes','admin','list')#">
             <xar:mlstring>View Theme Listing</xar:mlstring>
           </a>
         </dd>
@@ -20,7 +20,7 @@
     <xar:sec mask="AdminTheme" catch="false">
         <xar:set name="tabclass">$activetab=='listtpltags'?'active':''</xar:set>
         <dd class="#$tabclass#">
-            <a href="&xar-modurl-themes-admin-listtpltags;" >
+            <a href="#xarModURL('themes','admin','listtpltags')#" >
                 <xar:mlstring>Manage Template Tags</xar:mlstring>
             </a>
         </dd>
@@ -28,7 +28,7 @@
     <xar:sec mask="AdminTheme" catch="false">
         <xar:set name="tabclass">$activetab=='modifyconfig'?'active':''</xar:set>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-themes-admin-modifyconfig;">
+          <a href="#xarModURL('themes','admin','modifyconfig')#">
             <xar:mlstring>Modify Config</xar:mlstring>
           </a>
         </dd>
@@ -36,7 +36,7 @@
     <xar:sec mask="AdminTheme" catch="false">
     <xar:set name="tabclass">($activetab=='main' or $activetab=='overview')?'active':''</xar:set>
     <dd class="#$tabclass#">
-      <a href="&xar-modurl-themes-admin-overview;">
+      <a href="#xarModURL('themes','admin','overview')#">
         <xar:mlstring>Overview</xar:mlstring>
       </a>
     </dd>

@@ -38,7 +38,7 @@ jQuery('select#"."ptype').change(function() {
                 <xar:for start="$i=0" test="$i lt count($parents)" iter="$i++">
                     <xar:if condition="$prevgroup ne $parents[$i]['parentname']">
                         <dd>
-                            <a href="&xar-modurl-roles-admin-showusers;&amp;uid=#$parents.$i.parentid#" title="#xarML('Show this group')#">
+                            <a href="#xarModURL('roles','admin','showusers',array('uid' => $parents[$i]['parentid']))#" title="#xarML('Show this group')#">
                                 #xarVarPrepForDisplay($parents[$i]['parentname'])#
                             </a>
                         </dd>
@@ -61,7 +61,7 @@ jQuery('select#"."ptype').change(function() {
             </xar:if>
         </legend>
     
-        <form action="&xar-modurl-roles-admin-updaterole;" method="post" enctype="application/x-www-form-urlencoded">
+        <form action="#xarModURL('roles','admin','updaterole')#" method="post" enctype="application/x-www-form-urlencoded">
             <xar:if condition="$frozen">
                 <div class="xar-form-input-wrapper">
                     <label for="pname" title="#xarML('Common name')#" class="xar-form-label">
@@ -304,7 +304,7 @@ jQuery('select#"."ptype').change(function() {
                 </xar:if>
             </p>
         <xar:else />
-            <form action="&xar-modurl-roles-admin-addmember;" method="post" enctype="application/x-www-form-urlencoded">
+            <form action="#xarModURL('roles','admin','addmember')#" method="post" enctype="application/x-www-form-urlencoded">
                 <div class="xar-form-input-wrapper">
                     <label for="roleid" title="#xarML('Choose group to assign membership')#" class="xar-form-label">
                         <xar:mlstring>Add to Group:</xar:mlstring>

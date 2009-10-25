@@ -100,7 +100,7 @@ jQuery('#"."mailmodifyconfig').validate({
         <xar:mlstring>Modify Mail Configuration</xar:mlstring>
     </h2>
 
-    <form method="post" id="mailmodifyconfig" action="&xar-modurl-mail-admin-updateconfig;" enctype="application/x-www-form-urlencoded" >
+    <form method="post" id="mailmodifyconfig" action="#xarModURL('mail','admin','updateconfig')#" enctype="application/x-www-form-urlencoded" >
 
         <fieldset>
             <legend>

@@ -5,7 +5,7 @@
     </span>
 </div>
 <div class="xar-mod-body">
-    <form method="post" action="&xar-modurl-modules-admin-updateconfig;">
+    <form method="post" action="#xarModURL('modules','admin','updateconfig')#">
         <fieldset>
             <legend><xar:mlstring>Configuration settings</xar:mlstring></legend>
             <div class="xar-form-input-wrapper-after">

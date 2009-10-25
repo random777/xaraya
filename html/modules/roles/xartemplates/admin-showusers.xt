@@ -39,7 +39,7 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
    <xar:template type="module" file="admin-menu" />
     <h2>
         #xarVarPrepForDisplay($title)#:
-        <a href="&xar-modurl-roles-admin-modifyrole;&amp;uid=#$groupuid#" title="#xarML('Modify role')#">#xarVarPrepForDisplay($groupname)#</a>
+        <a href="#xarModURL('roles','admin','modifyrole',array('uid' => $groupuid))#" title="#xarML('Modify role')#">#xarVarPrepForDisplay($groupname)#</a>
         <xar:if condition="$search ne ''">
             <xar:mlstring>matching</xar:mlstring>
             '#xarVarPrepForDisplay($search)#'
@@ -71,12 +71,12 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
                 </dt>
                 <xar:if condition="$groupuid eq 0">
                     <dd class="active">
-                        <a href="&xar-modurl-roles-admin-showusers;&amp;uid=0&amp;state=#$state#&amp;order=#$order#&amp;search=#$search#&amp;reload=reload">
+                        <a href="#xarModURL('roles','admin','showusers',array('uid' => 0, 'state' => $state, 'order' => $order, 'search' => $search, 'reload' => 'reload'))#">
                             <xar:mlstring>All Users</xar:mlstring> (#$totalusers#)</a>
                     </dd>
                 <xar:else/>
                     <dd>
-                        <a href="&xar-modurl-roles-admin-showusers;&amp;uid=0&amp;state=#$state#&amp;order=#$order#&amp;search=#$search#&amp;reload=reload">
+                        <a href="#xarModURL('roles','admin','showusers',array('uid' => 0, 'state' => $state, 'order' => $order, 'search' => $search, 'reload' => 'reload'))#">
                             <xar:mlstring>All Users </xar:mlstring> (#$totalusers#)</a>
                     </dd>
                 </xar:if>
@@ -85,13 +85,13 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
                     <xar:if condition="$prevgroup ne $groups[$i]['name']">
                         <xar:if condition="$groupuid eq $groups[$i]['uid']">
                             <dd class="active">
-                                <a href="&xar-modurl-roles-admin-showusers;&amp;uid=#$groups[$i]['uid']#&amp;state=#$state#&amp;order=#$order#&amp;search=#$search#&amp;reload=reload" title="#xarML('Display the users in this group')#">
+                                <a href="#xarModURL('roles','admin','showusers',array('uid' => $groups[$i]['uid'], 'state' => $state, 'order' => $order, 'search' => $search, 'reload' => 'reload'))#" title="#xarML('Display the users in this group')#">
                                     #xarVarPrepForDisplay($groups[$i]['name'])# (#$groups[$i]['users']#)
                                 </a>
                             </dd>
                         <xar:else/>
                             <dd>
-                                <a href="&xar-modurl-roles-admin-showusers;&amp;uid=#$groups[$i]['uid']#&amp;state=#$state#&amp;order=#$order#&amp;search=#$search#&amp;reload=reload" title="#xarML('Display the users in this group')#">
+                                <a href="#xarModURL('roles','admin','showusers',array('uid' => $groups[$i]['uid'], 'state' => $state, 'order' => $order, 'search' => $search, 'reload' => 'reload'))#" title="#xarML('Display the users in this group')#">
                                     #xarVarPrepForDisplay($groups[$i]['name'])# (#$groups[$i]['users']#)
                                 </a>
                             </dd>
@@ -103,7 +103,7 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
         </div>
     </xar:if>
 
-    <form method="post" action="&xar-modurl-roles-admin-showusers;&amp;reload=reload">
+    <form method="post" action="#xarModURL('roles','admin','showusers',array('reload' => 'reload'))#">
         <xar:comment> Module List Sort and Filter Controls table </xar:comment>
         <table class="xar-item-controls">
             <thead>
@@ -243,7 +243,7 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
             </xar:if>
         </p>
     <xar:else />
-        <form method="post" action="&xar-modurl-roles-admin-updatestate;" id="state_form">
+        <form method="post" action="#xarModURL('roles','admin','updatestate')#" id="state_form">
             <div class="xar-form-input-wrapper">
                 <label for="status" class="xar-form-label">
                     <xar:mlstring>Change State Of Selected Users:</xar:mlstring>
@@ -272,7 +272,7 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
                 <thead>
                 <tr>
                     <th>
-                        <a href="&xar-modurl-roles-admin-showusers;&amp;state=#$state#&amp;uid=#$groupuid#&amp;order=xar_name&amp;sort=#$nsort#&amp;search=#$search#">
+                        <a href="#xarModURL('roles','admin','showusers',array('state' => $state, 'uid' => $groupuid, 'order' => 'xar_name', 'sort' => $nsort, 'search' => $search))#">
                             <xar:mlstring>Display name</xar:mlstring>
                         </a>
                         <xar:if condition="$order eq 'xar_name'">
@@ -284,7 +284,7 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
                         </xar:if>
                     </th>
                     <th>
-                        <a href="&xar-modurl-roles-admin-showusers;&amp;state=#$state#&amp;uid=#$groupuid#&amp;order=xar_uname&amp;sort=#$nsort#&amp;search=#$search#">
+                        <a href="#xarModURL('roles','admin','showusers',array('state' => $state, 'uid' => $groupuid, 'order' => 'xar_uname', 'sort' => $nsort, 'search' => $search))#">
                             <xar:mlstring>Login</xar:mlstring>
                         </a>
                         <xar:if condition="$order eq 'xar_uname'">
@@ -296,7 +296,7 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
                         </xar:if>
                     </th>
                     <th>
-                        <a href="&xar-modurl-roles-admin-showusers;&amp;state=#$state#&amp;uid=#$groupuid#&amp;order=xar_email&amp;sort=#$nsort#&amp;search=#$search#">
+                        <a href="#xarModURL('roles','admin','showusers',array('state' => $state, 'uid' => $groupuid, 'order' => 'xar_email', 'sort' => $nsort, 'search' => $search))#">
                             <xar:mlstring>Email</xar:mlstring>
                         </a>
                         <xar:if condition="$order eq 'xar_email'">
@@ -308,7 +308,7 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
                         </xar:if>
                     </th>
                     <th>
-                        <a href="&xar-modurl-roles-admin-showusers;&amp;state=#$state#&amp;uid=#$groupuid#&amp;order=xar_date_reg&amp;sort=#$nsort#&amp;search=#$search#">
+                        <a href="#xarModURL('roles','admin','showusers',array('state' => $state, 'uid' => $groupuid, 'order' => 'xar_date_reg', 'sort' => $nsort, 'search' => $search))#">
                             <xar:mlstring>Date Registered</xar:mlstring>
                         </a>
                         <xar:if condition="$order eq 'xar_date_reg'">
@@ -320,7 +320,7 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
                         </xar:if>
                     </th>
                     <th>
-                        <a href="&xar-modurl-roles-admin-showusers;&amp;state=#$state#&amp;uid=#$groupuid#&amp;order=xar_state&amp;sort=#$nsort#&amp;search=#$search#">
+                        <a href="#xarModURL('roles','admin','showusers',array('state' => $state, 'uid' => $groupuid, 'order' => 'xar_state', 'sort' => $nsort, 'search' => $search))#">
                             <xar:mlstring>State</xar:mlstring>
                         </a>
                         <xar:if condition="$order eq 'xar_state'">
@@ -382,7 +382,7 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
                             <xar:else />
                                 <xar:if condition="xarModGetVar('roles', 'askpasswordemail')">
                                     <img src="#$icon_password#" class="xar-icon-disabled" alt="#xarML('Generate a new password for this User')#" title="#xarML('Generate a new password for this User')#" />
-								</xar:if>
+                                </xar:if>
                                 <img src="#$icon_modify#" class="xar-icon-disabled" alt="#xarML('Modify this user')#" title="#xarML('Modify this user')#" />
                                 <img src="#$icon_delete#" class="xar-icon-disabled" alt="#xarML('Delete this User')#" title="#xarML('Delete this User')#" />
                             </xar:if>
@@ -423,11 +423,11 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
     </xar:if>
     <!-- always show the new user link -->
     <p>
-      <a href="&xar-modurl-roles-admin-newrole;&amp;ptype=0&amp;pparentid=#$groupuid#" title="#xarML('Add a new user')#">
+      <a href="#xarModURL('roles','admin','newrole',array('ptype' => 0, 'pparentid' => $groupuid))#" title="#xarML('Add a new user')#">
         <xar:mlstring>Add a New User to this Group</xar:mlstring>
       </a>
       |
-      <a href="&xar-modurl-roles-admin-createmail;">
+      <a href="#xarModURL('roles','admin','createmail')#">
         <xar:mlstring>Email Users In This Group</xar:mlstring>
       </a>
     </p>

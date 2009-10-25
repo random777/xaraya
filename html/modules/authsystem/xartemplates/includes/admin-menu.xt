@@ -12,7 +12,7 @@
     <xar:sec mask="AdminAuthsystem" catch="false">
         <xar:set name="tabclass">$activetab=='modifyconfig'?'active':''</xar:set>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-authsystem-admin-modifyconfig;">
+          <a href="#xarModURL('authsystem','admin','modifyconfig')#">
             <xar:mlstring>Modify Configuration</xar:mlstring>
           </a>
         </dd>
@@ -20,7 +20,7 @@
     <xar:sec mask="AdminAuthsystem" catch="false">
         <xar:set name="tabclass">($activetab=='main' or $activetab=='overview')?'active':''</xar:set>
         <dd class="#$tabclass#">
-            <a href="&xar-modurl-authsystem-admin-overview;" >
+            <a href="#xarModURL('authsystem','admin','overview')#" >
                 <xar:mlstring>Overview</xar:mlstring>
             </a>
         </dd>

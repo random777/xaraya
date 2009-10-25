@@ -86,7 +86,7 @@
         </table>
     </xar:if>
 
-    <form method="post" action="&xar-modurl-mail-admin-viewq;">
+    <form method="post" action="#xarModURL('mail','admin','viewq')#">
         <div class="xar-form-footer">
             <input type="hidden" name="authid" value="#$authid#" />
             <input type="hidden" name="action" value="process" />

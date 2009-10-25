@@ -12,7 +12,7 @@
     <xar:sec mask="AdminMail" catch="false">
         <xar:set name="tabclass">$activetab=='compose'?'active':''</xar:set>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-mail-admin-compose;">
+          <a href="#xarModURL('mail','admin','compose')#">
             <xar:mlstring>Test Mail Config</xar:mlstring>
           </a>
         </dd>
@@ -20,7 +20,7 @@
     <xar:sec mask="AdminMail" catch="false">
         <xar:set name="tabclass">$activetab=='template'?'active':''</xar:set>
         <dd class="#$tabclass#">
-            <a href="&xar-modurl-mail-admin-template;" >
+            <a href="#xarModURL('mail','admin','template')#" >
                 <xar:mlstring>Manage Notifications</xar:mlstring>
             </a>
         </dd>
@@ -28,7 +28,7 @@
     <xar:sec mask="AdminMail" catch="false">
         <xar:set name="tabclass">$activetab=='viewq'?'active':''</xar:set>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-mail-admin-viewq;">
+          <a href="#xarModURL('mail','admin','viewq')#">
             <xar:mlstring>Manage Mail Queue</xar:mlstring>
           </a>
         </dd>
@@ -36,14 +36,14 @@
     <xar:sec mask="AdminMail" catch="false">
         <xar:set name="tabclass">$activetab=='modifyconfig'?'active':''</xar:set>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-mail-admin-modifyconfig;">
+          <a href="#xarModURL('mail','admin','modifyconfig')#">
             <xar:mlstring>Modify Config</xar:mlstring>
           </a>
         </dd>
 
     <xar:set name="tabclass">($activetab=='main' or $activetab=='overview')?'active':''</xar:set>
     <dd class="#$tabclass#">
-      <a href="&xar-modurl-mail-admin-overview;">
+      <a href="#xarModURL('mail','admin','overview')#">
         <xar:mlstring>Overview</xar:mlstring>
       </a>
     </dd>

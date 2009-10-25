@@ -71,7 +71,9 @@
         <xar:mlstring>If modules files are up to date, you can update the database to the current version.  Only do this if you are absolutely certain the module files are up to date.</xar:mlstring>
     </p>
     <p>
-        <a href="&xar-modurl-modules-admin-updateversion;&amp;id=#$regId#">Click here to update the module version in the database.</a>
+        <a href="#xarModURL('modules','admin','updateversion',array('id' => $regId))#">
+            <xar:mlstring>Click here to update the module version in the database.</xar:mlstring>
+        </a>
     </p>
 
 </div>

@@ -4,10 +4,10 @@
 </div>
 <div class="xar-mod-body">
     <h2>
-        <a href="&xar-modurl-roles-user-view;">
+        <a href="#xarModURL('roles','user','view')#">
             <xar:mlstring>Member List</xar:mlstring>
         </a>&nbsp;&gt;&nbsp;
-        <a href="&xar-modurl-roles-user-display;&amp;uid=#$uid#">
+        <a href="#xarModURL('roles','user','display',array('uid' => $uid))#">
             #xarVarPrepForDisplay($name)#
         </a>&nbsp;&gt;&nbsp;
         <xar:mlstring>Send an Email to</xar:mlstring>
@@ -16,7 +16,7 @@
     <xar:if condition="!empty($error_message)">
         <div class="xar-error">#xarVarPrepForDisplay($error_message)#</div>
     </xar:if>
-    <form method="post" action="&xar-modurl-roles-user-email;&amp;phase=confirm#" enctype="application/x-www-form-urlencoded">
+    <form method="post" action="#xarModURL('roles','user','email',array('phase' => 'confirm'))#" enctype="application/x-www-form-urlencoded">
         <div class="xar-form-input-wrapper">
             <label for="subject" class="xar-form-label">
                 <xar:mlstring>Subject:</xar:mlstring>

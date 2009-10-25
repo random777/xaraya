@@ -51,7 +51,7 @@
                     <xar:mlstring>Options:</xar:mlstring>
                 </dt>
                 <dd>
-                    <a href="&xar-modurl-dynamicdata-admin-modify;&amp;itemid=#$objectid#">
+                    <a href="#xarModURL('dynamicdata','admin','modify',array('itemid' => $objectid))#">
                         <xar:mlstring>
                             Modify Object Definition
                         </xar:mlstring>
@@ -61,7 +61,7 @@
                   <a href="#xarServerGetCurrentUrl()#"><xar:mlstring>Modify Dynamic Properties</xar:mlstring></a>
                 </dd>
                 <dd>
-                    <a href="&xar-modurl-dynamicdata-util-export;&amp;modid=#$modid#&amp;itemtype=#$itemtype#">
+                    <a href="#xarModURL('dynamicdata','util','export',array('modid' => $modid,'itemtype' => $itemtype))#">
                         <xar:mlstring>Export Object Definition to XML</xar:mlstring>
                     </a>
                 </dd>
@@ -86,7 +86,7 @@
       <xar:set name="layout">'default'</xar:set>
     </xar:if>
 
-    <form method="post" action="&xar-modurl-dynamicdata-admin-updateprop;">
+    <form method="post" action="#xarModURL('dynamicdata','admin','updateprop')#">
         <xar:template file="proplist-$layout" />
     </form>
 
@@ -179,7 +179,7 @@
                     <xar:mlstring>Table Relations</xar:mlstring>
                 </legend>
                 <xar:foreach in="$tables" value="$table">
-                    <form method="post" action="&xar-modurl-dynamicdata-util-importprops;">
+                    <form method="post" action="#xarModURL('dynamicdata','util','importprops')#">
                         <div class="xar-form-input-wrapper">
                             <label class="xar-form-label">
                                 #$table#
@@ -206,7 +206,7 @@
         <xar:comment>
         TODO: very much under construction, obviously :-)
         </xar:comment>
-        <form method="post" action="&xar-modurl-dynamicdata-admin-modifyprop;">
+        <form method="post" action="#xarModURL('dynamicdata','admin','modifyprop')#">
             <!-- don't accept updates for this (for now) -->
             <xar:foreach in="$relations" value="$relation">
                 <fieldset>

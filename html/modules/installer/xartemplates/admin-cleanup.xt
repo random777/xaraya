@@ -1,7 +1,7 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 <xar:set name="active_step">9</xar:set>
 <div id="main_right">
-	<xar:template file="status" />
+    <xar:template file="status" />
 </div>
 <div id="main_left">
     <h1>
@@ -33,10 +33,10 @@
         <xar:mlstring>(substitute "apache" for the group your webserver runs as, probably one of apache, web, www or www-data)</xar:mlstring>
     </p>
 
-	<ul>
+    <ul>
         <li><code>chgrp apache config.system.php</code></li>
         <li><code>chmod 440 config.system.php</code></li>
-	</ul>
+    </ul>
 
     <h2 class="xar-align-center" style="border: 0;">
         <a href="#$finalurl#">

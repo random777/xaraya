@@ -27,7 +27,7 @@
                 <xar:for start="$i=0" test="$i lt count($parents)" iter="$i++">
                     <xar:if condition="$prevgroup ne $parents[$i]['parentname']">
                         <dd>
-                            <a href="&xar-modurl-roles-admin-showusers;&amp;uid=#$parents.$i.parentid#" title="#xarML('Show this group')#">
+                            <a href="#xarModURL('roles','admin','showusers',array('uid' => $parents[$i]['parentid']))#" title="#xarML('Show this group')#">
                                 #$parents[$i]['parentname']#
                             </a>
                         </dd>

@@ -25,7 +25,7 @@ jQuery('form#"."ddprivform select').add('form#"."ddprivform input[type=text]').c
             </xar:ml>
         </xar:if>
     </h2>
-    <form method="post" id="ddprivform" action="&xar-modurl-dynamicdata-admin-privileges;">
+    <form method="post" id="ddprivform" action="#xarModURL('dynamicdata','admin','privileges')#">
         <xar:if condition="!empty($extcomponent) and $extcomponent eq 'Field'">
             <div class="xar-form-input-wrapper">
                 <label for="propname" class="xar-form-label">

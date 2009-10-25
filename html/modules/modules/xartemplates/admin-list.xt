@@ -58,7 +58,7 @@ return false;
         #$modscount#
     </p>
 
-    <form method="post" action="&xar-modurl-modules-admin-settings;">
+    <form method="post" action="#xarModURL('modules','admin','settings')#">
         <xar:comment> Module List Sort and Filter Controls table </xar:comment>
         <table class="xar-item-controls">
             <thead>

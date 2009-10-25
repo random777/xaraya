@@ -28,7 +28,7 @@
     </div>
 
     <div class="xar-form-input-wrapper-after">
-        <a href="&xar-modurl-dynamicdata-admin-modify;&amp;objectid=2&amp;itemid=#$field.id#">
+        <a href="#xarModURL('dynamicdata','admin','modify',array('objectid' => 2, 'itemid' => $field['id']))#">
             <xar:var name="otherfields" prep="true"/>
         </a>
     </div>
@@ -52,7 +52,7 @@
             #$labels['validation']#:
         </label>
         <input type="text" name="dd_validation[#$field['id']#]" id="dd_validation_#$field['id']#" value="#xarVarPrepForDisplay($field['validation'])#" class="xar-form-textmedium" />
-        <a href="&xar-modurl-dynamicdata-admin-showpropval;&amp;itemid=#$field.id#" title="#xarVarPrepForDisplay($editvalidation)#">
+        <a href="#xarModURL('dynamicdata','admin','showpropval',array('itemid' => $field['id']))#" title="#xarVarPrepForDisplay($editvalidation)#">
             <xar:mlstring>Edit Validation</xar:mlstring>
         </a>
     </div>

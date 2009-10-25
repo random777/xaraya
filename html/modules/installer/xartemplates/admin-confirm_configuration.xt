@@ -1,7 +1,7 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 <xar:set name="active_step">8</xar:set>
 <div id="main_right">
-	<xar:template file="status" />
+    <xar:template file="status" />
 </div>
 <div id="main_left">
     <h1>
@@ -11,7 +11,7 @@
     <h2>
         <xar:mlstring>Privileges</xar:mlstring>
     </h2>
-    <form action="&xar-modurl-installer-admin-confirm_configuration;" method="post">
+    <form action="#xarModURL('installer','admin','confirm_configuration')#" method="post">
         <xar:loop name="$options1">
             <div class="xar-form-input-wrapper">
                 <xar:if condition="$loop:item['option'] eq ''">
@@ -68,12 +68,12 @@
                 #$installed# 
             </p>
         </xar:if>
-	    <xar:if condition="$missing ne ''">
-	        <p>
-	            <xar:mlstring>The following modules for this configuration are missing in the modules directory:</xar:mlstring>
-	            #$missing# 
-	        </p>
-	    </xar:if>
+        <xar:if condition="$missing ne ''">
+            <p>
+                <xar:mlstring>The following modules for this configuration are missing in the modules directory:</xar:mlstring>
+                #$missing# 
+            </p>
+        </xar:if>
 
         <p>
             <xar:mlstring>All of the above modules can be installed or removed at any later time in the Modules module.</xar:mlstring>

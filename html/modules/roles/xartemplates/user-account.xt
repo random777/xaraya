@@ -5,7 +5,7 @@
     xarServerGetCurrentURL()
 </xar:set>
 <xar:set name="account">
-    &xar-modurl-roles-user-account;
+    xarModURL('roles','user','account')
 </xar:set>
 <xar:set name="uid">
     xarUserGetVar('uid')
@@ -43,7 +43,7 @@
                     </dd>
                     <xar:else />
                     <dd>
-                        <a href="&xar-modurl-roles-user-account;">
+                        <a href="#xarModURL('roles','user','account')#">
                             <xar:mlstring>
                                 Display your profile 
                             </xar:mlstring>

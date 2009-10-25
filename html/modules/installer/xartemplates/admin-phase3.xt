@@ -4,14 +4,14 @@
 <xar:set name="failuretitle"><xar:mlstring>FAILURE</xar:mlstring></xar:set>
 <xar:set name="warningtitle"><xar:mlstring>CAUTION</xar:mlstring></xar:set>
 <div id="main_right">
-	<xar:template file="status" />
+    <xar:template file="status" />
 </div>
 <div id="main_left">
-	
+    
     <h1><xar:mlstring>Checking System Settings </xar:mlstring></h1>
     <p>
         <xar:mlstring>Xaraya requires a number of settings and extentions to be present and have a certain value. We have checked these and the results are listed below. Each check is marked as either:</xar:mlstring>
-	</p>
+    </p>
 
     <ul>
         <li class="failure"><strong><xar:mlstring> ERROR</xar:mlstring></strong><xar:mlstring> Please rectify the error to continue installation</xar:mlstring></li>

@@ -32,7 +32,7 @@
         </p>
     </xar:if>
 
-    <form method="post" action="&xar-modurl-dynamicdata-admin-delete;">
+    <form method="post" action="#xarModURL('dynamicdata','admin','delete')#">
         <div class="xar-form-footer">
             <input type="hidden" name="authid" id="authid" value="#$authid#" />
             <input type="hidden" name="objectid" id="objectid" value="#$object:objectid#" />

@@ -49,7 +49,7 @@ jQuery('input[type=radio][id^=NOT_hooked]:checked').add('input[type=radio][id^=A
             <xar:mlstring>Use this functionality in the following modules:</xar:mlstring>
         </p>
 
-        <form action="&xar-modurl-modules-admin-updatehooks;" method="post">
+        <form action="#xarModURL('modules','admin','updatehooks')#" method="post">
             <xar:foreach in="$hookedmodules" value="$hookedmod">
                 <xar:if condition="!empty($hookedmod['header'])">
                     <h4>#$hookedmod['header']#</h4>

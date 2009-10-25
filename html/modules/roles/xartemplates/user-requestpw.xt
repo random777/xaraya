@@ -1,7 +1,7 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 <div class="xar-mod-head"><span class="xar-mod-title"><xar:mlstring>Roles</xar:mlstring></span></div>
 <div class="xar-mod-body"><h2><xar:mlstring>Request Lost Password</xar:mlstring></h2>
-<form action="&xar-modurl-roles-user-lostpassword;" method="post" enctype="application/x-www-form-urlencoded">
+<form action="#xarModURL('roles','user','lostpassword')#" method="post" enctype="application/x-www-form-urlencoded">
   <fieldset>
     <legend><xar:mlstring>Enter your username or your e-mail address.</xar:mlstring></legend>
     <div class="xar-form-input-wrapper">

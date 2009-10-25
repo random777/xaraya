@@ -41,7 +41,7 @@ jQuery('select#"."ptype').change(function() {
             All fields are required to create a new role on the system.
         </xar:mlstring>
     </p>
-    <form id="newrole" action="&xar-modurl-roles-admin-addrole;" method="post" enctype="application/x-www-form-urlencoded">
+    <form id="newrole" action="#xarModURL('roles','admin','addrole')#" method="post" enctype="application/x-www-form-urlencoded">
         <fieldset>
             <legend>
                 <xar:mlstring>

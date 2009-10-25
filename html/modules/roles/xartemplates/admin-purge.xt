@@ -31,23 +31,23 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
             </dt>
             <xar:if condition="$operation eq 'recall'">
                 <dd class="active">
-                    <a href="&xar-modurl-roles-admin-purge;&amp;operation=recall">
+                    <a href="#xarModURL('roles','admin','purge',array('operation' => 'recall'))#">
                         <xar:mlstring>Recall Groups and Users</xar:mlstring>
                     </a>
                 </dd>
                 <dd>
-                    <a href="&xar-modurl-roles-admin-purge;&amp;operation=purge" >
+                    <a href="#xarModURL('roles','admin','purge',array('operation' => 'purge'))#">
                         <xar:mlstring>Purge Users</xar:mlstring>
                     </a>
                 </dd>
             <xar:else />
                 <dd>
-                    <a href="&xar-modurl-roles-admin-purge;&amp;operation=recall">
+                    <a href="#xarModURL('roles','admin','purge',array('operation' => 'recall'))#">
                         <xar:mlstring>Recall Groups and Users</xar:mlstring>
                     </a>
                 </dd>
                 <dd class="active">
-                    <a href="&xar-modurl-roles-admin-purge;&amp;operation=purge">
+                    <a href="#xarModURL('roles','admin','purge',array('operation' => 'purge'))#">
                         <xar:mlstring>Purge Users</xar:mlstring>
                     </a>
                 </dd>
@@ -60,7 +60,7 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
             <xar:mlstring>Recall Deleted Groups and Users</xar:mlstring>
         </h3>
 
-        <form method="post" action="&xar-modurl-roles-admin-purge;" enctype="application/x-www-form-urlencoded" id="state_form" id="state_form">
+        <form method="post" action="#xarModURL('roles','admin','purge')#" enctype="application/x-www-form-urlencoded" id="state_form">
             <xar:comment> Module List Sort and Filter Controls table </xar:comment>
             <table class="xar-item-controls">
                 <thead>
@@ -222,7 +222,7 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
             <xar:mlstring>Note: Purged users cannot be recalled. Groups and some special users cannot be purged.</xar:mlstring>
         </p>
 
-        <form method="post" action="&xar-modurl-roles-admin-purge;" enctype="application/x-www-form-urlencoded" id="state_form">
+        <form method="post" action="#xarModURL('roles','admin','purge')#" enctype="application/x-www-form-urlencoded" id="state_form">
 
             <xar:comment>Roles List Sort and Filter Controls table</xar:comment>
             <table class="xar-item-controls">

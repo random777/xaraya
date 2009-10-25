@@ -29,7 +29,7 @@
         </div>
     </xar:if>
 
-    <form method="post" action="&xar-modurl-dynamicdata-util-migrate;">
+    <form method="post" action="#xarModURL('dynamicdata','util','migrate')#">
 
         <fieldset>
             <legend>

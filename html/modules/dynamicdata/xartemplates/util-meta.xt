@@ -21,7 +21,7 @@
             <ul>
                 <xar:foreach in="$databases" value="$database">
                     <li>
-                        <a href="&xar-modurl-dynamicdata-util-meta;&amp;db=#$database#">#$database#</a>
+                        <a href="#xarModURL('dynamicdata','util','meta', array('db' => $database))#">#$database#</a>
                         <xar:if condition="!empty($db) and $database eq $db">
                             <xar:mlstring>(*)</xar:mlstring>
                         </xar:if>
@@ -50,21 +50,21 @@
                 <xar:foreach in="$tables" key="$curtable" value="$fields">
                     <tr>
                         <td>
-                            <a href="&xar-modurl-dynamicdata-util-meta;&amp;table=#$curtable#">
+                            <a href="#xarModURL('dynamicdata','util','meta',array('table' => $curtable))#">
                                 #$curtable# 
                             </a>
                         </td>
                         <td class="xar-align-center">
-                            <a href="&xar-modurl-dynamicdata-admin-view;&amp;table=#$curtable#" title="#xarML('View')#" class="xar-icon">
+                            <a href="#xarModURL('dynamicdata','admin','view',array('table' => $curtable))#" title="#xarML('View')#" class="xar-icon">
                                 <img src="#$icon_display#" alt="#xarML('View')#" />
                             </a>
-                            <a href="&xar-modurl-dynamicdata-admin-query;&amp;table=#$curtable#" title="#xarML('Query')#" class="xar-icon">
+                            <a href="#xarModURL('dynamicdata','admin','query',array('table' => $curtable))#" title="#xarML('Query')#" class="xar-icon">
                                 <img src="#$icon_test#" alt="#xarML('Query')#" />
                             </a>
-                            <a href="&xar-modurl-dynamicdata-util-meta;&amp;table=#$curtable#&amp;export=1" title="#xarML('Export XML')#" class="xar-icon">
+                            <a href="#xarModURL('dynamicdata','util','meta',array('table' => $curtable, 'export' => 1))#" title="#xarML('Export XML')#" class="xar-icon">
                                 <img src="#$icon_export#" alt="#xarML('Export XML')#" />
                             </a>
-                            <a href="&xar-modurl-dynamicdata-util-relations;&amp;table=#$curtable#" title="#xarML('Add Relation')#" class="xar-icon">
+                            <a href="#xarModURL('dynamicdata','util','relations',array('table' => $curtable))#" title="#xarML('Add Relation')#" class="xar-icon">
                                 <img src="#$icon_add#" alt="#xarML('Add Relation')#" />
                             </a>
                         </td>
@@ -78,23 +78,23 @@
             </h3>
 
             <p>
-                <a href="&xar-modurl-dynamicdata-admin-view;&amp;table=#$table#">
+                <a href="#xarModURL('dynamicdata','admin','view',array('table' => $table))#">
                     <xar:mlstring>View</xar:mlstring>
                 </a>
                 | 
-                <a href="&xar-modurl-dynamicdata-admin-query;&amp;table=#$table#">
+                <a href="#xarModURL('dynamicdata','admin','query',array('table' => $table))#">
                     <xar:mlstring>
                         Query 
                     </xar:mlstring>
                 </a>
                 | 
-                <a href="&xar-modurl-dynamicdata-util-meta;&amp;table=#$table#&amp;export=1">
+                <a href="#xarModURL('dynamicdata','util','meta',array('table' => $table, 'export' => 1))#">
                     <xar:mlstring>
                         Export XML 
                     </xar:mlstring>
                 </a>
                 | 
-                <a href="&xar-modurl-dynamicdata-util-relations;&amp;table=#$table#">
+                <a href="#xarModURL('dynamicdata','util','relations',array('table' => $table))#">
                     <xar:mlstring>
                         Add Relation 
                     </xar:mlstring>
@@ -156,16 +156,16 @@
         </xar:if>    
 
         <p class="xar-align-center">
-            <a href="&xar-modurl-dynamicdata-util-meta;&amp;export=1">
+            <a href="#xarModURL('dynamicdata','util','meta',array('export' => 1))#">
                 <xar:mlstring>Export all tables to XML</xar:mlstring>
             </a>
             |
-            <a href="&xar-modurl-dynamicdata-util-meta;&amp;showdb=1">
+            <a href="#xarModURL('dynamicdata','util','meta',array('showdb' => 1))#">
                 <xar:mlstring>Show other databases</xar:mlstring>
             </a>
         </p>
     <xar:else />
-        <form method="post" action="&xar-modurl-dynamicdata-util-import;">
+        <form method="post" action="#xarModURL('dynamicdata','util','import')#">
             <fieldset>
                 <legend>
                     <xar:ml>
@@ -215,7 +215,7 @@
         </form>
 
         <p class="xar-align-center">
-            <a href="&xar-modurl-dynamicdata-util-meta;">
+            <a href="#xarModURL('dynamicdata','util','meta')#">
                 <xar:mlstring>Show Table Definitions</xar:mlstring>
             </a>
         </p>

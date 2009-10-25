@@ -64,7 +64,7 @@ jQuery('#"."mailtype').change(function() { this.form.submit(); });
             </xar:mlstring>
         </p>
     </xar:if>
-    <form method="post" action="&xar-modurl-mail-admin-template;">
+    <form method="post" action="#xarModURL('mail','admin','template')#">
         <fieldset>
             <div class="xar-form-input-wrapper">
                 <label for="mailtype" title="#xarML('Select the template to edit')#" class="xar-form-label">
@@ -139,7 +139,7 @@ jQuery('#"."mailtype').change(function() { this.form.submit(); });
             </p>
         </fieldset>
     </form>
-    <form action="&xar-modurl-mail-admin-template;" method="post" enctype="application/x-www-form-urlencoded">
+    <form action="#xarModURL('mail','admin','template')#" method="post" enctype="application/x-www-form-urlencoded">
         <fieldset>
             <legend>
                 <xar:mlstring>Template Details</xar:mlstring>

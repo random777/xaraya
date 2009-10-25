@@ -17,13 +17,13 @@
          <xar:set name="tabclass">''</xar:set>
       </xar:if>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-privileges-admin-viewrealms;">
+          <a href="#xarModURL('privileges','admin','viewrealms')#">
             <xar:mlstring>View Realms</xar:mlstring>
           </a>
         </dd>
         <xar:set name="tabclass">$activetab=='newrealm'?'active':''</xar:set>
         <dd class="#$tabclass#">
-            <a href="&xar-modurl-privileges-admin-newrealm;" >
+            <a href="#xarModURL('privileges','admin','newrealm')#" >
                 <xar:mlstring>Add Realm</xar:mlstring>
             </a>
         </dd>

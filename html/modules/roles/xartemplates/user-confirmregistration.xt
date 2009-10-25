@@ -6,7 +6,7 @@
     <h2>
         <xar:mlstring>Confirm Registration</xar:mlstring>
     </h2>
-    <form action="&xar-modurl-roles-user-register;" method="post" enctype="application/x-www-form-urlencoded">
+    <form action="#xarModURL('roles','user','register')#" method="post" enctype="application/x-www-form-urlencoded">
         <div class="xar-form-input-wrapper">
             <label class="xar-form-label">
                 <xar:mlstring>Preferred Username:</xar:mlstring>

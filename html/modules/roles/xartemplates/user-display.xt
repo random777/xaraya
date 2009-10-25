@@ -18,7 +18,7 @@
                     </xar:mlstring>
                 </strong>
                 :
-                <a href="&xar-modurl-roles-user-email;&amp;uid=#$uid#">
+                <a href="#xarModURL('roles','user','email',array('uid' => $uid))#">
                     <xar:ml>
                         <xar:mlstring>
                             Send an Email to #(1) 

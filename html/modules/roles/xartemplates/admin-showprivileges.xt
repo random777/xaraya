@@ -25,7 +25,7 @@
           <xar:for start="$i=0" test="$i lt count($parents)" iter="$i++">
             <xar:if condition="$prevgroup ne $parents[$i]['parentname']">
               <dd>
-                <a href="&xar-modurl-roles-admin-showusers;&amp;uid=#$parents.$i.parentid#" title="#xarML('Show this group')#">
+                <a href="#xarModURL('roles','admin','showusers',array('uid' => $parents[$i]['parentid']))#" title="#xarML('Show this group')#">
                   <xar:var name="parents[$i].parentname"  prep="true"/>
                 </a>
               </dd>
@@ -196,7 +196,7 @@
         </xar:set>
       </xar:if>
 
-      <form action="&xar-modurl-roles-admin-addprivilege;" method="post" enctype="application/x-www-form-urlencoded">
+      <form action="#xarModURL('roles','admin','addprivilege')#" method="post" enctype="application/x-www-form-urlencoded">
         <div class="xar-form-input-wrapper">
           <label for="privid" title="#xarML('Select the Privilege to add')#" class="xar-form-label">
             <xar:ml>

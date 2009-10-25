@@ -19,7 +19,7 @@
                 #$table#
             </h3>
             <p>
-                <a href="&xar-modurl-dynamicdata-util-relations;&amp;modid=#$modid#">
+                <a href="#xarModURL('dynamicdata','util','relations',array('modid' => $modid))#">
                     <xar:mlstring>
                         Add Relation 
                     </xar:mlstring>
@@ -85,7 +85,7 @@
                 </xar:foreach>
                 </tbody>
             </table>
-            <form method="post" action="&xar-modurl-dynamicdata-util-importprops;">
+            <form method="post" action="#xarModURL('dynamicdata','util','importprops')#">
                 <div class="xar-form-footer">
                     <input type="hidden" name="authid" value="#$authid#" />
                     <input type="hidden" name="modid" value="#$modid#" />
@@ -96,7 +96,7 @@
             </form>
         </xar:foreach>
         <div class="xar-align-center">
-            <a href="&xar-modurl-dynamicdata-util-static;&amp;export=1&amp;modid=#$modid#">
+            <a href="#xarModURL('dynamicdata','util','static',array('export' => 1, 'modid' => $modid))#">
                 <xar:mlstring>
                     Export to XML 
                 </xar:mlstring>
@@ -138,7 +138,7 @@
             </fieldset>
         </form>
         <div class="xar-align-center">
-            <a href="&xar-modurl-dynamicdata-util-static;&amp;modid=#$modid#">
+            <a href="#xarModURL('dynamicdata','util','static',array('modid' => $modid))#">
                 <xar:mlstring>
                     Show Table Definitions 
                 </xar:mlstring>

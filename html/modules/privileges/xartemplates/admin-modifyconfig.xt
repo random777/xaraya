@@ -33,20 +33,20 @@ jQuery('#"."testergroup').change(function() {
             </dt>
             <xar:if condition="$tab eq 'general'">
                 <dd class="active">
-                    <a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=general">
+                    <a href="#xarModURL('privileges','admin','modifyconfig',array('tab' => 'general'))#">
                         <xar:mlstring>General</xar:mlstring>
                     </a>
                 </dd>    
             <xar:else />
                 <dd>
-                    <a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=general">    
+                    <a href="#xarModURL('privileges','admin','modifyconfig',array('tab' => 'general'))#">    
                         <xar:mlstring>General</xar:mlstring>
                     </a>
                 </dd>    
             </xar:if>
             <xar:if condition="$tab eq 'realms'">
                 <dd class="active">
-                    <a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=realms">
+                    <a href="#xarModURL('privileges','admin','modifyconfig',array('tab' => 'realms'))#">
                         <xar:mlstring>
                             Realms
                         </xar:mlstring>
@@ -54,7 +54,7 @@ jQuery('#"."testergroup').change(function() {
                 </dd>
                 <xar:else />
                 <dd>
-                    <a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=realms">
+                    <a href="#xarModURL('privileges','admin','modifyconfig',array('tab' => 'realms'))#">
                         <xar:mlstring>
                             Realms
                         </xar:mlstring>
@@ -64,13 +64,13 @@ jQuery('#"."testergroup').change(function() {
             <xar:if condition="xarModGetVar('privileges','lastresort')">
                 <xar:if condition="$tab eq 'lastresort'">
                     <dd class="active">
-                        <a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=lastresort">
+                        <a href="#xarModURL('privileges','admin','modifyconfig',array('tab' => 'lastresort'))#">
                             <xar:mlstring>Last Resort</xar:mlstring>
                         </a>
                     </dd>    
                 <xar:else />
                     <dd>
-                        <a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=lastresort">    
+                        <a href="#xarModURL('privileges','admin','modifyconfig',array('tab' => 'lastresort'))#">    
                             <xar:mlstring>Last Resort</xar:mlstring>
                         </a>
                     </dd>    
@@ -78,26 +78,26 @@ jQuery('#"."testergroup').change(function() {
             </xar:if>
             <xar:if condition="$tab eq 'masks'">
                 <dd class="active">
-                    <a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=masks">
+                    <a href="#xarModURL('privileges','admin','modifyconfig',array('tab' => 'masks'))#">
                         <xar:mlstring>Masks</xar:mlstring>
                     </a>
                 </dd>    
             <xar:else />
                 <dd>
-                    <a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=masks">    
+                    <a href="#xarModURL('privileges','admin','modifyconfig',array('tab' => 'masks'))#">    
                         <xar:mlstring>Masks</xar:mlstring>
                     </a>
                 </dd>    
             </xar:if>
             <xar:if condition="$tab eq 'testing'">
                 <dd class="active">
-                    <a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=testing">
+                    <a href="#xarModURL('privileges','admin','modifyconfig',array('tab' => 'testing'))#">
                         <xar:mlstring>Testing</xar:mlstring>
                     </a>
                 </dd>    
             <xar:else />
                 <dd>
-                    <a href="&xar-modurl-privileges-admin-modifyconfig;&amp;tab=testing">    
+                    <a href="#xarModURL('privileges','admin','modifyconfig',array('tab' => 'testing'))#">    
                         <xar:mlstring>Testing</xar:mlstring>
                     </a>
                 </dd>    
@@ -108,7 +108,7 @@ jQuery('#"."testergroup').change(function() {
         ------------------- Begin General Options --------------------- 
     </xar:comment>
     <xar:if condition="$tab eq 'general'">
-        <form method="post" action="&xar-modurl-privileges-admin-modifyconfig;" enctype="application/x-www-form-urlencoded" >
+        <form method="post" action="#xarModURL('privileges','admin','modifyconfig')#" enctype="application/x-www-form-urlencoded" >
             <fieldset>
                 <legend>
                     <xar:mlstring>
@@ -170,7 +170,7 @@ jQuery('#"."testergroup').change(function() {
         ------------------- Begin Realms Options --------------------- 
     </xar:comment>
     <xar:if condition="$tab eq 'realms'">
-        <form method="post" action="&xar-modurl-privileges-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
+        <form method="post" action="#xarModURL('privileges','admin','modifyconfig')#" enctype="application/x-www-form-urlencoded">
             <fieldset>
                 <legend>
                     <xar:mlstring>
@@ -280,7 +280,7 @@ jQuery('#"."testergroup').change(function() {
         ------------------- Begin Last Resort --------------------- 
     </xar:comment>
     <xar:if condition="$tab eq 'lastresort' AND xarModGetVar('privileges','lastresort')">
-        <form method="post" action="&xar-modurl-privileges-admin-modifyconfig;" enctype="application/x-www-form-urlencoded" >
+        <form method="post" action="#xarModURL('privileges','admin','modifyconfig')#" enctype="application/x-www-form-urlencoded" >
             <fieldset>
                 <legend>
                     <xar:mlstring>
@@ -356,7 +356,7 @@ jQuery('#"."testergroup').change(function() {
         ------------------- Begin Testing --------------------- 
     </xar:comment>
     <xar:if condition="$tab eq 'testing'">
-        <form method="post" id="testerform" name="testerform" action="&xar-modurl-privileges-admin-modifyconfig;" enctype="application/x-www-form-urlencoded" >
+        <form method="post" id="testerform" name="testerform" action="#xarModURL('privileges','admin','modifyconfig')#" enctype="application/x-www-form-urlencoded" >
             <fieldset>
                 <legend>
                     <xar:mlstring>

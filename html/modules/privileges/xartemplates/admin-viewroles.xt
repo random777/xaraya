@@ -33,7 +33,7 @@ jQuery('form#"."privilegeform input[type=radio]').click(function() {
                 <xar:for start="$i=0" test="$i lt count($parents)" iter="$i++">
                     <xar:if condition="$prevgroup ne $parents[$i]['parentname']">
                         <dd>
-                            <a href="&xar-modurl-privileges-admin-modifyprivilege;&amp;pid=#$parents.$i.parentid#" title="#xarML('Show this privilege')#">
+                            <a href="#xarModURL('privileges','admin','modifyprivilege',array('pid' => $parents[$i]['parentid']))#" title="#xarML('Show this privilege')#">
                                 #$parents[$i]['parentname']#
                             </a>
                         </dd>
@@ -50,22 +50,22 @@ jQuery('form#"."privilegeform input[type=radio]').click(function() {
                 <xar:mlstring>Manage privilege</xar:mlstring> :
             </dt>
             <dd>
-                <a href="&xar-modurl-privileges-admin-displayprivilege;&amp;pid=#$pid#">
+                <a href="#xarModURL('privileges','admin','displayprivilege',array('pid' => $pid))#">
                     <xar:mlstring>Display</xar:mlstring>
                 </a>
             </dd>
             <dd>
-                <a href="&xar-modurl-privileges-admin-modifyprivilege;&amp;pid=#$pid#">
+                <a href="#xarModURL('privileges','admin','modifyprivilege',array('pid' => $pid))#">
                     <xar:mlstring>Modify</xar:mlstring>
                 </a>
             </dd>
             <dd>
-                <a href="&xar-modurl-privileges-admin-deleteprivilege;&amp;pid=#$pid#">
+                <a href="#xarModURL('privileges','admin','deleteprivilege',array('pid' => $pid))#">
                     <xar:mlstring>Delete</xar:mlstring>
                 </a>
             </dd>
             <dd class="active">
-                <a href="&xar-modurl-privileges-admin-viewroles;&amp;pid=#$pid#">
+                <a href="#xarModURL('privileges','admin','viewroles',array('pid' => $pid))#">
                     <xar:mlstring>Groups/Users</xar:mlstring>
                 </a>
             </dd>
@@ -105,7 +105,7 @@ jQuery('form#"."privilegeform input[type=radio]').click(function() {
                         </xar:if>
                     </td>
                     <td>
-                        <a href="&xar-modurl-roles-admin-modifyrole;&amp;uid=#$role['roleid']#" title="#xarML('Go to this role')#">
+                        <a href="#xarModURL('roles','admin','modifyrole',array('uid' => $role['roleid']))#" title="#xarML('Go to this role')#">
                             #$role['name']#
                         </a>
                     </td>
@@ -120,7 +120,7 @@ jQuery('form#"."privilegeform input[type=radio]').click(function() {
         </table>
       </xar:if>
 
-      <form action="&xar-modurl-roles-admin-addprivilege;" method="post" enctype="application/x-www-form-urlencoded">
+      <form action="#xarModURL('roles','admin','addprivilege')#" method="post" enctype="application/x-www-form-urlencoded">
         <div class="xar-form-input-wrapper">
             <label for="roleid" title="#xarML('Choose a new Group to assign this Privilege.')#" class="xar-form-label">
                 <xar:mlstring>Assign to Group:</xar:mlstring>
@@ -135,17 +135,17 @@ jQuery('form#"."privilegeform input[type=radio]').click(function() {
             <input type="submit" value="#xarML('Assign')#" />
             <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey('roles')#" />
             <input type="hidden" name="privid" id="privid" value="#$pid#" />
-            <input type="hidden" name="return_url" id="return_url" value="&xar-modurl-privileges-admin-viewroles;&amp;pid=#$pid#" />
+            <input type="hidden" name="return_url" id="return_url" value="#xarModURL('privileges','admin','viewroles',array('pid' => $pid))#" />
         </div>
       </form>
     </fieldset>
 
     <fieldset>
       <legend><xar:mlstring>Current Privileges</xar:mlstring></legend>
-      <form name="privilegeform" id="privilegeform" action="&xar-modurl-privileges-admin-viewroles;" method="post" enctype="application/x-www-form-urlencoded">
+      <form name="privilegeform" id="privilegeform" action="#xarModURL('privileges','admin','viewroles')#" method="post" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="pid" id="pid" value="#$pid#" />
         <p>
-            <a href="&xar-modurl-privileges-admin-newprivilege;">
+            <a href="#xarModURL('privileges','admin','newprivilege')#">
                 <xar:mlstring>Add Privilege</xar:mlstring>
             </a>
         </p>

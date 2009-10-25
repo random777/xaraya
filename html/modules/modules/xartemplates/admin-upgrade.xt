@@ -16,7 +16,7 @@
     <xar:template file="install-errors" type="module" />
 
     <p>
-        <a href="&xar-modurl-modules-admin-list;"><xar:mlstring>Go back to the modules list.</xar:mlstring></a>
+        <a href="#xarModURL('modules','admin','list')#"><xar:mlstring>Go back to the modules list.</xar:mlstring></a>
 
     </p>
 </div>

@@ -16,7 +16,7 @@
             <xar:set name="tabclass">''</xar:set>
         </xar:if>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-base-admin-sysinfo;">
+          <a href="#xarModURL('base','admin','sysinfo')#">
             <xar:mlstring>System Information</xar:mlstring>
           </a>
         </dd>
@@ -24,7 +24,7 @@
     <xar:sec mask="AdminBase" catch="false">
         <xar:set name="tabclass">$activetab=='release'?'active':''</xar:set>
         <dd class="#$tabclass#">
-            <a href="&xar-modurl-base-admin-release;" >
+            <a href="#xarModURL('base','admin','release')#">
                 <xar:mlstring>Latest Xaraya Releases</xar:mlstring>
             </a>
         </dd>
@@ -32,14 +32,14 @@
     <xar:sec mask="AdminBase" catch="false">
         <xar:set name="tabclass">$activetab=='modifyconfig'?'active':''</xar:set>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-base-admin-modifyconfig;">
+          <a href="#xarModURL('base','admin','modifyconfig')#">
             <xar:mlstring>Modify Config</xar:mlstring>
           </a>
         </dd>
 
     <xar:set name="tabclass">($activetab=='main' or $activetab=='overview')?'active':''</xar:set>
     <dd class="#$tabclass#">
-      <a href="&xar-modurl-base-admin-overview;">
+      <a href="#xarModURL('base','admin','overview')#">
         <xar:mlstring>Overview</xar:mlstring>
       </a>
     </dd>

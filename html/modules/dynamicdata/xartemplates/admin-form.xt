@@ -25,7 +25,7 @@ return false;
 
     <xar:if condition="!xarRequestIsAJAX()">
         <xar:set name="objectid">#$object:objectid#</xar:set>
-        <form method="post" id="previewcontrolform" action="&xar-modurl-dynamicdata-admin-form;">
+        <form method="post" id="previewcontrolform" action="#xarModURL('dynamicdata','admin','form')#">
             <div class="xar-form-footer">
                 <input type="hidden" name="objectid" value="#$objectid#" />
                 <xar:if condition="xarRequestIsAJAX()">

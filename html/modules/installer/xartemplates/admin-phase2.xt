@@ -1,13 +1,13 @@
 <xar:set name="active_step">2</xar:set>
 <div id="main_right">
-	<xar:template file="status" />
+    <xar:template file="status" />
 </div>
 <div id="main_left">
     <h1>
         <xar:mlstring>Our License</xar:mlstring>
     </h1>
     <div id="scroller">
-		<pre>
+        <pre>
                     GNU GENERAL PUBLIC LICENSE
                        Version 2, June 1991
 
@@ -288,25 +288,25 @@ PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGES.
 
                      END OF TERMS AND CONDITIONS
-		</pre>
-	</div>
+        </pre>
+    </div>
     <form action="install.php" method="post">
         <div class="xar-form-input-wrapper">
-			<input type="radio" name="agree" id="agree" value="agree" />            
+            <input type="radio" name="agree" id="agree" value="agree" />            
             <label for="agree">
                 <xar:mlstring>I have read and agree to abide by the Terms and Conditions as stated above</xar:mlstring>
             </label>
         </div>
-		<div class="xar-form-input-wrapper">
-			<input type="radio" name="agree" id="disagree" value="disagree" checked="checked" />
+        <div class="xar-form-input-wrapper">
+            <input type="radio" name="agree" id="disagree" value="disagree" checked="checked" />
             <label for="disagree">
                 <xar:mlstring>I have read and do NOT agree to abide by the Terms and Conditions as stated above</xar:mlstring>
             </label>
         </div>
         <xar:if condition="$retry eq 1">
-	        <p style="color: #f00;">
-				<xar:mlstring>We ask you agree to the Terms and Conditions above in order to continue installing.</xar:mlstring>
-	        </p>
+            <p style="color: #f00;">
+                <xar:mlstring>We ask you agree to the Terms and Conditions above in order to continue installing.</xar:mlstring>
+            </p>
         </xar:if>
         <div class="xar-form-footer">
             <input type="hidden" name="install_language" id="install_language" value="#$language#" />

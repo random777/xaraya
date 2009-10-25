@@ -1,4 +1,4 @@
-<form method="post" action="&xar-modurl-dynamicdata-admin-create;">
+<form method="post" action="#xarModURL('dynamicdata','admin','create')#">
 <table>
     <xar:data-form module="$moduleid" itemtype="$itemtype" itemid="0" />
 </table>

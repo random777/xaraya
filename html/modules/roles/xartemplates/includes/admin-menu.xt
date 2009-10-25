@@ -18,7 +18,7 @@
         </xar:if>
 
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-roles-admin-showusers;">
+          <a href="#xarModURL('roles','admin','showusers')#">
             <xar:mlstring>Groups &amp; Users</xar:mlstring>
           </a>
         </dd>
@@ -26,7 +26,7 @@
     <xar:sec mask="DeleteRole" catch="false">
         <xar:set name="tabclass">$activetab=='newrole'?'active':''</xar:set>
         <dd class="#$tabclass#">
-            <a href="&xar-modurl-roles-admin-newrole;" >
+            <a href="#xarModURL('roles','admin','newrole')#" >
                 <xar:mlstring>Add Group/User</xar:mlstring>
             </a>
         </dd>
@@ -38,7 +38,7 @@
             <xar:set name="tabclass">''</xar:set>
         </xar:if>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-roles-admin-createmail;">
+          <a href="#xarModURL('roles','admin','createmail')#">
             <xar:mlstring>Messaging</xar:mlstring>
           </a>
         </dd>
@@ -46,7 +46,7 @@
     <xar:sec mask="AdminRole" catch="false">
         <xar:set name="tabclass">$activetab=='purge'?'active':''</xar:set>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-roles-admin-purge;">
+          <a href="#xarModURL('roles','admin','purge')#">
             <xar:mlstring>Recall/Purge</xar:mlstring>
           </a>
         </dd>
@@ -54,7 +54,7 @@
        <xar:sec mask="AdminRole" catch="false">
         <xar:set name="tabclass">$activetab=='sitelock'?'active':''</xar:set>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-roles-admin-sitelock;">
+          <a href="#xarModURL('roles','admin','sitelock')#">
             <xar:mlstring>SiteLock</xar:mlstring>
           </a>
         </dd>
@@ -62,14 +62,14 @@
     <xar:sec mask="AdminRole" catch="false">
         <xar:set name="tabclass">$activetab=='modifyconfig'?'active':''</xar:set>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-roles-admin-modifyconfig;">
+          <a href="#xarModURL('roles','admin','modifyconfig')#">
             <xar:mlstring>Modify Config</xar:mlstring>
           </a>
         </dd>
     </xar:sec>
     <xar:set name="tabclass">($activetab=='main' or $activetab=='overview')?'active':''</xar:set>
     <dd class="#$tabclass#">
-      <a href="&xar-modurl-roles-admin-overview;">
+      <a href="#xarModURL('roles','admin','overview')#">
         <xar:mlstring>Overview</xar:mlstring>
       </a>
     </dd>

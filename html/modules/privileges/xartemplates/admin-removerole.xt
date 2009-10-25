@@ -8,7 +8,7 @@
         <xar:mlstring>Remove Privilege From Role</xar:mlstring>
     </h2>
 
-    <form method="post" action="&xar-modurl-privileges-admin-removerole;" enctype="application/x-www-form-urlencoded" >
+    <form method="post" action="#xarModURL('privileges','admin','removerole')#" enctype="application/x-www-form-urlencoded" >
 
         <xar:if condition="$ptype eq 1">
             <h3 class="xar-align-center">

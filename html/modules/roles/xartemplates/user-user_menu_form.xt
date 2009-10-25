@@ -17,7 +17,7 @@
         </xar:mlstring>
         : #$uname#
     </h2>
-    <form action="&xar-modurl-roles-user-usermenu;" method="post" id="post" name="post" enctype="#$enc_type#">
+    <form action="#xarModURL('roles','user','usermenu')#" method="post" id="post" name="post" enctype="#$enc_type#">
         <fieldset>
             <legend>
                 <xar:mlstring>

@@ -1,6 +1,6 @@
 <xar:set name="active_step">4</xar:set>
 <div id="main_right">
-	<xar:template file="status" />
+    <xar:template file="status" />
 </div>
 <div id="main_left">
     <h1>
@@ -60,10 +60,10 @@
             <label class="xar-form-label" for="install_database_password">
                 <xar:mlstring>Password</xar:mlstring>
             </label>
-			<div class="xar-form-container-after">
-	            <input type="text" name="install_database_password" id="install_database_password" maxlength="80" value="#$database_password#" />
-    	        <xar:mlstring>(Only valid characters)</xar:mlstring>
-			</div>
+            <div class="xar-form-container-after">
+                <input type="text" name="install_database_password" id="install_database_password" maxlength="80" value="#$database_password#" />
+                <xar:mlstring>(Only valid characters)</xar:mlstring>
+            </div>
         </div>
         <div class="xar-form-input-wrapper">
             <label class="xar-form-label" for="install_database_name">
@@ -76,10 +76,10 @@
             <label class="xar-form-label" for="install_database_prefix">
                 <xar:mlstring>Table Prefix</xar:mlstring>
             </label>
-			<div class="xar-form-container-after">
-	            <input type="text" name="install_database_prefix" id="install_database_prefix" maxlength="10" value="#$database_prefix#" />
+            <div class="xar-form-container-after">
+                <input type="text" name="install_database_prefix" id="install_database_prefix" maxlength="10" value="#$database_prefix#" />
                 <xar:mlstring>(for Table Sharing)</xar:mlstring>
-			</div>
+            </div>
         </div>
         <div class="xar-form-input-wrapper-after">
             <input type="checkbox" name="install_create_database" id="install_create_database" value="1" />
@@ -90,10 +90,10 @@
         <p>
             <xar:mlstring>If checked, this Create the Database option allows the install process to create an empty database for you rather than just populating an existing one. If you cannot create databases through phpMyAdmin because of virtual hosting or MySQL security settings, the installer will <strong>not</strong> be able to create the database for you. It will be able to populate an already existing database.</xar:mlstring>
         </p>
-	    <div class="xar-form-footer">
-	        <input type="hidden" name="install_phase" id="install_phase" value="5" />
-	        <input type="hidden" name="install_language" id="install_language" value="#$language#" />
-	        <input type="submit" value="#xarML('Continue')#" />
-	    </div>
+        <div class="xar-form-footer">
+            <input type="hidden" name="install_phase" id="install_phase" value="5" />
+            <input type="hidden" name="install_language" id="install_language" value="#$language#" />
+            <input type="submit" value="#xarML('Continue')#" />
+        </div>
     </form>
 </div>

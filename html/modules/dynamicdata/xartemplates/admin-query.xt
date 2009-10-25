@@ -18,7 +18,7 @@ jQuery('form table.xar-item-controls select').add('form table.xar-item-controls 
         </xar:ml>
     </h2>
     <xar:template type="module" file="utility-menu" />
-    <form method="post" action="&xar-modurl-dynamicdata-admin-query;">
+    <form method="post" action="#xarModURL('dynamicdata','admin','query')#">
         <table class="xar-item-controls">
             <tr>
                 <td>

@@ -20,7 +20,7 @@
             #$warning#
         </p>
     </xar:if>
-    <form method="post" action="&xar-modurl-dynamicdata-util-import;">
+    <form method="post" action="#xarModURL('dynamicdata','util','import')#">
         <fieldset>
             <legend>
                 <xar:mlstring>

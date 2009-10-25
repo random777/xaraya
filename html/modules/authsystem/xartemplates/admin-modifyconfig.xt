@@ -16,7 +16,7 @@
             Modify Configuration
         </xar:mlstring>
     </h2>
-    <form method="post" action="&xar-modurl-authsystem-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
+    <form method="post" action="#xarModURL('authsystem','admin','modifyconfig')#" enctype="application/x-www-form-urlencoded">
         <fieldset>
             <legend>
                 <xar:mlstring>

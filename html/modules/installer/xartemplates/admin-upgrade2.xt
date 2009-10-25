@@ -1,15 +1,15 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 <xar:set name="active_step">2</xar:set>
 <div id="main_right">
-	<xar:template file="upstatus" />
+    <xar:template file="upstatus" />
 </div>
 <div id="main_left">
     <h1>
         <xar:mlstring>Upgrading your Database</xar:mlstring>
     </h1>
-		<p>
-			#$content#
-		</p>
+        <p>
+            #$content#
+        </p>
    <xar:if condition="$finishearly ne '1'">
     <p>
         <xar:mlstring>Core module database tables have been updated.</xar:mlstring>

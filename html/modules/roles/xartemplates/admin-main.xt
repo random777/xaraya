@@ -130,7 +130,7 @@
    <p>
       <xar:mlstring>You can extend roles by hooking in the functionality of other modules to roles.
       Dynamic Data module for example, enables you to add further custom fields to your user roles. </xar:mlstring></p>
-   <p><xar:mlstring>There is a set of sample 'user' dynamic data (file called users.xml) you can </xar:mlstring><a href="&xar-modurl-dynamicdata-util-import;"><xar:mlstring>import into Roles</xar:mlstring></a>
+   <p><xar:mlstring>There is a set of sample 'user' dynamic data (file called users.xml) you can </xar:mlstring><a href="#xarModURL('dynamicdata','util','import')#"><xar:mlstring>import into Roles</xar:mlstring></a>
       <xar:mlstring> including timezone, aim, irc, msn, yahoom, avatar, user signature and so on that can also be utilized by other modules.
        Some such as the Forum module(xarbb) automatically integrate this data.</xar:mlstring>
    </p>

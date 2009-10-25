@@ -12,11 +12,11 @@
         <xar:mlstring>This page allows you to send a notification to the changed user(s)</xar:mlstring>.
     </p>
     <p>
-        <a href="&xar-modurl-roles-admin-showusers;&amp;phase=#$state#&amp;uid=#$groupuid#">
+        <a href="#xarModURL('roles','admin','showusers',array('phase' => $state, 'uid' => $groupuid))#">
             <xar:mlstring>Click here if you don't want to send any notification</xar:mlstring>
         </a>
     </p>
-    <form name="updatestate" action="&xar-modurl-roles-admin-updatestate;" method="post" enctype="application/x-www-form-urlencoded">
+    <form name="updatestate" action="#xarModURL('roles','admin','updatestate')#" method="post" enctype="application/x-www-form-urlencoded">
         <div class="xar-form-input-wrapper">
             <label for="subject" title="#xarML('Subject')#" class="xar-form-label">
                 <xar:mlstring>Email Title:</xar:mlstring>

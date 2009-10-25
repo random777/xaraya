@@ -25,7 +25,7 @@
             </dt>
             <xar:if condition="$tab eq 'general'">
                 <dd class="active">
-                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=general">
+                    <a href="#xarModURL('roles','admin','modifyconfig',array('tab' => 'general'))#">
                         <xar:mlstring>
                             General
                         </xar:mlstring>
@@ -33,7 +33,7 @@
                 </dd>
             <xar:else />
                 <dd>
-                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=general">
+                    <a href="#xarModURL('roles','admin','modifyconfig',array('tab' => 'general'))#">
                         <xar:mlstring>
                             General
                         </xar:mlstring>
@@ -42,7 +42,7 @@
             </xar:if>
             <xar:if condition="$tab eq 'restrictions'">
                 <dd class="active">
-                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=restrictions">
+                    <a href="#xarModURL('roles','admin','modifyconfig',array('tab' => 'restrictions'))#">
                         <xar:mlstring>
                             Restrictions
                         </xar:mlstring>
@@ -50,7 +50,7 @@
                 </dd>
                 <xar:else />
                 <dd>
-                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=restrictions">
+                    <a href="#xarModURL('roles','admin','modifyconfig',array('tab' => 'restrictions'))#">
                         <xar:mlstring>
                             Restrictions
                         </xar:mlstring>
@@ -59,7 +59,7 @@
             </xar:if>
             <xar:if condition="$tab eq 'duvs'">
                 <dd class="active">
-                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=duvs">
+                    <a href="#xarModURL('roles','admin','modifyconfig',array('tab' => 'duvs'))#">
                         <xar:mlstring>
                             User Variables
                         </xar:mlstring>
@@ -67,7 +67,7 @@
                 </dd>
                 <xar:else />
                 <dd>
-                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=duvs">
+                    <a href="#xarModURL('roles','admin','modifyconfig',array('tab' => 'duvs'))#">
                         <xar:mlstring>
                             User Variables
                         </xar:mlstring>
@@ -76,7 +76,7 @@
             </xar:if>
             <xar:if condition="$tab eq 'hooks'">
                 <dd class="active">
-                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=hooks">
+                    <a href="#xarModURL('roles','admin','modifyconfig',array('tab' => 'hooks'))#">
                         <xar:mlstring>
                             User Hooks
                         </xar:mlstring>
@@ -84,7 +84,7 @@
                 </dd>
             <xar:else />
                 <dd>
-                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=hooks">
+                    <a href="#xarModURL('roles','admin','modifyconfig',array('tab' => 'hooks'))#">
                         <xar:mlstring>
                             User Hooks
                         </xar:mlstring>
@@ -94,7 +94,7 @@
             <xar:comment>
                 <xar:if condition="$tab eq 'grouphooks'">
                     <dd class="active">
-                        <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=grouphooks">
+                        <a href="#xarModURL('roles','admin','modifyconfig',array('tab' => 'grouphooks'))#">
                             <xar:mlstring>
                                 Group Hooks
                             </xar:mlstring>
@@ -102,7 +102,7 @@
                     </dd>
                 <xar:else />
                     <dd>
-                        <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=grouphooks">
+                        <a href="#xarModURL('roles','admin','modifyconfig',array('tab' => 'grouphooks'))#">
                             <xar:mlstring>
                                 Group Hooks
                             </xar:mlstring>
@@ -112,7 +112,7 @@
             </xar:comment>
             <xar:if condition="$tab eq 'memberlist'">
                 <dd class="active">
-                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=memberlist">
+                    <a href="#xarModURL('roles','admin','modifyconfig',array('tab' => 'memberlist'))#">
                         <xar:mlstring>
                             Member Options
                         </xar:mlstring>
@@ -120,7 +120,7 @@
                 </dd>
             <xar:else />
                 <dd>
-                    <a href="&xar-modurl-roles-admin-modifyconfig;&amp;tab=memberlist">
+                    <a href="#xarModURL('roles','admin','modifyconfig',array('tab' => 'memberlist'))#">
                         <xar:mlstring>
                             Member Options
                         </xar:mlstring>
@@ -133,7 +133,7 @@
         ------------------- Begin General Options ---------------------
     </xar:comment>
     <xar:if condition="$tab eq 'general'">
-        <form method="post" action="&xar-modurl-roles-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
+        <form method="post" action="#xarModURL('roles','admin','modifyconfig')#" enctype="application/x-www-form-urlencoded">
             <fieldset>
                 <legend>
                     <xar:mlstring>
@@ -242,7 +242,7 @@
             - - - - - - - - - - - - - - - - - Begin Restrictions Options - - - - - - - - - - - - - - - - - - -
         </xar:comment>  
         <xar:elseif condition="$tab eq 'restrictions'" />
-            <form method="post" action="&xar-modurl-roles-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
+            <form method="post" action="#xarModURL('roles','admin','modifyconfig')#" enctype="application/x-www-form-urlencoded">
             <fieldset>
                 <legend>
                     <xar:mlstring>
@@ -291,7 +291,7 @@
             - - - - - - - - - - - - - - - - - Begin User Variable Options - - - - - - - - - - - - - - - - - - -
         </xar:comment>
         <xar:elseif condition="$tab eq 'duvs'" />
-            <form method="post" action="&xar-modurl-roles-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
+            <form method="post" action="#xarModURL('roles','admin','modifyconfig')#" enctype="application/x-www-form-urlencoded">
                 <fieldset>
                     <legend>
                         <xar:mlstring>
@@ -477,7 +477,7 @@
         </xar:comment>
         <xar:elseif condition="$tab eq 'hooks'" />
         <xar:if condition="!empty($hooks)">
-          <form method="post" action="&xar-modurl-roles-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
+          <form method="post" action="#xarModURL('roles','admin','modifyconfig')#" enctype="application/x-www-form-urlencoded">
               <fieldset>
                 <legend><xar:mlstring>Default Hooks For Users</xar:mlstring></legend>
 
@@ -504,7 +504,7 @@
         </xar:comment>
         <xar:elseif condition="$tab eq 'grouphooks'" />
         <xar:if condition="!empty($hooks)">
-            <form method="post" action="&xar-modurl-roles-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
+            <form method="post" action="#xarModURL('roles','admin','modifyconfig')#" enctype="application/x-www-form-urlencoded">
                 <fieldset>
                   <legend><xar:mlstring>Default Hooks For Groups</xar:mlstring></legend>
 
@@ -530,7 +530,7 @@
             ----------------- Begin Member List Options -------------------
         </xar:comment>
         <xar:elseif condition="$tab eq 'memberlist'" />
-        <form method="post" action="&xar-modurl-roles-admin-modifyconfig;" enctype="application/x-www-form-urlencoded">
+        <form method="post" action="#xarModURL('roles','admin','modifyconfig')#" enctype="application/x-www-form-urlencoded">
             <fieldset>
                 <legend>
                     <xar:mlstring>

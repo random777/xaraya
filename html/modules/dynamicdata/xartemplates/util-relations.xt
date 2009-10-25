@@ -13,7 +13,7 @@
    <h2><xar:mlstring>Utilities - Relationships</xar:mlstring></h2>
    <xar:template type="module" file="utility-menu" />
 
-    <form method="post" action="&xar-modurl-dynamicdata-util-relations;">
+    <form method="post" action="#xarModURL('dynamicdata','util','relations')#">
         <fieldset>
             <legend>
                 <xar:mlstring>
@@ -114,7 +114,7 @@
             </p>
         </xar:if>
     </xar:if>
-    <form method="post" action="&xar-modurl-dynamicdata-util-relations;">
+    <form method="post" action="#xarModURL('dynamicdata','util','relations')#">
         <fieldset>
             <legend>
                 <xar:mlstring>
@@ -174,7 +174,7 @@
         <h3>
             #$table# 
         </h3>
-        <a href="&xar-modurl-dynamicdata-admin-view;&amp;table=#$table#">
+        <a href="#xarModURL('dynamicdata','admin','view',array('table' => $table))#">
             <xar:mlstring>
                 View Table 
             </xar:mlstring>
@@ -245,7 +245,7 @@
         <xar:set name="authid">
             #xarSecGenAuthKey()# 
         </xar:set>
-        <form method="post" action="&xar-modurl-dynamicdata-util-relations;">
+        <form method="post" action="#xarModURL('dynamicdata','util','relations')#">
             <div class="xar-form-input-wrapper">
                 <label class="xar-form-label">
                     <xar:mlstring>
@@ -399,7 +399,7 @@
             </xar:set>
         </xar:if>
         <xar:if condition="!empty($relations[$table])">
-            <form method="post" action="&xar-modurl-dynamicdata-util-relations;">
+            <form method="post" action="#xarModURL('dynamicdata','util','relations')#">
                 <table>
                     <thead>
                     <tr>

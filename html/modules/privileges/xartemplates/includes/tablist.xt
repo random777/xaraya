@@ -9,14 +9,14 @@
 
     <xar:set name="tabclass">$show=='assigned'?'active':''</xar:set>
     <dd class="#$tabclass#">
-      <a href="&xar-modurl-privileges-admin-viewprivileges;&amp;show=assigned">
+      <a href="#xarModURL('privileges','admin','viewprivileges',array('show' => 'assigned'))#">
         <xar:mlstring>Assigned</xar:mlstring>
       </a>
     </dd>    
 
     <xar:set name="tabclass">$show=='all'?'active':''</xar:set>
     <dd class="#$tabclass#">
-      <a href="&xar-modurl-privileges-admin-viewprivileges;&amp;show=all">
+      <a href="#xarModURL('privileges','admin','viewprivileges',array('show' => 'all'))#">
         <xar:mlstring>All</xar:mlstring>
       </a>
     </dd>    

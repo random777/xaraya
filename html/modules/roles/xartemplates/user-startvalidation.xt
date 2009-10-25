@@ -19,7 +19,7 @@
     </p>
 
 <xar:else />
-    <form action="&xar-modurl-roles-user-getvalidation;" method="post" enctype="application/x-www-form-urlencoded">
+    <form action="#xarModURL('roles','user','getvalidation')#" method="post" enctype="application/x-www-form-urlencoded">
         <h3>
             <xar:mlstring>Start Validation</xar:mlstring>
         </h3>
@@ -46,7 +46,7 @@
     </form>
 
     <p><xar:mlstring>If you did not receive your validation code, we will try to resend it now.</xar:mlstring></p>
-    <form action="&xar-modurl-roles-user-getvalidation;" method="post" enctype="application/x-www-form-urlencoded">
+    <form action="#xarModURL('roles','user','getvalidation')#" method="post" enctype="application/x-www-form-urlencoded">
         <h3>
             <xar:mlstring>Resend Validation</xar:mlstring>
         </h3>

@@ -12,7 +12,7 @@
     <xar:sec mask="AdminModules" catch="false">
         <xar:set name="tabclass">$activetab=='list'?'active':''</xar:set>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-modules-admin-list;">
+          <a href="#xarModURL('modules','admin','list')#">
             <xar:mlstring>View Available Modules</xar:mlstring>
           </a>
         </dd>
@@ -20,7 +20,7 @@
     <xar:sec mask="AdminModules" catch="false">
         <xar:set name="tabclass">$activetab=='hooks'?'active':''</xar:set>
         <dd class="#$tabclass#">
-            <a href="&xar-modurl-modules-admin-hooks;" >
+            <a href="#xarModURL('modules','admin','hooks')#" >
                 <xar:mlstring>Configure Hooks</xar:mlstring>
             </a>
         </dd>
@@ -28,7 +28,7 @@
 
     <xar:set name="tabclass">($activetab=='main' or $activetab=='overview')?'active':''</xar:set>
     <dd class="#$tabclass#">
-      <a href="&xar-modurl-modules-admin-overview;">
+      <a href="#xarModURL('modules','admin','overview')#">
         <xar:mlstring>Overview</xar:mlstring>
       </a>
     </dd>

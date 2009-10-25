@@ -8,7 +8,7 @@
         <xar:mlstring>Toolbox</xar:mlstring>
     </h2>
 
-    <form method="post" action="&xar-modurl-modules-admin-tools;">
+    <form method="post" action="#xarModURL('modules','admin','tools')#">
         <p>
             <xar:mlstring>Module Information Generator/Validator</xar:mlstring>
         </p>

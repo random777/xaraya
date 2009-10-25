@@ -16,7 +16,7 @@
             <xar:set name="tabclass">''</xar:set>
         </xar:if>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-blocks-admin-view_instances;">
+          <a href="#xarModURL('blocks','admin','view_instances')#">
             <xar:mlstring>View Blocks</xar:mlstring>
           </a>
         </dd>
@@ -24,7 +24,7 @@
     <xar:sec mask="AddBlock" catch="false">
         <xar:set name="tabclass">$activetab=='new_instance'?'active':''</xar:set>
         <dd class="#$tabclass#">
-            <a href="&xar-modurl-blocks-admin-new_instance;" >
+            <a href="#xarModURL('blocks','admin','new_instance')#">
                 <xar:mlstring>New Block</xar:mlstring>
             </a>
         </dd>
@@ -36,7 +36,7 @@
             <xar:set name="tabclass">''</xar:set>
         </xar:if>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-blocks-admin-view_groups;">
+          <a href="#xarModURL('blocks','admin','view_groups')#">
             <xar:mlstring>Block Groups</xar:mlstring>
           </a>
         </dd>
@@ -48,7 +48,7 @@
             <xar:set name="tabclass">''</xar:set>
        </xar:if>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-blocks-admin-view_types;">
+          <a href="#xarModURL('blocks','admin','view_types')#">
             <xar:mlstring>Block Types</xar:mlstring>
           </a>
         </dd>
@@ -56,7 +56,7 @@
     <xar:sec mask="AdminBlock" catch="false">
         <xar:set name="tabclass">$activetab=='modifyconfig'?'active':''</xar:set>
         <dd class="#$tabclass#">
-          <a href="&xar-modurl-blocks-admin-modifyconfig;">
+          <a href="#xarModURL('blocks','admin','modifyconfig')#">
             <xar:mlstring>Modify Config</xar:mlstring>
           </a>
         </dd>
@@ -64,7 +64,7 @@
     <xar:sec mask="EditBlock" catch="false">
     <xar:set name="tabclass">($activetab=='main' or $activetab=='overview')?'active':''</xar:set>
     <dd class="#$tabclass#">
-      <a href="&xar-modurl-blocks-admin-overview;">
+      <a href="#xarModURL('blocks','admin','overview')#">
         <xar:mlstring>Overview</xar:mlstring>
       </a>
     </dd>

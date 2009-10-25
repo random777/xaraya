@@ -43,7 +43,7 @@ jQuery('#"."cancelbutton').click(function() {
 <div class="xar-mod-body">
   <xar:template type="module" file="admin-menu" />
     <h2>
-        <a href="&xar-modurl-roles-admin-createmail;">
+        <a href="#xarModURL('roles','admin','createmail')#">
             <xar:mlstring>
                 Messaging System:
             </xar:mlstring>
@@ -61,21 +61,21 @@ jQuery('#"."cancelbutton').click(function() {
                 : 
             </dt>
             <dd class="active">
-                <a href="&xar-modurl-roles-admin-createmail;">
+                <a href="#xarModURL('roles','admin','createmail')#">
                     <xar:mlstring>
                         Send mail
                     </xar:mlstring>
                 </a>
             </dd>
             <dd>
-                <a href="&xar-modurl-roles-admin-modifyemail;">
+                <a href="#xarModURL('roles','admin','modifyemail')#">
                     <xar:mlstring>
                         Templates
                     </xar:mlstring>
                 </a>
             </dd>
             <dd>
-                <a href="&xar-modurl-roles-admin-modifynotice;">
+                <a href="#xarModURL('roles','admin','modifynotice')#">
                     <xar:mlstring>
                         Configure
                     </xar:mlstring>
@@ -83,7 +83,7 @@ jQuery('#"."cancelbutton').click(function() {
             </dd>
         </dl>
     </div>
-    <form method="post" action="&xar-modurl-roles-admin-createmail;">
+    <form method="post" action="#xarModURL('roles','admin','createmail')#">
         <xar:comment>
             Module List Sort and Filter Controls table 
         </xar:comment>
@@ -360,35 +360,35 @@ jQuery('#"."cancelbutton').click(function() {
             <thead>
             <tr>
               <th>
-                <a href="&xar-modurl-roles-admin-createmail;&amp;state=#$state#&amp;order=name">
+                <a href="#xarModURL('roles','admin','createmail',array('state' => $state, 'order' => 'name'))#">
                   <xar:mlstring>
                     Display name
                   </xar:mlstring>
                 </a>
               </th>
               <th>
-                <a href="&xar-modurl-roles-admin-createmail;&amp;state=#$state#&amp;order=uname">
+                <a href="#xarModURL('roles','admin','createmail',array('state' => $state, 'order' => 'uname'))#">
                   <xar:mlstring>
                     Login
                   </xar:mlstring>
                 </a>
               </th>
               <th>
-                <a href="&xar-modurl-roles-admin-createmail;&amp;state=#$state#&amp;order=email">
+                <a href="#xarModURL('roles','admin','createmail',array('state' => $state, 'order' => 'email'))#">
                   <xar:mlstring>
                     Email
                   </xar:mlstring>
                 </a>
               </th>
               <th>
-                <a href="&xar-modurl-roles-admin-createmail;&amp;state=#$state#&amp;order=date_reg">
+                <a href="#xarModURL('roles','admin','createmail',array('state' => $state, 'order' => 'date_reg'))#">
                   <xar:mlstring>
                     Date Registered
                   </xar:mlstring>
                 </a>
               </th>
               <th>
-                <a href="&xar-modurl-roles-admin-createmail;&amp;state=#$state#&amp;order=state">
+                <a href="#xarModURL('roles','admin','createmail',array('state' => $state, 'order' => 'state'))#">
                   <xar:mlstring>
                     State
                   </xar:mlstring>
@@ -447,7 +447,7 @@ jQuery('#"."cancelbutton').click(function() {
         </xar:if>
       </xar:if>
       </fieldset>
-      <form action="&xar-modurl-roles-admin-sendmail;" method="post" enctype="application/x-www-form-urlencoded">
+      <form action="#xarModURL('roles','admin','sendmail')#" method="post" enctype="application/x-www-form-urlencoded">
         <fieldset>
             <legend>
                 <xar:mlstring>

@@ -86,7 +86,7 @@
       <xar:set name="layout">'default'</xar:set>
     </xar:if>
 
-    <form method="post" action="&xar-modurl-dynamicdata-admin-updateprop;">
+    <form method="post" action="&xar-modurl-dynamicdata-admin-updateprop;" id="modifyprop-form">
         <xar:template file="proplist-$layout" />
     </form>
 

@@ -16,8 +16,8 @@
             <xar:mlstring>Thank you for your patience.</xar:mlstring>
         </p>
         <p>
-            <xar:mlstring>If your browser does not automatically redirect, you can</xar:mlstring> 
-            <a href="#xarModURL('installer','admin','bootstrap',array('install_language' => $language))#">
+            <xar:mlstring>If your browser does not automatically redirect, you can</xar:mlstring>
+            <a href="index.php?module=installer&amp;type=admin&amp;function=bootstrap&amp;install_language=#$language#">
                 <xar:mlstring>manually continue to next stage</xar:mlstring>
             </a>.
         </p>

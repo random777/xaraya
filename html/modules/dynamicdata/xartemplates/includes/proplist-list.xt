@@ -101,6 +101,7 @@
                     jQuery('.xar-mod-body').html(jQuery(responseText).find('.xar-mod-body').html());
                 }
                 jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(prop_trigger).css('cursor','pointer');
+                jQuery('div.fieldwrapper a').click(dialog_trigger);
                 jQuery('#"."sortable').sortable( {update: saveorder_callback} ).children('fieldset').css('cursor', 'move');
             });
         }

@@ -81,7 +81,7 @@ function base_javascriptapi_registerplugin($args)
     }
     $plugins[$name] = $plugin;
     ksort($plugins);
-    xarModSetVar($fwinfo['module'], $framework . ".plugins");
+    xarModSetVar($fwinfo['module'], $framework . ".plugins", serialize($plugins));
 
     return true;
 }

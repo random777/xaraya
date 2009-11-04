@@ -32,6 +32,10 @@ function dynamicdata_adminapi_showlist($args)
         $template = '';
     }
 
+    if (empty($tplmodule)) {
+        $tplmodule = 'dynamicdata';
+    }
+
     // we got everything via template parameters
     if (isset($items) && is_array($items)) {
         return xarTplModule('dynamicdata','admin','showlist',
@@ -149,6 +153,7 @@ function dynamicdata_adminapi_showlist($args)
     $object->getItems();
 
     return $object->showList(array('layout'   => $layout,
-                                   'template' => $template));
+                                   'template' => $template,
+                                   'tplmodule' => $tplmodule));
 }
 ?>

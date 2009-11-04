@@ -15,11 +15,6 @@
           <xar:mlstring>Warning! This is a system object used internally by the Dynamic Data module. Trying to modify the properties of this object may break the Dynamic Data module. Proceed with caution.</xar:mlstring>
         </p>
     </xar:if>
-    <xar:if condition="$modid eq 182">
-        <p>
-            <xar:mlstring>Note: for completely dynamic Objects like this one, you need to define one property that is of type "Item ID"</xar:mlstring>
-        </p>
-    </xar:if>
 
     <xar:set name="i">1</xar:set>
     <xar:set name="total">count($fields)</xar:set>
@@ -128,76 +123,74 @@
 
     jQuery('#"."sortable').sortable( {update: saveorder_callback} ).children('fieldset').css('cursor', 'move');
 "</xar:set>
-<xar:base-js-event name="ready" code="$ddcode" />
-<div id="sortable">
-<xar:foreach in="$fields" value="$field">
-    <fieldset>
-        <legend>
-            <span id="fieldname_#$field.id#" title="#xarML('Click to toggle field visibility for this property')#">
-            <xar:if condition="!empty($field['name'])">
-                #$field['name']#
-                <xar:if condition="!empty($field['label'])">
-                    "#$field['label']#"
-                </xar:if>
-            <xar:else />
-                <xar:mlstring>[unnamed property]</xar:mlstring>
-            </xar:if>
-            [#$labels['id']#: #$field['id']#]
-            </span>
-            <noscript>
-            <xar:if condition="$total gt 1">
-                <span class="xar-nowrap">
-                <xar:if condition="($i gt 1)">
-                    <a class="xar-icon" href="#xarModURL('dynamicdata', 'admin', 'orderprops', array('objectid' => $objectid, 'modid' => $modid, 'itemtype' => $itemtype, 'move_prop' => $field['name'], 'direction' => 'up', 'authid' => $authid))#"><img class="xar-icon" src="#$upicon#" alt="#xarML('Up')#" title="#$uptitle#" /></a>
-                <xar:else />
-                    <img class="xar-icon-disabled" src="#$upicon#" alt="#xarML('Up')#" title="#$uptitle#"/>
-                </xar:if>
-                <xar:if condition="($i lt $total)">
-                     <a class="xar-icon" href="#xarModURL('dynamicdata', 'admin', 'orderprops', array('objectid' => $objectid, 'modid' => $modid, 'itemtype' => $itemtype, 'move_prop' => $field['name'], 'direction' => 'down', 'authid' => $authid))#"><img class="xar-icon" src="#$downicon#" alt="#xarML('Down')#" title="#$downtitle#" /></a>
-                <xar:else />
-                    <img class="xar-icon-disabled" src="#$downicon#" alt="#xarML('Down')#" title="#$downtitle#" />
-                </xar:if>
-                </span>
-            </xar:if>
-            </noscript>
-        </legend>
-        <xar:comment>Include the edit-part for a property</xar:comment>
-        <xar:template file="editproperty"
+    <xar:base-js-event name="ready" code="$ddcode" />
+    <div id="sortable">
+        <xar:foreach in="$fields" value="$field">
+            <fieldset>
+                <legend>
+                    <span id="fieldname_#$field.id#" title="#xarML('Click to toggle field visibility for this property')#">
+                        <xar:if condition="!empty($field['name'])">
+                            #$field['name']#
+                            <xar:if condition="!empty($field['label'])">
+                                "#$field['label']#"
+                            </xar:if>
+                        <xar:else />
+                            <xar:mlstring>[unnamed property]</xar:mlstring>
+                        </xar:if>
+                        [#$labels['id']#: #$field['id']#]
+                    </span>
+                    <noscript>
+                        <xar:if condition="$total gt 1">
+                            <span class="xar-nowrap">
+                                <xar:if condition="($i gt 1)">
+                                    <a class="xar-icon" href="#xarModURL('dynamicdata', 'admin', 'orderprops', array('objectid' => $objectid, 'modid' => $modid, 'itemtype' => $itemtype, 'move_prop' => $field['name'], 'direction' => 'up', 'authid' => $authid))#"><img class="xar-icon" src="#$upicon#" alt="#xarML('Up')#" title="#$uptitle#" /></a>
+                                <xar:else />
+                                    <img class="xar-icon-disabled" src="#$upicon#" alt="#xarML('Up')#" title="#$uptitle#"/>
+                                </xar:if>
+                                <xar:if condition="($i lt $total)">
+                                    <a class="xar-icon" href="#xarModURL('dynamicdata', 'admin', 'orderprops', array('objectid' => $objectid, 'modid' => $modid, 'itemtype' => $itemtype, 'move_prop' => $field['name'], 'direction' => 'down', 'authid' => $authid))#"><img class="xar-icon" src="#$downicon#" alt="#xarML('Down')#" title="#$downtitle#" /></a>
+                                <xar:else />
+                                    <img class="xar-icon-disabled" src="#$downicon#" alt="#xarML('Down')#" title="#$downtitle#" />
+                                </xar:if>
+                            </span>
+                        </xar:if>
+                    </noscript>
+                </legend>
+                <xar:comment>Include the edit-part for a property</xar:comment>
+                <xar:template file="editproperty"
                       module="dynamicdata"
                       subdata="array('field' =&gt; $field, 'labels' =&gt; $labels,'fieldtypeprop' =&gt; $fieldtypeprop, 'fieldstatusprop' =&gt; $fieldstatusprop)"/>
-    </fieldset>
-    <xar:set name="dummy">$i++</xar:set>
-</xar:foreach>
-</div>
+            </fieldset>
+            <xar:set name="dummy">$i++</xar:set>
+        </xar:foreach>
+    </div>
+    
+    <xar:comment>Include the part for creating a new property</xar:comment>
+    <xar:template file="newproperty" module="dynamicdata"/>
 
-<xar:comment>Include the part for creating a new property</xar:comment>
-<xar:template file="newproperty" module="dynamicdata"/>
-
-<xar:comment>
-<xar:if condition="count($fields) gt 1">
-    <div class="xar-form-section">
-        <h3>
-            <xar:mlstring>Set Property Order</xar:mlstring>
-        </h3>
-        <div class="xar-form-input_wrapper">
-            <label for="prop_order_list" title="#xarML('Set the order of this object\'s properties')#" class="xar-form-label">
-                <xar:mlstring>Property Order</xar:mlstring>
-            </label>
-            <div class="xar-form-container-after">
-                <xar:data-input type="orderselect" options="$fields" name="prop_order" />
+    <xar:comment>
+        <xar:if condition="count($fields) gt 1">
+            <div class="xar-form-section">
+                <h3>
+                    <xar:mlstring>Set Property Order</xar:mlstring>
+                </h3>
+                <div class="xar-form-input_wrapper">
+                    <label for="prop_order_list" title="#xarML('Set the order of this object\'s properties')#" class="xar-form-label">
+                        <xar:mlstring>Property Order</xar:mlstring>
+                    </label>
+                    <div class="xar-form-container-after">
+                        <xar:data-input type="orderselect" options="$fields" name="prop_order" />
+                    </div>
+                </div>
             </div>
-            <br class="xar-clearboth" />
-        </div>
-    </fieldset>
-</xar:if>
-</xar:comment>
-
-<xar:if condition="$modid eq 182">
-  <p>
-    <xar:mlstring>Note: for completely dynamic Objects like this one, you need to define one property that is of type "Item ID"</xar:mlstring>
-  </p>
-</xar:if>
-
+        </xar:if>
+    </xar:comment>
+    <xar:if condition="$modid eq 182">
+        <p>
+            <xar:mlstring>Note: for completely dynamic Objects like this one, you need to define one property that is of type "Item ID"</xar:mlstring>
+        </p>
+    </xar:if>
+</div>
 <xar:if condition="!empty($hooks)">
     <xar:foreach in="$hooks" key="$module" value="$output">
         #$output#
@@ -205,8 +198,8 @@
 </xar:if>
 <div class="xar-form-footer">
     <xar:comment>
-    Optional extra table for data sources - use a text box if you want to make this configurable
-    <input type="text" name="table" id="table" value="#$table#" />
+        Optional extra table for data sources - use a text box if you want to make this configurable
+        <input type="text" name="table" id="table" value="#$table#" />
     </xar:comment>
     <xar:if condition="!empty($table)">
         <input type="hidden" name="table" id="table" value="#$table#" />

@@ -25,16 +25,16 @@ jQuery('#"."newblockform').validate({
     </span>
 </div>
 <div class="xar-mod-body">
- <xar:template type="module" file="admin-menu" />
+    <xar:template type="module" file="admin-menu" />
     <h2>
         <xar:mlstring>Add Instance</xar:mlstring>
     </h2>
 
     <form action="#xarModURL('blocks', 'admin', 'create_instance')#" id="newblockform" method="post" enctype="application/x-www-form-urlencoded">
-        <fieldset>
-            <legend>
+        <div class="xar-form-section">
+            <h3>
                 <xar:mlstring>Instance Parameters</xar:mlstring>
-            </legend>
+            </h3>
 
             <div class="xar-form-input-wrapper">
                 <label for="block_type" title="#xarML('The type of block that you wish to add.')#" class="xar-form-label">
@@ -42,9 +42,7 @@ jQuery('#"."newblockform').validate({
                 </label>
                 <select name="block_type" id="block_type">
                     <xar:loop name="$block_types">
-                        <option value="#$loop:item['tid']#">
-                            #xarVarPrepForDisplay($loop:item['module'])# / #xarVarPrepForDisplay($loop:item['type'])# 
-                        </option>
+                        <option value="#$loop:item['tid']#">#xarVarPrepForDisplay($loop:item['module'])# / #xarVarPrepForDisplay($loop:item['type'])#</option>
                     </xar:loop>
                 </select>
             </div>
@@ -76,15 +74,9 @@ jQuery('#"."newblockform').validate({
                     <xar:mlstring>Block Group:</xar:mlstring>
                 </label>
                 <select name="block_groups[][gid]" id="block_groups">
-                    <option value="">
-                        -- 
-                        <xar:mlstring>no group</xar:mlstring>
-                        -- 
-                    </option>
+                    <option value="">-- <xar:mlstring>no group</xar:mlstring> --</option>
                     <xar:loop name="$block_groups">
-                        <option value="#$loop:item['gid']#">
-                            #xarVarPrepForDisplay($loop:item['name'])# 
-                        </option>
+                        <option value="#$loop:item['gid']#">#xarVarPrepForDisplay($loop:item['name'])#</option>
                     </xar:loop>
                 </select>
             </div>
@@ -94,23 +86,17 @@ jQuery('#"."newblockform').validate({
                     <xar:mlstring>Default State:</xar:mlstring>
                 </label>
                 <select name="block_state" id="block_state">
-                    <option value="0">
-                        <xar:mlstring>Hidden</xar:mlstring>
-                    </option>
-                    <option value="1">
-                        <xar:mlstring>Minimized</xar:mlstring>
-                    </option>
-                    <option value="2" selected="selected">
-                        <xar:mlstring>Maximized</xar:mlstring>
-                    </option>
+                    <option value="0"><xar:mlstring>Hidden</xar:mlstring></option>
+                    <option value="1"><xar:mlstring>Minimized</xar:mlstring></option>
+                    <option value="2" selected="selected"><xar:mlstring>Maximized</xar:mlstring></option>
                 </select>
             </div>
 
-        </fieldset>
+        </div>
 
         <div class="xar-form-footer">
             <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey()#" />
-            <input type="submit" value="#xarML('Create Instance')#" class="xar-margin-thickright" />
+            <input type="submit" value="#xarML('Create Instance')#" />
         </div>
     </form>
 </div>

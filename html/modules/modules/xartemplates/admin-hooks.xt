@@ -17,10 +17,8 @@
             <xar:mlstring>Extend the functionality of your modules via one of the following available hooks.</xar:mlstring>
         </p>
         <p>
-            <xar:mlstring>Select the hook module providing the extra functionality and then check the boxes of the modules you would
-            like to enable that functionality in (e.g. select "comments" and then check "articles" to enable comments in the articles module).</xar:mlstring>
+            <xar:mlstring>Select the hook module providing the extra functionality and then check the boxes of the modules you would like to enable that functionality in (e.g. select "comments" and then check "articles" to enable comments in the articles module).</xar:mlstring>
         </p>
-        <br />
 
         <xar:template file="hooks-mainpart" module="modules" />
 

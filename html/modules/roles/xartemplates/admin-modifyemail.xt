@@ -48,31 +48,29 @@ jQuery('form#"."selecttemplate select').change(function() { this.form.submit(); 
     </div>
 
     <form method="post" id="selecttemplate" action="#xarModURL('roles','admin','modifyemail')#">
-        <fieldset>
-            <legend>
-                <xar:mlstring>
-                    Select Template
-                </xar:mlstring>
-            </legend>
+        <div class="xar-form-section">
+            <h3>
+                <xar:mlstring>Select Template</xar:mlstring>
+            </h3>
             <div class="xar-form-input-wrapper">
-                    <label for="mailtype" title="#xarML('Select the template to edit')#" class="xar-form-label">
-                        <xar:mlstring>Template:</xar:mlstring>
-                    </label>
-                    <select name="mailtype" id="mailtype">
-                        <xar:loop name="$templates">
-                            <xar:if condition="$mailtype eq $loop:item['key']">
-                                <option value="#$loop:item['key']#" selected="selected">
-                                    #$loop:item['value']#
-                                </option>
-                            <xar:else/>
-                                <option value="#$loop:item['key']#">
-                                    #$loop:item['value']#
-                                </option>
-                            </xar:if>
-                        </xar:loop>
-                    </select>
-                    <input type="submit" value="#xarML('Reload')#" class="xar-margin-thickleft" />
-                </div>
+                <label for="mailtype" title="#xarML('Select the template to edit')#" class="xar-form-label">
+                    <xar:mlstring>Template:</xar:mlstring>
+                </label>
+                <select name="mailtype" id="mailtype">
+                    <xar:loop name="$templates">
+                        <xar:if condition="$mailtype eq $loop:item['key']">
+                            <option value="#$loop:item['key']#" selected="selected">
+                                #$loop:item['value']#
+                            </option>
+                        <xar:else/>
+                            <option value="#$loop:item['key']#">
+                                #$loop:item['value']#
+                            </option>
+                        </xar:if>
+                    </xar:loop>
+                </select>
+                <input type="submit" value="#xarML('Reload')#" class="xar-margin-thickleft" />
+            </div>
         
                 <p>
                     <xar:if condition="$mailtype eq 'validation'">
@@ -93,18 +91,16 @@ jQuery('form#"."selecttemplate select').change(function() { this.form.submit(); 
                         <xar:mlstring>This email will be sent to users when an administrator changes their password.</xar:mlstring>
                     </xar:if>
                 </p>
-        </fieldset>
+        </div>
 
     </form>
 
     <form action="#xarModURL('roles','admin','modifyemail')#" method="post" enctype="application/x-www-form-urlencoded">
 
-        <fieldset>
-            <legend>
-                <xar:mlstring>
-                    Email
-                </xar:mlstring>
-            </legend>
+        <div class="xar-form-section">
+            <h3>
+                <xar:mlstring>Email</xar:mlstring>
+            </h3>
             <div class="xar-form-input-wrapper">
                     <label for="subject" title="#xarML('Title of the notification')#" class="xar-form-label">
                         <xar:mlstring>Subject:</xar:mlstring>
@@ -120,7 +116,7 @@ jQuery('form#"."selecttemplate select').change(function() { this.form.submit(); 
                         <textarea name="message" id="message" class="xar-form-textareaxlarge">#xarVarPrepForDisplay($message)#</textarea>
                     </div>
                 </div>
-        </fieldset>
+        </div>
         <div class="xar-form-footer">
           <input type="hidden" name="authid" id="authid" value="#$authid#" />
           <input type="hidden" name="phase" id="phase" value="update" />
@@ -256,6 +252,5 @@ jQuery('form#"."selecttemplate select').change(function() { this.form.submit(); 
                 <xar:mlstring>URL of the site</xar:mlstring>&nbsp;(#xarServerGetBaseURL()#)
             </xar:foreach>
         </xar:if>
-        <br class="xar-clearboth" />
     </form>
 </div>

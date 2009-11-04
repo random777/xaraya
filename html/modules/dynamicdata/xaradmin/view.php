@@ -3,7 +3,7 @@
  * Dynamic data view items
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -97,11 +97,8 @@ function dynamicdata_admin_view($args)
             if (!empty($seenmod[$modList[$i]['regid']])) {
                 continue;
             }
-            if (isset($modList[$i]['category']) && $oldcat != $modList[$i]['category']) {
-                $modList[$i]['header'] = xarVarPrepForDisplay($modList[$i]['category']);
-                $oldcat = $modList[$i]['category'];
-            } else {
-                $modList[$i]['header'] = '';
+            if (!isset($data['modlist'][$modList[$i]['category']]) && $modList[$i]['category'] != '') {
+                $data['modlist'][$modList[$i]['category']] = array();
             }
             if(xarSecurityCheck('AdminDynamicDataItem',0,'Item',$modList[$i]['regid'].':All:All')) {
                 $modList[$i]['link'] = xarModURL('dynamicdata','admin','modifyprop',
@@ -109,7 +106,7 @@ function dynamicdata_admin_view($args)
             } else {
                 $modList[$i]['link'] = '';
             }
-            $data['modlist'][] = $modList[$i];
+            $data['modlist'][$modList[$i]['category']][] = $modList[$i];
         }
     }
 
@@ -126,7 +123,7 @@ function dynamicdata_admin_view($args)
                                            array('itemid' => $objectid));
         }
     }
-
+//die(var_dump($data['modlist']));
     // Return the template variables defined in this function
     return $data;
 }

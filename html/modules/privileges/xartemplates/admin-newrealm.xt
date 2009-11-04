@@ -3,26 +3,20 @@
     <span class="xar-mod-title"><xar:mlstring>Privileges Administration</xar:mlstring></span>
 </div>
 <div class="xar-mod-body">
-  <xar:template type="module" file="admin-menu" />
+    <xar:template type="module" file="admin-menu" />
 
-   <xar:template type="module" file="admin-realms" />
+    <xar:template type="module" file="admin-realms" />
 
+    <h3>
+        <xar:mlstring>Add Realm</xar:mlstring>
+    </h3>
     <form id="privilegeform" action="#xarModURL('privileges','admin','newrealm')#" method="post" enctype="application/x-www-form-urlencoded">
-        <fieldset>
-            <legend>
-            <xar:mlstring>
-                Add Realm 
-            </xar:mlstring>
-            </legend>
-            <div class="xar-form-input-wrapper">
+        <div class="xar-form-input-wrapper">
             <label for="pname" title="#xarML('Name of the realm')#" class="xar-form-label">
-                <xar:mlstring>
-                Name:
-                </xar:mlstring>
+                <xar:mlstring>Name:</xar:mlstring>
             </label>
             <input type="text" name="name" id="name" value="" size="20" maxlength="20" tabindex="1" class="xar-form-textmedium" />
-            </div>
-        </fieldset>
+        </div>
         <div class="xar-form-footer">
             <input type="hidden" name="authid" id="authid" value="#$authid#" />
             <input type="hidden" name="confirmed" id="confirmed" value="true" />

@@ -7,20 +7,18 @@
 <xar:set name="unboxed_checked">false</xar:set>
 <xar:if condition="$mlsmode eq 'UNBOXED'"><xar:set name="unboxed_checked">true</xar:set></xar:if>
 
-<input type="hidden" name="translationsbackend" id="translationsbackend" value="xml2php" />
-
-<fieldset>
-    <legend>
+<div class="xar-form-section">
+    <h3>
         <xar:mlstring>Language/Locale Configuration</xar:mlstring>
-    </legend>
+    </h3>
     <p><xar:mlstring>The following locales are available to this site:</xar:mlstring></p>
 
     <xar:loop name="$locales">
         <div class="xar-form-input-wrapper-after">
-             <xar:if condition="$loop:item['active'] eq 'true'">
-                  <input type="checkbox" id="locale_#$loop:index#" name="active[]" value="#$loop:item['name']#" checked="checked" />
+            <xar:if condition="$loop:item['active'] eq 'true'">
+                <input type="checkbox" id="locale_#$loop:index#" name="active[]" value="#$loop:item['name']#" checked="checked" />
             <xar:else />
-                  <input type="checkbox" id="locale_#$loop:index#" name="active[]" value="#$loop:item['name']#" />
+                <input type="checkbox" id="locale_#$loop:index#" name="active[]" value="#$loop:item['name']#" />
             </xar:if>
             <label for="locale_#$loop:index#">
                 #$loop:item['name']#
@@ -41,20 +39,22 @@
                 </xar:if>
             </xar:loop>
         </select>
+        <input type="hidden" name="translationsbackend" id="translationsbackend" value="xml2php" />
     </div>
-</fieldset>
+</div>
 
-<fieldset>
-    <legend>
+<div class="xar-form-section">
+    <h3>
         <xar:mlstring>Mode of Operation</xar:mlstring>
-    </legend>
+    </h3>
 
     <p><xar:mlstring>The multilanguage system (MLS) works in three different modes.</xar:mlstring></p>
 
-    <p><xar:mlstring>Please note that you cannot use UNBOXED mode of the MultiLanguage system unless you have php 4.3.0
-    with the mbstring extension compiled in.</xar:mlstring></p>
+    <p>
+        <xar:mlstring>Please note that you cannot use UNBOXED mode of the MultiLanguage system unless you have php 4.3.0 with the mbstring extension compiled in.</xar:mlstring>
+    </p>
 
-    <div class="xar-form-input-wrapper">
+    <div class="xar-form-input-wrapper-after">
         <xar:if condition="$single_checked">
             <input type="radio" id="mlsmode_single" name="mlsmode" value="SINGLE" checked="checked" />
         <xar:else/>
@@ -66,14 +66,10 @@
     </div>
 
     <p>
-        <xar:mlstring>
-        MLS uses only one character set, typically single byte but potentially multi byte if mb_string is 
-        built in. All information is stored coherently with the chosen character set (at installation time), 
-        and also user data is meaningful in the chosen character set.
-        </xar:mlstring>
+        <xar:mlstring>MLS uses only one character set, typically single byte but potentially multi byte if mb_string is built in. All information is stored coherently with the chosen character set (at installation time), and also user data is meaningful in the chosen character set.</xar:mlstring>
     </p>
 
-    <div class="xar-form-input-wrapper">
+    <div class="xar-form-input-wrapper-after">
         <xar:if condition="$boxed_checked">
             <input type="radio" id="mlsmode_boxed" name="mlsmode" value="BOXED" checked="checked"/>
         <xar:else/>
@@ -85,23 +81,17 @@
     </div>
 
     <p>
-        <xar:mlstring>MLS can use more than one character set in the site (the same consideration for the single or multi byte matter as 
-        above can be applied here), but only one character set per page is used (this is an obvious concept maybe, 
-        but important to understand). Due to this fact content cannot be shared across through different 
-        language areas (for example an Arabic comment won't be shown in the English area even if 
-        they are referring to the same object, e.g. an article available in both English and Arabic). 
-        Another point is that every operation involves only a single language. This mode can produce 
-        unexpected results if mb_string is not installed.</xar:mlstring>
+        <xar:mlstring>MLS can use more than one character set in the site (the same consideration for the single or multi byte matter as above can be applied here), but only one character set per page is used (this is an obvious concept maybe, but important to understand). Due to this fact content cannot be shared across through different language areas (for example an Arabic comment won't be shown in the English area even if they are referring to the same object, e.g. an article available in both English and Arabic). Another point is that every operation involves only a single language. This mode can produce unexpected results if mb_string is not installed.</xar:mlstring>
     </p>
     <p>
         <xar:if condition="function_exists('mb_strlen')">
-            (<xar:mlstring>It is installed on this server, so you can give this mode a try</xar:mlstring>)
+            <xar:mlstring>(It is installed on this server, so you can give this mode a try)</xar:mlstring>
         <xar:else/>
-            (<xar:mlstring>WARNING: mb_string is NOT installed on this server, proceed with caution</xar:mlstring>)
+            <xar:mlstring>(WARNING: mb_string is NOT installed on this server, proceed with caution)</xar:mlstring>
         </xar:if>
     </p>
 
-    <div class="xar-form-input-wrapper">
+    <div class="xar-form-input-wrapper-after">
         <xar:if condition="$unboxed_checked">
             <input type="radio" id="mlsmode_unboxed" name="mlsmode" value="UNBOXED" checked="checked"/>
         <xar:else/>
@@ -113,21 +103,17 @@
     </div>
 
     <p>
-        <xar:mlstring>MLS uses an universal character set to represent everything (read: UTF-8). This guarantees that no 
-        conversion is needed for the content representation. Every page is always shown according to 
-        the user chosen language, but the page can contain texts in other languages 
-        (for example a French article and comments inside an English page).
-        </xar:mlstring>
+        <xar:mlstring>MLS uses an universal character set to represent everything (read: UTF-8). This guarantees that no conversion is needed for the content representation. Every page is always shown according to the user chosen language, but the page can contain texts in other languages (for example a French article and comments inside an English page).</xar:mlstring>
     </p>
 
-</fieldset>
+</div>
 
 
 <xar:comment>    
-<fieldset>
-    <legend>
+<div class="xar-form-section">
+    <h3>
         <xar:mlstring>Translations backend</xar:mlstring>
-    </legend>
+    </h3>
 
     <p>
         <xar:mlstring>The translated information for Xaraya and its modules can be stored in different back-ends. The following back-ends are supported:</xar:mlstring>
@@ -153,6 +139,5 @@
             </xar:if>
         </select>
     </div>
-
-</fieldset>
+</div>
 </xar:comment>

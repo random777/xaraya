@@ -3,62 +3,44 @@
 </xar:comment>
 <div class="xar-mod-head">
     <span class="xar-mod-title">
-        <xar:mlstring>
-            Blocks Administration 
-        </xar:mlstring>
+        <xar:mlstring>Blocks Administration</xar:mlstring>
     </span>
 </div>
 <div class="xar-mod-body">
  <xar:template type="module" file="admin-menu" />
     <h2>
-        <xar:mlstring>
-            Delete Instance 
-        </xar:mlstring>
+        <xar:mlstring>Delete Instance</xar:mlstring>
     </h2>
     <form method="post" action="#xarModURL('blocks','admin','delete_instance')#">
-        <fieldset>
-            <legend>
-                <xar:mlstring>
-                    Confirm deleting this block? 
-                </xar:mlstring>
-            </legend>
+        <h3>
+            <xar:mlstring>Confirm deleting this block?</xar:mlstring>
+        </h3>
+        <p>
+            <xar:mlstring>Name:</xar:mlstring>
+            #xarVarPrepForDisplay($instance['name'])# 
+        </p>
+        <xar:if condition="!empty($instance['title'])">
             <p>
-                <xar:mlstring>
-                    Name: 
-                </xar:mlstring>
-                #xarVarPrepForDisplay($instance['name'])# 
+                <xar:mlstring>Title:</xar:mlstring>
+                #xarVarPrepForDisplay($instance['title'])# 
             </p>
-            <xar:if condition="!empty($instance['title'])">
-                <p>
-                    <xar:mlstring>
-                        Title: 
-                    </xar:mlstring>
-                    #xarVarPrepForDisplay($instance['title'])# 
-                </p>
+        </xar:if>
+        <p>
+            <xar:mlstring>Groups:</xar:mlstring>
+            <xar:if condition="!empty($instance['groups'])">
+                <xar:loop name="$instance['groups']">
+                    #xarVarPrepForDisplay($loop:item.name)# 
+                </xar:loop>
+                <xar:else />
+                [ 
+                <xar:mlstring>none</xar:mlstring>
+                ] 
             </xar:if>
-            <p>
-                <xar:mlstring>
-                    Groups: 
-                </xar:mlstring>
-                <xar:if condition="!empty($instance['groups'])">
-                    <xar:loop name="$instance['groups']">
-                        #xarVarPrepForDisplay($loop:item.name)# 
-                    </xar:loop>
-                    <xar:else />
-                    [ 
-                    <xar:mlstring>
-                        none 
-                    </xar:mlstring>
-                    ] 
-                </xar:if>
-            </p>
-            <p>
-                <xar:mlstring>
-                    Type: 
-                </xar:mlstring>
-                #xarVarPrepForDisplay($instance['module'])# / #xarVarPrepForDisplay($instance['type'])# 
-            </p>
-        </fieldset>
+        </p>
+        <p>
+            <xar:mlstring>Type:</xar:mlstring>
+            #xarVarPrepForDisplay($instance['module'])# / #xarVarPrepForDisplay($instance['type'])# 
+        </p>
         <div class="xar-form-footer">
             <input type="hidden" name="authid" id="authid" value="#$authid#" />
             <input type="hidden" name="confirm" id="confirm" value="true" />

@@ -1,9 +1,9 @@
 <xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
 <xar:comment>You can use different admin-modifyconfighook-[objectname].xt templates for different objects</xar:comment>
-<fieldset>
-    <legend>
+<div class="xar-form-section">
+    <h4>
         #$labels.dynamicdata#
-    </legend>
+    </h4>
 
     <p>
         [ <a href="#$link#">#$labels.config#</a> ]
@@ -43,4 +43,4 @@
             <xar:mlstring>No properties currently available.</xar:mlstring>
         </p>
     </xar:if>
-</fieldset>
+</div>

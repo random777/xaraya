@@ -12,7 +12,7 @@ jQuery('#"."treewrapper a').click(function(event) {
     <span class="xar-mod-title"><xar:mlstring>Privileges Administration</xar:mlstring></span>
 </div>
 <div class="xar-mod-body">
- <xar:template type="module" file="admin-menu" />
+<xar:template type="module" file="admin-menu" />
     <h2>
         <xar:mlstring>Display Privilege:</xar:mlstring>
         #$pname#
@@ -21,13 +21,12 @@ jQuery('#"."treewrapper a').click(function(event) {
     <xar:if condition="count($parents) ne 0">
         <div>
             <dl class="xar-tabs">
-                <dt class="help" title="These are the privileges that contain #$pname# as a component"><xar:mlstring>Used in</xar:mlstring> :
-                </dt>
+                <dt class="help" title="These are the privileges that contain #$pname# as a component"><xar:mlstring>Used in:</xar:mlstring></dt>
                 <xar:set name="prevgroup">""</xar:set>
                 <xar:for start="$i=0" test="$i lt count($parents)" iter="$i++">
                     <xar:if condition="$prevgroup ne $parents[$i]['parentname']">
                         <dd>
-                            <a href="#xarModURL('privileges','admin','displayprivilege',array('pid' => $parents[$i][parentid]))#" title="#xarML('Show this privilege')#">#$parents[$i]['parentname']#</a>
+                            <a href="#xarModURL('privileges','admin','displayprivilege',array('pid' => $parents[$i]['parentid']))#" title="#xarML('Show this privilege')#">#$parents[$i]['parentname']#</a>
                         </dd>
                     </xar:if>
                     <xar:set name="prevgroup">#$parents[$i]['parentname']#</xar:set>
@@ -43,93 +42,95 @@ jQuery('#"."treewrapper a').click(function(event) {
             </dt>
             <dd class="active">
                 <a href="#xarModURL('privileges','admin','displayprivilege',array('pid' => $ppid))#" class="active"><xar:mlstring>Display</xar:mlstring></a>
-            </dd>    
+            </dd>
             <dd>
                 <a href="#xarModURL('privileges','admin','modifyprivilege',array('pid' => $ppid))#"><xar:mlstring>Modify</xar:mlstring></a>
-            </dd>    
+            </dd>
             <dd>
                 <a href="#xarModURL('privileges','admin','deleteprivilege',array('pid' => $ppid))#"><xar:mlstring>Delete</xar:mlstring></a>
-            </dd>    
+            </dd>
             <dd>
                 <a href="#xarModURL('privileges','admin','viewroles',array('pid' => $ppid))#"><xar:mlstring>Groups/Users</xar:mlstring></a>
-            </dd>    
+            </dd>
         </dl>
     </div>
 
-    <fieldset>
-      <legend><xar:mlstring>Privilege properties</xar:mlstring></legend>
-      <div class="xar-form-input-wrapper">
-        <label class="xar-form-label"><xar:mlstring>Name:</xar:mlstring></label>
-        <span>#$pname#</span>
-      </div>
+    <div class="xar-form-section">
+          <h3>
+                <xar:mlstring>Privilege properties</xar:mlstring>
+          </h3>
+          <div class="xar-form-input-wrapper">
+                <label class="xar-form-label"><xar:mlstring>Name:</xar:mlstring></label>
+                <span>#$pname#</span>
+          </div>
 
-      <xar:if condition="$ptype eq 'empty'">
-        <p class="xar-form-input-wrapper-after">
-          <xar:mlstring>This is an empty container for other privileges.</xar:mlstring>
-        </p>
-      </xar:if>
-      
-      <div class="xar-form-input-wrapper">
-        <label class="xar-form-label"><xar:mlstring>Realm:</xar:mlstring></label>
-        <span>#$prealm#</span>
-      </div>
-      
-      <div class="xar-form-input-wrapper">
-        <label class="xar-form-label"><xar:mlstring>Module:</xar:mlstring></label>
-        <span>#$pmodule#</span>
-      </div>
-      
-      <div class="xar-form-input-wrapper">
-        <label class="xar-form-label"><xar:mlstring>Component:</xar:mlstring></label>
-        <span>#$pcomponent#</span>
-      </div>
-      
-      <div class="xar-form-input-wrapper">
-        <label class="xar-form-label"><xar:mlstring>Level:</xar:mlstring></label>
-        <span>
-          <xar:if condition="$plevel eq 0">
-            <xar:mlstring>None</xar:mlstring>
-            <xar:elseif condition="$plevel eq 100" />
-            <xar:mlstring>Overview</xar:mlstring>
-            <xar:elseif condition="$plevel eq 200" />
-            <xar:mlstring>Read</xar:mlstring>
-            <xar:elseif condition="$plevel eq 300" />
-            <xar:mlstring>Comment</xar:mlstring>
-            <xar:elseif condition="$plevel eq 400" />
-            <xar:mlstring>Moderate</xar:mlstring>
-            <xar:elseif condition="$plevel eq 500" />
-            <xar:mlstring>Edit</xar:mlstring>
-            <xar:elseif condition="$plevel eq 600" />
-            <xar:mlstring>Add</xar:mlstring>
-            <xar:elseif condition="$plevel eq 700" />
-            <xar:mlstring>Delete</xar:mlstring>
-            <xar:elseif condition="$plevel eq 800" />
-            <xar:mlstring>Admin</xar:mlstring>
-          </xar:if>
-        </span>
-      </div>
-      
-      <div class="xar-form-input-wrapper">
-        <label class="xar-form-label"><xar:mlstring>Description:</xar:mlstring></label>
-        <span>#$pdescription#</span>
-      </div>
+        <xar:if condition="$ptype eq 'empty'">
+            <p class="xar-form-input-wrapper-after">
+              <xar:mlstring>This is an empty container for other privileges.</xar:mlstring>
+            </p>
+        </xar:if>
+        
+        <div class="xar-form-input-wrapper">
+            <label class="xar-form-label"><xar:mlstring>Realm:</xar:mlstring></label>
+            <span>#$prealm#</span>
+        </div>
+        
+        <div class="xar-form-input-wrapper">
+            <label class="xar-form-label"><xar:mlstring>Module:</xar:mlstring></label>
+            <span>#$pmodule#</span>
+        </div>
+        
+        <div class="xar-form-input-wrapper">
+            <label class="xar-form-label"><xar:mlstring>Component:</xar:mlstring></label>
+            <span>#$pcomponent#</span>
+        </div>
+        
+        <div class="xar-form-input-wrapper">
+            <label class="xar-form-label"><xar:mlstring>Level:</xar:mlstring></label>
+            <span>
+                <xar:if condition="$plevel eq 0">
+                    <xar:mlstring>None</xar:mlstring>
+                <xar:elseif condition="$plevel eq 100" />
+                    <xar:mlstring>Overview</xar:mlstring>
+                <xar:elseif condition="$plevel eq 200" />
+                    <xar:mlstring>Read</xar:mlstring>
+                <xar:elseif condition="$plevel eq 300" />
+                    <xar:mlstring>Comment</xar:mlstring>
+                <xar:elseif condition="$plevel eq 400" />
+                    <xar:mlstring>Moderate</xar:mlstring>
+                <xar:elseif condition="$plevel eq 500" />
+                    <xar:mlstring>Edit</xar:mlstring>
+                <xar:elseif condition="$plevel eq 600" />
+                    <xar:mlstring>Add</xar:mlstring>
+                <xar:elseif condition="$plevel eq 700" />
+                    <xar:mlstring>Delete</xar:mlstring>
+                <xar:elseif condition="$plevel eq 800" />
+                    <xar:mlstring>Admin</xar:mlstring>
+                </xar:if>
+            </span>
+        </div>
+        
+        <div class="xar-form-input-wrapper">
+            <label class="xar-form-label"><xar:mlstring>Description:</xar:mlstring></label>
+            <span>#$pdescription#</span>
+        </div>
 
-      <div class="xar-form-input-wrapper">
-        <label class="xar-form-label"><xar:mlstring>Instances:</xar:mlstring></label>
-        <span>#$instance#</span>
-      </div>
-    </fieldset>
+        <div class="xar-form-input-wrapper">
+            <label class="xar-form-label"><xar:mlstring>Instances:</xar:mlstring></label>
+            <span>#$instance#</span>
+        </div>
+    </div>
     <br class="xar-clearboth" />
-      
-    <fieldset>
-      <legend>
-        <xar:ml>
-          <xar:mlstring>The Components of '#(1)':</xar:mlstring>
-          <xar:mlvar>#$pname#</xar:mlvar>
-        </xar:ml>
-      </legend>
-      <div id="treewrapper">
-        #$tree#
-      </div>
-    </fieldset>
+        
+    <div class="xar-form-section">
+        <h3>
+            <xar:ml>
+                <xar:mlstring>The Components of '#(1)':</xar:mlstring>
+                <xar:mlvar>#$pname#</xar:mlvar>
+            </xar:ml>
+        </h3>
+        <div id="treewrapper">
+            #$tree#
+        </div>
+    </div>
 </div>

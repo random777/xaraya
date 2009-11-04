@@ -10,7 +10,7 @@
             <xar:mlvar>#$label#</xar:mlvar>
         </xar:ml>
     </h2>
-   <xar:template type="module" file="manage-menu" />
+    <xar:template type="module" file="manage-menu" />
     <xar:comment>
         this does all the hard work
     </xar:comment>
@@ -34,31 +34,29 @@
         <xar:comment>
         when we're viewing the Dynamic Objects themselves, show other modules
         </xar:comment>
-        <fieldset>
-          <legend>
-            <xar:mlstring>Other Modules</xar:mlstring>
-          </legend>
+        <div class="xar-form-section">
+            <h3>
+                <xar:mlstring>Other Modules</xar:mlstring>
+            </h3>
 
-          <xar:foreach in="$modlist" value="$module">
-            <xar:if condition="!empty($module['header'])">
-              <h3>
-                #$module['header']# 
-              </h3>
-            </xar:if>
-            
-            <div class="xar-form-input-wrapper">
-              <span class="xar-form-label">
-                #$module['name']#
-              </span>
-              <xar:if condition="empty($module['link'])">
-                <xar:mlstring>Not Applicable</xar:mlstring>
-                <xar:else />
-                <a href="#$module['link']#">
-                  <xar:mlstring>View Properties</xar:mlstring>
-                </a>
-              </xar:if>
-            </div>
-          </xar:foreach>
-        </fieldset>
+            <xar:foreach in="$modlist" key="$modcatname" value="$modcat">
+                <xar:if condition="!empty($modcatname)">
+                    <h4>
+                        #$modcatname#
+                    </h4>
+                </xar:if>
+                <ul>        
+                    <xar:foreach in="$modcat" value="$module">
+                        <li>
+                            <xar:if condition="empty($module['link'])">
+                                #$module['displayname']# <xar:mlstring>(Not Applicable)</xar:mlstring>
+                            <xar:else />
+                                <a href="#$module['link']#" title="#xarML('View Properties')#">#$module['displayname']#</a>
+                            </xar:if>
+                        </li>
+                    </xar:foreach>
+                </ul>
+            </xar:foreach>
+        </div>
     </xar:if>
 </div>

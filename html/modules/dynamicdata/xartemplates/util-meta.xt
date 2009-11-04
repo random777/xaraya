@@ -1,16 +1,20 @@
 <xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:set name="icon_display">xarTplGetImage('icons/display.png','base')</xar:set>
+<xar:set name="icon_test">xarTplGetImage('icons/test.png','base')</xar:set>
+<xar:set name="icon_export">xarTplGetImage('icons/export-xml.png','base')</xar:set>
+<xar:set name="icon_add">xarTplGetImage('icons/add.png','base')</xar:set>
 <xar:style scope="module" file="dd" />
 <div class="xar-mod-head">
     <span class="xar-mod-title">
-        <xar:mlstring>
-            Dynamic Data Administration
-        </xar:mlstring>
+        <xar:mlstring>Dynamic Data Administration</xar:mlstring>
     </span>
 </div>
 <div class="xar-mod-body">
-   <xar:template type="module" file="admin-menu" />
-   <h2><xar:mlstring>Utilities - Meta Table Definitions</xar:mlstring></h2>
-   <xar:template type="module" file="utility-menu" />
+    <xar:template type="module" file="admin-menu" />
+    <h2>
+        <xar:mlstring>Utilities: Meta Table Definitions</xar:mlstring>
+    </h2>
+    <xar:template type="module" file="utility-menu" />
 
     <xar:if condition="empty($export)">
         <xar:if condition="!empty($databases)">
@@ -31,11 +35,7 @@
         </xar:if>
 
         <xar:if condition="empty($table)">
-            <xar:set name="icon_display">xarTplGetImage('icons/display.png','base')</xar:set>
-            <xar:set name="icon_test">xarTplGetImage('icons/test.png','base')</xar:set>
-            <xar:set name="icon_export">xarTplGetImage('icons/export-xml.png','base')</xar:set>
-            <xar:set name="icon_add">xarTplGetImage('icons/add.png','base')</xar:set>
-            <table>
+            <table class="xar-items">
                 <thead>
                 <tr>
                     <th>
@@ -47,14 +47,15 @@
                 </tr>
                 </thead>
                 <tbody>
+                <xar:set name="rowclass">'xar-norm'</xar:set>
                 <xar:foreach in="$tables" key="$curtable" value="$fields">
-                    <tr>
+                    <tr class="#$rowclass#">
                         <td>
                             <a href="#xarModURL('dynamicdata','util','meta',array('table' => $curtable))#">
                                 #$curtable# 
                             </a>
                         </td>
-                        <td class="xar-align-center">
+                        <td class="xar-item-actions">
                             <a href="#xarModURL('dynamicdata','admin','view',array('table' => $curtable))#" title="#xarML('View')#" class="xar-icon">
                                 <img src="#$icon_display#" alt="#xarML('View')#" />
                             </a>
@@ -69,6 +70,7 @@
                             </a>
                         </td>
                     </tr>
+                    <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
                 </xar:foreach>
                 </tbody>
             </table>
@@ -78,30 +80,21 @@
             </h3>
 
             <p>
-                <a href="#xarModURL('dynamicdata','admin','view',array('table' => $table))#">
-                    <xar:mlstring>View</xar:mlstring>
+                <a href="#xarModURL('dynamicdata','admin','view',array('table' => $table))#" title="#xarML('View')#" class="xar-icon">
+                    <img src="#$icon_display#" alt="#xarML('View')#" />
                 </a>
-                | 
-                <a href="#xarModURL('dynamicdata','admin','query',array('table' => $table))#">
-                    <xar:mlstring>
-                        Query 
-                    </xar:mlstring>
+                <a href="#xarModURL('dynamicdata','admin','query',array('table' => $table))#" title="#xarML('Query')#" class="xar-icon">
+                    <img src="#$icon_test#" alt="#xarML('Query')#" />
                 </a>
-                | 
-                <a href="#xarModURL('dynamicdata','util','meta',array('table' => $table, 'export' => 1))#">
-                    <xar:mlstring>
-                        Export XML 
-                    </xar:mlstring>
+                <a href="#xarModURL('dynamicdata','util','meta',array('table' => $table, 'export' => 1))#" title="#xarML('Export XML')#" class="xar-icon">
+                    <img src="#$icon_export#" alt="#xarML('Export XML')#" />
                 </a>
-                | 
-                <a href="#xarModURL('dynamicdata','util','relations',array('table' => $table))#">
-                    <xar:mlstring>
-                        Add Relation 
-                    </xar:mlstring>
+                <a href="#xarModURL('dynamicdata','util','relations',array('table' => $table))#" title="#xarML('Add Relation')#" class="xar-icon">
+                    <img src="#$icon_add#" alt="#xarML('Add Relation')#" />
                 </a>
             </p>
 
-            <table>
+            <table class="xar-items">
                 <thead>
                 <tr>
                     <th>
@@ -165,20 +158,19 @@
             </a>
         </p>
     <xar:else />
+        <h3>
+            <xar:ml>
+                <xar:mlstring>Metatable definition for #(1)</xar:mlstring>
+                <xar:mlvar>#$table#</xar:mlvar>
+            </xar:ml>
+        </h3>
         <form method="post" action="#xarModURL('dynamicdata','util','import')#">
-            <fieldset>
-                <legend>
-                    <xar:ml>
-                        <xar:mlstring>Metatable definition for #(1)</xar:mlstring>
-                        <xar:mlvar>#$table#</xar:mlvar>
-                    </xar:ml>
-                </legend>
-                <div class="xar-form-input-wrapper">
-                    <label for="xml" class="xar-form-label">
-                        <xar:mlstring>Definition:</xar:mlstring>
-                    </label>
-                    <div class="xar-form-container-after">
-                        <textarea name="xml" id="xml" class="xar-form-textarealarge">
+            <div class="xar-form-input-wrapper">
+                <label for="xml" class="xar-form-label">
+                    <xar:mlstring>Definition:</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                    <textarea name="xml" id="xml" class="xar-form-textarealarge">
 &lt;objects&gt;
     <xar:foreach in="$tables" key="$curtable" value="$fields">
         <xar:set name="tablename">strtr($curtable,'.','_')</xar:set>
@@ -204,10 +196,9 @@
         &lt;/object&gt;
     </xar:foreach>
 &lt;/objects&gt;
-                        </textarea>
-                    </div>
+                    </textarea>
                 </div>
-            </fieldset>
+            </div>
             <div class="xar-form-footer">
                 <input type="hidden" name="authid" value="#xarSecGenAuthKey()#" />
                 <input type="submit" value="#xarML('Import Table Definition')#" />

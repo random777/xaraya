@@ -9,8 +9,10 @@
     </h2>
 
     <form class="xar-fullwidth" method="post" action="#$updateurl#" enctype="application/x-www-form-urlencoded">
-      <fieldset>
-        <legend><xar:mlstring>Tag details</xar:mlstring></legend>
+      <div class="xar-form-section">
+        <h3>
+            <xar:mlstring>Tag details</xar:mlstring>
+        </h3>
     
         <div class="xar-form-input-wrapper">
             <label for="tag_module" title="#xarML('The module which provides this tag')#" class="xar-form-label">
@@ -48,7 +50,7 @@
                 </xar:for>
             </div>
         </xar:comment>
-      </fieldset>
+      </div>
 
         <div class="xar-form-footer">
             <!-- the same function is used for updates and inserts, therefore we

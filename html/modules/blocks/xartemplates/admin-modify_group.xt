@@ -54,11 +54,6 @@ jQuery('div#[id^=xar_orderselect] button').click(function() {
     <h2><xar:mlstring>Modify Group</xar:mlstring></h2>
 
     <form action="#xarModURL('blocks', 'admin', 'update_group')#" method="post" enctype="application/x-www-form-urlencoded" >
-      <fieldset>
-        <legend>
-          <xar:mlstring>Group Properties</xar:mlstring>
-        </legend>
-
         <div class="xar-form-input-wrapper">
             <label for="group_name" title="#xarML('Enter the name of the group.  This value is used in your theme template to call the block group.')#" class="xar-form-label">
                 <xar:mlstring>Name:</xar:mlstring>
@@ -149,7 +144,6 @@ jQuery('div#[id^=xar_orderselect] button').click(function() {
                 [ <xar:mlstring>none</xar:mlstring> ]
             </xar:if>
         </div>
-      </fieldset>
 
         <div class="xar-form-footer">
             <input type="hidden" name="authid" id="authid" value="#$authid#" />

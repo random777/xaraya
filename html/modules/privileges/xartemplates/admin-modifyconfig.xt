@@ -12,24 +12,18 @@ jQuery('#"."testergroup').change(function() {
 <xar:style scope="module" module="base" file="navtabs" />
 <div class="xar-mod-head">
     <span class="xar-mod-title">
-        <xar:mlstring>
-            Privileges Administration
-        </xar:mlstring>
+        <xar:mlstring>Privileges Administration</xar:mlstring>
     </span>
 </div>
 <div class="xar-mod-body">
    <xar:template type="module" file="admin-menu" />
     <h2>
-        <xar:mlstring>
-            Modify Configuration
-        </xar:mlstring>
+        <xar:mlstring>Modify Configuration</xar:mlstring>
     </h2>
     <div>
         <dl class="xar-tabs">
             <dt class="help">
-                <xar:mlstring>
-                    Options:
-                </xar:mlstring>
+                <xar:mlstring>Options:</xar:mlstring>
             </dt>
             <xar:if condition="$tab eq 'general'">
                 <dd class="active">
@@ -47,17 +41,13 @@ jQuery('#"."testergroup').change(function() {
             <xar:if condition="$tab eq 'realms'">
                 <dd class="active">
                     <a href="#xarModURL('privileges','admin','modifyconfig',array('tab' => 'realms'))#">
-                        <xar:mlstring>
-                            Realms
-                        </xar:mlstring>
+                        <xar:mlstring>Realms</xar:mlstring>
                     </a>
                 </dd>
                 <xar:else />
                 <dd>
                     <a href="#xarModURL('privileges','admin','modifyconfig',array('tab' => 'realms'))#">
-                        <xar:mlstring>
-                            Realms
-                        </xar:mlstring>
+                        <xar:mlstring>Realms</xar:mlstring>
                     </a>
                 </dd>
             </xar:if>
@@ -109,24 +99,25 @@ jQuery('#"."testergroup').change(function() {
     </xar:comment>
     <xar:if condition="$tab eq 'general'">
         <form method="post" action="#xarModURL('privileges','admin','modifyconfig')#" enctype="application/x-www-form-urlencoded" >
-            <fieldset>
-                <legend>
-                    <xar:mlstring>
-                        Sitewide Settings 
-                    </xar:mlstring>
-                </legend>
-                <div class="xar-form-input-wrapper">
-                    <label for="exceptionredirect" title="#xarML('Show exceptions messages or redirect to a login screen')#" class="xar-form-label">
-                        <xar:mlstring>Exception Redirect:</xar:mlstring>
-                    </label>
+            <div class="xar-form-section">
+                <h3>
+                    <xar:mlstring>Sitewide Settings </xar:mlstring>
+                </h3>
+                <div class="xar-form-input-wrapper-after">
                     <xar:if condition="xarModGetVar('privileges', 'exceptionredirect')">
                         <input type="checkbox" name="exceptionredirect" id="exceptionredirect" value="1" checked="checked" />
                     <xar:else />
                         <input type="checkbox" name="exceptionredirect" id="exceptionredirect" value="1" />
                     </xar:if>
-                    <xar:mlstring>This redirects a non-logged in user to the login screen if they don't have the proper privileges. </xar:mlstring>
-                </div>
-                <div class="xar-form-input-wrapper-after"><xar:mlstring>A logged in user will see the exception error message that can be changed with a base module override template (message-NO_PRIVILEGES.xt).</xar:mlstring>
+                    <label for="exceptionredirect" title="#xarML('Show exceptions messages or redirect to a login screen')#">
+                        <xar:mlstring>Exception Redirect</xar:mlstring>
+                    </label>
+                    <p>
+                        <xar:mlstring>This redirects a non-logged in user to the login screen if they don't have the proper privileges.</xar:mlstring>
+                    </p>
+                    <p>
+                        <xar:mlstring>A logged in user will see the exception error message that can be changed with a base module override template (message-NO_PRIVILEGES.xt).</xar:mlstring>
+                    </p>
                 </div>
                 <xar:comment>
                 <div class="xar-form-input-wrapper">
@@ -141,23 +132,25 @@ jQuery('#"."testergroup').change(function() {
                     <xar:mlstring>Warning: This setting affects the way privileges work on your site. If changed you should retest all the privileges on your site.</xar:mlstring>
                 </div>
                 </xar:comment>
-                <legend>
-                    <xar:mlstring>
-                        Last Resort
-                    </xar:mlstring>
-                </legend>
-                <div class="xar-form-input-wrapper">
-                    <label for="lastresort" title="#xarML('Enable or disable an administrator of last resort')#" class="xar-form-label">
-                        <xar:mlstring>Last Resort Admin:</xar:mlstring>
-                    </label>
+            </div>
+            <div class="xar-form-section">
+                <h3>
+                    <xar:mlstring>Last Resort</xar:mlstring>
+                </h3>
+                <div class="xar-form-input-wrapper-after">
                     <xar:if condition="xarModGetVar('privileges', 'lastresort')">
                         <input type="checkbox" name="lastresort" id="lastresort" value="1" checked="checked" />
                     <xar:else />
                         <input type="checkbox" name="lastresort" id="lastresort" value="1" />
                     </xar:if>
-                    <xar:mlstring>Warning: This setting opens a tab to enable you to create an administrator whose privileges cannot be removed.</xar:mlstring>
+                    <label for="lastresort" title="#xarML('Enable or disable an administrator of last resort')#">
+                        <xar:mlstring>Last Resort Admin</xar:mlstring>
+                    </label>
+                    <p>
+                        <xar:mlstring>Warning: This setting opens a tab to enable you to create an administrator whose privileges cannot be removed.</xar:mlstring>
+                    </p>
                 </div>
-            </fieldset>
+            </div>
             <div class="xar-form-footer">
                 <input type="hidden" name="authid" id="authid" value="#$authid#" />
                 <input type="hidden" name="phase" id="phase" value="update" />
@@ -171,42 +164,36 @@ jQuery('#"."testergroup').change(function() {
     </xar:comment>
     <xar:if condition="$tab eq 'realms'">
         <form method="post" action="#xarModURL('privileges','admin','modifyconfig')#" enctype="application/x-www-form-urlencoded">
-            <fieldset>
-                <legend>
-                    <xar:mlstring>
-                        Working With Realms 
-                    </xar:mlstring>
-                </legend>
-                <div class="xar-form-input-wrapper">
-                    <label for="enablerealms" title="#xarML('Show or hide realms in the privileges input screens')#" class="xar-form-label">
-                        <xar:mlstring>
-                            Enable Realms
-                        </xar:mlstring>
-                    </label>
+            <div class="xar-form-section">
+                <h3>
+                    <xar:mlstring>Working With Realms </xar:mlstring>
+                </h3>
+                <div class="xar-form-input-wrapper-after">
                     <xar:if condition="xarModGetVar('privileges', 'showrealms')">
                         <input type="checkbox" name="enablerealms" id="enablerealms" value="1" checked="checked" />
-                        <xar:else />
+                    <xar:else />
                         <input type="checkbox" name="enablerealms" id="enablerealms" value="1" />
                     </xar:if>
-                    <xar:mlstring>Checking this enables the Manage Realms item on the Privileges menu</xar:mlstring>
+                    <label for="enablerealms" title="#xarML('Show or hide realms in the privileges input screens')#">
+                        <xar:mlstring>Enable Realms</xar:mlstring>
+                    </label>
+                    <p>
+                        <xar:mlstring>Checking this enables the Manage Realms item on the Privileges menu</xar:mlstring>
+                    </p>
                 </div>
-            </fieldset>
+            </div>
             <xar:if condition="xarModGetVar('privileges', 'showrealms')">
-                <fieldset>
-                    <legend>
-                        <xar:mlstring>
-                            Realm Privilege Options
-                        </xar:mlstring>
-                    </legend>
-                     <p class="xar-form-input-wrapper-after xar-padding-thickends">
+                <div class="xar-form-section">
+                    <h3>
+                        <xar:mlstring>Realm Privilege Options</xar:mlstring>
+                    </h3>
+                    <p>
                         <xar:mlstring>Security checks will look for a match on the realm part of any privilege you define, with the 'realm mask' as defined below.</xar:mlstring>
-                        </p>
+                    </p>
 
                     <div class="xar-form-input-wrapper">
-                        <label for="maskvalue" title="#xarML('The following choice will be inserted into any mask')#" class="xar-form-label">
-                            <xar:mlstring>
-                                Realm Value for Masks
-                            </xar:mlstring>
+                        <label title="#xarML('The following choice will be inserted into any mask')#" class="xar-form-label">
+                            <xar:mlstring>Realm Value for Masks</xar:mlstring>
                         </label>
                         <xar:set name="realmoptions">array(
                                                 array('id' => 'none', 'name' => 'No Value'),
@@ -217,56 +204,60 @@ jQuery('#"."testergroup').change(function() {
                                                 )
                                                 </xar:set>
 
-                       <div class="xar-form-container-after">
-                        <xar:foreach in="$realmoptions" key="$key" value="$value">
-                            <p>
-                            <xar:if condition="$realmvalue eq $value['id']">
-                                <input type="radio" value="#$value['id']#" name="realmvalue" id="realmvalue" checked="checked" /> #xarML($value['name'])#
-                            <xar:else />
-                                <input type="radio" value="#$value['id']#" name="realmvalue" id="realmvalue" /> #xarML($value['name'])#
-                            </xar:if>
-                            </p>
-                        </xar:foreach>
+                        <div class="xar-form-container-after">
+                            <xar:foreach in="$realmoptions" key="$key" value="$value">
+                                <div>
+                                    <xar:if condition="$realmvalue eq $value['id']">
+                                        <input type="radio" value="#$value['id']#" name="realmvalue" id="realmvalue_#$value['id']#" checked="checked" />
+                                    <xar:else />
+                                        <input type="radio" value="#$value['id']#" name="realmvalue" id="realmvalue_#$value['id']#" />
+                                    </xar:if>
+                                    <label for="realmvalue_#$value['id']#">
+                                        #xarML($value['name'])#
+                                    </label>
+                                </div>
+                            </xar:foreach>
                         </div>
-
                     </div>
                     <div class="xar-form-input-wrapper">
-                    <label for="textvalue" title="#xarML('Text value for realm')#" class="xar-form-label">
-                        <xar:mlstring>
-                        Text Value:
-                        </xar:mlstring>
-                    </label>
-                    <input type="text" name="textvalue" id="textvalue" value="#$textvalue#" size="50" maxlength="100" class="xar-form-textmedium" />
-                    &nbsp;
-                    <xar:mlstring>(only applies when Text Value option is chosen)</xar:mlstring>
+                        <label for="textvalue" title="#xarML('Text value for realm')#" class="xar-form-label">
+                            <xar:mlstring>Text Value:</xar:mlstring>
+                        </label>
+                        <div class="xar-form-container-after">
+                            <input type="text" name="textvalue" id="textvalue" value="#$textvalue#" size="50" maxlength="100" class="xar-form-textmedium" />
+                            <p>
+                                <xar:mlstring>(only applies when Text Value option is chosen)</xar:mlstring>
+                            </p>
+                        </div>
                     </div>
                     <div class="xar-form-input-wrapper">
                         <label for="maskvalue" title="#xarML('The following choice will be inserted into any mask')#" class="xar-form-label">
-                            <xar:mlstring>
-                                Realm Comparison Type
-                            </xar:mlstring>
+                            <xar:mlstring>Realm Comparison Type</xar:mlstring>
                         </label>
                         <xar:set name="options">array(
                                                 array('id' => 'exact', 'name' => 'Exact Match'),
                                                 array('id' => 'contains', 'name' => 'Privilege Contains Mask Name'),)
                                                 </xar:set>
                         <xar:set name="realmcomparison">xarModGetVar('privileges', 'realmcomparison')</xar:set>
-                         <div class="xar-form-container-after">
-                        <xar:foreach in="$options" key="$key" value="$value">
+                        <div class="xar-form-container-after">
+                            <xar:foreach in="$options" key="$key" value="$value">
+                                <div>
+                                    <xar:if condition="$realmcomparison eq $value['id']">
+                                        <input type="radio" value="#$value['id']#" name="realmcomparison" id="realmcomparison_#$value['id']#" checked="checked" />
+                                    <xar:else />
+                                        <input type="radio" value="#$value['id']#" name="realmcomparison" id="realmcomparison_#$value['id']#" />
+                                    </xar:if>
+                                    <label for="realmcomparison_#$value['id']#">
+                                        #xarML($value['name'])#
+                                    </label>
+                                </div>
+                            </xar:foreach>
                             <p>
-                            <xar:if condition="$realmcomparison eq $value['id']">
-                                <input type="radio" value="#$value['id']#" name="realmcomparison" id="realmvalue" checked="checked" /> #xarML($value['name'])#
-                            <xar:else />
-                                <input type="radio" value="#$value['id']#" name="realmcomparison" id="realmvalue" /> #xarML($value['name'])#
-                            </xar:if>
+                                <xar:mlstring>A realm is accepted if the user's privilege contains its name</xar:mlstring>
                             </p>
-                        </xar:foreach>
                         </div>                      
-                        <p class="xar-form-input-wrapper-after">
-                            <xar:mlstring>A realm is accepted if the user's privilege contains its name</xar:mlstring>
-                        </p>
                     </div>
-                </fieldset>
+                </div>
             </xar:if>
             <div class="xar-form-footer">
                 <input type="hidden" name="authid" id="authid" value="#$authid#" />
@@ -281,25 +272,36 @@ jQuery('#"."testergroup').change(function() {
     </xar:comment>
     <xar:if condition="$tab eq 'lastresort' AND xarModGetVar('privileges','lastresort')">
         <form method="post" action="#xarModURL('privileges','admin','modifyconfig')#" enctype="application/x-www-form-urlencoded" >
-            <fieldset>
-                <legend>
-                    <xar:mlstring>
-                        Manage Last Resort Admin
-                    </xar:mlstring>
-                </legend>
-                <div class="xar-form-input-wrapper-before">
-                    <p><xar:mlstring>The Last Resort Administrator will <strong>always</strong> have rights to the entire system.</xar:mlstring></p>
-                    <xar:if condition="!empty($lastresortname)">
-                        <p><xar:mlstring>Enter a name and password to replace the existing Last Resort administrator.</xar:mlstring></p>
-                    <xar:else />
-                         <p><xar:mlstring>Enter a  name and password to create a Last Resort administrator.</xar:mlstring></p>
-                    </xar:if>
-                </div>
+            <div class="xar-form-section">
+                <h3>
+                    <xar:mlstring>Manage Last Resort Admin</xar:mlstring>
+                </h3>
+                <p>
+                    <xar:mlstring>The Last Resort Administrator will <strong>always</strong> have rights to the entire system.</xar:mlstring>
+                </p>
+                <xar:if condition="!empty($lastresortname)">
+                    <p>
+                        <xar:mlstring>Enter a name and password to replace the existing Last Resort administrator.</xar:mlstring>
+                    </p>
+                <xar:else />
+                    <p>
+                        <xar:mlstring>Enter a  name and password to create a Last Resort administrator.</xar:mlstring>
+                    </p>
+                </xar:if>
+
+                <xar:if condition="xarSessionGetVar('statusmsg') ne ''">
+                    <p class="xar-error">
+                        #xarSessionGetVar('statusmsg')#
+                    </p>
+                </xar:if>
+
+               <xar:set name="dummy">xarSessionSetVar('statusmsg','')</xar:set>
+
                 <div class="xar-form-input-wrapper">
                     <label for="name" title="#xarML('Name of the administator of last  resort')#" class="xar-form-label">
                         <xar:mlstring>Admin name:</xar:mlstring>
                     </label>
-                    <input type="text" name="name" id="name" value="" />
+                    <input type="text" name="name" id="name" value="" class="xar-form-textmedium" />
                 </div>
                 <div class="xar-form-input-wrapper">
                     <label for="password" title="#xarML('Password of the administrator of last resort')#" class="xar-form-label">
@@ -313,11 +315,7 @@ jQuery('#"."testergroup').change(function() {
                     </label>
                     <input type="password" name="password2" id="password2" value="" maxlength="40" class="xar-form-textmedium" />
                 </div>
-                <xar:if condition="xarSessionGetVar('statusmsg') ne ''">
-                    <p class="xar-form-input-wrapper-after xar-error">#xarSessionGetVar('statusmsg')#</p>
-                </xar:if>
-               <xar:set name="dummy">xarSessionSetVar('statusmsg','')</xar:set>
-            </fieldset>
+            </div>
             <div class="xar-form-footer">
                 <input type="hidden" name="authid" id="authid" value="#$authid#" />
                 <input type="hidden" name="phase" id="phase" value="update" />
@@ -330,26 +328,14 @@ jQuery('#"."testergroup').change(function() {
         ------------------- Begin Masks --------------------- 
     </xar:comment>
     <xar:if condition="$tab eq 'masks'">
-        <fieldset>
-            <legend>
-                <xar:mlstring>
-                    Registered Masks
-                </xar:mlstring>
-            </legend>
-            <p class="xar-form-input-wrapper">
-                <xar:mlstring>
-                  This option is provided for Web Developer convenience. In general most Site Administrators
-                  should not need to access the Masks list provided below. Editing of the masks without an
-                  understanding of how they function can result in access problems to content on your site.
-                </xar:mlstring>
+        <div class="xar-form-section">
+            <h3>
+                <xar:mlstring>Registered Masks</xar:mlstring>
+            </h3>
+            <p>
+                <xar:mlstring>This option is provided for Web Developer convenience. In general most Site Administrators should not need to access the Masks list provided below. Editing of the masks without an understanding of how they function can result in access problems to content on your site.</xar:mlstring>
             </p>
-            <xar:data-list module="1098" itemtype="3" tplmodule="privileges" />
-        </fieldset>
-        <div class="xar-form-footer">
-            <input type="hidden" name="authid" id="authid" value="#$authid#" />
-            <input type="hidden" name="phase" id="phase" value="update" />
-            <input type="hidden" name="tab" id="tab" value="#$tab#" />
-            <input type="submit" value="#xarML('Update Privileges Configuration')#" />
+            <xar:data-list module="1098" itemtype="3" tplmodule="privileges" template="privileges" />
         </div>
     </xar:if>
     <xar:comment>
@@ -357,102 +343,84 @@ jQuery('#"."testergroup').change(function() {
     </xar:comment>
     <xar:if condition="$tab eq 'testing'">
         <form method="post" id="testerform" name="testerform" action="#xarModURL('privileges','admin','modifyconfig')#" enctype="application/x-www-form-urlencoded" >
-            <fieldset>
-                <legend>
-                    <xar:mlstring>
-                        Testing Settings
-                    </xar:mlstring>
-                </legend>
-                <div>
+            <div class="xar-form-section">
+                <h3>
+                    <xar:mlstring>Testing Settings</xar:mlstring>
+                </h3>
+                <p>
                     <xar:mlstring>These settings let a designated tester see security check messages on a live site.</xar:mlstring>
-                </div>
-                <br />
+                </p>
+
                 <div class="xar-form-input-wrapper">
                     <label for="testergroup" title="#xarML('Group containing the tester')#" class="xar-form-label">
                         <xar:mlstring>Tester Group:</xar:mlstring>
                     </label>
-
                     <select name="testergroup" id="testergroup">
-
-                    <xar:foreach in="$grouplist" key="$k" value="$testers" >
-                         <xar:if condition="$grouplist[$k]['uid'] eq $testergroup">
-                            <option value="#$grouplist[$k]['uid']#" selected="selected">#$grouplist[$k]['name']#</option>
-                        <xar:else />
-                            <option name="testgroup.#$grouplist[$k]#" value="#$grouplist[$k]['uid']#">#$grouplist[$k]['name']#</option>
-                        </xar:if>
-                    </xar:foreach>
+                        <xar:foreach in="$grouplist" key="$k" value="$testers" >
+                             <xar:if condition="$grouplist[$k]['uid'] eq $testergroup">
+                                <option value="#$grouplist[$k]['uid']#" selected="selected">#$grouplist[$k]['name']#</option>
+                            <xar:else />
+                                <option name="testgroup.#$grouplist[$k]#" value="#$grouplist[$k]['uid']#">#$grouplist[$k]['name']#</option>
+                            </xar:if>
+                        </xar:foreach>
                     </select>
-                    <!--<xar:data-input type="grouplist" name="testergroup" is="testergroup" value="$testergroup" />-->
-                    <xar:mlstring>Group to select tester from</xar:mlstring>
                 </div>
                 <div class="xar-form-input-wrapper">
                     <label for="tester" title="#xarML('Name of the administator that will see the messages')#" class="xar-form-label">
                         <xar:mlstring>Tester:</xar:mlstring>
                     </label>
                     <select name="tester" id="tester" size="1">
-                    <xar:foreach in="$testusers" key="$k" value="$testers" >
-                        <xar:if condition="$testusers[$k]['uid'] eq $tester">
-                            <option value="#$testusers[$k]['uid']#" selected="selected">#$testusers[$k]['uname']#</option>
-                        <xar:else />
-                            <option name="tester.#$testusers[$k]#" value="#$testusers[$k]['uid']#">#$testusers[$k]['uname']#</option>
-                        </xar:if>
+                        <xar:foreach in="$testusers" key="$k" value="$testers" >
+                            <xar:if condition="$testusers[$k]['uid'] eq $tester">
+                                <option value="#$testusers[$k]['uid']#" selected="selected">#$testusers[$k]['uname']#</option>
+                            <xar:else />
+                                <option name="tester.#$testusers[$k]#" value="#$testusers[$k]['uid']#">#$testusers[$k]['uname']#</option>
+                            </xar:if>
                         </xar:foreach>
                     </select>
-                    <!--<xar:data-input type="userlist" name="tester" uid="4" value="$tester" />-->
-
-                    <span class="xar-error">
-                   <xar:ml>
-                    <xar:mlstring>
-                    The current tester is <strong>#(1)</strong>.
-                    </xar:mlstring>
-                    <xar:mlvar>
-                       #xarUserGetVar('uname',$tester)#
-                    </xar:mlvar>
-                   </xar:ml>
-                </span>
                 </div>
-                <p class="xar-form-input-wrapper-after">
 
-                <xar:mlstring>They will see the security check messages.</xar:mlstring>
+                <p class="xar-form-input-wrapper-after">
+                    <span class="xar-error">
+                        <xar:ml>
+                            <xar:mlstring>The current tester is <strong>#(1)</strong>.</xar:mlstring>
+                            <xar:mlvar>#xarUserGetVar('uname',$tester)#</xar:mlvar>
+                        </xar:ml>
+                    </span>
+                    <xar:mlstring>They will see the security check messages.</xar:mlstring>
                 </p>
-                <div class="xar-form-input-wrapper">
-                    <label for="test" title="#xarML('Non Deny checks only shows checks that do not involve DENYs')#" class="xar-form-label">
-                        <xar:mlstring>
-                            Non-DENY checks
-                        </xar:mlstring>
-                    </label>
+                <div class="xar-form-input-wrapper-after">
                     <xar:if condition="xarModGetVar('privileges', 'test')">
                         <input type="checkbox" name="test" id="test" value="1" checked="checked" />
-                        <xar:else />
+                    <xar:else />
                         <input type="checkbox" name="test" id="test" value="1" />
                     </xar:if>
-                    <xar:mlstring>Show checks not involving DENYs</xar:mlstring>              
-                </div>
-                <div class="xar-form-input-wrapper">
-                    <label for="testdeny" title="#xarML('Deny checks')#" class="xar-form-label">
-                        <xar:mlstring>
-                            DENY checks
-                        </xar:mlstring>
+                    <label for="test" title="#xarML('Non Deny checks only shows checks that do not involve DENYs')#">
+                        <xar:mlstring>Non-DENY checks</xar:mlstring>
                     </label>
+                </div>
+                <div class="xar-form-input-wrapper-after">
                     <xar:if condition="xarModGetVar('privileges', 'testdeny')">
                         <input type="checkbox" name="testdeny" id="testdeny" value="1" checked="checked" />
-                        <xar:else />
+                    <xar:else />
                         <input type="checkbox" name="testdeny" id="testdeny" value="1" />
                     </xar:if>
-                    <xar:mlstring>Show checks involving DENYs</xar:mlstring>              
+                    <label for="testdeny" title="#xarML('Deny checks')#">
+                        <xar:mlstring>DENY checks</xar:mlstring>
+                    </label>
                 </div>
                 <div class="xar-form-input-wrapper">
                     <label for="testmask" title="#xarML('Mask to test against')#" class="xar-form-label">
-                        <xar:mlstring>
-                            Mask to test
-                        </xar:mlstring>
+                        <xar:mlstring>Mask to test</xar:mlstring>
                     </label>
-                    <input type="text" name="testmask" id="testmask" value="#$testmask#" />
-                    <p class="xar-form-input-wrapper-after">
-                         <xar:mlstring>Adding a mask name here will show only the checks involving that mask</xar:mlstring>
-                    </p>
+                    <div class="xar-form-container-after">
+                        <input type="text" name="testmask" id="testmask" value="#$testmask#" />
+                        <p>
+                             <xar:mlstring>Adding a mask name here will show only the checks involving that mask</xar:mlstring>
+                        </p>
+                    </div>
                 </div>
-            </fieldset>
+            </div>
 
             <div class="xar-form-footer">
                 <input type="hidden" name="authid" id="authid" value="#$authid#" />

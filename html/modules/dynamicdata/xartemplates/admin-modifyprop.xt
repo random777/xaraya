@@ -75,10 +75,12 @@
             </dl>
         </div>
 
-        <fieldset>
-          <legend><xar:mlstring>Object summary</xar:mlstring></legend>
-          <xar:data-display layout="$layout" module="dynamicdata" itemtype="0" itemid="$objectid" fieldlist="name,label,moduleid,itemtype" />
-        </fieldset>
+        <div class="xar-form-section">
+            <h3>
+                <xar:mlstring>Object summary</xar:mlstring>
+            </h3>
+            <xar:data-display layout="$layout" module="dynamicdata" itemtype="0" itemid="$objectid" fieldlist="name,label,moduleid,itemtype" />
+        </div>
     </xar:if>
 
     <xar:comment>This is where the list of properties shown starts</xar:comment>
@@ -114,77 +116,76 @@
     </p>
 
     <xar:if condition="count($static) gt 0">
-      <fieldset>
-        <legend>#$statictitle#</legend>
+        <div class="xar-form-section">
+            <h3>#$statictitle#</h3>
+            <xar:comment>
+            TODO: very much under construction, obviously :-)
+            </xar:comment>
 
-        <xar:comment>
-        TODO: very much under construction, obviously :-)
-        </xar:comment>
-
-        <!-- don't accept updates for this (for now) -->
-        <table class="xar-items">
-            <thead>
-            <tr>
-                <th>
-                    <xar:mlstring>Name</xar:mlstring>
-                </th>
-                <th>
-                    <xar:mlstring>Label</xar:mlstring>
-                </th>
-                <th>
-                    <xar:mlstring>Property Type</xar:mlstring>
-                </th>
-                <th>
-                    <xar:mlstring>Default</xar:mlstring>
-                </th>
-                <th>
-                    <xar:mlstring>Data Source</xar:mlstring>
-                </th>
-                <th>
-                    <xar:mlstring>Validation</xar:mlstring>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <xar:foreach in="$static" value="$field">
+            <!-- don't accept updates for this (for now) -->
+            <table class="xar-items">
+                <thead>
                 <tr>
-                    <td>
-                        #$field['name']#
-                    </td>
-                    <td>
-                        #$field['label']#
-                    </td>
-                    <td>
-                        <xar:data-output property="$fieldtypeprop" name="static_type['.$field['id'].']" value="$field['type']" />
-                    </td>
-                    <td>
-                        #$field['default']#
-                    </td>
-                    <td>
-                        #$field['source']#
-                    </td>
-                    <td>
-                        #$field['validation']#
-                    </td>
+                    <th>
+                        <xar:mlstring>Name</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Label</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Property Type</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Default</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Data Source</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Validation</xar:mlstring>
+                    </th>
                 </tr>
-            </xar:foreach>
-            </tbody>
-        </table>
-      </fieldset>
+                </thead>
+                <tbody>
+                <xar:foreach in="$static" value="$field">
+                    <tr>
+                        <td>
+                            #$field['name']#
+                        </td>
+                        <td>
+                            #$field['label']#
+                        </td>
+                        <td>
+                            <xar:data-output property="$fieldtypeprop" name="static_type['.$field['id'].']" value="$field['type']" />
+                        </td>
+                        <td>
+                            #$field['default']#
+                        </td>
+                        <td>
+                            #$field['source']#
+                        </td>
+                        <td>
+                            #$field['validation']#
+                        </td>
+                    </tr>
+                </xar:foreach>
+                </tbody>
+            </table>
+        </div>
 
         <!-- xar:data-list module="dynamicdata" itemtype="1" where="$where" param="itemid" layout="cells" / -->
         <xar:if condition="count($tables) gt 0">
-            <fieldset>
-                <legend>
+            <div class="xar-form-section">
+                <h3>
                     <xar:mlstring>Table Relations</xar:mlstring>
-                </legend>
+                </h3>
                 <xar:foreach in="$tables" value="$table">
                     <form method="post" action="#xarModURL('dynamicdata','util','importprops')#">
                         <div class="xar-form-input-wrapper">
                             <label class="xar-form-label">
                                 #$table#
                             </label>
-                            <div class="xar-form-container-after">
+                            <div class="xar-form-footer">
                                 <input type="hidden" name="authid" id="authid" value="#$authid#" />
                                 <input type="hidden" name="modid" id="modid" value="#$modid#" />
                                 <input type="hidden" name="itemtype" id="itemtype" value="#$itemtype#" />
@@ -194,7 +195,7 @@
                         </div>
                     </form>
                 </xar:foreach>
-            </fieldset>
+            </div>
         </xar:if>
     </xar:if>
     <xar:if condition="count($relations) gt 0">
@@ -209,12 +210,38 @@
         <form method="post" action="#xarModURL('dynamicdata','admin','modifyprop')#">
             <!-- don't accept updates for this (for now) -->
             <xar:foreach in="$relations" value="$relation">
-                <fieldset>
-                    <legend>
+                <div class="xar-form-section">
+                    <h3>
                         #$relation['module']#
-                    </legend>
-                <xar:if condition="count($relation['links']) gt 0">
-                    <xar:foreach in="$relation['links']" value="$link">
+                    </h3>
+                    <xar:if condition="count($relation['links']) gt 0">
+                        <xar:foreach in="$relation['links']" value="$link">
+                            <div class="xar-form-input-wrapper">
+                                <label class="xar-form-label">
+                                    #$labels['module']#
+                                </label>
+                                #$relation['module']#
+                            </div>
+                            <div class="xar-form-input-wrapper">
+                                <label class="xar-form-label">
+                                    #$labels['linktype']#
+                                </label>
+                                #$link['type']#
+                            </div>
+                            <div class="xar-form-input-wrapper">
+                                <label class="xar-form-label">
+                                    #$labels['linkfrom']#
+                                </label>
+                                #$link['from']#
+                            </div>
+                            <div class="xar-form-input-wrapper">
+                                <label class="xar-form-label">
+                                    #$labels['linkto']#
+                                </label>
+                                #$link['to']#
+                            </div>
+                        </xar:foreach>
+                    <xar:else />
                         <div class="xar-form-input-wrapper">
                             <label class="xar-form-label">
                                 #$labels['module']#
@@ -225,48 +252,22 @@
                             <label class="xar-form-label">
                                 #$labels['linktype']#
                             </label>
-                            #$link['type']#
+                            ( <xar:mlstring>not found</xar:mlstring> )
                         </div>
                         <div class="xar-form-input-wrapper">
                             <label class="xar-form-label">
                                 #$labels['linkfrom']#
                             </label>
-                            #$link['from']#
+                            --
                         </div>
                         <div class="xar-form-input-wrapper">
                             <label class="xar-form-label">
                                 #$labels['linkto']#
                             </label>
-                            #$link['to']#
+                            ( <xar:mlstring>not found</xar:mlstring> )
                         </div>
-                    </xar:foreach>
-                <xar:else />
-                    <div class="xar-form-input-wrapper">
-                        <label class="xar-form-label">
-                            #$labels['module']#
-                        </label>
-                        #$relation['module']#
-                    </div>
-                    <div class="xar-form-input-wrapper">
-                        <label class="xar-form-label">
-                            #$labels['linktype']#
-                        </label>
-                        ( <xar:mlstring>not found</xar:mlstring> )
-                    </div>
-                    <div class="xar-form-input-wrapper">
-                        <label class="xar-form-label">
-                            #$labels['linkfrom']#
-                        </label>
-                        --
-                    </div>
-                    <div class="xar-form-input-wrapper">
-                        <label class="xar-form-label">
-                            #$labels['linkto']#
-                        </label>
-                        ( <xar:mlstring>not found</xar:mlstring> )
-                    </div>
-                </xar:if>
-                </fieldset>
+                    </xar:if>
+                </div>
             </xar:foreach>
         </form>
     </xar:if>

@@ -3,7 +3,7 @@
  * Get a list of modules that matches required criteria.
  *
  * @package modules
- * @copyright (C) 2002-2008 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -195,6 +195,10 @@ function modules_adminapi_getlist($args)
                             $modInfo['state'] = XARMOD_STATE_UPGRADED;
                             break;
                     }
+                }
+
+                if (isset($modInfo['category']) && $modInfo['category'] == 'Global') { 
+                    $modInfo['category'] = 'System';
                 }
 
                 $modList[] = $modInfo;

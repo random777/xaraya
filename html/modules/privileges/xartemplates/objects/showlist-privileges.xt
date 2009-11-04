@@ -3,16 +3,6 @@
 <xar:set name="icon_view">xarTplGetImage('icons/view.png','base')</xar:set>
 <xar:set name="icon_modify">xarTplGetImage('icons/modify.png','base')</xar:set>
 <div>
-    <h3>
-        <xar:mlstring>Properties and Options</xar:mlstring>
-    </h3>
-
-    <xar:if condition="!empty($newlink)">
-        <p>
-            <a href="#$newlink#"><xar:mlstring>Create New</xar:mlstring></a>
-        </p>
-    </xar:if>
-
     <!-- we don't use xar:data-form or xar:data-input here, because this is typically not an input form -->
     <table class="xar-items">
         <xar:set name="item_no">0</xar:set>
@@ -38,26 +28,11 @@
                     <td>
                         <xar:if condition="!empty($fields[$name])">
                             <xar:data-output property="$properties[$name]" value="$fields[$name]" />
-                            <xar:else />
-                            &nbsp; 
                         </xar:if>
                     </td>
                 </xar:foreach>
             </tr>
-            <tr class="#$rowclass#">
-                <xar:set name="colspan">count($properties)+2</xar:set>
-                <td class="xar-item-actions xar-align-right" colspan="#$colspan#">
-                        <xar:foreach in="$links[$itemid]" value="$option">
-                        <xar:if condition="!empty($option['olink'])">
-                            <a href="#$option['olink']#" class="xar-icon" title="#$option['otitle']#">
-                                <img src="#$option['oicon']#" alt="#$option['otitle']#" />
-                            </a>
-                        <xar:else />
-                            <img src="#$option['oicon']#" alt="#$option['otitle']#" title="#$option['otitle']#" class="xar-icon-disabled" />
-                        </xar:if>
-                    </xar:foreach>
-                </td>
-            </tr>
         </xar:foreach>
     </table>
 </div>
+

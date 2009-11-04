@@ -17,7 +17,7 @@ jQuery('form#"."privilegeform input[type=radio]').click(function() {
     <span class="xar-mod-title"><xar:mlstring>Privileges Administration</xar:mlstring></span>
 </div>
 <div class="xar-mod-body">
- <xar:template type="module" file="admin-menu" />
+    <xar:template type="module" file="admin-menu" />
     <h2>
         <xar:mlstring>Manage Privilege:</xar:mlstring>
         #$pname#
@@ -72,110 +72,114 @@ jQuery('form#"."privilegeform input[type=radio]').click(function() {
         </dl>
     </div>
 
-    <fieldset>
-      <legend><xar:mlstring>Assignments</xar:mlstring></legend>
-      <xar:if condition="count($roles) eq 0">
-        <p>
-          <xar:mlstring>This privilege is not assigned to any user or group.</xar:mlstring>
-        </p>
-      <xar:else />
-        <table class="xar-items">
-          <thead>
-          <tr>
-                <th>
-                    <xar:mlstring>Type</xar:mlstring>
-                </th>
-                <th>
-                    <xar:mlstring>Name</xar:mlstring>
-                </th>
-                <th>
-                    <xar:mlstring>Actions</xar:mlstring>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <xar:set name="icon_remove">xarTplGetImage('icons/remove.png','base')</xar:set>
-            <xar:foreach in="$roles" value="$role">
+    <div class="xar-form-section">
+        <h3>
+            <xar:mlstring>Assignments</xar:mlstring>
+        </h3>
+        <xar:if condition="count($roles) eq 0">
+            <p>
+                <xar:mlstring>This privilege is not assigned to any user or group.</xar:mlstring>
+            </p>
+        <xar:else />
+            <table class="xar-items">
+            <thead>
                 <tr>
-                    <td>
-                        <xar:if condition="$role['type'] eq 0">
-                            <xar:mlstring>User</xar:mlstring>
-                        <xar:else />
-                            <xar:mlstring>Group</xar:mlstring>
-                        </xar:if>
-                    </td>
-                    <td>
-                        <a href="#xarModURL('roles','admin','modifyrole',array('uid' => $role['roleid']))#" title="#xarML('Go to this role')#">
-                            #$role['name']#
-                        </a>
-                    </td>
-                    <td class="xar-item-actions">
-                        <a href="#$removeurl#&amp;roleid=#$role['roleid']#" title="#xarML('Remove this Privilege assignment')#" class="xar-icon">
-                            <img src="#$icon_remove#" alt="#xarML('Remove this Privilege assignment')#" />
-                        </a>
-                    </td>
+                    <th>
+                        <xar:mlstring>Type</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Name</xar:mlstring>
+                    </th>
+                    <th>
+                        <xar:mlstring>Actions</xar:mlstring>
+                    </th>
                 </tr>
-            </xar:foreach>
-            </tbody>
-        </table>
-      </xar:if>
+                </thead>
+                <tbody>
+                <xar:set name="icon_remove">xarTplGetImage('icons/remove.png','base')</xar:set>
+                <xar:foreach in="$roles" value="$role">
+                    <tr>
+                        <td>
+                            <xar:if condition="$role['type'] eq 0">
+                                <xar:mlstring>User</xar:mlstring>
+                            <xar:else />
+                                <xar:mlstring>Group</xar:mlstring>
+                            </xar:if>
+                        </td>
+                        <td>
+                            <a href="#xarModURL('roles','admin','modifyrole',array('uid' => $role['roleid']))#" title="#xarML('Go to this role')#">
+                                #$role['name']#
+                            </a>
+                        </td>
+                        <td class="xar-item-actions">
+                            <a href="#$removeurl#&amp;roleid=#$role['roleid']#" title="#xarML('Remove this Privilege assignment')#" class="xar-icon">
+                                <img src="#$icon_remove#" alt="#xarML('Remove this Privilege assignment')#" />
+                            </a>
+                        </td>
+                    </tr>
+                </xar:foreach>
+                </tbody>
+            </table>
+        </xar:if>
 
-      <form action="#xarModURL('roles','admin','addprivilege')#" method="post" enctype="application/x-www-form-urlencoded">
-        <div class="xar-form-input-wrapper">
-            <label for="roleid" title="#xarML('Choose a new Group to assign this Privilege.')#" class="xar-form-label">
-                <xar:mlstring>Assign to Group:</xar:mlstring>
-            </label>
-            <select name="roleid" id="roleid" class="xar-margin-thickright">
-                <xar:for start="$i=0" test="$i lt count($groups)" iter="$i++">
-                    <option value="#$groups[$i]['uid']#">
-                        #$groups[$i]['name']# - #$groups[$i]['users']#
-                    </option>
-                </xar:for>
-            </select>
-            <input type="submit" value="#xarML('Assign')#" />
-            <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey('roles')#" />
-            <input type="hidden" name="privid" id="privid" value="#$pid#" />
-            <input type="hidden" name="return_url" id="return_url" value="#xarModURL('privileges','admin','viewroles',array('pid' => $pid))#" />
+        <form action="#xarModURL('roles','admin','addprivilege')#" method="post" enctype="application/x-www-form-urlencoded">
+            <div class="xar-form-input-wrapper">
+                <label for="roleid" title="#xarML('Choose a new Group to assign this Privilege.')#" class="xar-form-label">
+                    <xar:mlstring>Assign to Group:</xar:mlstring>
+                </label>
+                <select name="roleid" id="roleid" class="xar-margin-thickright">
+                    <xar:for start="$i=0" test="$i lt count($groups)" iter="$i++">
+                        <option value="#$groups[$i]['uid']#">
+                            #$groups[$i]['name']# - #$groups[$i]['users']#
+                        </option>
+                    </xar:for>
+                </select>
+                <input type="submit" value="#xarML('Assign')#" />
+                <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey('roles')#" />
+                <input type="hidden" name="privid" id="privid" value="#$pid#" />
+                <input type="hidden" name="return_url" id="return_url" value="#xarModURL('privileges','admin','viewroles',array('pid' => $pid))#" />
+            </div>
+        </form>
+    </div>
+
+    <form name="privilegeform" id="privilegeform" action="#xarModURL('privileges','admin','viewroles')#" method="post" enctype="application/x-www-form-urlencoded">
+        <div class="xar-form-section">
+            <h3>
+                <xar:mlstring>Current Privileges</xar:mlstring>
+            </h3>
+            <p>
+                <a href="#xarModURL('privileges','admin','newprivilege')#">
+                    <xar:mlstring>Add Privilege</xar:mlstring>
+                </a>
+            </p>
+            <p>
+                <xar:mlstring>Show Privileges that are:</xar:mlstring>
+
+                <xar:if condition="$show eq 'assigned'">
+                    <input type="radio" name="show" id="show_assigned" value="assigned" checked="checked" />
+                <xar:else />
+                    <input type="radio" name="show" id="show_assigned" value="assigned" />
+                </xar:if>
+                <label for="show_assigned">
+                    <xar:mlstring>Assigned</xar:mlstring>
+                </label>
+
+                <xar:if condition="$show eq 'all'">
+                    <input type="radio" name="show" id="show_all" value="all" checked="checked" />
+                <xar:else />
+                    <input type="radio" name="show" id="show_all" value="all" />
+                </xar:if>
+                <label for="show_all">
+                    <xar:mlstring>All</xar:mlstring>
+                </label>
+                <input type="hidden" name="pid" id="pid" value="#$pid#" />
+            </p>
         </div>
-      </form>
-    </fieldset>
+    </form>
 
-    <fieldset>
-      <legend><xar:mlstring>Current Privileges</xar:mlstring></legend>
-      <form name="privilegeform" id="privilegeform" action="#xarModURL('privileges','admin','viewroles')#" method="post" enctype="application/x-www-form-urlencoded">
-        <input type="hidden" name="pid" id="pid" value="#$pid#" />
-        <p>
-            <a href="#xarModURL('privileges','admin','newprivilege')#">
-                <xar:mlstring>Add Privilege</xar:mlstring>
-            </a>
-        </p>
-        <p>
-            <xar:mlstring>Show Privileges that are:</xar:mlstring>
-
-            <xar:if condition="$show eq 'assigned'">
-                <input type="radio" name="show" id="show_assigned" value="assigned" checked="checked" />
-            <xar:else />
-                <input type="radio" name="show" id="show_assigned" value="assigned" />
-            </xar:if>
-            <label for="show_assigned">
-                <xar:mlstring>Assigned</xar:mlstring>
-            </label>
-
-            <xar:if condition="$show eq 'all'">
-                <input type="radio" name="show" id="show_all" value="all" checked="checked" />
-            <xar:else />
-                <input type="radio" name="show" id="show_all" value="all" />
-            </xar:if>
-            <label for="show_all">
-                <xar:mlstring>All</xar:mlstring>
-            </label>
-        </p>
-      </form>
-
-        <div id="treewrapper">
-            <xar:foreach in="$trees" value="$drawtree">
-              #$drawtree['tree']#
-            </xar:foreach>
-        </div>
-    </fieldset>
+    <div id="treewrapper">
+        <xar:foreach in="$trees" value="$drawtree">
+            #$drawtree['tree']#
+        </xar:foreach>
+    </div>
 </div>

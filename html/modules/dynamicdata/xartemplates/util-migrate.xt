@@ -2,9 +2,7 @@
 <xar:style scope="module" file="dd" />
 <div class="xar-mod-head">
     <span class="xar-mod-title">
-        <xar:mlstring>
-            Dynamic Data Utilities
-        </xar:mlstring>
+        <xar:mlstring>Dynamic Data Utilities</xar:mlstring>
     </span>
 </div>
 <div class="xar-mod-body">
@@ -12,7 +10,7 @@
     <h2>
         <xar:if condition="!empty($mapfrom) and !empty($mapto)">
             <xar:ml>
-                <xar:mlstring>Utilities - Migrate Items from #(1) to #(2)</xar:mlstring>
+                <xar:mlstring>Utilities: Migrate Items from #(1) to #(2)</xar:mlstring>
                 <xar:mlvar>#$mapfrom#</xar:mlvar>
                 <xar:mlvar>#$mapto#</xar:mlvar>
             </xar:ml>
@@ -31,13 +29,11 @@
 
     <form method="post" action="#xarModURL('dynamicdata','util','migrate')#">
 
-        <fieldset>
-            <legend>
-                <xar:mlstring>
-                    Mapping
-                </xar:mlstring>
-            </legend>
-                <div class="xar-form-input-wrapper">
+        <div class="xar-form-section">
+            <h3>
+                <xar:mlstring>Mapping</xar:mlstring>
+            </h3>
+            <div class="xar-form-input-wrapper">
                 <label for="map" title="#xarML('Choose a mapping to migrate data')#" class="xar-form-label">
                     <xar:mlstring>Use Mapping:</xar:mlstring>
                 </label>
@@ -57,7 +53,7 @@
                     <xar:mlstring>No mappings available.</xar:mlstring>
                   </xar:if>
             </div>
-        
+
             <div class="xar-form-input-wrapper">
                 <label for="newmap" title="#xarML('Enter a new mapping')#" class="xar-form-label">
                     <xar:mlstring>Create Mapping:</xar:mlstring>
@@ -65,12 +61,12 @@
                 <input type="text" name="newmap" id="newmap" value="#$newmap#" class="xar-form-textlong" />
                 <input type="submit" name="save" value="#xarML('Save')#" />
             </div>
-        </fieldset>
+        </div>
 
-        <fieldset class="xar-clearboth">
-            <legend>
+        <div class="xar-form-section">
+            <h3>
                 <xar:mlstring>Migration Settings</xar:mlstring>
-            </legend>
+            </h3>
 
             <div class="xar-form-input-wrapper">
                 <label title="#xarML('Module which provides the original object')#" class="xar-form-label">
@@ -94,9 +90,7 @@
                         <input type="hidden" name="from[module]" value="#$from['module']#" />
                     </xar:if>
 
-                    <strong>
-                        <xar:mlstring>To</xar:mlstring>
-                    </strong>
+                    <xar:mlstring>To</xar:mlstring>
 
                     <xar:if condition="empty($to['module'])">
                         <select name="to[module]" id="to_module">
@@ -135,9 +129,7 @@
                             <input type="hidden" name="from[itemtype]" id="from_itemtype" value="#$from['itemtype']#" />
                         </xar:if>
 
-                        <strong>
-                            <xar:mlstring>To</xar:mlstring>
-                        </strong>
+                        <xar:mlstring>To</xar:mlstring>
 
                         <xar:if condition="!isset($to['itemtype'])">
                             <select name="to[itemtype]" id="to_itemtype">
@@ -187,7 +179,7 @@
 
                 </xar:if>
             </xar:if>
-        </fieldset>
+        </div>
          
         <div class="xar-form-footer">
             <input type="hidden" name="step" value="#$step#" />
@@ -209,10 +201,10 @@
 
         <xar:if condition="!empty($from['module']) and !empty($to['module'])">
             <xar:if condition="!empty($from['itemtype']) and !empty($to['itemtype'])">
-                <fieldset>
-                    <legend>
+                <div class="xar-form-section">
+                    <h3>
                         <xar:mlstring>Field and Hook Mappings</xar:mlstring>
-                    </legend>
+                    </h3>
 
                     <h4>
                         <xar:mlstring>Fields</xar:mlstring>
@@ -276,7 +268,7 @@
                             <xar:mlstring>No hooks assigned.</xar:mlstring>
                         </p>
                     </xar:if>
-                </fieldset>
+                </div>
             </xar:if>
         </xar:if>
     </form>

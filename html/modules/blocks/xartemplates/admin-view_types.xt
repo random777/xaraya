@@ -10,13 +10,13 @@
         <h2>
             <xar:mlstring>View Block Type</xar:mlstring>
         </h2>
-        <h4>
+        <p>
             <a href="#xarModURL('blocks','admin','new_type')#"><xar:mlstring>Add New Block Type</xar:mlstring></a>
-        </h4>
-        <fieldset>
-            <legend>
+        </p>
+        <div class="xar-form-section">
+            <h3>
                 <xar:mlstring>Selected Block Details</xar:mlstring>
-            </legend>
+            </h3>
 
             <div class="xar-form-input-wrapper">
                 <label class="xar-form-label">
@@ -72,15 +72,16 @@
                 </div>
             </xar:if>
 
-        </fieldset>
+        </div>
 
         <xar:comment>Table of overrideable parameters (see xar:block tag)</xar:comment>
         <xar:if condition="!empty($params)">
 
-            <fieldset>
-                <legend>
+            <div class="xar-form-section">
+                <h3>
                     <xar:mlstring>Block Parameters Customisable Through &lt;xar:block&gt; Tag</xar:mlstring>
-                </legend>
+                </h3>
+
                 <table class="xar-items">
                     <thead>
                     <tr>
@@ -113,15 +114,15 @@
                     </xar:loop>
                     </tbody>
                 </table>
-            </fieldset>
+            </div>
         </xar:if>
     <xar:else />
         <h2>
             <xar:mlstring>View Block Types</xar:mlstring>
         </h2>
-        <h4>
+        <p>
             <a href="#xarModURL('blocks','admin','new_type')#"><xar:mlstring>Add New Block Type</xar:mlstring></a>
-        </h4>
+        </p>
         <table class="xar-items">
             <thead>
             <tr>

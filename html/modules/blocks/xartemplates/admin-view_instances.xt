@@ -38,17 +38,13 @@ jQuery('table.xar-items a[id^=delete]').click(function() {
     </h2>
     <form method="post" action="#xarModURL('blocks', 'admin', 'settings')#">
 
-        <fieldset>
-            <legend><xar:mlstring>View Options</xar:mlstring></legend>
-            
-            <div class="xar-form-input-wrapper">
-                <label for="filter" title="#xarML('Filter the instances to be shown.')#" class="xar-form-label">
-                    <xar:mlstring>Filter:</xar:mlstring>
-                </label>
-                <input type="text" id="filter" name="filter" value="#$filter#" class="xar-form-textmedium" />
-                <input type="submit" value="#xarML('Refresh')#" />
-            </div>
-        </fieldset>
+        <div class="xar-form-input-wrapper">
+            <label for="filter" title="#xarML('Filter the instances to be shown.')#" class="xar-form-label">
+                <xar:mlstring>Filter:</xar:mlstring>
+            </label>
+            <input type="text" id="filter" name="filter" value="#$filter#" class="xar-form-textmedium" />
+            <input type="submit" value="#xarML('Refresh')#" />
+        </div>
 
         <xar:set name="icon_delete">xarTplGetImage('icons/delete.png','base')</xar:set>
         <xar:set name="icon_modify">xarTplGetImage('icons/modify.png','base')</xar:set>
@@ -79,8 +75,9 @@ jQuery('table.xar-items a[id^=delete]').click(function() {
             </tr>
             </thead>
             <tbody>
+            <xar:set name="rowclass">'xar-norm'</xar:set>
             <xar:foreach in="$blocks" value="$block">
-                <tr>
+                <tr class="#$rowclass#">
                     <td>
                         <xar:if condition="empty($block['title'])">
                             #$block.name# 
@@ -132,6 +129,7 @@ jQuery('table.xar-items a[id^=delete]').click(function() {
                         </a>
                     </td>
                 </tr>
+                <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
             </xar:foreach>
             </tbody>
         </table>

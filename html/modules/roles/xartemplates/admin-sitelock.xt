@@ -11,7 +11,7 @@ jQuery('#"."addgroup').click(function() {
 jQuery('button[id^=delete]').click(function() {
     var idsplit = this.getAttribute('href').split('_', 2);
     var roleid = idsplit[1];
-    this.form.action = '" . xarModURL('roles','admin','sitelock',array('cmd'=>'delete'), false) . "&uid=' + roleid;
+    this.form.action = '" . xarModURL('roles','admin','sitelock',array('cmd'=>'delete'), false) . chr(38) . "uid=' + roleid;
     this.form.submit();
 });
 jQuery('#"."savesitelock').click(function() {
@@ -31,19 +31,17 @@ jQuery('#"."savesitelock').click(function() {
 
     <form action="#xarModURL('roles','admin','sitelock')#" method="post" enctype="application/x-www-form-urlencoded">
         
-        <fieldset>
-            <legend>
-                <xar:mlstring>
-                    Status
-                </xar:mlstring>
-            </legend>
+        <div class="xar-form-section">
+            <h3>
+                <xar:mlstring>Status</xar:mlstring>
+            </h3>
             <div class="xar-form-input-wrapper">
                     <label class="xar-form-label">
                         #$statusmessage#
                     </label>
                     <input type="button" id="sitelock" value="#$togglelabel#" />
                 </div>
-        </fieldset>
+        </div>
 
         <h3>
             <xar:mlstring>Configuration</xar:mlstring>
@@ -57,31 +55,34 @@ jQuery('#"."savesitelock').click(function() {
             <xar:mlstring>Entering a group name allows access to the users of that group.  Unknown names will be ignored.</xar:mlstring>
         </p>
 
-        <fieldset>
-            <legend>
-                <xar:mlstring>
-                    Groups
-                </xar:mlstring>
-            </legend>
+        <div class="xar-form-section">
+            <h3>
+                <xar:mlstring>Groups</xar:mlstring>
+            </h3>
             <xar:loop name="$roles">
-                    <div class="xar-form-input-wrapper">
-                        <label class="xar-form-label">
-                            #$loop:item['name']#
-                        </label>
+                <fieldset>
+                    <legend>#$loop:item['name']#</legend>
+                    <div class="xar-form-input-wrapper-after">
                         <xar:if condition="$loop:item['notify'] == 'true'">
                             <input type="checkbox" name="notify[]" id="notify_#$loop:item['uid']#" value="#$loop:item['uid']#" checked="checked" />
                         <xar:else />
                             <input type="checkbox" name="notify[]" id="notify_#$loop:item['uid']#" value="#$loop:item['uid']#" />
                         </xar:if>
                         <label for="notify_#$loop:item['uid']#" title="xarML('Toggle notifications sent to this Group')#">
-                            <xar:mlstring>notify</xar:mlstring>
+                            <xar:ml>
+                                <xar:mlstring>Notify #(1)</xar:mlstring>
+                                <xar:mlvar>#$loop:item['name']#</xar:mlvar>
+                            </xar:ml>
                         </label>
-        
-                        <xar:if condition="count($roles) gt 1">
-                            <input type="button" id="delete_#$loop:item['uid']#" value="#$deletelabel#" class="xar-margin-thickleft" />
-                        </xar:if>
                     </div>
-                </xar:loop>
+                    <xar:if condition="count($roles) gt 1">
+                        <div class="xar-form-input-wrapper-after">
+                            <input type="button" id="delete_#$loop:item['uid']#" value="#$deletelabel#" class="xar-margin-thickleft" />
+                        </div>
+                    </xar:if>
+
+                </fieldset>
+             </xar:loop>
         
                 <div class="xar-form-input-wrapper">
                     <label for="newname" title="#xarML('Add a Group to the lock notification list')#" class="xar-form-label">
@@ -90,64 +91,56 @@ jQuery('#"."savesitelock').click(function() {
                     <input type="text" name="newname" id="newname" value="" class="xar-form-textlong xar-margin-thickright" />
                     <input type="button" id="addgroup" value="#xarML('Add')#" class="xar-margin-thickleft" />
                 </div>
-        </fieldset>
+        </div>
 
-        <fieldset>
-            <legend>
+        <div class="xar-form-section">
+            <h3>
                 <xar:mlstring>Logged On Users</xar:mlstring>
-            </legend>
-        <p>
-            <xar:mlstring>When Sitelock is turned on, you can choose to log off any users that are logged on at that time, except for the nominated Groups.
-               Be aware that some users may be in the middle of adding content, and that content will be lost. It would be usual
-               to provide some warning of the sitelock time to logged on users if you use this.</xar:mlstring>
-        </p>
-        <div class="xar-form-input-wrapper-after">
-                    <xar:if condition="$killactive">
-                        <input type="checkbox" name="killactive" id="killactive" value="1" checked="checked" />
-                        <xar:else />
-                        <input type="checkbox" name="killactive" id="killactive" value="1" />
-                    </xar:if>
-                    <label for="killactive" title="#xarML('Log off Active Users except for any in nominated Groups')#">
-                        <xar:mlstring>
-                            Log off Active Users (except those in nominated Groups)
-                        </xar:mlstring>
-                    </label>
-                </div>
-       </fieldset>
-        <p>
-            <xar:mlstring>The following message will be emailed to members in the above list when the site is locked or unlocked.</xar:mlstring>
-        </p>
+            </h3>
+            <p>
+                <xar:mlstring>When Sitelock is turned on, you can choose to log off any users that are logged on at that time, except for the nominated Groups.  Be aware that some users may be in the middle of adding content, and that content will be lost. It would be usual to provide some warning of the sitelock time to logged on users if you use this.</xar:mlstring>
+            </p>
+            <div class="xar-form-input-wrapper-after">
+                <xar:if condition="$killactive">
+                    <input type="checkbox" name="killactive" id="killactive" value="1" checked="checked" />
+                <xar:else />
+                    <input type="checkbox" name="killactive" id="killactive" value="1" />
+                </xar:if>
+                <label for="killactive" title="#xarML('Log off Active Users except for any in nominated Groups')#">
+                    <xar:mlstring>Log off Active Users (except those in nominated Groups)</xar:mlstring>
+                </label>
+            </div>
+        </div>
 
-        <p>
-            <xar:mlstring>It is prefaced by a short: "Site &lt;sitename&gt; has been locked/unlocked".</xar:mlstring>
-        </p>
+        <div class="xar-form-section">
+            <h3>
+                <xar:mlstring>Email</xar:mlstring>
+            </h3>
+            <p>
+                <xar:mlstring>The following message will be emailed to members in the above list when the site is locked or unlocked.</xar:mlstring>
+            </p>
 
-        <fieldset>
-            <legend>
-                <xar:mlstring>
-                    Email
-                </xar:mlstring>
-            </legend>
+            <p>
+                <xar:mlstring>It is prefaced by a short: "Site &lt;sitename&gt; has been locked/unlocked".</xar:mlstring>
+            </p>
             <div class="xar-form-input-wrapper">
-                    <label for="notifymsg" title="#xarML('Message sent when site lock status changes')#" class="xar-form-label">
-                        <xar:mlstring>Site Lock Email:</xar:mlstring>
-                    </label>
-                    <div class="xar-form-container-after">
-                        <textarea name="notifymsg" id="notifymsg" class="xar-form-textarealarge">#$notifymsg#</textarea>
-                    </div>
+                <label for="notifymsg" title="#xarML('Message sent when site lock status changes')#" class="xar-form-label">
+                    <xar:mlstring>Site Lock Email:</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                    <textarea name="notifymsg" id="notifymsg" class="xar-form-textarealarge">#$notifymsg#</textarea>
                 </div>
-        </fieldset>
+            </div>
+        </div>
 
-        <p>
-            <xar:mlstring>The following message will be displayed to members who are locked out when they try to login:</xar:mlstring>
-        </p>
+        <div class="xar-form-section">
+            <h3>
+                <xar:mlstring>Message</xar:mlstring>
+            </h3>
+            <p>
+                <xar:mlstring>The following message will be displayed to members who are locked out when they try to login:</xar:mlstring>
+            </p>
 
-        <fieldset>
-            <legend>
-                <xar:mlstring>
-                    Message
-                </xar:mlstring>
-            </legend>
             <div class="xar-form-input-wrapper">
                     <label for="notifymsg" title="#xarML('Text shown to users attempting to log in to a locked site')#" class="xar-form-label">
                         <xar:mlstring>Site Lock Message:</xar:mlstring>
@@ -156,7 +149,7 @@ jQuery('#"."savesitelock').click(function() {
                         <textarea name="lockedoutmsg" id="lockedoutmsg" class="xar-form-textarealarge">#$lockedoutmsg#</textarea>
                     </div>
                 </div>
-        </fieldset>
+        </div>
 
         <div class="xar-form-footer">
             <input type="hidden" name="serialroles" id="serialroles" value="#$serialroles#" />

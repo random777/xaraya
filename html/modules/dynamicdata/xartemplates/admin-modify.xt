@@ -39,56 +39,62 @@
         </div>
     </xar:if>
 
-    <fieldset>
-      <legend><xar:mlstring>Preview</xar:mlstring></legend>
-      <xar:data-display object="$object" />
-    </fieldset>
+    <div class="xar-form-section">
+        <h3>
+            <xar:mlstring>Preview</xar:mlstring>
+        </h3>
 
-    <xar:set name="isupload">#$object:upload#</xar:set>
-    <xar:if condition="!empty($isupload)">
-        <xar:set name="enc_type">'multipart/form-data'</xar:set>
-    <xar:else/> 
-        <xar:set name="enc_type">'application/x-www-form-urlencoded'</xar:set>
-    </xar:if>
+        <xar:data-display object="$object" />
 
-    <form method="post" id="ddmodifyform" action="#xarModURL('dynamicdata','admin','update')#" enctype="#$enc_type#">
-      <fieldset>
-        <legend><xar:mlstring>Modify Object Definition</xar:mlstring></legend>
-        <xar:if condition="!empty($objectid) and $objectid eq 1 and $itemid lt 3">
-            <h3 class="xar-align-center">
-                <xar:mlstring>Warning! This is a system object used internally by the Dynamic Data module.</xar:mlstring>
-            </h3>
-                
-            <p>
-                <xar:mlstring>Trying to modify this object may break the Dynamic Data module. Proceed with caution.</xar:mlstring>
-            </p>
+        <xar:set name="isupload">#$object:upload#</xar:set>
+        <xar:if condition="!empty($isupload)">
+            <xar:set name="enc_type">'multipart/form-data'</xar:set>
+        <xar:else/> 
+            <xar:set name="enc_type">'application/x-www-form-urlencoded'</xar:set>
         </xar:if>
+    </div>
 
-        <!-- this does most of the hard work :) -->
-        <xar:data-form object="$object" />
- 
-        <xar:if condition="!empty($hooks)">
-            <xar:foreach in="$hooks" key="$module" value="$output">
-                #$output#
-            </xar:foreach>
-        </xar:if>
-      </fieldset>
-      <div class="xar-form-footer">
-        <input type="hidden" name="authid" id="authid" value="#$authid#" />
-        <input type="hidden" name="modid" id="modid" value="#$object:moduleid#" />
-        <input type="hidden" name="itemtype" id="itemtype" value="#$object:itemtype#" />
-        <input type="hidden" name="join" id="join" value="#$object:join#" />
-        <input type="hidden" name="table" id="table" value="#$object:table#" />
-        <input type="hidden" name="itemid" id="itemid" value="#$object:itemid#" />
-        <xar:if condition="!empty($return_url)">
-             <input type="hidden" name="return_url" id="return_url" value="#$return_url#" />
-        </xar:if>
-        <xar:if condition="xarRequestIsAJAX()">
-             <input type="hidden" name="pageName" id="pageName" value="module" />
-        </xar:if>
-        <input type="submit" name="preview" value="#xarML('Preview')#" class="xar-margin-thickright" />
-        <input type="submit" value="#xarML('Update')#" class="xar-margin-thickleft" />
-      </div>
+
+        <form method="post" id="ddmodifyform" action="#xarModURL('dynamicdata','admin','update')#" enctype="#$enc_type#">
+            <div class="xar-form-section">
+                <h3>
+                    <xar:mlstring>Modify Object Definition</xar:mlstring>
+                </h3>
+                <xar:if condition="!empty($objectid) and $objectid eq 1 and $itemid lt 3">
+                    <p class="xar-error">
+                        <xar:mlstring>Warning! This is a system object used internally by the Dynamic Data module.</xar:mlstring>
+                    </p>
+                    <p>
+                        <xar:mlstring>Trying to modify this object may break the Dynamic Data module. Proceed with caution.</xar:mlstring>
+                    </p>
+                </xar:if>
+
+                <!-- this does most of the hard work :) -->
+                <xar:data-form object="$object" />
+            </div>
+
+            <xar:if condition="!empty($hooks)">
+                <xar:foreach in="$hooks" key="$module" value="$output">
+                    #$output#
+                </xar:foreach>
+            </xar:if>
+
+            <div class="xar-form-footer">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input type="hidden" name="modid" id="modid" value="#$object:moduleid#" />
+                <input type="hidden" name="itemtype" id="itemtype" value="#$object:itemtype#" />
+                <input type="hidden" name="join" id="join" value="#$object:join#" />
+                <input type="hidden" name="table" id="table" value="#$object:table#" />
+                <input type="hidden" name="itemid" id="itemid" value="#$object:itemid#" />
+                <xar:if condition="!empty($return_url)">
+                     <input type="hidden" name="return_url" id="return_url" value="#$return_url#" />
+                </xar:if>
+                <xar:if condition="xarRequestIsAJAX()">
+                     <input type="hidden" name="pageName" id="pageName" value="module" />
+                </xar:if>
+                <input type="submit" name="preview" value="#xarML('Preview')#" class="xar-margin-thickright" />
+                <input type="submit" value="#xarML('Update')#" class="xar-margin-thickleft" />
+            </div>
 
         <xar:if condition="!empty($objectid) and $objectid eq 2 and !xarRequestIsAJAX()">
             <p>

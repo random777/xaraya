@@ -3,7 +3,7 @@
  * Configure hooks by hook module
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -55,21 +55,13 @@ function modules_admin_hooks($args)
         if (!isset($modList)) return;
 
         $oldcat = '';
+        $catmodlist = array();
+
         for ($i = 0, $max = count($modList); $i < $max; $i++) {
             $modList[$i]['checked'] = '';
-            if ($oldcat != $modList[$i]['category']) {
-          /*  Comment out code from changesdue merge
-            $modList[$i]['links'] = '';
-
-                $modList[$i]['link'] = xarModURL('modules','admin','modifyorder', array('modulename' => $curhook,
-                            'modulehookedname' => $modList[$i]['name'] ));
-
-          */            
-
-                $modList[$i]['header'] = xarVarPrepForDisplay($modList[$i]['category']);
-                $oldcat = $modList[$i]['category'];
-            } else {
-                $modList[$i]['header'] = '';
+            $modcat = $modList[$i]['category'];
+            if (!isset($catmodlist[$modcat])) {
+                $catmodlist[$modcat] = array();
             }
             // Get the list of all item types for this module (if any)
             $itemtypes = xarModAPIFunc($modList[$i]['name'],'user','getitemtypes',
@@ -98,9 +90,10 @@ function modules_admin_hooks($args)
                     break;
                 }
             }
+            $catmodlist[$modList[$i]['category']][] = $modList[$i];
         }
         $data['curhook'] = $curhook;
-        $data['hookedmodules'] = $modList;
+        $data['hookedmodules'] = $catmodlist;
         $data['authid'] = xarSecGenAuthKey('modules');
 
         foreach ($hooklist[$curhook] as $hook => $hookedmods) {

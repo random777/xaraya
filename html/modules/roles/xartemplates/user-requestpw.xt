@@ -1,37 +1,42 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 <div class="xar-mod-head"><span class="xar-mod-title"><xar:mlstring>Roles</xar:mlstring></span></div>
-<div class="xar-mod-body"><h2><xar:mlstring>Request Lost Password</xar:mlstring></h2>
-<form action="#xarModURL('roles','user','lostpassword')#" method="post" enctype="application/x-www-form-urlencoded">
-  <fieldset>
-    <legend><xar:mlstring>Enter your username or your e-mail address.</xar:mlstring></legend>
-    <div class="xar-form-input-wrapper">
-      <label class="xar-form-label" for="uname"><xar:mlstring>Username</xar:mlstring>:</label>
-      <input type="text" name="uname" id="uname" size="25" maxlength="255" />
-      <xar:if condition="!empty($invalid['uname'])">
-          <p class="xar-form-input-wrapper-after">
-              <span class="xar-error">#$invalid['uname']#</span>
-          </p>
-      </xar:if>      
-    </div>
-    <div class="xar-form-input-wrapper">
-      <label class="xar-form-label" for="email"><xar:mlstring>E-mail address</xar:mlstring>:</label>
-      <input type="text" name="email" id="email" size="25" maxlength="255" />
-      <xar:if condition="!empty($invalid['email'])">
-          <p class="xar-form-input-wrapper-after">
-              <span class="xar-error">#$invalid['email']#</span>
-          </p>
-      </xar:if>            
-    </div>
-      <xar:if condition="!empty($invalid['getpassword'])">
-          <p class="xar-form-input-wrapper-after">
-              <span class="xar-error">#$invalid['getpassword']#</span>
-          </p>
-      </xar:if>      
-  </fieldset>
-  <div class="xar-form-footer">
-      <input type="hidden" name="authid" id="authid" value="#$authid#" />
-      <input type="hidden" name="phase" id="phase" value="send" />
-      <input type="submit" value="#$emaillabel#" />
-  </div>
-</form>
+<div class="xar-mod-body">
+    <h2>
+        <xar:mlstring>Request Lost Password</xar:mlstring>
+    </h2>
+    <form action="#xarModURL('roles','user','lostpassword')#" method="post" enctype="application/x-www-form-urlencoded">
+        <div class="xar-form-section">
+            <h3>
+                <xar:mlstring>Enter your username or your e-mail address.</xar:mlstring>
+            </h3>
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label" for="uname"><xar:mlstring>Username</xar:mlstring>:</label>
+                <input type="text" name="uname" id="uname" size="25" maxlength="255" />
+                    <xar:if condition="!empty($invalid['uname'])">
+                        <p class="xar-form-input-wrapper-after">
+                            <span class="xar-error">#$invalid['uname']#</span>
+                        </p>
+                    </xar:if>      
+            </div>
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label" for="email"><xar:mlstring>E-mail address</xar:mlstring>:</label>
+                <input type="text" name="email" id="email" size="25" maxlength="255" />
+                <xar:if condition="!empty($invalid['email'])">
+                    <p class="xar-form-input-wrapper-after">
+                        <span class="xar-error">#$invalid['email']#</span>
+                    </p>
+                </xar:if>
+            </div>
+            <xar:if condition="!empty($invalid['getpassword'])">
+                <p class="xar-form-input-wrapper-after">
+                    <span class="xar-error">#$invalid['getpassword']#</span>
+                </p>
+            </xar:if>      
+        </div>
+        <div class="xar-form-footer">
+            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="hidden" name="phase" id="phase" value="send" />
+            <input type="submit" value="#$emaillabel#" />
+        </div>
+    </form>
 </div>

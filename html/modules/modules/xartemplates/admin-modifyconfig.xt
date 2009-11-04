@@ -5,9 +5,16 @@
     </span>
 </div>
 <div class="xar-mod-body">
+    <xar:template type="module" file="admin-menu" />
+    <h2>
+        <xar:mlstring>Modify Configuration</xar:mlstring>
+    </h2>
+
     <form method="post" action="#xarModURL('modules','admin','updateconfig')#">
-        <fieldset>
-            <legend><xar:mlstring>Configuration settings</xar:mlstring></legend>
+        <div class="xar-form-section">
+            <h3>
+                <xar:mlstring>Configuration settings</xar:mlstring>
+            </h3>
             <div class="xar-form-input-wrapper-after">
                 <xar:if condition="$disableoverview eq 1">
                     <input type="checkbox" name="disableoverview" id="disableoverview" value="1" checked="checked" />
@@ -18,7 +25,7 @@
                     <xar:mlstring>Disable the display by default of all module overview pages.</xar:mlstring>
                 </label>
             </div>
-        </fieldset>
+        </div>
         <div class="xar-form-footer">
             <input type="hidden" name="authid" id="authid" value="#$authid#" />
             <input type="submit" value="#xarML('Update')#" class="xar-margin-thickright" />

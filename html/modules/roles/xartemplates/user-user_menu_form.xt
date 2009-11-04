@@ -2,34 +2,23 @@
     License: GPL http://www.gnu.org/copyleft/gpl.html
 </xar:comment>
 <xar:if condition="isset($withupload) AND $withupload">
-    <xar:set name="enc_type">
-        'multipart/form-data'
-    </xar:set>
-    <xar:else />
-    <xar:set name="enc_type">
-        'application/x-www-form-urlencoded'
-    </xar:set>
+    <xar:set name="enc_type">'multipart/form-data'</xar:set>
+<xar:else />
+    <xar:set name="enc_type">'application/x-www-form-urlencoded'</xar:set>
 </xar:if>
 <div class="xar-mod-body">
     <h2>
-        <xar:mlstring>
-            Edit User
-        </xar:mlstring>
-        : #$uname#
+        <xar:mlstring>Edit User:</xar:mlstring>
+         #$uname#
     </h2>
     <form action="#xarModURL('roles','user','usermenu')#" method="post" id="post" name="post" enctype="#$enc_type#">
-        <fieldset>
-            <legend>
-                <xar:mlstring>
-                    User Details
-                </xar:mlstring>
-            </legend>
+        <div class="xar-form-section">
+            <h3>
+                <xar:mlstring>User Details:</xar:mlstring>
+            </h3>
             <div class="xar-form-input-wrapper">
                 <label for="username" class="xar-form-label">
-                    <xar:mlstring>
-                        User Name
-                    </xar:mlstring>
-                    :
+                    <xar:mlstring>User Name:</xar:mlstring>
                 </label>
                 <span id="username">
                     #xarVarPrepForDisplay($uname)#
@@ -37,10 +26,7 @@
             </div>
             <div class="xar-form-input-wrapper">
                 <label for="emailaddress" class="xar-form-label">
-                    <xar:mlstring>
-                        Email Address
-                    </xar:mlstring>
-                    :
+                    <xar:mlstring>Email Address:</xar:mlstring>
                 </label>
                 <span>
                     #xarVarPrepForDisplay($emailaddress)#
@@ -48,28 +34,21 @@
             </div>
             <div class="xar-form-input-wrapper">
                 <label for="name" class="xar-form-label">
-                    <xar:mlstring>
-                        Display Name
-                    </xar:mlstring>
-                    :
+                    <xar:mlstring>Display Name:</xar:mlstring>
                 </label>
                 <input type="text" name="name" id="name" value="#xarVarPrepForDisplay($name)#" size="20" maxlength="60" />
             </div>
             <div class="xar-form-input-wrapper">
                 <label for="email" class="xar-form-label">
-                    <xar:mlstring>
-                        Email Address:
-                    </xar:mlstring>
+                    <xar:mlstring>Email Address:</xar:mlstring>
                 </label>
                 <input type="text" name="email" id="email" value="" size="30" maxlength="60"  autocomplete="off" />
             </div>
             <xar:if condition="xarModGetVar('roles', 'requirevalidation')">
                 <div class="xar-form-input-wrapper-after">
-                    <label for="email">
-                        <xar:mlstring>
-                            Changing your email address will require you to revalidate your account.
-                        </xar:mlstring>
-                    </label>
+                    <p>
+                        <xar:mlstring>Changing your email address will require you to revalidate your account.</xar:mlstring>
+                    </p>
                 </div>
             </xar:if>
             <xar:if condition="xarModGetVar('roles','usersendemails')">
@@ -90,9 +69,7 @@
             <xar:if condition="xarModGetVar('roles','setuserhome') and xarModGetVar('roles','allowuserhomeedit')">
                 <div class="xar-form-input-wrapper">
                     <label for="home" class="xar-form-label">
-                        <xar:mlstring>
-                            User Home:
-                        </xar:mlstring>
+                        <xar:mlstring>User Home:</xar:mlstring>
                     </label>
                     <input type="text" name="home" id="home" value="#$home#" size="40" maxlength="100" />
                 </div>
@@ -102,20 +79,14 @@
 
             <div class="xar-form-input-wrapper">
                 <label for="pass1" class="xar-form-label">
-                    <xar:mlstring>
-                        Password
-                    </xar:mlstring>
-                    :
+                    <xar:mlstring>Password:</xar:mlstring>
                 </label>
                 <input type="password" name="pass1" id="pass1" value="" size="20" maxlength="40"  autocomplete="off" />
             </div>
 
             <div class="xar-form-input-wrapper">
                 <label for="pass2" class="xar-form-label">
-                    <xar:mlstring>
-                        Confirm Password
-                    </xar:mlstring>
-                    :
+                    <xar:mlstring>Confirm Password:</xar:mlstring>
                 </label>
                 <input type="password" name="pass2" id="pass2" value="" size="20" maxlength="40" />
             </div>
@@ -134,7 +105,7 @@
                         <label for="thislogin" class="xar-form-label">
                             <xar:mlstring>Time of Current Login:</xar:mlstring>
                         </label>
-                            #xarLocaleGetFormattedDate('medium', $usercurrentlogin)#  #xarLocaleGetFormattedTime('medium', $usercurrentlogin)#
+                        #xarLocaleGetFormattedDate('medium', $usercurrentlogin)#  #xarLocaleGetFormattedTime('medium', $usercurrentlogin)#
                     </div>
                 </xar:if>
                 <xar:if condition="!empty($userlastlogin)">
@@ -142,7 +113,7 @@
                         <label for="lastlogin" class="xar-form-label">
                             <xar:mlstring>Time of Last Login:</xar:mlstring>
                         </label>
-                            #xarLocaleGetFormattedDate('medium', $userlastlogin)#  #xarLocaleGetFormattedTime('medium', $userlastlogin)#
+                        #xarLocaleGetFormattedDate('medium', $userlastlogin)#  #xarLocaleGetFormattedTime('medium', $userlastlogin)#
                     </div>
                 </xar:if>
             </xar:if>
@@ -176,7 +147,7 @@
                     </xar:foreach>
                 </div>
             </xar:if>
-        </fieldset>
+        </div>
         <div class="xar-form-footer">
             <input type="hidden" name="authid" id="authid" value="#$authid#" />
             <input type="hidden" name="uid" id="uid" value="#$uid#" />

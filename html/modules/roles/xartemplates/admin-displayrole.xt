@@ -42,15 +42,15 @@
     <!-- Show the general tab list for roles -->
     <xar:set name="ptype">$type</xar:set>
     <xar:template file="tablist" />
-    <fieldset>
-      <legend><xar:mlstring>Role properties</xar:mlstring></legend>
-      <div class="xar-form-input-wrapper">
+    <h3>
+        <xar:mlstring>Role properties</xar:mlstring>
+    </h3>
+    <div class="xar-form-input-wrapper">
         <label class="xar-form-label">
-          <xar:mlstring>Display Name:</xar:mlstring>
+            <xar:mlstring>Display Name:</xar:mlstring>
         </label>
         #xarVarPrepForDisplay($name)#
-      </div>
-
+    </div>
     <xar:if condition="xarModGetVar('roles','setuserhome')">
         <div class="xar-form-input-wrapper">
             <label class="xar-form-label">
@@ -75,62 +75,60 @@
             #xarVarPrepForDisplay($primaryparent)#
         </div>
     </xar:if>
-      <xar:if condition="$type eq 0">
+    <xar:if condition="$type eq 0">
         <div class="xar-form-input-wrapper">
           <label class="xar-form-label">
             <xar:mlstring>Login:</xar:mlstring>
           </label>
           #xarVarPrepForDisplay($uname)#
         </div>
-        
         <div class="xar-form-input-wrapper">
           <label class="xar-form-label">
-            <xar:mlstring>Email:</xar:mlstring>
+              <xar:mlstring>Email:</xar:mlstring>
           </label>
           #xarVarPrepForDisplay($email)#
         </div>
-      </xar:if>
-      <xar:if condition="$userlastlogin ne ''">
+    </xar:if>
+    <xar:if condition="$userlastlogin ne ''">
         <div class="xar-form-input-wrapper">
             <label for="lastlogin" class="xar-form-label">
                 <xar:mlstring>Last Login:</xar:mlstring>
             </label>
             #xarLocaleGetFormattedDate('medium', $userlastlogin)#  #xarLocaleGetFormattedTime('medium', $userlastlogin)#&nbsp;
         </div>
-      </xar:if>
-      <xar:if condition="xarModGetVar('roles','setpasswordupdate')">
-          <div class="xar-form-input-wrapper">
-              <label for="upasswordupdate" class="xar-form-label">
-                  <xar:mlstring>Password last updated:</xar:mlstring>
-              </label>
-              #xarLocaleGetFormattedDate('medium', $upasswordupdate)# #xarLocaleGetFormattedTime('medium', $upasswordupdate)#
-          </div>
-      </xar:if>
-      <xar:if condition="xarModGetVar('roles','setusertimezone')">
-          <div class="xar-form-input-wrapper">
-              <label for="utimezone" class="xar-form-label">
-                  <xar:mlstring>User Timezone:</xar:mlstring>
-              </label>
-              #$utimezone# (GMT #$offset#)
-          </div>
-      </xar:if>
-      <xar:if condition="xarModIsHooked('dynamicdata','roles')">
+    </xar:if>
+    <xar:if condition="xarModGetVar('roles','setpasswordupdate')">
+        <div class="xar-form-input-wrapper">
+            <label for="upasswordupdate" class="xar-form-label">
+                <xar:mlstring>Password last updated:</xar:mlstring>
+            </label>
+            #xarLocaleGetFormattedDate('medium', $upasswordupdate)# #xarLocaleGetFormattedTime('medium', $upasswordupdate)#
+        </div>
+    </xar:if>
+    <xar:if condition="xarModGetVar('roles','setusertimezone')">
+        <div class="xar-form-input-wrapper">
+            <label for="utimezone" class="xar-form-label">
+                <xar:mlstring>User Timezone:</xar:mlstring>
+            </label>
+            #$utimezone# (GMT #$offset#)
+        </div>
+    </xar:if>
+    <xar:if condition="xarModIsHooked('dynamicdata','roles')">
         <xar:data-getitem name="$properties" module="roles" itemtype="$type" itemid="$uid" />
         <xar:if condition="isset($properties) and count($properties) gt 0">
-          <xar:foreach in="$properties" key="$name">
-            <div class="xar-form-input-wrapper">
-              <label class="xar-form-label">
-                <xar:data-label property="$properties[$name]" />:
-              </label>
-              <xar:data-output property="$properties[$name]" />
-            </div>
-          </xar:foreach>
+            <xar:foreach in="$properties" key="$name">
+                <div class="xar-form-input-wrapper">
+                    <label class="xar-form-label">
+                        <xar:data-label property="$properties[$name]" />:
+                    </label>
+                    <xar:data-output property="$properties[$name]" />
+                </div>
+            </xar:foreach>
         </xar:if>
-      </xar:if>
+    </xar:if>
 
-      <xar:foreach in="$hooks" key="$module" value="$output">
+    <xar:foreach in="$hooks" key="$module" value="$output">
         #$output#
-      </xar:foreach>
-    </fieldset>
-      <br class="xar-clearboth" />
+    </xar:foreach>
+    <br class="xar-clearboth" />
 </div>

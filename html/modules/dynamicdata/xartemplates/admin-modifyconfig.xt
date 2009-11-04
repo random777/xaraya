@@ -87,7 +87,8 @@
             </legend>
 
             <p>
-                <xar:mlstring>Add a new Property Type using the fields below.</xar:mlstring> (TODO)
+                <xar:comment> (TODO) </xar:comment>
+                <xar:mlstring>Add a new Property Type using the fields below.</xar:mlstring>
             </p>
 
             <div class="xar-form-input-wrapper">

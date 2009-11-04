@@ -9,7 +9,7 @@
     <h2>
       <xar:if condition="$ptype eq 0">
         <xar:mlstring>Show Privileges of User:</xar:mlstring>
-        <xar:else/>
+      <xar:else/>
         <xar:mlstring>Show Privileges of Group:</xar:mlstring>
       </xar:if>
       <xar:var name="pname" prep="true"/>
@@ -40,89 +40,83 @@
     <!-- Show the general tab list for roles -->
     <xar:set name="uid">$roleid</xar:set>
     <xar:template file="tablist" />
-    <fieldset>
-      <legend>
+    <div class="xar-form-section">
+      <h3>
         <xar:ml>
             <xar:mlstring>Privileges inherited by #(1):</xar:mlstring>
-            <xar:mlvar>
-                #xarVarPrepForDisplay($pname)#
-            </xar:mlvar>
+            <xar:mlvar>#xarVarPrepForDisplay($pname)#</xar:mlvar>
         </xar:ml>
-      </legend>
+      </h3>
 
     <xar:if condition="count($inherited) eq 0">
         <p>
             <xar:mlstring>No privileges inherited.</xar:mlstring>
         </p>
     <xar:else />
-        <div class="xar-fullwidth xar-overflow-auto xar-area-large">
-            <table class="xar-items">
-                <thead>
-                <tr>
-                    <th><xar:mlstring>Name</xar:mlstring></th>
-                    <xar:if condition="xarModGetVar('privileges','showrealms')">
-                        <th><xar:mlstring>Realm</xar:mlstring></th>
-                    </xar:if>
-                    <th><xar:mlstring>Module</xar:mlstring></th>
-                    <th><xar:mlstring>Component</xar:mlstring></th>
-                    <th><xar:mlstring>Instance</xar:mlstring></th>
-                    <th><xar:mlstring>Level</xar:mlstring></th>
-                    <th><xar:mlstring>Override</xar:mlstring></th>
-                    <th><xar:mlstring>From Group</xar:mlstring></th>
-                </tr>
-                </thead>
-                <tbody>
-                <xar:loop name="$inherited">
-                  <tr>
-                    <td>
-                      <a href="&xar-modurl-privileges-admin-modifyprivilege;&amp;pid=#$loop:item['privid']#">
-                        <xar:var name="loop:item.name" prep="true"/>
-                      </a>
-                    </td>
-                    <xar:if condition="xarModGetVar('privileges','showrealms')">
-                      <td><xar:var name="loop:item.realm" prep="true"/></td>
-                    </xar:if>
-                    <td>#$loop:item.module#</td>
-                    <td>#$loop:item.component#</td>
-                    <td>#$loop:item.instance#</td>
-                    <td class="xar-nowrap">#$loop:item.level#</td>
-                    <td>
-                      <xar:if condition="$loop:item['status'] eq 1">
-                        <xar:mlstring>Full</xar:mlstring>
-                        <xar:elseif condition="$loop:item['status'] eq 2" />
-                        <xar:mlstring>Partial</xar:mlstring>
-                        <xar:else />
-                        <xar:mlstring>None</xar:mlstring>
-                      </xar:if>
-                    </td>
-                    <td>
-                      <a href="#$groupurl#&amp;uid=#$loop:item['groupid']#">
-                        <xar:var name="loop:item.groupname" prep="true"/>
-                      </a>
-                    </td>
-                  </tr>
-                </xar:loop>
-                </tbody>
-            </table>
-        </div>
+        <table class="xar-items">
+            <thead>
+            <tr>
+                <th><xar:mlstring>Name</xar:mlstring></th>
+                <xar:if condition="xarModGetVar('privileges','showrealms')">
+                    <th><xar:mlstring>Realm</xar:mlstring></th>
+                </xar:if>
+                <th><xar:mlstring>Module</xar:mlstring></th>
+                <th><xar:mlstring>Component</xar:mlstring></th>
+                <th><xar:mlstring>Instance</xar:mlstring></th>
+                <th><xar:mlstring>Level</xar:mlstring></th>
+                <th><xar:mlstring>Override</xar:mlstring></th>
+                <th><xar:mlstring>From Group</xar:mlstring></th>
+            </tr>
+            </thead>
+            <tbody>
+            <xar:loop name="$inherited">
+              <tr>
+                <td>
+                  <a href="&xar-modurl-privileges-admin-modifyprivilege;&amp;pid=#$loop:item['privid']#">
+                    <xar:var name="loop:item.name" prep="true"/>
+                  </a>
+                </td>
+                <xar:if condition="xarModGetVar('privileges','showrealms')">
+                  <td>#$loop:item.realm#</td>
+                </xar:if>
+                <td>#$loop:item.module#</td>
+                <td>#$loop:item.component#</td>
+                <td>#$loop:item.instance#</td>
+                <td class="xar-nowrap">#$loop:item.level#</td>
+                <td>
+                  <xar:if condition="$loop:item['status'] eq 1">
+                    <xar:mlstring>Full</xar:mlstring>
+                    <xar:elseif condition="$loop:item['status'] eq 2" />
+                    <xar:mlstring>Partial</xar:mlstring>
+                    <xar:else />
+                    <xar:mlstring>None</xar:mlstring>
+                  </xar:if>
+                </td>
+                <td>
+                  <a href="#$groupurl#&amp;uid=#$loop:item['groupid']#">
+                    <xar:var name="loop:item.groupname" prep="true"/>
+                  </a>
+                </td>
+              </tr>
+            </xar:loop>
+            </tbody>
+        </table>
     </xar:if>
-    </fieldset>
-    <fieldset>
-      <legend>
+    </div>
+    <div class="xar-form-section">
+      <h3>
         <xar:ml>
           <xar:mlstring>Privileges assigned to #(1):</xar:mlstring>
-          <xar:mlvar>
-            #xarVarPrepForDisplay($pname)#
-          </xar:mlvar>
+          <xar:mlvar>#xarVarPrepForDisplay($pname)#</xar:mlvar>
         </xar:ml>
-      </legend>
+      </h3>
 
 
       <xar:if condition="count($privileges) eq 0">
         <p>
           <xar:mlstring>No privileges assigned.</xar:mlstring>
         </p>
-        <xar:else />
+      <xar:else />
         <p>
           <xar:mlstring>Note: only relevant privileges are shown.</xar:mlstring>
         </p>
@@ -152,7 +146,7 @@
               </td>
               <xar:if condition="xarModGetVar('privileges','showrealms')">
                 <td class="xar-align-center">
-                  <xar:var name="loop:item.realm" prep="true"/>
+                  #$loop:item.realm#
                 </td>
               </xar:if>
               <td>#$loop:item.module#</td>
@@ -162,9 +156,9 @@
               <td>
                 <xar:if condition="$loop:item['status'] eq 1">
                   <xar:mlstring>Full</xar:mlstring>
-                  <xar:elseif condition="$loop:item['status'] eq 2" />
+                <xar:elseif condition="$loop:item['status'] eq 2" />
                   <xar:mlstring>Partial</xar:mlstring>
-                  <xar:else />
+                <xar:else />
                   <xar:mlstring>None</xar:mlstring>
                 </xar:if>
               </td>
@@ -174,10 +168,10 @@
                     <a href="#$removeurl#&amp;privid=#$loop:item['privid']#" title="Remove this Privilege assignment">
                       <xar:mlstring>Remove</xar:mlstring>
                     </a>
-                    <xar:else />
+                  <xar:else />
                     <xar:mlstring>Cannot Be Removed</xar:mlstring>
                   </xar:if>
-                  <xar:else />
+                <xar:else />
                   <xar:mlstring>Not Directly Assigned</xar:mlstring>
                 </xar:if>
               </td>
@@ -187,13 +181,9 @@
         </table>
       </xar:if>
       <xar:if condition="$ptype eq 1">
-        <xar:set name="$thisrole">
-          <xar:mlstring>Group</xar:mlstring>
-        </xar:set>
-        <xar:else />
-        <xar:set name="$thisrole">
-          <xar:mlstring>User</xar:mlstring>
-        </xar:set>
+        <xar:set name="$thisrole"><xar:mlstring>Group</xar:mlstring></xar:set>
+      <xar:else />
+        <xar:set name="$thisrole"><xar:mlstring>User</xar:mlstring></xar:set>
       </xar:if>
 
       <form action="#xarModURL('roles','admin','addprivilege')#" method="post" enctype="application/x-www-form-urlencoded">
@@ -201,19 +191,13 @@
           <label for="privid" title="#xarML('Select the Privilege to add')#" class="xar-form-label">
             <xar:ml>
               <xar:mlstring>Assign a Privilege to #(1) '#(2)'</xar:mlstring>
-              <xar:mlvar>
-                #$thisrole#
-              </xar:mlvar>
-              <xar:mlvar>
-                #xarVarPrepForDisplay($pname)#
-              </xar:mlvar>
+              <xar:mlvar>#$thisrole#</xar:mlvar>
+              <xar:mlvar>#xarVarPrepForDisplay($pname)#</xar:mlvar>
             </xar:ml>
           </label>
           <select name="privid" id="privid">
           <xar:loop name="$allprivileges">
-            <option value="#$loop:item['pid']#">
-              <xar:var name="loop:item.name" prep="true"/>
-            </option>
+            <option value="#$loop:item['pid']#">#$loop:item.name#</option>
           </xar:loop>
         </select>
         <input type="hidden" name="authid" id="authid" value="#$authid#" />
@@ -221,5 +205,5 @@
         <input type="submit" value="#xarML('Add Privilege')#" />
       </div>
     </form>
-    </fieldset>
+    </div>
 </div>

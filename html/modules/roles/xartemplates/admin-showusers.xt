@@ -54,20 +54,19 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
 
     <xar:if condition="$selstyle eq '0'">
     <xar:elseif condition="$selstyle eq '1'"/>
-        <fieldset>
-            <legend><xar:mlstring>Role hierarchy</xar:mlstring></legend>
+        <div class="xar-form-section">
+            <h3>
+                <xar:mlstring>Role hierarchy</xar:mlstring>
+            </h3>
             <div id="treewrapper">
                 #$roletree#
             </div>
-        </fieldset>
+        </div>
     <xar:elseif condition="$selstyle eq '2'"/>
         <div>
             <dl class="xar-tabs">
                 <dt class="help" title="#xarML('Click on a group tab to display users from that group')#">
-                    <xar:mlstring>
-                        Groups
-                    </xar:mlstring>
-                    :
+                    <xar:mlstring>Groups:</xar:mlstring>
                 </dt>
                 <xar:if condition="$groupuid eq 0">
                     <dd class="active">
@@ -150,24 +149,16 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
                     <xar:set name="prevgroup">""</xar:set>
                     <select name="uid" id="groupuid">
                         <xar:if condition="$groupuid eq 0">
-                            <option value="0" selected="selected">
-                                <xar:mlstring>All Users</xar:mlstring> - #$totalusers#
-                            </option>
+                            <option value="0" selected="selected"><xar:mlstring>All Users</xar:mlstring> - #$totalusers#</option>
                         <xar:else/>
-                            <option value="0">
-                                <xar:mlstring>All Users</xar:mlstring> - #$totalusers#
-                            </option>
+                            <option value="0"><xar:mlstring>All Users</xar:mlstring> - #$totalusers#</option>
                         </xar:if>
                         <xar:for start="$i=0" test="$i lt count($groups)" iter="$i++">
                             <xar:if condition="$prevgroup ne $groups[$i]['name']">
                                 <xar:if condition="$groups[$i]['uid'] eq $groupuid">
-                                    <option value="#$groups[$i]['uid']#" selected="selected">
-                                        #xarVarPrepForDisplay($groups[$i]['name'])# - #$groups[$i]['users']#
-                                    </option>
+                                    <option value="#$groups[$i]['uid']#" selected="selected">#xarVarPrepForDisplay($groups[$i]['name'])# - #$groups[$i]['users']#</option>
                                 <xar:else/>
-                                    <option value="#$groups[$i]['uid']#">
-                                        #xarVarPrepForDisplay($groups[$i]['name'])# - #$groups[$i]['users']#
-                                    </option>
+                                    <option value="#$groups[$i]['uid']#">#xarVarPrepForDisplay($groups[$i]['name'])# - #$groups[$i]['users']#</option>
                                 </xar:if>
                             </xar:if>
                             <xar:set name="prevgroup">#xarVarPrepForDisplay($groups[$i]['name'])#</xar:set>
@@ -177,49 +168,29 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
                 <td class="xar-align-center">
                     <select name="state" id="state">
                         <xar:if condition="$state eq $statecurrent">
-                            <option value="#$statecurrent#" selected="selected">
-                                <xar:mlstring>All</xar:mlstring>
-                            </option>
+                            <option value="#$statecurrent#" selected="selected"><xar:mlstring>All</xar:mlstring></option>
                         <xar:else/>
-                            <option value="#$statecurrent#">
-                                <xar:mlstring>All</xar:mlstring>
-                            </option>
+                            <option value="#$statecurrent#"><xar:mlstring>All</xar:mlstring></option>
                         </xar:if>
                         <xar:if condition="$state eq $stateinactive">
-                            <option value="#$stateinactive#" selected="selected">
-                                <xar:mlstring>Inactive</xar:mlstring>
-                            </option>
-                            <xar:else/>
-                            <option value="#$stateinactive#">
-                                <xar:mlstring>Inactive</xar:mlstring>
-                            </option>
+                            <option value="#$stateinactive#" selected="selected"><xar:mlstring>Inactive</xar:mlstring></option>
+                        <xar:else/>
+                            <option value="#$stateinactive#"><xar:mlstring>Inactive</xar:mlstring></option>
                         </xar:if>
                         <xar:if condition="$state eq $statenotvalidated">
-                            <option value="#$statenotvalidated#" selected="selected">
-                                <xar:mlstring>Not Validated</xar:mlstring>
-                            </option>
+                            <option value="#$statenotvalidated#" selected="selected"><xar:mlstring>Not Validated</xar:mlstring></option>
                         <xar:else/>
-                            <option value="#$statenotvalidated#">
-                                <xar:mlstring>Not Validated</xar:mlstring>
-                            </option>
+                            <option value="#$statenotvalidated#"><xar:mlstring>Not Validated</xar:mlstring></option>
                         </xar:if>
                         <xar:if condition="$state eq $stateactive">
-                            <option value="#$stateactive#" selected="selected">
-                                <xar:mlstring>Active</xar:mlstring>
-                            </option>
+                            <option value="#$stateactive#" selected="selected"><xar:mlstring>Active</xar:mlstring></option>
                         <xar:else/>
-                            <option value="#$stateactive#">
-                                <xar:mlstring>Active</xar:mlstring>
-                            </option>
+                            <option value="#$stateactive#"><xar:mlstring>Active</xar:mlstring></option>
                         </xar:if>
                         <xar:if condition="$state eq $statepending">
-                            <option value="#$statepending#" selected="selected">
-                                <xar:mlstring>Pending</xar:mlstring>
-                            </option>
+                            <option value="#$statepending#" selected="selected"><xar:mlstring>Pending</xar:mlstring></option>
                         <xar:else/>
-                            <option value="#$statepending#">
-                                <xar:mlstring>Pending</xar:mlstring>
-                            </option>
+                            <option value="#$statepending#"><xar:mlstring>Pending</xar:mlstring></option>
                         </xar:if>
                     </select>
                 </td>
@@ -377,7 +348,7 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
                                     <!-- only show this option if password notification is active else we get change without anyone knowing see bug #5719-->
                                     <a href="&xar-modurl-roles-admin-createpassword;&amp;uid=#$loop:item.uid#&amp;state=#$state#&amp;groupuid=#$groupuid#" title="#xarML('Generate a new password for this User')#" class="xar-icon"><img src="#$icon_password#" alt="#xarML('Generate a new password for this User')#" /></a>
                                 </xar:if>
-                                <a href="&xar-modurl-roles-admin-modifyrole;&amp;uid=#$loop:item.uid##modify" title="#xarML('Modify this user')#" class="xar-icon"><img src="#$icon_modify#" alt="#xarML('Modify this user')#" /></a>
+                                <a href="&xar-modurl-roles-admin-modifyrole;&amp;uid=#$loop:item.uid#" title="#xarML('Modify this user')#" class="xar-icon"><img src="#$icon_modify#" alt="#xarML('Modify this user')#" /></a>
                                 <a href="&xar-modurl-roles-admin-deleterole;&amp;uid=#$loop:item.uid#" title="#xarML('Delete this User')#" class="xar-icon"><img src="#$icon_delete#" alt="#xarML('Delete this User')#" /></a>
                             <xar:else />
                                 <xar:if condition="xarModGetVar('roles', 'askpasswordemail')">

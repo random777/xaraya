@@ -58,74 +58,56 @@ jQuery('#"."scan').click(function() {
 <div class="xar-mod-body">
  <xar:template type="module" file="admin-menu" />
     <form action="#xarModURL('mail','admin','sendtest')#" id="composeform" method="post" enctype="application/x-www-form-urlencoded">
-        <fieldset>
-            <legend>
-                <xar:mlstring>
-                    Test Configuration
-                </xar:mlstring>
-            </legend>
+        <div class="xar-form-section">
+            <h3>
+                <xar:mlstring>Test Configuration</xar:mlstring>
+            </h3>
             <div class="xar-form-input-wrapper">
                 <label for="name" title="#xarML('Recipient Name.')#" class="xar-form-label">
-                    <xar:mlstring>
-                        Name:
-                    </xar:mlstring>
+                    <xar:mlstring>Name:</xar:mlstring>
                 </label>
                 <input type="text" id="name" name="name" value="#$name#" maxlength="100" class="xar-form-textlong" />
             </div>
             <div class="xar-form-input-wrapper">
                 <label for="email" title="#xarML('Recipient Email Address.')#" class="xar-form-label">
-                    <xar:mlstring>
-                        Email:
-                    </xar:mlstring>
+                    <xar:mlstring>Email:</xar:mlstring>
                 </label>
                 <input type="text" id="email" name="email" value="#$email#" maxlength="255" class="xar-form-textlong" />
             </div>
             <div class="xar-form-input-wrapper">
                 <label for="namecc" title="#xarML('CC Name.')#" class="xar-form-label">
-                    <xar:mlstring>
-                        CC Name:
-                    </xar:mlstring>
+                    <xar:mlstring>CC Name:</xar:mlstring>
                 </label>
                 <input type="text" id="namecc" name="namecc" value="" maxlength="100" class="xar-form-textlong" />
             </div>
             <div class="xar-form-input-wrapper">
                 <label for="emailcc" title="#xarML('Recipient CC.')#" class="xar-form-label">
-                    <xar:mlstring>
-                        CC Email:
-                    </xar:mlstring>
+                    <xar:mlstring>CC Email:</xar:mlstring>
                 </label>
                 <input type="text" id="emailcc" name="emailcc" value="" maxlength="255" class="xar-form-textlong" />
             </div>
             <div class="xar-form-input-wrapper">
                 <label for="namebcc" title="#xarML('BCC Name.')#" class="xar-form-label">
-                    <xar:mlstring>
-                        BCC Name:
-                    </xar:mlstring>
+                    <xar:mlstring>BCC Name:</xar:mlstring>
                 </label>
                 <input type="text" id="namebcc" name="namebcc" value="" maxlength="100" class="xar-form-textlong" />
             </div>
             <div class="xar-form-input-wrapper">
                 <label for="emailbcc" title="#xarML('Recipient BCC.')#" class="xar-form-label">
-                    <xar:mlstring>
-                        BCC Email:
-                    </xar:mlstring>
+                    <xar:mlstring>BCC Email:</xar:mlstring>
                 </label>
                 <input type="text" id="emailbcc" name="emailbcc" value="" maxlength="255" class="xar-form-textlong" />
             </div>
             
             <div class="xar-form-input-wrapper">
                 <label for="subject" title="#xarML('Message Subject.')#" class="xar-form-label">
-                    <xar:mlstring>
-                        Subject:
-                    </xar:mlstring>
+                    <xar:mlstring>Subject:</xar:mlstring>
                 </label>
                 <input type="text" id="subject" name="subject" value="" maxlength="100" class="xar-form-textlong" />
             </div>
             <div class="xar-form-input-wrapper">
                 <label for="message" title="#xarML('Message Subject.')#" class="xar-form-label">
-                    <xar:mlstring>
-                        Message:
-                    </xar:mlstring>
+                    <xar:mlstring>Message:</xar:mlstring>
                 </label>
                 <div class="xar-form-container-after">
                     <textarea name="message" id="message" class="xar-form-textarealarge"></textarea>
@@ -134,14 +116,12 @@ jQuery('#"."scan').click(function() {
             <xar:if condition="xarModIsAvailable('scheduler')">
                 <div class="xar-form-input-wrapper">
                     <label for="when_input" title="#xarML('Test scheduled mails.')#" class="xar-form-label">
-                        <xar:mlstring>
-                            No Earlier Than:
-                        </xar:mlstring>
+                        <xar:mlstring>No Earlier Than:</xar:mlstring>
                     </label>
                     <xar:data-input name="when" type="calendar" value="" />
                 </div>
             </xar:if>
-        </fieldset>
+        </div>
         <div class="xar-form-footer">
             <input type="hidden" name="authid" id="authid" value="#$authid#" />
             <input type="submit" value="#xarML('Send Test Message')#" class="xar-margin-thickright" />

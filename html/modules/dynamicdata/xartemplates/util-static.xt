@@ -3,14 +3,14 @@
 </xar:comment>
 <div class="xar-mod-head">
     <span class="xar-mod-title">
-        <xar:mlstring>
-            Dynamic Data Administration
-        </xar:mlstring>
+        <xar:mlstring>Dynamic Data Administration</xar:mlstring>
     </span>
 </div>
 <div class="xar-mod-body">
-   <xar:template type="module" file="admin-menu" />
-   <h2><xar:mlstring>Utilities -  Static Table Definitions </xar:mlstring></h2>
+    <xar:template type="module" file="admin-menu" />
+    <h2>
+        <xar:mlstring>Utilities: Static Table Definitions </xar:mlstring>
+    </h2>
    <xar:template type="module" file="utility-menu" />
 
     <xar:if condition="empty($export)">
@@ -20,49 +20,36 @@
             </h3>
             <p>
                 <a href="#xarModURL('dynamicdata','util','relations',array('modid' => $modid))#">
-                    <xar:mlstring>
-                        Add Relation 
-                    </xar:mlstring>
+                    <xar:mlstring>Add Relation</xar:mlstring>
                 </a>
             </p>
-            <table class="xar-fullwidth">
+            <table class="xar-items">
                 <thead>
                 <tr>
                     <th>
-                        <xar:mlstring>
-                            Name 
-                        </xar:mlstring>
+                        <xar:mlstring>Name</xar:mlstring>
                     </th>
                     <th>
-                        <xar:mlstring>
-                            Label 
-                        </xar:mlstring>
+                        <xar:mlstring>Label</xar:mlstring>
                     </th>
                     <th>
-                        <xar:mlstring>
-                            Type 
-                        </xar:mlstring>
+                        <xar:mlstring>Type</xar:mlstring>
                     </th>
                     <th>
-                        <xar:mlstring>
-                            Default 
-                        </xar:mlstring>
+                        <xar:mlstring>Default</xar:mlstring>
                     </th>
                     <th>
-                        <xar:mlstring>
-                            Source 
-                        </xar:mlstring>
+                        <xar:mlstring>Source</xar:mlstring>
                     </th>
                     <th>
-                        <xar:mlstring>
-                            Validation 
-                        </xar:mlstring>
+                        <xar:mlstring>Validation</xar:mlstring>
                     </th>
                 </tr>
                 </thead>
                 <tbody>
+                <xar:set name="rowclass">'xar-norm'</xar:set>
                 <xar:foreach in="$fields" value="$field">
-                    <tr>
+                    <tr class="#$rowclass#">
                         <td>
                             #$field['name']# 
                         </td>
@@ -82,6 +69,7 @@
                             #$field['validation']# 
                         </td>
                     </tr>
+                    <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
                 </xar:foreach>
                 </tbody>
             </table>
@@ -97,26 +85,23 @@
         </xar:foreach>
         <div class="xar-align-center">
             <a href="#xarModURL('dynamicdata','util','static',array('export' => 1, 'modid' => $modid))#">
-                <xar:mlstring>
-                    Export to XML 
-                </xar:mlstring>
+                <xar:mlstring>Export to XML</xar:mlstring>
             </a>
         </div>
-        <xar:else />
-        <form>
-            <fieldset>
-                <legend>
-                    <xar:ml>
-                        <xar:mlstring>Static table definitions for module #(1)</xar:mlstring>
-                        <xar:mlvar>#$module#</xar:mlvar>
-                    </xar:ml>
-                </legend>
-                <div class="xar-form-input-wrapper">
-                    <label class="xar-form-label">
-                        <xar:mlstring>Definition</xar:mlstring>
-                    </label>
-                    <div class="xar-form-container-after">
-                        <textarea name="xml" class="xar-form-textarealarge">
+    <xar:else />
+        <form action="#">
+            <h3>
+                <xar:ml>
+                    <xar:mlstring>Static table definitions for module #(1)</xar:mlstring>
+                    <xar:mlvar>#$module#</xar:mlvar>
+                </xar:ml>
+            </h3>
+            <div class="xar-form-input-wrapper">
+                <label class="xar-form-label">
+                    <xar:mlstring>Definition</xar:mlstring>
+                </label>
+                <div class="xar-form-container-after">
+                    <textarea name="xml" class="xar-form-textarealarge">
 &lt;objects&gt; 
 <xar:foreach in="$tables" key="$table" value="$fields">
     &lt;object name="#$table#"&gt; &lt;label&gt;#$table#&lt;/label&gt; &lt;moduleid&gt;182&lt;/moduleid&gt; &lt;itemtype&gt;-1&lt;/itemtype&gt; &lt;urlparam&gt;itemid&lt;/urlparam&gt; &lt;maxid&gt;0&lt;/maxid&gt; &lt;config&gt;&lt;/config&gt; &lt;isalias&gt;0&lt;/isalias&gt; &lt;properties&gt; 
@@ -132,16 +117,13 @@
     &lt;/properties&gt; &lt;/object&gt; 
 </xar:foreach>
 &lt;/objects&gt; 
-                        </textarea>
-                    </div>
+                    </textarea>
                 </div>
-            </fieldset>
+            </div>
         </form>
         <div class="xar-align-center">
             <a href="#xarModURL('dynamicdata','util','static',array('modid' => $modid))#">
-                <xar:mlstring>
-                    Show Table Definitions 
-                </xar:mlstring>
+                <xar:mlstring>Show Table Definitions</xar:mlstring>
             </a>
         </div>
     </xar:if>

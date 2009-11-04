@@ -18,7 +18,7 @@ jQuery('select#"."ptype').change(function() {
 </div>
 
 <div class="xar-mod-body">
-  <xar:template type="module" file="admin-menu" />
+    <xar:template type="module" file="admin-menu" />
     <h2>
         <xar:if condition="$ptype eq 0">
             <xar:mlstring>Manage User:</xar:mlstring>
@@ -52,16 +52,17 @@ jQuery('select#"."ptype').change(function() {
     <xar:comment>TODO set the active tab here</xar:comment>
     <!-- Show the general tab list for roles -->
     <xar:template file="tablist" />
-    <fieldset>
-        <legend>
-            <xar:if condition="$ptype eq 0">
-                <xar:mlstring>User Properties</xar:mlstring>
-            <xar:else/>
-                <xar:mlstring>Group Properties</xar:mlstring>
-            </xar:if>
-        </legend>
-    
-        <form action="#xarModURL('roles','admin','updaterole')#" method="post" enctype="application/x-www-form-urlencoded">
+
+    <form action="#xarModURL('roles','admin','updaterole')#" method="post" enctype="application/x-www-form-urlencoded">
+        <div class="xar-form-section">
+            <h3>
+                <xar:if condition="$ptype eq 0">
+                    <xar:mlstring>User Properties</xar:mlstring>
+                <xar:else/>
+                    <xar:mlstring>Group Properties</xar:mlstring>
+                </xar:if>
+            </h3>
+
             <xar:if condition="$frozen">
                 <div class="xar-form-input-wrapper">
                     <label for="pname" title="#xarML('Common name')#" class="xar-form-label">
@@ -84,7 +85,7 @@ jQuery('select#"."ptype').change(function() {
                     </label>
                     <input type="text" name="pname" id="pname" value="#xarVarPrepForDisplay($pname)#" maxlength="255" class="xar-form-textlong" />
                 </div>
-        
+    
                 <xar:if condition="$ptype eq 1 and $haschildren">
                     <div class="xar-form-input-wrapper">
                         <label title="#xarML('Type of Role')#" class="xar-form-label">
@@ -146,14 +147,14 @@ jQuery('select#"."ptype').change(function() {
                     <p class="xar-clearboth">
                         <xar:mlstring>The fields below only apply for Users.</xar:mlstring>
                     </p>
-                    
+                
                     <div class="xar-form-input-wrapper">
                         <label for="puname" title="#xarML('Name used for user log on')#" class="xar-form-label">
                             <xar:mlstring>User Name:</xar:mlstring>
                         </label>
                         <input type="text" name="puname" id="puname" value="#xarVarPrepForDisplay($puname)#" maxlength="255" class="xar-form-textlong" />
                     </div>
-                    
+                
                     <div class="xar-form-input-wrapper">
                         <label for="pemail" title="#xarML('Email address for this user')#" class="xar-form-label">
                             <xar:mlstring>Email:</xar:mlstring>
@@ -195,7 +196,7 @@ jQuery('select#"."ptype').change(function() {
                         </label>
                         <input type="password" name="ppass1" id="ppass1" value="" maxlength="40" class="xar-form-textmedium" />
                     </div>
-                    
+                
                     <div class="xar-form-input-wrapper">
                         <label for="ppass2" title="#xarML('Confirm password for this user')#" class="xar-form-label">
                             <xar:mlstring>Confirm Password:</xar:mlstring>
@@ -204,64 +205,65 @@ jQuery('select#"."ptype').change(function() {
                     </div>
 
                     <xar:if condition="xarModGetVar('roles','setpasswordupdate')">
-                    <div class="xar-form-input-wrapper">
-                        <label for="upasswordupdate" class="xar-form-label">
-                            <xar:mlstring>Password last updated:</xar:mlstring>
-                        </label>
-                        #xarLocaleGetFormattedDate('medium', $upasswordupdate)# #xarLocaleGetFormattedTime('medium', $upasswordupdate)#
-                    </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="upasswordupdate" class="xar-form-label">
+                                <xar:mlstring>Password last updated:</xar:mlstring>
+                            </label>
+                            #xarLocaleGetFormattedDate('medium', $upasswordupdate)# #xarLocaleGetFormattedTime('medium', $upasswordupdate)#
+                        </div>
                     </xar:if>
                 </xar:if>
                 <xar:if condition="xarModGetVar('roles','setuserlastlogin')">
                     <xar:if condition="!empty($userlastlogin)">
-                    <div class="xar-form-input-wrapper">
-                        <label for="lastlogin" class="xar-form-label">
-                            <xar:mlstring>Last login time:</xar:mlstring>
-                        </label>
+                        <div class="xar-form-input-wrapper">
+                            <label for="lastlogin" class="xar-form-label">
+                                <xar:mlstring>Last login time:</xar:mlstring>
+                            </label>
                             #xarLocaleGetFormattedDate('medium', $userlastlogin)#  #xarLocaleGetFormattedTime('medium', $userlastlogin)#
-                    </div>
+                        </div>
                     </xar:if>
                 </xar:if>
-                
+            
                 <xar:if condition="xarModGetVar('roles','setusertimezone')">
                     <xar:if condition="!empty($utimezone)">
-                    <div class="xar-form-input-wrapper">
-                        <label for="utimezone" class="xar-form-label">
-                            <xar:mlstring>User Timezone:</xar:mlstring>
-                        </label>
-                        <xar:data-input type="timezone" name="utimezone" id="utimezone" value="$utimezone" />
-                    </div>
+                        <div class="xar-form-input-wrapper">
+                            <label for="utimezone" class="xar-form-label">
+                                <xar:mlstring>User Timezone:</xar:mlstring>
+                            </label>
+                            <xar:data-input type="timezone" name="utimezone" id="utimezone" value="$utimezone" />
+                        </div>
                     </xar:if>
                 </xar:if>
                 <xar:if condition="xarModGetVar('roles','usersendemails')">
-                <div class="xar-form-input-wrapper-after">
-                    <xar:if condition="xarModGetUserVar('roles', 'usersendemails',$uid)">
-                        <input type="checkbox" name="allowemail" id="allowemail" value="1" checked="checked" tabindex="2"/>
-                    <xar:else />
-                        <input type="checkbox" name="allowemail" id="allowemail" value="1" tabindex="2"/>
-                    </xar:if>
-                    <label for="allowemail" title="#xarML('Allow users to send emails?')#">
-                       <xar:mlstring>User has allowed other users to send them an email?</xar:mlstring>
-                    </label>
-                </div>
-               </xar:if>
+                    <div class="xar-form-input-wrapper-after">
+                        <xar:if condition="xarModGetUserVar('roles', 'usersendemails',$uid)">
+                            <input type="checkbox" name="allowemail" id="allowemail" value="1" checked="checked" tabindex="2"/>
+                        <xar:else />
+                            <input type="checkbox" name="allowemail" id="allowemail" value="1" tabindex="2"/>
+                        </xar:if>
+                        <label for="allowemail" title="#xarML('Allow users to send emails?')#">
+                           <xar:mlstring>User has allowed other users to send them an email?</xar:mlstring>
+                        </label>
+                    </div>
+                </xar:if>
                 <xar:if condition="!empty($hooks) and count($hooks) gt 0">
                     <xar:foreach in="$hooks" key="$hookmodule">
                         #$hooks[$hookmodule]#
                     </xar:foreach>
                 </xar:if>
-                
-                <div class="xar-form-footer xar-clearboth">
+                <div class="xar-form-footer">
                     <input type="hidden" name="uid" id="uid" value="#$uid#" />
                     <input type="hidden" name="authid" id="authid" value="#$authid#" />
                     <input type="submit" value="#xarML('Update')#" />
                 </div>
             </xar:if>
-        </form>
-    </fieldset>
+        </div>
+    </form>
 
-    <fieldset>
-        <legend><xar:mlstring>Group Memberships</xar:mlstring></legend>
+    <div class="xar-form-section">
+        <h3>
+            <xar:mlstring>Group Memberships</xar:mlstring>
+        </h3>
         <table class="xar-items">
             <thead>
             <tr>
@@ -311,9 +313,7 @@ jQuery('select#"."ptype').change(function() {
                     </label>
                     <select name="roleid" id="roleid">
                         <xar:loop name="$groups">
-                            <option value="#$loop:item['duid']#">                    
-                                <xar:var name="loop:item.dname" prep="true"/>
-                            </option>
+                            <option value="#$loop:item['duid']#">#$loop:item.dname#</option>
                         </xar:loop>
                     </select>
                     <input type="hidden" name="uid" id="adduid" value="#$uid#" />
@@ -322,5 +322,5 @@ jQuery('select#"."ptype').change(function() {
                 </div>
             </form>
         </xar:if>
-    </fieldset>
+    </div>
 </div>

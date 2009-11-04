@@ -78,46 +78,102 @@
     }
 
     jQuery('div.fieldwrapper a').click(dialog_trigger);
+
+    var saveorder_callback = function (e, ui) {
+        var form_obj = '#modifyprop-form';
+        if (jQuery(form_obj).length)
+        {
+            visible = new Array();
+            jQuery('div.fieldwrapper').each( function (i) {
+                visible[i] = jQuery(this).is(':visible');
+            });
+            href = jQuery(form_obj).attr('action');
+            join = (href.match(/\?/)) ? '&' : '?';
+            argstr =  join + 'pageName=module';
+            var prop_order = '';
+            jQuery(':input').each(function()
+            {
+                if (jQuery(this).attr('name').match(/^dd_label\[\d+\]$/)) {
+                    property_id = jQuery(this).attr('name').replace(/^dd_label\[(\d+)\]$/, '$1');
+                    if (property_id != 0) {
+                        prop_order = (prop_order != '') ? prop_order += ';' + property_id : property_id;
+                    }
+                }
+                if (jQuery(this).attr('name') != 'prop_order') {
+                    argstr = argstr + '&' + jQuery(this).attr('name') + '=' + jQuery(this).val();
+                }
+            }
+            );
+            if (prop_order != '') {
+                argstr += '&prop_order=' + prop_order;
+            }
+            url = href + argstr;
+            jQuery('#"."sortable').sortable('disable').children('fieldset').css('cursor', 'wait');
+            jQuery.get(url, {}, function (responseText) {
+                if (jQuery(responseText).find('.xar-mod-body').length)
+                {
+                    jQuery('.xar-mod-body').html(jQuery(responseText).find('.xar-mod-body').html());
+                }
+                jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(prop_trigger).css('cursor','pointer');
+                jQuery('div.fieldwrapper a').click(dialog_trigger);
+                jQuery('#"."sortable').sortable( {update: saveorder_callback} ).children('fieldset').css('cursor', 'move');
+                jQuery('div.fieldwrapper').each( function (i) {
+                    if (visible[i]) {
+                        jQuery(this).toggle();
+                    }
+                });
+            });
+        }
+    }
+
+    jQuery('#"."sortable').sortable( {update: saveorder_callback} ).children('fieldset').css('cursor', 'move');
 "</xar:set>
-    <xar:base-js-event name="ready" code="$ddcode" />
-    <xar:foreach in="$fields" value="$field">
-        <fieldset>
-            <legend>
-                <span id="fieldname_#$field.id#" title="#xarML('Click to toggle field visibility for this property')#">
-                <xar:if condition="!empty($field['name'])">
-                    #$field['name']#
-                    <xar:if condition="!empty($field['label'])">
-                        "#$field['label']#"
-                    </xar:if>
+<xar:base-js-event name="ready" code="$ddcode" />
+<div id="sortable">
+<xar:foreach in="$fields" value="$field">
+    <fieldset>
+        <legend>
+            <span id="fieldname_#$field.id#" title="#xarML('Click to toggle field visibility for this property')#">
+            <xar:if condition="!empty($field['name'])">
+                #$field['name']#
+                <xar:if condition="!empty($field['label'])">
+                    "#$field['label']#"
+                </xar:if>
+            <xar:else />
+                <xar:mlstring>[unnamed property]</xar:mlstring>
+            </xar:if>
+            [#$labels['id']#: #$field['id']#]
+            </span>
+            <noscript>
+            <xar:if condition="$total gt 1">
+                <span class="xar-nowrap">
+                <xar:if condition="($i gt 1)">
+                    <a class="xar-icon" href="#xarModURL('dynamicdata', 'admin', 'orderprops', array('objectid' => $objectid, 'modid' => $modid, 'itemtype' => $itemtype, 'move_prop' => $field['name'], 'direction' => 'up', 'authid' => $authid))#"><img class="xar-icon" src="#$upicon#" alt="#xarML('Up')#" title="#$uptitle#" /></a>
                 <xar:else />
-                    <xar:mlstring>[unnamed property]</xar:mlstring>
+                    <img class="xar-icon-disabled" src="#$upicon#" alt="#xarML('Up')#" title="#$uptitle#"/>
                 </xar:if>
-                [#$labels['id']#: #$field['id']#]
+                <xar:if condition="($i lt $total)">
+                     <a class="xar-icon" href="#xarModURL('dynamicdata', 'admin', 'orderprops', array('objectid' => $objectid, 'modid' => $modid, 'itemtype' => $itemtype, 'move_prop' => $field['name'], 'direction' => 'down', 'authid' => $authid))#"><img class="xar-icon" src="#$downicon#" alt="#xarML('Down')#" title="#$downtitle#" /></a>
+                <xar:else />
+                    <img class="xar-icon-disabled" src="#$downicon#" alt="#xarML('Down')#" title="#$downtitle#" />
+                </xar:if>
                 </span>
-                <xar:if condition="$total gt 1">
-                    <span class="xar-nowrap">
-                    <xar:if condition="($i gt 1)">
-                        <a class="xar-icon" href="#xarModURL('dynamicdata', 'admin', 'orderprops', array('objectid' => $objectid, 'modid' => $modid, 'itemtype' => $itemtype, 'move_prop' => $field['name'], 'direction' => 'up', 'authid' => $authid))#"><img class="xar-icon" src="#$upicon#" alt="#xarML('Up')#" title="#$uptitle#" /></a>
-                    <xar:else />
-                        <img class="xar-icon-disabled" src="#$upicon#" alt="#xarML('Up')#" title="#$uptitle#"/>
-                    </xar:if>
-                    <xar:if condition="($i lt $total)">
-                         <a class="xar-icon" href="#xarModURL('dynamicdata', 'admin', 'orderprops', array('objectid' => $objectid, 'modid' => $modid, 'itemtype' => $itemtype, 'move_prop' => $field['name'], 'direction' => 'down', 'authid' => $authid))#"><img class="xar-icon" src="#$downicon#" alt="#xarML('Down')#" title="#$downtitle#" /></a>
-                    <xar:else />
-                        <img class="xar-icon-disabled" src="#$downicon#" alt="#xarML('Down')#" title="#$downtitle#" />
-                    </xar:if>
-                    </span>
-                </xar:if>
-            </legend>
-            <xar:comment>Include the edit-part for a property</xar:comment>
-            <xar:template file="editproperty" module="dynamicdata" subdata="array('field' =&gt; $field, 'labels' =&gt; $labels,'fieldtypeprop' =&gt; $fieldtypeprop, 'fieldstatusprop' =&gt; $fieldstatusprop)"/>
-        </fieldset>
-        <xar:set name="dummy">$i++</xar:set>
-    </xar:foreach>
-    
-    <xar:comment>Include the part for creating a new property</xar:comment>
-    <xar:template file="newproperty" module="dynamicdata"/>
+            </xar:if>
+            </noscript>
+        </legend>
+        <xar:comment>Include the edit-part for a property</xar:comment>
+        <xar:template file="editproperty"
+                      module="dynamicdata"
+                      subdata="array('field' =&gt; $field, 'labels' =&gt; $labels,'fieldtypeprop' =&gt; $fieldtypeprop, 'fieldstatusprop' =&gt; $fieldstatusprop)"/>
+    </fieldset>
+    <xar:set name="dummy">$i++</xar:set>
+</xar:foreach>
 </div>
+
+<xar:comment>Include the part for creating a new property</xar:comment>
+<xar:template file="newproperty" module="dynamicdata"/>
+
+<xar:comment>
 <xar:if condition="count($fields) gt 1">
     <div class="xar-form-section">
         <h3>
@@ -132,7 +188,14 @@
             </div>
             <br class="xar-clearboth" />
         </div>
-    </div>
+    </fieldset>
+</xar:if>
+</xar:comment>
+
+<xar:if condition="$modid eq 182">
+  <p>
+    <xar:mlstring>Note: for completely dynamic Objects like this one, you need to define one property that is of type "Item ID"</xar:mlstring>
+  </p>
 </xar:if>
 
 <xar:if condition="!empty($hooks)">

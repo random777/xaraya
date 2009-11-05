@@ -11,9 +11,7 @@ jQuery('#"."displayform').validate({
             required: true
         },
         alternatepagetemplatename: {
-            required: function (element) {
-                return jQuery('#"."alternatepagetemplate:checked');
-            }
+            required: '#"."alternatepagetemplate:checked'
         },
         themedir: {
             required: true

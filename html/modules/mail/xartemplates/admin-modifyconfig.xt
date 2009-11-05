@@ -36,29 +36,19 @@ jQuery('#"."mailmodifyconfig').validate({
             email: true
         },
         htmlheader: {
-            required: function (element) {
-                return jQuery('#"."htmluseheadfoot:checked');
-            }
+            required: '#"."htmluseheadfoot:checked'
         },
         htmlfooter: {
-            required: function (element) {
-                return jQuery('#"."htmluseheadfoot:checked');
-            }
+            required: '#"."htmluseheadfoot:checked'
         },
         textheader: {
-            required: function (element) {
-                return jQuery('#"."textuseheadfoot:checked');
-            }
+            required: '#"."textuseheadfoot:checked'
         },
         textfooter: {
-            required: function (element) {
-                return jQuery('#"."textuseheadfoot:checked');
-            }
+            required: '#"."textuseheadfoot:checked'
         },
         redirectaddress: {
-            required: function (element) {
-                return jQuery('#"."redirectsending:checked');
-            }
+            required: '#"."redirectsending:checked'
         }
     },
     messages: {

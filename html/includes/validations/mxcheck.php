@@ -71,7 +71,7 @@ function variable_validations_mxcheck (&$subject, $parameters=null, $supress_sof
     {
         // Judgment is that service is preparing though begin by 220 getting string after connection .
         // fgets function reference : http://www.php.net/manual/en/function.fgets.php
-        if ( ereg ( "^220", $Out = fgets ( $Connect, 1024 ) ) ) {
+        if ( preg_match ( "/^220/", $Out = fgets ( $Connect, 1024 ) ) ) {
 
             // Inform client's reaching to server who connect.
             fputs ( $Connect, "HELO $HTTP_HOST\r\n" );
@@ -93,7 +93,7 @@ function variable_validations_mxcheck (&$subject, $parameters=null, $supress_sof
                 // Server's answering cord about MAIL and TO command checks.
                 // Server about listener's address reacts to 550 codes if there does not exist
                 // checking that mailbox is in own E-Mail account.
-                if ( !ereg ( "^250", $From ) || !ereg ( "^250", $To )) {
+                if ( !preg_match ( "/^250/", $From ) || !preg_match ( "/^250/", $To )) {
 
                     //We should add some caching for these cases to avoid an excessive
                     // hardware consumption exploit thru sending many of these e-mails to be checked

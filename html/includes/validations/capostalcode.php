@@ -13,7 +13,7 @@
  */
 function variable_validations_capostalcode (&$subject, $parameters=null, $supress_soft_exc, &$name)
 {
-    if (!eregi('^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ])\ {0,1}(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$', $subject)) {
+    if (!preg_match('/^([ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ])\ {0,1}(\d[ABCEGHJKLMNPRSTVWXYZ]\d)$/i', $subject)) {
         if ($name != '')
             $msg = xarML('Variable #(1) does not match postal code type: "#(2)"', $name, $subject);
         else

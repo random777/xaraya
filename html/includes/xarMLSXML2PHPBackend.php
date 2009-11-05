@@ -148,7 +148,7 @@ class xarMLS__XML2PHPTranslationsBackend extends xarMLS__ReferencesBackend
         $phpFileName = $this->basePHPDir;
         $xmlFileName = $this->baseXMLDir;
 
-        if (!ereg("^[a-z]+:$", $ctxType)) {
+        if (!preg_match("/^[a-z]+:$/", $ctxType)) {
             list($prefix,$directory) = explode(':',$ctxType);
             if ($directory != "") {
                 $phpFileName .= $directory . "/";
@@ -296,7 +296,7 @@ class PHPBackendGenerator
         $this->fileName = $this->baseDir;
         $this->xmlFileName = $this->baseXMLDir;
 
-        if (!ereg("^[a-z]+:$", $ctxType)) {
+        if (!preg_match("/^[a-z]+:$/", $ctxType)) {
             list($prefix,$directory) = explode(':',$ctxType);
             if ($directory != "") {
                 $this->fileName .= $directory . "/";

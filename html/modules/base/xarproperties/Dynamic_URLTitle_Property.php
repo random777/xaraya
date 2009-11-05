@@ -75,7 +75,7 @@ class Dynamic_URLTitle_Property extends Dynamic_TextBox_Property
                     } else {
                       // If we have a scheme but nothing following it,
                         // then consider the link empty :-)
-                        if (eregi('^[a-z]+\:\/\/$', trim($link))) {
+                        if (preg_match('!^[a-z]+\:\/\/$!i', trim($link))) {
                             $link = '';
                         } else {
                             // Do some URL validation below. Separate for better understanding
@@ -87,7 +87,7 @@ class Dynamic_URLTitle_Property extends Dynamic_TextBox_Property
                                 $link = $value['link'];
 
                             } elseif (!isset($uri['scheme']) && !isset($uri['host']) && isset($uri['path'])
-                                      && ereg('^www.',trim($uri['path']))){
+                                      && preg_match('!^www.!',trim($uri['path']))){
                                 //bug 5959 allow users to enter http address without http
                                 //jojodee: Just www now. But still, sure we want to make this guess and force http here?
                                  $link = 'http://'.$link;

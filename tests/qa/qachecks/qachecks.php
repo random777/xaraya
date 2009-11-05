@@ -40,7 +40,7 @@ $filenames = array();
 $requested = array();
 foreach($_SERVER['argv'] as $index => $arg) {
     if (substr($arg, 0, 9) == '--checks=') {
-        $requested = split(',', substr($arg, 9));
+        $requested = explode(',', substr($arg, 9));
     } else if (substr($arg, 0, 10) == '--working=') {
         chdir(substr($arg, 10));
     } else if (substr($arg, 0, 5) == '--all') {
@@ -170,7 +170,7 @@ foreach ($filenames as $filename) {
     }
 
     /* create array from uncommented version */
-    $nocommentlines = split("\n", $nocomments);
+    $nocommentlines = explode("\n", $nocomments);
 
     /* split always leaves an extra empty line */
     unset($nocommentlines[count($nocommentlines) - 1]);

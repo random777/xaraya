@@ -48,7 +48,7 @@ class Dynamic_URL_Property extends Dynamic_TextBox_Property
             } else {
                 // If we have a scheme but nothing following it,
                 // then consider the link empty :-)
-                if (eregi('^[a-z]+\:\/\/$', $value)) {
+                if (preg_match('!^[a-z]+\:\/\/$!i', $value)) {
                     $this->value = '';
                 } else {
                     // Do some URL validation below. Separate for better understanding

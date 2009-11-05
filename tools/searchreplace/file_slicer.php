@@ -111,10 +111,10 @@ function grab_functions($lines, $module, $type)
 {
 
     foreach ($lines as $num => $text) {
-        if (eregi("function([ ]*)?{$module}_{$type}_([a-zA-Z0-9_]*)([ ]*)?\(",$text, $regs)) {
+        if (preg_match("/function([ ]*)?{$module}_{$type}_([a-zA-Z0-9_]*)([ ]*)?\(/i",$text, $regs)) {
 
             $i = $num - 1;
-            while (!ereg("([ ]*)?\/\*\*",$lines[$i]) && $i > 0) {
+            while (!preg_match("!([ ]*)?\/\*\*!",$lines[$i]) && $i > 0) {
                 $i--;
             }
             $funcList[$regs[2]]['start'] = $i;
@@ -124,7 +124,7 @@ function grab_functions($lines, $module, $type)
             }
 
             $prevFunc = $regs[2];
-        } elseif (eregi("^\?\>",$text)) {
+        } elseif (preg_match("!^\?\>!i",$text)) {
             $funcList[$prevFunc]['end'] = $num - 1;
         }
 

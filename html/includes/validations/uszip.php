@@ -14,7 +14,7 @@
 function variable_validations_uszip (&$subject, $parameters=null, $supress_soft_exc, &$name)
 {
     // accepts nnnnn or nnnnn-nnnn (hyphen required)
-    if (!eregi('^\d{5}$|^\d{5}-\d{4}$', $subject)) {
+    if (!preg_match('/^\d{5}$|^\d{5}-\d{4}$/i', $subject)) {
         if ($name != '')
             $msg = xarML('Variable #(1) does not match ZIP code type: "#(2)"', $name, $subject);
         else

@@ -1487,7 +1487,7 @@ function xarModCallHooks($hookObject, $hookAction, $hookId, $extraInfo, $callerM
 //          if we don't get that information from at least one enabled hook. But this is silly, really,
 //          because there are *no* cases where you can have the same hookObject + hookAction in 2 different
 //          hookAreas (GUI or API).
-    if ($isGUI || eregi('^(display|new|modify|search|usermenu|modifyconfig)$',$hookAction)) {
+    if ($isGUI || preg_match('/^(display|new|modify|search|usermenu|modifyconfig)$/i',$hookAction)) {
         return $output;
     } else {
         return $extraInfo;

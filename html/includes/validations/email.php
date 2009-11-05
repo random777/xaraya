@@ -13,7 +13,7 @@
  */
 function variable_validations_email (&$subject, $parameters=null, $supress_soft_exc, &$name)
 {
-    if (!eregi('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,6})$', $subject)) {
+    if (!preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,6})$/i', $subject)) {
         if ($name != '')
             $msg = xarML('Variable #(1) does not match an e-mail type: "#(2)"', $name, $subject);
         else

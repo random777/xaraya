@@ -15,7 +15,7 @@
 function variable_validations_nanpphone (&$subject, $parameters=null, $supress_soft_exc, &$name)
 {
     // accepts '(nnn) nnn-nnnn' (space optional) or 'nnn-nnn-nnnn' formats
-    if (!eregi('^((\([2-9][0-8]\d\) ?)|([2-9][0-8]\d-))?[2-9]\d{2}-\d{4}$', $subject)) {
+    if (!preg_match('/^((\([2-9][0-8]\d\) ?)|([2-9][0-8]\d-))?[2-9]\d{2}-\d{4}$/i', $subject)) {
         if ($name != '')
             $msg = xarML('Variable #(1) does not match a phone number type: "#(2)"', $name, $subject);
         else

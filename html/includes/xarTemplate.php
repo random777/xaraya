@@ -31,8 +31,8 @@ define ('XAR_TPL_ANY', XAR_TPL_STRING|XAR_TPL_BOOLEAN|XAR_TPL_INTEGER|XAR_TPL_FL
  * Define for reg expressions for attributes and tags
  *
  */
-define ('XAR_TPL_ATTRIBUTE_REGEX','^[a-z][-_a-z0-9]*$');
-define ('XAR_TPL_TAGNAME_REGEX',  '^[a-z][-_a-z0-9]*$');
+define ('XAR_TPL_ATTRIBUTE_REGEX','/^[a-z][-_a-z0-9]*$/i');
+define ('XAR_TPL_TAGNAME_REGEX',  '/^[a-z][-_a-z0-9]*$/i');
 
 /**
  * Defines for tag properties
@@ -1639,7 +1639,7 @@ class xarTemplateAttribute
     function xarTemplateAttribute($name, $flags = NULL)
     {
         // See defines at top of file
-        if (!eregi(XAR_TPL_ATTRIBUTE_REGEX, $name)) {
+        if (!preg_match(XAR_TPL_ATTRIBUTE_REGEX, $name)) {
             $msg = xarML("Illegal attribute name ('#(1)'): Attribute name may contain letters, numbers, _ and -, and must start with a letter.", $name);
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'UNKNOWN',
                            new SystemException($msg));
@@ -1725,7 +1725,7 @@ class xarTemplateTag
     function xarTemplateTag($module, $name, $attributes = array(), $handler = NULL, $flags = XAR_TPL_TAG_ISPHPCODE)
     {
         // See defines at top of file
-        if (!eregi(XAR_TPL_TAGNAME_REGEX, $name)) {
+        if (!preg_match(XAR_TPL_TAGNAME_REGEX, $name)) {
             $msg = xarML("Illegal tag definition: '#(1)' is an invalid tag name.", $name);
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'UNKNOWN', new SystemException($msg));
             return;
@@ -1917,7 +1917,7 @@ function xarTplRegisterTag($tag_module, $tag_name, $tag_attrs = array(), $tag_ha
  **/
 function xarTplUnregisterTag($tag_name)
 {
-    if (!eregi(XAR_TPL_TAGNAME_REGEX, $tag_name)) {
+    if (!preg_match(XAR_TPL_TAGNAME_REGEX, $tag_name)) {
         // throw exception
         return false;
     }
@@ -1968,13 +1968,13 @@ function xarTplCheckTagAttributes($name, $args)
             if ($attr_types & XAR_TPL_STRING) {
                 continue;
             } elseif (($attr_types & XAR_TPL_BOOLEAN)
-                      && eregi ('^(true|false|1|0)$', $args[$attr_name])) {
+                      && preg_match ('/^(true|false|1|0)$/i', $args[$attr_name])) {
                 continue;
             } elseif (($attr_types & XAR_TPL_INTEGER)
-                      && eregi('^\-?[0-9]+$', $args[$attr_name])) {
+                      && preg_match ('/^\-?[0-9]+$/i', $args[$attr_name])) {
                 continue;
             } elseif (($attr_types & XAR_TPL_FLOAT)
-                      && eregi('^\-?[0-9]*.[0-9]+$', $args[$attr_name])) {
+                      && preg_match('/^\-?[0-9]*.[0-9]+$/i', $args[$attr_name])) {
                 continue;
             }
 

@@ -3,7 +3,7 @@
  * Metaclass for Dynamic Objects
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -1794,10 +1794,12 @@ class Dynamic_Object_List extends Dynamic_Object_Master
             // Don't show link to view items that don't belong to the DD module
             // Set to 0 when interested in viewing them anyway...
             $dummy_mode = 1;
+            $icon1 = 'icons/item-list.png';
         } else {
             $linktype = 'user';
             $linkfunc = $args['linkfunc'];
             $dummy_mode = 0;
+            $icon1 = 'icons/display.png';
         }
 
         // pass some extra template variables for use in BL tags, API calls etc.
@@ -1839,7 +1841,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => '',
                                        'ojoin'  => '',  
-                                       'oicon' => xarTplGetImage('icons/display.png','base'));
+                                       'oicon' => xarTplGetImage($icon1,'base'));
                 } else {
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => xarModURL($args['urlmodule'],$linktype,$linkfunc,
@@ -1848,7 +1850,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                          $args['param'] => $itemid,
                                                          'template'     => $args['template'])),
                                        'ojoin'  => '',
-                                       'oicon' => xarTplGetImage('icons/display.png','base'));
+                                       'oicon' => xarTplGetImage($icon1,'base'));
                 }
                 $options[] = array('otitle' => xarML('Edit'),
                                    'olink'  => xarModURL($args['urlmodule'],'admin','modify',
@@ -1871,7 +1873,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => '',
                                        'ojoin'  => '',
-                                       'oicon' => xarTplGetImage('icons/display.png','base'));
+                                       'oicon' => xarTplGetImage($icon1,'base'));
                 } else {
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => xarModURL($args['urlmodule'],$linktype,$linkfunc,
@@ -1880,7 +1882,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                          $args['param'] => $itemid,
                                                          'template'     => $args['template'])),
                                        'ojoin'  => '',  
-                                       'oicon' => xarTplGetImage('icons/display.png','base'));
+                                       'oicon' => xarTplGetImage($icon1,'base'));
                 }
                 $options[] = array('otitle' => xarML('Edit'),
                                    'olink'  => xarModURL($args['urlmodule'],'admin','modify',
@@ -1895,7 +1897,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => '',
                                        'ojoin'  => '',  
-                                       'oicon' => xarTplGetImage('icons/display.png','base'));
+                                       'oicon' => xarTplGetImage($icon1,'base'));
                 } else {
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => xarModURL($args['urlmodule'],$linktype,$linkfunc,
@@ -1904,7 +1906,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                          $args['param'] => $itemid,
                                                          'template'     => $args['template'])),
                                        'ojoin'  => '',  
-                                       'oicon' => xarTplGetImage('icons/display.png','base'));
+                                       'oicon' => xarTplGetImage($icon1,'base'));
                 }
             }
             $args['links'][$itemid] = $options;

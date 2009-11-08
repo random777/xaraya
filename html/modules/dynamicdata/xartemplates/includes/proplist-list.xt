@@ -5,11 +5,11 @@
     <p>
         <xar:mlstring>Hint: empty the Label to delete a property for all items</xar:mlstring>
     </p>
-    
+
     <p>
         <xar:mlstring>Click on a Property Name to edit it.</xar:mlstring>
     </p>
-    
+
     <xar:if condition="!empty($objectid) and $objectid lt 3">
         <p class="xar-error">
           <xar:mlstring>Warning! This is a system object used internally by the Dynamic Data module. Trying to modify the properties of this object may break the Dynamic Data module. Proceed with caution.</xar:mlstring>
@@ -31,7 +31,11 @@
         jQuery(this).parent().children('div.fieldwrapper').toggle();
     }
 
-    jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(prop_trigger).css('cursor','pointer');
+    jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(prop_trigger).css('cursor','pointer').mousedown(function (e) {
+            jQuery('#"."sortable').sortable('disable');
+        }).mouseup(function () {
+            jQuery('#"."sortable').sortable('enable');
+        });
 
     var dialog_width = Math.floor(jQuery(window).width() * .85);
     var dialog_height = Math.floor(jQuery(window).height() * .85);
@@ -95,7 +99,7 @@
                     }
                 }
                 if (jQuery(this).attr('name') != 'prop_order') {
-                    argstr = argstr + '&' + jQuery(this).attr('name') + '=' + jQuery(this).val();
+                    argstr += '&' + jQuery(this).attr('name') + '=' + jQuery(this).val();
                 }
             }
             );
@@ -164,7 +168,7 @@
             <xar:set name="dummy">$i++</xar:set>
         </xar:foreach>
     </div>
-    
+
     <xar:comment>Include the part for creating a new property</xar:comment>
     <xar:template file="newproperty" module="dynamicdata"/>
 

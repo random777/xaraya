@@ -1,47 +1,47 @@
 <xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:base-js-plugin name="ui" framework="jquery" file="jquery-ui-1.7.2.custom.min.js" style="jquery-ui-1.7.2.custom.css" />
 <xar:set name="groupcode">"
-jQuery('div#[id^=xar_orderselect]').show();
-jQuery('div#[id^=xar_orderselect]').parent().find('noscript').remove();
-jQuery('div#[id^=xar_orderselect]').parent().find('input[id$=_hidden]').each(function() {
-    var i = jQuery(this).attr('id');
-    i = i.replace(/_hidden$/, '');
-    jQuery(this).attr('id', i);
-});
+    var saveorder_callback = function (e, ui) {
+        var form_obj = '#modify_group-form';
+        if (jQuery(form_obj).length)
+        {
+            href = jQuery(form_obj).attr('action');
+            join = (href.match(/\?/)) ? '&' : '?';
+            argstr =  join + 'pageName=module';
+            var group_order = '';
+            jQuery(':input').each(function()
+            {
+                if (jQuery(this).attr('name').match(/^instance\[\d+\]$/)) {
+                    property_id = jQuery(this).attr('name').replace(/^instance\[(\d+)\]$/, '$1');
+                    if (property_id != 0) {
+                        group_order = (group_order != '') ? group_order += ';' + property_id : property_id;
+                    }
+                }
+                if (jQuery(this).attr('name') != 'group_instance_order') {
+                    argstr += '&' + jQuery(this).attr('name') + '=' + jQuery(this).val();
+                }
+            }
+            );
+            if (group_order != '') {
+                argstr += '&group_instance_order=' + group_order;
+            }
+            url = href + argstr;
+            jQuery('#"."sortable').sortable('disable').children('tr').css('cursor', 'wait');
+            jQuery.get(url, {}, function (responseText) {
+                if (jQuery(responseText).find('.xar-mod-body').length)
+                {
+                    jQuery('.xar-mod-body').html(jQuery(responseText).find('.xar-mod-body').html());
+                }
+                jQuery('#"."sortable').sortable( {update: saveorder_callback} ).children('tr').css('cursor', 'move');
+                jQuery('#"."dnd-hint').toggle();
 
-jQuery('div#[id^=xar_orderselect] button').click(function() {
-    var b = (jQuery(this).attr('id').match(/_up$/) != null ? true : false);
-    var baseID = jQuery(this).attr('id').replace(/_[a-z]+$/, '');
-    var sel = jQuery('#' + baseID + '_list')[0];
-    var opts = sel.options;
-    var idx = sel.selectedIndex;
-
-    if (idx == -1) {
-        return false;
+            });
+        }
     }
-    var nxidx = idx + ( b ? -1 : 1)
-    if (nxidx " . chr(60) . " 0) {
-        nxidx = opts.length - 1;
-    } else if (nxidx " . chr(62) . "= opts.length) {
-        nxidx = 0;
-    }
-    var tmpVal = opts[nxidx].value;
-    var tmpTxt = opts[nxidx].text;
-    var tmp = opts[nxidx];
-    var len = opts.length;
-    var v = '';
 
-    opts[nxidx].text = opts[idx].text;
-    opts[nxidx].value = opts[idx].value;
-    opts[idx].text = tmpTxt;
-    opts[idx].value = tmpVal;
-    sel.selectedIndex = nxidx;
-
-    for (var i = 0; i " . chr(60) . " len; i++) {
-        v += ';' + opts[i].value;
-    }
-    jQuery('#' + baseID).val(v.substring(1, v.length));
-    return false;
-});
+    jQuery('#"."sortable').sortable( {update: saveorder_callback} ).children('tr').css('cursor', 'move');
+    jQuery('#"."dnd-hint').toggle();
 "</xar:set>
 <xar:base-js-event name="ready" code="$groupcode" once="true" />
 
@@ -53,7 +53,7 @@ jQuery('div#[id^=xar_orderselect] button').click(function() {
  <xar:template type="module" file="admin-menu" />
     <h2><xar:mlstring>Modify Group</xar:mlstring></h2>
 
-    <form action="#xarModURL('blocks', 'admin', 'update_group')#" method="post" enctype="application/x-www-form-urlencoded" >
+    <form action="#xarModURL('blocks', 'admin', 'update_group')#" method="post" enctype="application/x-www-form-urlencoded" id="modify_group-form">
         <div class="xar-form-input-wrapper">
             <label for="group_name" title="#xarML('Enter the name of the group.  This value is used in your theme template to call the block group.')#" class="xar-form-label">
                 <xar:mlstring>Name:</xar:mlstring>
@@ -76,35 +76,16 @@ jQuery('div#[id^=xar_orderselect] button').click(function() {
                 <xar:mlstring>Members:</xar:mlstring>
             </label>
             <xar:if condition="$instance_count gt 0">
-                <div class="xar-floatleft" id="xar_orderselect_group_instance_order" style="display: none;">
-                    <div class="xar-floatleft">
-                        <button id="group_instance_order_up" title="#xarML('Move Up')#" class="xar-displayblock xar-margin-thickbottom">
-                            <img src="#$up_arrow_src#" alt="#xarML('Up Arrow')#" class="xar-icon" />
-                        </button>
-                        <button id="group_instance_order_down" title="#xarML('Move Down')#" class="xar-displayblock xar-margin-thicktop">
-                            <img src="#$down_arrow_src#" alt="#xarML('Down Arrow')#" class="xar-icon" />
-                        </button>
-                    </div>
-
-                    <xar:set name="group_instance_order">''</xar:set>
-                    <select name="group_instance_order_list" id="group_instance_order_list" size="#$instance_count#" class="xar-margin-thickleft">
-                        <xar:foreach in="$group['instances']" value="$option">
-                            <option value="#$option.id#">#$option.name#</option>
-                            <xar:set name="group_instance_order">$group_instance_order . ';' . $option['id']</xar:set>
-                        </xar:foreach>
-                    </select>
-                    <xar:set name="group_instance_order">substr($group_instance_order, 1)</xar:set>
-                    <input type="hidden" name="group_instance_order" id="group_instance_order_hidden" value="#$group_instance_order#" />
-                </div>
-                <noscript>
-                <table id="group_instances">
+                <table id="group_instances" class="xar-thirdwidth">
                     <thead>
                         <tr>
                             <th scope="col"><xar:mlstring>Instances</xar:mlstring></th>
+                            <noscript>
                             <th scope="col" class="xar-align-right"><xar:mlstring>Actions</xar:mlstring></th>
+                            </noscript>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="sortable">
                         <xar:set name="rowclass">'xar-norm'</xar:set>
                         <xar:set name="iter">1</xar:set>
                         <xar:set name="uptitle">xarML('Move instance up')</xar:set>
@@ -112,11 +93,13 @@ jQuery('div#[id^=xar_orderselect] button').click(function() {
                         <xar:foreach in="$group['instances']" value="$inst">
                             <tr class="#$rowclass#">
                                 <td>
+                                    <input type="hidden" name="instance[#$inst['id']#]" id="instance_#$inst['id']#" value="#$inst['id']#"/>
                                     #$inst['name']#
                                     <xar:if condition="!empty($inst['title'])">
                                         (#$inst['title']#)
                                     </xar:if>
                                 </td>
+                                <noscript>
                                 <td class="xar-align-right">
                                     <xar:if condition="$iter gt 1">
                                         <a class="xar-icon" href="#xarModURL('blocks', 'admin', 'update_group', array('moveinst' => $inst['id'], 'gid' => $group['id'], 'group_name' => $group['name'], 'group_template' => $group['template'], 'authid' => $authid, 'direction' => 'up'))#">
@@ -133,13 +116,18 @@ jQuery('div#[id^=xar_orderselect] button').click(function() {
                                         <img class="xar-icon-disabled" src="#$down_arrow_src#" alt="#xarML('Down Arrow')#" title="#$downtitle#" />
                                     </xar:if>
                                 </td>
+                                </noscript>
                             </tr>
                             <xar:set name="rowclass">$rowclass=='xar-norm'?'xar-alt':'xar-norm'</xar:set>
                             <xar:set name="iter">$iter+1</xar:set>
                         </xar:foreach>
                     </tbody>
+                    <tfoot id="dnd-hint" class="xar-displaynone xar-sub">
+                        <tr>
+                            <td>Drag the blocks to re-order them</td>
+                        </tr>
+                    </tfoot>
                 </table>
-                </noscript>
             <xar:else />
                 [ <xar:mlstring>none</xar:mlstring> ]
             </xar:if>

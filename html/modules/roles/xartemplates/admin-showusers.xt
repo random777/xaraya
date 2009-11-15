@@ -7,8 +7,12 @@
 <xar:set name="modstatus">xarSessionGetVar('statusmsg')</xar:set>
 <xar:set name="nsort">($sort == 'asc') ? 'desc' : 'asc'</xar:set>
 <xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+<xar:base-js-plugin name="ui" framework="jquery" file="jquery-ui-1.7.2.custom.min.js" style="jquery-ui-1.7.2.custom.css" />
+<xar:base-js-plugin name="bgiframe" framework="jquery" file="jquery.bgiframe.min.js" />
 <xar:base-js-plugin name="treeview" framework="jquery" file="jquery.treeview.min.js" style="jquery.treeview.css" />
 <xar:set name="rolescode">"
+var dialog_width = 300;
+var dialog_height = 200;
 jQuery('div#"."treewrapper > ul').treeview();
 jQuery('div#"."treewrapper span.xar-roletree-icons').css({'float': 'left', 'margin': '0 .5em'});
 jQuery('#"."treewrapper a').click(function(event) {
@@ -18,6 +22,47 @@ jQuery('form table.xar-item-controls select').change(function() { this.form.subm
 jQuery('a#" . "items_checkall').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').attr('checked',true);return false; });
 jQuery('a#" . "items_checknone').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').attr('checked',false);return false; });
 jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_form table.xar-items input[type=checkbox]').each(function() { jQuery(this).attr('checked', !jQuery(this).attr('checked')); });return false; });
+jQuery('table.xar-items a[id^=deleterole]').click(function() {
+    var a = this;
+    jQuery('#"."xardialogtarget').remove();
+    jQuery('body').append('<div id=\'xardialogtarget\' style=\'display: none;\'></div>');
+    jQuery('#" . "xardialogtarget').html('<h3>" . xarML('Delete this user?') . "</h3><p style=\'text-align: center;\'>' + jQuery.trim(jQuery(this).parent().parent().children(':first').text()) + '</p>');
+    jQuery('#" . "xardialogtarget').dialog({
+        title: '" . xarML('Delete User') . "',
+        width: dialog_width,
+        height: dialog_height,
+        buttons: {
+            '". xarML('Cancel') . "': function() { jQuery(this).dialog('close'); },
+            '". xarML('Delete') . "': function() { a.setAttribute('href', a.getAttribute('href') + '&confirmation=1');jQuery(this).dialog('close');window.location = a.getAttribute('href'); }
+        },
+        bgiframe: true,
+        modal: true,
+        draggable: false,
+        resizable: false
+    });
+    return false;
+});
+jQuery('div#"."treewrapper a[id^=deletetree]').click(function() {
+    var a = this;
+    jQuery('#"."xardialogtarget').remove();
+    jQuery('body').append('<div id=\'xardialogtarget\' style=\'display: none;\'></div>');
+    jQuery('#" . "xardialogtarget').html('<h3>" . xarML('Delete this group?') . "</h3><p style=\'text-align: center;\'>' + jQuery.trim(jQuery(this).parent().next().children(':first').text()) + '</p>');
+    jQuery('#" . "xardialogtarget').dialog({
+        title: '" . xarML('Delete Group') . "',
+        width: dialog_width,
+        height: dialog_height,
+        buttons: {
+            '". xarML('Cancel') . "': function() { jQuery(this).dialog('close'); },
+            '". xarML('Delete') . "': function() { a.setAttribute('href', a.getAttribute('href') + '&confirmation=1');jQuery(this).dialog('close');window.location = a.getAttribute('href'); }
+        },
+        bgiframe: true,
+        modal: true,
+        draggable: false,
+        resizable: false
+    });
+    return false;
+});
+
 "</xar:set>
 <xar:base-js-event name="ready" code="$rolescode" />
 <xar:style scope="module" module="base" file="navtabs" />
@@ -309,65 +354,65 @@ jQuery('a#" . "items_checktoggle').click(function() { jQuery('form#" . "state_fo
                 </thead>
                 <tbody>
                 <xar:set name="rowclass">'xar-norm'</xar:set>
-                <xar:loop name="$users">
+                <xar:foreach in="$users" value="$user">
                     <tr class="#$rowclass#">
                         <td>
-                            <xar:if condition="!$loop:item['frozen']">
-                                <a href="&xar-modurl-roles-admin-displayrole;&amp;uid=#$loop:item.uid#">#xarVarPrepForDisplay($loop:item['name'])#</a>
-                                <xar:else/>
-                                #xarVarPrepForDisplay($loop:item['name'])#
+                            <xar:if condition="!$user['frozen']">
+                                <a href="&xar-modurl-roles-admin-displayrole;&amp;uid=#$user.uid#">#xarVarPrepForDisplay($user['name'])#</a>
+                            <xar:else/>
+                                #xarVarPrepForDisplay($user['name'])#
                             </xar:if>
                         </td>
                         <td>
-                            #xarVarPrepForDisplay($loop:item['uname'])#
+                            #xarVarPrepForDisplay($user['uname'])#
                         </td>
                         <td>
-                            <xar:if condition="!$loop:item['frozen']">
-                                <a href="&xar-modurl-roles-admin-createmail;&amp;uid=#$loop:item.uid#" title="#xarML('Email this user')#">#xarVarPrepForDisplay($loop:item['email'])#</a>
-                                <xar:else/>
+                            <xar:if condition="!$user['frozen']">
+                                <a href="&xar-modurl-roles-admin-createmail;&amp;uid=#$user.uid#" title="#xarML('Email this user')#">#xarVarPrepForDisplay($user['email'])#</a>
+                            <xar:else/>
                                 <xar:mlstring>None</xar:mlstring>
                             </xar:if>
                         </td>
                         <td class="xar-align-center">
-                            #xarLocaleFormatDate('%m/%d/%Y',$loop:item['date_reg'])#
+                            #xarLocaleFormatDate('%m/%d/%Y',$user['date_reg'])#
                         </td>
                         <td class="xar-align-center">
-                            <xar:if condition="$loop:item['state'] eq $stateinactive">
+                            <xar:if condition="$user['state'] eq $stateinactive">
                                 <xar:mlstring>Inactive</xar:mlstring>
-                                <xar:elseif condition="$loop:item['state'] eq $statenotvalidated"/>
+                            <xar:elseif condition="$user['state'] eq $statenotvalidated"/>
                                 <xar:mlstring>Not Validated</xar:mlstring>
-                                <xar:elseif condition="$loop:item['state'] eq $stateactive"/>
+                            <xar:elseif condition="$user['state'] eq $stateactive"/>
                                 <xar:mlstring>Active</xar:mlstring>
-                                <xar:elseif condition="$loop:item['state'] eq $statepending"/>
+                            <xar:elseif condition="$user['state'] eq $statepending"/>
                                 <xar:mlstring>Pending</xar:mlstring>
                             </xar:if>
                         </td>
                         <td class="xar-item-actions">
-                            <xar:if condition="!$loop:item['frozen']">
+                            <xar:if condition="!$user['frozen']">
                                 <xar:if condition="xarModGetVar('roles', 'askpasswordemail')">
                                     <!-- only show this option if password notification is active else we get change without anyone knowing see bug #5719-->
-                                    <a href="&xar-modurl-roles-admin-createpassword;&amp;uid=#$loop:item.uid#&amp;state=#$state#&amp;groupuid=#$groupuid#" title="#xarML('Generate a new password for this User')#" class="xar-icon"><img src="#$icon_password#" alt="#xarML('Generate a new password for this User')#" /></a>
+                                    <a href="&xar-modurl-roles-admin-createpassword;&amp;uid=#$user.uid#&amp;state=#$state#&amp;groupuid=#$groupuid#" title="#xarML('Generate a new password for this User')#" class="xar-icon"><img src="#$icon_password#" alt="#xarML('Generate a new password for this User')#" /></a>
                                 </xar:if>
-                                <a href="&xar-modurl-roles-admin-modifyrole;&amp;uid=#$loop:item.uid#" title="#xarML('Modify this user')#" class="xar-icon"><img src="#$icon_modify#" alt="#xarML('Modify this user')#" /></a>
-                                <a href="&xar-modurl-roles-admin-deleterole;&amp;uid=#$loop:item.uid#" title="#xarML('Delete this User')#" class="xar-icon"><img src="#$icon_delete#" alt="#xarML('Delete this User')#" /></a>
+                                <a href="&xar-modurl-roles-admin-modifyrole;&amp;uid=#$user.uid#" title="#xarML('Modify this user')#" class="xar-icon"><img src="#$icon_modify#" alt="#xarML('Modify this user')#" /></a>
+                                <a href="&xar-modurl-roles-admin-deleterole;&amp;uid=#$user.uid#&amp;authid=#$authid#" title="#xarML('Delete this User')#" id="deleterole_#$user.uid#" class="xar-icon"><img src="#$icon_delete#" alt="#xarML('Delete this User')#" /></a>
                             <xar:else />
                                 <xar:if condition="xarModGetVar('roles', 'askpasswordemail')">
                                     <img src="#$icon_password#" class="xar-icon-disabled" alt="#xarML('Generate a new password for this User')#" title="#xarML('Generate a new password for this User')#" />
                                 </xar:if>
                                 <img src="#$icon_modify#" class="xar-icon-disabled" alt="#xarML('Modify this user')#" title="#xarML('Modify this user')#" />
-                                <img src="#$icon_delete#" class="xar-icon-disabled" alt="#xarML('Delete this User')#" title="#xarML('Delete this User')#" />
+                                <img src="#$icon_delete#" id="deleterole_#$user.uid#" class="xar-icon-disabled" alt="#xarML('Delete this User')#" title="#xarML('Delete this User')#" />
                             </xar:if>
-                            <a href="&xar-modurl-roles-admin-showprivileges;&amp;uid=#$loop:item.uid#" title="#xarML('Show the Privileges assigned to this User')#" class="xar-icon"><img src="#$icon_privileges#" alt="#xarML('Show the Privileges assigned to this User')#" /></a>
-                            <a href="&xar-modurl-roles-admin-testprivileges;&amp;uid=#$loop:item.uid#" title="#xarML('Test the Privileges of this User')#" class="xar-icon"><img src="#$icon_test#" alt="#xarML('Test the Privileges of this User')#" /></a>
+                            <a href="&xar-modurl-roles-admin-showprivileges;&amp;uid=#$user.uid#" title="#xarML('Show the Privileges assigned to this User')#" class="xar-icon"><img src="#$icon_privileges#" alt="#xarML('Show the Privileges assigned to this User')#" /></a>
+                            <a href="&xar-modurl-roles-admin-testprivileges;&amp;uid=#$user.uid#" title="#xarML('Test the Privileges of this User')#" class="xar-icon"><img src="#$icon_test#" alt="#xarML('Test the Privileges of this User')#" /></a>
                         </td>
                         <td class="xar-item-actions">
-                            <xar:if condition="!$loop:item['frozen']">
-                                <input type="checkbox" name="uids[#$loop:item['uid']#]" id="uids_#$loop:item['uid']#" value="1"/>
+                            <xar:if condition="!$user['frozen']">
+                                <input type="checkbox" name="uids[#$user['uid']#]" id="uids_#$user['uid']#" value="1"/>
                             </xar:if>
                         </td>
                     </tr>
                     <xar:set name="rowclass">$rowclass == 'xar-norm' ? 'xar-alt' : 'xar-norm'</xar:set>
-                </xar:loop>
+                </xar:foreach>
                 <!-- end loop over users -->
                 </tbody>
             </table>

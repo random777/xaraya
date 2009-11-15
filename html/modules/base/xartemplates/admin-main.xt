@@ -49,7 +49,6 @@
     <h3><xar:mlstring>Included Blocks</xar:mlstring></h3>
 
     <ol>
-
         <li><p><strong><xar:mlstring>Admin menu - Adminpanels</xar:mlstring></strong>:
         <xar:mlstring>An Adminpanel block can be configured in a number of ways. After creating the Adminpanel Menu block instance you have the option of overriding the default sort order
            and selecting sort by category or name. You can position the Adminmenu in any of the default blockgroups shipped in Xaraya such as left, or right. Alternatively create your own blockgroup
@@ -90,7 +89,7 @@
     <p><xar:mlstring>The Base Module has no hooks included at this time.</xar:mlstring></p>
     <h3><xar:mlstring>Dynamic Data Properties</xar:mlstring></h3>
 
-    <p><xar:mlstring>The Base Module provides a number of Dynamic Data properties that you can use to extend existing Xaraya functionality by hooking Dynamic Data to your modules, or for developers, for use in your own module development.</xar:mlstring></p>
+    <p><xar:mlstring>The Base Module provides a number of Dynamic Data properties that you can use to extend existing Xaraya functionality by hooking Dynamic Data to your modules.</xar:mlstring></p>
     <h3><xar:mlstring>Custom Templates and Static Pages</xar:mlstring></h3>
 
     <p><xar:mlstring>As well as providing a means to provide a custom template for your front page by creating an override for the base user-main.xt template,
@@ -103,7 +102,33 @@
 
     <h3><xar:mlstring>Custom Tags</xar:mlstring></h3>
 
-    <p><xar:mlstring>The Base Module provides a number of custom tags that can be used by theme creators and module developers to incorporate javascript into templates. These include the <code>&lt;xar:base-render-javascript ... /&gt;, &lt;xar:base-include-javascript ... /&gt;</code> and <code>&lt;xar:base-trigger-javascript ... /&gt;</code> tags. </xar:mlstring></p>
+    <p><xar:mlstring>The Base Module provides a number of custom tags that can be used to incorporate javascript into templates. These include:</xar:mlstring></p>
+        <ul>
+            <li>
+                <code>&lt;xar:base-include-javascript ... /&gt;</code><br />
+                <xar:mlstring>Places JavaScript code into a queue for inclusion in the page output.</xar:mlstring>
+            </li>
+            <li>
+                <code>&lt;xar:base-render-javascript ... /&gt;</code><br />
+                <xar:mlstring>Renders JavaScript code that has been queued.</xar:mlstring>
+            </li>
+            <li>
+                <code>&lt;xar:base-trigger-javascript ... /&gt;</code><br />
+                <xar:mlstring>Render JavaScript event handler code for a specific DOM element and event, such as body.onload().</xar:mlstring>
+            </li>
+            <li>
+                <code>&lt;xar:base-js-framework ... /&gt;</code><br />
+                <xar:mlstring>Places a JavaScript framework file into the JavaScript queue.  Xaraya uses jQuery by default.</xar:mlstring>
+            </li>
+            <li>
+                <code>&lt;xar:base-js-plugin ... /&gt;</code><br />
+                <xar:mlstring>Places a JavaScript framework plugin file into the JavaScript queue, and optionally loads any CSS required.</xar:mlstring>
+            </li>
+            <li>
+                <code>&lt;xar:base-js-event ... /&gt;</code><br />
+                <xar:mlstring>Places JavaScript event code into a special queue, where it can be executed by the framework when the event occurs.</xar:mlstring>
+            </li>
+        </ul>
     <p><xar:mlstring>You can use the javascript tags to include your own javascript or some of the library of javascript functions in the <code>modules/base/xartemplates/includes</code> directory. See the documentation for more information.</xar:mlstring></p>
 
     <h3><xar:mlstring>Privilege Masks</xar:mlstring></h3>

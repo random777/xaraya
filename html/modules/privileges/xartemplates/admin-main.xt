@@ -143,7 +143,7 @@
       </li>
       <li><xar:mlstring>Related tutorials and documentation on Privileges module at</xar:mlstring> <a href="http://www.xaraya.com/index.php/keywords/privileges/" title="#xarML('Related documentation on Privileges')#"><xar:mlstring>Xaraya Documentation.</xar:mlstring></a>
       </li>
-      <li><xar:mlstring>Extended information for Developers at</xar:mlstring> <a href="http://www.xaraya.com/documentation/rfcs/rfc0030.html" title="#xarML('RFC 30')#"><xar:mlstring>Xaraya RFC-30</xar:mlstring></a>
+      <li><xar:mlstring>Extended information at</xar:mlstring> <a href="http://www.xaraya.com/documentation/rfcs/rfc0030.html" title="#xarML('RFC 30')#"><xar:mlstring>Xaraya RFC-30</xar:mlstring></a>
       </li>
 
   </ul>

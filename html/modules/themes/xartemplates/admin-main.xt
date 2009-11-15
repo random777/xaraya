@@ -10,9 +10,9 @@
     <h3><xar:mlstring>What is it?</xar:mlstring></h3>
 
     <p>
-        <xar:mlstring>The Themes Module controls the the display of your website by managing the themes available
+        <xar:mlstring>The Themes Module controls the display of your website by managing the themes available
         for use in your Xaraya installation. It also allows you to set various theme related variables and meta data, 
-        caching options, and provides theme developer options.</xar:mlstring>
+        caching options, and provides conventience options for developers.</xar:mlstring>
     </p>
 
     <h3><xar:mlstring>How to use it?</xar:mlstring></h3>
@@ -57,7 +57,7 @@
     <h4><xar:mlstring>Template Tags</xar:mlstring></h4>
 
     <p>
-        <xar:mlstring>Template tags are custom Block Layout tags that developers can create to provide extra 
+        <xar:mlstring>Template tags are custom BlockLayout tags that can provide extra 
         functionality or easy access to functionality in their modules. This page lists the available custom 
         tags, in addition to Block Layout tags, available for use in creating your templates. These tags are 
         usually always installed when the module is installed or upgraded.</xar:mlstring>

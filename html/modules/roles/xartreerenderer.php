@@ -3,7 +3,7 @@
  * Roles tree renderer
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -42,6 +42,7 @@ class xarTreeRenderer
     var $icon_privileges;
     var $icon_test;
 
+    var $authid;
 
     /**
      * Constructor
@@ -62,6 +63,8 @@ class xarTreeRenderer
         $this->icon_mail = xarTplGetImage('icons/mail-message-new.png', 'base');
         $this->icon_privileges = xarTplGetImage('icons/privileges.png', 'base');
         $this->icon_test = xarTplGetImage('icons/test.png', 'base');
+
+        $this->authid = xarSecGenAuthKey();
     }
 
     /**
@@ -273,9 +276,11 @@ class xarTreeRenderer
             $data['allowed'] = true;
         }
         $data['leafitemurl'] = xarModURL('roles', 'admin', 'deleterole',
-                        array('uid' => $this->treenode['uid']));
+                        array('uid' => $this->treenode['uid'], 'authid' => $this->authid));
         $data['leafitemtitle'] = xarML('Delete this Group');
         $data['leafitemimage'] = $this->icon_delete;
+        $data['leafitemid'] = $this->treenode['uid'];
+        $data['leafitemhash'] = md5($this->treenode['uid'] . ':' . microtime());
         return xarTplObject('roles', 'leaf', 'deleteuser', $data);
     }
 

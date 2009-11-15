@@ -29,6 +29,7 @@ class xarTreeRenderer
     var $html;
     var $nodeindex;
     var $level;
+    var $authid;
 
     // convenience variables to hold strings referring to pictures
     // moved to constructor to make img paths dynamic
@@ -54,6 +55,8 @@ class xarTreeRenderer
             $this->icon_groups = xarTplGetImage('icons/system-user-groups.png', 'base');
             $this->icon_remove = xarTplGetImage('icons/remove.png', 'base');
             $this->icon_toggle = xarTplGetImage('icons/toggle.png', 'base');
+
+            $this->authid = xarSecGenAuthKey();
         }
 
     /**
@@ -204,18 +207,19 @@ class xarTreeRenderer
     // this table holds the index, the tree drawing gifs and the info about the privilege
 
     // this next part holds the icon links
+        $itemhash = md5($object['name'] . ':' . microtime());
         $this->html .= "<span class=\"xar-privtree-icons\">";
     // don't allow deletion of certain privileges
         if(!xarSecurityCheck('DeletePrivilege',0,'Privileges',$object['name'])) {
-            $this->html .= '<img src="' . $this->icon_delete . '" alt="' . xarML('Delete this Privilege') . '" title="' . xarML('Delete this Privilege') . '" class="xar-icon-disabled" />';
+            $this->html .= '<img src="' . $this->icon_delete . '" alt="' . xarML('Delete this Privilege') . '" title="no' . xarML('Delete this Privilege') . '" id="deletetree_' . $object['pid'] . '_' . $itemhash . '" class="xar-icon-disabled" />';
         }
         else {
             $this->html .= '<a href="' .
                 xarModURL('privileges',
                      'admin',
                      'deleteprivilege',
-                     array('pid'=>$object['pid'])) .
-                     '" title="'.xarML('Delete this Privilege').'" class="xar-icon">
+                     array('pid'=>$object['pid'], 'authid' => $this->authid)) .
+                     '" title="'.xarML('Delete this Privilege').'" id="deletetree_' . $object['pid'] . '_' . $itemhash . '" class="xar-icon">
                         <img src="'. $this->icon_delete .'" alt="' . xarML('Delete this Privilege') . '"/>
                     </a>';
         }
@@ -265,7 +269,7 @@ class xarTreeRenderer
             $this->drawbranch($subnode);
 
     // we're done
-		}
+        }
             $this->level = $this->level - 1;
 
     // write the closing tags

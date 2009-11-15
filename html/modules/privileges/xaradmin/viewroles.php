@@ -3,7 +3,7 @@
  * Display the roles this privilege is assigned to
  *
  * @package core modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -22,7 +22,15 @@ function privileges_admin_viewroles()
     $data = array();
 
     if (!xarVarFetch('pid',  'isset', $pid,          NULL,       XARVAR_DONT_SET)) {return;}
-    if (!xarVarFetch('show', 'isset', $data['show'], 'assigned', XARVAR_NOT_REQUIRED)) {return;}
+    if (!xarVarFetch('show', 'isset', $data['show'], xarSessionGetVar('privileges_roleview'), XARVAR_NOT_REQUIRED)) {return;}
+
+    if ($data['show'] == '' || $data['show'] != 'all') {
+        $data['show'] = 'assigned';
+    } else {
+        $data['show'] = 'all';     
+    }
+    // store what state we are viewing in the session 
+    xarSessionSetVar('privileges_roleview', $data['show']);
 
     // Clear Session Vars
     xarSessionDelVar('privileges_statusmsg');

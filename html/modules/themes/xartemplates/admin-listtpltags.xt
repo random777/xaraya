@@ -40,7 +40,7 @@ jQuery('table.xar-items a[id^=delete]').click(function() {
     </p>
     <p>
         <xar:mlstring>
-            This list contains core system template tags and is supplied for developer convenience. 
+            This list contains core system template tags and is supplied as a convenience. 
             You should not have to visit this page or modify any tags here unless you are a developer
             creating your own template tags. In this latter case, the tags would usually
             be registered during the initialization of the module that supplies the tag.

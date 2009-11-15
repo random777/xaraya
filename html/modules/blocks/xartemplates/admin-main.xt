@@ -36,10 +36,7 @@
         <li><a name="view_types"><xar:mlstring><strong>View Block Types:</strong></xar:mlstring></a><xar:mlstring> lists all the registered block types in your Xaraya installation with reference to which
             module they belong.</xar:mlstring></li>
         <li><a name="new_type"><xar:mlstring><strong>Add a New Block Type:</strong></xar:mlstring></a>
-            <xar:mlstring>scans a module for a new block type. This option is added mainly for Developer convenience.
-            Sometimes a developer provides a block type or upgrade of a block outside of a normal module release or
-            upgrade. This option allows the block to be loaded and registered in your Xaraya installation. Normally
-            you should never need to use this option in the process of administering your site.</xar:mlstring></li>
+            <xar:mlstring>scans a module for a new block type.  Sometimes a new block type or upgrade of a block may occur outside of a normal module release or upgrade.  This option allows the block to be loaded and registered in your Xaraya installation.  Normally you should never need to use this option in the process of administering your site.</xar:mlstring></li>
       </ul><br />
 
     <h3><xar:mlstring>Using Blocks and Block Groups</xar:mlstring></h3>

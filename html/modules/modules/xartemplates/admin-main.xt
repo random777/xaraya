@@ -77,7 +77,7 @@
        <li><xar:mlstring><em>Hooks</em>: This provides an alternative means for setting hooks from other modules
        to on or off. If you do not understand this setting, please use the 'Configuring Hooks' settings below
        to configure and set functionality with hooks.</xar:mlstring></li>
-    </ol><br />
+    </ol>
 
 <h4><xar:mlstring>Configure Hooks</xar:mlstring></h4>
 
@@ -103,9 +103,9 @@
         <xar:mlstring>Taking the Comments module as an example, if you click on Comments and then browse
         the list you'll see you have the following options for each module where you may wish to hook and
         activate Comments:</xar:mlstring>
-    </p><br />
+    </p>
 
-    <ul style="margin-left:20px;">
+    <ul>
         <li><xar:mlstring>Do NOT enable Comments functionality in [module name]</xar:mlstring></li>
         <li><xar:mlstring>Enable the Comments hooks for ALL items in [module name]</xar:mlstring></li>
         <li><xar:mlstring>Enable Comments functionality for SOME itemtypes in [module name]</xar:mlstring></li>
@@ -115,7 +115,6 @@
         <xar:mlstring>The last option allows you to activate the hook and display Comments in say News or
          Reviews, but not Documents for example.</xar:mlstring>
     </p>
-<br />
 
     <h3><xar:mlstring>Included Blocks</xar:mlstring></h3>
 
@@ -128,7 +127,7 @@
     <p><xar:mlstring>The Modules Module has no hooks included at this time.</xar:mlstring></p>
     <h3><xar:mlstring>Included Dynamic Data Properties</xar:mlstring></h3>
 
-    <p><xar:mlstring>For developers, the Dynamic Module property is included and provides a drop down selection list of available Modules.</xar:mlstring></p>
+    <p><xar:mlstring>The Dynamic Module property is included and provides a drop down selection list of available Modules.</xar:mlstring></p>
   
    <h3><xar:mlstring>Further Information</xar:mlstring></h3>
    <p>

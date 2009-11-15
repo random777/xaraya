@@ -23,7 +23,15 @@ function privileges_admin_viewprivileges()
 
     $data = array();
 
-    if (!xarVarFetch('show', 'isset', $data['show'], 'assigned', XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('show', 'isset', $data['show'], xarSessionGetVar('privileges_view'), XARVAR_NOT_REQUIRED)) return;
+
+    if ($data['show'] == '' || $data['show'] != 'all') {
+        $data['show'] = 'assigned';
+    } else {
+        $data['show'] = 'all';
+    }
+    // store what state we are viewing in the session
+    xarSessionSetVar('privileges_view', $data['show']);
 
     // Clear Session Vars
     xarSessionDelVar('privileges_statusmsg');

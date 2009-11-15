@@ -14,7 +14,7 @@
         </p>
 
         <p>
-               <xar:mlstring>Although the Xaraya modules system still recognises the 'old style' modinfo 
+            <xar:mlstring>Although the Xaraya modules system still recognises the 'old style' modinfo 
             from xarversion.php, we strongly encourage all module developers to re-generate 
             their module's information to comply with the 'new' XML format.</xar:mlstring>
         </p>

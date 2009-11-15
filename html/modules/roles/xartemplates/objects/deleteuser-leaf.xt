@@ -1,7 +1,7 @@
 <xar:if condition="$allowed">
-        <a href="#$leafitemurl#" title="#$leafitemtitle#" style="text-decoration: none;" class="xar-icon">
+        <a href="#$leafitemurl#" title="#$leafitemtitle#" id="deletetree_#$leafitemid#_#$leafitemhash#" style="text-decoration: none;" class="xar-icon">
             <img src="#$leafitemimage#" alt="#$leafitemtitle#" />
         </a>
 <xar:else />
-        <img src="#$leafitemimage#" alt="#$leafitemtitle#" title="#$leafitemtitle#" class="xar-icon-disabled" />
+        <img src="#$leafitemimage#" alt="#$leafitemtitle#" title="#$leafitemtitle#" id="deletetree_#$leafitemid#_#$leafitemhash#" class="xar-icon-disabled" />
 </xar:if>

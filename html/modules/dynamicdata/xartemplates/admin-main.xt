@@ -22,7 +22,7 @@
 
         <h3><xar:mlstring>What is it?</xar:mlstring></h3>
         <p>
-            <xar:mlstring>The Dynamic Data module allows you to dynamically add properties to your module objects, and to integrate them with the rest of the site without much effort - regardless of whether you're the module developer, a third-party solution designer or the website admin.</xar:mlstring>
+            <xar:mlstring>The Dynamic Data module allows you to dynamically add properties to your module objects, and to integrate them with the rest of the site with minimal effort.</xar:mlstring>
         </p>
         <p>
             <xar:mlstring>And no-one says you're limited to existing modules - you could just as easily create whole new objects by defining their properties and telling the Dynamic Data module where their data should be coming from : dedicated module tables, dynamic data fields (auto-generated), some utility module from Xaraya or a user function you'll specify.</xar:mlstring>

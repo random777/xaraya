@@ -3,7 +3,7 @@
  * Displayprivilege - display privilege details
  *
  * @package core modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -55,7 +55,7 @@ function privileges_admin_displayprivilege()
     $numInstances = count($instances); // count the instances to use in later loops
 
     $default = array();
-    $data['instance'] = $priv->getInstance();
+    $data['instance'] = $priv->getInstanceDisplay();
 
     $data['ptype'] = $priv->isEmpty() ? "empty" : "full";
     $data['parents'] = $parents;

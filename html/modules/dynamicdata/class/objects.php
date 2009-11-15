@@ -832,7 +832,7 @@ class Dynamic_Object extends Dynamic_Object_Master
         }
 
         // see if we can access this object, at least in overview
-        if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',$this->moduleid.':'.$this->itemtype.':'.$this->itemid)) return;
+        if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',array($this->moduleid,$this->itemtype,$this->itemid))) return;
 
         // don't retrieve the item here yet !
         //$this->getItem();
@@ -1084,7 +1084,7 @@ class Dynamic_Object extends Dynamic_Object_Master
         $fields = array();
         foreach ($fieldlist as $name) {
             $property = $this->properties[$name];
-            if(xarSecurityCheck('ReadDynamicDataField',0,'Field',$property->name.':'.$property->type.':'.$property->id)) {
+            if(xarSecurityCheck('ReadDynamicDataField',0,'Field',array($property->name,$property->type,$property->id))) {
                 $fields[$name] = $property->value;
             }
         }
@@ -1387,7 +1387,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         $this->Dynamic_Object_Master($args);
 
         // see if we can access these objects, at least in overview
-        if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',$this->moduleid.':'.$this->itemtype.':All')) return;
+        if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',array($this->moduleid,$this->itemtype,'All'))) return;
 
         // set the different arguments (item ids, sort, where, numitems, startnum, ...)
         $this->setArguments($args);
@@ -1836,7 +1836,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                 $args['links'][$itemid] = $options;
                 continue;
             }
-            if(xarSecurityCheck('DeleteDynamicDataItem',0,'Item',$this->moduleid.':'.$this->itemtype.':'.$itemid)) {
+            if(xarSecurityCheck('DeleteDynamicDataItem',0,'Item',array($this->moduleid,$this->itemtype,$itemid))) {
                 if ($dummy_mode && $this->items[$itemid]['moduleid'] != 182) {
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => '',
@@ -1868,7 +1868,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                      'template'     => $args['template'])),
                                    'ojoin'  => '|',
                                    'oicon' => xarTplGetImage('icons/delete.png','base'));
-            } elseif(xarSecurityCheck('EditDynamicDataItem',0,'Item',$this->moduleid.':'.$this->itemtype.':'.$itemid)) {
+            } elseif(xarSecurityCheck('EditDynamicDataItem',0,'Item',array($this->moduleid,$this->itemtype,$itemid))) {
                 if ($dummy_mode && $this->items[$itemid]['moduleid'] != 182) {
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => '',
@@ -1892,7 +1892,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                      'template'     => $args['template'])),
                                    'ojoin'  => '|',  
                                    'oicon' => xarTplGetImage('icons/modify.png','base'));
-            } elseif(xarSecurityCheck('ReadDynamicDataItem',0,'Item',$this->moduleid.':'.$this->itemtype.':'.$itemid)) {
+            } elseif(xarSecurityCheck('ReadDynamicDataItem',0,'Item',array($this->moduleid,$this->itemtype,$itemid))) {
                 if ($dummy_mode && $this->items[$itemid]['moduleid'] != 182) {
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => '',
@@ -1931,7 +1931,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
 
         if (isset($args['newlink'])) {
         // TODO: improve this + SECURITY !!!
-        } elseif (xarSecurityCheck('AddDynamicDataItem',0,'Item',$this->moduleid.':'.$this->itemtype.':All')) {
+        } elseif (xarSecurityCheck('AddDynamicDataItem',0,'Item',array($this->moduleid,$this->itemtype,'All'))) {
             $args['newlink'] = xarModURL($args['urlmodule'],'admin','new',
                                          array('itemtype' => $itemtype,
                                                'table'    => $table));

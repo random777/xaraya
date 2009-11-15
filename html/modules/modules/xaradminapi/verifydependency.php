@@ -3,7 +3,7 @@
  * Verifies if all dependencies of a module are satisfied.
  *
  * @package modules
- * @copyright (C) 2002-2008 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -25,7 +25,7 @@ function modules_adminapi_verifydependency($args)
 
     // Security Check
     // need to specify the module because this function is called by the installer module
-    if(!xarSecurityCheck('AdminModules',1,'All','All','modules')) return;
+    if(!xarSecurityCheck('AdminModules',1,'All',array('All'),'modules')) return;
 
     // Argument check
     if (!isset($mainId)) {

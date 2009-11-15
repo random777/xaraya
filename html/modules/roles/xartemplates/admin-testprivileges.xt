@@ -108,7 +108,7 @@ jQuery('select#"."pmodule').change(function() {
                         </xar:if>
                         <td>#$mask:getModule()#</td>
                         <td>#$mask:getComponent()#</td>
-                        <td>#$mask:getInstance()#</td>
+                        <td class="xar-nowrap">#$mask:getInstanceDisplay()#</td>
                         <td class="xar-nowrap">
                             #$mask:getLevel()#
                         </td>

@@ -33,7 +33,7 @@ function modules_adminapi_updateproperties($args)
     }
 
 // Security Check
-    if(!xarSecurityCheck('AdminModules',0,'All',"All:All:$regid")) return;
+    if(!xarSecurityCheck('AdminModules',0,'All',array('All','All',$regid))) return;
 
 // Update
     $xartable =& xarDBGetTables();

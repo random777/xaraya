@@ -3,7 +3,7 @@
  * Delete all dynamicdata fields for a module
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -48,7 +48,7 @@ function dynamicdata_adminapi_removehook($args)
         return $extrainfo;
     }
 
-    if(!xarSecurityCheck('DeleteDynamicDataItem',0,'Item',"$modid:All:All")) {
+    if(!xarSecurityCheck('DeleteDynamicDataItem',0,'Item',array($modid,'All','All'))) {
         // we *must* return $extrainfo for now, or the next hook will fail
         //return false;
         return $extrainfo;

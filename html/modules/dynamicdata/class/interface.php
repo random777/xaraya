@@ -3,7 +3,7 @@
  * Dynamic Object Interface
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -114,7 +114,7 @@ class Dynamic_Object_Interface
                 $this->urlmodule = $modinfo['name'];
             }
         }
-        if (!xarSecurityCheck('AddDynamicDataItem',1,'Item',$this->object->moduleid.':'.$this->object->itemtype.':All')) return;
+        if (!xarSecurityCheck('AddDynamicDataItem',1,'Item',array($this->object->moduleid,$this->object->itemtype,'All'))) return;
 
         //$this->object->getItem();
 
@@ -180,7 +180,7 @@ class Dynamic_Object_Interface
                 $this->urlmodule = $modinfo['name'];
             }
         }
-        if (!xarSecurityCheck('EditDynamicDataItem',1,'Item',$this->object->moduleid.':'.$this->object->itemtype.':'.$this->object->itemid)) return;
+        if (!xarSecurityCheck('EditDynamicDataItem',1,'Item',array($this->object->moduleid,$this->object->itemtype,$this->object->itemid))) return;
 
         $itemid = $this->object->getItem();
         if (empty($itemid) || $itemid != $this->object->itemid) {
@@ -262,7 +262,7 @@ class Dynamic_Object_Interface
             // Return
             return true;
         }
-        if (!xarSecurityCheck('DeleteDynamicDataItem',1,'Item',$this->object->moduleid.':'.$this->object->itemtype.':'.$this->object->itemid)) return;
+        if (!xarSecurityCheck('DeleteDynamicDataItem',1,'Item',array($this->object->moduleid,$this->object->itemtype,$this->object->itemid))) return;
 
         $itemid = $this->object->getItem();
         if (empty($itemid) || $itemid != $this->object->itemid) {

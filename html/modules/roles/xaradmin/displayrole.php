@@ -3,7 +3,7 @@
  * Display role
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -32,8 +32,8 @@ function roles_admin_displayrole()
 
     $name = $role->getName();
 // Security Check
-    if (!xarSecurityCheck('EditRole',1,'Roles',$name)) return;
-    $data['frozen'] = xarSecurityCheck('ViewRoles',0,'Roles',$name);
+    if (!xarSecurityCheck('EditRole',1,'Roles',array($name))) return;
+    $data['frozen'] = xarSecurityCheck('ViewRoles',0,'Roles',array($name));
 
     $data['uid']   = $role->getID();
     $data['type']  = $role->getType();
@@ -69,7 +69,7 @@ function roles_admin_displayrole()
         //only display it for current user or admin
         if (xarUserIsLoggedIn() && xarUserGetVar('uid')==$uid) {
             $data['userlastlogin'] = xarSessionGetVar('roles_thislastlogin');
-        }elseif (xarSecurityCheck('AdminRole',0,'Roles',$name) && xarModGetUserVar('roles','userlastlogin',$uid)<>''){
+        }elseif (xarSecurityCheck('AdminRole',0,'Roles',array($name)) && xarModGetUserVar('roles','userlastlogin',$uid)<>''){
             $data['userlastlogin'] = xarModGetUserVar('roles','userlastlogin',$uid);
         }else{
             $data['userlastlogin']='';

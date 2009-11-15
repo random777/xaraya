@@ -3,7 +3,7 @@
  * Main user menu
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -68,7 +68,7 @@ function roles_user_usermenu($args)
                 if (xarUserIsLoggedIn() && xarUserGetVar('uid')==$uid) { //they should be but ..
                     $userlastlogin=xarSessionGetVar('roles_thislastlogin');
                     $usercurrentlogin=xarModGetUserVar('roles','userlastlogin',$uid);
-                }elseif (xarSecurityCheck('AdminRole',0,'Roles',$name) && xarModGetUserVar('roles','userlastlogin',$uid)){
+                }elseif (xarSecurityCheck('AdminRole',0,'Roles',array($name)) && xarModGetUserVar('roles','userlastlogin',$uid)){
                     $usercurrentlogin='';
                     $userlastlogin= xarModGetUserVar('roles','userlastlogin',$uid);
                 }else{

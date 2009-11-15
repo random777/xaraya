@@ -3,7 +3,7 @@
  * Hook function to send mail on creation of an item
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -62,7 +62,7 @@ function mail_adminapi_hookmailcreate($args)
     // Security Check
     //TODO: if we add to the hook to allow sending of mail to OTHER recipients than the admin
     // we will have to include the following security check and make sure the appropriate privileges are assigned
-//    if (!xarSecurityCheck('CreateMail', 0, 'All', "$modname::$objectid", 'mail')) return;
+//    if (!xarSecurityCheck('CreateMail', 0, 'All', array($modname,'',$objectid), 'mail')) return;
 
     // Set up variables
     $wordwrap = xarModGetVar('mail', 'wordwrap');

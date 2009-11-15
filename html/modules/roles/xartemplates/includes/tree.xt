@@ -41,7 +41,7 @@
 
                     <xar:comment>---------------------------------- Delete item
                     </xar:comment>
-                        <xar:set name="seccheck">xarSecurityCheck('DeleteRole',0,'Roles',$node['name'])</xar:set>
+                        <xar:set name="seccheck">xarSecurityCheck('DeleteRole',0,'Roles',array($node['name']))</xar:set>
                         <xar:if condition="($seccheck eq false) or ($node['users'] gt 0) or ($drawchildren eq false)">
                             <img src="#xarTplGetImage('icons/delete.png', 'base')#" alt="#xarML('Delete this Group')#" title="#xarML('Delete this Group')#" style="margin: 0 0.25em 0 0.25em;" class="xar-icon-disabled" />
                         <xar:else />

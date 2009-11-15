@@ -3,7 +3,7 @@
  * View a list of items
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -62,7 +62,7 @@ function dynamicdata_user_view($args)
         $label = xarML('Dynamic Data Objects');
         $param = '';
     }
-    if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',"$modid:$itemtype:All")) return;
+    if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',array($modid,$itemtype,'All'))) return;
 
     $data = xarModAPIFunc('dynamicdata','user','menu');
     $data['objectid'] = $objectid;

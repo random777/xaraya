@@ -3,7 +3,7 @@
  * Delete a role
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -38,8 +38,8 @@ function roles_admin_deleterole()
     $name = $role->getName();
 
 // Security Check
-    if (!xarSecurityCheck('DeleteRole',1,'Roles',$name)) return;
-    $data['frozen'] = !xarSecurityCheck('DeleteRole',0,'Roles',$name);
+    if (!xarSecurityCheck('DeleteRole',1,'Roles',array($name))) return;
+    $data['frozen'] = !xarSecurityCheck('DeleteRole',0,'Roles',array($name));
 
 // Prohibit removal of any groups that have children
     if($role->countChildren()) {

@@ -3,7 +3,7 @@
  * DeletePrivilege - delete a privilege
  *
  * @package core modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -29,7 +29,7 @@ function privileges_admin_deleteprivilege()
     $name = $priv->getName();
 
 // Security Check
-    if(!xarSecurityCheck('DeletePrivilege',0,'Privileges',$name)) return;
+    if(!xarSecurityCheck('DeletePrivilege',0,'Privileges',array($name))) return;
 
     if (empty($confirmation)) {
 

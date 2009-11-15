@@ -3,7 +3,7 @@
  * Install a module with all its dependencies.
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @copyright (C) 2005-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -33,7 +33,7 @@ function modules_adminapi_installwithdependencies ($args)
 
     // Security Check
     // need to specify the module because this function is called by the installer module
-    if (!xarSecurityCheck('AdminModules', 1, 'All', 'All', 'modules'))
+    if (!xarSecurityCheck('AdminModules', 1, 'All', array('All'), 'modules'))
         return;
 
     // Argument check

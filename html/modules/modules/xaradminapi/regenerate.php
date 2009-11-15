@@ -21,7 +21,7 @@ function modules_adminapi_regenerate()
 {
     // Security Check
     // need to specify the module because this function is called by the installer module
-    if(!xarSecurityCheck('AdminModules', 1, 'All', 'All', 'modules')) {return;}
+    if(!xarSecurityCheck('AdminModules', 1, 'All', array('All'), 'modules')) {return;}
 
     //Finds and updates missing modules
     if (!xarModAPIFunc('modules', 'admin', 'checkmissing')) {return;}

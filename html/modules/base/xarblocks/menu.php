@@ -3,7 +3,7 @@
  * Menu Block
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -73,7 +73,7 @@ function base_menublock_info()
 function base_menublock_display($blockinfo)
 {
     // Security Check
-    if (!xarSecurityCheck('ViewBaseBlocks',0,'Block',"menu:$blockinfo[title]:$blockinfo[bid]")) {return;}
+    if (!xarSecurityCheck('ViewBaseBlocks',0,'Block',array('menu',$blockinfo['title'],$blockinfo['bid']))) {return;}
 
     // Break out options from our content field
     if (!is_array($blockinfo['content'])) {
@@ -228,7 +228,7 @@ function base_menublock_display($blockinfo)
             // Security Check
             //FIX: Should contain a check for the particular menu item
             //     Like "menu:$blockinfo[title]:$blockinfo[bid]:$title"?
-            if (xarSecurityCheck('ReadBaseBlock',0,'Block',"menu:$blockinfo[title]:$blockinfo[bid]")) {
+            if (xarSecurityCheck('ReadBaseBlock',0,'Block',array('menu',$blockinfo['title'],$blockinfo['bid']))) {
                 $title = xarVarPrepForDisplay($title);
                 $comment = xarVarPrepForDisplay($comment);
                 $child = xarVarPrepForDisplay($child);
@@ -241,7 +241,7 @@ function base_menublock_display($blockinfo)
 
     // Added list of modules if selected.
     if ($vars['displaymodules'] != 'None') {
-        if (xarSecurityCheck('ReadBaseBlock',0,'Block',"menu:$blockinfo[title]:$blockinfo[bid]")) {
+        if (xarSecurityCheck('ReadBaseBlock',0,'Block',array('menu',$blockinfo['title'],$blockinfo['bid']))) {
            $useAliasName=0;
            $aliasname='';
             if ($vars['displaymodules'] == 'List' && !empty($vars['modulelist'])) {
@@ -302,7 +302,7 @@ function base_menublock_display($blockinfo)
                             }
 
                 // Security Check
-//                                        if (xarSecurityCheck('ReadBaseBlock',0,'Block',"$blockinfo[title]:$menulink[title]:All")) {
+//                                        if (xarSecurityCheck('ReadBaseBlock',0,'Block',array($blockinfo['title'],$menulink['title'],'All'))) {
                                 $indlinks[] = array('userlink'      => $menulink['url'],
                                                     'userlabel'     => $menulink['label'],
                                                     'usertitle'     => $menulink['title'],
@@ -356,7 +356,7 @@ function base_menublock_display($blockinfo)
     // we dont want to show logout link if the user is anonymous or admin
     // admins have their own logout method, which is more robust
     // Security Check
-    if (xarSecurityCheck('AdminBaseBlock',0,'adminmenu',"$blockinfo[title]:All:All") or
+    if (xarSecurityCheck('AdminBaseBlock',0,'adminmenu',array($blockinfo['title'],'All','All')) or
         !xarUserIsLoggedIn() or
         empty($vars['showlogout'])) {
         $showlogout = false;

@@ -206,7 +206,7 @@ class xarTreeRenderer
     // this next part holds the icon links
         $this->html .= "<span class=\"xar-privtree-icons\">";
     // don't allow deletion of certain privileges
-        if(!xarSecurityCheck('DeletePrivilege',0,'Privileges',$object['name'])) {
+        if(!xarSecurityCheck('DeletePrivilege',0,'Privileges',array($object['name']))) {
             $this->html .= '<img src="' . $this->icon_delete . '" alt="' . xarML('Delete this Privilege') . '" title="' . xarML('Delete this Privilege') . '" class="xar-icon-disabled" />';
         }
         else {
@@ -265,7 +265,7 @@ class xarTreeRenderer
             $this->drawbranch($subnode);
 
     // we're done
-		}
+        }
             $this->level = $this->level - 1;
 
     // write the closing tags

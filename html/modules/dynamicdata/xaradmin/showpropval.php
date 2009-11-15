@@ -3,7 +3,7 @@
  * Show validation of some property
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -27,7 +27,7 @@ function dynamicdata_admin_showpropval($args)
     // check security
     $modid = xarModGetIDFromName('dynamicdata');
     $itemtype = 1; // dynamic properties
-    if (!xarSecurityCheck('EditDynamicDataItem',1,'Item',"$modid:$itemtype:$itemid")) return;
+    if (!xarSecurityCheck('EditDynamicDataItem',1,'Item',array($modid,$itemtype,$itemid))) return;
 
     // get the object corresponding to this dynamic property
     $myobject = & Dynamic_Object_Master::getObject(array('objectid' => 2,

@@ -3,7 +3,7 @@
  * Remove a role from a group
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -42,7 +42,7 @@ function roles_userapi_removemember($args)
     $user = $roles->getRole($uid);
 
 // Security Check
-    if(!xarSecurityCheck('RemoveRole',1,'Relation',$group->getName() . ":" . $user->getName())) return;
+    if(!xarSecurityCheck('RemoveRole',1,'Relation',array($group->getName(),$user->getName()))) return;
 
     if (!$group->removeMember($user)) return;
 

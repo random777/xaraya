@@ -3,7 +3,7 @@
  * Initialisation functions for the security module
  *
  * @package core modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -85,7 +85,7 @@ function privileges_init()
     *   xar_realm varchar(100) NOT NULL default '',
     *   xar_module varchar(100) NOT NULL default '',
     *   xar_component varchar(100) NOT NULL default '',
-    *   xar_instance varchar(100) NOT NULL default '',
+    *   xar_instance varchar(255) NOT NULL default '',
     *   xar_level int(11) NOT NULL default '0',
     *   xar_description varchar(255) NOT NULL default '',
     *   PRIMARY KEY  (xar_pid)
@@ -115,7 +115,7 @@ function privileges_init()
                                       'null'        => false,
                                       'default'     => ''),
                    'xar_instance' => array('type'   => 'varchar',
-                                      'size'        => 100,
+                                      'size'        => 255,
                                       'null'        => false,
                                       'default'     => ''),
                    'xar_level' => array('type'      => 'integer',
@@ -222,7 +222,7 @@ function privileges_init()
     *   xar_realm varchar(100) NOT NULL default '',
     *   xar_module varchar(100) NOT NULL default '',
     *   xar_component varchar(100) NOT NULL default '',
-    *   xar_instance varchar(100) NOT NULL default '',
+    *   xar_instance varchar(255) NOT NULL default '',
     *   xar_instancetable1 varchar(100) NOT NULL default '',
     *   xar_instancevaluefield1 varchar(100) NOT NULL default '',
     *   xar_instancedisplayfield1 varchar(100) NOT NULL default '',
@@ -259,7 +259,7 @@ function privileges_init()
                                       'null'        => false,
                                       'default'     => ''),
                    'xar_instance' => array('type'   => 'varchar',
-                                      'size'        => 100,
+                                      'size'        => 255,
                                       'null'        => false,
                                       'default'     => ''),
                    'xar_level' => array('type'      => 'integer',

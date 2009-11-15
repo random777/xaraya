@@ -3,7 +3,7 @@
  * Test a user or group's privileges against a mask
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -60,7 +60,7 @@ function roles_admin_testprivileges()
         $mask = $masks->getMask($name);
         $component = $mask->getComponent();
         // test the mask against the role
-        $testresult = $masks->xarSecurityCheck($name, 0, $component, 'All', $mask->getModule(), $role->getName());
+        $testresult = $masks->xarSecurityCheck($name, 0, $component, array('All'), $mask->getModule(), $role->getName());
         // test failed
         if (!$testresult) {
             $resultdisplay = xarML('Privilege: none found');
@@ -72,7 +72,7 @@ function roles_admin_testprivileges()
             $data['rrealm']     = $testresult->getRealm();
             $data['rmodule']    = $testresult->getModule();
             $data['rcomponent'] = $testresult->getComponent();
-            $data['rinstance']  = $testresult->getInstance();
+            $data['rinstance']  = $testresult->getInstanceDisplay();
             $data['rlevel']     = $masks->levels[$testresult->getLevel()];
         }
         // rest of the data for template display
@@ -85,7 +85,7 @@ function roles_admin_testprivileges()
                               'srealm'     => $testmask->getRealm(),
                               'smodule'    => $testmask->getModule(),
                               'scomponent' => $testmask->getComponent(),
-                              'sinstance'  => $testmask->getInstance(),
+                              'sinstance'  => $testmask->getInstanceDisplay(),
                               'slevel'     => $masks->levels[$testmask->getLevel()]
                               );
             $testmaskarray[] = $thismask;
@@ -106,9 +106,8 @@ function roles_admin_testprivileges()
     if (empty($module)) $data['masks'] = array();
     else $data['masks'] = $masks->getmasks(strtolower($module));
     $data['authid'] = xarSecGenAuthKey();
+
     return $data;
-    // redirect to the next page
-    xarResponseRedirect(xarModURL('roles', 'admin', 'newrole'));
 }
 
 ?>

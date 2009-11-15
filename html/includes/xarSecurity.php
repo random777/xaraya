@@ -217,7 +217,8 @@ function xarRemoveRoleMemberByID($childId, $parentId)
  * @param  integer realm
  * @param  string module
  * @param  string component
- * @param  string instance
+ * @param  string instance, or
+ * @param  array instance, or (as of 1.2)
  * @param  integer level
  * @param  string description
  * @return bool
@@ -523,7 +524,8 @@ function xarQueryMask($mask, $showException=1, $component='', $instance='', $mod
  * @param  string mask
  * @param  integer showException
  * @param  string component
- * @param  string instance
+ * @param  string instance, or
+ * @param  array instance (as of 1.2)
  * @param  string module
  * @param  string role
  * @return bool
@@ -550,7 +552,8 @@ function xarSecurityCheck($mask, $showException=1, $component='', $instance='', 
  * @param  integer realm
  * @param  string module
  * @param  string component
- * @param  string instance
+ * @param  string instance, or
+ * @param  array instance (as of 1.2)
  * @param  integer level
  * @param  string description
  * @return bool

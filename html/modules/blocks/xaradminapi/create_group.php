@@ -3,7 +3,7 @@
  * create a new group
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -34,7 +34,7 @@ function blocks_adminapi_create_group($args)
     }
 
     // Security
-    if (!xarSecurityCheck('AddBlock', 1, 'Block', "All:$name:All")) {return;}
+    if (!xarSecurityCheck('AddBlock', 1, 'Block', array('All',$name,'All'))) {return;}
 
     // Load up database
     $dbconn =& xarDBGetConn();

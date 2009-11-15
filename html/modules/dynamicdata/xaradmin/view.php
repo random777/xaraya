@@ -100,7 +100,7 @@ function dynamicdata_admin_view($args)
             if (!isset($data['modlist'][$modList[$i]['category']]) && $modList[$i]['category'] != '') {
                 $data['modlist'][$modList[$i]['category']] = array();
             }
-            if(xarSecurityCheck('AdminDynamicDataItem',0,'Item',$modList[$i]['regid'].':All:All')) {
+            if(xarSecurityCheck('AdminDynamicDataItem',0,'Item',array($modList[$i]['regid'],'All','All'))) {
                 $modList[$i]['link'] = xarModURL('dynamicdata','admin','modifyprop',
                                                   array('modid' => $modList[$i]['regid']));
             } else {

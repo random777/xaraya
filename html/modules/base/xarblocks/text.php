@@ -3,7 +3,7 @@
  * Text block
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -50,7 +50,7 @@ function base_textblock_info()
 function base_textblock_display($blockinfo)
 {
     // Security Check
-    if (!xarSecurityCheck('ViewBaseBlocks', 0, 'Block', "text:$blockinfo[title]:$blockinfo[bid]")) {return;}
+    if (!xarSecurityCheck('ViewBaseBlocks', 0, 'Block', array('text',$blockinfo['title'],$blockinfo['bid']))) {return;}
 
     // Get variables from content block
     if (!is_array($blockinfo['content'])) {

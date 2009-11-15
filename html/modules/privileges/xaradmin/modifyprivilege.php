@@ -3,7 +3,7 @@
  * Modify privilege details
  *
  * @package core modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -79,7 +79,7 @@ function privileges_admin_modifyprivilege()
     $data['pname'] = $name;
 
     // Security Check
-    $data['frozen'] = !xarSecurityCheck('EditPrivilege',0,'Privileges',$name);
+    $data['frozen'] = !xarSecurityCheck('EditPrivilege',0,'Privileges',array($name));
 
     if(isset($realm)) {$data['prealm'] = $realm;}
     else {$data['prealm'] = $priv->getRealm();}
@@ -93,18 +93,27 @@ function privileges_admin_modifyprivilege()
     if(isset($level)) {$data['plevel'] = $level;}
     else {$data['plevel'] = $priv->getLevel();}
 
-    if(isset($description)) {$data['pdescription'] = $description;}
-    else {$data['pdescription'] = $priv->getDescription();}
+    if(isset($description)) {
+        $data['pdescription'] = $description;
+    } else {
+        $data['pdescription'] = $priv->getDescription();
+    }
 
     $instances = $privs->getinstances($data['pmodule'],$data['pcomponent']);
     $numInstances = count($instances); // count the instances to use in later loops
 
-    if(count($instance) > 0) {$default = $instance;}
-    else {
+    if (is_array($instance) && count($instance) > 0) {
+        $default = $instance;
+    } else {
         $default = array();
-        $inst = $priv->getInstance();
-        if ($inst == "All") for($i=0; $i < $numInstances; $i++) $default[] = "All";
-        else $default = explode(':',$priv->getInstance());
+        $inst = $priv->getInstanceDisplay();
+        if ($inst == array("All")) {
+            for($i=0; $i < $numInstances; $i++) {
+                $default[] = "All";
+            }
+        } else {
+            $default = unserialize($priv->getInstance());
+        }
     }
 
 // send to external wizard if necessary
@@ -112,8 +121,9 @@ function privileges_admin_modifyprivilege()
 //    xarResponseRedirect($instances['target'] . "&extpid=$pid&extname=$name&extrealm=$realm&extmodule=$module&extcomponent=$component&extlevel=$level");
 //        return;
         $data['target'] = $instances['target'] . '&amp;extpid='.$data['ppid'].'&amp;extname='.$data['pname'].'&amp;extrealm='.$data['prealm'].'&amp;extmodule='.$data['pmodule'].'&amp;extcomponent='.$data['pcomponent'].'&amp;extlevel='.$data['plevel'];
-        $data['target'] .= '&amp;extinstance=' . urlencode(join(':',$default));
-        $data['curinstance'] = join(':',$default);
+        $data['target'] .= '&amp;extinstance=' . urlencode(implode(':',$default));
+
+        $data['curinstance'] = implode(':',$default);
         $data['instances'] = array();
     } else {
         for ($i=0; $i < $numInstances; $i++) {

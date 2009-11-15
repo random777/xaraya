@@ -3,7 +3,7 @@
  * Update attributes of a Block
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -33,7 +33,7 @@ function blocks_adminapi_update_group($args)
 
     // Security.
     // FIXME: this doesn't seem right - it is a block group, not a block instance here.
-    if (!xarSecurityCheck('EditBlock', 1, 'Block', "$name::$gid")) {return;}
+    if (!xarSecurityCheck('EditBlock', 1, 'Block', array($name,'',$gid))) {return;}
 
     if (!is_numeric($id)) {return;}
 

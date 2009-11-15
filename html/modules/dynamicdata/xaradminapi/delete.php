@@ -3,7 +3,7 @@
  * Delete an item
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -45,7 +45,7 @@ function dynamicdata_adminapi_delete($args)
 
     // Security check - important to do this as early on as possible to
     // avoid potential security holes or just too much wasted processing
-    if(!xarSecurityCheck('DeleteDynamicDataItem',1,'Item',"$modid:$itemtype:$itemid")) return;
+    if(!xarSecurityCheck('DeleteDynamicDataItem',1,'Item',array($modid,$itemtype,$itemid))) return;
 
 // TODO: test this
     $myobject = & Dynamic_Object_Master::getObject(array('moduleid' => $modid,

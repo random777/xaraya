@@ -3,7 +3,7 @@
  * List some items in a template
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -74,7 +74,7 @@ function dynamicdata_userapi_showview($args)
     }
 
 // TODO: what kind of security checks do we want/need here ?
-    if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',"$modid:$itemtype:All")) return;
+    if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',array($modid,$itemtype,'All'))) return;
 
     // try getting the item id list via input variables if necessary
     if (!isset($itemids)) {

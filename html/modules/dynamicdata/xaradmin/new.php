@@ -3,7 +3,7 @@
  * Add a new item
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -42,7 +42,7 @@ function dynamicdata_admin_new($args)
 
     // Security check - important to do this as early as possible to avoid
     // potential security holes or just too much wasted processing
-    if(!xarSecurityCheck('AddDynamicDataItem',1,'Item',"$modid:$itemtype:All")) return;
+    if(!xarSecurityCheck('AddDynamicDataItem',1,'Item',array($modid,$itemtype,'All'))) return;
 
     $data = xarModAPIFunc('dynamicdata','admin','menu');
 

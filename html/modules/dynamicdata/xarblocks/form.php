@@ -3,7 +3,7 @@
  * Initialisation and display of the form block
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -40,7 +40,7 @@ function dynamicdata_formblock_info()
 function dynamicdata_formblock_display($blockinfo)
 {
     // Security check
-    if(!xarSecurityCheck('ReadDynamicDataBlock',0,'Block',"$blockinfo[title]:All:All")) return;
+    if(!xarSecurityCheck('ReadDynamicDataBlock',0,'Block',array($blockinfo['title'],'All','All'))) return;
 
     // Get variables from content block
     if (is_string($blockinfo['content'])) {
@@ -54,7 +54,7 @@ function dynamicdata_formblock_display($blockinfo)
         $objectinfo = xarModAPIFunc('dynamicdata','user','getobjectinfo',
                                     $vars);
         if (!empty($objectinfo)) {
-            if (!xarSecurityCheck('AddDynamicDataItem',0,'Item',"$objectinfo[moduleid]:$objectinfo[itemtype]:All")) return;
+            if (!xarSecurityCheck('AddDynamicDataItem',0,'Item',array($objectinfo['moduleid'],$objectinfo['itemtype'],'All'))) return;
             $blockinfo['content'] = $objectinfo;
             return $blockinfo;
         }

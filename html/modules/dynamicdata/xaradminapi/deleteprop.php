@@ -3,7 +3,7 @@
  * Delete a property field
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -47,7 +47,7 @@ function dynamicdata_adminapi_deleteprop($args)
     // Security check - important to do this as early on as possible to
     // avoid potential security holes or just too much wasted processing
 // TODO: check based on other arguments too
-    if(!xarSecurityCheck('DeleteDynamicDataField',1,'Field',"All:All:$prop_id")) return;
+    if(!xarSecurityCheck('DeleteDynamicDataField',1,'Field',array('All','All',$prop_id))) return;
 
     $dbconn =& xarDBGetConn();
     $xartable =& xarDBGetTables();

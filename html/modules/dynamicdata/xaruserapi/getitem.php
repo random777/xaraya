@@ -3,7 +3,7 @@
  * Get all data fields for an item
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -78,7 +78,7 @@ function &dynamicdata_userapi_getitem($args)
         return $nullreturn;
     }
 
-    if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',"$modid:$itemtype:$itemid")) return $nullreturn;
+    if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',array($modid,$itemtype,$itemid))) return $nullreturn;
 
     // check the optional field list
     if (empty($fieldlist)) {

@@ -3,7 +3,7 @@
  * Update a role
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -110,7 +110,7 @@ function roles_admin_updaterole()
     }
 
     //now we have the username for role and group. Let's do the security check
-    if (!xarSecurityCheck('EditRole',0,'Roles',"$puname")) return;
+    if (!xarSecurityCheck('EditRole',0,'Roles',array($puname))) return;
     
     $duvs = array();
     if (isset($phome) && xarModGetVar('roles','setuserhome'))

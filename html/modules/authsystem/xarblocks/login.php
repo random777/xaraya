@@ -3,7 +3,7 @@
  * Login via a block.
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -48,7 +48,7 @@ function authsystem_loginblock_info()
 function authsystem_loginblock_display($blockinfo)
 {
     // Security Check
-    if(!xarSecurityCheck('ViewLogin',0,'Block',"Login:" . $blockinfo['title'] . ":" . $blockinfo['bid'],'All')) return;
+    if(!xarSecurityCheck('ViewLogin',0,'Block', array('Login',$blockinfo['title'], $blockinfo['bid']),'All')) return;
 
     // Get variables from content block
     if (!is_array($blockinfo['content'])) {

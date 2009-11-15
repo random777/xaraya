@@ -3,7 +3,7 @@
  * Get all dynamic data fields for a list of items
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -73,7 +73,7 @@ function &dynamicdata_userapi_getitems($args)
         return $nullreturn;
     }
 
-    if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',"$modid:$itemtype:All")) return $nullreturn;
+    if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',array($modid,$itemtype,'All'))) return $nullreturn;
 
     if (empty($itemids)) {
         $itemids = array();
@@ -82,7 +82,7 @@ function &dynamicdata_userapi_getitems($args)
     }
 
     foreach ($itemids as $itemid) {
-        if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',"$modid:$itemtype:$itemid")) return $nullreturn;
+        if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',array($modid,$itemtype,$itemid))) return $nullreturn;
     }
 
     // check the optional field list

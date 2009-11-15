@@ -3,7 +3,7 @@
  * Get all users
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -179,7 +179,7 @@ function roles_userapi_getall($args)
     $roles = array();
     for (; !$result->EOF; $result->MoveNext()) {
         list($uid, $uname, $name, $email, $pass, $state, $date_reg) = $result->fields;
-        if (xarSecurityCheck('ReadRole', 0, 'Roles', "$uname")) {
+        if (xarSecurityCheck('ReadRole', 0, 'Roles', array($uname))) {
             if (!empty($uidlist)) {
                 $roles[$uid] = array(
                     'uid'       => (int) $uid,
@@ -201,7 +201,7 @@ function roles_userapi_getall($args)
                     'date_reg'  => $date_reg
                 );
             }
-        } elseif (xarSecurityCheck('ViewRoles', 0, 'Roles', "$uname")) {
+        } elseif (xarSecurityCheck('ViewRoles', 0, 'Roles', array($uname))) {
             // If we only have overview privilege, then supply more restricted information.
             if (!empty($uidlist)) {
                 $roles[$uid] = array(

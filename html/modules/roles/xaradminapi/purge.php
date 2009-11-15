@@ -44,7 +44,7 @@ function roles_adminapi_purge($args)
                 array('uid' => $item['uid']));
 
     // Security check
-        if (!xarSecurityCheck('DeleteRole', 0, 'Roles', $item['name'])) {
+        if (!xarSecurityCheck('DeleteRole', 0, 'Roles', array($item['name']))) {
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'NO_PERMISSION');
             return;
         }

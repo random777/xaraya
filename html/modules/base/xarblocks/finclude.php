@@ -3,7 +3,7 @@
  * Finclude block
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -47,7 +47,7 @@ function base_fincludeblock_info()
 function base_fincludeblock_display($blockinfo)
 {
     // Security Check
-    if (!xarSecurityCheck('ViewBaseBlocks',0,'Block',"finclude:$blockinfo[title]:$blockinfo[bid]")) {return;}
+    if (!xarSecurityCheck('ViewBaseBlocks',0,'Block',array('finclude',$blockinfo['title'],$blockinfo['bid']))) {return;}
 
     if (!is_array($blockinfo['content'])) {
         $blockinfo['content'] = unserialize($blockinfo['content']);

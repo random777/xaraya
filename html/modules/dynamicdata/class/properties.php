@@ -3,7 +3,7 @@
  * Utility Class to manage Dynamic Properties
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -74,7 +74,7 @@ class Dynamic_Property_Master
         while (!$result->EOF) {
             list($name, $label, $type, $id, $default, $source, $fieldstatus, $order, $validation,
                  $_objectid, $_moduleid, $_itemtype) = $result->fields;
-            if(xarSecurityCheck('ReadDynamicDataField',0,'Field',"$name:$type:$id")) {
+            if(xarSecurityCheck('ReadDynamicDataField',0,'Field',array($name,$type,$id))) {
                 $property = array('name' => $name,
                                   'label' => $label,
                                   'type' => $type,

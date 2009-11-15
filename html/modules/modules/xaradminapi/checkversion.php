@@ -3,7 +3,7 @@
  * Checks for change in module versions
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @copyright (C) 2005-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -27,7 +27,7 @@ function modules_adminapi_checkversion()
 
     // Security Check
     // need to specify the module because this function is called by the installer module
-    if(!xarSecurityCheck('AdminModules',1,'All','All','modules')) return;
+    if(!xarSecurityCheck('AdminModules',1,'All',array('All'),'modules')) return;
 
     // Get all modules in the filesystem
     $fileModules = xarModAPIFunc('modules','admin','getfilemodules');

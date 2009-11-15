@@ -3,7 +3,7 @@
  * Online Block
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -52,7 +52,7 @@ function roles_onlineblock_info()
 function roles_onlineblock_display($blockinfo)
 {
     // Security check
-    if (!xarSecurityCheck('ViewRoles',0,'Block',"online:$blockinfo[title]:$blockinfo[bid]")) {return;}
+    if (!xarSecurityCheck('ViewRoles',0,'Block',array('online',$blockinfo['title'],$blockinfo['bid']))) {return;}
 
     // Get variables from content block
     if (!is_array($blockinfo['content'])) {

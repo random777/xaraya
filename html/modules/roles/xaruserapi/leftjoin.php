@@ -49,7 +49,7 @@ function roles_userapi_leftjoin($args)
     $roles = new xarRoles();
     foreach ($uids as $uid) {
         $role  = $roles->getRole($uid);
-        if (!xarSecurityCheck('ReadRole', 0, 'Roles', $role->getUser())) {
+        if (!xarSecurityCheck('ReadRole', 0, 'Roles', array($role->getUser()))) {
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'NO_PERMISSION');
             return;
         }

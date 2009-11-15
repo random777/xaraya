@@ -3,7 +3,7 @@
  * Language Selection via block
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -44,7 +44,7 @@ function roles_languageblock_info()
 function roles_languageblock_display($blockinfo)
 {
     // Security check
-    if (!xarSecurityCheck('ReadRole', 0, 'Block', "All:" . $blockinfo['title'] . ":" . $blockinfo['bid'])) {return;}
+    if (!xarSecurityCheck('ReadRole', 0, 'Block', array('All',$blockinfo['title'],$blockinfo['bid']))) {return;}
 
     // if (xarMLSGetMode() != XARMLS_BOXED_MULTI_LANGUAGE_MODE) {
     if (xarMLSGetMode() == XARMLS_SINGLE_LANGUAGE_MODE) {

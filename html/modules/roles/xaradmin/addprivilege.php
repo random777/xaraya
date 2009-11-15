@@ -3,7 +3,7 @@
  * Assign a privilege to role
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -34,7 +34,7 @@ function roles_admin_addprivilege()
     $priv = $privs->getPrivilege($privid);
 
     //Security Check
-    if (!xarSecurityCheck('AssignPrivilege',0,'Privileges',$priv->getName())) return;
+    if (!xarSecurityCheck('AssignPrivilege',0,'Privileges',array($priv->getName()))) return;
 
     // If this privilege is already assigned do nothing
     // Try to assign the privilege and bail if an error was thrown

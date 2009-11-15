@@ -3,7 +3,7 @@
  * Update attributes of a block instance
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -68,7 +68,7 @@ function blocks_adminapi_update_instance($args)
 
     // Security
     // TODO: add security on the name as well as (eventually instead of) the title.
-    if(!xarSecurityCheck('EditBlock', 1, 'Block', "$title::$bid")) {return;}
+    if(!xarSecurityCheck('EditBlock', 1, 'Block', array($title,'',$bid))) {return;}
 
     $dbconn =& xarDBGetConn();
     $xartable =& xarDBGetTables();

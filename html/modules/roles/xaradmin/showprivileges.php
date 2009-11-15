@@ -3,7 +3,7 @@
  * Display the privileges of this role
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -103,7 +103,7 @@ function roles_admin_showprivileges()
     // extract the info for display by the template
     $currentprivileges = array();
     foreach ($curprivileges as $priv) {
-        $frozen = !xarSecurityCheck('DeassignPrivilege',0,'Privileges',$priv->getName());
+        $frozen = !xarSecurityCheck('DeassignPrivilege',0,'Privileges',array($priv->getName()));
         if ($priv->getModule() == "empty") {
             $currentprivileges[] = array('privid' => $priv->getID(),
                 'name'      => $priv->getName(),

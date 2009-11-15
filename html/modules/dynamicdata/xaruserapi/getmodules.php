@@ -3,7 +3,7 @@
  * Get list of modules and itemtypes with dynamic properties
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -39,7 +39,7 @@ function dynamicdata_userapi_getmodules($args)
 
     while (!$result->EOF) {
         list($modid, $itemtype, $count) = $result->fields;
-        if(xarSecurityCheck('ViewDynamicDataItems',0,'Item',"$modid:$itemtype:All")) {
+        if(xarSecurityCheck('ViewDynamicDataItems',0,'Item',array($modid,$itemtype,'All'))) {
             $modules[] = array('modid' => $modid,
                                'itemtype' => $itemtype,
                                'numitems' => $count);

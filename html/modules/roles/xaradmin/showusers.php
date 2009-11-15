@@ -3,7 +3,7 @@
  * Display the users of this role
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -161,7 +161,7 @@ function roles_admin_showusers()
     // assemble the info for the display
         $users = array();
         foreach($q->output() as $user)
-            $users[] = array_merge($user, array('frozen' => !xarSecurityCheck('EditRole',0,'Roles',$user['name'])));
+            $users[] = array_merge($user, array('frozen' => !xarSecurityCheck('EditRole',0,'Roles',array($user['name']))));
 
     if ($uid != 0) $data['title'] .= " ".xarML('of group')." ";
 

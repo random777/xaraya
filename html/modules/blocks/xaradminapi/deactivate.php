@@ -3,7 +3,7 @@
  * Deactivate a block
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -28,7 +28,7 @@ function blocks_adminapi_deactivate($args)
     }
 
     // Security
-    if(!xarSecurityCheck('CommentBlock',1,'Block',"::$bid")) return;
+    if(!xarSecurityCheck('CommentBlock',1,'Block',array('','',$bid))) return;
 
     $dbconn =& xarDBGetConn();
     $xartable =& xarDBGetTables();

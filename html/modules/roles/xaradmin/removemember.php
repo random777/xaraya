@@ -3,7 +3,7 @@
  * Remove a user or group from a group
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -36,7 +36,7 @@ function roles_admin_removemember()
     $member = $roles->getRole($childid);
 
     // Security Check
-    if(!xarSecurityCheck('RemoveRole',1,'Relation',$role->getName() . ":" . $member->getName())) return;
+    if(!xarSecurityCheck('RemoveRole',1,'Relation',array($role->getName(),$member->getName()))) return;
 
     // remove the child from the parent and bail if an error was thrown
     if (!xarModAPIFUnc('roles','user','removemember', array('uid' => $childid, 'gid' => $parentid))) return;

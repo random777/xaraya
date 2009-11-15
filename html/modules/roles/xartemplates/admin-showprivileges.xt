@@ -81,7 +81,7 @@
                 </xar:if>
                 <td>#$loop:item.module#</td>
                 <td>#$loop:item.component#</td>
-                <td>#$loop:item.instance#</td>
+                <td>#$loop:item->present()#</td>
                 <td class="xar-nowrap">#$loop:item.level#</td>
                 <td>
                   <xar:if condition="$loop:item['status'] eq 1">
@@ -151,7 +151,7 @@
               </xar:if>
               <td>#$loop:item.module#</td>
               <td>#$loop:item.component#</td>
-              <td>#$loop:item.instance#</td>
+              <td>#$loop:item->present()#</td>
               <td class="xar-nowrap">#$loop:item.level#</td>
               <td>
                 <xar:if condition="$loop:item['status'] eq 1">

@@ -3,7 +3,7 @@
  * Modify module settings
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -38,7 +38,7 @@ function modules_admin_modify($args)
     $displayName = $modInfo['displayname'];
 
     // Security Check
-    if(!xarSecurityCheck('AdminModules',0,'All',"$modName::$id")) return;
+    if(!xarSecurityCheck('AdminModules',0,'All',array($modName,$id))) return;
 
     $data['savechangeslabel'] = xarML('Save Changes');
 

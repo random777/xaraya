@@ -3,7 +3,7 @@
  * create a new block instance
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -42,7 +42,7 @@ function blocks_adminapi_create_instance($args)
     // Security.
     // TODO: fix this. A security check on whether a certain title can be created
     // does not make any sense to me. Probably remove it.
-    //if (!xarSecurityCheck('AddBlock', 1, 'Block', "All:$title:All")) {return;}
+    //if (!xarSecurityCheck('AddBlock', 1, 'Block', array('All',$title','All'))) {return;}
 
     // Make sure type exists.
     $blocktype = xarModAPIfunc('blocks', 'user', 'getblocktype', array('tid' => $type));

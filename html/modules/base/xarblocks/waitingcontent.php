@@ -3,7 +3,7 @@
  * Waiting content block management
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -65,7 +65,7 @@ function base_waitingcontentblock_info()
 function base_waitingcontentblock_display($blockinfo)
 {
     // Security Check
-    if(!xarSecurityCheck('EditBaseBlock',0,'Block',"waitingcontent:$blockinfo[title]:$blockinfo[bid]")) {return;}
+    if(!xarSecurityCheck('EditBaseBlock',0,'Block',array('waitingcontent',$blockinfo['title'],$blockinfo['bid']))) {return;}
 
     // Get publication types
     $data = xarModAPIFunc('base', 'admin', 'waitingcontent');

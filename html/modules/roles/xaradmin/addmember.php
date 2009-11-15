@@ -3,7 +3,7 @@
  * Assign a user or group to a group
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -36,7 +36,7 @@ function roles_admin_addmember()
     $member = $roles->getRole($uid);
 
     // Security Check
-    if(!xarSecurityCheck('AttachRole',1,'Relation',$role->getName() . ":" . $member->getName())) return;
+    if(!xarSecurityCheck('AttachRole',1,'Relation',array($role->getName(),$member->getName()))) return;
 
     // check that this assignment hasn't already been made
     if ($member->isEqual($role)) {

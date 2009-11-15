@@ -3,7 +3,7 @@
  * AddPrivilege - add a privilege to the repository
  *
  * @package core modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -29,23 +29,22 @@ function privileges_admin_addprivilege()
     if(!xarVarFetch('pparentid',    'isset', $pparentid,    NULL,    XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('pinstance',    'array', $pinstances,   array(), XARVAR_NOT_REQUIRED)) {return;}
 
-    $instance = "";
+    $instance = '';
     foreach ($pinstances as $pinstance) {
         $instance .= $pinstance . ":";
     }
-    if ($instance =="") {
-        $instance = "All";
+    if ($instance == '') {
+        $instance = 'All';
     }
     else {
         $instance = substr($instance,0,strlen($instance)-1);
     }
 
-// Check for authorization code
+    // Check for authorization code
     if (!xarSecConfirmAuthKey()) return;
 
     if ($type =="empty") {
-
-// this is just a container for other privileges
+        // this is just a container for other privileges
         $pargs = array('name' => $pname,
                     'realm' => 'All',
                     'module' => 'empty',
@@ -57,8 +56,7 @@ function privileges_admin_addprivilege()
                     );
     }
     else {
-
-// this is privilege has its own rights assigned
+        // this is privilege has its own rights assigned
         $pargs = array('name' => $pname,
                     'realm' => $prealm,
                     'module' => $pmodule,
@@ -70,16 +68,16 @@ function privileges_admin_addprivilege()
                     );
     }
 
-//Call the Privileges class
+    //Call the Privileges class
     $priv = new xarPrivilege($pargs);
 
-//Try to add the privilege and bail if an error was thrown
+    //Try to add the privilege and bail if an error was thrown
     if (!$priv->add()) {return;}
 
     xarSessionSetVar('privileges_statusmsg', xarML('Privilege Added',
                     'privileges'));
 
-// redirect to the next page
+    // redirect to the next page
     xarResponseRedirect(xarModURL('privileges', 'admin', 'newprivilege'));
 }
 

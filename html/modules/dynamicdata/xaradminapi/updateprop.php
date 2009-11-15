@@ -3,7 +3,7 @@
  * Update a property field
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -54,9 +54,9 @@ function dynamicdata_adminapi_updateprop($args)
     // Security check - important to do this as early on as possible to
     // avoid potential security holes or just too much wasted processing
     if (isset($name) && is_string($name)) {
-    if(!xarSecurityCheck('EditDynamicDataField',1,'Field',"$name:$type:$prop_id")) return;
+    if(!xarSecurityCheck('EditDynamicDataField',1,'Field',array($name,$type,$prop_id))) return;
     } else {
-    if(!xarSecurityCheck('EditDynamicDataField',1,'Field',"All:$type:$prop_id")) return;
+    if(!xarSecurityCheck('EditDynamicDataField',1,'Field',array('All',$type,$prop_id))) return;
     }
 
     // Get database setup - note that xarDBGetTables()

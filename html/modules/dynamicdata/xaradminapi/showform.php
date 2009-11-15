@@ -3,7 +3,7 @@
  * Show an input form in a template
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -95,9 +95,9 @@ function dynamicdata_adminapi_showform($args)
 
     // throw an exception if you can't edit this
     if (empty($itemid)) {
-        if(!xarSecurityCheck('AddDynamicDataItem',1,'Item',"$modid:$itemtype:All")) return;
+        if(!xarSecurityCheck('AddDynamicDataItem',1,'Item',array($modid,$itemtype,'All'))) return;
     } else {
-        if(!xarSecurityCheck('EditDynamicDataItem',1,'Item',"$modid:$itemtype:$itemid")) return;
+        if(!xarSecurityCheck('EditDynamicDataItem',1,'Item',array($modid,$itemtype,$itemid))) return;
     }
 
     $object = & Dynamic_Object_Master::getObject(array('moduleid'  => $modid,

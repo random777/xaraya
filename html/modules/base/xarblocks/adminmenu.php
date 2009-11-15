@@ -3,7 +3,7 @@
  * Base block management
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -63,7 +63,7 @@ function base_adminmenublock_info()
 function base_adminmenublock_display($blockinfo)
 {
     // Security Check
-    if (!xarSecurityCheck('AdminBaseBlock',0,'Block',"adminmenu:$blockinfo[title]:$blockinfo[bid]")) {return;}
+    if (!xarSecurityCheck('AdminBaseBlock',0,'Block',array('adminmenu',$blockinfo['title'],$blockinfo['bid']))) {return;}
 
     // Get variables from content block
     if (!is_array($blockinfo['content'])) {

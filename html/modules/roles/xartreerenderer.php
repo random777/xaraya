@@ -3,7 +3,7 @@
  * Roles tree renderer
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -267,7 +267,7 @@ class xarTreeRenderer
 
     function deleteitem()
     {
-        if (!xarSecurityCheck('DeleteRole',0,'Roles',$this->treenode['name']) || ($this->treenode['users'] > 0)) {
+        if (!xarSecurityCheck('DeleteRole',0,'Roles',array($this->treenode['name'])) || ($this->treenode['users'] > 0)) {
             $data['allowed'] = false;
         } else {
             $data['allowed'] = true;

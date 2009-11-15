@@ -3,7 +3,7 @@
  * Modify role details
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -46,7 +46,7 @@ function roles_admin_modifyrole()
     $names = array();
     foreach ($role->getParents() as $parent) {
         //jojodee - This sec instance check works?
-        if(xarSecurityCheck('RemoveRole',0,'Relation',$parent->getName() . ":" . $role->getName())) {
+        if(xarSecurityCheck('RemoveRole',0,'Relation',array($parent->getName(),$role->getName()))) {
             $parents[] = array('parentid'    => $parent->getID(),
                                'parentname'  => $parent->getName(),
                                'parentuname' => $parent->getUname());
@@ -62,7 +62,7 @@ function roles_admin_modifyrole()
     foreach($roles->getgroups() as $temp) {
         $nam = $temp['name'];
 // TODO: this is very inefficient. Here we have the perfect use case for embedding security checks directly into the SQL calls
-        if(!xarSecurityCheck('AttachRole',0,'Relation',$nam . ":" . $role->getName())) continue;
+        if(!xarSecurityCheck('AttachRole',0,'Relation',array($nam,$role->getName()))) continue;
         if (!in_array($nam, $names) && $temp['uid'] != $uid) {
             $names[] = $nam;
             $groups[] = array('duid'  => $temp['uid'],
@@ -75,8 +75,8 @@ function roles_admin_modifyrole()
     $data['pname'] = $name;
 
 // Security Check
-    if (!xarSecurityCheck('EditRole',1,'Roles',$name)) return;
-    $data['frozen'] = !xarSecurityCheck('EditRole',0,'Roles',$name);
+    if (!xarSecurityCheck('EditRole',1,'Roles',array($name))) return;
+    $data['frozen'] = !xarSecurityCheck('EditRole',0,'Roles',array($name));
 
     if (isset($type)) {
         $data['ptype'] = $type;
@@ -137,7 +137,7 @@ function roles_admin_modifyrole()
         //only display it for current user or admin
         if (xarUserIsLoggedIn() && xarUserGetVar('uid')==$uid) {
             $data['userlastlogin']=xarSessionGetVar('roles_thislastlogin');
-        }elseif (xarSecurityCheck('AdminRole',0,'Roles',$name)&& xarUserGetVar('uid')!= $uid){
+        }elseif (xarSecurityCheck('AdminRole',0,'Roles',array($name)) && xarUserGetVar('uid')!= $uid){
             $data['userlastlogin']= xarModGetUserVar('roles','userlastlogin',$uid);
         }else{
             $data['userlastlogin']='';

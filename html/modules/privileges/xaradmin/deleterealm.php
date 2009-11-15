@@ -3,7 +3,7 @@
  * Delete a realm
  *
  * @package core modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -29,7 +29,7 @@ function privileges_admin_deleterealm()
     $name = $result['name'];
 
 // Security Check
-    if(!xarSecurityCheck('DeletePrivilege',0,'Realm',$name)) return;
+    if(!xarSecurityCheck('DeletePrivilege',0,'Realm',array($name))) return;
 
     if (empty($confirmed)) {
         $data['authid'] = xarSecGenAuthKey();

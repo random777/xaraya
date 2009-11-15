@@ -46,7 +46,7 @@ function roles_adminapi_delete($args)
     }
 
     // Security check is formally correct, but whole instance definition is TODO
-    if (!xarSecurityCheck('DeleteRole', 0, 'Roles', $item['name'])) {
+    if (!xarSecurityCheck('DeleteRole', 0, 'Roles', array($item['name']))) {
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'NO_PERMISSION');
         return;
     }

@@ -3,7 +3,7 @@
  * Xaraya Upgrade
  *
  * @package upgrader
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -17,7 +17,7 @@
  *  The main upgrade functions are now kept in the installer module.
  *     installer_admin_upgrade2 function contains the main database upgrade routines
  *     installer_admin_upgrade3 function contains miscellaneous upgrade routines
- *  Please add any special notes for a special upgrade in admin-upgrade3.xd in installer.
+ *  Please add any special notes for a special upgrade in admin-upgrade3.xt in installer.
  *  TODO: cleanup and consolidate the upgrade functions in installer
  */
 /**

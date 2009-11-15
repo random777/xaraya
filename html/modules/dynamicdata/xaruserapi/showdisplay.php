@@ -3,7 +3,7 @@
  * Display an item in a template
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -68,7 +68,7 @@ function dynamicdata_userapi_showdisplay($args)
     }
 
 // TODO: what kind of security checks do we want/need here ?
-    if(!xarSecurityCheck('ReadDynamicDataItem',1,'Item',"$modid:$itemtype:$itemid")) return;
+    if(!xarSecurityCheck('ReadDynamicDataItem',1,'Item',array($modid,$itemtype,$itemid))) return;
 
     // we got everything via template parameters
     if (isset($fields) && is_array($fields) && count($fields) > 0) {

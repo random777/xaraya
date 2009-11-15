@@ -3,7 +3,7 @@
  * Create email
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -118,7 +118,7 @@ function roles_admin_createmail()
                           'email'    => $role['email'],
                           'status'   => $role['state'],
                           'date_reg' => $role['date_reg'],
-                          'frozen'   => !xarSecurityCheck('EditRole',0,'Roles',$role['name'])
+                          'frozen'   => !xarSecurityCheck('EditRole',0,'Roles',array($role['name']))
                          );
         }
 
@@ -129,7 +129,7 @@ function roles_admin_createmail()
             $descendants = $parentgroup->getDescendants($state);
 
             while (list($key, $user) = each($descendants)) {
-                if (xarSecurityCheck('EditRole',0,'Roles',$user->getName())) {
+                if (xarSecurityCheck('EditRole',0,'Roles',array($user->getName()))) {
                     $data['users'][$user->getID()] =
                         array('uid'      => $user->getID(),
                               'name'     => $user->getName(),

@@ -53,7 +53,7 @@ function dynamicdata_admin_delete($args)
 
     // Security check - important to do this as early as possible to avoid
     // potential security holes or just too much wasted processing
-    if(!xarSecurityCheck('DeleteDynamicDataItem',1,'Item',"$modid:$itemtype:$itemid")) return;
+    if(!xarSecurityCheck('DeleteDynamicDataItem',1,'Item',array($modid,$itemtype,$itemid))) return;
 
     if (empty($confirm)) {
         $data = xarModAPIFunc('dynamicdata','admin','menu');

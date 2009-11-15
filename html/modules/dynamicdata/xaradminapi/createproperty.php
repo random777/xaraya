@@ -3,7 +3,7 @@
  * Create a new property field for an object
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -50,7 +50,7 @@ function dynamicdata_adminapi_createproperty($args)
 
     // Security check - important to do this as early on as possible to
     // avoid potential security holes or just too much wasted processing
-    if(!xarSecurityCheck('AdminDynamicDataField',1,'Field',"$name:$type:All")) return;
+    if(!xarSecurityCheck('AdminDynamicDataField',1,'Field',array($name,$type,'All'))) return;
 
     if (empty($moduleid)) {
         // defaults to the current module
@@ -63,7 +63,7 @@ function dynamicdata_adminapi_createproperty($args)
 
     // Security check - important to do this as early on as possible to
     // avoid potential security holes or just too much wasted processing
-    if(!xarSecurityCheck('AdminDynamicDataItem',1,'Item',"$moduleid:$itemtype:All")) return;
+    if(!xarSecurityCheck('AdminDynamicDataItem',1,'Item',array($moduleid,$itemtype,'All'))) return;
 
     // get the properties of the 'properties' object
     $fields = xarModAPIFunc('dynamicdata','user','getprop',

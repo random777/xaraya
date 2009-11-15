@@ -3,7 +3,7 @@
  * Modify an item
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -39,7 +39,7 @@ function dynamicdata_admin_modify($args)
 
     // Security check - important to do this as early as possible to avoid
     // potential security holes or just too much wasted processing
-    if(!xarSecurityCheck('EditDynamicDataItem',1,'Item',"$modid:$itemtype:$itemid")) return;
+    if(!xarSecurityCheck('EditDynamicDataItem',1,'Item',array($modid,$itemtype,$itemid))) return;
 
     $data = xarModAPIFunc('dynamicdata','admin','menu');
 

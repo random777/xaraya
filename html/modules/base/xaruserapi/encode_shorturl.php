@@ -25,6 +25,9 @@ function base_userapi_encode_shorturl($args)
     // Check if we have something to work with
     if (!isset($func)) {return;}
 
+    /* don't use shorturls when handling errors */
+    if ($func == 'systemexit' || $func == 'rawexit') return;
+
     $path = array();
     $get = $args;
 

@@ -90,31 +90,32 @@
 </xar:if>
 
 
-<p class="xar-form-textmedium xar-padding-medium " style="display:block;">
-    <strong><xar:mlstring>Add New Menu Item</xar:mlstring></strong>
-</p>
+<fieldset>
+    <legend>
+        <xar:mlstring>Add New Menu Item</xar:mlstring>
+    </legend>
 
-<div class="xar-form-input-wrapper">
-    <label for="new_linkname" title="#xarML('Item title')#" class="xar-form-label">
-        <xar:mlstring>Title:</xar:mlstring>
-    </label>
-    <input type="text" name="new_linkname" id="new_linkname" maxlength="255" class="xar-form-textmedium" />
-</div>
+    <div class="xar-form-input-wrapper">
+        <label for="new_linkname" title="#xarML('Item title')#" class="xar-form-label">
+            <xar:mlstring>Title:</xar:mlstring>
+        </label>
+        <input type="text" name="new_linkname" id="new_linkname" maxlength="255" class="xar-form-textmedium" />
+    </div>
 
-<div class="xar-form-input-wrapper">
-    <label for="new_linkurl" title="#xarML('Item URL')#" class="xar-form-label">
-        <xar:mlstring>URL:</xar:mlstring>
-    </label>
-    <input type="text" name="new_linkurl" id="new_linkurl" maxlength="255" class="xar-form-textlong" />
-</div>
+    <div class="xar-form-input-wrapper">
+        <label for="new_linkurl" title="#xarML('Item URL')#" class="xar-form-label">
+            <xar:mlstring>URL:</xar:mlstring>
+        </label>
+        <input type="text" name="new_linkurl" id="new_linkurl" maxlength="255" class="xar-form-textlong" />
+    </div>
 
-<div class="xar-form-input-wrapper">
-    <label for="new_linkdesc" title="#xarML('Item description')#" class="xar-form-label">
-        <xar:mlstring>Description (optional):</xar:mlstring>
-    </label>
-    <input type="text" name="new_linkdesc" id="new_linkdesc" maxlength="255" class="xar-form-textlong" />
-</div>
-
+    <div class="xar-form-input-wrapper">
+        <label for="new_linkdesc" title="#xarML('Item description')#" class="xar-form-label">
+            <xar:mlstring>Description (optional):</xar:mlstring>
+        </label>
+        <input type="text" name="new_linkdesc" id="new_linkdesc" maxlength="255" class="xar-form-textlong" />
+    </div>
+</fieldset>
 <p class="xar-form-textmedium xar-padding-medium " style="display:block;">
     <strong><xar:mlstring>Menu Extras</xar:mlstring></strong>
 </p>

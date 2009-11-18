@@ -3,7 +3,7 @@
  * Display the users of this role
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -31,7 +31,6 @@ function roles_admin_showusers()
     if (!xarVarFetch('uid',      'int:0:', $uid,              $defaultgroupuid['uid'], XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('startnum', 'int:1:', $startnum,         1,   XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('state',    'int:0:', $data['state'],    ROLES_STATE_CURRENT, XARVAR_NOT_REQUIRED)) return;
-    if (!xarVarFetch('selstyle', 'isset',  $data['selstyle'], xarSessionGetVar('rolesdisplay'), XARVAR_DONT_SET)) return;
     if (!xarVarFetch('invalid',  'str:0:', $data['invalid'],  NULL, XARVAR_NOT_REQUIRED)) return;
 
     if (!xarVarFetch('order',    'str:0:', $data['order'],    NULL, XARVAR_NOT_REQUIRED)) return;
@@ -39,9 +38,6 @@ function roles_admin_showusers()
 
     if (!xarVarFetch('search',   'str:0:', $data['search'],   NULL, XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('reload',   'str:0:', $reload,           NULL,    XARVAR_DONT_SET)) return;
-
-    if (empty($data['selstyle'])) $data['selstyle'] = 0;
-    xarSessionSetVar('rolesdisplay', $data['selstyle']);
 
     if (empty($data['order'])) $data['order'] = xarSessionGetVar('rolesadminorder');
     if (empty($data['order'])) $data['order'] = 'xar_name';
@@ -52,12 +48,10 @@ function roles_admin_showusers()
     xarSessionSetVar('rolesadminsort', $data['sort']);
 
     //Create the role tree
-    if ($data['selstyle'] == '1') {
-        include_once 'modules/roles/xartreerenderer.php';
-        $renderer = new xarTreeRenderer();
-        $data['roletree'] = $renderer->drawtree($renderer->maketree());
-        $data['treenode'] = array($renderer->maketree());
-    }
+    include_once 'modules/roles/xartreerenderer.php';
+    $renderer = new xarTreeRenderer();
+    $data['roletree'] = $renderer->drawtree($renderer->maketree());
+    $data['treenode'] = array($renderer->maketree());
 
     // Get information on the group we're at
     $data['groups']     = xarModAPIFunc('roles', 'user', 'getallgroups');
@@ -164,12 +158,6 @@ function roles_admin_showusers()
             $users[] = array_merge($user, array('frozen' => !xarSecurityCheck('EditRole',0,'Roles',$user['name'])));
 
     if ($uid != 0) $data['title'] .= " ".xarML('of group')." ";
-
-    //selstyle
-    $data['style'] = array('0' => xarML('Simple'),
-                           '1' => xarML('Tree'),
-                           '2' => xarML('Tabbed')
-                           );
 
     // Load Template
     $data['uid']        = $uid;

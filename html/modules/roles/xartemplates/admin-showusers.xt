@@ -97,66 +97,20 @@ jQuery('div#"."treewrapper a[id^=deletetree]').click(function() {
     <xar:set name="ptype">1</xar:set>
     <xar:template file="tablist" />
 
-    <xar:if condition="$selstyle eq '0'">
-    <xar:elseif condition="$selstyle eq '1'"/>
-        <div class="xar-form-section">
-            <h3>
-                <xar:mlstring>Role hierarchy</xar:mlstring>
-            </h3>
-            <div id="treewrapper">
-                #$roletree#
-            </div>
+    <div class="xar-form-section">
+        <h3>
+            <xar:mlstring>Role hierarchy</xar:mlstring>
+        </h3>
+        <div id="treewrapper">
+            #$roletree#
         </div>
-    <xar:elseif condition="$selstyle eq '2'"/>
-        <div>
-            <dl class="xar-tabs">
-                <dt class="help" title="#xarML('Click on a group tab to display users from that group')#">
-                    <xar:mlstring>Groups:</xar:mlstring>
-                </dt>
-                <xar:if condition="$groupuid eq 0">
-                    <dd class="active">
-                        <a href="#xarModURL('roles','admin','showusers',array('uid' => 0, 'state' => $state, 'order' => $order, 'search' => $search, 'reload' => 'reload'))#">
-                            <xar:mlstring>All Users</xar:mlstring> (#$totalusers#)</a>
-                    </dd>
-                <xar:else/>
-                    <dd>
-                        <a href="#xarModURL('roles','admin','showusers',array('uid' => 0, 'state' => $state, 'order' => $order, 'search' => $search, 'reload' => 'reload'))#">
-                            <xar:mlstring>All Users </xar:mlstring> (#$totalusers#)</a>
-                    </dd>
-                </xar:if>
-                <xar:set name="prevgroup">""</xar:set>
-                <xar:for start="$i=0" test="$i lt count($groups)" iter="$i++">
-                    <xar:if condition="$prevgroup ne $groups[$i]['name']">
-                        <xar:if condition="$groupuid eq $groups[$i]['uid']">
-                            <dd class="active">
-                                <a href="#xarModURL('roles','admin','showusers',array('uid' => $groups[$i]['uid'], 'state' => $state, 'order' => $order, 'search' => $search, 'reload' => 'reload'))#" title="#xarML('Display the users in this group')#">
-                                    #xarVarPrepForDisplay($groups[$i]['name'])# (#$groups[$i]['users']#)
-                                </a>
-                            </dd>
-                        <xar:else/>
-                            <dd>
-                                <a href="#xarModURL('roles','admin','showusers',array('uid' => $groups[$i]['uid'], 'state' => $state, 'order' => $order, 'search' => $search, 'reload' => 'reload'))#" title="#xarML('Display the users in this group')#">
-                                    #xarVarPrepForDisplay($groups[$i]['name'])# (#$groups[$i]['users']#)
-                                </a>
-                            </dd>
-                        </xar:if>
-                    </xar:if>
-                    <xar:set name="prevgroup">#xarVarPrepForDisplay($groups[$i]['name'])#</xar:set>
-                </xar:for>
-            </dl>
-        </div>
-    </xar:if>
+    </div>
 
     <form method="post" action="#xarModURL('roles','admin','showusers',array('reload' => 'reload'))#">
         <xar:comment> Module List Sort and Filter Controls table </xar:comment>
         <table class="xar-item-controls">
             <thead>
             <tr>
-                <th>
-                    <label for="selstyle" title="#xarML('Select display type')#">
-                        <xar:mlstring>Style</xar:mlstring>
-                    </label>
-                </th>
                 <th>
                     <label for="groupuid" title="#xarML('Select a group to display its users')#">
                         <xar:mlstring>Groups</xar:mlstring>
@@ -179,17 +133,6 @@ jQuery('div#"."treewrapper a[id^=deletetree]').click(function() {
             </thead>
             <tbody>
             <tr>
-                <td class="xar-align-center">
-                    <select name="selstyle" id="selstyle">
-                        <xar:foreach in="$style" key="$key" value="$value">
-                            <xar:if condition="$key eq $selstyle">
-                                <option value="#$key#" selected="selected">#$value#</option>
-                            <xar:else />
-                                <option value="#$key#">#$value#</option>
-                            </xar:if>
-                        </xar:foreach>
-                    </select>
-                </td>
                 <td class="xar-align-center">
                     <xar:set name="prevgroup">""</xar:set>
                     <select name="uid" id="groupuid">

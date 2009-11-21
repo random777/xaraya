@@ -144,7 +144,7 @@ function base_userapi_browse_files($args)
                             if (@fnmatch($match_glob, ltrim($thisdir . '/' . $filename, '/')) !== true) {continue;}
                         }
                     }
-                    if (!empty($match_re) && @preg_match($match_preg, ltrim($thisdir . '/' . $filename, '/')) != true) {continue;}
+                    if (!empty($match_re) && @preg_match($match_re, ltrim($thisdir . '/' . $filename, '/')) != true) {continue;}
                     if (!empty($match_exact) && $match_exact !== $filename) {continue;}
                 } elseif (is_dir($thisfile)) {
                     // Skip specified directories.

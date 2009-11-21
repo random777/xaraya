@@ -100,7 +100,7 @@ function installer_admin_phase2()
  * @return bool true if directory is writable, readable and executable
  */
 function check_dir($dirname)
-{   
+{
     //don't use filenames preceded by . for windows servers
     if (@touch($dirname . '/check_dir')) {
         $fd = @fopen($dirname . '/check_dir', 'r');
@@ -1779,7 +1779,7 @@ function installer_admin_upgrade2()
         $emails = "none@none.com\npresident@whitehouse.gov";
     }
     $disallowedemails = serialize($emails);
-    
+
     xarModSetVar('roles', 'disallowedemails', $disallowedemails);
 /* End 1.1.3 Release Upgrades */
 
@@ -1793,6 +1793,169 @@ function installer_admin_upgrade2()
     xarRegisterMask('AdminRole',  'All', 'roles', 'Roles', 'All', 'ACCESS_ADMIN');
 /* End 1.1.4 Release Upgrades */
 
+/* Version 1.2.0 Release Upgrades */
+    $content .= "<p><strong>Adding JavaScript Framework Functions</strong></p>";
+    xarTplUnregisterTag('base-js-framework');
+    xarTplRegisterTag(
+        'base', 'base-js-framework', array(),
+        'base_javascriptapi_handleframeworkjavascript'
+    );
+    xarTplUnregisterTag('base-js-plugin');
+    xarTplRegisterTag(
+        'base', 'base-js-plugin', array(),
+        'base_javascriptapi_handlepluginjavascript'
+    );
+    xarTplUnregisterTag('base-js-event');
+    xarTplRegisterTag(
+        'base', 'base-js-event', array(),
+        'base_javascriptapi_handleframeworkeventjavascript'
+    );
+    $content .= "<p>Registering template tags.... done!</p>";
+    $registeredframeworks = array(
+                'jquery' => array(
+                        'displayname' => 'jQuery',
+                        'version' => '1.3.2',
+                        'module' => 'base',
+                        'file' => 'jquery-1.3.2.min.js',
+                        'status' => 1
+                )
+    );
+    xarModSetVar('base', 'RegisteredFrameworks', serialize($registeredframeworks));
+    xarModSetVar('base', 'DefaultFramework', 'jquery');
+    xarModSetVar('base','AutoLoadDefaultFramework', 1);
+    $content .= "<p>Registering jQuery Framework.... done!</p>";
+    $plugins = array(
+        'bgiframe' => array('version' => '2.1.1', 'displayname' => 'bgiframe'),
+        'center' => array('version' => '2.0', 'displayname' => 'Center'),
+        'chili' => array('version' => '2.2', 'displayname' => 'Chili'),
+        'cluetip' => array('version' => '1.0.4', 'displayname' => 'clueTip'),
+        'color' => array('version' => 'unknown', 'displayname' => 'Color Animations'),
+        'cookie' => array('version' => 'unknown', 'displayname' => 'Cookie'),
+        'countdown' => array('version' => '1.5.3', 'displayname' => 'Countdown'),
+        'cycle' => array('version' => '2.71', 'displayname' => 'Cycle'),
+        'datepicker' => array('version' => '3739', 'displayname' => 'datePicker'),
+        'delegate' => array('version' => '1.0', 'displayname' => 'delegate'),
+        'dimensions' => array('version' => '1.2', 'displayname' => 'dimensions'),
+        'easing' => array('version' => '1.3', 'displayname' => 'Easing'),
+        'fancybox' => array('version' => '1.2.1', 'displayname' => 'FancyBox'),
+        'form' => array('version' => '2.32', 'displayname' => 'jQuery Form Plugin'),
+        'hoverintent' => array('version' => 'r5', 'displayname' => 'hoverIntent'),
+        'hovertip' => array('version' => 'unknown', 'displayname' => 'Hovertip'),
+        'ifixpng' => array('version' => '2.1', 'displayname' => 'ifixpng'),
+        'jcarousellite' => array('version' => '1.0.1', 'displayname' => 'jCarouselLite'),
+        'jqdnr' => array('version' => '+r2', 'displayname' => 'jqDnR'),
+        'jqgalview' => array('version' => '2.1', 'displayname' => 'jqGalView'),
+        'jqmodal' => array('version' => '+r14', 'displayname' => 'jqModal'),
+        'localscroll' => array('version' => '1.2.7', 'displayname' => 'LocalScroll'),
+        'metadata' => array('version' => 'unknown', 'displayname' => 'Metadata'),
+        'minitabs' => array('version' => '1.0', 'displayname' => 'minitabs'),
+        'motdpopup' => array('version' => 'unknown', 'displayname' => 'motdPopup'),
+        'perciformes' => array('version' => 'unknown', 'displayname' => 'perciformes'),
+        'pngfix' => array('version' => '1.2', 'displayname' => 'pngFix'),
+        'scrollto' => array('version' => '1.4.2', 'displayname' => 'ScrollTo'),
+        'superfish' => array('version' => '1.4.8', 'displayname' => 'Superfish'),
+        'supersubs' => array('version' => '0.2b', 'displayname' => 'Supersubs'),
+        'tablesorter' => array('version' => '2.0.3', 'displayname' => 'TableSorter'),
+        'thickbox' => array('version' => '3.1', 'displayname' => 'Thickbox'),
+        'timepicker' => array('version' => '0.2.1', 'displayname' => 'jQuery UI Timepicker'),
+        'tooltip' => array('version' => '1.3', 'displayname' => 'Tooltip'),
+        'treeview' => array('version' => '1.4', 'displayname' => 'Treeview'),
+        'truncator' => array('version' => 'unknown', 'displayname' => 'HTML Truncator'),
+        'ui' => array('version' => '1.7.2', 'displayname' => 'jQuery UI'),
+        'uitablefilter' => array('version' => 'unknown', 'displayname' => 'uiTableFilter'),
+        'validate' => array('version' => '1.5.5', 'displayname' => 'jQuery validation plug-in'),
+        'xpath' => array('version' => 'unknown', 'displayname' => 'Simple XPath Compatibility')
+    );
+    xarModSetVar('base', 'jquery.plugins', serialize($plugins));
+    $content .= "<p>Registering jQuery Plugins.... done!</p>";
+    $content .= "<p>Done! JavaScript framework functions added!</p>";
+    $content .= "<p><strong>Renaming ./var/messaging templates (.xd to .xt)</strong></p>";
+    // rename *.xd -> *.xt in ./var/messaging/*
+    // what we're doing here is preserving any existing message templates
+    // by first getting exisiting .xd files from messaging and its subfolders
+    // then looking for matching .xt files (the new ones), deleting them
+    // and renaming the existing files to .xt
+    $xderror = 0;
+    $systemVarPath = xarCoreGetVarDirPath();
+    $regExd = '!\.xd$!';
+    $msgPath = $systemVarPath . '/messaging';
+    $xdFiles = xarModAPIFunc('base', 'user', 'browse_files',
+        array(
+            'basedir'   => $msgPath,
+            'match_re'  => $regExd,
+            'strip_re'  => $regExd,
+            'levels'    => 3,
+            'retpath' => 'rel',
+        ));
+    if (!empty($xdFiles) && is_array($xdFiles)) {
+        foreach ($xdFiles as $xdFile) {
+            $tplPath = $msgPath . '/' . $xdFile;
+            $deleting = false;
+            $success = true;
+            if (file_exists($tplPath . '.xt')) {
+                $deleting = true;
+                $success = unlink($tplPath . '.xt');
+                if (!$success) {
+                    $content .= '<p><span style=\"color:red;\">WARNING!</span> Unable to delete file {$tplPath}.xt</p>';
+                    $xderror++;
+                } else {
+                    $content .= "<p>Deleting {$tplPath}.xt ... Done!</p>";
+                }
+            }
+            if ($deleting && !$success) {
+                // if deleting didn't go well, skip renaming
+                $content .= '<p><span style=\"color:red;\">WARNING!</span> Unable to rename file {$tplPath}.xd Please remove {$tplPath}.xt and rename this file manually.</p>';
+                $xderror++;
+            } else {
+                // go ahead and rename the file .xd -> .xt :)
+                $success = rename($tplPath . '.xd', $tplPath . '.xt');
+                if (!$success) {
+                    $content .= '<p><span style=\"color:red;\">WARNING!</span> Unable to rename file {$tplPath}.xd</p>';
+                    $xderror++;
+                } else {
+                    $content .= "<p>Renaming {$tplPath}.xd -&gt; .xt ... Done!</p>";
+                }
+            }
+        }
+    }
+    if ($xderror<=0) {
+        $content .= "<p>Done! Finished renaming messaging templates!</p>";
+    } else {
+        $content .= "<p><span style=\"color:red;\">WARNING!</span> There was a problem renaming messaging templates.You may wish to rename them manually.</p>";
+    }
+    $content .= "<p><strong>Updating Hook Order</strong></p>";
+    $hkerror=0;
+    $hooksTable = $systemPrefix .'_hooks';
+    $hookList = xarModAPIFunc('modules', 'admin', 'gethooklist');
+    if (!empty($hookList) && is_array($hookList)) {
+        $i = 1;
+        $updated = array();
+        foreach ($hookList as $hookMod => $hookActions) {
+            foreach ($hookActions as $hookAction => $callerMods) {
+                foreach ($callerMods as $callerMod => $callerTypes) {
+                    if (isset($updated[$hookMod][$callerMod])) continue;
+                    $bindvars = array();
+                    $query = "UPDATE $hooksTable";
+                    $query .= " SET xar_order = ?";
+                    $bindvars[] = $i;
+                    $query .= " WHERE xar_smodule = ?";
+                    $bindvars[] = $callerMod;
+                    $query .= " AND xar_tmodule = ?";
+                    $bindvars[] = $hookMod;
+                    $result =& $dbconn->Execute($query,$bindvars);
+                    if(!$result) $hkerror++;
+                    $updated[$hookMod][$callerMod] = $i;
+                    $i++;
+                }
+            }
+        }
+    }
+    if ($hkerror<=0) {
+        $content .= "<p>Done! Finished updating hook order!</p>";
+    } else {
+        $content .= "<p><span style=\"color:red;\">WARNING!</span> There was a problem updating hook orders.</p>";
+    }
+/* End 1.2.0 Release Upgrades */
 
     $thisdata['content']=$content;
     $thisdata['phase'] = 2;

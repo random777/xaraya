@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -42,7 +42,7 @@ function modules_adminapi_update($args)
 
         $sql = "SELECT DISTINCT id, s_module_id, s_type, object,
                             action, t_area, t_module_id, t_type,
-                            t_func
+                            t_func, t_file
                 FROM $xartable[hooks]
                 WHERE s_module_id IS NULL";
         $stmt = $dbconn->prepareStatement($sql);
@@ -54,27 +54,29 @@ function modules_adminapi_update($args)
 
         while($result->next()) {
             list($hookid,$hooksmodid,$hookstype,$hookobject,
-                 $hookaction,$hooktarea,$hooktmodid,$hookttype,$hooktfunc) = $result->fields;
+                 $hookaction,$hooktarea,$hooktmodid,$hookttype,$hooktfunc,$hooktfile) = $result->fields;
 
             // Get selected value of hook
             unset($hookvalue);
             // ignore modules that are missing or in some weird state
             if (!isset($todo[$hooktmodid])) continue;
+            // CHECKME: don't allow hooking to yourself !?
+            if ($hooktmodid == $modinfo['systemid']) continue;
             xarVarFetch("hooks_" . $todo[$hooktmodid], 'isset', $hookvalue,  NULL, XARVAR_DONT_SET);
             // See if this is checked and isn't in the database
             if ((isset($hookvalue)) && (is_array($hookvalue)) && (empty($hooksmodid))) {
                 // Insert hook if required
                 // Prepare statement outside the loop
                 $sql = "INSERT INTO $xartable[hooks]
-                    (object,action,s_module_id,s_type,t_area,t_module_id,t_type,t_func)
-                    VALUES (?,?,?,?,?,?,?,?)";
+                    (object,action,s_module_id,s_type,t_area,t_module_id,t_type,t_func,t_file)
+                    VALUES (?,?,?,?,?,?,?,?,?)";
                 $stmt2 = $dbconn->prepareStatement($sql);
 
                 foreach (array_keys($hookvalue) as $itemtype) {
                     if ($itemtype == 0) $itemtype = '';
                     $bindvars = array($hookobject,$hookaction,$modinfo['systemid'],
                                       $itemtype,$hooktarea,$hooktmodid,
-                                      $hookttype,$hooktfunc);
+                                      $hookttype,$hooktfunc,$hooktfile);
                     $stmt2->executeUpdate($bindvars);
                 }
             }

@@ -3,7 +3,7 @@
  * Regenerate list of available themes
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -34,7 +34,7 @@ function themes_admin_regenerate()
 
     if (!isset($regenerated)) return;
     // Redirect
-    xarResponse::Redirect(xarModURL('themes', 'admin', 'list'));
+    xarResponse::redirect(xarModURL('themes', 'admin', 'list'));
 
     return true;
 }

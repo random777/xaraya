@@ -3,7 +3,7 @@
  * Waiting content block management
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,7 +15,7 @@
 
     class WaitingContentBlock extends BasicBlock implements iBlock
     {
-        public $no_cache            = 1;
+        public $nocache             = 1;
 
         public $name                = 'WaitingContentBlock';
         public $module              = 'base';

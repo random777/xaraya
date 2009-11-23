@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -33,8 +33,9 @@ class SubFormProperty extends DataProperty
     public $fieldlist = null;
     public $objectref = null;
     public $oldvalue  = null;
-    public $arguments = array('objectname','style','title','link','where','input','display','fieldlist','repeat','editkeys');
+    public $arguments = array('objectname','style','title','link','where','input','display','fieldlist','repeat','editkeys','layout');
     public $warnings  = '';
+    public $layout    = 'default';
 
 /* TODO: replace custom configuration handling with default one ?
     public $initialization_linktype = 'serialized';
@@ -527,6 +528,10 @@ class SubFormProperty extends DataProperty
         }
 */
         $data = array();
+        // Prepare the properties for the form
+        foreach ($this->arguments as $item) {
+            $data[$item]   = $this->$item;
+        }
         $data['style'] = $this->style;
         $data['value'] = $value;
         if (!empty($this->objectid) && !empty($value)) {

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -98,7 +98,7 @@ function roles_admin_modifyemail($args)
                 $msg = 'The messaging template "#(1)" is not writable or it is not allowed to delete files from #(2)';
                 throw new ConfigurationException(array($filename,$messaginghome),$msg);
             }
-            xarResponse::Redirect(xarModURL('roles', 'admin', 'modifyemail', array('mailtype' => $data['mailtype'])));
+            xarResponse::redirect(xarModURL('roles', 'admin', 'modifyemail', array('mailtype' => $data['mailtype'])));
             return true;
             break;
     }

@@ -3,7 +3,7 @@
  * Sends a new password to the user if they have forgotten theirs.
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -23,7 +23,7 @@ function roles_user_lostpassword()
     //If a user is already logged in, no reason to see this.
     //We are going to send them to their account.
     if (xarUserIsLoggedIn()) {
-        xarResponse::Redirect(xarModURL('roles',
+        xarResponse::redirect(xarModURL('roles',
                                       'user',
                                       'account'));
        return true;

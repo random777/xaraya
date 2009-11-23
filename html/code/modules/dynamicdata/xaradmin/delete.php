@@ -2,11 +2,11 @@
 /**
  * Delete an item
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamic Data module
+ * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -50,15 +50,15 @@ function dynamicdata_admin_delete($args)
 
     if (!empty($noconfirm)) {
         if (!empty($return_url)) {
-            xarResponse::Redirect($return_url);
+            xarResponse::redirect($return_url);
         } elseif (!empty($table)) {
-            xarResponse::Redirect(xarModURL('dynamicdata', 'admin', 'view',
+            xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'view',
                                           array(
                                             'table'     => $table,
                                             'tplmodule' => $data['tplmodule'],
                                           )));
         } else {
-            xarResponse::Redirect(xarModURL('dynamicdata', 'admin', 'view',
+            xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'view',
                                           array(
                                             'itemid'    => $data['objectid'],
                                             'tplmodule' => $data['tplmodule'],
@@ -80,6 +80,16 @@ function dynamicdata_admin_delete($args)
             }
         }
         $data['authid'] = xarSecGenAuthKey();
+
+        // if we're editing a dynamic object, check its own visibility
+        if ($myobject->objectid == 1 && $myobject->itemid > 3) {
+            // CHECKME: do we always need to load the object class to get its visibility ?
+            $tmpobject = DataObjectMaster::getObject(array('objectid' => $myobject->itemid));
+            // override the default visibility and moduleid
+            $myobject->visibility = $tmpobject->visibility;
+            $myobject->moduleid = $tmpobject->moduleid;
+            unset($tmpobject);
+        }
 
         xarTplSetPageTitle(xarML('Delete Item #(1) in #(2)', $data['itemid'], $myobject->label));
 
@@ -109,15 +119,15 @@ function dynamicdata_admin_delete($args)
 
     $itemid = $myobject->deleteItem();
     if (!empty($return_url)) {
-        xarResponse::Redirect($return_url);
+        xarResponse::redirect($return_url);
     } elseif (!empty($table)) {
-        xarResponse::Redirect(xarModURL('dynamicdata', 'admin', 'view',
+        xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'view',
                                       array(
                                       'table'     => $table,
                                       'tplmodule' => $tplmodule,
                                       )));
     } else {
-        xarResponse::Redirect(xarModURL('dynamicdata', 'admin', 'view',
+        xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'view',
                                       array(
                                       'name' => $myobject->name,
                                       'tplmodule' => $tplmodule,

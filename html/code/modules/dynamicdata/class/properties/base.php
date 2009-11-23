@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -44,9 +44,12 @@ class DataProperty extends Object implements iDataProperty
     public $anonymous = 0;        // if true the name, rather than the dd_xx designation is used in displaying the property
 
     public $datastore = '';    // name of the data store where this property comes from
+    public $operation = null;  // some operation or function to apply for this property (COUNT, SUM, ...)
+    public $aliasname = null;  // the aliasname used with the operation or function on this property
 
     public $value = null;      // value of this property for a particular DataObject
     public $invalid = '';      // result of the checkInput/validateValue methods
+    public $fieldname = null;  // fieldname used by checkInput() for configurations who need them (e.g. file uploads)
 
     public $include_reference = 0; // tells the object this property belongs to whether to add a reference of itself to me
     public $objectref = null;  // object this property belongs to
@@ -63,8 +66,8 @@ class DataProperty extends Object implements iDataProperty
     public $display_tooltip                 = "";              // there is no tooltip text, and so no tooltip
     public $initialization_transform        = false;           // generic trigger that can be checked in getValue and setValue
     public $initialization_other_rule       = null;
-    public $validation_notequals            = null;           // 
-    public $validation_equals               = null;           // 
+    public $validation_notequals            = null;           //  check whether a property value does not equal a given value
+    public $validation_equals               = null;           //  check whether a property value equals a given value
     public $validation_allowempty           = null;           // 
 
     /**
@@ -491,7 +494,7 @@ class DataProperty extends Object implements iDataProperty
      * Note: don't use this if you already check the input for the whole object or in the code
      * See also preview="yes", which can be used on the object level to preview the whole object
      *
-     * @access private (= do not sub-class)
+     * @access private
      * @param $args['name'] name of the field (default is 'dd_NN' with NN the property id)
      * @param $args['value'] value of the field (default is the current value)
      * @param $args['id'] id of the field
@@ -519,19 +522,21 @@ class DataProperty extends Object implements iDataProperty
             $fields = $configuration;
         } elseif (empty($configuration)) {
             return true;
+
+        // fall back to the old N:M validation for text boxes et al. (cfr. utilapi_getstatic/getmeta)
+        } elseif (preg_match('/^(\d+):(\d+)$/', $configuration, $matches)) {
+            $fields = array('validation_min_length' => $matches[1],
+                            'validation_max_length' => $matches[2],
+                            'display_maxlength'     => $matches[2]);
+
+        // try normal serialized configuration
         } else {
             try {
                 $fields = unserialize($configuration);
             } catch (Exception $e) {
-                // fall back to the old N:M validation for text boxes et al. (cfr. utilapi_getstatic/getmeta)
-                if (preg_match('/^(\d+):(\d+)$/', $configuration, $matches)) {
-                    $fields = array('validation_min_length' => $matches[1],
-                                    'validation_max_length' => $matches[2],
-                                    'display_maxlength'     => $matches[2]);
-                } else {
-                    // if the configuration is malformed just return an empty configuration
-                    $fields = array();
-                }
+                // if the configuration is malformed just return an empty configuration
+                $fields = array();
+                return true;
             }
         }
         if (!empty($fields) && is_array($fields)) {
@@ -662,10 +667,10 @@ class DataProperty extends Object implements iDataProperty
      */
     public function getConfigProperties($type="", $fullname=0)
     {
-        static $allconfigproperties;
-
-        if (empty($allconfigproperties)) {
-            // removed dependency on roles xarQuery
+        // cache configuration for all properties
+        if (xarCoreCache::isCached('DynamicData','Configurations')) {
+             $allconfigproperties = xarCoreCache::getCached('DynamicData','Configurations');
+        } else {
             $xartable = xarDB::getTables();
             $configurations = $xartable['dynamic_configurations'];
 
@@ -689,10 +694,8 @@ class DataProperty extends Object implements iDataProperty
                 $item = $result->fields;
                 $allconfigproperties[$item['name']] = $item;
             }
-
+            xarCoreCache::setCached('DynamicData','Configurations', $allconfigproperties);
             // Can't use DD methods here as we go into a recursion loop
-//            $object = DataObjectMaster::getObjectList(array('name' => 'configurations'));
-//            $allconfigproperties = $object->getItems();
         }
         // if no items found, bail
         if (empty($allconfigproperties)) return $allconfigproperties;
@@ -728,6 +731,7 @@ class DataProperty extends Object implements iDataProperty
         $modulename = empty($this->tplmodule) ? $info['tplmodule'] : $this->tplmodule;
         return $modulename;
     }
+
     /**
      * Return the name this property uses in its templates
      *
@@ -738,6 +742,34 @@ class DataProperty extends Object implements iDataProperty
         // If not specified, default to the registered name of the prop
         $template = empty($this->template) ? $this->name : $this->template;
         return $template;
+    }
+
+    protected function getCanonicalName($data=null)
+    {
+        if(!isset($data['name'])) {
+            if ($this->anonymous == true) $data['name'] = $this->name;
+            else $data['name'] = 'dd_'.$this->id;
+        }
+        $data['name'] = $this->getPrefix($data) . $data['name'];
+        return $data['name'];
+    }
+
+    protected function getCanonicalID($data=null)
+    {
+        if(!isset($data['id'])) $data['id']   = $this->getCanonicalName($data);
+        $data['id'] = $this->getPrefix($data) . $data['id'];
+        return $data['id'];
+    }
+
+    private function getPrefix($data=null)
+    {
+        // Add the object's field prefix if there is one
+        $prefix = '';
+        // Allow 0 as a fieldprefix
+        if(!empty($this->_fieldprefix) || $this->_fieldprefix === 0)  $prefix = $this->_fieldprefix . '_';
+        // A field prefix added here can override the previous one
+        if(isset($data['fieldprefix']))  $prefix = $data['fieldprefix'] . '_';
+        return $prefix;
     }
 
     public static function getRegistrationInfo()

@@ -3,7 +3,7 @@
  * Getvalidation validates a new user into the system
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -32,7 +32,7 @@ function roles_user_getvalidation()
     //If a user is already logged in, no reason to see this.
     //We are going to send them to their account.
     if (xarUserIsLoggedIn()) {
-       xarResponse::Redirect(xarModURL('roles', 'user', 'account',
+       xarResponse::redirect(xarModURL('roles', 'user', 'account',
                                       array('id' => xarUserGetVar('id'))));
        return true;
     }
@@ -213,7 +213,7 @@ function roles_user_getvalidation()
             $data = xarTplModule('roles','user', 'getvalidation', $tplvars);
 
             // Redirect
-            xarResponse::Redirect(xarModURL('roles', 'user', 'getvalidation',array('sent' => 1)));
+            xarResponse::redirect(xarModURL('roles', 'user', 'getvalidation',array('sent' => 1)));
 
         }
 

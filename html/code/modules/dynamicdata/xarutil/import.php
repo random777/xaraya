@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -79,7 +79,7 @@ function dynamicdata_util_import($args)
         }
         if (empty($objectid)) return;
 
-        xarResponse::Redirect(xarModURL('dynamicdata', 'admin', 'modifyprop',
+        xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'modifyprop',
                                       array('itemid' => $objectid)));
         return true;
     }

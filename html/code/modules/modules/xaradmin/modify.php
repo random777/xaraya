@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -45,9 +45,6 @@ function modules_admin_modify($args)
     $hooklist = xarMod::apiFunc('modules','admin','gethooklist',
                               array('modName' => $modName));
 
-            if (isset($itemtypes)) $modList[$i]['itemtypes'] = $itemtypes;
-
-
     // Get the list of all item types for this module (if any)
     try {
         $itemtypes = xarMod::apiFunc($modName,'user','getitemtypes',array());
@@ -72,6 +69,10 @@ function modules_admin_modify($args)
     // allways, and I think there's not much of a performance hit.
     // TODO: make the different hooks selectable per type of hook
     foreach ($hooklist as $hookmodname => $hooks) {
+        // CHECKME: don't allow hooking to yourself !?
+        if ($hookmodname == $modName) {
+            continue;
+        }
         $data['hooklist'][$hookmodname]['modname'] = $hookmodname;
         $data['hooklist'][$hookmodname]['checked'] = array();
         $data['hooklist'][$hookmodname]['hooks'] = array();

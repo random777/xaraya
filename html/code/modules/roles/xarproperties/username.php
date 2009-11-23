@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -25,7 +25,8 @@ class UsernameProperty extends TextBoxProperty
     public $display_linkrule                = 0;
     public $validation_existrule            = 0;
     public $validation_existrule_invalid;
-    public $initialization_store_type     = 'name';
+    public $initialization_store_type       = 'name';
+    public $initialization_display_name     = 'uname';
 
     function __construct(ObjectDescriptor $descriptor)
     {
@@ -109,13 +110,16 @@ class UsernameProperty extends TextBoxProperty
 
     public function showOutput(Array $data = array())
     {
+        if (!empty($data['display_name'])) $this->initialization_display_name = $data['display_type'];
+        
         // The user param is a name
         if (isset($data['user'])) {
             // Cater to a common case
             if ($data['user'] == 'myself') {
-                $this->value = xarUserGetVar('id');
-                $role = xarRoles::get($this->value);
-                $data['value'] = $role->getUser();
+                if ($this->initialization_display_name == 'name')
+                    $data['value'] = xarUserGetVar('name');
+                else
+                    $data['value'] = xarUserGetVar('uname');
             } else {
                 $data['value'] = $data['user'];
             }

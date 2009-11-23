@@ -2,7 +2,7 @@
 /**
  * Block management - create a new block instance
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -53,7 +53,7 @@ function blocks_admin_create_instance()
     if (!$bid) {return;}
 
     // Go on and edit the new instance
-    xarResponse::Redirect(
+    xarResponse::redirect(
         xarModURL('blocks', 'admin', 'modify_instance', array('bid' => $bid))
     );
 

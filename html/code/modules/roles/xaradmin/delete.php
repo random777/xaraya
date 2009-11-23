@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -95,9 +95,9 @@ function roles_admin_delete()
         }
         // redirect to the next page
         if (empty($returnurl)) {
-            xarResponse::Redirect(xarModURL('roles', 'admin', 'showusers'));
+            xarResponse::redirect(xarModURL('roles', 'admin', 'showusers'));
         } else {
-            xarResponse::Redirect($returnurl);
+            xarResponse::redirect($returnurl);
         }
     }
 }

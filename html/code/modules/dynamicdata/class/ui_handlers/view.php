@@ -9,60 +9,92 @@
  * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
- * @todo try to replace xarTplModule with xarTplObject
  */
 
-sys::import('modules.dynamicdata.class.interface');
+sys::import('modules.dynamicdata.class.ui_handlers.default');
 /**
  * Dynamic Object User Interface Handler
  *
- * @package Xaraya eXtensible Management System
+ * @package modules
  * @subpackage dynamicdata
  */
 class DataObjectViewHandler extends DataObjectDefaultHandler
 {
     public $method = 'view';
 
+    /**
+     * Run the ui 'view' method
+     *
+     * @param $args['method'] the ui method we are handling is 'view' here
+     * @param $args['catid'] optional category for the view
+     * @param $args['sort'] optional sort for the view
+     * @param $args['where'] optional where clause(s) for the view
+     * @param $args['startnum'] optional start number for the view
+     * @return string output of xarTplObject() using 'ui_view'
+     */
     function run(array $args = array())
     {
         if(!xarVarFetch('catid',    'isset', $args['catid'],    NULL, XARVAR_DONT_SET)) 
             return;
         if(!xarVarFetch('sort',     'isset', $args['sort'],     NULL, XARVAR_DONT_SET)) 
             return;
+        if(!xarVarFetch('where',    'isset', $args['where'],    NULL, XARVAR_DONT_SET)) 
+            return;
         if(!xarVarFetch('startnum', 'isset', $args['startnum'], NULL, XARVAR_DONT_SET)) 
             return;
+
+        // Note: $args['where'] could be an array, e.g. index.php?object=sample&where[name]=Baby
 
         if(!empty($args) && is_array($args) && count($args) > 0) 
             $this->args = array_merge($this->args, $args);
 
-        if(!isset($this->list)) 
+        if (!empty($this->args['object']) && !empty($this->args['method'])) {
+            // Get a cache key for this object method if it's suitable for object caching
+            $cacheKey = xarCache::getObjectKey($this->args['object'], $this->args['method'], $this->args);
+            // Check if the object method is cached
+            if (!empty($cacheKey) && xarObjectCache::isCached($cacheKey)) {
+                // Return the cached object method output
+                return xarObjectCache::getCached($cacheKey);
+            }
+        }
+
+        if(!isset($this->object)) 
         {
-            $this->list =& DataObjectMaster::getObjectList($this->args);
-            if(empty($this->list)) 
-                return;
+            $this->object =& DataObjectMaster::getObjectList($this->args);
+            if(empty($this->object) || (!empty($this->args['object']) && $this->args['object'] != $this->object->name)) 
+                return xarResponse::NotFound(xarML('Object #(1) seems to be unknown', $this->args['object']));
 
             if(empty($this->tplmodule)) 
             {
-                $modname = xarMod::getName($this->list->moduleid);
+                $modname = xarMod::getName($this->object->moduleid);
                 $this->tplmodule = $modname;
             }
         }
-        $title = xarML('View #(1)', $this->list->label);
+        $title = xarML('View #(1)', $this->object->label);
         xarTplSetPageTitle(xarVarPrepForDisplay($title));
 
-        $this->list->getItems();
+        if(!empty($this->object->table) && !xarSecurityCheck('AdminDynamicData'))
+            return xarResponse::Forbidden(xarML('View Table #(1) is forbidden', $this->object->table));
 
-        $this->list->viewfunc = $this->func;
-        // Specify link type here as well
-        $this->list->linktype = $this->type;
-        $this->list->linkfunc = $this->func;
-        // TODO: have dedicated template for 'object' type
-        return xarTplModule(
-            $this->tplmodule,'user','view',
-            array('object' => $this->list,
-                  'layout' => $this->list->layout),
-            $this->list->template
+        if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',$this->object->moduleid.':'.$this->object->itemtype.':All'))
+            return xarResponse::Forbidden(xarML('View #(1) is forbidden', $this->object->label));
+
+        $this->object->countItems();
+
+        $this->object->getItems();
+
+$this->object->callHooks('view');
+
+        $output = xarTplObject(
+            $this->tplmodule, $this->object->template, 'ui_view',
+            array('object' => $this->object)
         );
+
+        // Set the output of the object method in cache
+        if (!empty($cacheKey)) {
+            xarObjectCache::setCached($cacheKey, $output);
+        }
+        return $output;
     }
 }
 

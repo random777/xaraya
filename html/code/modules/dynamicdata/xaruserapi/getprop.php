@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -28,6 +28,10 @@ function dynamicdata_userapi_getprop($args)
 {
     static $propertybag = array();
 
+    // switch back to moduleid here (instead of module_id)
+    if (!empty($args['module_id']) && empty($args['moduleid'])) {
+        $args['moduleid'] = $args['module_id'];
+    }
     $args = DataObjectMaster::getObjectInfo($args);
     if (empty($args)) return array();
 

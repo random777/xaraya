@@ -2,11 +2,11 @@
 /**
  * Utilities
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamic Data module
+ * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
  */
  /*
@@ -19,7 +19,7 @@ function dynamicdata_admin_utilities($args)
     extract($args);
     if(!xarVarFetch('q','str', $data['option'], 'query', XARVAR_NOT_REQUIRED)) {return;}
     xarTplSetPageTitle(xarVarPrepForDisplay(xarML($data['option'])));
-    xarResponse::Redirect(xarModURL('dynamicdata', 'util', 'import'));
+    xarResponse::redirect(xarModURL('dynamicdata', 'util', 'import'));
     return true;
 }
 ?>

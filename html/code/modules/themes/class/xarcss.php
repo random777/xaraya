@@ -3,7 +3,7 @@
  * Xaraya CSS class library
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -95,7 +95,7 @@ class xarCSS extends Object
             $this->base = $this->commonbase;
             $this->filename = $this->commonsource;
         } elseif ($this->scope == 'module') {
-            $this->base = xarModGetName();
+            $this->base = xarMod::getName();
         } elseif ($this->scope == 'block') {
             // we basically need to find out which module this block belongs to 
             // and then procede as with module scope

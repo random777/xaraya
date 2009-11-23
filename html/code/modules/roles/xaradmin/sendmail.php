@@ -3,7 +3,7 @@
  * Send mail
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -28,8 +28,8 @@ function roles_admin_sendmail()
     if (!xarSecurityCheck('MailRoles')) return;
     // Get user information
     // Get the current query
-    sys::import('modules.roles.class.xarQuery');
-    $q = new xarQuery();
+    sys::import('xaraya.structures.query');
+    $q = new Query();
     $q = unserialize(xarSession::getVar('rolesquery'));
 
     // only need the id, name and email fields
@@ -105,7 +105,7 @@ function roles_admin_sendmail()
     // If it was on, turn it back on
     xarModVars::set('themes','ShowTemplates',$themecomments);
 
-    xarResponse::Redirect(xarModURL('roles', 'admin', 'createmail'));
+    xarResponse::redirect(xarModURL('roles', 'admin', 'createmail'));
     return true;
 }
 ?>

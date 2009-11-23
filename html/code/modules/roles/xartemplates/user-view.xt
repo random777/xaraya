@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
     <div class="xar-mod-body">
@@ -11,9 +11,11 @@
             <xar:else />
                 <table width="100%" border="1" cellspacing="0" cellpadding="2">
                     <tr>
-                    <!-- 
+                        <!--
                         <xar:foreach in="$itemlabels" value="$label">
-                            <th class="xar-fullwidth">#$label#</th>
+                            <th class="xar-fullwidth">
+                                    #$label#
+                            </th>
                         </xar:foreach>
                         -->
                             <th class="xar-fullwidth">
@@ -49,10 +51,9 @@
                                     <xar:set name="items">$list->items</xar:set>
                                     <xar:set name="properties">$list->getProperties()</xar:set>
                                     <xar:foreach in="$properties" key="$key" value="$value">
-                                        <xar:if condition="isset($items[$id][$key]) AND in_array($name,array('name','uname','email'))">
+                                        <xar:if condition="isset($items[$id][$key]) AND in_array($key,array('name','uname','email'))">
                                             <td>
-                                                <xar:data-output property="$properties[$key]"
-                                                value="$items[$id][$key]" />
+                                                <xar:data-output property="$properties[$key]" value="$items[$id][$key]"/>
                                             </td>
                                         </xar:if>
                                     </xar:foreach>
@@ -61,8 +62,9 @@
                         </xar:loop>
                     </xar:if>
                 </table>
-                <!-- add the pager here -->
-                <div class="xar-align-center">#$pager#</div>
+                <div class="xar-align-center">
+                    <xar:pager startnum="$startnum" itemsperpage="$itemsperpage" total="$total" urltemplate="$urltemplate" urlitemmatch="$urlitemmatch"/>
+                </div>
             </xar:if>
         </fieldset>
     </div>

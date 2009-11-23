@@ -2,7 +2,7 @@
 /**
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -19,7 +19,7 @@ function roles_user_view($args)
 
     // members list disabled? only show to roles admins
     if ((bool)xarModVars::get('roles', 'displayrolelist') == false && !xarSecurityCheck('AdminRoles', 0)) {
-        xarResponse::Redirect(xarModURL('roles', 'user', 'main'));
+        xarResponse::redirect(xarModURL('roles', 'user', 'main'));
     }
 //    extract($args);
 
@@ -55,7 +55,7 @@ function roles_user_view($args)
     $data['itemlabels'] = $itemlabels;
     if (!isset($order)) $data['order'] = 'name';
     if (!isset($search)) $data['search'] = '';
-    if (!isset($startnum)) $data['startnum'] = 1;
+    $data['startnum'] = (!isset($args['startnum'])) ? 1 : $args['startnum'];
     if (!isset($numitems)) $numitems = (int)xarModVars::get('roles', 'items_per_page');
 
     $numitems = (int)xarModVars::get('roles', 'items_per_page');
@@ -63,13 +63,9 @@ function roles_user_view($args)
     $pagerfilter['search'] = $data['search'];
     $pagerfilter['startnum'] = '%%';
 
-    sys::import('xaraya.pager');
-    $data['pager'] = xarTplGetPager(
-        $data['startnum'],
-        $data['total'],
-        xarModURL('roles', 'user', 'view', $pagerfilter),
-        $numitems
-    );
+    $data['itemsperpage'] = $numitems;
+    $data['urltemplate'] = xarModURL('roles', 'user', 'view', $pagerfilter);
+    $data['urlitemmatch'] = '%%';
 
     return xarTplModule($args['tplmodule'],'user','view',$data,$args['template']);
 }

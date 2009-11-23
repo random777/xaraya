@@ -3,7 +3,7 @@
  * Display the privileges of this role
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -211,7 +211,7 @@ function roles_admin_showprivileges()
     $data['addlabel'] = xarML('Add');
     return $data;
     // redirect to the next page
-    xarResponse::Redirect(xarModURL('roles', 'admin', 'new'));
+    xarResponse::redirect(xarModURL('roles', 'admin', 'new'));
 }
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -68,7 +68,19 @@ function dynamicdata_utilapi_getstatic($args)
         $dbTables[] = $dbInfo->getTable($table);
     } else {
 ///        $dbTables = $dbInfo->getTables();
-        $dbTables = array();
+        // load the database info for this module
+        xarMod::loadDbInfo($modinfo['name'], $modinfo['directory']);
+        // try to find any table that approximately matches the module
+        $tables = xarDB::getTables();
+        foreach ($tables as $curname => $curtable) {
+            // name starts with the modulename, and table is a string (cfr. _column definitions in articles)
+            if (preg_match('/^'.$modinfo['name'].'/', $curname) && is_string($curtable)) {
+                $dbTables[] = $dbInfo->getTable($curtable);
+            }
+        }
+        if (empty($dbTables)) {
+            return array();
+        }
     }
 
     // Get the default property types

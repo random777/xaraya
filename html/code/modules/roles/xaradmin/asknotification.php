@@ -3,7 +3,7 @@
  * Update users from roles_admin_showusers
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -52,7 +52,6 @@ function roles_admin_asknotification($args)
                 $data['properties'] = null;
                 if (xarModIsAvailable('dynamicdata')) {
                     // get the DataObject defined for this module (and itemtype, if relevant)
-                    // Bug 4785: removed a & on next line
                     $object = xarMod::apiFunc('dynamicdata', 'user', 'getobject',
                         array('module' => 'roles'));
                     if (isset($object) && !empty($object->objectid)) {
@@ -94,7 +93,7 @@ function roles_admin_asknotification($args)
             if (!xarMod::apiFunc('roles','admin','senduseremail', array( 'id' => $id, 'mailtype' => $data['mailtype'], 'subject' => $data['subject'], 'message' => $data['message'], 'pass' => $data['pass'], 'ip' => $data['ip']))) {
                 return;
             }
-            xarResponse::Redirect(xarModURL('roles', 'admin', 'showusers',
+            xarResponse::redirect(xarModURL('roles', 'admin', 'showusers',
                               array('id' => $data['groupid'], 'state' => $data['state'])));
            break;
     }

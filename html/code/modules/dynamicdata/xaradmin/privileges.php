@@ -3,11 +3,11 @@
  * Manage definition of instances for privileges
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamic Data module
+ * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -105,7 +105,7 @@ function dynamicdata_admin_privileges($args)
         }
 
         // redirect to the privilege
-        xarResponse::Redirect(xarModURL('privileges', 'admin', 'modifyprivilege',
+        xarResponse::redirect(xarModURL('privileges', 'admin', 'modifyprivilege',
                                       array('pid' => $pid)));
         return true;
     }

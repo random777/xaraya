@@ -2,6 +2,13 @@
 /**
  * Modify a table field
  *
+ * @package modules
+ * @copyright (C) 2002-2009 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
+ * @subpackage dynamicdata
+ * @link http://xaraya.com/index.php/release/182.html
  */
     sys::import('modules.dynamicdata.class.objects.master');
     
@@ -57,7 +64,7 @@
                 $dbconn->Execute($query);
                 
                 // Jump to the next page
-                xarResponse::Redirect(xarModURL('dynamicdata','util','view_static',array('table' => $data['table'])));
+                xarResponse::redirect(xarModURL('dynamicdata','util','view_static',array('table' => $data['table'])));
                 return true;
             }
         } else {

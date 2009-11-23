@@ -3,7 +3,7 @@
  * Log user out of system
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -35,7 +35,7 @@ function authsystem_user_logout()
     if (!xarUserLogOut()) {
         throw new ForbiddenOperationException(array('authsystem', 'logout'),xarML('Problem Logging Out.  Module #(1) Function #(2)'));
     }
-    xarResponse::Redirect($redirecturl);
+    xarResponse::redirect($redirecturl);
     return true;
 }
 ?>

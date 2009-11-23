@@ -2,7 +2,7 @@
 /**
  * Create a flat table corresponding to some dynamic object definition
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -76,7 +76,7 @@ function dynamicdata_utilapi_maketable($args)
     $dbconn = xarDB::getConn();
 
     //Load Table Maintenance API
-    sys::import('lib.xarTableDDL');
+    sys::import('xaraya.tableddl');
 
     $table = $prefix . 'dd_' . $myobject->name;
 
@@ -134,6 +134,7 @@ function dynamicdata_utilapi_maketable($args)
                                     'default'     => $default);
                 break;
 
+            case 'textarea':
             case 'textarea_small':
             case 'textarea_medium':
             case 'textarea_large':

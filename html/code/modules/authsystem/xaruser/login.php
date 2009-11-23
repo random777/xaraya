@@ -3,7 +3,7 @@
  * Log user in to system
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -167,7 +167,7 @@ function authsystem_user_login()
 
         case ROLES_STATE_NOTVALIDATED:
             //User still must validate
-            xarResponse::Redirect(xarModURL('roles', 'user', 'getvalidation'));
+            xarResponse::redirect(xarModURL('roles', 'user', 'getvalidation'));
 
             break;
 
@@ -190,7 +190,7 @@ function authsystem_user_login()
 
             // Check if the site is locked and this user is allowed in
             $lockvars = unserialize(xarModVars::get('roles','lockdata'));
-            if ($lockvars['locked'] ==1) {
+            if ($lockvars['locked'] == 1) {
                 $rolesarray = array();
                 $roles = $lockvars['roles'];
                 for($i=0, $max = count($roles); $i < $max; $i++)
@@ -209,6 +209,8 @@ function authsystem_user_login()
                 }
 
                 if (!$letthru) {
+                    // If there is a locked.xt page then use that, otherwise show the default.xt page
+                    xarTplSetPageTemplateName('locked');
                     return xarTplModule('authsystem','user','errors',array('layout' => 'site_locked', 'message'  => $lockvars['message']));
                 }
             }
@@ -272,9 +274,9 @@ function authsystem_user_login()
                    $data['title'] = xarML('Home Page');
                    return xarTplModule('roles','user','homedisplay', $data);
                  */
-                 xarResponse::Redirect($redirecturl);
+                 xarResponse::redirect($redirecturl);
             }else {
-                xarResponse::Redirect($redirecturl);
+                xarResponse::redirect($redirecturl);
             }
 
             return true;

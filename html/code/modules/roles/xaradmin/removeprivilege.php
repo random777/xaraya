@@ -3,7 +3,7 @@
  * Remove a privilege
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -79,7 +79,7 @@ function roles_admin_removeprivilege()
         xarModCallHooks('item', 'update', $roleid, $pargs);
 
         // redirect to the next page
-        xarResponse::Redirect(xarModURL('roles', 'admin', 'showprivileges', array('id' => $roleid)));
+        xarResponse::redirect(xarModURL('roles', 'admin', 'showprivileges', array('id' => $roleid)));
     }
 }
 

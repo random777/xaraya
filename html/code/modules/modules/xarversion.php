@@ -2,7 +2,7 @@
 /**
  * Module initialization
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -18,7 +18,7 @@
  */
 $modversion['name']               = 'Modules Administration';
 $modversion['id']                 = '1';
-$modversion['version']            = '2.0.0';
+$modversion['version']            = '2.0.1';
 $modversion['displayname']        = xarML('Modules');
 $modversion['description']        = 'Configure modules, view install/docs/credits.';
 $modversion['displaydescription'] = xarML('Configure modules, view install/docs/credits.');
@@ -28,7 +28,7 @@ $modversion['changelog']          = 'xardocs/changelog.txt';
 $modversion['license']            = '';
 $modversion['official']           = true;
 $modversion['author']             = 'Jim McDonald';
-$modversion['contact']            = '';
+$modversion['contact']            = 'http://www.xaraya.com/';
 $modversion['admin']              = true;
 $modversion['user']               = false;
 $modversion['class']              = 'Core Admin';

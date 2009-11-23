@@ -1,11 +1,11 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamic Data module
+ * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -19,8 +19,7 @@
  * @param $args['module'] module name of the item fields, or
  * @param $args['module_id'] module id of the item field to get
  * @param $args['itemtype'] item type of the item field to get
- * @returns mixed
- * @return value of the field, or false on failure
+ * @return mixed value of the field, or false on failure
  * @throws BAD_PARAM, DATABASE_ERROR, NO_PERMISSION
  */
 function dynamicdata_utilapi_getrelations($args)
@@ -66,7 +65,8 @@ function dynamicdata_utilapi_getrelations($args)
 // TODO: get all hooks types, not only item display hooks
 //    $hooklist = xarModGetHookList($modinfo['name'],'item','display');
     $hooklist = array_merge(xarModGetHookList($modinfo['name'],'item','display'),
-                            xarModGetHookList($modinfo['name'],'item','update'));
+                            xarModGetHookList($modinfo['name'],'item','update'),
+                            xarModGetHookList($modinfo['name'],'module','remove'));
     $modlist = array();
     foreach ($hooklist as $hook) {
         $modlist[$hook['module']] = 1;
@@ -94,16 +94,6 @@ function dynamicdata_utilapi_getrelations($args)
             $links = array();
             foreach ($modstatic as $field) {
 
-        /* for hook modules, those should define the fields *relating to* other modules (not their own item ids etc.)
-                // try predefined field types first
-                if ($field['type'] == 19) { // Module
-                    $links[] = array('from' => $field['source'], 'to' => $module_id, 'type' => 'moduleid');
-                } elseif ($field['type'] == 20) { // Item Type
-                    $links[] = array('from' => $field['source'], 'to' => $itemtype, 'type' => 'itemtype');
-                } elseif ($field['type'] == 21) { // Item ID
-                    $links[] = array('from' => $field['source'], 'to' => $itemid, 'type' => 'itemid');
-                }
-        */
                 // try to guess based on field names *cough*
                 // link on module name/id
                 if (preg_match('/_module$/',$field['source'])) {
@@ -112,15 +102,21 @@ function dynamicdata_utilapi_getrelations($args)
                     $links[] = array('from' => $field['source'], 'to' => $module_id, 'type' => 'moduleid');
                 } elseif (preg_match('/_modid$/',$field['source'])) {
                     $links[] = array('from' => $field['source'], 'to' => $module_id, 'type' => 'moduleid');
+                } elseif ('module_id' == $field['name']) {
+                    $links[] = array('from' => $field['source'], 'to' => $module_id, 'type' => 'moduleid');
 
                 // link on item type
                 } elseif (preg_match('/_itemtype$/',$field['source'])) {
+                    $links[] = array('from' => $field['source'], 'to' => $itemtype, 'type' => 'itemtype');
+                } elseif ('itemtype' == $field['name']) {
                     $links[] = array('from' => $field['source'], 'to' => $itemtype, 'type' => 'itemtype');
 
                 // link on item id
                 } elseif (preg_match('/_itemid$/',$field['source'])) {
                     $links[] = array('from' => $field['source'], 'to' => $itemid, 'type' => 'itemid');
                 } elseif (preg_match('/_iid$/',$field['source'])) {
+                    $links[] = array('from' => $field['source'], 'to' => $itemid, 'type' => 'itemid');
+                } elseif ('itemid' == $field['name']) {
                     $links[] = array('from' => $field['source'], 'to' => $itemid, 'type' => 'itemid');
                 }
             }

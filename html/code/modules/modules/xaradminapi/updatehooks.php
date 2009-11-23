@@ -2,7 +2,7 @@
 /**
  * Update hooks for a particular hook module
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -52,6 +52,8 @@ function modules_adminapi_updatehooks($args)
         // see for which one(s) we need to enable this hook
         $todo = array();
         foreach ($modList as $mod) {
+            // CHECKME: don't allow hooking to yourself !?
+            if ($mod['systemid'] == $modinfo['systemid']) continue;
             // Get selected value of hook (which is an array of all the itemtypes selected)
             // hooked_$mod['name'][0] contains the global setting ( 0 -> not, 1 -> all, 2 -> some)
             xarVarFetch("hooked_" . $mod['name'],'isset',$ishooked,'',XARVAR_DONT_REUSE);
@@ -70,7 +72,7 @@ function modules_adminapi_updatehooks($args)
         // get the list of individual hooks offered by this module
         $sql = "SELECT DISTINCT id, s_module_id, s_type, object,
                             action, t_area, t_module_id, t_type,
-                            t_func
+                            t_func, t_file
                 FROM $xartable[hooks]
                 WHERE t_module_id = ?";
         $stmt = $dbconn->prepareStatement($sql);
@@ -78,12 +80,12 @@ function modules_adminapi_updatehooks($args)
 
         // Prepare the insert statement outside the loops
         $sql = "INSERT INTO $xartable[hooks]
-            (object,action,s_module_id,s_type,t_area,t_module_id,t_type,t_func)
-            VALUES (?,?,?,?,?,?,?,?)";
+            (object,action,s_module_id,s_type,t_area,t_module_id,t_type,t_func,t_file)
+            VALUES (?,?,?,?,?,?,?,?,?)";
         $stmt2 = $dbconn->prepareStatement($sql);
         while($result->next()) {
             list($hookid, $hooksmodid, $hookstype, $hookobject, $hookaction,
-                 $hooktarea, $hooktmodid, $hookttype, $hooktfunc) = $result->fields;
+                 $hooktarea, $hooktmodid, $hookttype, $hooktfunc, $hooktfile) = $result->fields;
 
             // See if this is checked and isn't in the database
             if (empty($hooksmodid)) {
@@ -96,7 +98,7 @@ function modules_adminapi_updatehooks($args)
                         $itemtype = ''; // Make this 0 later on
                         $bindvars = array($hookobject, $hookaction, $modId,
                                           $itemtype, $hooktarea, $hooktmodid,
-                                          $hookttype,$hooktfunc);
+                                          $hookttype,$hooktfunc,$hooktfile);
                         $stmt2->executeUpdate($bindvars);
                         // we're done for this module
                         continue;
@@ -108,7 +110,7 @@ function modules_adminapi_updatehooks($args)
 
                         $bindvars = array($hookobject, $hookaction, $modId,
                                           $itemtype, $hooktarea, $hooktmodid,
-                                          $hookttype,$hooktfunc);
+                                          $hookttype,$hooktfunc,$hooktfile);
                         $stmt2->executeUpdate($bindvars);
                     }
                 }

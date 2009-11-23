@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -58,11 +58,11 @@ function blocks_admin_modify_instance()
             $extra = $block->modify($instance);
             if (is_array($extra)) {
                 // Render the extra settings if necessary.
-                try {
+//                try {
                     $extra = xarTplBlock($instance['module'], 'modify-' . $instance['type'], $extra);
-                } catch (Exception $e) {
-                    $extra = '';
-                }
+//                } catch (Exception $e) {
+//                    $extra = '';
+//                }
             }
         } else {
             $extra = '';

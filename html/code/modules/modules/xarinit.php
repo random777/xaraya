@@ -3,7 +3,7 @@
  * Module initialization functions
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -66,6 +66,8 @@ function modules_init()
         $bindvars = array('base',68,'base',(string) $modVersion,'Core Admin','System',true,true,3);
         $dbconn->Execute($query,$bindvars);
 
+         *   t_file      varchar(254) NOT NULL,
+                        't_file'      => array('type' => 'varchar', 'size' => 254, 'null' => false, 'charset' => $charset),
         // <andyv> Add module variables for default user/admin, used in modules list
         /**
          * at this stage of installer mod vars cannot be set, so we use DB calls
@@ -116,7 +118,8 @@ function modules_init()
     }
 
     // Installation complete; check for upgrades
-    return modules_upgrade('2.0.0');}
+    return modules_upgrade('2.0.1');
+}
 
 /**
  * Activates the modules module
@@ -155,7 +158,23 @@ function modules_upgrade($oldversion)
     // Upgrade dependent on old version number
     switch ($oldversion) {
         case '2.0.0':
-      break;
+            // Get database information
+            $dbconn = xarDB::getConn();
+            $xartable = xarDB::getTables();
+
+            //Load Table Maintainance API
+            sys::import('xaraya.tableddl');
+
+            $hookstable = $xartable['hooks'];
+            $charset = xarSystemVars::get(sys::CONFIG, 'DB.Charset');
+
+            $fieldargs = array('command' => 'add', 'field' => 't_file', 'type' => 'varchar', 'size' => 254, 'null' => false, 'charset' => $charset);
+            $query = xarDBAlterTable($hookstable,$fieldargs);
+            $result =& $dbconn->Execute($query);
+            if (!$result) return;
+
+        case '2.0.1':
+            break;
     }
     return true;
 }

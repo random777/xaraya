@@ -1,8 +1,8 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
-    <xar:style scope="module" file="privtree" />
-    <xar:javascript module="privileges" filename="xarTree.js" />
+    <xar:style scope="module" file="privtree"/>
+    <xar:javascript module="privileges" filename="xarTree.js"/>
     <script type="javascript">
         <!--
         var oldOnLoadFunction = (window.onload) ? window.onload : new Function("","return true;");
@@ -28,7 +28,7 @@
         <span class="xar-mod-title">Privileges Administration</span>
     </div>
     <div class="xar-mod-body">
-        <xar:template type="module" file="admin-menu" />
+        <xar:template type="module" file="admin-menu"/>
         <h2>Manage Privilege: #$pname#</h2>
         <xar:if condition="count($parents) ne 0">
             <div>
@@ -40,9 +40,9 @@
                     <xar:for start="$i=0" test="$i lt count($parents)" iter="$i++">
                         <xar:if condition="$prevgroup ne $parents[$i]['parentname']">
                             <li class="xar-tab">
-                                <a href="&xar-modurl-privileges-admin-modifyprivilege;&amp;id=#$parents.$i.parentid#"
-                                title="#xarML('Show this privilege')#" class="xar-norm xar-norm-outline">
-                                #$parents[$i]['parentname']#</a>
+                                <a href="&xar-modurl-privileges-admin-modifyprivilege;&amp;id=#$parents.$i.parentid#" title="#xarML('Show this privilege')#" class="xar-norm xar-norm-outline">
+                                    #$parents[$i]['parentname']#
+                                </a>
                             </li>
                         </xar:if>
                         <xar:set name="prevgroup">#$parents[$i]['parentname']#</xar:set>
@@ -57,16 +57,23 @@
                 <li class="xar-tabs-label" title="#$title#">#$label#</li>
                 <li class="xar-tab">
                     <a href="&xar-modurl-privileges-admin-displayprivilege;&amp;id=#$id#" class="xar-norm xar-norm-outline">
-                    Display</a>
+                        Display
+                    </a>
                 </li>
                 <li class="xar-tab">
-                    <a href="&xar-modurl-privileges-admin-modifyprivilege;&amp;id=#$id#" class="xar-norm xar-norm-outline">Modify</a>
+                    <a href="&xar-modurl-privileges-admin-modifyprivilege;&amp;id=#$id#" class="xar-norm xar-norm-outline">
+                        Modify
+                    </a>
                 </li>
                 <li class="xar-tab">
-                    <a href="&xar-modurl-privileges-admin-deleteprivilege;&amp;id=#$id#" class="xar-norm xar-norm-outline">Delete</a>
+                    <a href="&xar-modurl-privileges-admin-deleteprivilege;&amp;id=#$id#" class="xar-norm xar-norm-outline">
+                        Delete
+                    </a>
                 </li>
                 <li class="xar-tab-active">
-                    <a href="&xar-modurl-privileges-admin-viewroles;&amp;id=#$id#" class="xar-accent xar-accent-outline">Groups/Users</a>
+                    <a href="&xar-modurl-privileges-admin-viewroles;&amp;id=#$id#" class="xar-accent xar-accent-outline">
+                        Groups/Users
+                    </a>
                 </li>
             </ul>
         </div>
@@ -92,10 +99,8 @@
                                 title="#xarML('Go to this role')#">#$role['name']#</a>
                             </td>
                             <td class="xar-align-center">
-                                <a href="#$removeurl#&amp;roleid=#$role['roleid']#"
-                                title="#xarML('Remove this Privilege assignment')#">
-                                    <img src="modules/privileges/xarimages/delete.gif"
-                                    class="xar-valign-middle" />
+                                <a href="#$removeurl#&amp;roleid=#$role['roleid']#" title="#xarML('Remove this Privilege assignment')#">
+                                    <img src="modules/privileges/xarimages/delete.gif" class="xar-valign-middle"/>
                                 </a>
                             </td>
                         </tr>
@@ -104,28 +109,27 @@
             </xar:if>
           <form action="&xar-modurl-roles-admin-addprivilege;" method="post" enctype="application/x-www-form-urlencoded">
                 <div class="xar-form-input-wrapper">
-                    <label for="roleid"
-                    title="#xarML('Choose a new Group to assign this Privilege.')#"
-                    class="xar-form-label">Assign to Group:</label>
+                    <label for="roleid" title="#xarML('Choose a new Group to assign this Privilege.')#" class="xar-form-label">
+                        Assign to Group:
+                    </label>
                     <select name="roleid" id="roleid" class="xar-margin-thickright">
                         <xar:for start="$i=0" test="$i lt count($groups)" iter="$i++">
                             <option value="#$groups[$i]['id']#">#$groups[$i]['name']# -
                             #$groups[$i]['users']#</option>
                         </xar:for>
                     </select>
-                    <input type="submit" value="#xarML('Assign')#" />
-                    <input type="hidden" name="authid" id="authid"
-                    value="#xarSecGenAuthKey('roles')#" />
-                    <input type="hidden" name="privid" id="privid" value="#$id#" />
+                    <input type="submit" value="#xarML('Assign')#"/>
+                    <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey('roles')#"/>
+                    <input type="hidden" name="privid" id="privid" value="#$id#"/>
                     <input type="hidden" name="return_url" id="return_url"
-                    value="&xar-modurl-privileges-admin-viewroles;&amp;id=#$id#" />
+                    value="&xar-modurl-privileges-admin-viewroles;&amp;id=#$id#"/>
                 </div>
             </form>
         </fieldset>
         <fieldset>
             <legend>Current Privileges</legend>
             <form name="privilegeform" id="privilegeform" action="&xar-modurl-privileges-admin-viewroles;" method="post" enctype="application/x-www-form-urlencoded">
-                <input type="hidden" name="id" id="id" value="#$id#" />
+                <input type="hidden" name="id" id="id" value="#$id#"/>
                 <p>
                     <a href="&xar-modurl-privileges-admin-newprivilege;">Add Privilege</a>
                 </p>
@@ -140,7 +144,7 @@
                 </p>
                 <xar:data-input type="radio" options="$options" value="$show"  onclick="this.form.submit();"/>
             </form>
-            <xar:data-input type="privilegestree" show="$show" />
+            <xar:data-input type="privilegestree" show="$show"/>
         </fieldset>
     </div>
 </xar:template>

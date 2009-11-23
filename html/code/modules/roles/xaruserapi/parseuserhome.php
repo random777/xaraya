@@ -3,7 +3,7 @@
  * Determine User Home URL
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -24,7 +24,6 @@ function roles_userapi_parseuserhome($args)
         throw new BadParameterException(null,'Wrong arguments to roles_userapi_userhome.');
     }
 
-    if(!xarSecurityCheck('ReadRole')) return;
     $data=array();
     $externalurl=false; //used as a flag for userhome external url
     // FIXME: this probably causes bug #3393

@@ -3,7 +3,7 @@
  * Main admin GUI function
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -29,7 +29,7 @@ function base_admin_main()
     if (((bool)xarModVars::get('modules', 'disableoverview') == false) || $samemodule){
         return xarTplModule('base','admin','overview');
     } else {
-        xarResponse::Redirect(xarModURL('base', 'admin', 'modifyconfig'));
+        xarResponse::redirect(xarModURL('base', 'admin', 'modifyconfig'));
         return true;
     }
 }

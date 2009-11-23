@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -70,19 +70,11 @@ function dynamicdata_admin_update($args)
             $data['return_url'] = $return_url;
         }
 
-        // Makes this hooks call explictly from DD
-        // $modinfo = xarMod::getInfo($myobject->moduleid);
-        $modinfo = xarMod::getInfo(182);
-        $item = array();
-        foreach (array_keys($myobject->properties) as $name) {
-            $item[$name] = $myobject->properties[$name]->value;
-        }
-        $item['module'] = $modinfo['name'];
-        $item['itemtype'] = $myobject->itemtype;
-        $item['itemid'] = $myobject->itemid;
-        $hooks = array();
-        $hooks = xarModCallHooks('item', 'modify', $myobject->itemid, $item, $modinfo['name']);
-        $data['hooks'] = $hooks;
+        // Makes this hooks call explictly from DD - why ???
+        ////$modinfo = xarMod::getInfo($myobject->moduleid);
+        //$modinfo = xarMod::getInfo(182);
+        $myobject->callHooks('modify');
+        $data['hooks'] = $myobject->hookoutput;
 
         return xarTplModule($tplmodule,'admin','modify', $data);
     }
@@ -118,16 +110,16 @@ function dynamicdata_admin_update($args)
     }
 
     if (!empty($return_url)) {
-        xarResponse::Redirect($return_url);
+        xarResponse::redirect($return_url);
     } elseif ($myobject->objectid == 2) { // for dynamic properties, return to modifyprop
         $objectid = $myobject->properties['objectid']->value;
-        xarResponse::Redirect(xarModURL('dynamicdata', 'admin', 'modifyprop',
+        xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'modifyprop',
                                       array('itemid' => $objectid)));
     } elseif (!empty($table)) {
-        xarResponse::Redirect(xarModURL('dynamicdata', 'admin', 'view',
+        xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'view',
                                       array('table' => $table)));
     } else {
-        xarResponse::Redirect(xarModURL('dynamicdata', 'admin', 'view',
+        xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'view',
                                       array(
                                       'itemid' => $objectid,
                                       'tplmodule' => $tplmodule

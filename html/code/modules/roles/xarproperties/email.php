@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -23,6 +23,8 @@ class EmailProperty extends TextBoxProperty
     public $desc       = 'E-Mail';
     public $reqmodules = array('roles');
 
+    public $validation_email_invalid;
+
     function __construct(ObjectDescriptor $descriptor)
     {
         parent::__construct($descriptor);
@@ -34,12 +36,15 @@ class EmailProperty extends TextBoxProperty
     public function validateValue($value = null)
     {
         if (!parent::validateValue($value)) return false;
-
         if (!empty($value)) {
             // cfr. pnVarValidate in pnLegacy.php
             $regexp = '/^(?:[^\s\000-\037\177\(\)<>@,;:\\"\[\]]\.?)+@(?:[^\s\000-\037\177\(\)<>@,;:\\\"\[\]]\.?)+\.[a-z]{2,6}$/Ui';
             if (!preg_match($regexp,$value)) {
-                $this->invalid = xarML('#(1) #(2): the format is incorrect', $this->name, $this->desc);
+                if (!empty($this->validation_email_invalid)) {
+                    $this->invalid = xarML($this->validation_email_invalid);
+                } else {
+                    $this->invalid = xarML('The email format is incorrect');
+                }
                 $this->value = $value;
                 return false;
             }

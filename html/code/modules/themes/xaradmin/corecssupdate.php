@@ -3,7 +3,7 @@
  * Update configuration Xaraya core CSS
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -33,7 +33,7 @@ function themes_admin_corecssupdate()
     // set modvars
     xarModVars::set('themes', 'csslinkoption', $linkoptions);
 
-    xarResponse::Redirect(xarModURL('themes','admin','cssconfig',array('component'=>'core')));
+    xarResponse::redirect(xarModURL('themes','admin','cssconfig',array('component'=>'core')));
     // Return
     return true;
 }

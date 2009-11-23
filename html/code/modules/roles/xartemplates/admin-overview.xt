@@ -1,18 +1,21 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
     <div class="xar-mod-head">
         <span class="xar-mod-title">Roles Administration</span>
     </div>
     <div class="xar-mod-body">
-        <xar:template type="module" file="admin-menu" />
-        <img src="#xarTplGetImage('roles.png','base')#" alt="official icon" width="96" height="96" class="xar-module-icon" />
+        <xar:template type="module" file="admin-menu"/>
+        <img src="#xarTplGetImage('roles.png','base')#" alt="official icon" width="96" height="96" class="xar-module-icon"/>
         <h2>Overview</h2>
 
         <h3>What is it?</h3>
         <p>
             The Roles module lets you create and manage roles on your Xaraya site. Roles are
             representations of the site's registered users and the different groups they can belong to. The Roles module is a core module within Xaraya and cannot be removed. 
+        </p>
+        <p>
+            Detail information on this module can be found <a href="#xarModURL('modules','admin','modinfonew',array('id' => xarMod::getRegid('roles')))#">here</a>.
         </p>
         
         <h3>Concepts</h3>
@@ -150,6 +153,9 @@
             </li>
             <li>
                 <strong>Rolestree</strong>:&#160;displays a tree of groups and users.
+            </li>
+            <li>
+                <strong>Social Profile</strong>:&#160;manages a user's profile on social network sites.
             </li>
             <li>
                 <strong>Userlist</strong>:&#160;displays a list of users of the site as a dropdown.

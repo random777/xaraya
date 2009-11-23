@@ -24,7 +24,7 @@ class CompiledTemplate extends Object
     public function __construct($fileName,$source=null,$type='module')
     {
         // @todo keep here?
-        if (!file_exists($fileName))  throw new FileNotFoundException($fileName); // we only do files atm
+        //if (!file_exists($fileName))  throw new FileNotFoundException($fileName); // we only do files atm
         $this->fileName = $fileName;
         $this->source   = $source;
         $this->type     = $type;
@@ -33,7 +33,6 @@ class CompiledTemplate extends Object
     public function &execute(&$bindvars, $caching = 0)
     {
         assert('isset($this->fileName); /* No source to execute from */');
-        assert('file_exists($this->fileName); /* Compiled templated disappeared in mid air, race condition? */');
         assert('is_array($bindvars); /* Template data needs to be passed in as an array */');
 
         // Do we really need this?
@@ -56,17 +55,18 @@ class CompiledTemplate extends Object
                 global $_compiler_output;
 
                 // Have we already cached this template?
-                if (!xarCore::isCached( 'template',$this->source)) {
+                if (!xarCoreCache::isCached( 'template',$this->source)) {
                     // Get the compiled template from the template cache
                     $_compiler_output = file_get_contents($this->fileName);
                     // Stick it in the cache
-                    xarCore::setCached( 'template',$this->source, $_compiler_output);
+                    xarCoreCache::setCached( 'template',$this->source, $_compiler_output);
                 } else {
                     // Retrieve the compiled template from cache
-                    $_compiler_output = xarCore::getCached( 'template',$this->source);
+                    $_compiler_output = xarCoreCache::getCached( 'template',$this->source);
                 }
 
                 $res = include("var://_compiler_output");
+                // or simply eval('?[remove]>'.$_compiler_output); without streams
             } else {
                 $res = include($this->fileName);
             }

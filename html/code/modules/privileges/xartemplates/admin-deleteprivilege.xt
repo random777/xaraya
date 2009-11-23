@@ -1,12 +1,12 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
-    <xar:style scope="module" file="privtree" />
+    <xar:style scope="module" file="privtree"/>
     <div class="xar-mod-head">
         <span class="xar-mod-title">Privileges Administration</span>
     </div>
     <div class="xar-mod-body">
-        <xar:template type="module" file="admin-menu" />
+        <xar:template type="module" file="admin-menu"/>
         <h2>Delete Privilege: #$pname#</h2>
         <xar:if condition="count($parents) ne 0">
             <div>
@@ -35,10 +35,13 @@
                 <li class="xar-tabs-label" title="#$title#">#$label#</li>
                 <li class="xar-tab">
                     <a href="&xar-modurl-privileges-admin-displayprivilege;&amp;id=#$id#" class="xar-norm xar-norm-outline">
-                    Display</a>
+                        Display
+                    </a>
                 </li>
                 <li class="xar-tab">
-                    <a href="&xar-modurl-privileges-admin-modifyprivilege;&amp;id=#$id#" class="xar-norm xar-norm-outline">Modify</a>
+                    <a href="&xar-modurl-privileges-admin-modifyprivilege;&amp;id=#$id#" class="xar-norm xar-norm-outline">
+                        Modify
+                    </a>
                 </li>
                 <li class="xar-tab-active">
                     <a href="&xar-modurl-privileges-admin-deleteprivilege;&amp;id=#$id#" class="xar-accent xar-accent-outline">
@@ -46,7 +49,9 @@
                     </a>
                 </li>
                 <li class="xar-tab">
-                    <a href="&xar-modurl-privileges-admin-viewroles;&amp;id=#$id#" class="xar-norm xar-norm-outline">Groups/Users</a>
+                    <a href="&xar-modurl-privileges-admin-viewroles;&amp;id=#$id#" class="xar-norm xar-norm-outline">
+                        Groups/Users
+                    </a>
                 </li>
             </ul>
         </div>
@@ -54,14 +59,14 @@
             <h3 class="xar-align-center">Confirm deletion of all instances of Privilege
             '#$pname#'</h3>
             <div class="xar-align-center">
-                <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                <input type="hidden" name="id" id="id" value="#$id#" />
-                <input type="hidden" name="confirm" id="confirm" value="1" />
-                <input type="hidden" name="confirmation" id="confirmation" value="1" />
+                <input type="hidden" name="authid" id="authid" value="#$authid#"/>
+                <input type="hidden" name="id" id="id" value="#$id#"/>
+                <input type="hidden" name="confirm" id="confirm" value="1"/>
+                <input type="hidden" name="confirmation" id="confirmation" value="1"/>
                 <xar:var name="label">Delete Privilege</xar:var>
-                <xar:button type="submit" label="$label" class="xar-margin-thickright" />
+                <xar:button type="submit" label="$label" class="xar-margin-thickright"/>
                 <xar:var name="label">Cancel</xar:var>
-                <xar:button type="cancel" label="$label" class="xar-margin-thickleft" />
+                <xar:button type="cancel" label="$label" class="xar-margin-thickleft"/>
             </div>
         </form>
     </div>

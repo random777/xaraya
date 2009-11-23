@@ -1,7 +1,7 @@
 <?php
 /**
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -38,7 +38,7 @@ function modules_adminapi_gethooklist($args)
     //       filter out irrelevant ones (like module remove, search...)
     $bindvars = array();
     $query = "SELECT DISTINCT h.s_type, h.object, h.action, h.t_area, h.t_type,
-                              h.t_func, h.s_module_id, h.t_module_id,
+                              h.t_func, h.t_file, h.s_module_id, h.t_module_id,
                               t.name
               FROM $xartable[hooks] h, $xartable[modules] t
               WHERE h.t_module_id = t.id ";
@@ -57,7 +57,7 @@ function modules_adminapi_gethooklist($args)
     // hooklist will hold the available hooks
     $hooklist = array();
     while($result->next()) {
-        list($itemType, $object,$action,$area,$tmodType,$tmodFunc,$smodId,$tmodId,$tmodName) = $result->fields;
+        list($itemType, $object,$action,$area,$tmodType,$tmodFunc,$tmodFile,$smodId,$tmodId,$tmodName) = $result->fields;
 
         // Avoid single-space item types e.g. for mssql
         if (!empty($itemType)) $itemType = trim($itemType);

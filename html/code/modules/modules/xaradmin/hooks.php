@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -36,7 +36,7 @@ function modules_admin_hooks($args)
     $data['authid'] = '';
 
     // via arguments only, for use in BL tags :
-    // <xar:module main="false" module="modules" type="admin" func="hooks" curhook="hitcount" return_url="$thisurl" />
+    // <xar:module main="false" module="modules" type="admin" func="hooks" curhook="hitcount" return_url="$thisurl"/>
     if (empty($return_url)) $return_url = '';
 
     $data['return_url'] = $return_url;
@@ -48,7 +48,14 @@ function modules_admin_hooks($args)
         if (!isset($modList)) return;
 
         $oldcat = '';
+        $deletemod = null;
         for ($i = 0, $max = count($modList); $i < $max; $i++) {
+            // CHECKME: don't allow hooking to yourself !?
+            if ($modList[$i]['name'] == $curhook) {
+                $deletemod = $i;
+                continue;
+            }
+
             $modList[$i]['header'] = '';
             $modList[$i]['itemtypes'] = array();
             $modList[$i]['checked'] = array();
@@ -65,6 +72,7 @@ function modules_admin_hooks($args)
             }
 
             // Get the list of all item types for this module (if any)
+            $itemtypes = null;
             try {
                 $itemtypes = xarMod::apiFunc($modList[$i]['name'],'user','getitemtypes',array());
             } catch ( FunctionNotFoundException $e) {
@@ -87,6 +95,10 @@ function modules_admin_hooks($args)
                     break;
                 }
             }
+        }
+        // CHECKME: don't allow hooking to yourself !?
+        if (!empty($deletemod)) {
+            unset($modList[$deletemod]);
         }
         $data['curhook'] = $curhook;
         $data['hookedmodules'] = $modList;

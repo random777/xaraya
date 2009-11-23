@@ -11,7 +11,7 @@
 
 $GLOBALS["Xaraya_PageTime"] = microtime(true);
 
- /**
+/**
  * Load the layout file so we know where to find the Xaraya directories
  */
 $systemConfiguration = array();
@@ -23,21 +23,19 @@ if (!isset($systemConfiguration['codeDir'])) $systemConfiguration['codeDir'] = '
 $GLOBALS['systemConfiguration'] = $systemConfiguration;
 set_include_path($systemConfiguration['rootDir'] . PATH_SEPARATOR . get_include_path());
 
- /**
+/**
  * Load the Xaraya bootstrap so we can get started
  */
 include 'bootstrap.php';
 
 /**
- * Set up output caching if enabled
+ * Set up caching
  * Note: this happens first so we can serve cached pages to first-time visitors
  *       without loading the core
  */
-if (file_exists(sys::varpath() . '/cache/output/cache.touch')) {
-    sys::import('xaraya.caching');
-    // Note : we may already exit here if session-less page caching is enabled
-    xarCache_init();
-}
+sys::import('xaraya.caching');
+// Note : we may already exit here if session-less page caching is enabled
+xarCache::init();
 
 /**
  * Load the Xaraya core
@@ -50,7 +48,7 @@ sys::import('xaraya.core');
  * @access public
  * @return bool
  */
-function xarMain() 
+function xarMain()
 {
     // Load the core with all optional systems loaded
     xarCoreInit(XARCORE_SYSTEM_ALL);
@@ -59,7 +57,7 @@ function xarMain()
     list($modName, $modType, $funcName) = xarRequest::getInfo();
 
     // Default Page Title
-    $SiteSlogan = xarModVars::Get('themes', 'SiteSlogan');
+    $SiteSlogan = xarModVars::get('themes', 'SiteSlogan');
     xarTplSetPageTitle(xarVarPrepForDisplay($SiteSlogan));
 
     // Theme Override
@@ -72,17 +70,14 @@ function xarMain()
         }
     }
 
-    // Check if page caching is enabled
-    $pageCaching = 0;
-    if (defined('XARCACHE_PAGE_IS_ENABLED')) {
-        $pageCaching = 1;
-        $cacheKey = "$modName-$modType-$funcName";
-    }
+    // Get a cache key for this page if it's suitable for page caching
+    $cacheKey = xarCache::getPageKey();
 
     $run = 1;
-    if ($pageCaching == 1 && xarPageIsCached($cacheKey,'page')) {
-        // output the cached page *or* a 304 Not Modified status
-        if (xarPageGetCached($cacheKey,'page')) {
+    // Check if the page is cached
+    if (!empty($cacheKey) && xarPageCache::isCached($cacheKey)) {
+        // Output the cached page *or* a 304 Not Modified status
+        if (xarPageCache::getCached($cacheKey)) {
             // we could return true here, but we'll continue just in case
             // processing changes below someday...
             $run = 0;
@@ -91,17 +86,22 @@ function xarMain()
 
     if ($run) {
 
-        // Load the module
-        if (!xarModLoad($modName, $modType)) return; // throw back
-
         // if the debugger is active, start it
         if (xarCoreIsDebuggerActive()) {
             ob_start();
         }
 
-        // Call the main module function
-        $mainModuleOutput = xarModFunc($modName, $modType, $funcName);
+        if (xarRequest::isObjectURL()) {
+            sys::import('xaraya.objects');
 
+            // Call the object handler and return the output (or exit with 404 Not Found)
+            $mainModuleOutput = xarObject::guiMethod($modType, $funcName);
+
+        } else {
+
+            // Call the main module function and return the output (or exit with 404 Not Found)
+            $mainModuleOutput = xarMod::guiFunc($modName, $modType, $funcName);
+        }
 
         if (xarCoreIsDebuggerActive()) {
             if (ob_get_length() > 0) {
@@ -134,12 +134,13 @@ function xarMain()
             xarTplSetPageTemplateName($pageName);
         }
 
-        // Render page
+        // Render page with the output
         $pageOutput = xarTpl_renderPage($mainModuleOutput);
 
-        if ($pageCaching == 1) {
+        // Set the output of the page in cache
+        if (!empty($cacheKey)) {
             // save the output in cache *before* sending it to the client
-            xarPageSetCached($cacheKey, 'page', $pageOutput);
+            xarPageCache::setCached($cacheKey, $pageOutput);
         }
 
         echo $pageOutput;

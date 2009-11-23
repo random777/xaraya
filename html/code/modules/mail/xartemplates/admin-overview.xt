@@ -1,12 +1,12 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
     <div class="xar-mod-head">
         <span class="xar-mod-title">Mail Administration</span>
     </div>
     <div class="xar-mod-body">
-        <xar:template type="module" file="admin-menu" />
-        <img src="#xarTplGetImage('mail.png','base')#" alt="#xarML('official icon')#" width="96" height="96" class="xar-module-icon" />
+        <xar:template type="module" file="admin-menu"/>
+        <img src="#xarTplGetImage('mail.png','base')#" alt="#xarML('official icon')#" width="96" height="96" class="xar-module-icon"/>
         <h2>Overview</h2>
 
         <h3>What is it?</h3>
@@ -14,6 +14,9 @@
             The Mail module controls the ways that your site sends email to users or groups of users.
             This is a utility module that takes information from other modules installed on your site,
             and formats and sends email for them. The Mail module is a core module within Xaraya and cannot be removed.
+        </p>
+        <p>
+            Detail information on this module can be found <a href="#xarModURL('modules','admin','modinfonew',array('id' => xarMod::getRegid('mail')))#">here</a>.
         </p>
 
         <h3>The Admin interface</h3>
@@ -70,13 +73,17 @@
             </ul>
         </p>
         <p>
-            Clicking on the <strong>Test Configuration</strong>link in the Admin menu lets you send a test email to an email address of your choice (the default is the site administrator email address entered when Xaraya is installed).
+            Clicking on the <strong>Test Configuration</strong> link in the Admin menu lets you send a test email to an email address of your choice (the default is the site administrator email address entered when Xaraya is installed).
         </p>
+        
+        <!-- Hide for now
         <p>
-            Clicking on the <strong>Queue Management</strong>link in the Admin menu lets you create and manage mail queues in your Xaraya installation.
+            Clicking on the <strong>Queue Management</strong> link in the Admin menu lets you create and manage mail queues in your Xaraya installation.
         </p>
+        -->
+        
         <p>
-            Clicking on the <strong>Notification Templates</strong>link in the Admin menu lets you to customize the notification
+            Clicking on the <strong>Notification Templates</strong> link in the Admin menu lets you to customize the notification
             templates that are sent when the Mail module is hooked to another module.
         </p>
 

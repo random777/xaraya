@@ -3,7 +3,7 @@
  * Display Blocks
  * *
  * @package blocks
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  * @author Paul Rosania
@@ -32,9 +32,6 @@ function xarBlock_init(&$args)
 
     xarDB::importTables($tables);
 
-    // Decide if we will be using the output caching system
-    $outputCachePath = sys::varpath() . '/cache/output/';
-    xarCore::setCached('xarcache', 'blockCaching', defined('XARCACHE_BLOCK_IS_ENABLED'));
     return true;
 }
 
@@ -50,6 +47,15 @@ function xarBlock_init(&$args)
  */
 function xarBlock_render($blockinfo)
 {
+    // Get a cache key for this block if it's suitable for block caching
+    $cacheKey = xarCache::getBlockKey($blockinfo);
+
+    // Check if the block is cached
+    if (!empty($cacheKey) && xarBlockCache::isCached($cacheKey)) {
+        // Return the cached block output
+        return xarBlockCache::getCached($cacheKey);
+    }
+
     $modName = $blockinfo['module'];
     $blockType = $blockinfo['type'];
     $blockName = $blockinfo['name'];
@@ -59,7 +65,7 @@ function xarBlock_render($blockinfo)
     // This lets the security system know what module we're in
     // no need to update / select in database for each block here
     // TODO: this looks weird
-    xarCore::setCached('Security.Variables', 'currentmodule', $modName);
+    xarCoreCache::setCached('Security.Variables', 'currentmodule', $modName);
 
     // Load the block.
     if (!xarMod::apiFunc(
@@ -78,6 +84,10 @@ function xarBlock_render($blockinfo)
         $blockinfo = $displayFuncName($blockinfo);
 
         if (!isset($blockinfo)) {
+            // Set the output of the block in cache
+            if (!empty($cacheKey)) {
+                xarBlockCache::setCached($cacheKey, '');
+            }
             return '';
         }
 
@@ -85,7 +95,13 @@ function xarBlock_render($blockinfo)
         // We somehow need to be able to raise exceptions here. We can't
         //       just ignore things which are wrong.
         // This would happen if a block does not return the blockinfo array correctly.
-        if (!is_array($blockinfo)) {return '';}
+        if (!is_array($blockinfo)) {
+            // Set the output of the block in cache
+            if (!empty($cacheKey)) {
+                xarBlockCache::setCached($cacheKey, '');
+            }
+            return '';
+        }
 
         // Handle the new block templating style.
         // If the block has not done the rendering already, then render now.
@@ -118,7 +134,13 @@ function xarBlock_render($blockinfo)
         $block = new $name($descriptor);
 
         $blockinfo = $block->display($blockinfo);
-        if (!is_array($blockinfo)) {return '';}
+        if (!is_array($blockinfo)) {
+            // Set the output of the block in cache
+            if (!empty($cacheKey)) {
+                xarBlockCache::setCached($cacheKey, '');
+            }
+            return '';
+        }
         if (is_array($blockinfo['content'])) {
             // Here $blockinfo['content'] is template data.
 
@@ -140,6 +162,10 @@ function xarBlock_render($blockinfo)
                 !empty($blockinfo['_bl_template_base']) ? $blockinfo['_bl_template_base'] : NULL
             );
         } else {
+            // Set the output of the block in cache
+            if (!empty($cacheKey)) {
+                xarBlockCache::setCached($cacheKey, '');
+            }
             return "";
         }
     }
@@ -149,6 +175,11 @@ function xarBlock_render($blockinfo)
     $boxOutput = xarTpl_renderBlockBox($blockinfo, $blockinfo['_bl_box_template']);
 
     xarLogMessage('xarBlock_render: end '.$modName.':'.$blockType.':'.$blockName);
+
+    // Set the output of the block in cache
+    if (!empty($cacheKey)) {
+        xarBlockCache::setCached($cacheKey, $boxOutput);
+    }
 
     return $boxOutput;
 }
@@ -166,8 +197,6 @@ function xarBlock_render($blockinfo)
 function xarBlock_renderGroup($groupname, $template = NULL)
 {
     if (empty($groupname)) throw new EmptyParameterException('groupname');
-
-    $blockCaching = xarCore::getCached('xarcache', 'blockCaching');
 
     $dbconn = xarDB::getConn();
     $tables = xarDB::getTables();
@@ -209,66 +238,50 @@ function xarBlock_renderGroup($groupname, $template = NULL)
     while($result->next()) {
         $blockinfo = $result->getRow();
 
-        if ($blockCaching) {
-            $cacheKey = $blockinfo['module'] . "-blockid" . $blockinfo['bid'] . "-" . $groupname;
-            $args = array('cacheKey' => $cacheKey, 'name' => 'block', 'blockid' => $blockinfo['bid']);
+        $blockinfo['last_update'] = $blockinfo['last_update'];
+
+        // Get the overriding template name.
+        // Levels, in order (most significant first): group instance, instance, group
+        $group_inst_bl_template = explode(';', $blockinfo['group_inst_bl_template'], 3);
+        $inst_bl_template = explode(';', $blockinfo['inst_bl_template'], 3);
+        $group_bl_template = explode(';', $blockinfo['group_bl_template'], 3);
+
+        if (empty($group_bl_template[0])) {
+            // Default the box template to the group name.
+            $group_bl_template[0] = $blockinfo['group_name'];
         }
 
-        if ($blockCaching && xarBlockIsCached($args)) {
-            // output the cached block
-            $output .= xarBlockGetCached($cacheKey,'block');
-
-        } else {
-            $blockinfo['last_update'] = $blockinfo['last_update'];
-
-            // Get the overriding template name.
-            // Levels, in order (most significant first): group instance, instance, group
-            $group_inst_bl_template = explode(';', $blockinfo['group_inst_bl_template'], 3);
-            $inst_bl_template = explode(';', $blockinfo['inst_bl_template'], 3);
-            $group_bl_template = explode(';', $blockinfo['group_bl_template'], 3);
-
-            if (empty($group_bl_template[0])) {
-                // Default the box template to the group name.
-                $group_bl_template[0] = $blockinfo['group_name'];
-            }
-
-            if (empty($group_bl_template[1])) {
-                // Default the block template to the instance name.
-                // TODO
-                $group_bl_template[1] = $blockinfo['name'];
-            }
-
-            // Cascade level over-rides for the box template.
-            $blockinfo['_bl_box_template'] = !empty($group_inst_bl_template[0]) ? $group_inst_bl_template[0]
-                : (!empty($inst_bl_template[0]) ? $inst_bl_template[0] : $group_bl_template[0]);
-
-            // Global override of box template - usually comes from the 'template'
-            // attribute of the xar:blockgroup tag.
-            if (!empty($template)) {
-                $blockinfo['_bl_box_template'] = $template;
-            }
-
-            // Cascade level over-rides for the block template.
-            $blockinfo['_bl_block_template'] = !empty($group_inst_bl_template[1]) ? $group_inst_bl_template[1]
-                : (!empty($inst_bl_template[1]) ? $inst_bl_template[1] : $group_bl_template[1]);
-
-            $blockinfo['_bl_template_base'] = $blockinfo['type'];
-
-            // Unset a few elements that clutter up the block details.
-            // They are for internal use and we don't want them used within blocks.
-            unset($blockinfo['group_inst_bl_template']);
-            unset($blockinfo['inst_bl_template']);
-            unset($blockinfo['group_bl_template']);
-
-            $blockoutput = xarBlock_render($blockinfo);
-
-            if ($blockCaching) {
-                xarBlockSetCached($cacheKey, 'block', $blockoutput);
-            }
-            $output .= $blockoutput;
-
-
+        if (empty($group_bl_template[1])) {
+            // Default the block template to the instance name.
+            // TODO
+            $group_bl_template[1] = $blockinfo['name'];
         }
+
+        // Cascade level over-rides for the box template.
+        $blockinfo['_bl_box_template'] = !empty($group_inst_bl_template[0]) ? $group_inst_bl_template[0]
+            : (!empty($inst_bl_template[0]) ? $inst_bl_template[0] : $group_bl_template[0]);
+
+        // Global override of box template - usually comes from the 'template'
+        // attribute of the xar:blockgroup tag.
+        if (!empty($template)) {
+            $blockinfo['_bl_box_template'] = $template;
+        }
+
+        // Cascade level over-rides for the block template.
+        $blockinfo['_bl_block_template'] = !empty($group_inst_bl_template[1]) ? $group_inst_bl_template[1]
+            : (!empty($inst_bl_template[1]) ? $inst_bl_template[1] : $group_bl_template[1]);
+
+        $blockinfo['_bl_template_base'] = $blockinfo['type'];
+
+        // Unset a few elements that clutter up the block details.
+        // They are for internal use and we don't want them used within blocks.
+        unset($blockinfo['group_inst_bl_template']);
+        unset($blockinfo['inst_bl_template']);
+        unset($blockinfo['group_bl_template']);
+
+        $blockoutput = xarBlock_render($blockinfo);
+
+        $output .= $blockoutput;
     }
 
     $result->Close();
@@ -292,33 +305,15 @@ function xarBlock_renderBlock($args)
     // All the hard work is done in this function.
     // It keeps the core code lighter when standalone blocks are not used.
     $blockinfo = xarMod::apiFunc('blocks', 'user', 'getinfo', $args);
-    $blockCaching = xarCore::getCached('xarcache', 'blockCaching');
 
     if (!empty($blockinfo) && $blockinfo['state'] !== 0) {
-        if ($blockCaching) {
-            $cacheKey = $blockinfo['module'] . '-blockid' . $blockinfo['bid'] . '-noGroup';
-            $args = array('cacheKey' => $cacheKey,
-                          'name' => 'block',
-                          'blockid' => $blockinfo['bid'],
-                          'blockinfo' => $blockinfo);
-        }
-        if ($blockCaching && xarBlockIsCached($args)) {
-            // output the cached block
-            $output = xarBlockGetCached($cacheKey,'block');
+        $blockoutput = xarBlock_render($blockinfo);
 
-        } else {
-            $blockoutput = xarBlock_render($blockinfo);
-
-            if ($blockCaching) {
-                xarBlockSetCached($cacheKey, 'block', $blockoutput);
-            }
-            $output = $blockoutput;
-        }
     } else {
         // TODO: return NULL to indicate no block found?
-        $output = '';
+        $blockoutput = '';
     }
-    return $output;
+    return $blockoutput;
 }
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -53,19 +53,11 @@ function dynamicdata_admin_new($args)
     // Generate a one-time authorisation code for this operation
     $data['authid'] = xarSecGenAuthKey();
 
-    // Makes this hooks call explictly from DD
-    //$modinfo = xarMod::getInfo($myobject->moduleid);
-    $modinfo = xarMod::getInfo(182);
-    $item = array();
-    foreach (array_keys($myobject->properties) as $name) {
-        $item[$name] = $myobject->properties[$name]->value;
-    }
-    $item['module'] = $modinfo['name'];
-    $item['itemtype'] = $myobject->itemtype;
-    $item['itemid'] = $myobject->itemid;
-    $hooks = array();
-    $hooks = xarModCallHooks('item', 'new', $myobject->itemid, $item, $modinfo['name']);
-    $data['hooks'] = $hooks;
+    // Makes this hooks call explictly from DD - why ???
+    ////$modinfo = xarMod::getInfo($myobject->moduleid);
+    //$modinfo = xarMod::getInfo(182);
+    $myobject->callHooks('new');
+    $data['hooks'] = $myobject->hookoutput;
 
     xarTplSetPageTitle(xarML('Manage - Create New Item in #(1)', $myobject->label));
 

@@ -3,7 +3,7 @@
  * Create a new password for the user
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -34,13 +34,13 @@ function roles_admin_createpassword()
     if (!$modifiedrole) return;
 
     if (!xarModVars::get('roles', 'askpasswordemail')) {
-        xarResponse::Redirect(xarModURL('roles', 'admin', 'showusers',
+        xarResponse::redirect(xarModURL('roles', 'admin', 'showusers',
                       array('id' => $groupid, 'state' => $state)));
         return true;
     }
     else {
         xarSession::setVar('tmppass',$pass);
-        xarResponse::Redirect(xarModURL('roles', 'admin', 'asknotification',
+        xarResponse::redirect(xarModURL('roles', 'admin', 'asknotification',
         array('id' => array($id => '1'), 'mailtype' => 'password', 'groupid' => $groupid, 'state' => $state)));
     }
 }

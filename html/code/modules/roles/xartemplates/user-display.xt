@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
     <div class="xar-mod-head">
@@ -8,7 +8,7 @@
     </div>
     <div class="xar-mod-body">
         <xar:if condition="strtolower($uname) ne 'anonymous' and isset($object)">
-            <xar:data-display object="$object" />
+            <xar:data-display object="$object"/>
         </xar:if>
         <xar:if condition="!empty($hooks)">
             <xar:foreach in="$hooks" key="$module" value="$output">

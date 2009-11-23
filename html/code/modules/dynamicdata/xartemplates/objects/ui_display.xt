@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+    <div class="xar-mod-head">
+        <span class="xar-mod-title">Dynamic Data Object Interface</span>
+    </div>
+    <div class="xar-mod-body">
+        <xar:if condition="!empty($object)">
+            <xar:set name="viewlink">xarObject::getActionURL($object, 'view')</xar:set>
+            <xar:set name="instance">$object->moduleid .':'. $object->itemtype .':'. $object->itemid</xar:set>
+            <xar:sec mask="EditDynamicDataItem" catch="false" component="Item" instance="$instance">
+                <xar:set name="modifylink">xarObject::getActionURL($object, 'modify', $object->itemid)</xar:set>
+            </xar:sec>
+            <h2>
+                #$object:label#&#160;
+                <a href="#$viewlink#" title="View #$object:label#">
+                    <img src="#xarTplGetImage('icons/item-list.png', 'base')#" width="16" height="16" alt="view"/>
+                </a>
+                <xar:if condition="!empty($modifylink)">
+                    &#160;<a href="#$modifylink#" title="Edit #$object:label#">
+                        <img src="#xarTplGetImage('icons/modify.png', 'base')#" width="16" height="16" alt="modify"/>
+                    </a>
+                </xar:if>
+            </h2>
+
+            <xar:set name="getlinked">xarModItemVars::get('dynamicdata','getlinkedobjects',$object->objectid)</xar:set>
+            <xar:if condition="!empty($getlinked)">
+
+                <!-- Display object with linked objects -->
+                <xar:template file="display_linked"/>
+
+            <xar:else/>
+
+                <!-- Display object - you can specify the layout here or in the object configuration -->
+                <xar:data-display object="$object"/>
+                <!-- Display hook output -->
+                <xar:if condition="!empty($hooks)">
+                    <xar:foreach in="$hooks" key="$module" value="$output">
+                        #$output#
+                    </xar:foreach>
+                </xar:if>
+
+            </xar:if>
+        </xar:if>
+    </div>
+</xar:template>

@@ -3,7 +3,7 @@
  * Login via a block.
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -21,7 +21,7 @@ sys::import('xaraya.structures.containers.blocks.basicblock');
 
 class LoginBlock extends BasicBlock implements iBlock
 {
-    public $no_cache            = 1;
+    public $nocache             = 1;
 
     public $name                = 'LoginBlock';
     public $module              = 'authsystem';
@@ -41,7 +41,7 @@ class LoginBlock extends BasicBlock implements iBlock
         $data = parent::display($data);
         if (empty($data)) return;
 
-        $vars = isset($data['content']) ? $data['content'] : array();
+        $vars = $data;
         if (!isset($vars['showlogout'])) $vars['showlogout'] = $this->showlogout;
         if (!isset($vars['logouttitle'])) $vars['logouttitle'] = $this->logouttitle;
 

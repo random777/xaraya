@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
     <!--
@@ -7,31 +7,49 @@
         use templates in your own [module]/xartemplates/objects directory by specifying
         the tplmodule="..." argument in the xar:data-view BL tag or showView() method call.
     -->
-    <xar:style scope="module" module="dynamicdata" file="dd" />
+    <xar:style scope="module" module="dynamicdata" file="dd"/>
     <xar:if condition="!empty($isprimary) and xarModIsHooked('categories',$modname,$itemtype)">
-        <xar:template file="catnavigation" />
+        <xar:template file="catnavigation"/>
     </xar:if>
-    <xar:sec mask="AddDynamicDataItem" catch="false" component="Item" instance="$moduleid .':' . $itemtype.':All'">
-        <xar:if condition="!isset($newlink)">
-            <xar:set name="newlink">
-                xarModURL($tplmodule,'admin','new',array('itemtype' =&gt; $itemtype,'tplmodule' =&gt; $tplmodule))
-            </xar:set>
-        </xar:if>
-        <a href="#$newlink#">
-            <strong>Create New</strong>
-        </a>
-    </xar:sec>
+<!-- FIXME: get rid of newlink here and add higher up -->
+    <xar:if condition="!empty($isprimary) and !empty($newlink)">
+        <xar:set name="instance">$moduleid .':'. $itemtype .':All'</xar:set>
+        <xar:sec mask="AddDynamicDataItem" catch="false" component="Item" instance="$instance">
+            <div style="text-align: right;">
+                <xar:if condition="xarModVars::get('dynamicdata','use_module_icons')">
+                    <a href="#$newlink#" title="Create New #$object:label#">
+                        <img src="#xarTplGetImage('icons/add.png', 'base')#" width="16" height="16" alt="new"/>
+                    </a>
+                <xar:else />
+                    <a href="#$newlink#" title="Create New #$object:label#">Create New #$object:label#</a>
+                </xar:if>
+            </div>
+        </xar:sec>
+    </xar:if>
     <xar:if condition="empty($layout)">
         <xar:set name="layout">'default'</xar:set>
     </xar:if>
-    <xar:template module="$tplmodule" file="view-$layout" />
-    <xar:if condition="!empty($prevurl) or !empty($nexturl)">
+    <xar:template module="$tplmodule" file="view-$layout"/>
+    <xar:if condition="empty($object:itemcount)">
+        <!-- if we don't have an item total show prev / next links -->
+        <div>
+            <xar:if condition="$object:startnum gt 1">
+                <div class="xar-halfwidth xar-floatleft">
+                    <xar:pager startnum="$object->startnum" itemsperpage="$object->numitems" total="$object->startnum" urltemplate="$object->pagerurl" template="multipageprev"/>
+                </div>
+            </xar:if>
+            <xar:if condition="count($object:items) eq $object:numitems">
+                <div class="xar-halfwidth xar-floatright xar-align-right">
+                    <xar:set name="newtotal">$object->startnum+$object->numitems</xar:set>
+                    <xar:pager startnum="$object->startnum" itemsperpage="$object->numitems" total="$newtotal" urltemplate="$object->pagerurl" template="multipagenext"/>
+                </div>
+            </xar:if>
+            <br class="xar-clearboth"/>
+        </div>
+    <xar:elseif condition="$object:itemcount gt $object:numitems"/>
+        <!-- show the pager -->
         <div class="xar-align-center">
-            <xar:if condition="!empty($prevurl)">
-        <a href="#$prevurl#">&lt;&lt; Prev</a>
-        <xar:else />&lt;&lt;</xar:if>&#160;&#160;&#160; 
-            <xar:if condition="!empty($nexturl)">
-        <a href="#$nexturl#">Next&gt;&gt;</a>
-        <xar:else />&gt;&gt;</xar:if></div>
+            <xar:pager startnum="$object->startnum" itemsperpage="$object->numitems" total="$object->itemcount" urltemplate="$object->pagerurl"/>
+        </div>
     </xar:if>
 </xar:template>

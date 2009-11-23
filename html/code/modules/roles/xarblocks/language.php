@@ -3,7 +3,7 @@
  * Language Selection via block
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -25,7 +25,7 @@ class LanguageBlock extends BasicBlock
     public $text_type           = 'Language';
     public $text_type_long      = 'Language selection';
 
-    public $no_cache            = 1;
+    public $nocache             = 1;
     public $usershared          = 0;
 
     function display(Array $data=array())
@@ -71,7 +71,6 @@ class LanguageBlock extends BasicBlock
         }
 
         $data['content'] = $args;
-
         return $data;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundationetobject
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -9,104 +9,18 @@
  * @link http://xaraya.com/index.php/release/182.html
  */
 
-sys::import('xaraya.structures.descriptor');
-sys::import('modules.dynamicdata.class.datastores.master');
-sys::import('modules.dynamicdata.class.properties.master');
+/**
+ * @todo How far do we want to go with DD as ORM tool + Data Mapper vs. Active Record pattern
+ * http://www.terrenceryan.com/blog/post.cfm/coldfusion-9-orm-data-mapper-versus-active-record
+ * http://madgeek.com/Articles/ORMapping/EN/mapping.htm
+ * http://www.agiledata.org/essays/mappingObjects.html
+ * http://www.doctrine-project.org/documentation/manual/2_0/en
+ */
 
-/*
- * generate the variables necessary to instantiate a DataObject or DataProperty class
-*/
-class DataObjectDescriptor extends ObjectDescriptor
-{
-    function __construct(Array $args=array())
-    {
-        $args = self::getObjectID($args);
-        parent::__construct($args);
-    }
+sys::import('modules.dynamicdata.class.objects.descriptor');
 
-    static function getModID(Array $args=array())
-    {
-        foreach ($args as $key => &$value) {
-            if (in_array($key, array('module','modid','module','moduleid'))) {
-                if (empty($value)) $value = xarMod::getRegID(xarMod::getName());
-                if (is_numeric($value) || is_integer($value)) {
-                    $args['moduleid'] = $value;
-                } else {
-                    //$info = xarMod::getInfo(xarMod::getRegID($value));
-                    $args['moduleid'] = xarMod::getRegID($value); //$info['systemid']; FIXME
-                }
-                break;
-            }
-        }
-        // Still not found?
-        if (!isset($args['moduleid'])) {
-            if (isset($args['fallbackmodule']) && ($args['fallbackmodule'] == 'current')) {
-                $args['fallbackmodule'] = xarMod::getName();
-            } else {
-                $args['fallbackmodule'] = 'dynamicdata';
-            }
-            //$info = xarMod::getInfo(xarMod::getRegID($args['fallbackmodule']));
-            $args['moduleid'] = xarMod::getRegID($args['fallbackmodule']); // $info['systemid'];  FIXME change id
-        }
-        if (!isset($args['itemtype'])) $args['itemtype'] = 0;
-        return $args;
-    }
-
-    /**
-     * Get Object ID
-     *
-     * @return array all parts necessary to describe a DataObject
-     */
-    static function getObjectID(Array $args=array())
-    {
-        // removed dependency on roles xarQuery
-        $xartable = xarDB::getTables();
-        $dynamicobjects = $xartable['dynamic_objects'];
-
-        $query = "SELECT id,
-                         name,
-                         module_id,
-                         itemtype
-                  FROM $dynamicobjects ";
-
-        $bindvars = array();
-        if (isset($args['name'])) {
-            $query .= " WHERE name = ? ";
-            $bindvars[] = $args['name'];
-        } elseif (!empty($args['objectid'])) {
-            $query .= " WHERE id = ? ";
-            $bindvars[] = (int) $args['objectid'];
-        } else {
-            $args = self::getModID($args);
-            $query .= " WHERE module_id = ?
-                          AND itemtype = ? ";
-            $bindvars[] = (int) $args['moduleid'];
-            $bindvars[] = (int) $args['itemtype'];
-        }
-
-        $dbconn = xarDB::getConn();
-        $stmt = $dbconn->prepareStatement($query);
-        $result = $stmt->executeQuery($bindvars, ResultSet::FETCHMODE_ASSOC);
-
-        $row = $result->getRow();
-        $result->close();
-
-        if (empty($row) || count($row) < 1) {
-            $args['moduleid'] = isset($args['moduleid']) ? $args['moduleid'] : null;
-            $args['itemtype'] = isset($args['itemtype']) ? $args['itemtype'] : null;
-            $args['objectid'] = isset($args['objectid']) ? $args['objectid'] : null;
-            $args['name'] = isset($args['name']) ? $args['name'] : null;
-        } else {
-            $args['moduleid'] = $row['module_id'];
-            $args['itemtype'] = $row['itemtype'];
-            $args['objectid'] = $row['id'];
-            $args['name'] = $row['name'];
-        }
-        if (empty($args['tplmodule'])) $args['tplmodule'] = xarMod::getName($args['moduleid']); //FIXME: go to systemid
-        if (empty($args['template'])) $args['template'] = $args['name'];
-        return $args;
-    }
-}
+// FIXME: only needed for the DataPropertyMaster::DD_* constants (or explicit import) - handle differently ?
+//sys::import('modules.dynamicdata.class.properties.master');
 
 class DataObjectMaster extends Object
 {
@@ -142,12 +56,32 @@ class DataObjectMaster extends Object
     public $layout = 'default';         // optional layout inside the templates
     public $template = '';              // optional sub-template, e.g. user-objectview-[template].xt (defaults to the object name)
     public $tplmodule = 'dynamicdata';  // optional module where the object templates reside (defaults to 'dynamicdata')
-    public $viewfunc = 'view';          // optional view function for use in xarModURL() (defaults to 'view')
+    public $linktype = 'user';          // optional link type for use in getActionURL() (defaults to 'user' for module URLs, 'object' for object URLs)
+    public $linkfunc = 'display';       // optional link function for use in getActionURL() (defaults to 'display', unused for object URLs)
+    private $cached_urls  = array();    // cached URLs for use in getActionURL()
 
     public $primary = null;             // primary key is item id
     public $secondary = null;           // secondary key could be item type (e.g. for articles)
     public $filter = false;             // set this true to automatically filter by current itemtype on secondary key
     public $upload = false;             // flag indicating if this object has some property that provides file upload
+
+    public $visibility = 'public';      // hint to DD whether this is a private object for a particular module, a protected object
+                                        // which preferably shouldn't be messed with, or a public object that any admin can modify
+
+// TODO: validate this way of working in trickier situations
+    public $hookvalues    = array();    // updated hookvalues for API actions
+    public $hookoutput    = array();    // output from each hook module for GUI actions
+    public $hooktransform = array();    // list of names for the properties to be transformed by the transform hook
+
+// CHECKME: this is no longer needed
+    private $hooklist     = null;       // list of hook modules (= observers) to call
+    private $hookscope    = 'item';     // the hook scope for dataobject (for now)
+
+    public $links         = null;       // links between objects
+
+    public $isgrouped     = 0;          // indicates that we have operations (COUNT, SUM, etc.) on properties
+
+// TODO: relink objects, properties and datastores in __wakeup() methods after unserialize()
 
     /**
      * Default constructor to set the object variables, retrieve the dynamic properties
@@ -168,9 +102,14 @@ class DataObjectMaster extends Object
     function toArray(Array $args=array())
     {
         $properties = $this->getPublicProperties();
+    // CHECKME: this also copies the properties, items etc. to $args - is that what we really want here ?
         foreach ($properties as $key => $value) if (!isset($args[$key])) $args[$key] = $value;
+        // object property is called module_id now instead of moduleid for whatever reason !?
+        if (empty($args['moduleid']) && !empty($args['module_id'])) {
+            $args['moduleid'] = $args['module_id'];
+        }
         //FIXME where do we need to define the modname best?
-        if (!empty($args['moduleid'])) $args['modname'] = xarMod::getName($args['moduleid']); //FIXME change to systemid
+        if (!empty($args['moduleid'])) $args['modname'] = xarMod::getName($args['moduleid']);
         return $args;
     }
 
@@ -211,6 +150,7 @@ class DataObjectMaster extends Object
             if(!isset($args['allprops']))   //FIXME is this needed??
                 $args['allprops'] = null;
 
+            sys::import('modules.dynamicdata.class.properties.master');
             DataPropertyMaster::getProperties($args); // we pass this object along
         }
 
@@ -240,6 +180,16 @@ class DataObjectMaster extends Object
             }
         }
 
+        // always mark the internal DD objects as 'private' (= items 1-3 in xar_dynamic_objects, see xarinit.php)
+        if (!empty($this->objectid) && $this->objectid == 1 && !empty($this->itemid) && $this->itemid <= 3) {
+            $this->visibility = 'private';
+/* CHECKME: issue warning for static table as well ?
+        } elseif (empty($this->objectid) && !empty($this->table)) {
+            $this->visibility = 'static table';
+*/
+        }
+
+// CHECKME: get or set here ? get doesn't use any arguments, and set expects a different format for status
         // create the list of fields, filtering where necessary
         $this->fieldlist = $this->getFieldList($this->fieldlist,$this->status);
 
@@ -303,8 +253,16 @@ class DataObjectMaster extends Object
                         $fields[$property->id] = $property->name;
             } else {
                 // no status filter: return those that are not disabled
+                // CHECKME: filter out DISPLAYONLY or VIEWONLY depending on the class we're in !
+                sys::import('modules.dynamicdata.class.properties.master');
+                if (method_exists($this, 'getItems')) {
+                    $filterstate = DataPropertyMaster::DD_DISPLAYSTATE_DISPLAYONLY;
+                } else {
+                    $filterstate = DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY;
+                }
                 foreach($this->properties as $property)
-                    if($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
+                    if($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED &&
+                       $property->getDisplayStatus() != $filterstate)
                         $fields[$property->id] = $property->name;
             }
         }
@@ -343,6 +301,7 @@ class DataObjectMaster extends Object
 //                    if(isset($this->properties[$name]))
                         $cleanlist[] = $name;
                 } elseif (preg_match('/^(.+)\((.+)\)/',$name,$matches)) {
+    // FIXME: support more complex operations like COUNT(DISTINCT ...) and calendar year/month/day
                     $operation = $matches[1];
                     $field = $matches[2];
                     if(isset($this->properties[$field]))
@@ -356,13 +315,13 @@ class DataObjectMaster extends Object
             $this->fieldlist = $cleanlist;
         }
 
+        // CHECKME: filter out DISPLAYONLY or VIEWONLY depending on the class we're in here too ?
         foreach($this->properties as $name => $property) {
             if(
-                !empty($this->fieldlist) and          // if there is a fieldlist
+                (!empty($this->fieldlist) and         // if there is a fieldlist
                 !in_array($name,$this->fieldlist) and // but the field is not in it,
-                $property->type != 21 or                // and we're not on an Item ID property
-// CHECKME: filter based on the default status list for DataObjectList or DataObject ?
-                ($property->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)  // or the property is disabled
+                $property->type != 21) or             // and we're not on an Item ID property
+                ($property->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) // or the property is disabled
             )
             {
                 // Skip it.
@@ -403,6 +362,7 @@ class DataObjectMaster extends Object
     **/
     function addDataStore($name = '_dynamic_data_', $type='data')
     {
+        sys::import('modules.dynamicdata.class.datastores.master');
         // get a new data store
         $datastore = DataStoreFactory::getDataStore($name, $type);
 
@@ -476,6 +436,7 @@ class DataObjectMaster extends Object
         // TODO: find some way to have unique IDs across all objects if necessary
         if(!isset($args['id']))
             $args['id'] = count($this->properties) + 1;
+        sys::import('modules.dynamicdata.class.properties.master');
         DataPropertyMaster::addProperty($args,$this);
     }
 
@@ -488,6 +449,7 @@ class DataObjectMaster extends Object
     {
         extract($args);
         $dbconn = xarDB::getConn();
+        xarMod::loadDbInfo('dynamicdata','dynamicdata');
         $xartable = xarDB::getTables();
 
         $dynamicobjects = $xartable['dynamic_objects'];
@@ -536,7 +498,7 @@ class DataObjectMaster extends Object
      * @param $args['name'] name of the object you're looking for, OR
      * @param $args['moduleid'] module id of the object you're looking for + $args['itemtype'] item type of the object you're looking for
      * @return array containing the name => value pairs for the object
-     * @todo cache on id/name/module_id ?
+     * @todo cache on id/name/moduleid ?
      * @todo when we had a constructor which was more passive, this could be non-static. (cheap construction is a good rule of thumb)
      * @todo no ref return?
      * @todo when we can turn this into an object method, we dont have to do db inclusion all the time.
@@ -575,11 +537,12 @@ class DataObjectMaster extends Object
             }
             $infoid = $args['moduleid'].':'.$args['itemtype'];
         }
-        if(xarCore::isCached($cacheKey,$infoid)) {
-            return xarCore::getCached($cacheKey,$infoid);
+        if(xarCoreCache::isCached($cacheKey,$infoid)) {
+            return xarCoreCache::getCached($cacheKey,$infoid);
         }
 
         $dbconn = xarDB::getConn();
+        xarMod::loadDbInfo('dynamicdata','dynamicdata');
         $xartable = xarDB::getTables();
 
         $dynamicobjects = $xartable['dynamic_objects'];
@@ -627,7 +590,7 @@ class DataObjectMaster extends Object
         {
             $info['label'] .= ' + ' . $args['join'];
         }
-        xarCore::setCached($cacheKey,$infoid,$info);
+        xarCoreCache::setCached($cacheKey,$infoid,$info);
         return $info;
     }
 
@@ -653,6 +616,14 @@ class DataObjectMaster extends Object
         if ($info != null) $args = array_merge($args,$info);
         else return $info;
 
+        // TODO: Try to get the object from the cache ?
+//        if (!empty($args['objectid']) && xarCoreCache::isCached('DDObject', $args['objectid'])) {
+//            // serialize is better here - shallow cloning is not enough for array of properties, datastores etc. and with deep cloning internal references are lost
+//            $object = unserialize(xarCoreCache::getCached('DDObject', $args['objectid']));
+//            return $object;
+//        }
+
+        sys::import('modules.dynamicdata.class.objects.base');
         if(!empty($args['filepath']) && ($args['filepath'] != 'auto')) include_once(sys::code() . $args['filepath']);
         if (!empty($args['class'])) {
             if(!class_exists($args['class'])) {
@@ -665,13 +636,10 @@ class DataObjectMaster extends Object
         // here we can use our own classes to retrieve this
         $descriptor = new DataObjectDescriptor($args);
 
-        // Try to get the object from the cache
-        if (xarCore::isCached('DDObject', MD5(serialize($args)))) {
-            $object = clone xarCore::getCached('DDObject', MD5(serialize($args)));
-        } else {
-            $object = new $args['class']($descriptor);
-//            xarCore::setCached('DDObject', MD5(serialize($args)), clone $object);
-        }
+        $object = new $args['class']($descriptor);
+        // serialize is better here - shallow cloning is not enough for array of properties, datastores etc. and with deep cloning internal references are lost
+//        xarCoreCache::setCached('DDObject', $args['objectid'], serialize($object));
+
         return $object;
     }
 
@@ -697,6 +665,7 @@ class DataObjectMaster extends Object
 
         sys::import('modules.dynamicdata.class.objects.list');
         $class = 'DataObjectList';
+        if(!empty($args['filepath']) && ($args['filepath'] != 'auto')) include_once(sys::code() . $args['filepath']);
         if(!empty($args['class']))
         {
             if(class_exists($args['class'] . 'List'))
@@ -719,9 +688,10 @@ class DataObjectMaster extends Object
 
     /**
      * Class method to retrieve a particular object interface definition, with sub-classing
-     * (= the same as creating a new Dynamic Object Interface)
+     * (= the same as creating a new Dynamic Object User Interface)
      *
      * @param $args['objectid'] id of the object you're looking for, or
+     * @param $args['name'] name of the object you're looking for, or
      * @param $args['moduleid'] module id of the object to retrieve +
      * @param $args['itemtype'] item type of the object to retrieve
      * @param $args['class'] optional classname (e.g. <module>_DataObject[_Interface])
@@ -731,12 +701,17 @@ class DataObjectMaster extends Object
     **/
     static function &getObjectInterface($args)
     {
-        sys::import('modules.dynamicdata.class.interface');
+        sys::import('modules.dynamicdata.class.userinterface');
 
-        $class = 'DataObjectInterface';
+        $class = 'DataObjectUserInterface';
         if(!empty($args['class']))
         {
-            if(class_exists($args['class'] . 'Interface'))
+            if(class_exists($args['class'] . 'UserInterface'))
+            {
+                // this is a generic classname for the object, list and interface
+                $class = $args['class'] . 'UserInterface';
+            }
+            elseif(class_exists($args['class'] . 'Interface')) // deprecated
             {
                 // this is a generic classname for the object, list and interface
                 $class = $args['class'] . 'Interface';
@@ -815,6 +790,7 @@ class DataObjectMaster extends Object
         if(empty($mylist))
             return;
 
+        sys::import('modules.dynamicdata.class.properties.master');
         // TODO: delete all the (dynamic ?) data for this object
 
         // delete all the properties for this object
@@ -979,8 +955,9 @@ class DataObjectMaster extends Object
         }
         if ($extensions) {
             // Get all the objects at once
-            // removed dependency on roles xarQuery
+            xarMod::loadDbInfo('dynamicdata','dynamicdata');
             $xartable = xarDB::getTables();
+
             $dynamicobjects = $xartable['dynamic_objects'];
 
             $bindvars = array();
@@ -1010,6 +987,85 @@ class DataObjectMaster extends Object
         }
 
         return $types;
+    }
+
+    /**
+     * Generate URL for a specific action on an object - the format will depend on the linktype
+     *
+     * @access public
+     * @param object object the object or object list we want to create an URL for
+     * @param action string the action we want to take on this object (= method or func)
+     * @param itemid mixed the specific item id or null
+     * @param extra array extra arguments to pass to the URL - CHECKME: we should only need itemid here !?
+     * @return string the generated URL
+     */
+    public function getActionURL($action = '', $itemid = null, $extra = array())
+    {
+        // if we have a cached URL already, use that
+        if (!empty($itemid) && !empty($this->cached_urls[$action])) {
+            $url = str_replace('=<itemid>', '='.$itemid, $this->cached_urls[$action]);
+            return $url;
+        }
+
+        // get URL for this object and action
+        $url = xarObject::getActionURL($this, $action, $itemid, $extra);
+
+        // cache the URL if the itemid is in there
+        if (!empty($itemid) && strpos($url, $this->urlparam . '=' . $itemid) !== false) {
+            $this->cached_urls[$action] = str_replace($this->urlparam . '=' . $itemid, $this->urlparam . '=<itemid>', $url);
+        }
+
+        return $url;
+    }
+
+    /**
+     * Call $action hooks for this object (= notify observers in observer pattern)
+     *
+     * @param $action the hook action ('create', 'display', ...)
+     */
+    public function callHooks($action = '')
+    {
+        // if we have no action
+        if (empty($action)) {
+            return;
+        // if we have no primary key (= itemid)
+        } elseif (empty($this->primary)) {
+            return;
+        // if we already have some hook call in progress
+        } elseif (xarCoreCache::isCached('DynamicData','HookAction')) {
+            return;
+        }
+
+        // Added: check if module is articles or roles to prevent recursive hook calls if using an external table for those modules
+        $modname = xarMod::getName($this->moduleid);
+        if($modname == 'articles' || $modname == 'roles') {
+            return;
+        }
+
+        // CHECKME: prevent recursive hook calls in general
+        xarCoreCache::setCached('DynamicData','HookAction',$action);
+
+        // let xarObjectHooks worry about calling the different hooks
+        xarObjectHooks::callHooks($this, $action);
+
+        // the result of API actions will be in $this->hookvalues
+        // the result of GUI actions will be in $this->hookoutput
+
+        // CHECKME: prevent recursive hook calls in general
+        xarCoreCache::delCached('DynamicData','HookAction');
+    }
+
+    /**
+     * Get linked objects (see DataObjectLinks)
+     *
+     * @param $linktype the type of links we're looking for (default, parents, children, linkedto, linkedfrom, info, all)
+     * @param $itemid (optional) for a particular itemid in ObjectList ?
+     */
+    public function getLinkedObjects($linktype = '', $itemid = null)
+    {
+        sys::import('modules.dynamicdata.class.objects.links');
+        // we'll skip the 'info' here, unless explicitly asked for 'all'
+        return DataObjectLinks::getLinkedObjects($this, $linktype, $itemid);
     }
 }
 ?>

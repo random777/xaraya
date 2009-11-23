@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
     <h2>Search Users</h2>
@@ -8,7 +8,8 @@
             <xar:foreach in="$users" key="$id" value="$user">
                 <li>
                     <a href="&xar-modurl-roles-user-display;&amp;id=#$user.id#">
-                    #xarVarPrepForDisplay($user['name'])#</a>
+                        #xarVarPrepForDisplay($user['name'])#
+                    </a>
                 </li>
             </xar:foreach>
         </ul>
@@ -34,10 +35,9 @@
                     <td class="xar-align-top">
                         <xar:foreach in="$fields" value="$field">
                             <xar:set name="checked">!empty($checked[$field])</xar:set>
-                            <xar:data-input type="checkbox" name="$field" id="$field"
-                            checked="$checked" />
+                            <xar:data-input type="checkbox" name="$field" id="$field" checked="$checked"/>
                             <label for="#$field#">
-                                <xar:data-label property="$properties[$field]" />
+                                <xar:data-label property="$properties[$field]"/>
                             </label>
                             <br />
                         </xar:foreach>

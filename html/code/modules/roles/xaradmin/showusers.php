@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -57,20 +57,14 @@ function roles_admin_showusers()
     }
 
     // Check if we already have a selection
-    sys::import('modules.roles.class.xarQuery');
-    $q = new xarQuery();
+    sys::import('xaraya.structures.query');
+    $q = new Query();
     $q = $q->sessiongetvar('rolesquery');
     $q = '';
 
     if (empty($q) || isset($reload)) {
-        $types = xarMod::apiFunc('roles','user','getitemtypes');
-        $basetypes = array();
-        // Show only roles based on the user itemtype
-        foreach ($types as $key => $value) {
-            if ($key == ROLES_USERTYPE) $basetypes[] = $key;
-        }
         $xartable = xarDB::getTables();
-        $q = new xarQuery('SELECT');
+        $q = new Query('SELECT');
         $q->addtable($xartable['roles'],'r');
         $q->addfields(array('r.id AS id','r.name AS name'));
 
@@ -83,11 +77,7 @@ function roles_admin_showusers()
             $q->qor($c);
         }
 
-          $c = array();
-          foreach ($basetypes as $itemtype) {
-              $c[] = $q->eq('r.itemtype',$itemtype);
-          }
-          $q->qor($c);
+        $q->eq('r.itemtype', ROLES_USERTYPE);
 
         // Add state
         if ($data['state'] == ROLES_STATE_CURRENT) $q->ne('state',ROLES_STATE_DELETED);
@@ -157,6 +147,7 @@ function roles_admin_showusers()
                            '2' => xarML('Tabbed')
                            );
 
+    sys::import('modules.roles.class.role');
     $object = xarMod::apiFunc('dynamicdata','user','getobjectlist',array('name' => 'roles_users'));
     $object->getItems(array('itemids' => array_keys($users)));
 
@@ -172,11 +163,11 @@ function roles_admin_showusers()
     $filter['search']   = $data['search'];
     $filter['order']    = $data['order'];
 
-    sys::import('xaraya.pager');
-    $data['pager']      = xarTplGetPager($startnum,
-                                         $data['totalselect'],
-                                         xarModURL('roles', 'admin', 'showusers',$filter),
-                                         $numitems);
+    $data['startnum'] = $startnum;
+    $data['itemsperpage'] = $numitems;
+    $data['urltemplate'] = xarModURL('roles', 'admin', 'showusers',$filter);
+    $data['urlitemmatch'] = '%%';
+
     return $data;
 }
 ?>

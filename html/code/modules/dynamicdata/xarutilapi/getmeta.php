@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -62,6 +62,7 @@ function dynamicdata_utilapi_getmeta($args)
     if (!isset($tables)) return;
 
     // Get the default property types
+    sys::import('modules.dynamicdata.class.properties.master');
     $proptypes = DataPropertyMaster::getPropertyTypes();
     $proptypeid = array();
     foreach ($proptypes as $proptype) {

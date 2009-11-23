@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -53,14 +53,14 @@ class NumberBoxProperty extends TextBoxProperty
         } elseif (is_numeric($value)) {
             $value = $this->castType($value);
             if (isset($this->validation_min_value) && isset($this->validation_max_value) && ($this->validation_min_value > $value || $this->validation_max_value < $value)) {
-                $this->invalid = xarML('numnber: allowed range is between #(1) and #(2)',$this->validation_min_value,$this->validation_max_value);
+                $this->invalid = xarML('number: allowed range is between #(1) and #(2)',$this->validation_min_value,$this->validation_max_value);
                 $this->setValue();
                 return false;
             } elseif (isset($this->validation_min_value) && $this->validation_min_value > $value) {
                 if (!empty($this->validation_min_value_invalid)) {
                     $this->invalid = xarML($this->validation_min_value_invalid);
                 } else {
-                    $this->invalid = xarML('numnber: must be #(1) or more',$this->validation_min_value);
+                    $this->invalid = xarML('number: must be #(1) or more',$this->validation_min_value);
                 }
                 $this->setValue();
                 return false;
@@ -69,13 +69,13 @@ class NumberBoxProperty extends TextBoxProperty
                 if (!empty($this->validation_max_value_invalid)) {
                     $this->invalid = xarML($this->validation_max_value_invalid);
                 } else {
-                    $this->invalid = xarML('numnber: must be #(1) or less',$this->validation_max_value);
+                    $this->invalid = xarML('number: must be #(1) or less',$this->validation_max_value);
                 }
                 $this->setValue();
                 return false;
             }
         } else {
-            $this->invalid = xarML('numnber: #(1)', $this->name);
+            $this->invalid = xarML('number: #(1) cannot have the value #(2)', $this->name, $value);
             $this->setValue();
             return false;
         }

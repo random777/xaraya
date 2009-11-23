@@ -9,33 +9,54 @@
  * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
- * @todo try to replace xarTplModule with xarTplObject
  */
 
-sys::import('modules.dynamicdata.class.interface');
+sys::import('modules.dynamicdata.class.ui_handlers.default');
 /**
  * Dynamic Object User Interface Handler
  *
- * @package Xaraya eXtensible Management System
+ * @package modules
  * @subpackage dynamicdata
  */
 class DataObjectDisplayHandler extends DataObjectDefaultHandler
 {
     public $method = 'display';
 
+    /**
+     * Run the ui 'display' method
+     *
+     * @param $args['method'] the ui method we are handling is 'display' here
+     * @param $args['itemid'] item id of the object to display, and/or
+     * @param $args['preview'] true if you want dd to call checkInput() = standard dd preview using GET/POST params, or
+     * @param $args['values'] array of predefined field values to use = ui-specific preview using arguments in your call
+     * @return string output of xarTplObject() using 'ui_display'
+     */
     function run(array $args = array())
     {
         if(!xarVarFetch('preview', 'isset', $args['preview'], NULL, XARVAR_DONT_SET)) 
             return;
 
+        if(!xarVarFetch('values', 'isset', $args['values'], NULL, XARVAR_DONT_SET)) 
+            return;
+
         if(!empty($args) && is_array($args) && count($args) > 0) 
             $this->args = array_merge($this->args, $args);
+
+        if (!empty($this->args['object']) && !empty($this->args['method'])) {
+            // Get a cache key for this object method if it's suitable for object caching
+            $cacheKey = xarCache::getObjectKey($this->args['object'], $this->args['method'], $this->args);
+            // Check if the object method is cached
+            if (!empty($cacheKey) && xarObjectCache::isCached($cacheKey)) {
+                // Return the cached object method output
+                return xarObjectCache::getCached($cacheKey);
+            }
+        }
 
         if(!isset($this->object)) 
         {
             $this->object =& DataObjectMaster::getObject($this->args);
-            if(empty($this->object)) 
-                return;
+            if(empty($this->object) || (!empty($this->args['object']) && $this->args['object'] != $this->object->name)) 
+                return xarResponse::NotFound(xarML('Object #(1) seems to be unknown', $this->args['object']));
 
             if(empty($this->tplmodule)) 
             {
@@ -46,45 +67,42 @@ class DataObjectDisplayHandler extends DataObjectDefaultHandler
         $title = xarML('Display #(1)', $this->object->label);
         xarTplSetPageTitle(xarVarPrepForDisplay($title));
 
-        $itemid = $this->object->getItem();
-        if(empty($itemid) || $itemid != $this->object->itemid) 
-            throw new BadParameterException(
-                null,
-                'The itemid when displaying the object was found to be invalid'
-            );
+        if(!empty($this->object->table) && !xarSecurityCheck('AdminDynamicData'))
+            return xarResponse::Forbidden(xarML('Display Table #(1) is forbidden', $this->object->table));
 
-        // call item display hooks for this item
-        $item = array();
-        foreach(array_keys($this->object->properties) as $name) 
-            $item[$name] = $this->object->properties[$name]->value;
+        if (!empty($this->args['itemid'])) {
+            if(!xarSecurityCheck('ReadDynamicDataItem',1,'Item',$this->object->moduleid.':'.$this->object->itemtype.':'.$this->args['itemid']))
+                return xarResponse::Forbidden(xarML('Display Itemid #(1) of #(2) is forbidden', $this->args['itemid'], $this->object->label));
 
-        if(!isset($modname)) 
-            $modname = xarMod::getName($this->object->moduleid);
+            // get the requested item
+            $itemid = $this->object->getItem();
+            if(empty($itemid) || $itemid != $this->object->itemid) 
+                return xarResponse::NotFound(xarML('Itemid #(1) of #(2) seems to be invalid', $this->args['itemid'], $this->object->label));
 
-        $item['module'] = $modname;
-        $item['itemtype'] = $this->object->itemtype;
-        $item['itemid'] = $this->object->itemid;
-        $item['returnurl'] = xarModURL(
-            $this->tplmodule,$this->type,$this->func,
-            array(
-                'object' => $this->object->name,
-                'itemid'   => $this->object->itemid
-            )
+            // call item display hooks for this item
+            $this->object->callHooks('display');
+
+        } elseif (!empty($this->args['values'])) {
+            // always set the properties based on the given values !?
+            //$this->object->setFieldValues($this->args['values']);
+            // check any given input values but suppress errors for now
+            $this->object->checkInput($this->args['values'], 1);
+
+        } else {
+            // show a blank object
+        }
+
+        $output = xarTplObject(
+            $this->tplmodule, $this->object->template, 'ui_display',
+            array('object' => $this->object,
+                  'hooks'  => $this->object->hookoutput)
         );
-        $hooks = xarModCallHooks(
-            'item', 'display', $this->object->itemid, $item, $modname
-        );
 
-        $this->object->viewfunc = $this->func;
-        // TODO: have dedicated template for 'object' type
-        return xarTplModule(
-            $this->tplmodule,'user','display',
-            array(
-                'object' => $this->object,
-                'hookoutput' => $hooks
-            ),
-            $this->object->template
-        );
+        // Set the output of the object method in cache
+        if (!empty($cacheKey)) {
+            xarObjectCache::setCached($cacheKey, $output);
+        }
+        return $output;
     }
 }
 

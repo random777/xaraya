@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -63,7 +63,7 @@ function modules_admin_modifyproperties($args)
                 if (empty($return_url)) {
                     $return_url = xarModURL('modules', 'admin', 'modifyproperties', array('id' => $id));
                 }
-                xarResponse::Redirect($return_url);
+                xarResponse::redirect($return_url);
             }
         }
     }

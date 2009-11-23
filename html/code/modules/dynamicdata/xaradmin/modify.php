@@ -1,11 +1,11 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamic Data module
+ * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -20,7 +20,7 @@
  * @param int itemtype the id of the itemtype of the item
  * @param join
  * @param table
- * @return
+ * @return string
  */
 function dynamicdata_admin_modify($args)
 {
@@ -68,25 +68,27 @@ function dynamicdata_admin_modify($args)
         xarVarSetCached('dynamicdata','currentproptype', $myobject->properties['type']);
     }
 
+    // if we're editing a dynamic object, check its own visibility
+    if ($myobject->objectid == 1 && $myobject->itemid > 3) {
+        // CHECKME: do we always need to load the object class to get its visibility ?
+        $tmpobject = DataObjectMaster::getObject(array('objectid' => $myobject->itemid));
+        // override the default visibility and moduleid
+        $myobject->visibility = $tmpobject->visibility;
+        $myobject->moduleid = $tmpobject->moduleid;
+        unset($tmpobject);
+    }
+
     $data['objectid'] = $args['objectid'];
     $data['itemid'] = $args['itemid'];
     $data['authid'] = xarSecGenAuthKey();
     $data['preview'] = $preview;
     $data['tplmodule'] = $args['tplmodule'];   //TODO: is this needed
 
-    // $modinfo = xarMod::getInfo($args['moduleid']);
-    // Makes this hooks call explictly from DD
-    $modinfo = xarMod::getInfo(182);
-    $item = array();
-    foreach (array_keys($myobject->properties) as $name) {
-        $item[$name] = $myobject->properties[$name]->value;
-    }
-    $item['module'] = $modinfo['name'];
-    $item['itemtype'] = $args['itemtype'];
-    $item['itemid'] = $args['itemid'];
-    $hooks = array();
-    $hooks = xarModCallHooks('item', 'modify', $args['itemid'], $item, $modinfo['name']);
-    $data['hooks'] = $hooks;
+    // Makes this hooks call explictly from DD - why ???
+    ////$modinfo = xarMod::getInfo($args['moduleid']);
+    //$modinfo = xarMod::getInfo(182);
+    $myobject->callHooks('modify');
+    $data['hooks'] = $myobject->hookoutput;
 
     xarTplSetPageTitle(xarML('Modify Item #(1) in #(2)', $data['itemid'], $myobject->label));
 

@@ -3,7 +3,7 @@
  * Purge users by status
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -42,7 +42,7 @@ function roles_admin_purge($args)
         if (!xarVarFetch('recallstate',    'int:1:', $data['recallstate'],  NULL, XARVAR_DONT_SET)) return;
         if (!xarVarFetch('recallsubmit',   'str',    $recallsubmit,         NULL, XARVAR_DONT_SET)) return;
         if (!xarVarFetch('recallsearch',   'str',    $data['recallsearch'], NULL, XARVAR_DONT_SET)) return;
-        if (!xarVarFetch('recallstartnum', 'int:1:', $recallstartnum,       1,    XARVAR_NOT_REQUIRED)) return;
+        if (!xarVarFetch('startnum', 'int:1:', $startnum,       1,    XARVAR_NOT_REQUIRED)) return;
         if (!xarVarFetch('recallids',      'isset',  $recallids,           array(), XARVAR_NOT_REQUIRED)) return;
         if (!xarVarFetch('groupid',       'int:1',  $data['groupid'],     0,    XARVAR_NOT_REQUIRED)) return;
 
@@ -62,39 +62,41 @@ function roles_admin_purge($args)
         }
 // --- display roles that can be recalled
         //Create the selection
-        sys::import('modules.roles.class.xarQuery');
-        $q = new xarQuery('SELECT',$rolestable);
-        $q->addfields(array('id',
-                    'uname',
-                    'name',
-                    'email',
-                    'itemtype',
-                    'date_reg'));
-        $q->setorder('name');
-        if (!empty($data['recallsearch'])) {
-            $c[1] = $q->like('name','%' . $data['recallsearch'] . '%');
-            $c[2] = $q->like('uname','%' . $data['recallsearch'] . '%');
-            $c[3] = $q->like('email','%' . $data['recallsearch'] . '%');
-            $q->qor($c);
-        }
-        $q->eq('state',ROLES_STATE_DELETED);
-        $q->ne('date_reg',0);
-        $q->setrowstodo($numitems);
-        $q->setstartat($recallstartnum);
-//        $q->qecho();
-        if(!$q->run()) return;
+        $query = "SELECT id, uname, name, email, itemtype, date_reg FROM $rolestable WHERE state = ? AND date_reg != ?" ;
+        $bindvars[] = ROLES_STATE_DELETED;
+        $bindvars[] = 0;
 
-        $data['totalselect'] = $q->getrows();
+        if (!empty($data['recallsearch'])) {
+            $query .= " AND (name LIKE %" . $data['recallsearch'] . "%";
+            $query .= " OR uname LIKE %" . $data['recallsearch'] . "%";
+            $query .= " OR email LIKE %" . $data['recallsearch'] . "%)";
+        }
+        $query .= " ORDER BY name";
+        $result = $dbconn->SelectLimit($query, $numitems, $startnum-1, $bindvars);
+        $roles = array();
+
+        while(!$result->EOF) {
+            list($id,$uname,$name,$email,$itemtype,$date_reg) = $result->fields;
+            $roles[] = array(
+                'id' => $id,
+                'uname' => $uname,
+                'name' => $name,
+                'email' => $email,
+                'itemtype' => $itemtype,
+                'date_reg' => $date_reg,
+            );
+            $result->next();
+        }
+        $data['totalselect'] = count($roles);
 
         if ($data['totalselect'] == 0) {
             $data['recallmessage'] = xarML('There are no deleted groups/users ');
-        }
-        else {
+        } else {
             $data['recallmessage']         = '';
         }
 
         $recallroles = array();
-        foreach ($q->output() as $role) {
+        foreach ($roles as $role) {
 // check each role's user name
             if (empty($role['uname'])) {
                 $msg = xarML('Execution halted: the role with id #(1) has an empty name. This needs to be corrected manually in the database.', $role['id']);
@@ -133,16 +135,16 @@ function roles_admin_purge($args)
         }
 // --- send to template
         $data['groups'] = xarMod::apiFunc('roles', 'user', 'getallgroups');
-        $recallfilter['recallstartnum'] = '%%';
+        $recallfilter['startnum'] = '%%';
         $filter['state']         = $data['recallstate'];
         $recallfilter['recallsearch']   = $data['recallsearch'];
         $data['submitRecall']    = xarML('Recall');
         $data['recallroles']     = $recallroles;
-        sys::import('xaraya.pager');
-        $data['recallpager']     = xarTplGetPager($recallstartnum,
-                                                  $data['totalselect'],
-                                                  xarModURL('roles', 'admin', 'purge', $recallfilter),
-                                                  $numitems);
+        $data['startnum'] = $startnum;
+        $data['urltemplate'] = xarModURL('roles', 'admin', 'purge', $recallfilter);
+        $data['urlitemmatch'] = '%%';
+        $data['itemsperpage'] = $numitems;
+
     }
 //--------------------------------------------------------
     elseif ($data['operation'] == 'purge')
@@ -150,7 +152,7 @@ function roles_admin_purge($args)
         if (!xarVarFetch('purgestate',    'int',    $data['purgestate'], -1,      XARVAR_DONT_SET)) return;
         if (!xarVarFetch('purgesearch',   'str',    $data['purgesearch'], NULL,   XARVAR_DONT_SET)) return;
         if (!xarVarFetch('purgesubmit',   'str',    $purgesubmit,         NULL,   XARVAR_DONT_SET)) return;
-        if (!xarVarFetch('purgestartnum', 'int:1:', $purgestartnum,       1,      XARVAR_NOT_REQUIRED)) return;
+        if (!xarVarFetch('startnum', 'int:1:', $startnum,       1,      XARVAR_NOT_REQUIRED)) return;
         if (!xarVarFetch('purgeids',     'isset',  $purgeids,           array(), XARVAR_NOT_REQUIRED)) return;
 
         // Check for confirmation.
@@ -167,21 +169,17 @@ function roles_admin_purge($args)
                 $role = xarRoles::get($id);
                 $role->deleteItem();
 // --- now actually remove the data from the role's entry
-                $state = ROLES_STATE_DELETED;
-                $uname = $deleted . microtime(TRUE) .'.'. $id;
-                $name = '';
-                $pass = '';
-                $email = '';
-                $date_reg = 0;
-                $q = new xarQuery('UPDATE',$rolestable);
-                $q->addfield('name',$name);
-                $q->addfield('uname',$uname);
-                $q->addfield('pass',$pass);
-                $q->addfield('email',$email);
-                $q->addfield('date_reg',$date_reg);
-                $q->addfield('state',$state);
-                $q->eq('id',$id);
-                $q->run();
+                $query = "UPDATE $rolestable SET name = ?, uname = ?, pass = ?, email = ?, date_reg = ?, state = ? WHERE id = ?" ;
+                $bindvars = array();
+                $bindvars[] = '';
+                $bindvars[] = $deleted . microtime(TRUE) .'.'. $id;
+                $bindvars[] = '';
+                $bindvars[] = '';
+                $bindvars[] = 0;
+                $bindvars[] = ROLES_STATE_DELETED;
+                $bindvars[] = $id;
+                $dbconn = xarDB::getConn();
+                $result = $dbconn->Execute($query,$bindvars);
 // --- Let any hooks know that we have purged this user.
                 $item['module'] = 'roles';
                 $item['itemid'] = $id;
@@ -215,8 +213,7 @@ function roles_admin_purge($args)
                     $data['purgestatetext'] = 'pending';
                     break ;
             endswitch ;
-        }
-        else {
+        } else {
             $data['purgestatetext'] = '';
         }
         if (!empty($data['purgesearch'])) {
@@ -247,16 +244,15 @@ function roles_admin_purge($args)
         $result = $stmt->executeQuery($bindvars);
         $data['totalselect'] = $result->getRecordCount();
 
-        if ($purgestartnum != 0) {
+        if ($startnum != 0) {
             $stmt->setLimit($numitems);
-            $stmt->setOffset($purgestartnum-1);
+            $stmt->setOffset($startnum-1);
             $result = $stmt->executeQuery($bindvars);
         }
 
         if ($data['totalselect'] == 0) {
             $data['purgemessage'] = xarML('There are no users selected');
-        }
-        else {
+        } else {
             $data['purgemessage']         = '';
         }
 
@@ -295,20 +291,20 @@ function roles_admin_purge($args)
             );
         }
         // --- send to template
-        $purgefilter['purgestartnum'] = '%%';
+        $purgefilter['startnum'] = '%%';
         $purgefilter['purgesearch'] = $data['purgesearch'];
 
         $data['submitPurge'] = xarML('Purge');
         $data['purgeusers']  = $purgeusers;
-        sys::import('xaraya.pager');
-        $data['purgepager']  = xarTplGetPager($purgestartnum,
-                                              $data['totalselect'],
-                                              xarModURL('roles', 'admin', 'purge', $purgefilter),
-                                              $numitems);
+        $data['startnum'] = $startnum;
+        $data['urltemplate'] = xarModURL('roles', 'admin', 'purge', $purgefilter);
+        $data['urlitemmatch'] = '%%';
+        $data['itemsperpage'] = $numitems;
+
     } // end elseif
 
     // --- finish up
-    $data['authid']         = xarSecGenAuthKey();
+    $data['authid'] = xarSecGenAuthKey();
     // Return
     return $data;
 }

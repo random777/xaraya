@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -52,7 +52,7 @@ function themes_init()
     xarModVars::set('themes', 'SiteCopyRight', '&copy; Copyright 2003 ');
     xarModVars::set('themes', 'SiteTitleSeparator', ' :: ');
     xarModVars::set('themes', 'SiteTitleOrder', 'default');
-    xarModVars::set('themes', 'SiteFooter', '<a href="http://www.xaraya.com"><img src="modules/base/xarimages/xaraya.gif" alt="Powered by Xaraya" class="xar-noborder" /></a>');
+    xarModVars::set('themes', 'SiteFooter', '<a href="http://www.xaraya.com"><img src="modules/base/xarimages/xaraya.gif" alt="Powered by Xaraya" class="xar-noborder"/></a>');
     xarModVars::set('themes', 'ShowPHPCommentBlockInTemplates', false);
     xarModVars::set('themes', 'ShowTemplates', false);
     xarModVars::set('themes', 'variable_dump', false);
@@ -65,10 +65,6 @@ function themes_init()
     xarRegisterMask('ViewThemes','All','themes','All','All','ACCESS_OVERVIEW');
     xarRegisterMask('EditThemes','All','themes','All','All','ACCESS_EDIT');
     xarRegisterMask('AdminTheme','All','themes','All','All','ACCESS_ADMIN');
-    
-    if (!xarModRegisterHook('item', 'usermenu', 'GUI', 'themes', 'user', 'usermenu')) {
-        return false;
-    }
 
     if (!xarMod::apiFunc('blocks', 'admin', 'register_block_type',
         array('modName' => 'themes', 'blockType' => 'meta'))) return;

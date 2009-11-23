@@ -2,7 +2,7 @@
 /**
  * Register a new block type
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -67,7 +67,7 @@ function blocks_admin_new_type()
             array('module' => $modulename, 'type' => $blockname))
         ) {return;}
 
-        xarResponse::Redirect(xarModURL('blocks', 'admin', 'view_types'));
+        xarResponse::redirect(xarModURL('blocks', 'admin', 'view_types'));
         return true;
     } else {
         // Nothing submitted yet - return a blank form.

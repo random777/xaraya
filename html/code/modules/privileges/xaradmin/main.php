@@ -3,7 +3,7 @@
  * Main administration function
  *
  * @package core modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -25,7 +25,7 @@ function privileges_admin_main()
     if (((bool)xarModVars::get('modules', 'disableoverview') == false) || $samemodule){
         return xarTplModule('privileges','admin','overview');
     } else {
-        xarResponse::Redirect(xarModURL('privileges', 'admin', 'viewprivileges'));
+        xarResponse::redirect(xarModURL('privileges', 'admin', 'viewprivileges'));
         return true;
     }
 }

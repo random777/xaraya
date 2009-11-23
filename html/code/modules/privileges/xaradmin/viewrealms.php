@@ -3,7 +3,7 @@
  * View the defined realms
  *
  * @package core modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -24,14 +24,20 @@ function privileges_admin_viewrealms()
     // Security Check
     if(!xarSecurityCheck('ViewPrivileges',0,'Realm')) return;
 
+    $dbconn = xarDB::getConn();
     $xartable = xarDB::getTables();
-    sys::import('modules.roles.class.xarQuery');
-    $q = new xarQuery('SELECT',$xartable['security_realms']);
-    $q->addfields(array('id AS id', 'name AS name'));
-    $q->setorder('name');
-    if(!$q->run()) return;
+    $rolesobjects = $xartable['security_realms'];
+    $bindvars = array();
+    $query = "SELECT id AS id, name AS name FROM $rolesobjects ";
 
-    $data['realms'] = $q->output();
+    $query .= " ORDER BY name ";
+    $stmt = $dbconn->prepareStatement($query);
+    $result = $stmt->executeQuery($bindvars, ResultSet::FETCHMODE_ASSOC);
+    if (!$result) return;
+    while($result->next())
+    {
+        $data['realms'] = $result->fields;
+    }
     return $data;
 }
 

@@ -3,7 +3,7 @@
  * View users
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -209,13 +209,11 @@ function roles_user_viewlist($args)
     $pagerfilter['search'] = $search;
     $pagerfilter['startnum'] = '%%';
 
-    sys::import('xaraya.pager');
-    $data['pager'] = xarTplGetPager(
-        $startnum,
-        $data['total'],
-        xarModURL('roles', 'user', 'viewlist', $pagerfilter),
-        $numitems
-    );
+    $data['startnum'] = $startnum;
+    $data['itemsperpage'] = $numitems;
+    $data['urltemplate'] = xarModURL('roles', 'user', 'viewlist', $pagerfilter);
+    $data['urlitemmatch'] = '%%';
+
     return $data;
 }
 

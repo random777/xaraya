@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com *
  * @subpackage modules
@@ -72,7 +72,7 @@ function modules_adminapi_standarddeinstall($args)
              " OR t_module_id = " . $modId;
     $dbconn->Execute($query);
 
-    // Remove custom tags, modvars, masks and privilege instances
+    // Remove modvars, masks and privilege instances
     xarRemoveMasks($module);
     xarRemoveInstances($module);
     xarModVars::delete_all($module);

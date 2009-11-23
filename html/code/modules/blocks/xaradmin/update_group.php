@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -63,7 +63,7 @@ function blocks_admin_update_group()
         )
     ) {return;}
 
-    xarResponse::Redirect(xarModURL('blocks', 'admin', 'view_groups'));
+    xarResponse::redirect(xarModURL('blocks', 'admin', 'view_groups'));
 
     return true;
 }

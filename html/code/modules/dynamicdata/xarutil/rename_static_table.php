@@ -2,6 +2,13 @@
 /**
  * Delete a table
  *
+ * @package modules
+ * @copyright (C) 2002-2009 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
+ * @subpackage dynamicdata
+ * @link http://xaraya.com/index.php/release/182.html
  */
     sys::import('modules.dynamicdata.class.objects.master');
     
@@ -19,13 +26,13 @@
 
         if ($data['confirm']) {
             if (empty($data['newtable'])) 
-                xarResponse::Redirect(xarModURL('dynamicdata','util','view_static',array('table' => $data['table'])));
+                xarResponse::redirect(xarModURL('dynamicdata','util','view_static',array('table' => $data['table'])));
             $query = 'RENAME TABLE ' . $data['table'] . ' TO ' . $data['newtable'];
             $dbconn = xarDB::getConn();
             $dbconn->Execute($query);
 
             // Jump to the next page
-            xarResponse::Redirect(xarModURL('dynamicdata','util','view_static',array('table' => $data['newtable'])));
+            xarResponse::redirect(xarModURL('dynamicdata','util','view_static',array('table' => $data['newtable'])));
             return true;
         }
         return $data;

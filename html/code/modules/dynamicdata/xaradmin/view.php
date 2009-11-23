@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -57,6 +57,9 @@ function dynamicdata_admin_view($args)
     }
     // Pass back the relevant variables to the template if necessary
     $data = $object->toArray();
+
+    // Count the number of items matching the preset arguments - do this before getItems()
+    $object->countItems();
 
     // Get the selected items using the preset arguments
     $object->getItems();

@@ -1,6 +1,14 @@
 <?php
 /**
- * Interfaces for dataobjects:
+ * Interfaces for dataobjects
+ *
+ * @package modules
+ * @copyright (C) 2002-2009 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
+ * @subpackage dynamicdata
+ * @link http://xaraya.com/index.php/release/182.html
  */
 
 interface iDataObject
@@ -29,9 +37,9 @@ interface iDataObjectList
     public function &getItems(Array $data = array());
     public function countItems(Array $data = array());
     public function showView(Array $data = array());
-    public function getViewOptions(Array $data = array());
+    public function getViewOptions($itemid = null);
     public function &getViewValues(Array $data = array());
-    public function getPager($data = null);
+    public function getSortURL($data = null);
     public function getNext(Array $data = array());
 }
 ?>

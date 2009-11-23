@@ -3,7 +3,7 @@
  * Initialise the roles module
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -100,7 +100,7 @@ function roles_activate()
                     'regdate' => time(),
                     'state' => ROLES_STATE_ACTIVE,
                     'valcode' => 'createdbysystem',
-                    'authmodule' => xarMod::getID('roles'),
+                    'authmodule' => (int)xarMod::getID('roles'),
     );
     $group = DataObjectMaster::getObject(array('name' => 'roles_groups'));
     $rolefields['role_type'] = ROLES_GROUPTYPE;
@@ -168,7 +168,7 @@ function roles_upgrade($oldversion)
     // Upgrade dependent on old version number
     switch ($oldversion) {
         case '2.0.0':
-      break;
+            break;
     }
     return true;
 }

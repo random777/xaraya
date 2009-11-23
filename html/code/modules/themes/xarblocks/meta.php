@@ -2,7 +2,7 @@
 /**
  *  Initialise meta block
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -24,15 +24,13 @@ sys::import('xaraya.structures.containers.blocks.basicblock');
 
 class MetaBlock extends BasicBlock
 {
-    public $no_cache            = 1;
-
     public $name                = 'MetaBlock';
     public $module              = 'themes';
     public $text_type           = 'Meta';
-    public $text_type_long      = 'Meta';
-    public $allow_multiple      = false;
+    public $text_type_long      = 'Meta Keywords';
     public $show_preview        = true;
     public $usershared          = true;
+    public $pageshared          = false;
 
     public $metakeywords        = '';
     public $metadescription     = '';
@@ -52,7 +50,7 @@ class MetaBlock extends BasicBlock
     {
         $data = parent::display($data);
         if (empty($data)) return;
-
+        
         $meta = array();
 
         // Description
@@ -99,8 +97,8 @@ class MetaBlock extends BasicBlock
         $meta['activepageprint'] = xarServer::getCurrentURL(array('theme' => 'print'));
 
         $meta['baseurl'] = xarServer::getBaseURL();
-        if (isset($vars['copyrightpage'])){
-            $meta['copyrightpage'] = $vars['copyrightpage'];
+        if (isset($data['copyrightpage'])){
+            $meta['copyrightpage'] = $data['copyrightpage'];
         } else {
             $meta['copyrightpage'] = '';
         }
@@ -147,9 +145,8 @@ class MetaBlock extends BasicBlock
         if (!isset($data['glossary'])) $data['glossary'] = $this->glossary;
 
         $data['blockid'] = $data['bid'];
-        $content = xarTplBlock('themes', 'metaAdmin', $data);
 
-        return $content;
+        return $data;
     }
 
 /**
@@ -177,6 +174,5 @@ class MetaBlock extends BasicBlock
 
         return $data;
     }
-
 }
 ?>

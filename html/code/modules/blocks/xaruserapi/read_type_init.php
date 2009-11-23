@@ -2,7 +2,7 @@
 /**
  * Read and execute a block's init function
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -42,8 +42,18 @@ function blocks_userapi_read_type_init($args)
             )
         )) {return;}
 
+        $classpath = sys::code() . 'modules/' . $module . '/xarblocks/' . $type . '.php';
         if (function_exists($initfunc)) {
             $result = $initfunc();
+        } elseif (file_exists($classpath)) {
+            // we are using a block class
+            sys::import('modules.' . $module . '.xarblocks.' . $type);
+            sys::import('xaraya.structures.descriptor');
+            $name = ucfirst($type) . "Block";
+            $descriptor = new ObjectDescriptor(array());
+            $block = new $name($descriptor);
+
+            $result = $block->getInit();
         } else {
             // No block info function found.
             $result = NULL;

@@ -1,17 +1,17 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundatio
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @subpackage dynamicdata
  * @author Marc Lutolf
  * @author Johnny Robeson <johnny@localmomentum.net>
  */
-sys::import('modules.dynamicdata.class.interface');
 
+sys::import('modules.dynamicdata.class.ui_handlers.default');
 /**
   * Simple Object Interface
   */
-class SimpleObjectInterface extends DataObjectInterface
+class SimpleObjectInterface extends DataObjectDefaultHandler
 {
     function __construct(array $args = array())
     {

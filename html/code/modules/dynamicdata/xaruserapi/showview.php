@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -142,7 +142,7 @@ function dynamicdata_userapi_showview($args)
                                    'param'     => $param,
                                    'pagerurl'  => $pagerurl,
                                    'linkfield' => $linkfield,
-                                   'count'     => $numthings));
+                                   'itemcount' => $numthings));
 }
 
 ?>

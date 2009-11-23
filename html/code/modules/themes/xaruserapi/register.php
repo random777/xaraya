@@ -2,7 +2,7 @@
 /**
  * Handle css tag
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -30,10 +30,13 @@
  * method    - [(import)|link]          - what method do we use to include the style info
  * condition - [IE|(IE5)|(!IE6)|(lt IE7)] - encase in conditional comment (for serving to ie-win of various flavours)
  *
- * <xar:style file="basename" scope="theme" type="text/css" media="all" alternate="no" title="Great style" method="import" />
+ * <xar:style file="basename" scope="theme" type="text/css" media="all" alternate="no" title="Great style" method="import"/>
  */
 function themes_userapi_register($args)
 {
+    // keep track of style when we're caching
+    xarCache::addStyle($args);
+
     sys::import('modules.themes.class.xarcss');
     $obj = new xarCSS($args);
     return $obj->run_output();

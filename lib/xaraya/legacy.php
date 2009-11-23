@@ -4,7 +4,7 @@
  *
  * @package lib
  * @subpackage legacy
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  * @author Marco Canini
@@ -115,7 +115,7 @@ function xarServerGetBaseURL()  { return xarServer::getBaseURL();  }
 function xarServerGetCurrentURL($args = array(), $generateXMLURL = NULL, $target = NULL) { return xarServer::getCurrentURL($args, $generateXMLURL, $target); }
 function xarRequestGetVar($name, $allowOnlyMethod = NULL) { return xarRequest::getVar($name, $allowOnlyMethod);}
 function xarRequestGetInfo()                              { return xarRequest::getInfo();        }
-function xarRequestIsLocalReferer()                       { return xarRequest::IsLocalReferer(); }
+function xarRequestIsLocalReferer()                       { return xarRequest::isLocalReferer(); }
 function xarResponseRedirect($redirectURL)                { return xarResponse::Redirect($redirectURL); }
 
 
@@ -134,4 +134,18 @@ function &xarDBNewDataDict(Connection &$dbconn, $mode = 'READONLY')
 {
     throw new ApiDeprecationException(array('xarDBNewDataDict','[TO BE DETERMINED]'));
 }
+
+/**
+ * Support Xaraya 1 pager functions
+ *
+**/
+function xarTplPagerInfo($currentItem, $total, $itemsPerPage = 10, $blockOptions = 10)
+{
+    return xarTplPager::getInfo($currentItem, $total, $itemsPerPage, $blockOptions);
+}
+function xarTplGetPager($startNum, $total, $urltemplate, $itemsPerPage = 10, $blockOptions = array(), $template = 'default', $tplmodule = 'base')
+{
+    return xarTplPager::getPager($startNum, $total, $urltemplate, $itemsPerPage, $blockOptions, $template, $tplmodule);
+}
+
 ?>

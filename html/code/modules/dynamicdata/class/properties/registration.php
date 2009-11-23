@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -9,7 +9,7 @@
  * @link http://xaraya.com/index.php/release/182.html
  * @author mrb <marcel@xaraya.com>
  */
-xarMod::loadDbInfo('dynamicdata','dynamicdata');
+
 /**
  * Class to model registration information for a property
  *
@@ -49,6 +49,7 @@ class PropertyRegistration extends DataContainer
     static function clearCache()
     {
         $dbconn = xarDB::getConn();
+        xarMod::loadDbInfo('dynamicdata','dynamicdata');
         $tables = xarDB::getTables();
         $sql = "DELETE FROM $tables[dynamic_properties_def]";
         $res = $dbconn->ExecuteUpdate($sql);
@@ -86,6 +87,7 @@ class PropertyRegistration extends DataContainer
                 return false;
 */
         $dbconn = xarDB::getConn();
+        xarMod::loadDbInfo('dynamicdata','dynamicdata');
         $tables = xarDB::getTables();
         $propdefTable = $tables['dynamic_properties_def'];
 
@@ -146,10 +148,12 @@ class PropertyRegistration extends DataContainer
 
     static function Retrieve()
     {
-        if(xarCore::isCached('DynamicData','PropertyTypes')) {
-            return xarCore::getCached('DynamicData','PropertyTypes');
+        if(xarCoreCache::isCached('DynamicData','PropertyTypes')) {
+            return xarCoreCache::getCached('DynamicData','PropertyTypes');
         }
         $dbconn = xarDB::getConn();
+        xarMod::loadDbInfo('dynamicdata','dynamicdata');
+        // CHECKME: $tables[modules] is defined in xarMod::init()
         $tables = xarDB::getTables();
         // Sort by required module(s) and then by name
         $query = "SELECT  p.id, p.name, p.label,
@@ -194,7 +198,7 @@ class PropertyRegistration extends DataContainer
             }
         }
         $result->close();
-        xarCore::setCached('DynamicData','PropertyTypes',$proptypes);
+        xarCoreCache::setCached('DynamicData','PropertyTypes',$proptypes);
         return $proptypes;
     }
 
@@ -333,7 +337,7 @@ class PropertyRegistration extends DataContainer
         }
 
         // Clear the property types from cached memory
-        xarCore::delCached('DynamicData','PropertyTypes');
+        xarCoreCache::delCached('DynamicData','PropertyTypes');
         
         // Sort the property types
         ksort($proptypes);

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -15,12 +15,8 @@
  * @param $args['file'] location of the .xml file containing the object definition, or
  * @param $args['xml'] XML string containing the object definition
  * @param $args['keepitemid'] (try to) keep the item id of the different items (default false)
- * @param $args['objectname'] optional name to override object name we're importing.
  * @param $args['entry'] optional array of external references.
  * @return array object id on success, null on failure
- * @todo MichelV <1> add a check for already present definitions
-                     so the errors get more gracious
-                 <2> make sure an error doesn't kill the process, but offers a return option
  */
 function dynamicdata_utilapi_import($args)
 {
@@ -107,8 +103,6 @@ function dynamicdata_utilapi_import($args)
             $args['module_id'] = $args['moduleid'];
         }
 
-// FIXME: don't you mean checking if the parent exists here ?
-//        Then use 'objectid' or 'name' as argument, and set 'parent' to 'objectid' as a result
         if (empty($args['name']) || empty($args['moduleid'])) {
             throw new BadParameterException(null,'Missing keys in object definition');
         }
@@ -195,6 +189,32 @@ function dynamicdata_utilapi_import($args)
             $dataproperty->properties[$dataproperty->primary]->setValue(0);
             // Create the property
             $id = $dataproperty->createItem($propertyargs);
+        }
+
+        if (!empty($xmlobject->links)) {
+            // make sure that object links are initialized
+            sys::import('modules.dynamicdata.class.objects.links');
+            $linklist = DataObjectLinks::initLinks();
+            if (empty($linklist)) {
+                // no object links initialized, bail out
+                return $objectid;
+            }
+            $linkshead = $xmlobject->links;
+            $linkprops = array('source','from_prop','target','to_prop','link_type','direction');
+            foreach ($linkshead->children() as $link) {
+                $info = array();
+                foreach ($linkprops as $prop) {
+                    if (!isset($link->{$prop}[0])) {
+                         unset($info);
+                         break;
+                    }
+                    $info[$prop] = (string)$link->{$prop}[0];
+                }
+                if (!empty($info)) {
+                    // add this link and its reverse if it doesn't exist yet
+                    DataObjectLinks::addLink($info['source'],$info['from_prop'],$info['target'],$info['to_prop'],$info['link_type'],$info['direction']);
+                }
+            }
         }
     } elseif ($roottag == 'items') {
 

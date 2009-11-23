@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
         <select name="#$name#" id="#$id#" tabindex="#$tabindex#">
@@ -7,7 +7,7 @@
                 <xar:if condition="isset($option['offset'])">
                     <xar:if condition="substr($option['offset'],0,1) eq '-'">
                         <xar:set name="plus">''</xar:set>
-                        <xar:else />
+                    <xar:else />
                         <xar:set name="plus">'+'</xar:set>
                     </xar:if>
                <!-- if you want to show the current time (without daylight saving)
@@ -17,15 +17,15 @@
                 -->
                     <xar:set name="label">$option['name'] . ' (GMT ' . $plus . (float)$option['offset']/3600 .
                     ')'</xar:set>
-                    <xar:else />
+                <xar:else />
                     <xar:set name="label">$option['name']</xar:set>
                 </xar:if>
                 <xar:if condition="isset($value) and $option['id'] eq $value">
                     <option value="#$option['id']#" selected="selected">#$label#</option>
-                    <xar:else />
+                <xar:else />
                     <option value="#$option['id']#">#$label#</option>
                 </xar:if>
             </xar:foreach>
         </select>
-    <xar:template file="dataproperty_additions" module="base" />
+    <xar:template file="dataproperty_additions" module="base"/>
 </xar:template>

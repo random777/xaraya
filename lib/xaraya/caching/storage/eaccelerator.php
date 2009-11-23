@@ -1,12 +1,11 @@
 <?php
-
 /**
  * Cache data using eAccelerator [http://eaccelerator.net/]
  */
 
-class xarCache_eAccelerator_Storage extends xarCache_Storage
+class xarCache_eAccelerator_Storage extends xarCache_Storage implements ixarCache_Storage
 {
-    public function __construct(array $args = array())
+    public function __construct(Array $args = array())
     {
         parent::__construct($args);
         $this->storage = 'eaccelerator';
@@ -17,19 +16,16 @@ class xarCache_eAccelerator_Storage extends xarCache_Storage
         if (empty($expire)) {
             $expire = $this->expire;
         }
-        $oldkey = $key;
-        if (!empty($this->code)) {
-            $key .= '-' . $this->code;
-        }
-        // we actually retrieve the value here too
-        $value = eaccelerator_get($key);
-        if ($value) {
+        $cache_key = $this->getCacheKey($key);
+        // we actually retrieve the value here too - returns NULL on failure
+        $value = eaccelerator_get($cache_key);
+        if (isset($value)) {
             // FIXME: eaccelerator doesn't keep track of modification times !
             //$this->modtime = 0;
-            if ($log) $this->logStatus('HIT', $oldkey);
+            if ($log) $this->logStatus('HIT', $key);
             return true;
         } else {
-            if ($log) $this->logStatus('MISS', $oldkey);
+            if ($log) $this->logStatus('MISS', $key);
             return false;
         }
     }
@@ -39,10 +35,8 @@ class xarCache_eAccelerator_Storage extends xarCache_Storage
         if (empty($expire)) {
             $expire = $this->expire;
         }
-        if (!empty($this->code)) {
-            $key .= '-' . $this->code;
-        }
-        $value = eaccelerator_get($key);
+        $cache_key = $this->getCacheKey($key);
+        $value = eaccelerator_get($cache_key);
         if ($output) {
             // output the value directly to the browser
             echo $value;
@@ -57,71 +51,28 @@ class xarCache_eAccelerator_Storage extends xarCache_Storage
         if (empty($expire)) {
             $expire = $this->expire;
         }
-        if (!empty($this->code)) {
-            $key .= '-' . $this->code;
-        }
+        $cache_key = $this->getCacheKey($key);
         if (!empty($expire)) {
-            eaccelerator_put($key, $value, $expire);
+            eaccelerator_put($cache_key, $value, $expire);
         } else {
-            eaccelerator_put($key, $value);
+            eaccelerator_put($cache_key, $value);
         }
+        $this->modtime = time();
     }
 
     public function delCached($key = '')
     {
-        if (!empty($this->code)) {
-            $key .= '-' . $this->code;
-        }
-        eaccelerator_rm($key);
+        $cache_key = $this->getCacheKey($key);
+        eaccelerator_rm($cache_key);
     }
 
-    public function flushCached($key = '')
+    public function doGarbageCollection($expire = 0)
     {
-        // CHECKME: we can't really flush part of the cache here, unless we
-        //          keep track of all cache entries, perhaps ?
-
-        // check the cache size and clear the lockfile set by sizeLimitReached()
-        $lockfile = $this->cachedir . '/cache.' . $this->type . 'full';
-        if ($this->getCacheSize() < $this->sizelimit && file_exists($lockfile)) {
-            @unlink($lockfile);
-        }
-    }
-
-    public function cleanCached($expire = 0)
-    {
-        if (empty($expire)) {
-            $expire = $this->expire;
-        }
-        if (empty($expire)) {
-            // TODO: delete oldest entries if we're at the size limit ?
-            return;
-        }
-
-        $touch_file = $this->cachedir . '/cache.' . $this->type . 'level';
-
-        // If the cache type has already been cleaned within the expiration time,
-        // don't bother checking again
-        if (file_exists($touch_file) && filemtime($touch_file) > time() - $expire) {
-            return;
-        }
-        if (!@touch($touch_file)) {
-            // hmm, somthings amiss... better let the administrator know,
-            // without disrupting the site
-            error_log('Error from Xaraya::xarCache::storage::eaccelerator
-                      - web process can not touch ' . $touch_file);
-        }
-
         // we rely on the expire value here
         eaccelerator_gc();
-
-        // check the cache size and clear the lockfile set by sizeLimitReached()
-        $lockfile = $this->cachedir . '/cache.' . $this->type . 'full';
-        if ($this->getCacheSize() < $this->sizelimit && file_exists($lockfile)) {
-            @unlink($lockfile);
-        }
     }
 
-    public function getCacheSize($countitems = false)
+    public function getCacheInfo()
     {
         // this is the size of the whole cache
         ob_start();
@@ -131,37 +82,16 @@ class xarCache_eAccelerator_Storage extends xarCache_Storage
         if (preg_match('/Memory Allocated<.+?>([0-9,]+) Bytes/',$output,$matches)) {
             $this->size = strtr($matches[1],array(',' => ''));
         }
-        if ($countitems && preg_match('/Cached Keys<.+?>(\d+)/',$output,$matches)) {
-            $this->numitems = $matches[1];
+        if (preg_match('/Cached Keys<.+?>(\d+)/',$output,$matches)) {
+            $this->items = $matches[1];
         }
-        return $this->size;
-    }
+        // TODO: extract other values
 
-    public function saveFile($key = '', $filename = '')
-    {
-        if (empty($filename)) return;
-
-        if (!empty($this->code)) {
-            $key .= '-' . $this->code;
-        }
-        // FIXME: avoid getting the value for the 2nd/3rd time here
-        $value = eaccelerator_get($key);
-        if (empty($value)) return;
-
-        $tmp_file = $filename . '.tmp';
-
-        $fp = @fopen($tmp_file, "w");
-        if (!empty($fp)) {
-            @fwrite($fp, $value);
-            @fclose($fp);
-            // rename() doesn't overwrite existing files in Windows
-            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                @copy($tmp_file, $filename);
-                @unlink($tmp_file);
-            } else {
-                @rename($tmp_file, $filename);
-            }
-        }
+        return array('size'    => $this->size,
+                     'items'   => $this->items,
+                     'hits'    => $this->hits,
+                     'misses'  => $this->misses,
+                     'modtime' => $this->modtime);
     }
 
     public function getCachedList()

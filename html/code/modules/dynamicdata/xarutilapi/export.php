@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -101,6 +101,25 @@ function dynamicdata_utilapi_export($args)
         $xml .= "    </property>\n";
     }
     $xml .= "  </properties>\n";
+
+    // get object links for this object
+    $name = $myobject->properties['name']->value;
+    sys::import('modules.dynamicdata.class.objects.links');
+    $links = DataObjectLinks::getLinks($name,'all');
+    if (!empty($links) && !empty($links[$name])) {
+        $xml .= "  <links>\n";
+        foreach ($links[$name] as $link) {
+            $xml .= '    <link id="link_'.$link['id'].'">' . "\n";
+            $xml .= '      <source>'.$link['source'].'</source>' . "\n";
+            $xml .= '      <from_prop>'.$link['from_prop'].'</from_prop>' . "\n";
+            $xml .= '      <link_type>'.$link['link_type'].'</link_type>' . "\n";
+            $xml .= '      <target>'.$link['target'].'</target>' . "\n";
+            $xml .= '      <to_prop>'.$link['to_prop'].'</to_prop>' . "\n";
+            $xml .= '      <direction>'.$link['direction'].'</direction>' . "\n";
+            $xml .= '    </link>' . "\n";
+        }
+        $xml .= "  </links>\n";
+    }
     $xml .= "</object>\n";
 
     return $xml;

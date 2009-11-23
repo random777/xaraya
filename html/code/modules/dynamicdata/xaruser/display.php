@@ -1,11 +1,11 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamic Data module
+ * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -49,44 +49,14 @@ function dynamicdata_user_display($args)
 
     $data = array();
 
-    $modinfo = xarMod::getInfo($args['moduleid']);
-    $item = array();
-    $item['module'] = $modinfo['name'];
-    $item['itemtype'] = $args['itemtype'];
-    $item['returnurl'] = xarModURL($args['tplmodule'],'user','display',
-                                   array('objectid' => $args['objectid'],
-                                         'moduleid' => $args['moduleid'],
-                                         'itemtype' => $args['itemtype'],
-                                         'join'     => $join,
-                                         'table'    => $table,
-                                         'itemid'   => $args['itemid'],
-                                         'tplmodule' => $args['tplmodule']));
-
-    // First transform hooks, create an array of things eligible and pass that along
-    $totransform = array(); $totransform['transform'] = array(); // we must do this, otherwise we lose track of what got transformed
-    foreach($myobject->properties as $pname => $pobj) {
-        // *never* transform an ID
-        // TODO: there is probably lots more to skip here.
-        if($pobj->type == '21') continue;
-        $totransform['transform'][] = $pname;
-        $totransform[$pname] = $pobj->value;
-    }
-    $transformed = xarModCallHooks('item','transform',$args['itemid'], $totransform, $modinfo['name'],$args['itemtype']);
-    // Ok, we got the transformed values, now what?
-    foreach($transformed as $pname => $tvalue) {
-        if($pname == 'transform') continue;
-        $myobject->properties[$pname]->value = $tvalue;
-    }
-
     // *Now* we can set the data stuff
     $data['object'] =& $myobject;
     $data['objectid'] = $args['objectid'];
     $data['itemid'] = $args['itemid'];
 
-    // Display hooks
-    $hooks = array();
-    $hooks = xarModCallHooks('item', 'display', $args['itemid'], $item, $modinfo['name']);
-    $data['hooks'] = $hooks;
+    // Display hooks - not called automatically (yet)
+    $myobject->callHooks('display');
+    $data['hooks'] = $myobject->hookoutput;
 
     xarTplSetPageTitle($myobject->label);
 
@@ -98,6 +68,5 @@ function dynamicdata_user_display($args)
         return xarTplModule('dynamicdata','user','display',$data,$args['template']);
     }
 }
-
 
 ?>

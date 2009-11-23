@@ -3,7 +3,7 @@
  * Initialisation functions for the security module
  *
  * @package core modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -83,6 +83,8 @@ function privileges_activate()
     xarModVars::set('privileges', 'testmask', 'All');
     xarModVars::set('privileges', 'realmvalue', 'none');
     xarModVars::set('privileges', 'realmcomparison','exact');
+    xarModVars::set('privileges', 'exceptionredirect', false);
+    xarModVars::set('privileges', 'maskbasedsecurity', false);
     return true;
 }
 

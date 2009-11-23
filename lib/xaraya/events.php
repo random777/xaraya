@@ -14,7 +14,7 @@
  * that need to check whether the proper things are loaded themselves.
  *
  * @package events
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  * @author Marco Canini <marco@xaraya.com>
@@ -255,8 +255,8 @@ class xarEvents extends Object implements IxarEvents
      */
     private static function getHandlers()
     {
-        if (xarCore::isCached('Evt.Handlers', 'list')) {
-            return xarCore::getCached('Evt.Handlers', 'list');
+        if (xarCoreCache::isCached('Evt.Handlers', 'list')) {
+            return xarCoreCache::getCached('Evt.Handlers', 'list');
         }
         try {
             $handlers = xarConfigVars::get(null, 'Site.Evt.Handlers');
@@ -277,7 +277,7 @@ class xarEvents extends Object implements IxarEvents
             }
             $result->Close();
         }
-        xarCore::setCached('Evt.Handlers', 'list', $handlers);
+        xarCoreCache::setCached('Evt.Handlers', 'list', $handlers);
         return $handlers;
     }
 }

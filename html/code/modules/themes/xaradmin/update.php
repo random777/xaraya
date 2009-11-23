@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -96,9 +96,9 @@ function themes_admin_update()
     if (!xarVarFetch('return', 'checkbox', $return,  false, XARVAR_NOT_REQUIRED)) {return;}
 
     if ($return) {
-        xarResponse::Redirect(xarModURL('themes', 'admin', 'modify', array('id' => $regId)));
+        xarResponse::redirect(xarModURL('themes', 'admin', 'modify', array('id' => $regId)));
     } else {
-        xarResponse::Redirect(xarModURL('themes', 'admin', 'list'));
+        xarResponse::redirect(xarModURL('themes', 'admin', 'list'));
     } 
     return true;
 } 

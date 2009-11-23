@@ -3,7 +3,7 @@
  * Create email
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -33,6 +33,7 @@ function roles_admin_createmail()
         $type  = ($role->getType() == xarRoles::ROLES_GROUPTYPE) ? 'selection' : 'single';
     }
 
+    sys::import('xaraya.structures.query');
     $xartable = xarDB::getTables();
     if ($type == 'single') {
         $id = $role->getID();
@@ -47,8 +48,7 @@ function roles_admin_createmail()
 
         if ($selstyle == 0) $selstyle =2;
         // Create a query to send to sendmail
-        sys::import('modules.roles.class.xarQuery');
-        $q = new xarQuery('SELECT');
+        $q = new Query('SELECT');
         $q->addtable($xartable['roles'],'r');
         $q->addfields(array('r.id AS id',
                             'r.name AS name',
@@ -63,11 +63,11 @@ function roles_admin_createmail()
 
         // Get the current query or create a new one if need be
         if ($id == -1) {
-            $q = new xarQuery();
+            $q = new Query();
             $q = unserialize(xarSession::getVar('rolesquery'));
         }
         if(empty($q->tables)) {
-            $q = new xarQuery('SELECT');
+            $q = new Query('SELECT');
             $q->addtable($xartable['roles'],'r');
         }
             $q->addfields(array('r.id AS id',

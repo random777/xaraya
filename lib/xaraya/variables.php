@@ -3,7 +3,7 @@
  * Variable utilities
  *
  * @package variables
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  * @author Marco Canini marco@xaraya.com
@@ -359,16 +359,16 @@ function xarVarValidate($validation, &$subject, $supress = false, $name = '')
 
 /**@+
  * Wrapper functions for var caching as in Xaraya 1 API
- * See the documentation of protected xarCore::*Cached for details
+ * See the documentation of protected xarCoreCache::*Cached for details
  *
  * @access public
  * @see xarCore
  */
-function xarVarIsCached($cacheKey,  $name)         { return xarCore::isCached($cacheKey, $name);         }
-function xarVarGetCached($cacheKey, $name)         { return xarCore::getCached($cacheKey, $name);        }
-function xarVarSetCached($cacheKey, $name, $value) { return xarCore::setCached($cacheKey, $name, $value);}
-function xarVarDelCached($cacheKey, $name)         { return xarCore::delCached($cacheKey, $name);        }
-function xarVarFlushCached($cacheKey)              { return xarCore::flushCached($cacheKey);             }
+function xarVarIsCached($scope,  $name)         { return xarCoreCache::isCached($scope, $name);         }
+function xarVarGetCached($scope, $name)         { return xarCoreCache::getCached($scope, $name);        }
+function xarVarSetCached($scope, $name, $value) { return xarCoreCache::setCached($scope, $name, $value);}
+function xarVarDelCached($scope, $name)         { return xarCoreCache::delCached($scope, $name);        }
+function xarVarFlushCached($scope)              { return xarCoreCache::flushCached($scope);             }
 /**@-*/
 
 /*

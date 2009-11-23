@@ -3,7 +3,7 @@
  * Base Module Initialisation
  *
  * @package modules
- * @copyright (C) 2005-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -76,6 +76,7 @@ function base_init()
      * Set site configuration variables
      ******************************************************************/
     xarConfigVars::set(null, 'Site.BL.CacheTemplates',true);
+    xarConfigVars::set(null, 'Site.BL.MemCacheTemplates',false);
     xarConfigVars::set(null, 'Site.BL.ThemesDirectory','themes');
     xarConfigVars::set(null, 'Site.Core.FixHTMLEntities',true);
     xarConfigVars::set(null, 'Site.Core.TimeZone', 'Etc/UTC');

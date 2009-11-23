@@ -3,7 +3,7 @@
  * Installer
  *
  * @package Installer
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -30,6 +30,10 @@ function installer_admin_main()
     $data['phase_label'] = xarML('Welcome to Xaraya');
     return $data;
 }
+
+
+// TODO: move this to some place central
+define('MYSQL_REQIRED_VERSION', '5.0.0');
 
 /**
  * Phase 1: Welcome (Set Language and Locale) Page
@@ -132,7 +136,7 @@ function installer_admin_phase3()
 
     if ($agree != 'agree') {
         // didn't agree to license, don't install
-        xarResponse::Redirect('install.php?install_phase=2&install_language='.$install_language.'&retry=1');
+        xarResponse::redirect('install.php?install_phase=2&install_language='.$install_language.'&retry=1');
     }
 
     //Defaults
@@ -140,7 +144,7 @@ function installer_admin_phase3()
     $cacheTemplatesIsWritable = false;
     $rssTemplatesIsWritable   = false;
     $metRequiredPHPVersion    = false;
-
+    
     $systemVarDir             = sys::varpath();
     $cacheDir                 = $systemVarDir . XARCORE_CACHEDIR;
     $cacheTemplatesDir        = $systemVarDir . XARCORE_TPL_CACHEDIR;
@@ -200,6 +204,19 @@ function installer_admin_phase3()
     $data['language']    = $install_language;
     $data['phase']       = 3;
     $data['phase_label'] = xarML('Step Three');
+    
+    // We only check this extension if MySQL is loaded
+    if ($data['mysqlextension']) {
+        $data['mysql_required_version']     = MYSQL_REQIRED_VERSION;
+        ob_start();
+        phpinfo(INFO_MODULES);
+        $info = ob_get_contents();
+        ob_end_clean();
+        $info = stristr($info, 'Client API version');
+        preg_match('/[1-9].[0-9].[1-9][0-9]/', $info, $match);
+        $data['mysql_version_ok'] = version_compare($match[0],MYSQL_REQIRED_VERSION,'ge');
+        $data['mysql_version']          = $match[0];
+    }
 
     return $data;
 }
@@ -223,8 +240,21 @@ function installer_admin_phase4()
     $data['database_prefix']     = xarSystemVars::get(sys::CONFIG, 'DB.TablePrefix');
     $data['database_type']       = xarSystemVars::get(sys::CONFIG, 'DB.Type');
     $data['database_charset']    = xarSystemVars::get(sys::CONFIG, 'DB.Charset');
+
     // Supported  Databases:
-    $data['database_types']      = array('mysql'       => array('name' => 'MySQL'   , 'available' => extension_loaded('mysql')),
+    if (extension_loaded('mysql')) {
+        ob_start();
+        phpinfo(INFO_MODULES);
+        $info = ob_get_contents();
+        ob_end_clean();
+        $info = stristr($info, 'Client API version');
+        preg_match('/[1-9].[0-9].[1-9][0-9]/', $info, $match);
+        $mysql_version_ok = version_compare($match[0],MYSQL_REQIRED_VERSION,'ge');
+    } else {
+        $mysql_version_ok = false;
+    }
+
+    $data['database_types']      = array('mysql'       => array('name' => 'MySQL'   , 'available' => extension_loaded('mysql') && $mysql_version_ok),
                                          'postgres'    => array('name' => 'Postgres', 'available' => extension_loaded('pgsql')),
                                          'sqlite'      => array('name' => 'SQLite'  , 'available' => extension_loaded('sqlite')),
                                          //'pdosqlite'   => array('name' => 'PDO SQLite'  , 'available' => extension_loaded('pdo_sqlite')),
@@ -412,13 +442,14 @@ function installer_admin_phase5()
     // and xarSecurityCheck functions until we've finished the installation process
     sys::import('xaraya.security');
     sys::import('xaraya.modules');
+    sys::import('xaraya.hooks');
 
     // 1. Load base and modules module
     $modules = array('base','modules');
     foreach ($modules as $module) {
         if (!xarInstallAPIFunc('initialise', array('directory' => $module,'initfunc'  => 'init'))) return;
     }
-        
+
     // 2. Load the definitions of all the modules in the modules table
     $prefix = xarDB::getPrefix();
     $modulesTable = $prefix .'_modules';
@@ -456,7 +487,7 @@ function installer_admin_phase5()
         $dbconn->rollback();
         throw $e;
     }
-    
+
     // 3. Initialize all the modules we haven't yet
     $modules = array('privileges','roles','blocks','authsystem','themes','dynamicdata','mail');
     foreach ($modules as $module) {
@@ -472,6 +503,10 @@ function installer_admin_phase5()
     if (!xarInstallAPIFunc('initialise', array('directory'=>'privileges', 'initfunc'=>'activate'))) return;
     if (!xarInstallAPIFunc('initialise', array('directory'=>'mail', 'initfunc'=>'activate'))) return;
 
+    // create the default masks and privilege instances
+    sys::import('modules.privileges.xarsetup');
+    initializeSetup();
+
     // TODO: is this is correct place for a default value for a modvar?
     xarModVars::set('base', 'AlternatePageTemplate', 'homepage');
 
@@ -481,7 +516,6 @@ function installer_admin_phase5()
 
     $a = array();
     xarVar_init($a);
-    xarConfigVars::set(null, 'System.Core.Caching', 0);
     xarConfigVars::set(null, 'System.ModuleAliases',array());
     xarConfigVars::set(null, 'Site.MLS.DefaultLocale', $install_language);
 
@@ -576,10 +610,6 @@ function installer_admin_bootstrap()
                            array('regid'=> $regid)))
             throw new Exception("activation of $regid failed");//return;
     }
-    
-    // create the default roles and privileges setup
-    sys::import('modules.privileges.xarsetup');
-    initializeSetup();
 
     // load modules into *_modules table
     if (!xarMod::apiFunc('modules', 'admin', 'regenerate')) return;
@@ -606,7 +636,7 @@ function installer_admin_bootstrap()
         }
     }
 
-    xarResponse::Redirect(xarModURL('installer', 'admin', 'create_administrator',array('install_language' => $install_language)));
+    xarResponse::redirect(xarModURL('installer', 'admin', 'create_administrator',array('install_language' => $install_language)));
 }
 
 /**
@@ -661,6 +691,15 @@ function installer_admin_create_administrator()
     xarModVars::set('themes', 'SiteCopyRight', '&copy; Copyright ' . date("Y") . ' ' . $data['admin']->properties['name']->value);
     xarModVars::set('roles', 'lastuser', $data['admin']->properties['uname']->value);
     xarModVars::set('roles', 'adminpass', $data['admin']->properties['password']->password);
+
+// CHECKME: misc. undefined module variables
+    xarModVars::set('base', 'AlternatePageTemplateName', '');
+    xarModVars::set('base', 'UseAlternatePageTemplate', false);
+    xarModVars::set('themes', 'var_dump', false);
+    xarModVars::set('base', 'editor', '');
+    xarModVars::set('base', 'releasenumber', '');
+    xarModVars::set('base', 'proxyhost', '');
+    xarModVars::set('base', 'proxyport', '');
 
     //Try to update the role to the repository and bail if an error was thrown
     $itemid = $data['admin']->updateItem();
@@ -727,7 +766,7 @@ function installer_admin_create_administrator()
             return;
         }
     }
-    xarResponse::Redirect(xarModURL('installer', 'admin', 'choose_configuration',array('install_language' => $install_language)));
+    xarResponse::redirect(xarModURL('installer', 'admin', 'choose_configuration',array('install_language' => $install_language)));
 }
 
 /**
@@ -989,7 +1028,7 @@ function installer_admin_confirm_configuration()
      //TODO: Check why this var is being reset to null in sqlite install - reset here for now to be sure
      //xarModVars::set('roles', 'defaultauthmodule', xarMod::getRegID('authsystem'));
 
-        xarResponse::Redirect(xarModURL('installer', 'admin', 'security'));
+        xarResponse::redirect(xarModURL('installer', 'admin', 'security'));
         return true;
     }
 
@@ -1192,12 +1231,12 @@ function installer_admin_finish()
 
     switch ($returnurl) {
         case ('modules'):
-            xarResponse::Redirect(xarModURL('modules','admin','list'));
+            xarResponse::redirect(xarModURL('modules','admin','list'));
         case ('blocks'):
-            xarResponse::Redirect(xarModURL('blocks','admin','view_instances'));
+            xarResponse::redirect(xarModURL('blocks','admin','view_instances'));
         case ('site'):
         default:
-            xarResponse::Redirect('index.php');
+            xarResponse::redirect('index.php');
     }
     return true;
 }

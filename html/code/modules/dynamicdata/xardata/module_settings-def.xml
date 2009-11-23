@@ -3,8 +3,8 @@
   <label>Module Settings</label>
   <module_id>182</module_id>
   <itemtype>5</itemtype>
-  <class>ModVarObject</class>
-  <filepath>modules/dynamicdata/class/modvarobject.php</filepath>
+  <class>DataObject</class>
+  <filepath>auto</filepath>
   <urlparam>itemid</urlparam>
   <maxid>0</maxid>
   <config>a:0:{}</config>
@@ -24,7 +24,7 @@
       <id>40</id>
       <label>Enable Short URLs</label>
       <type>checkbox</type>
-      <defaultvalue>0</defaultvalue>
+      <defaultvalue>false</defaultvalue>
       <source>module variable: base</source>
       <status>33</status>
       <seq>2</seq>
@@ -34,17 +34,17 @@
       <id>41</id>
       <label>Use Module Alias</label>
       <type>checkbox</type>
-      <defaultvalue>0</defaultvalue>
+      <defaultvalue>false</defaultvalue>
       <source>module variable: base</source>
       <status>33</status>
       <seq>3</seq>
       <configuration></configuration>
     </property>
-    <property name="module_alias_name">
-      <id>42</id>
-      <label>Module Alias Name</label>
-      <type>textbox</type>
-      <defaultvalue></defaultvalue>
+    <property name="use_module_icons">
+      <id>41</id>
+      <label>Use Icons</label>
+      <type>checkbox</type>
+      <defaultvalue>true</defaultvalue>
       <source>module variable: base</source>
       <status>33</status>
       <seq>4</seq>
@@ -54,7 +54,7 @@
       <id>109</id>
       <label>Enable User Settings</label>
       <type>checkbox</type>
-      <defaultvalue>0</defaultvalue>
+      <defaultvalue>false</defaultvalue>
       <source>module variable: base</source>
       <status>33</status>
       <seq>5</seq>
@@ -64,7 +64,7 @@
       <id>99</id>
       <label>Show link in user menu</label>
       <type>checkbox</type>
-      <defaultvalue>0</defaultvalue>
+      <defaultvalue>false</defaultvalue>
       <source>module variable: base</source>
       <status>33</status>
       <seq>6</seq>
@@ -74,7 +74,7 @@
       <id>100</id>
       <label>Show link in admin menu</label>
       <type>checkbox</type>
-      <defaultvalue>0</defaultvalue>
+      <defaultvalue>false</defaultvalue>
       <source>module variable: base</source>
       <status>33</status>
       <seq>7</seq>

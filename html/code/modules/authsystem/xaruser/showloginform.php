@@ -3,7 +3,7 @@
  * Shows the user login form when login block is not active
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -24,7 +24,7 @@ function authsystem_user_showloginform($args = array())
     if (!xarUserIsLoggedIn()) {
         return $data;
     } else {
-        xarResponse::Redirect($data['redirecturl']);
+        xarResponse::redirect($data['redirecturl']);
         return true;
     }
 }

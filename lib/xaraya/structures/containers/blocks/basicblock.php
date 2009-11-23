@@ -5,7 +5,7 @@
         protected $descriptor;
 
         public $html_content = "";
-        public $no_cache            = 0;
+        public $nocache             = 0;
         public $pageshared          = 1;
         public $usershared          = 1;
         public $cacheexpire         = null;
@@ -36,12 +36,29 @@
             return $this->getPublicProperties();
         }
 
-        function display(Array $data=array())
+        public function getInit()
+        {
+            $result = $this->getPublicProperties();
+            $skiplist = array('name', 'module', 'text_type', 'text_type_long', 'func_update', 'allow_multiple', 'form_content', 'form_refresh', 'show_preview');
+            foreach ($skiplist as $propname) {
+                unset($result[$propname]);
+            }
+            return $result;
+        }
+
+        public function display(Array $data=array())
         {
             if (!xarSecurityCheck('View' . $data['module'], 0, 'Block', $data['type'] . ":" . $data['name'] . ":" . "$data[bid]")) {return;}
             // Get variables from content block
-            if (!is_array($data['content'])) $data['content'] = unserialize($data['content']);
-            if (empty($data['content'])) $data['content'] = array();
+            if (!is_array($data['content'])) {
+                if (!empty($data['content'])) {
+                    $exploded = @unserialize($data['content']);
+                    if (is_array($exploded)) $data = array_merge($data,$exploded);
+                    $data['content'] = $exploded;
+                }
+            } else {
+                $data = array_merge($data,$data['content']);
+            }
             return $data;
         }
 

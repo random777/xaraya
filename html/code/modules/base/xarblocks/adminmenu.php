@@ -3,7 +3,7 @@
  * Base block management
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -21,7 +21,7 @@ sys::import('xaraya.structures.containers.blocks.basicblock');
 
 class AdminMenuBlock extends BasicBlock implements iBlock
 {
-    public $no_cache            = 1;
+    public $nocache             = 1;
 
     public $name                = 'AdminMenuBlock';
     public $module              = 'base';

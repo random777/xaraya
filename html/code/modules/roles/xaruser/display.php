@@ -3,7 +3,7 @@
  * display user
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -39,7 +39,7 @@ function roles_user_display($args)
 
         $currentid = xarUserGetVar('id');
         if ($currentid == $id) {
-            xarResponse::Redirect(xarModURL('roles', 'user', 'account'));
+            xarResponse::redirect(xarModURL('roles', 'user', 'account'));
         }
 
         $name = $role->getName();

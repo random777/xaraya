@@ -1,11 +1,11 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage Dynamic Data module
+ * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
@@ -85,6 +85,9 @@ function dynamicdata_user_view($args)
     $data = $object->toArray();
 
     if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',"$data[moduleid]:$data[itemtype]:All")) return;
+
+    // Count the number of items matching the preset arguments - do this before getItems()
+    $object->countItems();
 
     // Get the selected items using the preset arguments
     $object->getItems();

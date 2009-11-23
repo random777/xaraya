@@ -2,7 +2,7 @@
 /**
  * Send mail
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -303,9 +303,10 @@ function mail_adminapi__sendmail($args)
     // Send the mail, or send an exception.
     $result = true;
     // CHECKME: does this hurt when a batch of emails is going out?
-    if (!$mail->Send()) {
-        $msg = xarML('The message was not sent. Mailer Error: #(1)',$mail->ErrorInfo);
-        throw new Exception($msg);
+    try {
+        $result = $mail->Send();
+    } catch (Exception $e) {
+        $result = false;
     }
 
     // Clear all recipients for next email

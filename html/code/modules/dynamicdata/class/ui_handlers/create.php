@@ -9,25 +9,36 @@
  * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
- * @todo try to replace xarTplModule with xarTplObject
  */
 
-sys::import('modules.dynamicdata.class.interface');
+sys::import('modules.dynamicdata.class.ui_handlers.default');
 /**
  * Dynamic Object User Interface Handler
  *
- * @package Xaraya eXtensible Management System
+ * @package modules
  * @subpackage dynamicdata
  */
 class DataObjectCreateHandler extends DataObjectDefaultHandler
 {
     public $method = 'create';
 
+    /**
+     * Run the ui 'create' method
+     *
+     * @param $args['method'] the ui method we are handling is 'create' here
+     * @param $args['preview'] true if you want dd to call checkInput() = standard dd preview using GET/POST params, or
+     * @param $args['values'] array of predefined field values to use = ui-specific preview using arguments in your call
+     * @param $args['confirm'] true if the user confirms
+     * @param $args['return_url'] the url to return to when finished (defaults to the object view / module)
+     * @return string output of xarTplObject() using 'ui_create'
+     */
     function run(array $args = array())
     {
         if(!xarVarFetch('preview', 'isset', $args['preview'], NULL, XARVAR_DONT_SET)) 
             return;
         if(!xarVarFetch('confirm', 'isset', $args['confirm'], NULL, XARVAR_DONT_SET)) 
+            return;
+        if(!xarVarFetch('values', 'isset', $args['values'], NULL, XARVAR_DONT_SET)) 
             return;
 
         if(!empty($args) && is_array($args) && count($args) > 0) 
@@ -36,26 +47,33 @@ class DataObjectCreateHandler extends DataObjectDefaultHandler
         if(!isset($this->object)) 
         {
             $this->object =& DataObjectMaster::getObject($this->args);
-            if(empty($this->object)) 
-                return;
+            if(empty($this->object) || (!empty($this->args['object']) && $this->args['object'] != $this->object->name)) 
+                return xarResponse::NotFound(xarML('Object #(1) seems to be unknown', $this->args['object']));
+
             if(empty($this->tplmodule)) 
             {
                 $modname = xarMod::getName($this->object->moduleid);
                 $this->tplmodule = $modname;
             }
         }
-        if(!xarSecurityCheck(
-            'AddDynamicDataItem',1,'Item',
-            $this->object->moduleid.':'.$this->object->itemtype.':All')
-        )   return;
+        if(!xarSecurityCheck('AddDynamicDataItem',1,'Item',$this->object->moduleid.':'.$this->object->itemtype.':All'))
+            return xarResponse::Forbidden(xarML('Create #(1) is forbidden', $this->object->label));
 
+        // there's no item to get here yet
         //$this->object->getItem();
+
+        if (!empty($this->args['values'])) {
+            // always set the properties based on the given values !?
+            //$this->object->setFieldValues($this->args['values']);
+            // check any given input values but suppress errors for now
+            $this->object->checkInput($this->args['values'], 1);
+        }
 
         if(!empty($args['preview']) || !empty($args['confirm'])) 
         {
-            if (!xarSecConfirmAuthKey()) {
+            if (!empty($args['confirm']) && !xarSecConfirmAuthKey()) {
                 return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
-            }        
+            }
 
             $isvalid = $this->object->checkInput();
 
@@ -69,50 +87,28 @@ class DataObjectCreateHandler extends DataObjectDefaultHandler
                 if(!xarVarFetch('return_url',  'isset', $args['return_url'], NULL, XARVAR_DONT_SET)) 
                     return;
 
-                if(!empty($args['return_url'])) 
-                {
-                    xarResponse::Redirect($args['return_url']);
-                } 
-                else 
-                {
-                    xarResponse::Redirect(xarModURL(
-                        $this->tplmodule, $this->type, $this->func,
-                        array('object' => $this->object->name))
-                    );
-                }
+                if(empty($args['return_url'])) 
+                    $args['return_url'] = $this->getReturnURL();
+
+                xarResponse::redirect($args['return_url']);
                 // Return
                 return true;
             }
+            $args['preview'] = true;
         }
 
         $title = xarML('New #(1)', $this->object->label);
         xarTplSetPageTitle(xarVarPrepForDisplay($title));
 
         // call item new hooks for this item
-        $item = array();
-        foreach(array_keys($this->object->properties) as $name) 
-            $item[$name] = $this->object->properties[$name]->value;
+        $this->object->callHooks('new');
 
-        if(!isset($modname)) 
-            $modname = xarMod::getName($this->object->moduleid);
-
-        $item['module'] = $modname;
-        $item['itemtype'] = $this->object->itemtype;
-        $item['itemid'] = $this->object->itemid;
-        $hooks = xarModCallHooks('item', 'new', $this->object->itemid, $item, $modname);
-
-        $this->object->viewfunc = $this->func;
-        // TODO: have dedicated template for 'object' type
-        return xarTplModule(
-            $this->tplmodule,'admin','new',
-            array(
-                'object' => $this->object,
-                'preview' => $args['preview'],
-                'authid' => xarSecGenAuthKey(),
-                'tplmodule' => $this->tplmodule,
-                'hookoutput' => $hooks
-            ),
-            $this->object->template
+        return xarTplObject(
+            $this->tplmodule, $this->object->template, 'ui_create',
+            array('object'  => $this->object,
+                  'preview' => $args['preview'],
+                  'authid'  => xarSecGenAuthKey(),
+                  'hooks'   => $this->object->hookoutput)
         );
     }
 }

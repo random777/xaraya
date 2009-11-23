@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -132,7 +132,7 @@ function blocks_admin_update_instance()
     // Resequence blocks within groups.
     if (!xarMod::apiFunc('blocks', 'admin', 'resequence')) {return;}
 
-    xarResponse::Redirect(xarModURL('blocks', 'admin', 'modify_instance', array('bid' => $bid)));
+    xarResponse::redirect(xarModURL('blocks', 'admin', 'modify_instance', array('bid' => $bid)));
 
     return true;
 }

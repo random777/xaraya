@@ -2,7 +2,7 @@
 /**
  * Base JavaScript management functions
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -19,7 +19,7 @@
  * 
  * Examples:
  * Add an 'onload' trigger to the page (both examples do the same thing):
- *   <xar:javascript position="body" type="onload" code="alert('hello, world')" />
+ *   <xar:javascript position="body" type="onload" code="alert('hello, world')"/>
  *   xarTplAddJavaScript('body', 'onload', "alert('hello, world')");
  *
  * Get all the event attributes for all body tag events (this can be fetched in a page template):

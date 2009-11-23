@@ -3,7 +3,7 @@
  * AddMember
  *
  * @package core modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -36,7 +36,7 @@ function privileges_admin_addmember()
     if(!xarVarFetch('privid', 'isset', $privid, NULL, XARVAR_DONT_SET)) {return;}
 
     if (empty($id) || empty($privid)) {
-        xarResponse::Redirect(xarModURL('privileges',
+        xarResponse::redirect(xarModURL('privileges',
                                       'admin',
                                       'modifyprivilege',
                                       array('id'=>$id)));
@@ -68,7 +68,7 @@ function privileges_admin_addmember()
     xarSession::setVar('privileges_statusmsg', xarML('Added to Privilege',
                     'privileges'));
 // redirect to the next page
-    xarResponse::Redirect(xarModURL('privileges',
+    xarResponse::redirect(xarModURL('privileges',
                              'admin',
                              'modifyprivilege',
                              array('id'=>$id)));

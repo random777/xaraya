@@ -3,7 +3,7 @@
  * Handle roles_user_settings object
  *
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -29,13 +29,13 @@ function roles_userapi_usermenu($args)
     if (!xarUserIsLoggedIn()){
         // redirect user to their account page after login
         $redirecturl = xarModURL('roles', 'user', 'account');
-        xarResponse::Redirect(xarModURL($defaultloginmodname,'user','showloginform', array('redirecturl' => $redirecturl)));
+        xarResponse::redirect(xarModURL($defaultloginmodname,'user','showloginform', array('redirecturl' => $redirecturl)));
     }
 
     // edit account is disabled?
     if ((bool)xarModVars::get('roles', 'usereditaccount') == false) {
         // show the user their profile display
-        xarResponse::Redirect(xarModURL('roles', 'user', 'account'));
+        xarResponse::redirect(xarModURL('roles', 'user', 'account'));
     }
 
     // Get arguments from argument array
@@ -158,7 +158,7 @@ function roles_userapi_usermenu($args)
             // the default returnurl should be roles user account with a moduleload of current module
             if (empty($returnurl))
                 $returnurl = xarModURL('roles', 'user', 'account', array('moduleload' => 'roles'));
-            return xarResponse::Redirect($returnurl);
+            return xarResponse::redirect($returnurl);
             */
             // let the calling function know the update was a success
             return true;

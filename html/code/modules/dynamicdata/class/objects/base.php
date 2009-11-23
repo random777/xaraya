@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -9,10 +9,11 @@
  * @link http://xaraya.com/index.php/release/27.html
  */
 
-sys::import('xaraya.structures.descriptor');
-sys::import('modules.dynamicdata.class.properties.master');
-sys::import('modules.dynamicdata.class.objects.interfaces');
 sys::import('modules.dynamicdata.class.objects.master');
+sys::import('modules.dynamicdata.class.objects.interfaces');
+
+// FIXME: only needed for the DataPropertyMaster::DD_* constants - handle differently ?
+//sys::import('modules.dynamicdata.class.properties.master');
 
 /**
  * DataObject Base class
@@ -20,13 +21,13 @@ sys::import('modules.dynamicdata.class.objects.master');
 class DataObject extends DataObjectMaster implements iDataObject
 {
 
-    protected $descriptor  = null;      // descriptor object of this class
+    protected $descriptor  = null;    // descriptor object of this class
 
     public $itemid         = 0;
-    public $missingfields  = array();      // reference to fields not found by checkInput
+    public $missingfields  = array(); // reference to fields not found by checkInput
 
 // CHECKME: should exclude VIEWONLY here, as well as DISABLED (and IGNORED ?)
-//    public $status      = 65;           // inital status is active and can add/modify
+//    public $status      = 65;       // inital status is active and can add/modify
 
     /**
      * Inherits from DataObjectMaster and sets the requested item id
@@ -40,22 +41,17 @@ class DataObject extends DataObjectMaster implements iDataObject
 
         // Set the configuration parameters
         $args = $descriptor->getArgs();
-        try {
-            $configargs = unserialize($args['config']);
-            foreach ($configargs as $key => $value) $this->{$key} = $value;
-            $this->configuration = $configargs;
-        } catch (Exception $e) {}
+        if (!empty($args['config'])) {
+            try {
+                $configargs = unserialize($args['config']);
+                foreach ($configargs as $key => $value) $this->{$key} = $value;
+                $this->configuration = $configargs;
+            } catch (Exception $e) {}
+        }
 
         // set the specific item id (or 0)
         if(isset($args['itemid'])) $this->itemid = $args['itemid'];
 
-        // see if we can access this object, at least in overview
-/*        if(!xarSecurityCheck(
-            'ViewDynamicDataItems',1,'Item',
-            $this->moduleid.':'.$this->itemtype.':'.$this->itemid)
-        ) return;
-        */
-        
         // Get a reference to each property's value
         foreach ($this->properties as $property) {
             $this->configuration['property_' . $property->name] = array('type' => &$property->type, 'value' => &$property->value);
@@ -223,6 +219,7 @@ class DataObject extends DataObjectMaster implements iDataObject
         // for use in DD tags : preview="yes" - don't use this if you already check the input in the code
         if(!empty($args['preview'])) $this->checkInput();
 
+// CHECKME: this has no real purpose here anymore ???
         // Set all properties based on what is passed in.
         $properties = $this->getProperties($args);
 
@@ -231,33 +228,29 @@ class DataObject extends DataObjectMaster implements iDataObject
             if (!is_array($args['fieldlist'])) throw new Exception('Badly formed fieldlist attribute');
         }
         
-        if(count($args['fieldlist']) > 0 || !empty($this->status)) {
-            $args['properties'] = array();
-            foreach($args['fieldlist'] as $name) {
-                if(isset($this->properties[$name])) {
-                    if(($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
-                    || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_IGNORED)
-                    || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY)) continue;
-                        $args['properties'][$name] = $this->properties[$name];
-                }
-            }
+        $args['properties'] = array();
+        if(count($args['fieldlist']) > 0) {
+            $fields = $args['fieldlist'];
         } else {
-            $args['properties'] = array();
-            foreach ($properties as $property) {
-                if(($property->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
-                || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_IGNORED)
-                || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY)) continue;
-                    $args['properties'][$property->name] = $property;
-            }
+            $fields = array_keys($this->properties);
+        }
 
-            // Order the fields if this is an extended object
-            if (!empty($this->fieldorder)) {
-                $tempprops = array();
-                foreach ($this->fieldorder as $field)
-                    if (isset($args['properties'][$field]))
-                        $tempprops[$field] = $args['properties'][$field];
-                $args['properties'] = $tempprops;
-            }
+        foreach($fields as $name) {
+            if(!isset($this->properties[$name])) continue;
+
+            if(($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
+            || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY)) continue;
+
+            $args['properties'][$name] = $this->properties[$name];
+        }
+
+        // Order the fields if this is an extended object
+        if (!empty($this->fieldorder)) {
+            $tempprops = array();
+            foreach ($this->fieldorder as $field)
+                if (isset($args['properties'][$field]))
+                    $tempprops[$field] = $args['properties'][$field];
+            $args['properties'] = $tempprops;
         }
 
         // pass some extra template variables for use in BL tags, API calls etc.
@@ -281,63 +274,52 @@ class DataObject extends DataObjectMaster implements iDataObject
             $args['fieldlist'] = explode(',',$args['fieldlist']);
             if (!is_array($args['fieldlist'])) throw new Exception('Badly formed fieldlist attribute');
         }
-        if(count($args['fieldlist']) > 0 || !empty($this->status)) {
-            $args['properties'] = array();
-            foreach($args['fieldlist'] as $name) {
-                if(isset($this->properties[$name])) {
-                    if(($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
-                    || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY)
-                    || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN)) continue;
-                    $args['properties'][$name] = $this->properties[$name];
-                }
-            }
+
+// CHECKME: do we always transform here if we're primary ?
+
+        // Note: you can preset the list of properties to be transformed via $this->hooktransform
+
+        // call transform hooks for this item
+        $this->callHooks('transform');
+
+        $args['properties'] = array();
+        if(count($args['fieldlist']) > 0) {
+            $fields = $args['fieldlist'];
         } else {
-            $args['properties'] =& $this->properties;
-            // TODO: this is exactly the same as in the display function, consolidate it.
-            $totransform = array(); $totransform['transform'] = array();
-            foreach($this->properties as $pname => $pobj) {
-                if(($property->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
-                || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY)
-                || ($property->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN)) continue;
-                // *never* transform an ID
-                // TODO: there is probably lots more to skip here.
-                if($pobj->type == '21') continue;
-                $totransform['transform'][] = $pname;
-                $totransform[$pname] = $pobj->value;
-            }
-
-            // CHECKME: is $this->tplmodule safe here?
-            $transformed = xarModCallHooks(
-                'item','transform',$this->itemid,
-                $totransform, $this->tplmodule,$this->itemtype
-            );
-
-            foreach($this->properties as $property) {
-                if(
-                    ($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_DISABLED) &&
-                    ($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY) &&
-                    ($property->getDisplayStatus() != DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN) &&
-                    ($property->type != 21) &&
-                    isset($transformed[$property->name])
-                )
-                {
-                    // sigh, 5 letters, but so many hours to discover them
-                    // anyways, clone the property, so we can safely change it, PHP 5 specific!!
-                    $args['properties'][$property->name] = clone $property;
-                    $args['properties'][$property->name]->value = $transformed[$property->name];
-                }
-            }
-
-            // Order the fields if this is an extended object
-            if (!empty($this->fieldorder)) {
-                $tempprops = array();
-                foreach ($this->fieldorder as $field)
-                    if (isset($args['properties'][$field]))
-                        $tempprops[$field] = $args['properties'][$field];
-                $args['properties'] = $tempprops;
-            }
-
+            $fields = array_keys($this->properties);
         }
+
+        foreach($fields as $name) {
+            if(!isset($this->properties[$name])) continue;
+
+            if(($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
+            || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_VIEWONLY)
+            || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_HIDDEN)) continue;
+
+            if ($this->properties[$name]->type == 21 || !isset($this->hookvalues[$name])) {
+                $args['properties'][$name] = $this->properties[$name];
+            } else {
+                // sigh, 5 letters, but so many hours to discover them
+                // anyways, clone the property, so we can safely change it, PHP 5 specific!!
+                $args['properties'][$name] = clone $this->properties[$name];
+                $args['properties'][$name]->value = $this->hookvalues[$name];
+            }
+        }
+        // clean up hookvalues
+        $this->hookvalues = array();
+
+        // Order the fields if this is an extended object
+        if (!empty($this->fieldorder)) {
+            $tempprops = array();
+            foreach ($this->fieldorder as $field)
+                if (isset($args['properties'][$field]))
+                    $tempprops[$field] = $args['properties'][$field];
+            $args['properties'] = $tempprops;
+        }
+
+// CHECKME: we won't call display hooks for this item here (yet) - to be investigated
+//        $this->callHooks('display');
+//        $data['hooks'] = $this->hookoutput;
 
         // pass some extra template variables for use in BL tags, API calls etc.
         //FIXME: check these
@@ -435,7 +417,10 @@ class DataObject extends DataObjectMaster implements iDataObject
         //  2. An id arg passed ot the primary index
         //  3. 0
         
-        $this->properties[$this->primary]->setValue(0);
+        // reset the primary property holding the itemid if there is one
+        if (!empty($this->primary) && !empty($this->properties[$this->primary])) {
+            $this->properties[$this->primary]->setValue(0);
+        }
         if(count($args) > 0) {
             foreach($args as $name => $value) {
                 if(isset($this->properties[$name])) {
@@ -451,6 +436,7 @@ class DataObject extends DataObjectMaster implements iDataObject
         // special case when we try to create a new object handled by dynamicdata
         if(
             $this->objectid == 1 &&
+        // FIXME: this should really be moduleid, not module_id
             $this->properties['module_id']->value == xarMod::getRegID('dynamicdata')
             //&& $this->properties['itemtype']->value < 2
         )
@@ -517,23 +503,8 @@ class DataObject extends DataObjectMaster implements iDataObject
         }
 
         // call create hooks for this item
-        // Added: check if module is articles or roles to prevent recursive hook calls if using an external table for those modules
-        // TODO:  somehow generalize this to prevent recursive calls in the general sense, rather then specifically for articles / roles
-        $modname = xarMod::getName($this->moduleid);
-        if(
-            !empty($this->primary) &&
-            ($modname != 'articles') && ($modname != 'roles')
-        )
-        {
-            $item = array();
-            foreach(array_keys($this->properties) as $name)
-                $item[$name] = $this->properties[$name]->value;
+        $this->callHooks('create');
 
-            $item['module'] = $modname;
-            $item['itemtype'] = $this->itemtype;
-            $item['itemid'] = $this->itemid;
-            xarModCallHooks('item', 'create', $this->itemid, $item, $modname);
-        }
         return $this->itemid;
     }
 
@@ -571,23 +542,8 @@ class DataObject extends DataObjectMaster implements iDataObject
         }
 
         // call update hooks for this item
-        // Added: check if module is articles or roles to prevent recursive hook calls if using an external table for those modules
-        // TODO:  somehow generalize this to prevent recursive calls in the general sense, rather then specifically for articles / roles
-        $modname = xarMod::getName($this->moduleid);
-        if(
-            !empty($this->primary) &&
-            ($modname != 'articles') && ($modname != 'roles')
-        )
-        {
-            $item = array();
-            foreach(array_keys($this->properties) as $name)
-                $item[$name] = $this->properties[$name]->value;
+        $this->callHooks('update');
 
-            $item['module'] = $modname;
-            $item['itemtype'] = $this->itemtype;
-            $item['itemid'] = $this->itemid;
-            xarModCallHooks('item', 'update', $this->itemid, $item, $modname);
-        }
         return $this->itemid;
     }
 
@@ -621,23 +577,8 @@ class DataObject extends DataObjectMaster implements iDataObject
         }
 
         // call delete hooks for this item
-        // Added: check if module is articles or roles to prevent recursive hook calls if using an external table for those modules
-        // TODO:  somehow generalize this to prevent recursive calls in the general sense, rather then specifically for articles / roles
-        $modname = xarMod::getName($this->moduleid);
-        if(
-            !empty($this->primary) &&
-            ($modname != 'articles') && ($modname != 'roles')
-        )
-        {
-            $item = array();
-            foreach(array_keys($this->properties) as $name)
-                $item[$name] = $this->properties[$name]->value;
+        $this->callHooks('delete');
 
-            $item['module'] = $modname;
-            $item['itemtype'] = $this->itemtype;
-            $item['itemid'] = $this->itemid;
-            xarModCallHooks('item', 'delete', $this->itemid, $item, $modname);
-        }
         return $this->itemid;
     }
 
@@ -655,6 +596,7 @@ class DataObject extends DataObjectMaster implements iDataObject
             $args['moduleid'] = $this->moduleid;
 
         $dbconn = xarDB::getConn();
+        xarMod::loadDbInfo('dynamicdata','dynamicdata');
         $xartable = xarDB::getTables();
 
         $dynamicobjects = $xartable['dynamic_objects'];
@@ -668,6 +610,26 @@ class DataObject extends DataObjectMaster implements iDataObject
         // Note: this is *not* reliable in "multi-creator" environments
         $nexttype++;
         return $nexttype;
+    }
+
+    /**
+     * Initialize whatever this object needs from the environment
+     * This operation is in general performed only once
+     *
+     * @param array $args
+     * @return integer value of the next item type
+     *
+     */
+    function initialize(Array $args = array())
+    {
+        foreach ($this->properties as $name => $property) {
+            $nameparts = explode(': ', $this->properties[$name]->source);
+            if (empty($nameparts[1])) throw new Exception(xarML('Incorrect module name: #(1)',$modulename));
+            $test = xarModVars::get($nameparts[1],$this->properties[$name]->name);
+            if ($test === null)
+                xarModVars::set($nameparts[1],$this->properties[$name]->name,$this->properties[$name]->defaultvalue);
+        }
+        return true;
     }
 }
 ?>

@@ -2,7 +2,7 @@
 /**
  * Blocks initialization
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -17,23 +17,21 @@
  * may lead to inablity of the system to process
  * the file correctly, resulting in unexpected results.
  */
-$modversion['name'] = 'Blocks Administration';
-$modversion['id'] = '13';
-$modversion['displayname'] = xarML('Blocks');
-$modversion['version'] = '2.0.0';
-$modversion['description'] = 'Administration of block instances and groups';
+$modversion['name']               = 'Blocks Administration';
+$modversion['id']                 = '13';
+$modversion['displayname']        = xarML('Blocks');
+$modversion['version']            = '2.0.0';
+$modversion['description']        = 'Administration of block instances and groups';
 $modversion['displaydescription'] = xarML('Administration of block instances and groups');
-$modversion['credits'] = '';
-$modversion['help'] = '';
-$modversion['changelog'] = '';
-$modversion['license'] = '';
-$modversion['official'] = true;
-$modversion['author'] = 'Jim McDonald, Paul Rosania';
-$modversion['contact'] = 'http://www.mcdee.net/, paul@xaraya.com';
-$modversion['admin'] = true;
-$modversion['user'] = false;
-$modversion['securityschema'] = array('Blocks::Group'    => 'Group name::Group ID',
-                                      'Blocks::Instance' => 'Block type:Block title:Block ID');
-$modversion['class'] = 'Core Admin';
-$modversion['category'] = 'System';
+$modversion['credits']            = '';
+$modversion['help']               = '';
+$modversion['changelog']          = '';
+$modversion['license']            = '';
+$modversion['official']           = true;
+$modversion['author']             = 'Jim McDonald, Paul Rosania';
+$modversion['contact']            = 'http://www.xaraya.com/';
+$modversion['admin']              = true;
+$modversion['user']               = false;
+$modversion['class']              = 'Core Admin';
+$modversion['category']           = 'System';
 ?>

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package modules
- * @copyright (C) 2002-2006 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -33,7 +33,8 @@ class MultiSelectProperty extends SelectProperty
 
     public function validateValue($value = null)
     {
-        if (!parent::validateValue($value)) return false;
+        // do NOT call parent validateValue here - it will always fail !!!
+        //if (!parent::validateValue($value)) return false;
 
         $value = $this->getSerializedValue($value);
         $validlist = array();
@@ -72,6 +73,16 @@ class MultiSelectProperty extends SelectProperty
         return parent::showOutput($data);
     }
 
+    public function getValue()
+    {
+        return $this->getSerializedValue($this->value);
+    }
+
+    public function getItemValue($itemid)
+    {
+        return $this->getSerializedValue($this->_items[$itemid][$this->name]);
+    }
+
     public function getSerializedValue($value)
     {
         if (empty($value)) {
@@ -83,8 +94,9 @@ class MultiSelectProperty extends SelectProperty
             } else {
                 $value = $tmp;
             }
-            return $value;
         }
+        // return array
+        return $value;
     }
 }
 ?>

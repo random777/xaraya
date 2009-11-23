@@ -2,7 +2,7 @@
 /**
  *
  * @package security
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  * @author Jim McDonald
@@ -412,7 +412,7 @@ function xarQueryMask($mask, $showException=1, $component='', $instance='', $mod
  */
 function xarSecurityCheck($mask, $showException=1, $component='', $instance='', $module='', $role='',$pnrealm=0,$pnlevel=0)
 {
-    $installing = xarCore::getCached('installer','installing');
+    $installing = xarCoreCache::getCached('installer','installing');
     if(isset($installing) && ($installing == true)) {
        return true;
     }
@@ -503,7 +503,7 @@ function xarSecGenAuthKey($modName = NULL)
     $authid = md5($key);
 
     // Tell xarCache not to cache this page
-    xarCore::setCached('Page.Caching', 'nocache', true);
+    xarCache::noCache();
 
     // Return encrypted key
     return $authid;

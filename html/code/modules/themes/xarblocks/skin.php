@@ -3,7 +3,7 @@
  * Skin Selection via block
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -19,7 +19,7 @@ sys::import('xaraya.structures.containers.blocks.basicblock');
 
 class SkinBlock extends BasicBlock implements iBlock
 {
-    public $no_cache            = 1;
+    public $nocache             = 1;
 
     public $name                = 'SkinBlock';
     public $module              = 'themes';

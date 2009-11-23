@@ -3,7 +3,7 @@
  * Get all roles
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -28,8 +28,8 @@ function roles_userapi_getallroles($args)
     if (!isset($startnum)) $startnum = 1;
     if (!isset($numitems)) $numitems = (int)xarModVars::get('roles', 'items_per_page');
 
-    sys::import('modules.roles.class.xarQuery');
-    $q = new xarQuery();
+    sys::import('xaraya.structures.query');
+    $q = new Query();
     $xartable = xarDB::getTables();
     $q->addtable($xartable['roles'],'r');
 

@@ -1,13 +1,13 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
     <div class="xar-mod-head">
         <span class="xar-mod-title">403 Forbidden</span>
     </div>
     <div class="xar-mod-body">
-        <img src="#xarTplGetImage('privileges.png', 'base')#" alt="#xarML('Icon')#" class="xar-module-icon" />
+        <img src="#xarTplGetImage('privileges.png', 'base')#" alt="#xarML('Icon')#" class="xar-module-icon"/>
         <xar:if condition="!empty($msg)">
-            <h2><xar:var name="msg" prep="true"/></h2>
+            <h2><xar:var name="msg"/></h2>
         </xar:if>
         <h3>Our apologies, you are not allowed this operation</h3>
 

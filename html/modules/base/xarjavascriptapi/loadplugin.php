@@ -3,7 +3,7 @@
  * Base JavaScript management functions
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -27,7 +27,6 @@ function base_javascriptapi_loadplugin($args)
     if (isset($name)) { $name = strtolower($name); }
     if (isset($framework)) { $framework = strtolower($framework); }
     if (isset($modName)) { $modName = strtolower($modName); }
-    if (isset($file)) { $file = strtolower($file); }
 
     if (!isset($framework)) {
         $framework = xarModGetVar('base','DefaultFramework');

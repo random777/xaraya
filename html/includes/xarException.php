@@ -325,6 +325,8 @@ function xarErrorRender($format, $stacktype = 'ERROR', $shortmsg = false)
             return xarTplFile($theme_dir . '/modules/base/message-' . $error->id . '.xt', $data);
         } elseif(file_exists($theme_dir . '/modules/base/message-' . $template . '.xt')) {
             return xarTplFile($theme_dir . '/modules/base/message-' . $template . '.xt', $data);
+        } elseif(file_exists('modules/base/xartemplates/message-' . $template . '.xt')) {
+            return xarTplFile('modules/base/xartemplates/message-' . $template . '.xt', $data);
         } else {
             return xarTplFile('modules/base/xartemplates/message-' . $template . '.xd', $data);
         }

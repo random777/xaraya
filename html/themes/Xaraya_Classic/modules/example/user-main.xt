@@ -5,13 +5,13 @@
 <p class="xar-error">
   <xar:ml>
     <xar:mlstring>This is an over-riding template. See #(1)/modules/example/user-main.xt
-      for this file. It over-rides modules/example/xartemplates/user-main.xd</xar:mlstring>
+      for this file. It over-rides modules/example/xartemplates/user-main.xt</xar:mlstring>
     <xar:mlvar>#xarTplGetThemeDir()#</xar:mlvar>
   </xar:ml>
 </p>
 <xar:mlstring>
   The in-page menu for this module is not over-ridden. It is included from the
-  common file modules/example/xartemplates/includes/user-main.xd:
+  common file modules/example/xartemplates/includes/user-main.xt:
 </xar:mlstring>
 <xar:template type="module" module="example" file="user-menu" />
 <!-- the specific template for the current function comes here -->

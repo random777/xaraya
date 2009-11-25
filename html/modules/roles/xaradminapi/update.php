@@ -58,9 +58,13 @@ function roles_adminapi_update($args)
     if (!xarSecurityCheck('AdminRole', 0)) {
         // Current user hasn't Admin privileges on Roles, need to go deeper
         if (!xarSecurityCheck('EditRole', 0) || $uid != xarSessionGetVar('uid')) {
-            // Current user hasn't Edit privs or isn't the one he wants to change
-            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'NO_PERMISSION');
-            return;
+            // Bug 6440: when coming from lostpassword, user will be anonymous
+            // resetpassword flag will be set, and pass will not be empty
+            if ( xarUserIsLoggedIn() || empty($resetpassword) || empty($pass) ) {
+                // Current user hasn't Edit privs or isn't the one he wants to change or wasn't resetting password
+                xarErrorSet(XAR_SYSTEM_EXCEPTION, 'NO_PERMISSION');
+                return;
+            }
         }
     }
 

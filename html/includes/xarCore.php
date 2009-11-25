@@ -625,6 +625,8 @@ $errPage = <<<EOM
   </body>
 </html>
 EOM;
+    if (headers_sent() == false)
+        header('HTTP/1.1 503 Service Unavailable');
     echo $errPage;
     // Sorry, this is the end, nothing can be trusted anymore.
     die();

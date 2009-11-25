@@ -21,7 +21,8 @@
 function modules_adminapi_gethooklist($args)
 {
 // Security Check
-    if(!xarSecurityCheck('AdminModules')) return;
+    // this function can be (is) called by other modules, skip this check
+    //if(!xarSecurityCheck('AdminModules')) return;
 
     // Get arguments from argument array
     extract($args);

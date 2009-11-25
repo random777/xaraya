@@ -3,7 +3,7 @@
  * Render a core exception
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -53,7 +53,6 @@ function base_user_systemexit()
     $CoreStack->push($exception);
 
     static $spinning = false;
-
     if ($spinning) {
         echo "Hit a reoccurring error. Here is the original error message:";
         echo "<br /><br />" . $msg;
@@ -64,6 +63,8 @@ function base_user_systemexit()
         $pageOutput = xarTpl_renderPage($text);
         echo $pageOutput;
     }
+    if (headers_sent() == false)
+        header('HTTP/1.1 503 Service Unavailable');
     exit;
 }
 ?>

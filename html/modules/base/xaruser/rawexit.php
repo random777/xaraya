@@ -45,6 +45,8 @@ function base_user_rawexit()
     $rawmsg .= "Error code: " . $errorcode . "<br /><br />";
     // avoid nasties trying to post fake exceptions
     $rawmsg .= xarVarPrepHTMLDisplay($msg);
+    if (headers_sent() == false)
+        header('HTTP/1.1 503 Service Unavailable');
     echo $rawmsg;
     exit;
 }

@@ -184,6 +184,8 @@ if (!xarMain()) {
 
     // TODO: #2
     if (xarCurrentErrorID() == 'TEMPLATE_NOT_EXIST') {
+        if (!headers_sent())
+            header('HTTP/1.1 503 Service Unavailable');
         echo "<?xml version=\"1.0\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n<head><title>Error</title></head><body>$text</body></html>";
     } else {
         // It's important here to free exception before calling xarTplPrintPage
@@ -192,6 +194,8 @@ if (!xarMain()) {
         // Render page
         $pageOutput = xarTpl_renderPage($text);
         if (xarCurrentErrorType() != XAR_NO_EXCEPTION) {
+            if (!headers_sent())
+                header('HTTP/1.1 503 Service Unavailable');
             // Fallback to raw html
             $msg = '<span style="color: #FF0000;">The current page is shown because the Blocklayout Template Engine failed to render the page, however this could be due to a problem not in BL itself but in the template. BL has raised or has left uncaught the following exception:</span>';
             $msg .= '<br /><br />';

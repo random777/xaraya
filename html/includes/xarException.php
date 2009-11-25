@@ -299,7 +299,35 @@ function xarErrorRender($format, $stacktype = 'ERROR', $shortmsg = false)
         default:
             break;
     }
-
+    if (headers_sent() == false) {
+        $httpResponse = 'HTTP/1.1';
+        switch ($CurrentErrorID) {
+            case 'FORBIDDEN_OPERATION':
+            case 'NO_PRIVILEGES':
+            case 'NOT_LOGGED_IN':
+                $httpResponse .= ' 403 Forbidden';
+            break;
+            case 'NOT_FOUND':
+            case 'FILE_NOT_EXIST':
+            case 'MODULE_NOT_ACTIVE':
+            case 'MODULE_FUNCTION_NOT_EXIST':
+                $httpResponse .= ' 404 Not Found';
+            break;
+            case 'ALREADY_EXISTS':
+            case 'BAD_DATA':
+            case 'CANNOT_CONTINUE':
+            case 'DUPLICATE_DATA':
+            case 'MISSING_DATA':
+            case 'MULTIPLE_INSTANCES':
+            case 'WRONG_VERSION':
+            case 'EMPTY_PARAM':
+            case 'BAD_PARAM':
+            default:
+                $httpResponse .= ' 503 Service Unavailable';
+            break;
+        }
+        header($httpResponse);
+    }
     $data = array();
     $data['id'] = $CurrentErrorID;
     $data['major'] = $error->getMajor();
@@ -328,7 +356,7 @@ function xarErrorRender($format, $stacktype = 'ERROR', $shortmsg = false)
         } elseif(file_exists('modules/base/xartemplates/message-' . $template . '.xt')) {
             return xarTplFile('modules/base/xartemplates/message-' . $template . '.xt', $data);
         } else {
-            return xarTplFile('modules/base/xartemplates/message-' . $template . '.xd', $data);
+            return xarTplFile('modules/base/xartemplates/message-' . $template . '.xt', $data);
         }
     }
     elseif ($format == 'rawhtml') {
@@ -528,6 +556,8 @@ function xarException__phpErrorHandler($errorType, $errorString, $file, $line)
         $rawmsg .= "The last registered error message is: <br /><br />";
         $rawmsg .= "PHP Error code: " . $errorType . "<br /><br />";
         $rawmsg .= $msg . "</div>";
+        if (headers_sent() == false)
+            header('HTTP/1.1 503 Service Unavailable');
         echo $rawmsg;
         exit;
     }
@@ -561,6 +591,8 @@ function xarException__phpErrorHandler($errorType, $errorString, $file, $line)
         $rawmsg .= "The last registered error message is: <br /><br />";
         $rawmsg .= "PHP Error code: " . $errorType . "<br /><br />";
         $rawmsg .= $msg;
+        if (headers_sent() == false)
+            header('HTTP/1.1 503 Service Unavailable');
         echo $rawmsg;
         exit;
     }

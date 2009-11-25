@@ -626,15 +626,15 @@ function xarSecAuthAction($testRealm, $testComponent, $testInstance, $testLevel,
  * indeed been manually requested by the user and that the key is valid
  *
  * @access public
- * @param string modName the module this authorisation key is for (default = requested module)
+ * @param string modName the module this authorisation key is for (default = requested module) (deprecated)
  * @return string an encrypted key for use in authorisation of operations
  * @todo bring back possibility of extra security by using date (See code)
  */
 function xarSecGenAuthKey($modName = NULL)
 {
-    if (empty($modName)) {
-        list($modName) = xarRequestGetInfo();
-    }
+//    if (empty($modName)) {
+//        list($modName) = xarRequestGetInfo();
+//    }
 
     $rands = xarSessionGetVar('rand');
     $now = time();
@@ -655,9 +655,7 @@ function xarSecGenAuthKey($modName = NULL)
 
     xarSessionSetVar('rand', $rands);
 
-    // Date gives extra security but leave it out for now
-    // $key = xarSessionGetVar('rand') . $modName . date ('YmdGi');
-    $key = $rnd . strtolower($modName);
+    $key = $rnd . strtolower(xarUserGetVar('uname'));
 
     // Encrypt key
     $authid = md5($key);
@@ -675,7 +673,7 @@ function xarSecGenAuthKey($modName = NULL)
  * See description of xarSecGenAuthKey for more information
  *
  * @access public
- * @param string modName       Module to check the key against (default = requested module)
+ * @param string modName       Module to check the key against (default = requested module) (deprecated)
  * @param string authIdVarName Name of form field carrying the key (default = 'authid')
  * @param bool   showException Throws an exception if key is invalid (default = true)
  * @return bool true if the key is valid, false if it is not
@@ -716,7 +714,7 @@ function xarSecConfirmAuthKey($modName = NULL, $authIdVarName = 'authid', $showE
         }
 
         // Regenerate static part of key
-        $partkey = $rndval . strtolower($modName);
+        $partkey = $rndval . strtolower(xarUserGetVar('uname'));
 
         if ((md5($partkey)) == $authid) {
             // Match - get rid of it and leave happy

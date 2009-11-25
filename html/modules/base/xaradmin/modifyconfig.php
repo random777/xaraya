@@ -110,8 +110,7 @@ function base_admin_modifyconfig()
                     $fwfiles = xarModAPIFunc('base', 'user', 'browse_files',
                         array(
                             'basedir' => $basedir,
-                            'match_re' => true,
-                            'match_preg' => '/\.js$/',
+                            'match_re' => '/\.js$/',
                             'levels' => 1
                         ));
                     if (!empty($fwfiles)) {

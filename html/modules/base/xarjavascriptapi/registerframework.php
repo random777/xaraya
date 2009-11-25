@@ -60,8 +60,7 @@ function base_javascriptapi_getframeworkinfo($args)
         array(
             'module' => $module,
             'basedir' => $basedir,
-            'match_re' => true,
-            'match_preg' => '/\.js$/',
+            'match_re' => '/\.js$/',
             'levels' => 1
         ));
 

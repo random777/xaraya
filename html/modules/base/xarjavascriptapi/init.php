@@ -14,59 +14,33 @@
  * Inititalize a JS framework
  * @author Marty Vance
  * @param string $args['name']      Name of the framework.  Default: xarModGetVar('base','DefaultFramework');
- * @param string $args['modName']   Name of the framework's host module.  Default: derived from $args['name']
- * @param string $args['file']      Base file name of the framework (required)
+ * @param string $args['modName']   Name of the framework's host module. (Deprecated) Default: module fw belongs to
+ * @param string $args['file']      Base file name of the framework (optional) Default: provided by fw
  * @return bool
  */
 function base_javascriptapi_init($args)
 {
     extract($args);
 
-    if (isset($name)) {
-        $name = strtolower($name);
-    } else {
-        $name = xarModGetVar('base','DefaultFramework');
-    }
-    if (isset($modName)) {
-        $modName = strtolower($modName);
-    } else {
-        $modName = '';
-    }
-
-    if (!isset($name)) {
-        $msg = xarML('Missing framework name');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
-        return;
-    }
-
-    if (!isset($file)) {
-        // pass thru for more specific handling
-        $file = '';
-    }
+    if (!isset($name)) $name = xarModGetVar('base','DefaultFramework');
+    if (empty($name)) return '';
+    $name = strtolower($name);
 
     $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => $name));
-
-    if (!is_array($fwinfo)) {
-        $msg = xarML('Bad framework name');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
-        return;
-    }
+    if (!is_array($fwinfo)) return '';
 
     if ($fwinfo['status'] != 1) {
         return '';
     }
 
-    if($modName != $fwinfo['module']) {
+    if (!isset($modName)) {
+        if (empty($fwinfo['module'])) return '';
         $modName = $fwinfo['module'];
     }
+    if (!xarModIsAvailable($modName)) return '';
 
-    if (!isset($modName) || !xarModIsAvailable($modName)) {
-        $msg = xarML('Missing or bad framework host module');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
-        return;
+    if (!isset($file) && isset($fwinfo['file'])) {
+        $file = $fwinfo['file'];
     }
 
     // Set up $GLOBALS['xarTpl_JavaScript'] indexes for the framework
@@ -84,7 +58,7 @@ function base_javascriptapi_init($args)
         $msg = xarML('File \'#(1)\' in #(2) could not be found', $file, $name);
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
                         new SystemException($msg));
-        return;
+        return '';
     }
 
     $GLOBALS['xarTpl_JavaScript'][$name][$file] = array(

@@ -1197,6 +1197,7 @@ function installer_admin_cleanup()
 function installer_admin_finish()
 {
     xarModAPIFunc('dynamicdata','admin','importpropertytypes', array('flush' => true));
+    xarModAPIFunc('base', 'javascript', 'importplugins');
     xarResponseRedirect('index.php');
 }
 
@@ -1824,50 +1825,6 @@ function installer_admin_upgrade2()
     xarModSetVar('base', 'DefaultFramework', 'jquery');
     xarModSetVar('base','AutoLoadDefaultFramework', 1);
     $content .= "<p>Registering jQuery Framework.... done!</p>";
-    $plugins = array(
-        'bgiframe' => array('version' => '2.1.1', 'displayname' => 'bgiframe'),
-        'center' => array('version' => '2.0', 'displayname' => 'Center'),
-        'chili' => array('version' => '2.2', 'displayname' => 'Chili'),
-        'cluetip' => array('version' => '1.0.4', 'displayname' => 'clueTip'),
-        'color' => array('version' => 'unknown', 'displayname' => 'Color Animations'),
-        'cookie' => array('version' => 'unknown', 'displayname' => 'Cookie'),
-        'countdown' => array('version' => '1.5.3', 'displayname' => 'Countdown'),
-        'cycle' => array('version' => '2.71', 'displayname' => 'Cycle'),
-        'datepicker' => array('version' => '3739', 'displayname' => 'datePicker'),
-        'delegate' => array('version' => '1.0', 'displayname' => 'delegate'),
-        'dimensions' => array('version' => '1.2', 'displayname' => 'dimensions'),
-        'easing' => array('version' => '1.3', 'displayname' => 'Easing'),
-        'fancybox' => array('version' => '1.2.1', 'displayname' => 'FancyBox'),
-        'form' => array('version' => '2.32', 'displayname' => 'jQuery Form Plugin'),
-        'hoverintent' => array('version' => 'r5', 'displayname' => 'hoverIntent'),
-        'hovertip' => array('version' => 'unknown', 'displayname' => 'Hovertip'),
-        'ifixpng' => array('version' => '2.1', 'displayname' => 'ifixpng'),
-        'jcarousellite' => array('version' => '1.0.1', 'displayname' => 'jCarouselLite'),
-        'jqdnr' => array('version' => '+r2', 'displayname' => 'jqDnR'),
-        'jqgalview' => array('version' => '2.1', 'displayname' => 'jqGalView'),
-        'jqmodal' => array('version' => '+r14', 'displayname' => 'jqModal'),
-        'localscroll' => array('version' => '1.2.7', 'displayname' => 'LocalScroll'),
-        'metadata' => array('version' => 'unknown', 'displayname' => 'Metadata'),
-        'minitabs' => array('version' => '1.0', 'displayname' => 'minitabs'),
-        'motdpopup' => array('version' => 'unknown', 'displayname' => 'motdPopup'),
-        'perciformes' => array('version' => 'unknown', 'displayname' => 'perciformes'),
-        'pngfix' => array('version' => '1.2', 'displayname' => 'pngFix'),
-        'scrollto' => array('version' => '1.4.2', 'displayname' => 'ScrollTo'),
-        'superfish' => array('version' => '1.4.8', 'displayname' => 'Superfish'),
-        'supersubs' => array('version' => '0.2b', 'displayname' => 'Supersubs'),
-        'tablesorter' => array('version' => '2.0.3', 'displayname' => 'TableSorter'),
-        'thickbox' => array('version' => '3.1', 'displayname' => 'Thickbox'),
-        'timepicker' => array('version' => '0.2.1', 'displayname' => 'jQuery UI Timepicker'),
-        'tooltip' => array('version' => '1.3', 'displayname' => 'Tooltip'),
-        'treeview' => array('version' => '1.4', 'displayname' => 'Treeview'),
-        'truncator' => array('version' => 'unknown', 'displayname' => 'HTML Truncator'),
-        'ui' => array('version' => '1.7.2', 'displayname' => 'jQuery UI'),
-        'uitablefilter' => array('version' => 'unknown', 'displayname' => 'uiTableFilter'),
-        'validate' => array('version' => '1.5.5', 'displayname' => 'jQuery validation plug-in'),
-        'xpath' => array('version' => 'unknown', 'displayname' => 'Simple XPath Compatibility')
-    );
-    xarModSetVar('base', 'jquery.plugins', serialize($plugins));
-    $content .= "<p>Registering jQuery Plugins.... done!</p>";
     $content .= "<p>Done! JavaScript framework functions added!</p>";
     $content .= "<p><strong>Renaming ./var/messaging templates (.xd to .xt)</strong></p>";
     // rename *.xd -> *.xt in ./var/messaging/*
@@ -2033,6 +1990,15 @@ function installer_admin_upgrade3()
         $content .=  "<p>WARNING: Flushing property cache failed</p>";
     } else {
         $content .=  "<p>Success! Flushing property cache complete</p>";
+    }
+
+    // Flush the plugins cache, so on upgrade all plugins
+    // are properly set for each framework
+    $content .=  "<p><strong>Flushing the framework plugins cache</strong></p>";
+    if(!xarModAPIFunc('base','javascript','importplugins')) {
+        $content .=  "<p>WARNING: Flushing framework plugins cache failed</p>";
+    } else {
+        $content .=  "<p>Success! Flushing framework plugins cache complete</p>";
     }
 
     $thisdata['content']=$content;

@@ -19,42 +19,31 @@
  *
  * @author Marty Vance
  * @param string $args['name']      Framework name (default from base modvar: DefaultFramework)
- * @param string $args['module']    Host module of the framework (default from framework info)
- * @param string $args['file']      File name (required)
+ * @param string $args['module']    Name of the framework's host module. (Deprecated) Default: module fw belongs to
+ * @param string $args['file']      File name (optional)
  * @return string empty string
  */
 function base_javascriptapi_handleframeworkjavascript($args)
 {
     extract($args);
 
-    if (isset($name)) { $name = strtolower($name); }
-    if (isset($module)) { $module = strtolower($module); }
+    if (!isset($name)) $name = xarModGetVar('base','DefaultFramework');
+    if (empty($name)) return '';
+    $name = strtolower($name);
 
-    if (!isset($name)) {
-        $name = xarModGetVar('base','DefaultFramework');
-    }
     $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => $name));
+    if (!is_array($fwinfo)) return '';
 
-    if (!is_array($fwinfo)) {
-        $msg = xarML('Could not retreive info for framework #(1)', $name);
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
-        return;
+    if ($fwinfo['status'] != 1) {
+        return '';
     }
 
-    extract($fwinfo);
+    if (empty($fwinfo['module'])) return '';
+    $module = $fwinfo['module'];
+    if (!xarModIsAvailable($module)) return '';
 
-    if (empty($module)) {
-        $msg = xarML('Missing JS framework module name');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
-    } else {
-        $module = addslashes($module);
-    }
-    if (!isset($file)) {
-        $msg = xarML('Missing framework file name');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
+    if (!isset($file) && isset($fwinfo['file'])) {
+        $file = $fwinfo['file'];
     }
 
     return "

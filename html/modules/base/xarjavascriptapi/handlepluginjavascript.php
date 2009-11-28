@@ -18,7 +18,8 @@
  * @author Marty Vance
  * @param string $args['framework']     Framework name (default from base modvar: DefaultFramework)
  * @param string $args['name']          Name of the plugin (required)
- * @param string $args['file']          File name (required)
+ * @param string $args['module']        Name of module plugin belongs to (optional)
+ * @param string $args['file']          File name (optional)
  * @param string $args['style']         File name(s) of associated CSS (array, or semicolon delimited list)
  * @return string empty string
  */
@@ -26,39 +27,55 @@ function base_javascriptapi_handlepluginjavascript($args)
 {
     extract($args);
 
+    // no name, bail
+    if (!isset($name)) return '';
     $name = strtolower($name);
-    
+    // no framework, get default
     if (!isset($framework)) {
         $framework = xarModGetVar('base','DefaultFramework');
     }
     $framework = strtolower($framework);
-
     $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => $framework));
-    if (!is_array($fwinfo)) {
-        $msg = xarML('Could not retreive info for framework #(1)', $name);
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
-        return;
+    // no framework info, bail
+    if (!is_array($fwinfo)) return '';
+    // framework disabled, bail
+    if ($fwinfo['status'] != 1) {
+        return '';
     }
+    // unknown plugin, bail
+    if (!isset($fwinfo['plugins'][$name])) return '';
 
-    $module = $fwinfo['module'];
-
-    $plinfo = xarModAPIFunc('base','javascript','getplugininfo', array('name' => $name, 'framework' => $framework));
-    if (!is_array($plinfo)) {
-        $msg = xarML('Could not retreive info for plugin #(1) in framework #(2)', $name, $framework);
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
-        return;
+    if (!isset($module)) {
+        // get default module for plugin
+        if (isset($fwinfo['plugins'][$name]['defaultmod'])) {
+            $module = $fwinfo['plugins'][$name]['defaultmod'];
+            // check module has plugins
+            if (!isset($fwinfo['plugins'][$name]['modules'][$module])) {
+                unset($module);
+            }
+        }
+        // fall back to framework module
+        if (!isset($module) && isset($fwinfo['module'])) {
+            $module = $fwinfo['module'];
+        }
     }
-
-    $name = addslashes($name);
-    $framework = addslashes($framework);
+    // no module name, bail
+    if (!isset($module) || !xarModIsAvailable($module)) return '';
+    $module = strtolower($module);
 
     if (empty($file)) {
-        $msg = xarML('Missing JS framework plugin file name');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
-        return;
+        // get default module plugin file
+        if (isset($fwinfo['plugins'][$name]['modules'][$module]['defaultfile'])) {
+            $file = $fwinfo['plugins'][$name]['modules'][$module]['defaultfile'];
+        }
+        // fall back to plugin default
+        if (!isset($file) && isset($fwinfo['plugins'][$name]['defaultfile'])) {
+            $file = $fwinfo['plugins'][$name]['defaultfile'];
+        }
+    }
+    // check file exists
+    if (empty($file) || !isset($fwinfo['plugins'][$name]['modules'][$module]['files'][$file])) {
+        return '';
     }
 
     if (!isset($style)) {

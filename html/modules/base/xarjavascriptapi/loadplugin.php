@@ -14,7 +14,7 @@
  * Load a JS framework plugin
  * @author Marty Vance
  * @param string $args['framework']    Name of the framework.  Default: xarModGetVar('base','DefaultFramework')
- * @param string $args['modName']      Name of the framework's host module.  Default: derived from $args['framework']
+ * @param string $args['modName']      Name of the framework's host module.
  * @param string $args['name']         Name of the plugin (required)
  * @param string $args['file']         File name of the plugin (required)
  * @param string $args['style']        File name(s) of associated CSS (array, or semicolon delimited list)
@@ -24,69 +24,63 @@ function base_javascriptapi_loadplugin($args)
 {
     extract($args);
 
-    if (isset($name)) { $name = strtolower($name); }
-    if (isset($framework)) { $framework = strtolower($framework); }
-    if (isset($modName)) { $modName = strtolower($modName); }
-
+    // no name, bail
+    if (!isset($name)) return '';
+    $name = strtolower($name);
+    // no framework, get default
     if (!isset($framework)) {
         $framework = xarModGetVar('base','DefaultFramework');
     }
-
+    $framework = strtolower($framework);
     $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => $framework));
-
-    if (!is_array($fwinfo)) {
-        $msg = xarML('Bad framework name');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
-        return;
-    }
-
+    // no framework info, bail
+    if (!is_array($fwinfo)) return '';
+    // framework disabled, bail
     if ($fwinfo['status'] != 1) {
         return '';
     }
+    // unknown plugin, bail
+    if (!isset($fwinfo['plugins'][$name])) return '';
 
-    if (!isset($modName) || !xarModIsAvailable($modName)) {
-        $modName = $fwinfo['module'];
-    }
-    if (!isset($file) || $file == '') {
-        $msg = xarML('Missing plugin file name');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
-        return;
-    }
-
-    $plugins = xarModGetVar($fwinfo['module'], $framework . ".plugins");
-    $plugins = @unserialize($plugins);
-
-    if (!is_array($plugins)) {
-        $plugins = array();
-    }
-
-    if (!isset($plugins[$name])) {
-        $msg = xarML('Unknown plugin #(1) for framework #(2) without force', $name, $framework);
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
-        return;
-    }
-
-    // ensure framework init has happened
-    if (!isset($GLOBALS['xarTpl_JavaScript'][$framework])) {
-        $fwinit = xarModAPIFunc($modName, $framework, 'init', array());
-        if (!$fwinit) {
-            $msg = xarML('Framework #(1) init failed', $framework);
-            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                            new SystemException($msg));
-            return;
+    if (!isset($modName)) {
+        // get default module for plugin
+        if (isset($fwinfo['plugins'][$name]['defaultmod'])) {
+            $modName = $fwinfo['plugins'][$name]['defaultmod'];
+            // check module has plugins
+            if (!isset($fwinfo['plugins'][$name]['modules'][$modName])) {
+                unset($modName);
+            }
+        }
+        // fall back to framework module
+        if (!isset($modName) && isset($fwinfo['module'])) {
+            $modName = $fwinfo['module'];
         }
     }
+    // no module name, bail
+    if (!isset($modName) || !xarModIsAvailable($modName)) return '';
+    $modName = strtolower($modName);
+
+    if (empty($file)) {
+        // get default module plugin file
+        if (isset($fwinfo['plugins'][$name]['modules'][$modName]['defaultfile'])) {
+            $file = $fwinfo['plugins'][$name]['modules'][$modName]['defaultfile'];
+        }
+        // fall back to plugin default
+        if (!isset($file) && isset($fwinfo['plugins'][$name]['defaultfile'])) {
+            $file = $fwinfo['plugins'][$name]['defaultfile'];
+        }
+    }
+    // check file exists
+    if (empty($file) || !isset($fwinfo['plugins'][$name]['modules'][$modName]['files'][$file])) {
+        return '';
+    }
+
+    if (!xarModAPIFunc($modName, $framework, 'init', array())) return '';
 
     $filepath = xarModAPIfunc('base', 'javascript', '_findfile', array('module' => $modName, 'filename' => "$framework/plugins/$name/$file"));
 
     if (empty($filepath)) {
-        $msg = xarML('Plugin file \'#(1)\' (#(2) in #(3)) could not be found', $file, $name, $framework);
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                        new SystemException($msg));
-        return;
+        return '';
     }
 
     $GLOBALS['xarTpl_JavaScript'][$framework . '_plugins'][$file] = array(
@@ -115,8 +109,6 @@ function base_javascriptapi_loadplugin($args)
         }
 
     }
-
-
 
     $load = xarModAPIFunc($modName, $framework, 'loadplugin', $args);
 

@@ -81,14 +81,43 @@ function base_admin_modifyconfig()
 
     // Javascript tab
     if ($data['tab'] == 'javascript') {
+        if (!xarVarFetch('importplugins', 'checkbox', $importplugins, false, XARVAR_NOT_REQUIRED)) return;
         if (!xarVarFetch('framework', 'pre:trim:lower:str:1', $fwname, NULL, XARVAR_DONT_SET)) return;
-        $frameworks = xarModAPIFunc('base','javascript','getframeworkinfo',array('all' => true));
+        if ($importplugins) {
+            xarModAPIFunc('base', 'javascript', 'importplugins', array('framework' => $fwname));
+        }
+        $frameworks = xarModAPIFunc('base','javascript','getframeworkinfo');
         if (!empty($fwname) && isset($frameworks[$fwname])) {
             $data['fwinfo'] = $frameworks[$fwname];
-            $plugins = xarModAPIFunc('base','javascript','getplugininfo',array('framework' => $fwname, 'all' => true));
-            if (is_array($plugins)) {
-                ksort($plugins);
-                $data['plugins'] = $plugins;
+            if (!isset($data['fwinfo']['plugins'])) {
+                $data['fwinfo']['plugins'] = array();
+            } else {
+                ksort($data['fwinfo']['plugins']);
+            }
+            if (!xarVarFetch('fwinfo', 'array', $fwinfo, array(), XARVAR_NOT_REQUIRED)) return;
+            if (!empty($fwinfo)) {
+                if (!xarSecConfirmAuthKey()) return;
+                if (isset($fwinfo['plugins'])) {
+                    foreach($fwinfo['plugins'] as $plName => $plVals) {
+                        if (!empty($plVals['defaultmod'])) {
+                            if (isset($data['fwinfo']['plugins'][$plName]['modules'][$plVals['defaultmod']])) {
+                                $data['fwinfo']['plugins'][$plName]['defaultmod'] = $plVals['defaultmod'];
+                            }
+                        }
+                        if (!empty($plVals['modules'])) {
+                            foreach ($plVals['modules'] as $modName => $modVals) {
+                                if (!empty($modVals['defaultfile'])) {
+                                    if (isset($data['fwinfo']['plugins'][$plName]['modules'][$modName])) {
+                                        $data['fwinfo']['plugins'][$plName]['modules'][$modName]['defaultfile'] = $modVals['defaultfile'];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                $frameworks[$fwname] = $data['fwinfo'];
+                xarModSetVar('base','RegisteredFrameworks', serialize($frameworks));
+                return xarResponseRedirect(xarModURL('base', 'admin', 'modifyconfig', array('tab' => 'javascript', 'framework' => $fwname)));
             }
             $data['fwfiles'] = array();
             // Get details for the module if we have a valid module id.
@@ -125,6 +154,8 @@ function base_admin_modifyconfig()
         $data['frameworks'] = $frameworks;
         $data['defaultframework'] = xarModGetVar('base','DefaultFramework');
         $data['autoloaddefaultframework'] = xarModGetVar('base','AutoLoadDefaultFramework');
+
+
     }
     $releasenumber=xarModGetVar('base','releasenumber');
     $data['releasenumber']=isset($releasenumber) ? $releasenumber:10;

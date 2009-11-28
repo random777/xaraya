@@ -99,7 +99,7 @@ function base_javascriptapi_getframeworkinfo($args)
     ksort($fwinfo);
     xarModSetVar('base','RegisteredFrameworks', serialize($fwinfo));
 
-    xarModSetVar($module, $name . '.plugins', serialize(array()));
-}
+    xarModAPIFunc('base', 'javascript', 'importplugins');
 
+}
 ?>

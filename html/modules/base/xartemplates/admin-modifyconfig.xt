@@ -635,18 +635,17 @@ jQuery('#"."displayform').validate({
                 <input type="submit" value="#xarML('Update Framework')#" class="xar-margin-thickright" />
             </div>
         </form>
-        <xar:if condition="!empty($framework) and !empty($fwinfo['plugins'])">
-<xar:set name="ddcode">"
-var prop_trigger = function() {
-    jQuery(this).parent().children('div.fieldwrapper').toggle();
-}
-jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(prop_trigger).css('cursor','pointer');
-"</xar:set>
-            <xar:base-js-event name="ready" code="$ddcode" />
-
-            <form method="post" action="#xarModURL('base', 'admin', 'modifyconfig')#" enctype="application/x-www-form-urlencoded">
-                <input type="hidden" name="authid" id="authid" value="#$authid#" />
-                <input type="hidden" name="tab" id="tab" value="#$tab#" />
+        <form method="post" action="#xarModURL('base', 'admin', 'modifyconfig')#" enctype="application/x-www-form-urlencoded">
+            <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            <input type="hidden" name="tab" id="tab" value="#$tab#" />
+            <xar:if condition="!empty($framework) and !empty($fwinfo['plugins'])">
+                <xar:set name="ddcode">"
+                var prop_trigger = function() {
+                    jQuery(this).parent().children('div.fieldwrapper').toggle();
+                }
+                jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(prop_trigger).css('cursor','pointer');
+                "</xar:set>
+                <xar:base-js-event name="ready" code="$ddcode" />
                 <input type="hidden" name="framework" id="framework" value="#$framework#" />
                 <h4>
                     <xar:ml>
@@ -700,11 +699,11 @@ jQuery('div.fieldwrapper').css('display','none').parent().children('legend').cli
                 <fieldset class="xar-align-center">
                     <input type="submit" value="#xarML('Update Plugins')#" />
                 </fieldset>
-                <fieldset class="xar-align-center">
-                    <input type="submit" name="importplugins" id="importplugins" value="#xarML('Refresh Framework Plugin Cache')#" />
-                </fieldset>
-            </form>
-        </xar:if>
+            </xar:if>
+            <fieldset class="xar-align-center">
+                <input type="submit" name="importplugins" id="importplugins" value="#xarML('Refresh Framework Plugin Cache')#" />
+            </fieldset>
+        </form>
     </xar:if>
     <xar:if condition="xarSessionSetVar('statusmsg', '')"></xar:if>
 </div>

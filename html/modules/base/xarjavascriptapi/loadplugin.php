@@ -75,7 +75,7 @@ function base_javascriptapi_loadplugin($args)
         return '';
     }
 
-    if (!xarModAPIFunc($modName, $framework, 'init', array())) return '';
+    if (!xarModAPIFunc($fwinfo['module'], $framework, 'init', array())) return '';
 
     $filepath = xarModAPIfunc('base', 'javascript', '_findfile', array('module' => $modName, 'filename' => "$framework/plugins/$name/$file"));
 
@@ -110,7 +110,7 @@ function base_javascriptapi_loadplugin($args)
 
     }
 
-    $load = xarModAPIFunc($modName, $framework, 'loadplugin', $args);
+    $load = xarModAPIFunc($modName, $framework, 'loadplugin', $args, false);
 
     return $load;
 }

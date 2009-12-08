@@ -22,7 +22,9 @@ Xaraya Development Team ::
 
 Project Leadership :
 
-  Johnny Robeson (johnny)
+  Chad Kraeft (St.Ego)
+
+  Chris Powis (Chris)
 
   Marty Vance (Dracos)
 
@@ -47,6 +49,8 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
 
   Chris Dudley (miko)
 
+  Chris Powis (Chris)
+
   Chris van der Steeg (alley)
 
   Court Shrock (cls)
@@ -64,6 +68,8 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
   Dorothy Crawford (brihana25)
 
   Drew Vogel (vogelap)
+
+  Ernst Herbst (Hb)
 
   Flavio Botelho (nuncanada)
 
@@ -128,6 +134,8 @@ Developers, Committers, Coders, Doc Writers, Server Techs, and Themers :
   Paul Rosania (paul)
 
   Pedro Innecco (pinnecco)
+
+  Petr Vorel (Pev)
 
   Philip Fletcher (stutchbury)
 
@@ -272,3 +280,12 @@ Peter Bailey <http://www.peterbailey.net>
 
 * Initial code for xarCharset class
 Mikolaj Jedrzejak <http://www.mikkom.pl>
+
+* jQuery
+Copyright (c) John Resig and the jQuery Team <http://jquery.com>
+
+* jQuery UI
+Copyright (c) 2009 Paul Bakaus and the jQuery UI Team <http://www.jqueryui.com>
+
+* Tango Icons
+CC-by-SA 2009 Tango Desktop Project <http://tango.freedesktop.org>

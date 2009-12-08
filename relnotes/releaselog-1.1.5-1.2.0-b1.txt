@@ -1,0 +1,126 @@
+Release notes for Xaraya Core release 1.2.0-b1
+
+Release 1.2.0-b1 (relevant changes from 1.1.5 onwards included here)
+
+Possible incompatible changes, please check the following:
+    * Installing: see the file INSTALL.txt
+    * Upgrading : see the file UPGRADE.txt
+
+*** Note: Code to upgrade from 1.1.x will be included in a later beta. ***
+
+Major changes:
+    * Minimum PHP requirement increased to 4.4.7.
+    * New Installer theme.  Xaraya_Classic can now be uninstalled, as it is no longer tied to install and upgrade processes.
+    * All templates renamed to .xt file extension.  Templates in non-core modules named .xd are still supported.
+    * Support for JavaScript frameworks added in base/xarjavascriptapi.
+    * jQuery added as default JS framework in Base module, with several plugins.
+    
+
+General fixes and improvements:
+    * Upgrade ADODB to 4.991.
+    * base/xarversionsapi changed to revolve around unified version number format (See RFC44, Section 6).
+    * xarModURL() can now produce https URLs when requested.
+    * Tango (http://tango.freedesktop.org/) added to the base module and used throughout the core modules.  Additional Tango-style icons created as needed.
+    * Module icons now live at [module]/xarimages/[modname].png.  Tango-style PNG icons for core modules added at this location.  Old-style admin.gif icons still supported.
+    * Several javascript files replaced with jQuery code and/or plugins:
+        * base/calendar.js
+        * base/checkall.js
+        * base/confirmlink.js
+        * base/formcheck.js
+        * base/orderitem.js
+        * base/toggle.js
+        * base/xmlhttprequest.js
+    * DD Calendar property now uses jQuery plugin ui.datepicker.
+    * DD OrderSelect property uses custom jQuery code.
+    * Tree displays in Roles and Privileges now use jQuery TreeView plugin.
+    * Inline JavaScript event handlers in core modules reduced from 171 to 5 (4 are in unused files).
+    * Other UI enhancements made possible with JS framework (jQuery).
+    * In menus, the module category "Global" has been renamed to "System".
+    * Several new classes added to theme CSS:
+        * .xar-items: Applied wherever data items are displayed in a table.
+        * .xar-item-actions: Applied to the table cell which contains the action (modify, delete, etc) links for each item, typically the right-most cell.
+        * .xar-item-controls: Applied to parent elements of inputs used to control or filter displayed items.  Examples are the horizontal tables displayed at the top of the UI in many admin-list functions.
+        * .xar-form-footer: Applied to parent elements of buttons used to control a form (at the bottom of the form).
+        * .xar-icon: Applied to icon img elements or their immediate parent, such as links.
+        * .xar-icon-disabled: Applied to icon img elements or their immediate parent when the represented action is not allowed. 
+
+Important changes / bug fixes: (check http://bugs.xaraya.com for detailed information)
+Bugs resolved as duplicate not listed.
+
+      bug   : short info
+      ------|-----------
+    * [ 198] Include a sort option for hooks
+    * [ 677] Theme specified by configurable functions
+    * [ 702] Constant XARLOG_LEVEL_ERROR not defined
+    * [ 722] Please pass all menus to sidemenu.xt in adminpanels tomake complex menu possible
+    * [1101] xarVarFetch() change Preparation and optional DB call
+    * [1118] Modules calling their own APIs while not active
+    * [1559] Being able to translate default pubtypes and categories
+    * [1721] Roles Tree "See Above" not adequate
+    * [1869] Can't enter privilege description
+    * [2284] add unit testing to modules repository
+    * [2580] Xarversion file info not updated to database
+    * [2750] Unable to remove new block types
+    * [2904] Xaraya Classic Theme - active menu links
+    * [2929] themes loaded even when deactivated and removed
+    * [3029] Date display: Day and month are displayed duplicate
+    * [3356] Mod ID missing in error message for missing module in dependency check during install
+    * [3479] function roles_userapi_getallgroups - add uname to returned elements
+    * [3628] "Properties" column in modules list view is extraneous
+    * [4573] getthemelist.php returns a short list of information on available themes
+    * [4760] Monetary conversions returns wrong results
+    * [4862] DD Fields Un-edittable in RC3 for Article Pub Type
+    * [4914] error when assigning user to group
+    * [4937] Installation failure while installing it on Postgre8.0
+    * [4993] Unable to execute "activate" function in the xarinit.php file of module (Roles)
+    * [5089] Privileges not Checked in Roles User Menu (was: Priveleges set does not affect in roles module)
+    * [5104] Some strings that are not being localised
+    * [5136] When modifying an empty privilege, all of module,component and level display as for a priv with rights
+    * [5145] Missing Targets for DTD Description Links in locale.xml
+    * [5162] Module overview list not working on fresh 1.0 install
+    * [5309] Long format date in locale.xml doesn't scape string chars
+    * [5372] Change order of DD inputs in modify forms
+    * [5374] Installer reports wrong php memory limit if it is expressed in bytes
+    * [5438] Registration validation from email doesn't complete
+    * [5488] Dynamicdata search is case sensitive with no known 'switch' to disable it
+    * [5634] Files ignored by Generate Skels!
+    * [5636] Adminmenu shows bad title property in current items links
+    * [5662] Desynchronization between Adminmenu and admin-menu templates
+    * [5689] HTML validation error: missing type attribute for script tag in property showinput calendar
+    * [5749] DD privs conflict when I create an object-specific privilege
+    * [5813] url+title field: blanking out the url invalidates the field
+    * [5839] Undefined variable: validationlink
+    * [5854] extraneous bad file rss/modules/articles/user-weblinks-summary.xt
+    * [5857] Add ability to sort ascending/descending in showusers.php
+    * [5904] dropdown list validation from file
+    * [5996] Installation bootstrap causes BL assertion failure on custom tag handler
+    * [6013] ErrorNo: 1062, Message:Database error while executing: 'INSERT INTO xarar_rolemembers
+    * [6033] Module names are translated twice (recursive)
+    * [6128] Input new cookie name - kicks me out as admin, will not let back in
+    * [6136] xarMLS: Themes common template sentences not loaded
+    * [6141] error when change user password
+    * [6153] DD Admin Func Delete/Modify not accepting $return_url (X 1.1.2)
+    * [6155] Authsystem allows spaces in passwords
+    * [6176] failed install
+    * [6192] when creating a new dynamicdata object itemtype is not autoallocated correctly
+    * [6200] XarModURL does not behave in a consistent way if path=""
+    * [6203] comments module installation problems
+    * [6242] MLS crashes with no current locale
+    * [6247] Upgrade1 function not present in installer during upgrade
+    * [6263] Trying to update Roles Modify Config results in assertion failure when no registration module is defined
+    * [6264] In last step install crashes with following error:
+    * [6271] Module JavaScript search path not in specificness order
+    * [6279] showinput-calendar.xd - incorrect ID so Label isn't attached
+    * [6288] Smaller Error Messages wanted
+    * [6289] [Bug 3834] Problem with xarexception_phperrorhandler /Gallery2
+    * [6303] xarML() in init.php files don't get translated strings
+    * [6304] FR: allow xarResponseRedirect to set a response code other than 302
+    * [6318] Suppress logging of E_STRICT errors
+    * [6338] Timezone setting ignored when displaying times.
+    * [6343] FR: support dates before 01/01/1970 in xarLocaleFormatDate, xarLocaleGetFormattedTime, xarLocaleGetFormattedDate and xarMLS_strftime
+    * [6365] Untranslated (build in) string 'User Error' in other themes than Xaraya_Classic
+    * [6366] ability to add redirect parameter to login URL
+    * [6369] FR: allow 'elseif' tag to have children
+    * [6370] modifying user profile generates error
+    * [6371] Get Information for the missing PHP extension 147
+    * [6396] Messaging is not working on every configuration ("The message was not sent. Mailer Error: Could not instantiate mail function.") n 

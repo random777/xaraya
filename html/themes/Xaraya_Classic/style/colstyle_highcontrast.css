@@ -3,12 +3,16 @@ body {
     background-color: #666666;
     background-image: url(../images/highcontrast/gradients.png);
 }
-
 a { color: #CC3333; }
 a:link:hover, a:visited:hover { color: #CD2000; }
 .xar-menu-section { color: #D5004B; }
-h1, h2, h3, h4 { color: #000000; }
-
+h1, h2, h3, h4, h5, h6 { color: #000000; }
+h5, h6 {
+    border-bottom: 1px solid #000000;
+}
+blockquote {
+    color: #000000;
+}
 legend {
     color: #666666;
     background-image: url(../images/highcontrast/gradients.png);

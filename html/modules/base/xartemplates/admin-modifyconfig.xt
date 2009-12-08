@@ -646,6 +646,7 @@ jQuery('#"."displayform').validate({
                 jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(prop_trigger).css('cursor','pointer');
                 "</xar:set>
                 <xar:base-js-event name="ready" code="$ddcode" />
+
                 <input type="hidden" name="framework" id="framework" value="#$framework#" />
                 <h4>
                     <xar:ml>
@@ -654,55 +655,58 @@ jQuery('#"."displayform').validate({
                     </xar:ml>
                 </h4>
                 <xar:foreach in="$fwinfo['plugins']" key="$plname" value="$plvals">
+                    <h5>#$plvals['displayname']#</h5>
+                    <div class="xar-form-input-wrapper">
+                        <label class="xar-form-label">
+                            <xar:mlstring>System Name:</xar:mlstring>
+                        </label>
+                        #$plname#
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label class="xar-form-label">
+                            <xar:mlstring>Default Module:</xar:mlstring>
+                        </label>
+                            <xar:set name="ddname">
+                                'fwinfo[plugins]['.$plname.'][defaultmod]'
+                            </xar:set>
+                            <xar:set name="ddid">
+                                'fwinfo_plugins_'.$plname.'_defaultmod'
+                            </xar:set>
+                        <xar:data-input type="dropdown" name="$ddname" id="$ddid" value="$plvals['defaultmod']" options="$plvals['modules']" />
+                    </div>
                     <fieldset>
-                        <legend>#$plvals['displayname']#</legend>
+                        <legend>
+                            <xar:mlstring>Host Modules</xar:mlstring>
+                        </legend>
                         <div class="fieldwrapper">
-                            <div class="xar-form-input-wrapper">
-                                <label class="xar-form-label">
-                                    <xar:mlstring>System Name</xar:mlstring>:
-                                </label>
-                                #$plname#
-                            </div>
-                            <div class="xar-form-input-wrapper">
-                                <label class="xar-form-label">
-                                    <xar:mlstring>Default Module</xar:mlstring>:
-                                </label>
-                                    <xar:set name="ddname">
-                                        'fwinfo[plugins]['.$plname.'][defaultmod]'
-                                    </xar:set>
-                                    <xar:set name="ddid">
-                                        'fwinfo_plugins_'.$plname.'_defaultmod'
-                                    </xar:set>
-                                <xar:data-input type="dropdown" name="$ddname" id="$ddid" value="$plvals['defaultmod']" options="$plvals['modules']" />
-                            </div>
                             <xar:foreach in="$plvals['modules']" key="$k" value="$v">
                                 <div class="xar-form-input-wrapper">
                                     <label class="xar-form-label">
+                                        #$v['name']#:
+                                    </label>
+                                    <div class="xar-form-container-after">
+                                        <xar:set name="ddname">
+                                            "fwinfo[plugins][".$plname."][modules][".$k."][defaultfile]"
+                                        </xar:set>
+                                        <xar:set name="fdid">
+                                            "fwinfo_plugins_".$plname."_modules_".$k."_defaultfile"
+                                        </xar:set>
+                                        <xar:data-input type="dropdown" name="$ddname" id="$fdid" value="$v['defaultfile']" options="$v['files']" />
                                        <xar:ml>
-                                            <xar:mlstring>#(1) Module (#(2)):</xar:mlstring>
-                                            <xar:mlvar>#$v['name']#</xar:mlvar>
+                                            <xar:mlstring>(Version #(1))</xar:mlstring>
                                             <xar:mlvar>#$v['version']#</xar:mlvar>
                                         </xar:ml>
-                                    </label>
-                                    <xar:set name="ddname">
-                                        "fwinfo[plugins][".$plname."][modules][".$k."][defaultfile]"
-                                    </xar:set>
-                                    <xar:set name="fdid">
-                                        "fwinfo_plugins_".$plname."_modules_".$k."_defaultfile"
-                                    </xar:set>
-                                    <xar:data-input type="dropdown" name="$ddname" id="$fdid" value="$v['defaultfile']" options="$v['files']" />
+                                    </div>
                                 </div>
                             </xar:foreach>
                         </div>
                     </fieldset>
                 </xar:foreach>
-                <fieldset class="xar-align-center">
-                    <input type="submit" value="#xarML('Update Plugins')#" />
-                </fieldset>
+                <div class="xar-form-footer">
+                    <input type="submit" value="#xarML('Update Plugins')#" class="xar-margin-thickright" />
+                    <input type="submit" name="importplugins" id="importplugins" value="#xarML('Refresh Framework Plugin Cache')#" />
+                </div>
             </xar:if>
-            <fieldset class="xar-align-center">
-                <input type="submit" name="importplugins" id="importplugins" value="#xarML('Refresh Framework Plugin Cache')#" />
-            </fieldset>
         </form>
     </xar:if>
     <xar:if condition="xarSessionSetVar('statusmsg', '')"></xar:if>

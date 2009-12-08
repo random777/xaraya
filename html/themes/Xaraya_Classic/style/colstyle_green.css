@@ -3,11 +3,15 @@ body {
     background-color: #669966;
     background-image: url(../images/green/gradients.png);
 }
-
 a { color: #3F7F7F; }
 a:link:hover, a:visited:hover { color: #994040; }
-h1, h2, h3, h4 { color: #336633; }
-
+h1, h2, h3, h4, h5, h6 { color: #336633; }
+h5, h6 {
+    border-bottom: 1px solid #336633;
+}
+blockquote {
+    color: #003F3F;
+}
 legend {
     color: #003F3F;
     background-image: url(../images/green/gradients.png);

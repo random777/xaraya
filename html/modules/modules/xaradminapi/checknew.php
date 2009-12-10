@@ -34,6 +34,11 @@ function modules_adminapi_checknew()
     $dbModules = xarModAPIFunc('modules','admin','getdbmodules');
     if (!isset($dbModules)) return;
 
+    //Setup database object for module insertion
+    $dbconn =& xarDBGetConn();
+    $xartable =& xarDBGetTables();
+    $modules_table =& $xartable['modules'];
+
     // See if we have gained any modules since last generation,
     foreach ($fileModules as $name => $modinfo) {
         // Check matching name and regid values
@@ -60,6 +65,7 @@ function modules_adminapi_checknew()
                 return;
             }
         }
+
         // If this is a new module, i.e. not in the db list, add it
         assert('$modinfo["regid"] != 0; /* Reg id for the module is 0, something seriously wrong, probably corruption of files */');
         if (empty($dbModules[$name])) {

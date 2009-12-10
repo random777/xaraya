@@ -109,6 +109,11 @@ function modules_admin_install()
     if(!xarModAPIFunc('dynamicdata','admin','importpropertytypes', array('flush' => true))) {
         return false; //FIXME: Do we want an exception here if flushing fails?
     }
+    // The module might have js plugins, after installing, flush the plugin cache otherwise you will
+    // get errors on calling the plugin
+    if (!xarModAPIFunc('base', 'javascript', 'importplugins')) {
+        return false; //FIXME: Do we want an exception here if flushing fails?
+    }
     xarResponseRedirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));
 
     return true;

@@ -56,7 +56,10 @@ function modules_admin_list()
     $data['filter'][XARMOD_STATE_ERROR_INACTIVE]       = xarML('Update (Inactive)');
     $data['filter'][XARMOD_STATE_ERROR_ACTIVE]         = xarML('Update (Active)');
     $data['filter'][XARMOD_STATE_ERROR_UPGRADED]       = xarML('Update (Upgraded)');
-
+    $data['filter'][XARMOD_STATE_CORE_ERROR_UNINITIALISED]  = xarML('Core Conflict (Not Installed)');
+    $data['filter'][XARMOD_STATE_CORE_ERROR_INACTIVE]       = xarML('Core Conflict (Inactive)');
+    $data['filter'][XARMOD_STATE_CORE_ERROR_ACTIVE]         = xarML('Core Conflict (Active)');
+    $data['filter'][XARMOD_STATE_CORE_ERROR_UPGRADED]       = xarML('Core Conflict (Upgraded)');
     $data['sort']['nameasc']                        = xarML('Name [a-z]');
     $data['sort']['namedesc']                       = xarML('Name [z-a]');
 
@@ -302,10 +305,32 @@ function modules_admin_list()
 
             $listrows[$i]['configurl']          = '';
 
+        }elseif($mod['state'] == XARMOD_STATE_CORE_ERROR_UNINITIALISED ||
+                $mod['state'] == XARMOD_STATE_CORE_ERROR_INACTIVE ||
+                $mod['state'] == XARMOD_STATE_CORE_ERROR_ACTIVE ||
+                $mod['state'] == XARMOD_STATE_CORE_ERROR_UPGRADED){
+            // this module is incompatible with current core version
+            // 'Core Conflict' - set labels and links
+            $statelabel = xarML('Core Conflict');
+            $listrows[$i]['state'] = XARMOD_STATE_CORE_ERROR_UNINITIALISED;
+
+            $listrows[$i]['actionlabel']        = xarML('View Error');
+            $listrows[$i]['actionurl']          = $errorurl;
+            $listrows[$i]['removeurl']          = '';
+
+            $listrows[$i]['actionimg1']         = $img_error;
+            $listrows[$i]['actionimg2']         = $img_remove;
+
+            $listrows[$i]['actionclass1']         = 'xar-errorstate';
+            $listrows[$i]['actionclass2']         = 'xar-remove';
+
+            $listrows[$i]['configurl']          = '';
+
         } else {
             // Something seriously wrong
             $statelabel = xarML('Unknown');
             $listrows[$i]['actionurl']          = $errorurl;
+            $listrows[$i]['removeurl']          = '';
             $listrows[$i]['state']              = xarML('Remove');
             $listrows[$i]['actionlabel']        = xarML('Error in list generation');
             $listrows[$i]['actionlabel2']       = xarML('Remove');

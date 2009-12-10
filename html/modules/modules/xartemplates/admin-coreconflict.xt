@@ -1,0 +1,73 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-head">
+    <span class="xar-mod-title"><xar:mlstring>Modules Administration</xar:mlstring></span>
+</div>
+<div class="xar-mod-body">
+    <h2>
+        <xar:mlstring>Module Error Information</xar:mlstring>
+    </h2>
+    <!-- Error Information -->
+
+    <h3>
+        <xar:mlstring>Module version is incompatible with core version!</xar:mlstring>
+    </h3>
+
+    <p>
+        <xar:mlstring>The module version is not suitable for use with your current Xaraya core version.</xar:mlstring>
+    </p>
+    <xar:if condition="!empty($core_req)">
+        <p>
+        <xar:ml>
+        <xar:mlstring>The module will only work with version #(1) of Xaraya core. Your current core version is #(2)</xar:mlstring>
+        <xar:mlvar>#$core_req#</xar:mlvar>
+        <xar:mlvar>#$core_cur#</xar:mlvar>
+        </xar:ml>
+        </p>
+    <xar:elseif condition="!empty($core_min) and !empty($core_max)" />
+        <p>
+        <xar:ml>
+        <xar:mlstring>The module will only work with versions #(1) to #(2) of Xaraya core. Your current core version is #(3)</xar:mlstring>
+        <xar:mlvar>#$core_min#</xar:mlvar>
+        <xar:mlvar>#$core_max#</xar:mlvar>
+        <xar:mlvar>#$core_cur#</xar:mlvar>
+        </xar:ml>
+        </p>
+    <xar:elseif condition="!empty($core_min)" />
+        <p>
+        <xar:ml>
+        <xar:mlstring>The module requires a minimum of version #(1) of Xaraya core. Your current core version is #(2)</xar:mlstring>
+        <xar:mlvar>#$core_min#</xar:mlvar>
+        <xar:mlvar>#$core_cur#</xar:mlvar>
+        </xar:ml>
+        </p>
+    <xar:elseif condition="!empty($core_max)" />
+        <p>
+        <xar:ml>
+        <xar:mlstring>The module requires a maximum of version #(1) of Xaraya core. Your current core version is #(2)</xar:mlstring>
+        <xar:mlvar>#$core_max#</xar:mlvar>
+        <xar:mlvar>#$core_cur#</xar:mlvar>
+        </xar:ml>
+        </p>
+    </xar:if>
+    <p>
+        <xar:mlstring>The module has been marked inactive until this condition is corrected.</xar:mlstring>
+    </p>
+
+    <h3>
+        <xar:mlstring>You have the following choice:</xar:mlstring>
+    </h3>
+
+    <ul>
+        <li>
+            <strong>
+                <xar:mlstring>Restore the module files.</xar:mlstring>
+            </strong>
+            <xar:mlstring>Download the latest compatible version of module</xar:mlstring>&nbsp;#$modname#&nbsp;<xar:mlstring>for your current core version from</xar:mlstring>&nbsp;<a href="http://www.xaraya.com">www.xaraya.com</a>&nbsp;<xar:mlstring>and update your file system.</xar:mlstring>
+        </li>
+    </ul>
+
+    <p>
+        <xar:mlstring>Once Xaraya can access the module, you can rectivate it.</xar:mlstring>
+    </p>
+
+</div>

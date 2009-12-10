@@ -3,7 +3,7 @@
  * Set the state of a module
  *
  * @package modules
- * @copyright (C) 2005 The Digital Development Foundation
+ * @copyright (C) 2005-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -55,7 +55,9 @@ function modules_adminapi_setstate($args)
         case XARMOD_STATE_UNINITIALISED:
 
             if (($oldState == XARMOD_STATE_MISSING_FROM_UNINITIALISED) ||
-                ($oldState == XARMOD_STATE_ERROR_UNINITIALISED)) break;
+                ($oldState == XARMOD_STATE_ERROR_UNINITIALISED) ||
+                ($oldState == XARMOD_STATE_CORE_ERROR_UNINITIALISED)
+            ) break;
 
             if ($oldState != XARMOD_STATE_INACTIVE) {
                 // New Module
@@ -86,6 +88,7 @@ function modules_adminapi_setstate($args)
                 ($oldState != XARMOD_STATE_ACTIVE) &&
                 ($oldState != XARMOD_STATE_MISSING_FROM_INACTIVE) &&
                 ($oldState != XARMOD_STATE_ERROR_INACTIVE) &&
+                ($oldState != XARMOD_STATE_CORE_ERROR_INACTIVE) &&
                 ($oldState != XARMOD_STATE_UPGRADED)) {
                 xarSessionSetVar('errormsg', xarML('Invalid module state transition'));
                 return false;
@@ -94,6 +97,7 @@ function modules_adminapi_setstate($args)
         case XARMOD_STATE_ACTIVE:
             if (($oldState != XARMOD_STATE_INACTIVE) &&
                 ($oldState != XARMOD_STATE_ERROR_ACTIVE) &&
+                ($oldState != XARMOD_STATE_CORE_ERROR_ACTIVE) &&
                 ($oldState != XARMOD_STATE_MISSING_FROM_ACTIVE)) {
                 xarSessionSetVar('errormsg', xarML('Invalid module state transition'));
                 return false;
@@ -103,6 +107,7 @@ function modules_adminapi_setstate($args)
             if (($oldState != XARMOD_STATE_INACTIVE) &&
                 ($oldState != XARMOD_STATE_ACTIVE) &&
                 ($oldState != XARMOD_STATE_ERROR_UPGRADED) &&
+                ($oldState != XARMOD_STATE_CORE_ERROR_UPGRADED) &&
                 ($oldState != XARMOD_STATE_MISSING_FROM_UPGRADED)) {
                 xarSessionSetVar('errormsg', xarML('Invalid module state transition'));
                 return false;

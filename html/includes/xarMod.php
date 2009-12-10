@@ -40,6 +40,12 @@ define('XARMOD_STATE_ERROR_UNINITIALISED', 10);
 define('XARMOD_STATE_ERROR_INACTIVE', 11);
 define('XARMOD_STATE_ERROR_ACTIVE', 12);
 define('XARMOD_STATE_ERROR_UPGRADED', 13);
+// Module states for modules which have a core requirement
+// that is incompatible with current core version (added in 1.2.0)
+define('XARMOD_STATE_CORE_ERROR_UNINITIALISED', 14);
+define('XARMOD_STATE_CORE_ERROR_INACTIVE', 15);
+define('XARMOD_STATE_CORE_ERROR_ACTIVE', 16);
+define('XARMOD_STATE_CORE_ERROR_UPGRADED', 17);
 
 /**
  * Define the theme here for now as well

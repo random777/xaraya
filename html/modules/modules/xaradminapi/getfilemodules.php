@@ -36,6 +36,7 @@
    'admin_capable'
    'user_capable'
    'dependency'
+   'dependencyinfo' - added in 1.2.0
  *
  */
 function modules_adminapi_getfilemodules($args)
@@ -84,6 +85,7 @@ function modules_adminapi_getfilemodules($args)
                     $adminCapable = $modFileInfo['admin_capable'];
                     $userCapable  = $modFileInfo['user_capable'];
                     $dependency   = $modFileInfo['dependency'];
+                    $dependencyinfo = $modFileInfo['dependencyinfo'];
 
                     // TODO: beautify :-)
                     if (!isset($regId)) {
@@ -119,9 +121,13 @@ function modules_adminapi_getfilemodules($args)
                         $userCapable = 1;
                     }
 
-                    // No dependency information = ok
+                    // No dependencies = ok
                     if (!isset($dependency)) {
                         $dependency = array();
+                    }
+                    // No dependency info = ok
+                    if (!isset($dependencyinfo)) {
+                        $dependencyinfo = array();
                     }
 
                     //FIXME: <johnny> this detection isn't finished yet... we should be checking
@@ -159,7 +165,8 @@ function modules_adminapi_getfilemodules($args)
                                          'category'      => $category,
                                          'admin_capable' => $adminCapable,
                                          'user_capable'  => $userCapable,
-                                         'dependency'    => $dependency);
+                                         'dependency'    => $dependency,
+                                         'dependencyinfo'=> $dependencyinfo);
                     } else {
                             $fileModules[$name] = array('directory'     => $modOsDir,
                                                         'name'          => $name,
@@ -171,7 +178,8 @@ function modules_adminapi_getfilemodules($args)
                                                         'category'      => $category,
                                                         'admin_capable' => $adminCapable,
                                                         'user_capable'  => $userCapable,
-                                                        'dependency'    => $dependency);
+                                                        'dependency'    => $dependency,
+                                                        'dependencyinfo'=> $dependencyinfo);
                     } // if
                 } // if
         } // switch

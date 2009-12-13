@@ -186,6 +186,8 @@ function base_init()
     xarConfigSetVar('System.Core.VersionSub', XARCORE_VERSION_SUB);
     $allowedAPITypes = array();
     xarConfigSetVar('System.Core.AllowedAPITypes',$allowedAPITypes);
+    // set BlockLayout Version here too (added in 1.2.0)
+    xarConfigSetVar('System.Core.BLVersionNum', XAR_BL_VERSION_NUM);
     /*****************************************************************
     * Set site configuration variables
     ******************************************************************/

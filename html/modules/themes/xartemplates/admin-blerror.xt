@@ -1,0 +1,73 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-head">
+    <span class="xar-mod-title"><xar:mlstring>Themes Administration</xar:mlstring></span>
+</div>
+<div class="xar-mod-body">
+    <h2>
+        <xar:mlstring>Theme Error Information</xar:mlstring>
+    </h2>
+    <!-- Error Information -->
+
+    <h3>
+        <xar:mlstring>An error has been detected in the BlockLayout version!</xar:mlstring>
+    </h3>
+
+    <p>
+        <xar:ml>
+        <xar:mlstring>This theme was designed for use with version #(1) of the BlockLayout engine. The current BlockLayout engine is version #(2)</xar:mlstring>
+        <xar:mlvar>#$bl_req#</xar:mlvar>
+        <xar:mlvar>#$bl_cur#</xar:mlvar>
+        </xar:ml>
+    </p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>
+                <xar:mlstring>Theme</xar:mlstring>
+            </th>
+            <th>
+                <xar:mlstring>Database Version</xar:mlstring>
+            </th>
+            <th>
+                <xar:mlstring>Filesystem Version</xar:mlstring>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                #$themename#
+            </td>
+            <td>
+                #$dbversion#
+            </td>
+            <td>
+                #$fileversion#
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <xar:mlstring>The theme cannot be installed.</xar:mlstring>
+    </p>
+
+    <h3>
+        <xar:mlstring>You have one option:</xar:mlstring>
+    </h3>
+
+    <ul>
+        <li>
+            <strong>
+                <xar:mlstring>Update the theme's files.</xar:mlstring>
+            </strong>
+            <xar:mlstring>Download the latest compatible version of the theme</xar:mlstring>&nbsp;#$themename#&nbsp;<xar:mlstring>(if one exists) from</xar:mlstring>&nbsp;<a href="http://www.xaraya.com">www.xaraya.com</a>&nbsp;<xar:mlstring>and update your file system. If the theme doesn't have a compatible version for the current BlockLayout engine, you will have to choose an alternative theme.</xar:mlstring>
+        </li>
+    </ul>
+
+    <p>
+        <xar:mlstring>If the themes files are compatible with the current BlockLayout version, you can update the bl_version to the correct version in the themes' xartheme.php file.  Only do this if you are absolutely certain the theme files are compatible with the current BlockLayout version.</xar:mlstring>
+    </p>
+
+</div>

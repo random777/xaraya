@@ -61,7 +61,12 @@ define('XARTHEME_STATE_INSTALLED', 6);
 define('XARTHEME_STATE_MISSING_FROM_INACTIVE', 7);
 define('XARTHEME_STATE_MISSING_FROM_ACTIVE', 8);
 define('XARTHEME_STATE_MISSING_FROM_UPGRADED', 9);
-
+// Theme states for themes which have a block layout requirement
+// that is incompatible with current block layout version (added in 1.2.0)
+define('XARTHEME_STATE_BL_ERROR_UNINITIALISED', 10);
+define('XARTHEME_STATE_BL_ERROR_INACTIVE', 11);
+define('XARTHEME_STATE_BL_ERROR_ACTIVE', 12);
+define('XARTHEME_STATE_BL_ERROR_UPGRADED', 13);
 /**
  * Flags for loading APIs
  */

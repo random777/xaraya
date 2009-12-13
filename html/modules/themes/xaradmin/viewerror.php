@@ -41,6 +41,7 @@ function themes_admin_viewerror()
                                 'admin',
                                 'getfilethemes',
                                 array('regid' => $regId));
+    if (isset($fileTheme[$dbTheme['name']])) $fileTheme = $fileTheme[$dbTheme['name']];
 
     // Get the module state and display appropriate template
     // for the error that was encountered with the module
@@ -48,11 +49,11 @@ function themes_admin_viewerror()
         case XARTHEME_STATE_UNINITIALISED:
         case XARTHEME_STATE_INACTIVE:
         case XARTHEME_STATE_ACTIVE:
-        case XARTHEME_STATE_UPGRADED: 
+        case XARTHEME_STATE_UPGRADED:
             // Set template to 'update'
             $template = 'errorupdate';
 
-            // Set regId 
+            // Set regId
             $data['regId'] = $regId;
 
             // Set module name
@@ -84,7 +85,7 @@ function themes_admin_viewerror()
             // Set template to 'missing'
             $template = 'missing';
 
-            // Set regId 
+            // Set regId
             $data['regId'] = $regId;
 
             // Set module name
@@ -108,7 +109,38 @@ function themes_admin_viewerror()
                 $data['fileversion'] = xarML('[ unknown ]');
             }
             break;
+        case XARTHEME_STATE_BL_ERROR_UNINITIALISED:
+            // Set template to 'update'
+            $template = 'blerror';
 
+            // Set regId
+            $data['regId'] = $regId;
+
+            // Set module name
+            if (isset($dbTheme['name'])) {
+                $data['themename'] = $dbTheme['name'];
+            } else {
+                $data['themename'] = xarML('[ unknown ]');
+            }
+
+            // Set db version
+            if (isset($dbTheme['version'])) {
+                $data['dbversion'] = $dbTheme['version'];
+            } else {
+                $data['dbversion'] = xarML('[ unknown ]');
+            }
+
+            // Set file version number of module
+            if (isset($fileTheme['version'])) {
+                $data['fileversion'] = $fileTheme['version'];
+            } else {
+                $data['fileversion'] = xarML('[ unknown ]');
+            }
+            // set current BL Version
+            $data['bl_cur'] = xarConfigGetVar('System.Core.BLVersionNum');
+            // set required BL version
+            $data['bl_req'] = $fileTheme['bl_version'];
+        break;
         default:
             break;
     }

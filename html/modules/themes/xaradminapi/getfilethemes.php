@@ -57,6 +57,7 @@ function themes_adminapi_getfilethemes()
                     $xar_version  = isset($themeFileInfo['xar_version']);
                     $bl_version   = $themeFileInfo['bl_version'];
                     $class        = $themeFileInfo['class'];
+                    $dependencyinfo = $themeFileInfo['dependencyinfo'];
 
                     // TODO: beautify :-)
                     if (!isset($regId)) {
@@ -73,20 +74,32 @@ function themes_adminapi_getfilethemes()
                     }
                     //Defaults
                     if (!isset($version)) {
-                        $version = 1.0;
+                        $version = '1.0.0';
                     }
 
+                    // @TODO: deprecate this, use dependencyinfo
                     if (!isset($xar_version)) {
-                        $xar_version = 1.0;
+                        $xar_version = '1.0.0';
                     }
 
                     if (!isset($bl_version)) {
-                        $bl_version = 1.0;
+                        $bl_version = '1.0.0';
+                    }
+                    if ($bl_version == '1.0') {
+                        $bl_version = '1.0.0';
                     }
 
                     //FIXME: <johnny> add class and category checking
                     if (!isset($class)) {
                         $class = '0';
+                    }
+
+                    if (!isset($dependencyinfo)) {
+                        $dependencyinfo = array();
+                    }
+                    // let's treat xar_version as the minimum core requirement for this theme
+                    if (empty($dependencyinfo)) {
+                        $dependencyinfo[0] = array('version_ge' => $xar_version);
                     }
 
                     $fileThemes[$name] = array('name'             => $name,
@@ -102,7 +115,8 @@ function themes_adminapi_getfilethemes()
                                                'version'          => $version,
                                                'xar_version'      => $xar_version,
                                                'bl_version'       => $bl_version,
-                                               'class'            => $class);
+                                               'class'            => $class,
+                                               'dependencyinfo'   => $dependencyinfo);
                 } // if
         } // switch
     } // while

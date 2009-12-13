@@ -55,6 +55,7 @@ function themes_admin_list()
     $data['filter'][XARTHEME_STATE_MISSING_FROM_INACTIVE]       = xarML('Missing (Inactive)');
     $data['filter'][XARTHEME_STATE_MISSING_FROM_ACTIVE]         = xarML('Missing (Active)');
     $data['filter'][XARTHEME_STATE_MISSING_FROM_UPGRADED]       = xarML('Missing (Upgraded)');
+    $data['filter'][XARTHEME_STATE_BL_ERROR_UNINITIALISED]      = xarML('BL Error (Uninitialized)');
 
     $data['default']                           = xarModGetVar('themes', 'default', 1);
 
@@ -266,7 +267,7 @@ function themes_admin_list()
         }elseif($theme['state'] == 4 ||
                 $theme['state'] == 7 ||
                 $theme['state'] == 8 ||
-                $theme['state'] == 9){
+                $theme['state'] == 9 ){
             // this theme is 'Missing'         - set labels and links
             $statelabel = xarML('Missing');
             $listrows[$i]['state'] = 4;
@@ -298,6 +299,23 @@ function themes_admin_list()
 
             $listrows[$i]['actionclass1']       = 'xar-upgrade';
             $listrows[$i]['actionclass2']       = 'xar-remove';
+        }elseif($theme['state'] == XARTHEME_STATE_BL_ERROR_UNINITIALISED){
+            // this theme is incompatible with BL         - set labels and links
+            $statelabel = xarML('BL Error');
+            $listrows[$i]['state'] = 4;
+
+            $listrows[$i]['removelabel']        = xarML('BL Error');
+            $listrows[$i]['actionlabel']        = xarML('Warning');
+            $listrows[$i]['actionurl']          = xarModURL('themes','admin','viewerror', array('id' => $thisthemeid, 'authid' => $authid));
+            $listrows[$i]['removeurl']          = $removeurl;
+            $listrows[$i]['removelabel']        = xarML('Remove');
+
+            $listrows[$i]['actionimg1']         = $img_warning;
+            $listrows[$i]['actionimg2']         = $img_remove;
+
+            $listrows[$i]['actionclass1']       = 'xar-missing';
+            $listrows[$i]['actionclass2']       = 'xar-remove';
+
         }
 
         // nearly done

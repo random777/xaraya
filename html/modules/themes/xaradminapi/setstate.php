@@ -87,7 +87,8 @@ function themes_adminapi_setstate($args)
         switch ($state) {
         case XARTHEME_STATE_UNINITIALISED:
 
-            if ($oldState == XARTHEME_STATE_MISSING_FROM_UNINITIALISED) break;
+            if ($oldState == XARTHEME_STATE_MISSING_FROM_UNINITIALISED ||
+                $oldState == XARTHEME_STATE_BL_ERROR_UNINITIALISED) break;
             if ($oldState != XARTHEME_STATE_INACTIVE) {
                 // New Module
                 $theme_statesTable = $xartable['system/theme_states'];
@@ -144,6 +145,8 @@ function themes_adminapi_setstate($args)
     $bindvars = array($state,$regid);
     $result = $dbconn->Execute($sql, $bindvars);
     if (!$result) return;
+    $themeInfo['state'] = $state;
+    xarVarSetCached('Theme.Infos',$regid,$themeInfo);
     return true;
 }
 

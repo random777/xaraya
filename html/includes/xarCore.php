@@ -23,7 +23,8 @@ define('XARCORE_GENERATION',1);
 define('XARCORE_VERSION_NUM', '1.2.0-b1');
 define('XARCORE_VERSION_ID',  'Xaraya');
 define('XARCORE_VERSION_SUB', 'adam_baum');
-
+// define BlockLayout Version (added in 1.2.0)
+define('XAR_BL_VERSION_NUM', '1.0.0');
 /*
  * System dependencies for (optional) systems
  * FIXME: This diagram isn't correct (or at least not detailed enough)

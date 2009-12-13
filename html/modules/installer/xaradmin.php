@@ -1934,7 +1934,10 @@ function installer_admin_upgrade3()
     $roleanon = xarFindRole('Anonymous');
     $configvars[] = array(
                            array('name'    =>  'System.Core.VersionNum',
-                                 'set'     =>  XARCORE_VERSION_NUM));
+                                 'set'     =>  XARCORE_VERSION_NUM),
+                           array('name'    =>  'System.Core.BLVersionNum',
+                                 'set'     =>  XAR_BL_VERSION_NUM)
+                        );
     $content .=  "<h3><strong>Updating Required Configuration Variables</strong></h3>";
     foreach($configvars as $configvar){
         foreach($configvar as $var){

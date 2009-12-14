@@ -1,4 +1,15 @@
 <?php
+/**
+ * Installer theme
+ *
+ * @package themes 
+ * @copyright (C) 2009 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
+ * @subpackage Installer theme
+ * @link http://www.xaraya.com/index.php/release/eid/1106
+ */
 $themeinfo['name'] = 'Installer';
 $themeinfo['id'] = '996';
 $themeinfo['directory'] = 'installer';
@@ -10,8 +21,8 @@ $themeinfo['contact_info'] = 'Marty Vance, info@xaraya.com';
 $themeinfo['publish_date'] = '04/02/2009';
 $themeinfo['license'] = 'GPL';
 $themeinfo['version'] = '1.0.0';
-$themeinfo['xar_version'] = '1.0';
-$themeinfo['bl_version'] = '1.0';
+$themeinfo['xar_version'] = '1.0.0';
+$themeinfo['bl_version'] = '1.0.0';
 $themeinfo['class'] = '0';
 
 ?>

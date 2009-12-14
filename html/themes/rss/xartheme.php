@@ -1,14 +1,14 @@
 <?php
 /**
- * File: $Id$
+ * RSS theme
  *
- * RSS initialization functions
- *
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @package themes
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- * @subpackage RSS theme
- * @author Xaraya Development Team
+ *
+ * @subpackage RSS theme     
+ * @link http://www.xaraya.com/index.php/release/eid/31
  */
 $themeinfo['name'] = 'RSS';
 $themeinfo['id'] = '31';

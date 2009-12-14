@@ -1,4 +1,15 @@
 <?php
+/**
+ * Xaraya_Classic theme
+ *
+ * @package themes
+ * @copyright (C) 2002-2009 The Digital Development Foundation
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ *
+ * @subpackage Xaraya_Classic theme
+ * @link http://www.xaraya.com/index.php/release/eid/21
+ */
 $themeinfo['name'] = 'Xaraya_Classic';
 $themeinfo['id'] = '21';
 $themeinfo['directory'] = 'Xaraya_Classic';

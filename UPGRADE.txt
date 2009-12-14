@@ -7,7 +7,7 @@ to update themes, templates or other areas in existing sites.
 If you are creating a new Xaraya installation, please read INSTALL.txt
 
 
-You are Upgrading to Xaraya: adam_baum 1.1.4
+You are Upgrading to Xaraya: adam_baum 1.2.0-rc1
 ============================================
 Xaraya is an Open Source web applications framework. Xaraya started out as a 
 fork of PostNuke (http://www.postnuke.com).
@@ -72,7 +72,7 @@ PREPARE TO UPGRADE
       point your browser to upgrade.php in your root directory and run this 
       script.  For example, http://www.mywebsite.com/upgrade.php.
 
-    * Carefull read and follow the instructions in the upgrade script.
+    * Carefully read and follow the instructions in the upgrade script.
 
     * After the upgrade has completed, remove upgrade.php and install.php
       from your web directory
@@ -81,7 +81,7 @@ PREPARE TO UPGRADE
       for security, and is read only
 
     * Go to Admin->Modules->View All.
-      Upgrade all required modules that are show the status of UPGRADE.
+      Upgrade all required modules that show the status of UPGRADE.
       Remember to Activate them after upgrade if required.
 
     * Clear your xarcachemanager output cache files, if you use xarcachemanager
@@ -242,7 +242,7 @@ VERSION CHANGES - Please check and update your installation where necessary
           b) Suggesting a true invalid email adress for admin with a non 
           existing TLD.
        6) installer/xartemplates/admin-phase4.xd:
-          a) SQLite is now the default database if aviable.
+          a) SQLite is now the default database if avaiable.
        7) installer/xartemplates/admin-phase5.xd: Duplicate Upgrade Warning
        8) privileges/xartemplates/admin-modifyprivilege.xd: 
           a) Allow labels in Instance Dropdowns
@@ -261,7 +261,10 @@ VERSION CHANGES - Please check and update your installation where necessary
           selected theme because themes/[theme name]/xarversion.php not found:  
           Xaraya expects this moduservar to be the theme directory, not name... 
           changed to store directory rather than name.
-
+   1.1.5 -> 1.2.0
+       1) All core module templates now have extensions of .xt instead of .xd
+       2) var/messaging/mail/*.xd and var/messaging/roles/*.xd templates
+          are renamed to *.xt
 
    DB Changes between versions
    ----------------------------------------------------
@@ -310,6 +313,10 @@ VERSION CHANGES - Please check and update your installation where necessary
      1.1.2 -> 1.1.3 None
      1.1.3 -> 1.1.4 None
      1.1.4 -> 1.1.5 None
+     1.1.5 -> 1.2.0 Registration of new js-plugin, js-framework, and js-event tags in Base Module
+		    Modvars added to store JS frameworks, plugins, default framework, 
+		    and autoload setting in Base Module.
+		    Setting of BlockLayout Version Number as config var following addition of xarcore constant.
       
    ----------------------------------------------------
 

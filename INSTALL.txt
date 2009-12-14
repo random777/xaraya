@@ -9,7 +9,7 @@ the xarayaguide.txt file which is included in the docs directory of this
 release. The Guide will provide a clear understanding of installation and 
 configuration of Xaraya.
 
-Xaraya: adam_baum 1.1.5
+Xaraya: adam_baum 1.2.0-rc1
 =======================
 Xaraya is an Open Source web applications framework.  Xaraya started out as a 
 fork of PostNuke (http://www.postnuke.com). It has had a complete re-write 

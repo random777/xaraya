@@ -3,7 +3,7 @@
  * Handle style tag
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -27,12 +27,20 @@
  */
 function themes_cssapi_registercss($args)
 {
-    $argstring = 'array(';
-    foreach ($args as $key => $value) {
-        $argstring .= "'" . $key . "' => '" . $value . "',";
+
+    $out = "xarModAPIFunc('themes', 'user', 'register',\n";
+    $out .= " array(\n";
+    foreach ($args as $key => $val) {
+        if (is_numeric($val) || substr($val,0,1) == '$') {
+            $out .= " '$key' => $val,\n";
+        } else {
+            $out .= " '$key' => '$val',\n";
+        }
     }
-    $argstring .= ")";
-    return "xarModAPIFunc('themes', 'user', 'register',$argstring);\n";
+    $out .= "));";
+
+    return $out;
+
 }
 
 ?>

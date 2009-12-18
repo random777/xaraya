@@ -27,9 +27,20 @@ function base_javascriptapi_modulefile($args)
 
     $result = true;
 
-    // Default the position to the head.
+    // Set some defaults - only attribute 'filename' is mandatory.
+    if (empty($module)) {
+        // No module name is supplied, default the module from the
+        // current template module (not the current executing module).
+        $module = '$_bl_module_name';
+    } else {
+        // The module name is supplied.
+        $module = '\'' . addslashes($module) . '\'';
+    }
+
     if (empty($position)) {
         $position = 'head';
+    } else {
+        $position = addslashes($position);
     }
 
     // Filename can be an array of files to include, or a
@@ -40,7 +51,7 @@ function base_javascriptapi_modulefile($args)
     }
 
     foreach ($files as $file) {
-        $args['filename'] = $file;
+        $args['filename'] = addslashes($file);
         $filePath = xarModAPIfunc('base', 'javascript', '_findfile', $args);
 
         // A failure to find a file is recorded, but does not stop subsequent files.

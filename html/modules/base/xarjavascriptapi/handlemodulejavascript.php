@@ -28,7 +28,7 @@
  *    <xar:base-include-javascript filename="myfile.js"/>
  *
  * @author Jason Judge
- * @param array $args['definition']     Form field definition or the type, position, ... 
+ * @param array $args['definition']     Form field definition or the type, position, ...
  * @param string $args['code']          String containing JS code
  * @param string $args['filename']      Name of the js file
  * @param string $args['module']        Name of module containing the file
@@ -37,44 +37,37 @@
  */
 function base_javascriptapi_handlemodulejavascript($args)
 {
-    extract($args);
 
     // The whole lot can be passed in as an array.
-    if (isset($definition) && is_array($definition)) {
-        extract($definition);
+    if (isset($args['definition']) && is_array($args['definition'])) {
+        // merge definition into arguments
+        foreach ($args['definition'] as $dkey => $dval) {
+            $args[$dkey] = $dval;
+        }
     }
-
-    // Set some defaults - only attribute 'filename' is mandatory.
-    if (empty($module)) {
-        // No module name is supplied, default the module from the
-        // current template module (not the current executing module).
-        $module = '$_bl_module_name';
-    } else {
-        // The module name is supplied.
-        $module = '\'' . addslashes($module) . '\'';
-    }
-
-    if (empty($position)) {
-        $position = 'head';
-    } else {
-        $position = addslashes($position);
-    }
+    extract($args);
 
     if (!empty($code) && !empty($type)) {
         // If the 'code' attribute has been passed in, then some inline code
         // has been supplied - we don't need to read anything from a file then.
-        $out = "xarTplAddJavaScript('$position', '$type', \"$code\");";
-    } elseif (!empty($filename)) {
-        // Return the code to call up the javascript file.
-        // Only the file version is supported for now.
-        $out = "xarModAPIFunc("
-            . "'base', 'javascript', 'modulefile', "
-            . "array('module'=>" . $module
-            . ", 'filename'=>'" . addslashes($filename)
-            . "', 'position'=>'$position')); ";
-    } else {
-        $out = '';
+        return "xarTplAddJavaScript('$position', '$type', \"$code\");";
     }
+
+    if (empty($filename)) return '';
+
+    // Return the code to call up the javascript file.
+    // Only the file version is supported for now.
+    // let modulefile handle the arguments...
+    $out = "echo xarModAPIFunc('base', 'javascript', 'modulefile',\n";
+    $out .= " array(\n";
+    foreach ($args as $key => $val) {
+        if (is_numeric($val) || substr($val,0,1) == '$') {
+            $out .= " '$key' => $val,\n";
+        } else {
+            $out .= " '$key' => '$val',\n";
+        }
+    }
+    $out .= "));";
 
     return $out;
 }

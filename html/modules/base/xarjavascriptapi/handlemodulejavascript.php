@@ -58,7 +58,7 @@ function base_javascriptapi_handlemodulejavascript($args)
     // Return the code to call up the javascript file.
     // Only the file version is supported for now.
     // let modulefile handle the arguments...
-    $out = "echo xarModAPIFunc('base', 'javascript', 'modulefile',\n";
+    $out = "xarModAPIFunc('base', 'javascript', 'modulefile',\n";
     $out .= " array(\n";
     foreach ($args as $key => $val) {
         if (is_numeric($val) || substr($val,0,1) == '$') {

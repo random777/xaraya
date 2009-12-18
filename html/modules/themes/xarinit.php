@@ -3,7 +3,7 @@
  * Themes initialization
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -142,7 +142,7 @@ function themes_init()
 
     xarModSetVar('themes', 'SiteName', 'Your Site Name');
     xarModSetVar('themes', 'SiteSlogan', 'Your Site Slogan');
-    xarModSetVar('themes', 'SiteCopyRight', '&copy; Copyright 2006 ');
+    xarModSetVar('themes', 'SiteCopyRight', '&copy; Copyright ' . date('Y'));
     xarModSetVar('themes', 'SiteTitleSeparator', ' :: ');
     xarModSetVar('themes', 'SiteTitleOrder', 'default');
     xarModSetVar('themes', 'SiteFooter', '<a href="http://www.xaraya.com"><img src="modules/base/xarimages/xaraya.png" alt="Powered by Xaraya" class="xar-noborder" /></a>');

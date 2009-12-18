@@ -10,7 +10,7 @@
  * that starts with /**
  *
  * @package tests
- * @copyright (C) 2002 by the Xaraya Development Team.
+ * @copyright (C) 2002-2009 by the Xaraya Development Team.
  * @link http://www.xaraya.com
  *
  * @author Carl P. Corliss <rabbitt@xaraya.com>

@@ -23,19 +23,20 @@
  */
 function base_javascriptapi_modulefile($args)
 {
-    extract($args);
 
     $result = true;
 
     // Set some defaults - only attribute 'filename' is mandatory.
-    if (empty($module)) {
+    if (empty($args['module'])) {
         // No module name is supplied, default the module from the
         // current template module (not the current executing module).
-        $module = '$_bl_module_name';
+        $args['module'] = $_bl_module_name;
     } else {
         // The module name is supplied.
-        $module = '\'' . addslashes($module) . '\'';
+        $args['module'] = addslashes($args['module']);
     }
+
+    extract($args);
 
     if (empty($position)) {
         $position = 'head';

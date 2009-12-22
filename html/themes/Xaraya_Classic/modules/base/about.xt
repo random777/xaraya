@@ -13,8 +13,8 @@ power and flexibility.
 </p>
 <p>
     <xar:mlstring>
-       We advise you to  keep this theme unmodified in
-your Xaraya theme directory where it will be used for future upgrades of your Xaraya site.
+       As of Xaraya 1.2, this theme may be removed from the themes directory, as it is no longer tied to the
+       install and upgrade processes.  Remember to set your default theme to something else before removing Xaraya Classic.
     </xar:mlstring>
 </p>
 

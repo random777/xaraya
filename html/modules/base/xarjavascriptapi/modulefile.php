@@ -30,7 +30,7 @@ function base_javascriptapi_modulefile($args)
     if (empty($args['module'])) {
         // No module name is supplied, default the module from the
         // current template module (not the current executing module).
-        $args['module'] = $_bl_module_name;
+        $args['module'] = '$_bl_module_name';
     } else {
         // The module name is supplied.
         $args['module'] = addslashes($args['module']);

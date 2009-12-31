@@ -1812,20 +1812,31 @@ function installer_admin_upgrade2()
         'base_javascriptapi_handleframeworkeventjavascript'
     );
     $content .= "<p>Registering template tags.... done!</p>";
-    $registeredframeworks = array(
-                'jquery' => array(
-                        'displayname' => 'jQuery',
-                        'version' => '1.3.2',
-                        'module' => 'base',
-                        'file' => 'jquery-1.3.2.min.js',
-                        'status' => 1
-                )
-    );
+
+    $registeredframeworks = @unserialize(xarModGetVar('base', 'RegisteredFrameworks'));
+    if (empty($registeredframeworks) || !is_array($registeredframeworks)) {
+        $registeredframeworks = array();
+    }
+    if (!isset($registeredframeworks['jquery'])) {
+        $registeredframeworks['jquery'] = array(
+                            'displayname' => 'jQuery',
+                            'version' => '1.3.2',
+                            'module' => 'base',
+                            'file' => 'jquery-1.3.2.min.js',
+                            'status' => 1
+        );
+        $content .= "<p>Adding jQuery Framework.... done!</p>";
+    }
     xarModSetVar('base', 'RegisteredFrameworks', serialize($registeredframeworks));
-    xarModSetVar('base', 'DefaultFramework', 'jquery');
-    xarModSetVar('base','AutoLoadDefaultFramework', 1);
-    $content .= "<p>Registering jQuery Framework.... done!</p>";
-    $content .= "<p>Done! JavaScript framework functions added!</p>";
+    $defaultframework = xarModGetVar('base', 'DefaultFramework');
+    if (!isset($defaultframework)) {
+        $content .= "<p>Registering jQuery Framework.... done!</p>";
+        xarModSetVar('base', 'DefaultFramework', 'jquery');
+    }
+    $autloadfw = xarModGetVar('base','AutoLoadDefaultFramework');
+    if (!isset($autoloadfw)) {
+        xarModSetVar('base','AutoLoadDefaultFramework', 1);
+    }
     $content .= "<p><strong>Renaming ./var/messaging templates (.xd to .xt)</strong></p>";
     // rename *.xd -> *.xt in ./var/messaging/*
     // what we're doing here is preserving any existing message templates
@@ -1911,6 +1922,60 @@ function installer_admin_upgrade2()
         $content .= "<p>Done! Finished updating hook order!</p>";
     } else {
         $content .= "<p><span style=\"color:red;\">WARNING!</span> There was a problem updating hook orders.</p>";
+    }
+    // Bug XXXX: modvars based admin and user menu selection
+    $content .= "<p><strong>Updating menu links</strong></p>";
+    $lierror=0;
+    // get the module settings
+    $filemodules = xarModAPIFunc('modules', 'admin', 'getfilemodules');
+    if (!empty($filemodules)) {
+        foreach (array_keys($filemodules) as $modname) {
+            $modId = xarModGetIDFromName($modname);
+            if (!isset($modId)) continue;
+            $modInfo = xarModGetInfo($modId);
+            if (!isset($modInfo)) continue;
+            // skip modules which haven't been initialised
+            if ($modInfo['state'] != XARMOD_STATE_ACTIVE &&
+                $modInfo['state'] != XARMOD_STATE_UPGRADED &&
+                $modInfo['state'] != XARMOD_STATE_INACTIVE) continue;
+            // check for modvar already set
+            $user_menu_link = xarModGetVar($modname, 'user_menu_link');
+            if (!isset($user_menu_link)) {
+                // set user_menu_link modvar for this module using current db setting
+                $user_menu_link = $modInfo['user_capable'];
+                xarModSetVar($modname, 'user_menu_link', $user_menu_link);
+                $content .= "<p>Adding user_menu_link modvar for {$modInfo['displayname']} module.... done!</p>";
+            } else {
+                $content .= "<p>user_menu_link modvar for {$modInfo['displayname']} module already set.... skipping</p>";
+            }
+            $admin_menu_link = xarModGetVar($modname, 'admin_menu_link');
+            if (!isset($admin_menu_link)) {
+                $admin_menu_link = $modInfo['admin_capable'];
+                xarModSetVar($modname, 'admin_menu_link', $admin_menu_link);
+                $content .= "<p>Adding admin_menu_link modvar for {$modInfo['displayname']} module.... done!</p>";
+            }else {
+                $content .= "<p>admin_menu_link modvar for {$modInfo['displayname']} module already set.... skipping</p>";
+            }
+            // put the db user_capable setting back in line with the file setting
+            if ($filemodules[$modname]['user_capable'] != $modInfo['user_capable'] ||
+                $filemodules[$modname]['admin_capable'] != $modInfo['admin_capable']) {
+                if (!xarModAPIFunc('modules', 'admin', 'updateproperties',
+                    array(
+                        'regid' => $modId,
+                        'user_capable' => $filemodules[$modname]['user_capable'],
+                        'admin_capable' => $filemodules[$modname]['admin_capable']
+                    )
+                )) return;
+                $content .= "<p>Updating module properties in db for {$modInfo['displayname']} module.... done!</p>";
+            }else {
+                $content .= "<p>Module properties are in sync.... skipping</p>";
+            }
+        }
+    }
+    if ($lierror<=0) {
+        $content .= "<p>Done! Finished updating menu links!</p>";
+    } else {
+        $content .= "<p><span style=\"color:red;\">WARNING!</span> There was a problem updating menu links.</p>";
     }
 /* End 1.2.0 Release Upgrades */
 

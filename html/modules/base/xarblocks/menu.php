@@ -239,6 +239,7 @@ function base_menublock_display($blockinfo)
         $usercontent = '';
     }
 
+    $usermods = '';
     // Added list of modules if selected.
     if ($vars['displaymodules'] != 'None') {
         if (xarSecurityCheck('ReadBaseBlock',0,'Block',"menu:$blockinfo[title]:$blockinfo[bid]")) {
@@ -257,6 +258,13 @@ function base_menublock_display($blockinfo)
             }
 
             foreach($mods as $mod){
+                /* Add modvar based user menu link check
+                 * use of the modules table admin and user capable columns for this
+                 * purpose is deprecated and further removed as of Aruba 1.2.0
+                 * @TODO: see Bug XXXX for details.
+                **/
+                if (!xarModGetVar($mod['name'], 'user_menu_link')) continue;
+
                 /* Check for active module alias */
                 /* jojodee -  We need to review the module alias functions and, thereafter it's use here */                $useAliasName=xarModGetVar($mod['name'], 'useModuleAlias');
                 $aliasname= xarModGetVar($mod['name'],'aliasname');
@@ -343,9 +351,9 @@ function base_menublock_display($blockinfo)
                 'desc' => xarModGetDisplayableDescription('roles'),
                 'modactive' => 0);
         }
-    } else {
+    } /*else {
         $usermods = '';
-    }
+    }*/
 
     // prepare the data for template(s)
     $menustyle = xarVarPrepForDisplay(xarML('[by name]'));

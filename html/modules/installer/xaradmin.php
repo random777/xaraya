@@ -1066,6 +1066,23 @@ function installer_admin_confirm_configuration()
                 return;
             }
         }
+
+        // set admin and user menu link modvars for core modules which
+        // didn't get initialised in the normal way.
+        $modlist = array('authsystem', 'base', 'roles', 'themes', 'privileges', 'blocks');
+        foreach ($modlist as $modname) {
+            $modId = xarModGetIDFromName($modname);
+            if (!isset($modId)) return;
+            $modInfo = xarModGetInfo($modId);
+            if (!isset($modInfo)) return;
+            if ($modInfo['user_capable']) {
+                xarModSetVar($modname, 'user_menu_link', $modInfo['user_capable']);
+            }
+            if ($modInfo['admin_capable']) {
+                xarModSetVar($modname, 'admin_menu_link', $modInfo['admin_capable']);
+            }
+        }
+
      //TODO: Check why this var is being reset to null in sqlite install - reset here for now to be sure
      //xarModSetVar('roles', 'defaultauthmodule', xarModGetIDFromName('authsystem'));
 

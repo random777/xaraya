@@ -3,7 +3,7 @@
  * Find all the module's dependencies
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -47,6 +47,11 @@ function modules_adminapi_getalldependencies($args)
     $dependency_array['unsatisfiable'] = array();
     $dependency_array['satisfiable']   = array();
     $dependency_array['satisfied']     = array();
+    // add some arrays to categorise unsatisfiable dependencies
+    $dependency_array['missing'] = array(); // modules not found in filesystem
+    $dependency_array['error'] = array(); // modules in an invalid state or otherwise corrupted
+    $dependency_array['version'] = array(); // modules which have unfulfilled dependency version requirements
+    $dependency_array['php_ext'] = array(); // missing php extensions
 
     if(in_array($mainId,$checked_ids)) {
         xarLogMessage("Already got the dependencies of $mainId, skipping");
@@ -54,6 +59,7 @@ function modules_adminapi_getalldependencies($args)
     }
     $checked_ids[] = $mainId;
 
+    $mainKey = $mainId;
     // Get module information
     $modInfo = xarModGetInfo($mainId);
     if (!isset($modInfo)) {
@@ -61,7 +67,9 @@ function modules_adminapi_getalldependencies($args)
         xarErrorHandled();
 
         //Add this module to the unsatisfiable list
-        $dependency_array['unsatisfiable'][] = $mainId;
+        $dependency_array['unsatisfiable'][$mainKey] = $mainId;
+        // Add the module to list of modules not found in filesystem
+        $dependency_array['missing'][$mainId] = $mainId;
 
         //Return now, we cant find more info about this module
         return $dependency_array;
@@ -70,29 +78,177 @@ function modules_adminapi_getalldependencies($args)
     if (!empty($modInfo['extensions'])) {
         foreach ($modInfo['extensions'] as $extension) {
             if (!empty($extension) && !extension_loaded($extension)) {
+                // hash the extension to prevent duplicates
+                $extKey = $extension;
                 //Add this extension to the unsatisfiable list
-                $dependency_array['unsatisfiable'][] = $extension;
+                $dependency_array['unsatisfiable'][$extKey] = $extension;
+                // Add this extension to list of missing php extensions
+                $dependency_array['php_ext'][$extension] = $extension;
             }
         }
     }
 
     $dependency = $modInfo['dependency'];
+    $dependencyinfo = $modInfo['dependencyinfo'];
 
+    if (empty($dependency) && !empty($dependencyinfo)) {
+        $dependency = $dependencyinfo;
+    }
     if (empty($dependency)) {
         $dependency = array();
     }
-
+    // set current core version static, since it won't likely change
+    static $core_cur = '';
+    if (empty($core_cur)) {
+        // get current core version for dependency checks
+        $core_cur = xarConfigGetVar('System.Core.VersionNum');
+    }
     //The dependencies are ok, they shouldnt change in the middle of the
     //script execution, so let's assume this.
     foreach ($dependency as $module_id => $conditions) {
-        if (is_array($conditions)) {
-            //The module id is in $modId
-            $modId = $module_id;
-        } else {
+        if (is_numeric($conditions)) {
             //The module id is in $conditions
             $modId = $conditions;
+        } else {
+            //The module id is in $module_id
+            $modId = $module_id;
         }
-
+        if (!is_array($conditions) && isset($dependencyinfo[$modId])) {
+            $conditions = $dependencyinfo[$modId];
+        }
+        if ($modId == 0 && is_array($conditions)) {
+             // dependency(info) = array('0' => array('name' => 'Core', 'version_(eq|le|ge)' => 'version'))
+            // core dependency checks
+            $core_req = isset($conditions['version_eq']) ? $conditions['version_eq'] : '';
+            if (!empty($core_req)) {
+                // match exact core version required
+                $vercompare = xarModAPIfunc(
+                    'base', 'versions', 'compare',
+                    array(
+                        'ver1'=>$core_req,
+                        'ver2'=>$core_cur,
+                        'strict' => false
+                    )
+                );
+                $core_pass = $vercompare == 0 ? true : false;
+            } else {
+                $core_min = isset($conditions['version_ge']) ? $conditions['version_ge'] : '';
+                $core_max = isset($conditions['version_le']) ? $conditions['version_le'] : '';
+                if (!empty($core_min)) {
+                    $vercompare = xarModAPIfunc(
+                        'base', 'versions', 'compare',
+                        array(
+                            'ver1'=>$core_cur,
+                            'ver2'=>$core_min,
+                            'strict' => false
+                        )
+                    );
+                    $min_pass = $vercompare <= 0 ? true : false;
+                } else {
+                    $min_pass = true;
+                }
+                if (!empty($core_max)) {
+                    $vercompare = xarModAPIfunc(
+                        'base', 'versions', 'compare',
+                        array(
+                            'ver1'=>$core_cur,
+                            'ver2'=>$core_max,
+                            'strict' => false
+                        )
+                    );
+                    $max_pass = $vercompare >= 0 ? true : false;
+                } else {
+                    $max_pass = true;
+                }
+                $core_pass = $min_pass && $max_pass ? true : false;
+            }
+            if (!$core_pass) {
+                // Current core version doesn't meet module requirements
+                // Need to add some info for the user
+                //Add this module to the unsatisfiable list
+                $dependency_array['unsatisfiable'][$mainKey] = $modInfo;
+                // Add the module to list of modules with conflicting versions
+                $dependency_array['version'][$mainId]['0'] = $conditions;
+                //Return now, since it can't be installed and the correct version may differ
+                // @CHECKME: do we want to check dependencies anyway?
+                return $dependency_array;
+            }
+        } elseif (is_array($conditions)) {
+            // dependency(info) = array('module_id' => array('name' => 'modname', 'version_(eq|le|ge)' => 'version'))
+            // we have to check version compatibility here while we know the
+            // identity of the module with dependency version requirements
+            // Get module information
+            $depInfo = xarModGetInfo($modId);
+            if (!isset($depInfo)) {
+                //Handle the Exception Thrown
+                xarErrorHandled();
+                // no need to add to unsatisifiable here, the
+                // recursive call means this happens anyway
+            } else {
+                // module dependency checks
+                $modKey = $modId;
+                $mver_cur = $depInfo['version'];
+                $mver_req = isset($conditions['version_eq']) ? $conditions['version_eq'] : '';
+                if (!empty($mver_req)) {
+                    // match exact module version required
+                    $vercompare = xarModAPIfunc(
+                        'base', 'versions', 'compare',
+                        array(
+                            'ver1'=>$mver_req,
+                            'ver2'=>$mver_cur,
+                            'strict' => false
+                        )
+                    );
+                    $mver_pass = $vercompare == 0 ? true : false;
+                }  else {
+                    $mver_min = isset($conditions['version_ge']) ? $conditions['version_ge'] : '';
+                    $mver_max = isset($conditions['version_le']) ? $conditions['version_le'] : '';
+                    // legacy declarations, deprecated as of 1.2.0
+                    if (empty($mver_min) && isset($conditions['minversion'])) {
+                        $mver_min = $conditions['minversion'];
+                    }
+                    if (empty($mver_max) && isset($conditions['maxversion'])) {
+                        $mver_max = $conditions['maxversion'];
+                    }
+                    if (!empty($mver_min)) {
+                        $vercompare = xarModAPIfunc(
+                            'base', 'versions', 'compare',
+                            array(
+                                'ver1'=>$mver_cur,
+                                'ver2'=>$mver_min,
+                                'strict' => false
+                            )
+                        );
+                        $min_pass = $vercompare <= 0 ? true : false;
+                    } else {
+                        $min_pass = true;
+                    }
+                    if (!empty($mver_max)) {
+                        $vercompare = xarModAPIfunc(
+                            'base', 'versions', 'compare',
+                            array(
+                                'ver1'=>$mver_cur,
+                                'ver2'=>$mver_max,
+                                'strict' => false
+                            )
+                        );
+                        $max_pass = $vercompare >= 0 ? true : false;
+                    } else {
+                        $max_pass = true;
+                    }
+                    $mver_pass = $min_pass && $max_pass ? true : false;
+                }
+                if (!$mver_pass) {
+                    // Current dependent module version doesn't meet module requirements
+                    // Need to add some info for the user
+                    //Add this dependency to the unsatisfiable list
+                    $dependency_array['unsatisfiable'][$modKey] = $depInfo;
+                    // Add the module to list of modules with conflicting version dependencies
+                    // along with calling module id and conditions
+                    $dependency_array['version'][$modId][$mainId] = $conditions;
+                }
+            }
+        }
         // RECURSIVE CALL
         $output = xarModAPIFunc('modules', 'admin', 'getalldependencies', array('regid'=>$modId));
         if (!$output) {
@@ -113,6 +269,19 @@ function modules_adminapi_getalldependencies($args)
         $dependency_array['satisfied'] = array_merge(
             $dependency_array['satisfied'],
             $output['satisfied']);
+        // merge in unsatisfiable dependencies
+        $dependency_array['missing'] = array_merge(
+            $dependency_array['missing'],
+            $output['missing']);
+        $dependency_array['error'] = array_merge(
+            $dependency_array['error'],
+            $output['error']);
+        $dependency_array['version'] = array_merge(
+            $dependency_array['version'],
+            $output['version']);
+        $dependency_array['php_ext'] = array_merge(
+            $dependency_array['php_ext'],
+            $output['php_ext']);
     }
 
     // Unsatisfiable and Satisfiable are assuming the user can't
@@ -120,17 +289,16 @@ function modules_adminapi_getalldependencies($args)
     //without its proper dependencies
     if (count($dependency_array['unsatisfiable'])) {
         //Then this module is unsatisfiable too
-        $dependency_array['unsatisfiable'][] = $modInfo;
+        $dependency_array['unsatisfiable'][$mainKey] = $modInfo;
     } elseif (count($dependency_array['satisfiable'])) {
         //Then this module is satisfiable too
         //As if it were initialized, then all dependencies would have
         //to be already satisfied
-        $dependency_array['satisfiable'][] = $modInfo;
+        $dependency_array['satisfiable'][$mainKey] = $modInfo;
     } else {
         //Then this module is at least satisfiable
         //Depends if it is already initialized or not
 
-        //TODO: Add version checks later on
         // Add a new state in the dependency array for version
         // So that we can present that nicely in the gui...
 
@@ -138,16 +306,17 @@ function modules_adminapi_getalldependencies($args)
             case XARMOD_STATE_ACTIVE:
             case XARMOD_STATE_UPGRADED:
                 //It is satisfied if already initialized
-                $dependency_array['satisfied'][] = $modInfo;
+                $dependency_array['satisfied'][$mainKey] = $modInfo;
             break;
             case XARMOD_STATE_INACTIVE:
             case XARMOD_STATE_UNINITIALISED:
                 //If not then it is satisfiable
-                $dependency_array['satisfiable'][] = $modInfo;
+                $dependency_array['satisfiable'][$mainKey] = $modInfo;
             break;
             default:
-                //If not then it is satisfiable
-                $dependency_array['unsatisfiable'][] = $modInfo;
+                //If not then it is unsatisfiable
+                $dependency_array['unsatisfiable'][$mainKey] = $modInfo;
+                $dependency_array['error'][$mainId] = $mainId;
             break;
         }
     }

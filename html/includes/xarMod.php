@@ -602,6 +602,7 @@ function xarModGetInfo($modRegId, $type = 'module')
         $modFileInfo['admin'] = xarML('Unknown');
         $modFileInfo['user'] = xarML('Unknown');
         $modFileInfo['dependency'] = array();
+        $modFileInfo['dependencyinfo'] = array();
         $modFileInfo['extensions'] = array();
 
         $modFileInfo['xar_version'] = xarML('Unknown');

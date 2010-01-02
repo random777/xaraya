@@ -103,7 +103,7 @@ function modules_adminapi_installwithdependencies ($args)
         } else {
             $modId = $module_id;
         }
-
+        if (empty($modId)) continue;
         if (!xarModAPIFunc('modules', 'admin', 'installwithdependencies', array('regid'=>$modId))) {
             if (xarCurrentErrorType() != XAR_NO_EXCEPTION) {
                 return;

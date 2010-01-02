@@ -73,8 +73,8 @@ function modules_adminapi_getalldependents ($args)
         // adding a proper array of module states would be nice...
         if ($dbModules[$name]['state'] == XARMOD_STATE_UNINITIALISED) continue;
 
-        $dependency = $modInfo['dependency'];
-        $dependencyinfo = $modInfo['dependencyinfo'];
+        $dependency = $modinfo['dependency'];
+        $dependencyinfo = $modinfo['dependencyinfo'];
 
         if (empty($dependency) && !empty($dependencyinfo)) {
             $dependency = $dependencyinfo;

@@ -3,7 +3,7 @@
  * Install a module with all its dependencies.
  *
  * @package Xaraya eXtensible Management System
- * @copyright (C) 2005 The Digital Development Foundation
+ * @copyright (C) 2005-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -86,7 +86,11 @@ function modules_adminapi_installwithdependencies ($args)
     }
 
     $dependency = $modInfo['dependency'];
+    $dependencyinfo = $modInfo['dependencyinfo'];
 
+    if (empty($dependency) && !empty($dependencyinfo)) {
+        $dependency = $dependencyinfo;
+    }
     if (empty($dependency)) {
         $dependency = array();
     }
@@ -94,14 +98,12 @@ function modules_adminapi_installwithdependencies ($args)
     //The dependencies are ok, assuming they shouldnt change in the middle of the
     //script execution.
     foreach ($dependency as $module_id => $conditions) {
-        if (is_array($conditions)) {
-            //The module id is in $modId
-            $modId = $module_id;
-        } else {
-            //The module id is in $conditions
+        if (!empty($conditions) && is_numeric($conditions)) {
             $modId = $conditions;
+        } else {
+            $modId = $module_id;
         }
-
+        if (empty($modId)) continue;
         if (!xarModAPIFunc('modules', 'admin', 'installwithdependencies', array('regid'=>$modId))) {
             if (xarCurrentErrorType() != XAR_NO_EXCEPTION) {
                 return;

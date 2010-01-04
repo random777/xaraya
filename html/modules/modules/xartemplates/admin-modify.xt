@@ -1,5 +1,5 @@
 <xar:comment>
-    License: GPL http://www.gnu.org/copyleft/gpl.html 
+    License: GPL http://www.gnu.org/copyleft/gpl.html
 </xar:comment>
 <xar:set name="hookscode">"
 jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(function() {
@@ -31,21 +31,46 @@ jQuery('a#toggleall').click(function() {
 <div class="xar-mod-body">
     <xar:template type="module" file="admin-menu" />
     <h2>
-        <xar:mlstring>Module Hooks </xar:mlstring>
+        #$displayname# <xar:mlstring> Module configuration:</xar:mlstring>
     </h2>
-    <h3>
-        <xar:mlstring>For Module: </xar:mlstring>
-        #$displayname# 
-    </h3>
-
-    <p>
-        <xar:ml>
-            <xar:mlstring>Use hooks from the modules listed below to extend the functionality of #(1).</xar:mlstring>
-            <xar:mlvar>#$displayname#</xar:mlvar>
-        </xar:ml>
-    </p>
     <!-- The form for editing the module settings and hooks -->
     <form action="#xarModURL('modules','admin','update')#" method="post" enctype="application/x-www-form-urlencoded">
+        <xar:if condition="$admin_capable or $user_capable">
+            <h3>
+                <xar:mlstring>Base Menu Block Links</xar:mlstring>
+            </h3>
+            <p>
+                <xar:ml>
+                    <xar:mlstring>Show or hide the links to #(1) module in base module menu blocks.</xar:mlstring>
+                    <xar:mlvar>#$displayname#</xar:mlvar>
+                </xar:ml>
+            </p>
+            <div class="xar-form-section">
+                <xar:if condition="$user_capable">
+                <div class="xar-form-input-wrapper">
+                    <label for="user_menu_link" class="xar-form-label"><xar:mlstring>Show link in user menu</xar:mlstring>
+                    <xar:data-input type="checkbox" name="user_menu_link" id="user_menu_link" checked="$user_menu_link" />
+                </div>
+                </xar:if>
+                <xar:if condition="$admin_capable">
+                <div class="xar-form-input-wrapper">
+                    <label for="admin_menu_link" class="xar-form-label"><xar:mlstring>Show link in admin menu</xar:mlstring>
+                    <xar:data-input type="checkbox" name="admin_menu_link" id="admin_menu_link" checked="$admin_menu_link" />
+                </div>
+                </xar:if>
+            </div>
+        </xar:if>
+
+        <h3>
+            <xar:mlstring>Module Hooks </xar:mlstring>
+        </h3>
+
+        <p>
+            <xar:ml>
+                <xar:mlstring>Use hooks from the modules listed below to extend the functionality of #(1).</xar:mlstring>
+                <xar:mlvar>#$displayname#</xar:mlvar>
+            </xar:ml>
+        </p>
         <xar:comment>
             <label for="newdisplayname">
                 <xar:mlstring>Enter new display name (Does not work) </xar:mlstring>
@@ -54,7 +79,7 @@ jQuery('a#toggleall').click(function() {
                 <label for="displayname" title="#xarML('The name which will be shown to identify this module.')#" class="xar-form-label">
                     <xar:mlstring>For Module: </xar:mlstring>
                 </label>
-                #$displayname# 
+                #$displayname#
             </div>
         </xar:comment>
         <xar:if condition="count($hooklist) eq 0">
@@ -68,17 +93,17 @@ jQuery('a#toggleall').click(function() {
             <div class="xar-form-section">
                 <h3>
                     <xar:ml>
-                        <xar:mlstring>Hooks available hooks to #(1): </xar:mlstring>
+                        <xar:mlstring>Hooks available to #(1): </xar:mlstring>
                         <xar:mlvar>#$displayname#</xar:mlvar>
                     </xar:ml>
                     <xar:comment>
-                        Not really useful to toggle details anymore [<a href="#$DetailsURL#">#$DetailsLabel#</a>] 
+                        Not really useful to toggle details anymore [<a href="#$DetailsURL#">#$DetailsLabel#</a>]
                     </xar:comment>
                 </h3>
 
                 <p>
-                    <a href="#" id="openall">Open All</a> | 
-                    <a href="#" id="closeall">Close All</a> | 
+                    <a href="#" id="openall">Open All</a> |
+                    <a href="#" id="closeall">Close All</a> |
                     <a href="#" id="toggleall">Toggle</a>
                 </p>
 
@@ -86,7 +111,7 @@ jQuery('a#toggleall').click(function() {
                     <fieldset>
                         <legend>
                             <xar:mlstring>From module: </xar:mlstring>
-                            #$hookmod['modname']# 
+                            #$hookmod['modname']#
                         </legend>
                         <div class="fieldwrapper">
                             <div style="float: left;width: 48%;">
@@ -111,7 +136,7 @@ jQuery('a#toggleall').click(function() {
                                             <input type="checkbox" name="hooks_#$hookmod['modname']#[#$typeid#]" id="hooks_#$hookmod['modname']#_#$typeid#" value="1" />
                                         </xar:if>
                                         <label for="hooks_#$hookmod['modname']#_#$typeid#">
-                                            #$itemtype['label']# 
+                                            #$itemtype['label']#
                                         </label>
                                     </div>
                                 </xar:foreach>
@@ -123,7 +148,7 @@ jQuery('a#toggleall').click(function() {
                                 <ul>
                                     <xar:foreach in="$hookmod['hooks']" key="$hook">
                                         <li>
-                                            #$hook# 
+                                            #$hook#
                                         </li>
                                     </xar:foreach>
                                 </ul>

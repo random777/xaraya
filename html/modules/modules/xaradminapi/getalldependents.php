@@ -3,7 +3,7 @@
  * Find all the modules dependents recursively
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -73,20 +73,21 @@ function modules_adminapi_getalldependents ($args)
         // adding a proper array of module states would be nice...
         if ($dbModules[$name]['state'] == XARMOD_STATE_UNINITIALISED) continue;
 
-        if (isset($modinfo['dependency']) &&
-            !empty($modinfo['dependency'])) {
-            $dependency = $modinfo['dependency'];
-        } else {
+        $dependency = $modinfo['dependency'];
+        $dependencyinfo = $modinfo['dependencyinfo'];
+
+        if (empty($dependency) && !empty($dependencyinfo)) {
+            $dependency = $dependencyinfo;
+        }
+        if (empty($dependency)) {
             $dependency = array();
         }
 
         foreach ($dependency as $module_id => $conditions) {
-            if (is_array($conditions)) {
-                //The module id is in $modId
-                $modId = $module_id;
-            } else {
-                //The module id is in $conditions
+            if (!empty($conditions) && is_numeric($conditions)) {
                 $modId = $conditions;
+            } else {
+                $modId = $module_id;
             }
 
             //Not dependent, then go to the next dependency!!!

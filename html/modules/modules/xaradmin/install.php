@@ -3,7 +3,7 @@
  * Installs a module
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -92,8 +92,13 @@ function modules_admin_install()
         $errorstack = xarErrorget();
         // Free up the error stack since we are handling it locally.
         xarErrorFree();
+        //Let's make a nice GUI to show the user the options
+        $data = array();
+        $data['id'] = (int) $id;
+        $data['displayname'] = $minfo['name'];
         // Return the stack for rendering.
-        return array('errorstack' => $errorstack);
+        $data['errorstack'] = $errorstack;
+        return $data;
     }
 
     // set the target location (anchor) to go to within the page

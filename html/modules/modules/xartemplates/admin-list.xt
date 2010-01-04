@@ -32,6 +32,7 @@ return false;
 <xar:set name="icon_install">xarTplGetImage('icons/software-install.png','base')</xar:set>
 <xar:set name="icon_upgrade">xarTplGetImage('icons/software-upgrade.png','base')</xar:set>
 <xar:set name="icon_hooks">xarTplGetImage('icons/hooks.png','base')</xar:set>
+<xar:set name="icon_modify">xarTplGetImage('icons/modify.png','base')</xar:set>
 <xar:set name="icon_enabled">xarTplGetImage('icons/enabled.png','base')</xar:set>
 <xar:set name="icon_disabled">xarTplGetImage('icons/disabled.png','base')</xar:set>
 <xar:set name="icon_activate">xarTplGetImage('icons/activate.png','base')</xar:set>
@@ -137,7 +138,7 @@ return false;
                 </th>
                 <th>
                     <xar:mlstring>Status</xar:mlstring>
-                </th>    
+                </th>
                 <th>
                     <xar:mlstring>Actions</xar:mlstring>
                 </th>
@@ -188,9 +189,9 @@ return false;
                         </xar:if>
 
                         <xar:if condition="$modinfo['modid'] ne 1 and ($modinfo['state'] eq XARMOD_STATE_INACTIVE or $modinfo['state'] eq XARMOD_STATE_ACTIVE)">
-                            <a href="#$modinfo['editurl']#" title="#xarML('Hooks')#" class="xar-icon"><img src="#$icon_hooks#" alt="#xarML('Hooks')#" /></a>
+                            <a href="#$modinfo['editurl']#" title="#xarML('Modify')#" class="xar-icon"><img src="#$icon_modify#" alt="#xarML('Modify')#" /></a>
                         <xar:else />
-                            <img src="#$icon_hooks#" alt="#xarML('Hooks')#" class="xar-icon-disabled" />
+                            <img src="#$icon_modify#" alt="#xarML('Modify')#" class="xar-icon-disabled" />
                         </xar:if>
                     </td>
                 </tr>
@@ -202,14 +203,17 @@ return false;
 </div>
 <div class="xar-mod-foot">
     <div class="xar-accent-outline xar-margin-thickends xar-padding-thick xar-align-center">
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/activate.png','base')#" class="xar-icon" alt="#xarML('Activate')#" /> <xar:mlstring>Activate</xar:mlstring></span> 
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/deactivate.png','base')#" class="xar-icon" alt="#xarML('Deactivate')#" /> <xar:mlstring>Deactivate</xar:mlstring></span> 
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/software-install.png','base')#" class="xar-icon" alt="#xarML('Install')#" /> <xar:mlstring>Install</xar:mlstring></span> 
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/software-upgrade.png','base')#" class="xar-icon" alt="#xarML('Upgrade')#" /> <xar:mlstring>Upgrade</xar:mlstring></span> 
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/remove.png','base')#" class="xar-icon" alt="#xarML('Remove')#" /> <xar:mlstring>Remove</xar:mlstring></span> 
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/dialog-warning.png','base')#" class="xar-icon" alt="#xarML('Warning')#" /> <xar:mlstring>Warning</xar:mlstring></span> 
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/dialog-error.png','base')#" class="xar-icon" alt="#xarML('Error')#" /> <xar:mlstring>Error</xar:mlstring></span> 
-        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/hooks.png','base')#" class="xar-icon" alt="#xarML('Hooks')#" /> <xar:mlstring>Hooks</xar:mlstring></span> 
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/activate.png','base')#" class="xar-icon" alt="#xarML('Activate')#" /> <xar:mlstring>Activate</xar:mlstring></span>
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/deactivate.png','base')#" class="xar-icon" alt="#xarML('Deactivate')#" /> <xar:mlstring>Deactivate</xar:mlstring></span>
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/software-install.png','base')#" class="xar-icon" alt="#xarML('Install')#" /> <xar:mlstring>Install</xar:mlstring></span>
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/software-upgrade.png','base')#" class="xar-icon" alt="#xarML('Upgrade')#" /> <xar:mlstring>Upgrade</xar:mlstring></span>
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/remove.png','base')#" class="xar-icon" alt="#xarML('Remove')#" /> <xar:mlstring>Remove</xar:mlstring></span>
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/dialog-warning.png','base')#" class="xar-icon" alt="#xarML('Warning')#" /> <xar:mlstring>Warning</xar:mlstring></span>
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/dialog-error.png','base')#" class="xar-icon" alt="#xarML('Error')#" /> <xar:mlstring>Error</xar:mlstring></span>
+        <xar:comment>
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/hooks.png','base')#" class="xar-icon" alt="#xarML('Hooks')#" /> <xar:mlstring>Hooks</xar:mlstring></span>
+        </xar:comment>
+        <span class="xar-nowrap"><img src="#xarTplGetImage('icons/modify.png','base')#" class="xar-icon" alt="#xarML('Modify')#" /> <xar:mlstring>Modify</xar:mlstring></span>
         <span class="xar-nowrap"><img src="#xarTplGetImage('icons/modify-config.png','base')#" class="xar-icon" alt="#xarML('Modify Config')#" /><xar:mlstring>Modify Config</xar:mlstring></span>
     </div>
 </div>

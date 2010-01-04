@@ -109,6 +109,7 @@ function base_adminmenublock_display($blockinfo)
     switch(strtolower($vars['menustyle'])){
         case 'byname': // display by name
             foreach($mods as $mod) {
+                if (!xarModGetVar($mod['name'], 'admin_menu_link')) continue;
                 $modname = $mod['name'];
                 $labelDisplay = $mod['displayname'];
                 // get URL to module's main function
@@ -160,6 +161,7 @@ function base_adminmenublock_display($blockinfo)
             // <mrb> for the release we can do without the adminmenu table, if
             // that gains functionality consider putting it back.
             foreach ($mods as $mod) {
+                if (!xarModGetVar($mod['name'], 'admin_menu_link')) continue;
                 // get URL to module's main function
                 $modname=$mod['name'];
                 $link = xarModURL($modname, 'admin', 'main', array());

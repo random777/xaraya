@@ -3,7 +3,7 @@
  * Initialise a module
  *
  * @package modules
- * @copyright (C) 2005-2008 The Digital Development Foundation
+ * @copyright (C) 2005-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -69,6 +69,14 @@ function modules_adminapi_initialise($args)
         $msg = xarML('Module state change failed');
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'FUNCTION_FAILED', $msg);
            return;
+    }
+
+    // set default user and admin menu links display settings
+    if ($modInfo['user_capable']) {
+        xarModSetVar($modInfo['name'], 'user_menu_link', true);
+    }
+    if ($modInfo['admin_capable']) {
+        xarModSetVar($modInfo['name'], 'admin_menu_link', true);
     }
 
     // Success

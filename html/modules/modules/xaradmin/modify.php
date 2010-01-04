@@ -3,7 +3,7 @@
  * Modify module settings
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -93,6 +93,17 @@ function modules_admin_modify($args)
         $data['hookorder'] = $hookorder;
     }
     // End form
+
+    if ($modName != 'modules') {
+        $data['user_capable'] = $modInfo['user_capable'];
+        $data['user_menu_link'] = $modInfo['user_capable'] ? xarModGetVar($modName, 'user_menu_link') : false;
+        $data['admin_capable'] = $modInfo['admin_capable'];
+        $data['admin_menu_link'] = $modInfo['admin_capable'] ? xarModGetVar($modName, 'admin_menu_link') : false;
+    } else {
+        // modules module admin menu link is always displayed
+        $data['admin_capable'] = true;
+        $data['user_capable'] = false;
+    }
 
     $data['authid'] = xarSecGenAuthKey('modules');
     $data['id'] = $id;

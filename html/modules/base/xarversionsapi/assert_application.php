@@ -3,7 +3,7 @@
  * Base User Version management functions
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2010 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -21,9 +21,10 @@
  */
 function base_versionsapi_assert_application($args)
 {
-    extract($args);
+    // Extract the arguments. Prefix unnamed parameters with 'p_'.
+    extract($args, EXTR_PREFIX_INVALID, 'p');
 
-     if (!isset($ver)) {
+    if (!isset($ver)) {
         if (isset($p_0)) {
             $ver = $p_0;
         } else {

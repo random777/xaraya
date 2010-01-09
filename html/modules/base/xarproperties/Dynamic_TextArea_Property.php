@@ -3,7 +3,7 @@
  * Dynamic Textarea Property
  *
  * @package modules
- * @copyright (C) 2002-2008 The Digital Development Foundation
+ * @copyright (C) 2002-2010 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -133,7 +133,7 @@ class Dynamic_TextArea_Property extends Dynamic_Property
         $aliases[] = array(
                             'id'         => 4,
                             'name'       => 'textarea_medium',
-                            'label'      => 'Medium Text Area',
+                            'label'      => 'Text Area (medium)',
                             'format'     => '4',
                             'validation' => '',
                             'source'     => '',
@@ -148,7 +148,7 @@ class Dynamic_TextArea_Property extends Dynamic_Property
         $aliases[] = array(
                               'id'         => 5,
                               'name'       => 'textarea_large',
-                              'label'      => 'Large Text Area',
+                              'label'      => 'Text Area (large)',
                               'format'     => '5',
                               'validation' => '',
                             'source'     => '',
@@ -162,7 +162,7 @@ class Dynamic_TextArea_Property extends Dynamic_Property
         $baseInfo = array(
                             'id'         => 3,
                             'name'       => 'textarea_small',
-                            'label'      => 'Small Text Area',
+                            'label'      => 'Text Area (small)',
                             'format'     => '3',
                             'validation' => '',
                             'source'     => '',

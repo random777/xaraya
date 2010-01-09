@@ -3,7 +3,7 @@
  * (try to) get the "meta" properties of tables
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2010 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -124,15 +124,15 @@ function dynamicdata_utilapi_getmeta($args)
                     $proptype = 8; // Calendar
                     break;
                 case 'text':
-                    $proptype = 4; // Medium Text Area
+                    $proptype = 4; // Text Area (medium)
                     $status = 2;
                     break;
                 case 'longtext':
-                    $proptype = 5; // Large Text Area
+                    $proptype = 5; // Text Area (large)
                     $status = 2;
                     break;
                 case 'blob':       // caution, could be binary too !
-                    $proptype = 4; // Medium Text Area
+                    $proptype = 4; // Text Area (medium)
                     $status = 2;
                     break;
                 case 'enum':

@@ -30,7 +30,7 @@
     </property>
     <property name="small_text_area">
       <id>32</id>
-      <label>Small Text Area</label>
+      <label>Text Area (small)</label>
       <type>textarea_small</type>
       <default></default>
       <source>dynamic_data</source>
@@ -40,7 +40,7 @@
     </property>
     <property name="medium_text_area">
       <id>33</id>
-      <label>Medium Text Area</label>
+      <label>Text Area (medium)</label>
       <type>textarea_medium</type>
       <default></default>
       <source>dynamic_data</source>
@@ -50,7 +50,7 @@
     </property>
     <property name="large_text_area">
       <id>34</id>
-      <label>Large Text Area</label>
+      <label>Text Area (large)</label>
       <type>textarea_large</type>
       <default></default>
       <source>dynamic_data</source>

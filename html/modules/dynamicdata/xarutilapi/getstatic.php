@@ -3,7 +3,7 @@
  * Get the "static" properties
  *
  * @package modules
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright (C) 2002-2010 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -161,11 +161,11 @@ function dynamicdata_utilapi_getstatic($args)
                 $proptype = 8; // Calendar
                 break;
             case 'text':
-                $proptype = 4; // Medium Text Area
+                $proptype = 4; // Text Area (medium)
                 $status = 2;
                 break;
             case 'blob':       // caution, could be binary too !
-                $proptype = 4; // Medium Text Area
+                $proptype = 4; // Text Area (medium)
                 $status = 2;
                 break;
             default:

@@ -3,7 +3,7 @@
  * Installer
  *
  * @package Installer
- * @copyright (C) 2002-2009 The Digital Development Foundation
+ * @copyright (C) 2002-2010 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -1403,7 +1403,7 @@ function installer_admin_upgrade2()
     }
     if (is_array($ddtomove) && !empty($ddtomove[0])){
 
-        $content .= "<h3 style=\"font:size:large;color:red; font-weigh:bold;\">WARNING!</h3><p>The following DD property files exist in your Xaraya <strong>includes/properties</strong> directory.</p>";
+        $content .= "<h3 style=\"font:size:large;color:red; font-weight:bold;\">WARNING!</h3><p>The following DD property files exist in your Xaraya <strong>includes/properties</strong> directory.</p>";
         $content .= "<p>Please delete each of the following and ONLY the following from your <strong>includes/properties</strong> directory as they have now been moved to the relevant module in core, or the 3rd party module concerned.</p>";
         $content .= "<p>Once you have removed the duplicated property files from <strong>includes/properties</strong> please re-run upgrade.php.</p>";
 
@@ -1994,6 +1994,28 @@ function installer_admin_upgrade2()
     } else {
         $content .= "<p><span style=\"color:red;\">WARNING!</span> There was a problem updating menu links.</p>";
     }
+
+    $dynamicproptypesdef = $systemPrefix .'_dynamic_properties_def';
+
+    $proptypes = array(
+        array('id' => 3, 'label' => 'Text Area (small)'),
+        array('id' => 4, 'label' => 'Text Area (medium)'),
+        array('id' => 5, 'label' => 'Text Area (large)')
+    );
+
+    foreach ($proptypes as $proptype) {
+        $content .= "<p>Updating label for dynamic property ID " . $proptype['id'] . " to '" . $proptype['label'] . "'... ";
+
+        $id = (int) $proptype['id'];
+        $query = "UPDATE $dynamicproptypesdef
+                       SET xar_prop_label = ?
+                       WHERE xar_prop_id = ?";
+        $bindvars = array($proptype['label'],$proptype['id']);
+        $result =& $dbconn->Execute($query,$bindvars);
+        if (!$result) return;
+        $content .= "done</p>";
+    }
+
 /* End 1.2.0 Release Upgrades */
 
     $thisdata['content']=$content;

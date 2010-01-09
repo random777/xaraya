@@ -55,13 +55,19 @@ function base_javascriptapi_handlemodulejavascript($args)
 
     if (empty($filename)) return '';
 
+    if (empty($module)) {
+        // No module name is supplied, default the module from the
+        // current template module (not the current executing module).
+        $module = '$_bl_module_name';
+    }
+
     // Return the code to call up the javascript file.
     // Only the file version is supported for now.
     // let modulefile handle the arguments...
     $out = "xarModAPIFunc('base', 'javascript', 'modulefile',\n";
     $out .= " array(\n";
     foreach ($args as $key => $val) {
-        if (is_numeric($val) || substr($val,0,1) == '$') {
+        if (is_numeric($val) || (substr($val,0,1) == '$' && $val != '$_bl_module_name')) {
             $out .= " '$key' => $val,\n";
         } else {
             $out .= " '$key' => '$val',\n";

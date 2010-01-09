@@ -248,40 +248,40 @@ function modules_adminapi_getalldependencies($args)
                     $dependency_array['version'][$modId][$mainId] = $conditions;
                 }
             }
-        }
-        // RECURSIVE CALL
-        $output = xarModAPIFunc('modules', 'admin', 'getalldependencies', array('regid'=>$modId));
-        if (!$output) {
-            $msg = xarML('Unable to get dependencies for module with ID (#(1)).', $modId);
-            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', $msg);
-            return;
-        }
-        //This is giving : recursing detected.... ohh well
-//        $dependency_array = array_merge_recursive($dependency_array, $output);
+            // RECURSIVE CALL
+            $output = xarModAPIFunc('modules', 'admin', 'getalldependencies', array('regid'=>$modId));
+            if (!$output) {
+                $msg = xarML('Unable to get dependencies for module with ID (#(1)).', $modId);
+                xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', $msg);
+                return;
+            }
+            //This is giving : recursing detected.... ohh well
+    //        $dependency_array = array_merge_recursive($dependency_array, $output);
 
-        // FIXME: as the array uses numeric keys, this creates duplicates
-        $dependency_array['satisfiable'] = array_merge(
-            $dependency_array['satisfiable'],
-            $output['satisfiable']);
-        $dependency_array['unsatisfiable'] = array_merge(
-            $dependency_array['unsatisfiable'],
-            $output['unsatisfiable']);
-        $dependency_array['satisfied'] = array_merge(
-            $dependency_array['satisfied'],
-            $output['satisfied']);
-        // merge in unsatisfiable dependencies
-        $dependency_array['missing'] = array_merge(
-            $dependency_array['missing'],
-            $output['missing']);
-        $dependency_array['error'] = array_merge(
-            $dependency_array['error'],
-            $output['error']);
-        $dependency_array['version'] = array_merge(
-            $dependency_array['version'],
-            $output['version']);
-        $dependency_array['php_ext'] = array_merge(
-            $dependency_array['php_ext'],
-            $output['php_ext']);
+            // FIXME: as the array uses numeric keys, this creates duplicates
+            $dependency_array['satisfiable'] = array_merge(
+                $dependency_array['satisfiable'],
+                $output['satisfiable']);
+            $dependency_array['unsatisfiable'] = array_merge(
+                $dependency_array['unsatisfiable'],
+                $output['unsatisfiable']);
+            $dependency_array['satisfied'] = array_merge(
+                $dependency_array['satisfied'],
+                $output['satisfied']);
+            // merge in unsatisfiable dependencies
+            $dependency_array['missing'] = array_merge(
+                $dependency_array['missing'],
+                $output['missing']);
+            $dependency_array['error'] = array_merge(
+                $dependency_array['error'],
+                $output['error']);
+            $dependency_array['version'] = array_merge(
+                $dependency_array['version'],
+                $output['version']);
+            $dependency_array['php_ext'] = array_merge(
+                $dependency_array['php_ext'],
+                $output['php_ext']);
+        }
     }
 
     // Unsatisfiable and Satisfiable are assuming the user can't

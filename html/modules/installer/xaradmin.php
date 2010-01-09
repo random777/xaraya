@@ -1069,7 +1069,7 @@ function installer_admin_confirm_configuration()
 
         // set admin and user menu link modvars for core modules which
         // didn't get initialised in the normal way.
-        $modlist = array('authsystem', 'base', 'roles', 'themes', 'privileges', 'blocks');
+        $modlist = array('authsystem', 'base', 'roles', 'themes', 'privileges', 'blocks', 'modules');
         foreach ($modlist as $modname) {
             $modId = xarModGetIDFromName($modname);
             if (!isset($modId)) return;

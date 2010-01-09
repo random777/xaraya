@@ -1656,8 +1656,16 @@ function installer_admin_upgrade2()
             $blocktype = array('id' => $blockid,
                            'blocktype' => $blocktype,
                            'module'=> $module);
-
             if (is_array($blocktype) && $blocktype['module']=='adminpanels') {
+                // Bug 6450: check base module doesn't already have a block of this type
+                // before we try setting the module to base for the block we found,
+                // otherwise we get a duplicate entry error
+                $typeexists = xarModAPIFunc('blocks', 'user', 'getblocktype',
+                    array('type' => $newblock, 'module' => 'base'));
+                if (!empty($typeexists)) {
+                    $blockproblem[] = 1;
+                    continue;
+                }
                $blockid=$blocktype['id'];
                //set the module to base
                $query = "UPDATE $blocktypeTable

@@ -45,6 +45,9 @@ function base_javascriptapi_handlemodulejavascript($args)
             $args[$dkey] = $dval;
         }
     }
+
+    if (empty($args['position'])) $args['position'] = 'head';
+
     extract($args);
 
     if (!empty($code) && !empty($type)) {

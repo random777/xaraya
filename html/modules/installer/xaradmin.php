@@ -1995,27 +1995,6 @@ function installer_admin_upgrade2()
         $content .= "<p><span style=\"color:red;\">WARNING!</span> There was a problem updating menu links.</p>";
     }
 
-    $dynamicproptypesdef = $systemPrefix .'_dynamic_properties_def';
-
-    $proptypes = array(
-        array('id' => 3, 'label' => 'Text Area (small)'),
-        array('id' => 4, 'label' => 'Text Area (medium)'),
-        array('id' => 5, 'label' => 'Text Area (large)')
-    );
-
-    foreach ($proptypes as $proptype) {
-        $content .= "<p>Updating label for dynamic property ID " . $proptype['id'] . " to '" . $proptype['label'] . "'... ";
-
-        $id = (int) $proptype['id'];
-        $query = "UPDATE $dynamicproptypesdef
-                       SET xar_prop_label = ?
-                       WHERE xar_prop_id = ?";
-        $bindvars = array($proptype['label'],$proptype['id']);
-        $result =& $dbconn->Execute($query,$bindvars);
-        if (!$result) return;
-        $content .= "done</p>";
-    }
-
 /* End 1.2.0 Release Upgrades */
 
     $thisdata['content']=$content;

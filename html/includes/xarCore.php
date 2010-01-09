@@ -3,7 +3,7 @@
  * The Core
  *
  * @package core
- * @copyright (C) 2002-2009 The Digital Development Foundation
+ * @copyright (C) 2002-2010 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
@@ -20,7 +20,7 @@
  *
  */
 define('XARCORE_GENERATION',1);
-define('XARCORE_VERSION_NUM', '1.2.0-rc1');
+define('XARCORE_VERSION_NUM', '1.2.0');
 define('XARCORE_VERSION_ID',  'Xaraya');
 define('XARCORE_VERSION_SUB', 'adam_baum');
 // define BlockLayout Version (added in 1.2.0)

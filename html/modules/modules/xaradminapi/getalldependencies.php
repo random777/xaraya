@@ -115,6 +115,8 @@ function modules_adminapi_getalldependencies($args)
         }
         if (!is_array($conditions) && isset($dependencyinfo[$modId])) {
             $conditions = $dependencyinfo[$modId];
+        } else {
+            $conditions = array();
         }
         if ($modId == 0 && is_array($conditions)) {
              // dependency(info) = array('0' => array('name' => 'Core', 'version_(eq|le|ge)' => 'version'))

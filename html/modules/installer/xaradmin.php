@@ -602,53 +602,68 @@ function installer_admin_create_administrator()
     if (!xarVarFetch('create', 'isset', $create, FALSE, XARVAR_NOT_REQUIRED)) return;
     if (!$create) {
         // create a role from the data
-
         // assemble the template data
-        $data['install_admin_username'] = $role->getUser();
-        $data['install_admin_name']     = $role->getName();
-        $data['install_admin_email']    = $role->getEmail();
+        $data['install_admin_username'] = xarML('Admin'); //$role->getUser();
+        $data['install_admin_name']     = xarML('Administrator'); //$role->getName();
+        $data['install_admin_email']    = 'none@invalid.tld'; //$role->getEmail();
+        $data['install_admin_password'] = '';
+        $data['install_admin_password1'] = '';
         return $data;
     }
 
-    if (!xarVarFetch('install_admin_username','str:1:100',$userName)) return;
-    if (!xarVarFetch('install_admin_name','str:1:100',$name)) return;
-    if (!xarVarFetch('install_admin_password','str:4:100',$pass)) return;
-    if (!xarVarFetch('install_admin_password1','str:4:100',$pass1)) return;
-    if (!xarVarFetch('install_admin_email','str:1:100',$email)) return;
+    // Bug 6442: Instead of throwing exceptions, let's pass details
+    // of what went wrong back to the user, so they can correct it
+
+    if (!xarVarFetch('install_admin_username','pre:trim:str:1:',$userName, '', XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('install_admin_name','pre:trim:str:1:',$name, '', XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('install_admin_password','pre:trim:str:1:',$pass, '', XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('install_admin_password1','pre:trim:str:1:',$pass1, '', XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('install_admin_email','pre:trim:str:1:',$email, '', XARVAR_NOT_REQUIRED)) return;
+
+    $invalid = array();
+    // validate the userName
+    if (empty($userName)) {
+        $invalid['install_admin_username'] = xarML('You must provide a preferred username');
+    } elseif (strlen($userName) > 100) {
+        $invalid['install_admin_username'] = xarML('Username cannot be more than 100 characters in length');
+    } elseif ( preg_match("/[[:space:]]/",$userName) || strrpos($userName,' ') > 0 ) {
+        $invalid['install_admin_username'] = xarML('Username cannot contain spaces');
+    }
+    // validate the name
+    if (empty($name)) {
+        $invalid['install_admin_name'] = xarML('You must provide a preferred display name');
+    } elseif (strlen($name) > 100) {
+        $invalid['install_admin_name'] = xarML('Display name cannot be more than 100 characters in length');
+    }
+    // validate passwords
+    if (strlen($pass) < 4) {
+        $invalid['install_admin_password'] = xarML('The password must be a minimum of 4 characters in length');
+    } elseif (strlen($pass) > 100) {
+        $invalid['install_admin_password'] = xarML('The password cannot be more than 100 characters in length');
+    } elseif ($pass != $pass1) {
+        $invalid['install_admin_password'] = xarML('The passwords do not match');
+    }
+    // validate email
+    // @FIXME: needs better validation than just length checks
+    if (empty($email)) {
+        $invalid['install_admin_email'] = xarML('You must provide an email address');
+    } elseif (strlen($email) > 100) {
+        $invalid['install_admin_email'] = xarML('Email address cannot be more than 100 characters in length');
+    }
+    if (!empty($invalid)) {
+        $data['invalid'] = $invalid;
+        $data['install_admin_username'] = $userName;
+        $data['install_admin_name'] = $name;
+        $data['install_admin_password'] = $pass;
+        $data['install_admin_password1'] = $pass1;
+        $data['install_admin_email'] = $email;
+        $data['msg'] = xarML('Unable to create administrator, please correct the errors indicated below');
+        return $data;
+    }
 
     xarModSetVar('mail', 'adminname', $name);
     xarModSetVar('mail', 'adminmail', $email);
     xarModSetVar('themes', 'SiteCopyRight', '&copy; Copyright ' . date("Y") . ' ' . $name);
-
-    if ($pass != $pass1) {
-        $msg = xarML('The passwords do not match');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
-        return;
-    }
-
-    if (empty($userName)) {
-        $msg = xarML('You must provide a preferred username to continue.');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
-        return;
-
-    // check for spaces in the username
-    } elseif (preg_match("/[[:space:]]/",$userName)) {
-        $msg = xarML('There is a space in the username.');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
-        return;
-
-    // check the length of the username
-    } elseif (strlen($userName) > 255) {
-        $msg = xarML('Your username is too long.');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
-        return;
-
-    // check for spaces in the username (again ?)
-    } elseif (strrpos($userName,' ') > 0) {
-        $msg = xarML('There is a space in your username.');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
-        return;
-    }
 
     // assemble the args into an array for the role constructor
     $pargs = array('uid'   => $role->getID(),

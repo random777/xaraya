@@ -19,13 +19,13 @@ jQuery('#"."displayform').validate({
     },
     messages: {
         defaultfunction: {
-            required: '" . xarML('* Required') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required')) . "'
         },
         alternatepagetemplatename: {
-            required: '" . xarML('* Required if the above box is checked') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required if the above box is checked')) . "'
         },
         themedir: {
-            required: '" . xarML('* Required') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required')) . "'
         }
     },
     errorClass: 'xar-error',

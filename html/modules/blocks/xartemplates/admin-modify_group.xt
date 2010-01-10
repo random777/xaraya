@@ -7,7 +7,7 @@
         if (jQuery(form_obj).length)
         {
             href = jQuery(form_obj).attr('action');
-            join = (href.match(/\?/)) ? '&' : '?';
+            join = (href.match(/\?/)) ? '".chr(38)."' : '?';
             argstr =  join + 'pageName=module';
             var group_order = '';
             jQuery(':input').each(function()
@@ -19,12 +19,12 @@
                     }
                 }
                 if (jQuery(this).attr('name') != 'group_instance_order') {
-                    argstr += '&' + jQuery(this).attr('name') + '=' + jQuery(this).val();
+                    argstr += '".chr(38)."' + jQuery(this).attr('name') + '=' + jQuery(this).val();
                 }
             }
             );
             if (group_order != '') {
-                argstr += '&group_instance_order=' + group_order;
+                argstr += '".chr(38)."group_instance_order=' + group_order;
             }
             url = href + argstr;
             jQuery('#"."sortable').sortable('disable').children('tr').css('cursor', 'wait');

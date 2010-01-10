@@ -11,43 +11,43 @@ jQuery('#" . $id . "').datepicker({
     },
     dateFormat: 'yy-mm-dd', // TODO: convert date format stings, finish locale integration
     dayNames: [
-        '".xarML('Sunday')."',
-        '".xarML('Monday')."',
-        '".xarML('Tuesday')."',
-        '".xarML('Wednesday')."',
-        '".xarML('Thursday')."',
-        '".xarML('Friday')."',
-        '".xarML('Saturday')."'  
+        '".str_replace("'", "\'", xarML('Sunday'))."',
+        '".str_replace("'", "\'", xarML('Monday'))."',
+        '".str_replace("'", "\'", xarML('Tuesday'))."',
+        '".str_replace("'", "\'", xarML('Wednesday'))."',
+        '".str_replace("'", "\'", xarML('Thursday'))."',
+        '".str_replace("'", "\'", xarML('Friday'))."',
+        '".str_replace("'", "\'", xarML('Saturday'))."'  
     ],
     monthNames: [
-        '".xarML('January')."',
-        '".xarML('February')."',
-        '".xarML('March')."',
-        '".xarML('April')."',
-        '".xarML('May')."',
-        '".xarML('June')."',
-        '".xarML('July')."',
-        '".xarML('August')."',
-        '".xarML('September')."',
-        '".xarML('October')."',
-        '".xarML('November')."',
-        '".xarML('December')."'  
+        '".str_replace("'", "\'", xarML('January'))."',
+        '".str_replace("'", "\'", xarML('February'))."',
+        '".str_replace("'", "\'", xarML('March'))."',
+        '".str_replace("'", "\'", xarML('April'))."',
+        '".str_replace("'", "\'", xarML('May'))."',
+        '".str_replace("'", "\'", xarML('June'))."',
+        '".str_replace("'", "\'", xarML('July'))."',
+        '".str_replace("'", "\'", xarML('August'))."',
+        '".str_replace("'", "\'", xarML('September'))."',
+        '".str_replace("'", "\'", xarML('October'))."',
+        '".str_replace("'", "\'", xarML('November'))."',
+        '".str_replace("'", "\'", xarML('December'))."'  
     ],
-    closeText: '" . xarML('Done') . "',
-    currentText: '" . xarML('Today') . "',
-    nextText: '" . xarML('Next') . "',
-    prevText: '" . xarML('Prev') . "',
+    closeText: '" . str_replace("'", "\'", xarML('Done')) . "',
+    currentText: '" . str_replace("'", "\'", xarML('Today')) . "',
+    nextText: '" . str_replace("'", "\'", xarML('Next')) . "',
+    prevText: '" . str_replace("'", "\'", xarML('Prev')) . "',
     showButtonPanel: true,
     // timepicker additions
     showTime: true,
     duration: '',
     time24h: true,
     showSeconds: true,
-    hourText: '" . xarML('Hour') . "',
-    minuteText: '" . xarML('Minute') . "',
-    secondText: '" . xarML('Second') . "',
-    amText: '" . xarML('am') . "',
-    pmText: '" . xarML('pm') . "'
+    hourText: '" . str_replace("'", "\'", xarML('Hour')) . "',
+    minuteText: '" . str_replace("'", "\'", xarML('Minute')) . "',
+    secondText: '" . str_replace("'", "\'", xarML('Second')) . "',
+    amText: '" . str_replace("'", "\'", xarML('am')) . "',
+    pmText: '" . str_replace("'", "\'", xarML('pm')) . "'
 });
 jQuery('#" . $id . "').after(' ".chr(60)."a class=\"xar-icon\" id=\"" . $id . "_calendaricon\" class=\"xar-icon\" title=\"" . $alttext . "\" style=\"cursor: pointer;\"".chr(62).chr(60)."img src=\"" . xarTplGetImage('icons/office-calendar.png','base') . "\" alt=\"" . $alttext . "\" /".chr(62).chr(60)."/a".chr(62)."');
 jQuery('#" . $id . "_calendaricon').click(function() { jQuery('#" . $id . "').datepicker('show'); return false; });

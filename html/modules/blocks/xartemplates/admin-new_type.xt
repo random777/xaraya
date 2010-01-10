@@ -13,10 +13,10 @@ jQuery('#"."newblocktypeform').validate({
     },            
     messages: {     
         moduleid: {
-            required: '" . xarML('* Required') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required')) . "'
         },
         blockname: {
-            required: '" . xarML('* Required') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required')) . "'
         }
     },
     errorClass: 'xar-error',

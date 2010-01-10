@@ -4,7 +4,7 @@
 <xar:set name="privscode">"
 var reloadform = function() {
     this.form.action='" . xarModURL('privileges','admin','newprivilege', array(), false) . "';        
-    ;this.form.submit();
+    this.form.submit();
 }
 jQuery('input[type=radio][id^=ptype]').click(reloadform);
 jQuery('#"."pmodule').add('#"."pcomponent').change(reloadform);

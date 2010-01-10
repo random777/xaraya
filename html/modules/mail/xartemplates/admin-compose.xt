@@ -25,22 +25,22 @@ jQuery('#"."composeform').validate({
     },              
     messages: {               
         email: {
-            required: '" . xarML('* Required') . "',
-            email: '" . xarML('* Valid email required') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required')) . "',
+            email: '" . str_replace("'", "\'", xarML('* Valid email required')) . "'
         },
         subject: {               
-            required: '" . xarML('* Required') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required')) . "'
         },           
         message: {
-            required: '" . xarML('* Required') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required')) . "'
         },
         emailcc: {
-            required: '" . xarML('* Required with CC Name') . "',
-            email: '" . xarML('* Valid email required') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required with CC Name')) . "',
+            email: '" . str_replace("'", "\'", xarML('* Valid email required')) . "'
         },
         emailbcc: {
-            required: '" . xarML('* Required with BCC Name') . "',
-            email: '" . xarML('* Valid email required') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required with BCC Name')) . "',
+            email: '" . str_replace("'", "\'", xarML('* Valid email required')) . "'
         }
     },
     errorClass: 'xar-error',       

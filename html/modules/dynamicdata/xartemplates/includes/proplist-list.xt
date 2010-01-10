@@ -76,7 +76,7 @@
                 modal: true,
                 draggable: false,
                 resizable: false,
-                buttons: {'" . xarML('Close') . "': function() { jQuery(this).dialog('close');}}
+                buttons: {'" . str_replace("'", "\'", xarML('Close')) . "': function() { jQuery(this).dialog('close');}}
             }
         );
         return false;

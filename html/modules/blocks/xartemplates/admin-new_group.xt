@@ -12,7 +12,7 @@ jQuery('#"."newblockgroupform').validate({
     },
     messages: {
         group_name: {
-            required: '" . xarML('* Required') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required')) . "'
         }
     },
     errorClass: 'xar-error',

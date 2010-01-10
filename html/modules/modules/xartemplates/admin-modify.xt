@@ -19,8 +19,6 @@ jQuery('a#toggleall').click(function() {
     jQuery(this).parent().parent().find('div.fieldwrapper').toggle();
     return false;
 });
-
-
 "</xar:set>
 <xar:base-js-event name="ready" code="$hookscode" />
 <div class="xar-mod-head">
@@ -48,13 +46,13 @@ jQuery('a#toggleall').click(function() {
             <div class="xar-form-section">
                 <xar:if condition="$user_capable">
                 <div class="xar-form-input-wrapper">
-                    <label for="user_menu_link" class="xar-form-label"><xar:mlstring>Show link in user menu</xar:mlstring>
+                    <label for="user_menu_link" class="xar-form-label"><xar:mlstring>Show link in user menu</xar:mlstring></label>
                     <xar:data-input type="checkbox" name="user_menu_link" id="user_menu_link" checked="$user_menu_link" />
                 </div>
                 </xar:if>
                 <xar:if condition="$admin_capable">
                 <div class="xar-form-input-wrapper">
-                    <label for="admin_menu_link" class="xar-form-label"><xar:mlstring>Show link in admin menu</xar:mlstring>
+                    <label for="admin_menu_link" class="xar-form-label"><xar:mlstring>Show link in admin menu</xar:mlstring></label>
                     <xar:data-input type="checkbox" name="admin_menu_link" id="admin_menu_link" checked="$admin_menu_link" />
                 </div>
                 </xar:if>

@@ -53,26 +53,26 @@ jQuery('#"."mailmodifyconfig').validate({
     },
     messages: {
         adminname: {
-            required: '" . xarML('* Required') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required')) . "'
         },
         adminmail: {
-            required: '" . xarML('* Required') . "',
-            email: '" . xarML('* Valid email required') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required')) . "',
+            email: '" . str_replace("'", "\'", xarML('* Valid email required')) . "'
         },
         htmlheader: {
-            required: '" . xarML('* Required if the above box is checked') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required if the above box is checked')) . "'
         },
         htmlfooter: {
-            required: '" . xarML('* Required if the above box is checked') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required if the above box is checked')) . "'
         },
         textheader: {
-            required: '" . xarML('* Required if the above box is checked') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required if the above box is checked')) . "'
         },
         textfooter: {
-            required: '" . xarML('* Required if the above box is checked') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required if the above box is checked')) . "'
         },
         redirectaddress: {
-            required: '" . xarML('* Required if the above box is checked') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required if the above box is checked')) . "'
         }
     },
     errorClass: 'xar-error',

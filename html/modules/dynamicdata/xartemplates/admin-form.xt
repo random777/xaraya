@@ -6,7 +6,6 @@ jQuery('#"."preview__form').submit(function() { return false; });
 <xar:if condition="xarRequestIsAJAX()">
 <xar:set name="ddcode">$ddcode . "
 jQuery('#"."previewcontrolform').submit(function() {
-
 return false;
 });
 "</xar:set>

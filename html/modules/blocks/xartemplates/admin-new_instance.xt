@@ -10,7 +10,7 @@ jQuery('#"."newblockform').validate({
     },
     messages: {
         block_name: {     
-            required: '" . xarML('* Required') . "'
+            required: '" . str_replace("'", "\'", xarML('* Required')) . "'
         }
     },
     errorClass: 'xar-error',

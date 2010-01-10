@@ -2,7 +2,7 @@
 <xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
 <xar:base-js-plugin name="treeview" framework="jquery" file="jquery.treeview.min.js" style="jquery.treeview.css" />
 <xar:set name="privscode">"
-jQuery('div#"."treewrapper > ul').treeview();
+jQuery('div#"."treewrapper ".chr(62)." ul').treeview();
 jQuery('div#"."treewrapper span.xar-privtree-icons').css({'float': 'left', 'margin': '0 .5em'}); 
 jQuery('#"."treewrapper a').click(function(event) {
     event.stopPropagation();

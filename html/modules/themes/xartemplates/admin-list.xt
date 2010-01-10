@@ -12,8 +12,8 @@ var dialog_height = Math.floor(jQuery(window).height() * .85);
 
 jQuery('a.xar-info, a.xar-missing').click(function() {
 jQuery('#"."xardialogtarget').remove();
-jQuery('body').append('<div id=\'xardialogtarget\' style=\'display: none;\'></div>');
-jQuery('#" . "xardialogtarget').load(this.getAttribute('href').replace('&theme=print', '&pageName=module') + ' .xar-mod-body > *').dialog({
+jQuery('body').append('".chr(60)."div id=\'xardialogtarget\' style=\'display: none;\'".chr(62).chr(60)."/div".chr(62)."');
+jQuery('#" . "xardialogtarget').load(this.getAttribute('href').replace('".chr(38)."theme=print', '".chr(38)."pageName=module') + ' .xar-mod-body > *').dialog({
 title: jQuery(this).attr('title'),
 width: dialog_width,
 height: dialog_height,
@@ -21,7 +21,7 @@ bgiframe: true,
 modal: true,
 draggable: false,
 resizable: false,
-buttons: {'" . xarML('Close') . "': function() { jQuery(this).dialog('close');}}
+buttons: {'" . str_replace("'", "\'", xarML('Close')) . "': function() { jQuery(this).dialog('close');}}
 });
 return false;
 });

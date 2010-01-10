@@ -430,6 +430,7 @@ div.scroller p, div.scroller input {
 
 .xar-sub { font-size: .7em; }
 .clear { clear: both; height:0px; }
+.xar-error { color: #ff0000; }
 
 
 #navlist li {

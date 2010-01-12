@@ -12,7 +12,6 @@
         <xar:mlstring>Please enter the settings for your Administrator account. This information is necessary in order to properly secure your Xaraya installation. These settings can be changed at any point in the future by visiting the Roles module.</xar:mlstring>
     </p>
 
-
     <h2>
         <xar:mlstring>Administrator Information</xar:mlstring>
     </h2>
@@ -26,12 +25,12 @@
             <label class="xar-form-label" for="install_admin_name">
                 <xar:mlstring>Display Name</xar:mlstring>
             </label>
-            <input type="text" name="install_admin_name" id="install_admin_name" maxlength="100" value="#$install_admin_name#" />
-            <xar:if condition="!empty($invalid['install_admin_name'])">
-            <div class="xar-form-container-after xar-error">
-                #$invalid['install_admin_name']#
+            <div class="xar-form-container-after">
+                <input type="text" name="install_admin_name" id="install_admin_name" maxlength="100" value="#$install_admin_name#" />
+                <xar:if condition="!empty($invalid['install_admin_name'])">
+                    <div class="xar-error">#$invalid['install_admin_name']#</div>
+                </xar:if>
             </div>
-            </xar:if>
         </div>
         <div class="xar-form-input-wrapper">
             <label class="xar-form-label" for="install_admin_username">
@@ -40,45 +39,43 @@
             <div class="xar-form-input-container-after">
                 <input type="text" name="install_admin_username" id="install_admin_username" maxlength="100" value="#$install_admin_username#" />
                 <xar:mlstring>(Used for logon)</xar:mlstring>
+                <xar:if condition="!empty($invalid['install_admin_username'])">
+                    <div class="xar-error">#$invalid['install_admin_username']#</div>
+                </xar:if>
             </div>
-            <xar:if condition="!empty($invalid['install_admin_username'])">
-            <div class="xar-form-container-after xar-error">
-                #$invalid['install_admin_username']#
-            </div>
-            </xar:if>
         </div>
         <div class="xar-form-input-wrapper">
             <label class="xar-form-label" for="install_admin_password">
                 <xar:mlstring>Password</xar:mlstring>
             </label>
-            <input type="password" name="install_admin_password" id="install_admin_password" maxlength="100" value="#$install_admin_password#" />
-            <xar:if condition="!empty($invalid['install_admin_password'])">
-            <div class="xar-form-container-after xar-error">
-                #$invalid['install_admin_password']#
+            <div class="xar-form-container-after">
+                <input type="password" name="install_admin_password" id="install_admin_password" maxlength="100" value="#$install_admin_password#" />
+                <xar:if condition="!empty($invalid['install_admin_password'])">
+                    <div class="xar-error">#$invalid['install_admin_password']#</div>
+                </xar:if>
             </div>
-            </xar:if>
         </div>
         <div class="xar-form-input-wrapper">
             <label class="xar-form-label" for="install_admin_password1">
                 <xar:mlstring>Password Again</xar:mlstring>
             </label>
-            <input type="password" name="install_admin_password1" id="install_admin_password1" maxlength="100" value="#$install_admin_password1#" />
-            <xar:if condition="!empty($invalid['install_admin_password1'])">
-            <div class="xar-form-container-after xar-error">
-                #$invalid['install_admin_password1']#
+            <div class="xar-form-container-after">
+                <input type="password" name="install_admin_password1" id="install_admin_password1" maxlength="100" value="#$install_admin_password1#" />
+                <xar:if condition="!empty($invalid['install_admin_password1'])">
+                    <div class="xar-error">#$invalid['install_admin_password1']#</div>
+                </xar:if>
             </div>
-            </xar:if>
         </div>
         <div class="xar-form-input-wrapper">
             <label class="xar-form-label" for="install_admin_email">
                 <xar:mlstring>Email</xar:mlstring>
             </label>
-            <input type="text" name="install_admin_email" id="install_admin_email" maxlength="100" value="#$install_admin_email#" />
-            <xar:if condition="!empty($invalid['install_admin_email'])">
             <div class="xar-form-container-after xar-error">
-                #$invalid['install_admin_email']#
+                <input type="text" name="install_admin_email" id="install_admin_email" maxlength="100" value="#$install_admin_email#" />
+                <xar:if condition="!empty($invalid['install_admin_email'])">
+                    <div class="xar-error">#$invalid['install_admin_email']#</div>
+                </xar:if>
             </div>
-            </xar:if>
         </div>
 
         <p>

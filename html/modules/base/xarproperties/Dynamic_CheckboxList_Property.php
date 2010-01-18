@@ -108,10 +108,10 @@ class Dynamic_CheckboxList_Property extends Dynamic_Select_Property
         } else {
             $data['id']= $id;
         }
-
+        $data['layout']     = isset($layout) ?  $layout: null; //inherit from template
+        $data['columns']    = !empty($columns) ? $columns : null;//let tpl decide
         $data['tabindex'] =!empty($tabindex) ? ' tabindex="'.$tabindex.'" ' : '';
         $data['invalid']  =!empty($this->invalid) ? ' <span class="xar-error">'.xarML('Invalid #(1)', $this->invalid) .'</span>' : '';
-
 
         $template="";
         return xarTplProperty('base', 'checkboxlist', 'showinput', $data);

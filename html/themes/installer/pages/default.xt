@@ -11,14 +11,15 @@
     <meta http-equiv="expires" content="0" />
     <meta name="generator" content="Xaraya; - http://www.xaraya.com" />
     <meta name="rating" content="General" />
-
-    <xar:set name="ilang">xarVarFetch('install_language','str::',$install_language, 'en_US.utf-8', XARVAR_NOT_REQUIRED)</xar:set>
-    <xar:set name="iphase">xarVarFetch('install_phase','int:1:6',$phase,1,XARVAR_NOT_REQUIRED)</xar:set>
-    <xar:set name="iconfirm">xarVarFetch('confirmDB','bool',$confirmDB,false,XARVAR_NOT_REQUIRED)</xar:set>
-    <xar:if condition="$phase eq 5 and $confirmDB">
-    <meta http-equiv="refresh" content="1;url=&xar-modurl-installer-admin-bootstrap;&amp;install_language=#$install_language#" />
+    <xar:if condition="xarVarIsCached('installer', 'meta-refresh')">
+        <xar:set name="meta_refresh">xarVarGetCached('installer', 'meta-refresh')</xar:set>
+        <xar:if condition="!empty($meta_refresh) and xarVarIsCached('installer', 'meta-refresh-url')">
+            <xar:set name="meta_refresh_url">xarVarGetCached('installer', 'meta-refresh-url')</xar:set>
+            <xar:if condition="!empty($meta_refresh_url)">
+                <meta http-equiv="refresh" content="#$meta_refresh#;#$meta_refresh_url#" />
+            </xar:if>
+        </xar:if>
     </xar:if>
-
     <link rel="stylesheet" type="text/css" href="themes/installer/style/style.css" />
     <link rel="stylesheet" type="text/css" href="modules/base/xarstyles/xarcore-xhtml1-strict.css" />
 </head>

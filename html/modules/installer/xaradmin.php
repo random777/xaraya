@@ -478,6 +478,10 @@ function installer_admin_phase5()
 
     xarConfigSetVar('Site.MLS.AllowedLocales',$allowed_locales);    $data['language'] = $install_language;
 
+    // if we're here, we successfully completed phase 5,
+    // let the themes/installer/pages/default.xt template know ;)
+    xarVarSetCached('installer', 'meta-refresh', 1);
+    xarVarSetCached('installer', 'meta-refresh-url', xarModURL('installer', 'admin', 'bootstrap', array('install_language' => $install_language)));
     $data['phase'] = 5;
     $data['phase_label'] = xarML('Step Five');
 
@@ -493,6 +497,12 @@ function installer_admin_bootstrap()
 {
     xarVarFetch('install_language','str::',$install_language, 'en_US.utf-8', XARVAR_NOT_REQUIRED);
     xarVarSetCached('installer','installing', true);
+
+    // @FIXME: This function is called via meta refresh in the page template
+    // If it fails, after the refresh, ie, mid execution of this function,
+    // and the user clicks the link to continue, this function is executed
+    // again, at which point it will fail since it attempts to populate the db
+    // with data which was already inserted during the failed run
 
     // create the default roles and privileges setup
     include 'modules/privileges/xarsetup.php';

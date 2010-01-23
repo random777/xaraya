@@ -17,7 +17,7 @@
         </p>
         <p>
             <xar:mlstring>If your browser does not automatically redirect, you can</xar:mlstring>
-            <a href="index.php?module=installer&amp;type=admin&amp;function=bootstrap&amp;install_language=#$language#">
+            <a href="#xarVarGetCached('installer', 'meta-refresh-url')#">
                 <xar:mlstring>manually continue to next stage</xar:mlstring>
             </a>.
         </p>

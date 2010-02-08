@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE schema PUBLIC "-//XAR//DTD DDL 1.0 Strict//EN" "http://xaraya.com/schema/DTD/ddl-strict.dtd">
 <schema name="xaraya">
-  <table name="block_groups">
-    <column id="block_groups.id" name="id" required="true" auto="true">
-      <number size="11" />
-    </column>
-    <column id="block_groups.name" name="name" required="true" >
-      <text size="255" default=""/>
-    </column>
-    <column id="block_groups.template" name="template" required="true" >
-      <text size="255" default=""/>
-    </column>
-    <constraints>
-      <primary name="id">
-        <column ref="block_groups.id"/>
-      </primary>
-      <unique name="i_block_groups">
-        <column ref="block_groups.name"/>
-      </unique>
-    </constraints>
-  </table>
   <table name="block_group_instances">
     <column id="block_group_instances.id" name="id" required="true" auto="true">
       <number size="11" />

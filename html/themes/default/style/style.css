@@ -20,9 +20,24 @@ input, textarea {
     max-width: 84em;
     position: relative;
 }
+#admin-wrapper {
+    /* to prevent the content area to become too wide (with respect to line-length) */
+    margin: 1.5em auto;
+    width: 100%;
+    position: relative;
+}
 #main {
     padding: 1.5em;
     margin: 0 16.5em;
+    border: 1px dotted #D77043;
+    border-width: 0 1px;
+    background: #F6F0E7;
+    color: #020;
+    min-height: 537px;
+}
+#admin-main {
+    padding: 1.5em;
+    margin: 0 1.5em 0 16.5em;
     border: 1px dotted #D77043;
     border-width: 0 1px;
     background: #F6F0E7;
@@ -58,6 +73,13 @@ input, textarea {
 .sideInfo {
     position: absolute;
     top: 90px;
+    width: 13.5em;
+    margin: 0 1.5em;
+    padding: 4.5em 0 1.5em;
+}
+.admin-sideInfo {
+    position: absolute;
+    top: 0px;
     width: 13.5em;
     margin: 0 1.5em;
     padding: 4.5em 0 1.5em;
@@ -173,7 +195,20 @@ ul.xar-tabs li.xar-tab a:hover {
 ul.xar-tabs li.xar-tab-active a:hover {
     background-color: #f5dcbb;
 }
-
+/* pager structure (margin, padding, etc is controlled in pager.css in 
+   the base module.  Colors (border, background) are inherited from the norm, 
+   alt, accent classes above.  The below rules are intended to be 
+   theme-specific supplements.
+*/
+/* pager label */
+div.xar-pager span.xar-pager-label {
+    color: #D77043;
+    font-size: 0.9em;
+}
+/* inactive page link hover - not handled elsewhere */
+div.xar-pager span.xar-page a:hover {
+    background-color: #F5EADC;
+}
 
 .sideInfo .xar-block-title {
     text-transform: uppercase;
@@ -203,6 +238,37 @@ ul.xar-tabs li.xar-tab-active a:hover {
     background: transparent url(../images/li-bullet2-5.png) no-repeat center left;
 }
 .sideInfo h4 {
+    margin: 0;
+    font: italic normal 1em Georgia, Times, "Times New Roman", serif;
+}
+.admin-sideInfo .xar-block-title {
+    text-transform: uppercase;
+    font-size: .88em;
+    letter-spacing: .1em;
+    color: #D77043;
+    border-top: 1px solid #D77043;
+    text-align: right;
+}
+.admin-sideInfo .xar-block-body {
+    margin: 0 0 1.5em;
+}
+.admin-sideInfo ul {
+    margin: 0 0 1.5em;
+    padding: 0;
+}
+.admin-sideInfo ul ul {
+    margin: 0;
+}
+.admin-sideInfo li {
+    margin: 0;
+    list-style-type: none;
+}
+.admin-sideInfo li li li {
+    padding-left: 1em;
+    margin-left: .25em;
+    background: transparent url(../images/li-bullet2-5.png) no-repeat center left;
+}
+.admin-sideInfo h4 {
     margin: 0;
     font: italic normal 1em Georgia, Times, "Times New Roman", serif;
 }
@@ -236,7 +302,7 @@ ul.xar-tabs li.xar-tab-active a:hover {
 fieldset {
     border: 1px solid #B9B6B3;
     margin: 0 0 2.25em;
-    padding: 0 1.5em .75em;
+    padding: 0.5em 1.5em .5em;
 }
 legend {
     text-transform: uppercase;
@@ -353,4 +419,23 @@ pre {
 }
 #authsystemBlocksLogin .textInputContainer input, #authsystemBlocksLogin .passInputContainer input {
     width: 96%; /* wanted to do this with display: block, but that does not work correctly, this seems to work best... */
+}
+
+/*
+icon related styling
+-------------------------------------------------------------------------[comment] */
+
+a.xar-icon {
+    text-decoration: none;
+}
+a.xar-icon img{
+    vertical-align: text-top;
+}
+img.xar-icon {
+    vertical-align: text-top;
+}
+img.xar-icon-disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    vertical-align: text-top;
 }

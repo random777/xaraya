@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE schema PUBLIC "-//XAR//DTD DDL 1.0 Strict//EN" "http://xaraya.com/schema/DTD/ddl-strict.dtd">
+<!--
+  Schema which contains all the tricks in the trade, to which the implementation
+  should react responsibly
+-->
+<schema name="devtest" xmlns="http://xaraya.com/2007/schema">
+  <description>Schema description can optionally be put here</description>
+  <!-- Define a prototype to show this option -->
+  <prototypes>
+    <column id="prototype_systemID" name="id" auto="true" required="true">
+        <description>Unique id for this column</description>
+        <number size="11"/>
+    </column>
+  </prototypes>
+
+  <table name="first">
+    <description>A nice table with some sort of description</description>
+    <!-- Use the defined prototype -->
+    <column ref="prototype_systemID" id="first.id"/>
+
+    <column id="first.ref_id" name="ref_id" required="true">
+       <description>A reference to an id column</description>
+       <number size="11" min="1" max="100" default="4"/> <!-- max attribute is kinda silly, but valid -->
+    </column>
+
+    <column id="first.name" name="name" required="true">
+      <text size="255"/>
+    </column>
+
+    <constraints>
+      <primary name="id">
+        <column ref="first.id"/>
+      </primary>
+      <index name="ref_id">
+        <description>We index on the ref_id column because we can</description>
+        <column ref="first.ref_id"/>
+      </index>
+      <unique name="name">
+        <column ref="first.name"/>
+      </unique>
+    </constraints>
+  </table>
+</schema>

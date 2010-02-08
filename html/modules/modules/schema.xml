@@ -3,34 +3,34 @@
 <schema name="xaraya">
   <table name="hooks">
     <column id="hooks.id" name="id" required="true" auto="true">
-      <number size="11" />
+      <number size="11"/>
     </column>
-    <column id="hooks.object" name="object" required="true" >
+    <column id="hooks.object" name="object" required="true">
       <text size="64" default=""/>
     </column>
-    <column id="hooks.action" name="action" required="true" >
+    <column id="hooks.action" name="action" required="true">
       <text size="64" default=""/>
     </column>
-    <column id="hooks.s_module_id" name="s_module_id"  >
-      <number size="11" />
+    <column id="hooks.s_module_id" name="s_module_id">
+      <number size="11"/>
     </column>
-    <column id="hooks.s_type" name="s_type" required="true" >
+    <column id="hooks.s_type" name="s_type" required="true">
       <text size="64" default=""/>
     </column>
-    <column id="hooks.t_area" name="t_area" required="true" >
+    <column id="hooks.t_area" name="t_area" required="true">
       <text size="64" default=""/>
     </column>
-    <column id="hooks.t_module_id" name="t_module_id" required="true" >
-      <number size="11" />
+    <column id="hooks.t_module_id" name="t_module_id" required="true">
+      <number size="11"/>
     </column>
-    <column id="hooks.t_type" name="t_type" required="true" >
+    <column id="hooks.t_type" name="t_type" required="true">
       <text size="64" default=""/>
     </column>
-    <column id="hooks.t_func" name="t_func" required="true" >
+    <column id="hooks.t_func" name="t_func" required="true">
       <text size="64" default=""/>
     </column>
-    <column id="hooks.priority" name="priority" required="true" >
-      <number size="11" default="0" />
+    <column id="hooks.priority" name="priority" required="true">
+      <number size="11" default="0"/>
     </column>
     <constraints>
       <primary name="id">
@@ -39,13 +39,13 @@
     </constraints>
   </table>
   <table name="module_itemvars">
-    <column id="module_itemvars.module_var_id" name="module_var_id" required="true" >
-      <number size="11" />
+    <column id="module_itemvars.module_var_id" name="module_var_id" required="true">
+      <number size="11"/>
     </column>
-    <column id="module_itemvars.item_id" name="item_id" required="true" >
-      <number size="10" />
+    <column id="module_itemvars.item_id" name="item_id" required="true">
+      <number size="10"/>
     </column>
-    <column id="module_itemvars.value" name="value"  >
+    <column id="module_itemvars.value" name="value">
       <text/>
     </column>
     <constraints>
@@ -57,34 +57,34 @@
   </table>
   <table name="modules">
     <column id="modules.id" name="id" required="true" auto="true">
-      <number size="11" />
+      <number size="11"/>
     </column>
-    <column id="modules.name" name="name" required="true" >
+    <column id="modules.name" name="name" required="true">
       <text size="64" default=""/>
     </column>
-    <column id="modules.regid" name="regid"  >
-      <number size="11" />
+    <column id="modules.regid" name="regid">
+      <number size="11"/>
     </column>
-    <column id="modules.directory" name="directory" required="true" >
+    <column id="modules.directory" name="directory" required="true">
       <text size="64" default=""/>
     </column>
-    <column id="modules.version" name="version" required="true" >
+    <column id="modules.version" name="version" required="true">
       <text size="10" default=""/>
     </column>
-    <column id="modules.class" name="class" required="true" >
+    <column id="modules.class" name="class" required="true">
       <text size="64" default=""/>
     </column>
-    <column id="modules.category" name="category" required="true" >
+    <column id="modules.category" name="category" required="true">
       <text size="64" default=""/>
     </column>
-    <column id="modules.admin_capable" name="admin_capable" required="true" >
-      <number size="11" default="0" />
+    <column id="modules.admin_capable" name="admin_capable" required="true">
+      <number size="11" default="0"/>
     </column>
-    <column id="modules.user_capable" name="user_capable" required="true" >
-      <number size="11" default="0" />
+    <column id="modules.user_capable" name="user_capable" required="true">
+      <number size="11" default="0"/>
     </column>
-    <column id="modules.state" name="state" required="true" >
-      <number size="11" default="1" />
+    <column id="modules.state" name="state" required="true">
+      <number size="11" default="1"/>
     </column>
     <constraints>
       <primary name="id">

@@ -3,37 +3,37 @@
 <schema name="xaraya">
   <table name="roles">
     <column id="roles.id" name="id" required="true" auto="true">
-      <number size="11" />
+      <number size="11"/>
     </column>
-    <column id="roles.name" name="name" required="true" >
+    <column id="roles.name" name="name" required="true">
       <text size="255" default=""/>
     </column>
-    <column id="roles.itemtype" name="itemtype" required="true" >
-      <number size="11" default="0" />
+    <column id="roles.itemtype" name="itemtype" required="true">
+      <number size="11" default="0"/>
     </column>
-    <column id="roles.users" name="users" required="true" >
-      <number size="11" default="0" />
+    <column id="roles.users" name="users" required="true">
+      <number size="11" default="0"/>
     </column>
-    <column id="roles.uname" name="uname" required="true" >
+    <column id="roles.uname" name="uname" required="true">
       <text size="255" default=""/>
     </column>
-    <column id="roles.email" name="email" required="true" >
+    <column id="roles.email" name="email" required="true">
       <text size="255" default=""/>
     </column>
-    <column id="roles.pass" name="pass" required="true" >
+    <column id="roles.pass" name="pass" required="true">
       <text size="100" default=""/>
     </column>
-    <column id="roles.date_reg" name="date_reg" required="true" >
-      <number size="11" default="0" />
+    <column id="roles.date_reg" name="date_reg" required="true">
+      <number size="11" default="0"/>
     </column>
-    <column id="roles.valcode" name="valcode" required="true" >
+    <column id="roles.valcode" name="valcode" required="true">
       <text size="35" default=""/>
     </column>
-    <column id="roles.state" name="state" required="true" >
-      <number size="11" default="3" />
+    <column id="roles.state" name="state" required="true">
+      <number size="11" default="3"/>
     </column>
-    <column id="roles.auth_module_id" name="auth_module_id" required="true" >
-      <number size="11" default="0" />
+    <column id="roles.auth_module_id" name="auth_module_id" required="true">
+      <number size="11" default="0"/>
     </column>
     <constraints>
       <primary name="id">
@@ -57,11 +57,11 @@
     </constraints>
   </table>
   <table name="rolemembers">
-    <column id="rolemembers.role_id" name="role_id"  >
-      <number size="11" />
+    <column id="rolemembers.role_id" name="role_id">
+      <number size="11"/>
     </column>
-    <column id="rolemembers.parent_id" name="parent_id"  >
-      <number size="11" />
+    <column id="rolemembers.parent_id" name="parent_id">
+      <number size="11"/>
     </column>
     <constraints>
       <primary name="id">

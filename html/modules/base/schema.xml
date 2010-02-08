@@ -3,15 +3,15 @@
 <schema name="xaraya">
   <table name="module_vars">
     <column id="module_vars.id" name="id" required="true" auto="true">
-      <number size="11" />
+      <number size="11"/>
     </column>
-    <column id="module_vars.module_id" name="module_id"  >
-      <number size="11" />
+    <column id="module_vars.module_id" name="module_id">
+      <number size="11"/>
     </column>
-    <column id="module_vars.name" name="name" required="true" >
+    <column id="module_vars.name" name="name" required="true">
       <text size="64" default=""/>
     </column>
-    <column id="module_vars.value" name="value"  >
+    <column id="module_vars.value" name="value">
       <text/>
     </column>
     <constraints>
@@ -31,26 +31,26 @@
     </constraints>
   </table>
   <table name="session_info">
-    <column id="session_info.id" name="id" required="true" >
+    <column id="session_info.id" name="id" required="true">
       <text size="32"/>
     </column>
-    <column id="session_info.ip_addr" name="ip_addr" required="true" >
+    <column id="session_info.ip_addr" name="ip_addr" required="true">
       <text size="20"/>
     </column>
-    <column id="session_info.first_use" name="first_use" required="true" >
-      <number size="11" default="0" />
+    <column id="session_info.first_use" name="first_use" required="true">
+      <number size="11" default="0"/>
     </column>
-    <column id="session_info.last_use" name="last_use" required="true" >
-      <number size="11" default="0" />
+    <column id="session_info.last_use" name="last_use" required="true">
+      <number size="11" default="0"/>
     </column>
-    <column id="session_info.role_id" name="role_id" required="true" >
-      <number size="11" default="0" />
+    <column id="session_info.role_id" name="role_id" required="true">
+      <number size="11" default="0"/>
     </column>
-    <column id="session_info.vars" name="vars"  >
+    <column id="session_info.vars" name="vars">
       <binary/>
     </column>
-    <column id="session_info.remember" name="remember"  >
-      <number size="11" default="0" />
+    <column id="session_info.remember" name="remember">
+      <number size="11" default="0"/>
     </column>
     <constraints>
       <primary name="id">
@@ -66,18 +66,18 @@
   </table>
   <table name="template_tags">
     <column id="template_tags.id" name="id" required="true" auto="true">
-      <number size="11" />
+      <number size="11"/>
     </column>
-    <column id="template_tags.name" name="name" required="true" >
+    <column id="template_tags.name" name="name" required="true">
       <text size="255" default=""/>
     </column>
-    <column id="template_tags.module_id" name="module_id" required="true" >
-      <number size="11" default="0" />
+    <column id="template_tags.module_id" name="module_id" required="true">
+      <number size="11" default="0"/>
     </column>
-    <column id="template_tags.handler" name="handler" required="true" >
+    <column id="template_tags.handler" name="handler" required="true">
       <text size="255" default=""/>
     </column>
-    <column id="template_tags.data" name="data"  >
+    <column id="template_tags.data" name="data">
       <text/>
     </column>
     <constraints>

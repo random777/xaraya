@@ -19,7 +19,7 @@
     <column name="state" required="true"><number size="1" default="1"/></column>
 
     <constraints>
-      <primary><columnref id="themes.id"/></primary>
+      <primary><column ref="themes.id"/></primary>
     </constraints>
   </table>
 </schema>

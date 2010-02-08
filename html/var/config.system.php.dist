@@ -6,14 +6,11 @@ $systemConfiguration['DB.UserName'] = '';
 $systemConfiguration['DB.Password'] = '';
 // Database Host: the host name where the database server is located.
 // A different port can also be specified, e.g. 'localhost:12345'
-// Note thaton Vista systems you shoulduse the localhost IP, e.g. '127.0.0.1:12345'
 $systemConfiguration['DB.Host'] = 'localhost';
 // Database Name: the name of the database to connect to.
 $systemConfiguration['DB.Name'] = 'Xaraya';
 // Database Type: the type of the database server.
 $systemConfiguration['DB.Type'] = 'mysql';
-// Database Charset: the charset of the database.
-$systemConfiguration['DB.Charset'] = 'utf8';
 // Database TablePrefix: a string that will be prefixed to every database tables that are part of the core.
 //                       Those tables are shared across multi-sites.
 $systemConfiguration['DB.TablePrefix'] = 'xar';
@@ -32,11 +29,6 @@ $systemConfiguration['DB.Persistent'] = false;
  * For more advanced logging options use the logconfig module
  */
 
-/* System Time Zone
- * This is the local time zone of your host machine. This time is used by the logging subsystem
- */
- $systemConfiguration['SystemTimeZone'] = 'UTC';
-
 /*
  * Global error level, optional
  * If set it is passed directly into the error_reporting() function of PHP
@@ -46,4 +38,21 @@ $systemConfiguration['DB.Persistent'] = false;
  *       in php4.4 and php5.x versions or the bug in the zend optimizer
  */
  $systemConfiguration['Exception.ErrorLevel'] = E_ALL;
+/*
+ * This value is used to change the default behavior of the
+ * xarServerGetBaseURL() and xarModURL() functions to allow you
+ * to use things like Apache's mod_rewrite to shorten your
+ * URLs even further then Short URL's allows, for example
+ * completely removing the "index.php" from your site's URLs
+ *
+ * Comment them out to use Xaraya's built-in/auto values
+ * TODO: move this out of here
+ */
+// 1. When you want to use some alternate URI path to your site
+//$systemConfiguration['BaseURI'] = '/test';
+// 2. When you want to use some alternate script file for your site
+//$systemConfiguration['BaseModURL'] = 'index2.php';
+// 3. When you want to use URLs like http://mysite.com/news/123
+//$systemConfiguration['BaseURI'] = '';
+//$systemConfiguration['BaseModURL'] = '';
 ?>

@@ -33,7 +33,7 @@
     </column>
     <constraints>
       <primary>
-        <columnref id="hooks.id"/>
+        <column ref="hooks.id"/>
       </primary>
     </constraints>
   </table>
@@ -49,12 +49,12 @@
     </column>
     <constraints>
       <primary>
-        <columnref id="module_itemvars.module_var_id"/>
-        <columnref id="module_itemvars.item_id"/>
+        <column ref="module_itemvars.module_var_id"/>
+        <column ref="module_itemvars.item_id"/>
       </primary>
       <index name="(module_itemvars autoindex 1)">
-        <columnref id="module_itemvars.module_var_id"/>
-        <columnref id="module_itemvars.item_id"/>
+        <column ref="module_itemvars.module_var_id"/>
+        <column ref="module_itemvars.item_id"/>
       </index>
     </constraints>
   </table>
@@ -73,17 +73,17 @@
     </column>
     <constraints>
       <primary>
-        <columnref id="module_vars.id"/>
+        <column ref="module_vars.id"/>
       </primary>
       <index name="i_module_vars_name">
-        <columnref id="module_vars.name"/>
+        <column ref="module_vars.name"/>
       </index>
       <index name="i_module_vars_module_id">
-        <columnref id="module_vars.module_id"/>
+        <column ref="module_vars.module_id"/>
       </index>
       <index name="i_config_name">
-        <columnref id="module_vars.name"/>
-        <columnref id="module_vars.module_id"/>
+        <column ref="module_vars.name"/>
+        <column ref="module_vars.module_id"/>
       </index>
     </constraints>
   </table>
@@ -120,7 +120,7 @@
     </column>
     <constraints>
       <primary>
-        <columnref id="modules.id"/>
+        <column ref="modules.id"/>
       </primary>
     </constraints>
   </table>

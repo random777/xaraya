@@ -40,11 +40,6 @@ function dynamicdata_init()
         $dbconn->begin();
         sys::import('xaraya.installer');
         Installer::createTable('schema', 'dynamicdata');
-                'unsigned'     => true,
-                'charset'     => $charset,
-                'charset'     => $charset,
-                'charset'     => $charset,
-                'charset'     => $charset,
 
 # --------------------------------------------------------
 #
@@ -77,14 +72,6 @@ function dynamicdata_init()
 
 # --------------------------------------------------------
 #
-                'unsigned'    => true,
-                'charset'     => $charset,
-                'charset'     => $charset,
-                'charset'     => $charset,
-         * Note : same remark as above - we can't use createproperty() here
-         *        because dynamicdata doesn't know anything about properties yet :-)
-         */
-
         // create default properties for dynamic data objects
         $sql = "INSERT INTO $dynamic_properties (
                 name, label, object_id,
@@ -130,7 +117,6 @@ function dynamicdata_init()
             $propid[$idx] = $dbconn->getLastId($dynamic_properties);
         }
 
-                'charset'     => $charset,
         /**
          * Configurations table
          */
@@ -357,16 +343,5 @@ function dynamicdata_delete()
 {
   //this module cannot be removed
   return false;
-    $charset = xarSystemVars::get(sys::CONFIG, 'DB.Charset');
-            'charset'     => $charset,
-            'charset'     => $charset,
-            'charset'     => $charset,
-            'charset'     => $charset,
-            'charset'     => $charset,
-            'charset'     => $charset,
-            'charset'     => $charset,
-            'charset'     => $charset,
-            'charset'     => $charset,
-    return true;
 }
 ?>

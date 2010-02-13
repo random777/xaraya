@@ -52,7 +52,6 @@ function privileges_init()
 
         sys::import('xaraya.installer');
         Installer::createTable('schema', 'privileges');
-                                            'charset' => $charset));
 
         xarDB::importTables(array('privileges' => $prefix . '_privileges'));
         xarDB::importTables(array('privmembers' => $prefix . '_privmembers'));

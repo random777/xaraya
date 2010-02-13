@@ -4,8 +4,6 @@ class Installer extends Object
 {
     public $tableprefix = '';
     
-    // No constructor yet. maybe later
-    
     static private function transform($xmlFile, $xslAction='display', $dbName='mysql', $xslFile=null)
     {
         // Park this here for now
@@ -14,7 +12,7 @@ class Installer extends Object
         if (!isset($xmlFile))
             throw new BadParameterException('No file to transform!');
         if (!isset($xslFile))
-            $xslFile = sys::root() . '/lib/xaraya/xslt/xml2ddl-'. $dbName . '.xsl';
+            $xslFile = sys::lib() . 'xaraya/xslt/xml2ddl-'. $dbName . '.xsl';
         if (!file_exists($xslFile)) {
             $msg = xarML('The file #(1) was not found', $xslFile);
             throw new BadParameterException($msg);
@@ -32,7 +30,7 @@ class Installer extends Object
         if (empty($module)) $module = 'base';
         if (empty($table))
             throw new BadParameterException('Missing a tablename to create');
-        $fullName = sys::root() . '/html/modules/' . $module . '/schema.xml';
+        $fullName = sys::code() . 'modules/' . $module . '/schema.xml';
         if (!file_exists($fullName)) {
             $msg = xarML('Could not find the file #(1) to create a table from', $fullName);
             throw new BadParameterException($msg);

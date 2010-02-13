@@ -66,9 +66,6 @@ function modules_init()
         $bindvars = array('base',68,'base',(string) $modVersion,'Core Admin','System',true,true,3);
         $dbconn->Execute($query,$bindvars);
 
-         *   t_file      varchar(254) NOT NULL,
-                        't_file'      => array('type' => 'varchar', 'size' => 254, 'null' => false, 'charset' => $charset),
-        // <andyv> Add module variables for default user/admin, used in modules list
         /**
          * at this stage of installer mod vars cannot be set, so we use DB calls
          * prolly need to move this closer to installer, not sure yet

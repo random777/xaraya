@@ -32,7 +32,6 @@ function blocks_init()
         $idref_type    = array('type'=>'integer', 'unsigned'=>true, 'null'=>false);
         $template_type = array('type'=>'varchar', 'size'=>254, 'null'=>true, 'default'=>null, 'charset' => $charset);
         
-        /*
                                                                   'charset' => $charset),
                                                                    'charset' => $charset),
                                                             'charset'       => $charset

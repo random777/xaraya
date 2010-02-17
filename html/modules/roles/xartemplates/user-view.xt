@@ -103,18 +103,18 @@
             <tr>
             <xar:if condition="$phase eq 'active' and xarSecurityCheck('AdminRole',0)">
                 <th class="xar-thirdwidth">
-                    <a href="#xarModURL('roles','user','view',array('phase' => $phase, 'letter' => 'search' => $search, 'order' => 'name'))#">
+                    <a href="#xarModURL('roles','user','view',array('phase' => $phase, 'letter' => $letter, 'search' => $search, 'order' => 'name'))#">
                         <xar:mlstring>Display Name</xar:mlstring>
                     </a>
                 </th>
                 <th class="xar-thirdwidth">
-                    <a href="#xarModURL('roles','user','view',array('phase' => $phase, 'letter' => 'search' => $search, 'order' => 'uname'))#">
+                    <a href="#xarModURL('roles','user','view',array('phase' => $phase, 'letter' => $letter, 'search' => $search, 'order' => 'uname'))#">
                         <xar:mlstring>IP Address</xar:mlstring>
                     </a>
                 </th>
             <xar:else />
                 <th class="xar-twothirdwidth">
-                    <a href="#xarModURL('roles','user','view',array('phase' => $phase, 'letter' => 'search' => $search, 'order' => 'name'))#">
+                    <a href="#xarModURL('roles','user','view',array('phase' => $phase, 'letter' => $letter, 'search' => $search, 'order' => 'name'))#">
                         <xar:mlstring>Display Name</xar:mlstring>
                     </a>
                 </th>

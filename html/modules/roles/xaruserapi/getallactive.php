@@ -138,7 +138,7 @@ function roles_userapi_getallactive($args)
 
     // Additional where-clauses can be injected.
     // Make sure they do not include a leading "AND".
-    if (isset($selection)) {
+    if (isset($selection) && !empty($selection)) {
         $where[] = preg_replace('/[\s]*and/i', '', $selection);
     }
 

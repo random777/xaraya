@@ -13,10 +13,10 @@
   </table>
 
   <constraints>
-    <primary><columnref id="session_info.id"/></primary>
+    <primary><column ref="session_info.id"/></primary>
 
-    <index name="i_session_role_id"><columnref id="session_info.role_id"/></index>
-    <index name="i_session_last_use"><columnref id="session_info.last_use"/></index>
-    <index name="(session_info autoindex 1)"><columnref id="session_info.id"/></index>
+    <index name="i_session_role_id"><column ref="session_info.role_id"/></index>
+    <index name="i_session_last_use"><column ref="session_info.last_use"/></index>
+    <index name="(session_info autoindex 1)"><column ref="session_info.id"/></index>
   </constraints>
 </schema>

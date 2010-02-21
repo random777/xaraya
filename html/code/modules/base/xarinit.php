@@ -41,87 +41,9 @@ function base_init()
          * prefix_module_vars   - system configuration variables
          *********************************************************************/
         $sessionInfoTable = $prefix . '_session_info';
-        /*********************************************************************
-         * CREATE TABLE xar_session_info (
-         *  id        varchar(32) NOT NULL,
-         *  ipaddr    varchar(20) NOT NULL,
-         *  first_use integer NOT NULL default '0',
-         *  last_use  integer NOT NULL default '0',
-         *  role_id   integer unsigned NOT NULL,
-         *  vars      blob,
-         *  remember  boolean default false,
-         *  PRIMARY KEY  (id)
-         * )
-         *********************************************************************/
-        $fields = array('id'        => array('type'=>'varchar','size'=>32   ,'null'=>false, 'charset' => $charset, 'primary_key'=>true),
-                        'ip_addr'   => array('type'=>'varchar','size'=>20   ,'null'=>false, 'charset' => $charset),
-                        'first_use' => array('type'=>'integer','unsigned'=>true,'null'=>false,'default'=>'0'),
-                        'last_use'  => array('type'=>'integer','unsigned'=>true,'null'=>false,'default'=>'0'),
-                        'role_id'   => array('type'=>'integer','unsigned'=>true, 'null'=>false),
-                        'vars'      => array('type'=>'blob'   ,'null'=>true),
-                        'remember'  => array('type'=>'boolean', 'default'=>  false)
-                        );
-        $query = xarDBCreateTable($sessionInfoTable,$fields);
-        $dbconn->Execute($query);
 
-        $index = array('name'   => $prefix.'_session_role_id',
-                       'fields' => array('role_id'),
-                       'unique' => false);
-        $query = xarDBCreateIndex($sessionInfoTable,$index);
-        $dbconn->Execute($query);
-
-        $index = array('name'   => $prefix.'_session_last_use',
-                       'fields' => array('last_use'),
-                       'unique' => false);
-
-        $query = xarDBCreateIndex($sessionInfoTable,$index);
-        $dbconn->Execute($query);
-
-        /*********************************************************************
-         * Here we install the module variables table and set some default
-         * variables
-         *********************************************************************/
-
-        $modVarsTable  = $prefix . '_module_vars';
-        /*********************************************************************
-         * CREATE TABLE xar_module_vars (
-         *  id        integer unsigned NOT NULL auto_increment,
-         *  module_id integer unsigned default NULL,
-         *  name      varchar(64) NOT NULL,
-         *  value     longtext,
-         *  PRIMARY KEY  (id),
-         *  KEY (name)
-         * )
-         *********************************************************************/
-
-        $fields = array(
-                        'id' => array('type' => 'integer', 'unsigned' => true, 'null' => false, 'increment' => true, 'primary_key' => true),
-                        'module_id' => array('type'=>'integer','unsigned'=>true,'null'=>true),
-                        'name'      => array('type'=>'varchar','size'=>64,'null'=>false, 'charset' => $charset),
-                        'value'     => array('type'=>'text','size'=>'long', 'charset' => $charset)
-                        );
-
-        $query = xarDBCreateTable($modVarsTable,$fields);
-        $dbconn->Execute($query);
-
-        // config var name should be unique in scope
-        // TODO: nameing of index is now confusing, see above.
-        $index = array('name'   => $prefix.'_config_name',
-                       'fields' => array('name', 'module_id'),
-                       'unique' => true);
-
-        $query = xarDBCreateIndex($modVarsTable,$index);
-        $dbconn->Execute($query);
-
-        $index = array('name' => $prefix . '_module_vars_module_id',
-                       'fields' => array('module_id'));
-        $query = xarDBCreateIndex($modVarsTable, $index);
-        $dbconn->Execute($query);
-
-        $index = array('name' => $prefix . '_module_vars_name',
-                       'fields' => array('name'));
-        $query = xarDBCreateIndex($modVarsTable, $index);
-        $dbconn->Execute($query);
+        sys::import('xaraya.installer');
+        Installer::createTable('schema', 'base');
 
         // Let's commit this, since we're gonna do some other stuff
         $dbconn->commit();

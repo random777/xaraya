@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema name="xaraya">
+  <table name="privmembers">
+    <column id="privmembers.id" name="id" required="false" auto="false">
+      <number size="11" decimals="0"/>
+    </column>
+    <column id="privmembers.parentid" name="parentid" required="false" auto="false">
+      <number size="11" decimals="0"/>
+    </column>
+    <constraints>
+      <index name="i_privmembers_pid">
+        <column ref="privmembers.id"/>
+      </index>
+      <index name="i_privmembers_parentid">
+        <column ref="privmembers.parentid"/>
+      </index>
+    </constraints>
+  </table>
+</schema>

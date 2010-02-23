@@ -20,7 +20,7 @@
         </p>
         <div class="xar-form-input-wrapper-after">
             <input type="checkbox" name="rememberme" id="remembermeform" value="1" tabindex="3" />
-            <label for="remembermeform">
+            <label for="rememberme">
                 <xar:mlstring>Remember me</xar:mlstring>
             </label>
         </div>

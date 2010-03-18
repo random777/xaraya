@@ -221,6 +221,7 @@ function base_userapi_dstrules($args)
     $Rules['US'] = array(
         array('1967', 'max', '-', 'Oct', 'lastSun', '2:00', '0', 'S'),
         array('1987', 'max', '-', 'Apr', 'Sun>=1', '2:00', '1:00', 'D'),
+        array('2007', 'max', '-', 'Mar', 'Sun>=2', '2:00', '1:00', 'D'),
     );
     $Rules['Uruguay'] = array();
     $Rules['Vanc'] = array(

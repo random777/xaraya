@@ -33,18 +33,6 @@ class MenuBlockAdmin extends MenuBlock implements iBlock
     {
         $data = parent::modify($data);
 
-        if (!isset($data['marker'])) $data['marker'] = $this->marker;
-        if (!isset($data['displaymodules'])) $data['displaymodules'] = $this->displaymodules;
-        if (!isset($data['modulelist'])) $data['modulelist'] = $this->modulelist;
-        if (!isset($data['displayrss'])) $data['displayrss'] = $this->displayrss;
-        if (!isset($data['displayprint'])) $data['displayprint'] = $this->displayprint;
-        if (!isset($data['content'])) $data['content'] = $this->content;
-        if (!isset($data['showlogout'])) $data['showlogout'] = $this->showlogout;
-        if (!isset($data['showback'])) $data['showback'] = $this->showback;
-
-        // @CHECKME: is this used?
-        if (empty($data['style'])) $data['style'] = 1;
-
         $data['modules'] = xarMod::apiFunc('modules', 'admin', 'getlist', array('filter' => array('UserCapable' => 1, 'State' => XARMOD_STATE_ACTIVE)));
 /*        // Prepare output array
         $c=0;
@@ -60,7 +48,7 @@ class MenuBlockAdmin extends MenuBlock implements iBlock
         $data['view_access'] = isset($data['view_access']) ? $data['view_access'] : array();
 
         // @CHECKME: is this used?
-        if (empty($data['lines'])) $data['lines'] = array($this->content);
+        if (empty($data['lines'])) $data['lines'] = array($this->user_content);
         return $data;
     }
 
@@ -80,6 +68,14 @@ class MenuBlockAdmin extends MenuBlock implements iBlock
         if (!xarVarFetch('displayprint',   'checkbox', $content['displayprint'], false, XARVAR_NOT_REQUIRED)) return;
         if (!xarVarFetch('marker',         'str:1',    $content['marker'], $this->marker, XARVAR_NOT_REQUIRED)) return;
         if (!xarVarFetch('showback',       'checkbox', $content['showback'], false, XARVAR_NOT_REQUIRED)) return;
+
+        // Trim the names in the modulelist
+        if (!empty($content['modulelist'])) {
+            $temp1 = explode(',',$content['modulelist']);
+            $temp2 = array();
+            foreach ($temp1 as $modulename) $temp2[] = trim($modulename);
+            $content['modulelist'] = implode(',',$temp2);
+        }
 
         // User links.
         $content['lines'] = array();
@@ -133,7 +129,7 @@ class MenuBlockAdmin extends MenuBlock implements iBlock
             $content['view_access'][$module['name']] = $accessproperty->value;
         }
 
-        $data['content'] = serialize($content);
+        $data['content'] = $content;
         return $data;
     }
 }

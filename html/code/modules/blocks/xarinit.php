@@ -26,12 +26,12 @@ function blocks_init()
     try {
         $charset = xarSystemVars::get(sys::CONFIG, 'DB.Charset');
         $dbconn->begin();
-        
+
         sys::import('xaraya.installer');
         Installer::createTable('schema', 'blocks');
         $idref_type    = array('type'=>'integer', 'unsigned'=>true, 'null'=>false);
         $template_type = array('type'=>'varchar', 'size'=>254, 'null'=>true, 'default'=>null, 'charset' => $charset);
-        
+
         // *_userblocks
         /* Removed Collapsing blocks to see if there is a better solution.
          $query = xarDBCreateTable($prefix . '_userblocks',
@@ -82,6 +82,7 @@ function blocks_init()
 
     // Initialisation successful
     xarModVars::set('blocks', 'selstyle', 'plain');
+    xarModVars::set('blocks', 'noexceptions', 1);
 
     /* There are old block instances defined previously in privs xarsetup.php file and used in the Block module.
        From this version we are adding management of security for blocks to Blocks module
@@ -97,6 +98,8 @@ function blocks_init()
     $blockGroupsTable    = $prefix . '_block_groups';
     $blockTypesTable     = $prefix . '_block_types';
     $blockInstancesTable = $prefix . '_block_instances';
+
+    // @TODO: since blockgroup is now a block itself the blockgroup instance is no longer needed here
 
     //Set up the block group instances for this module - these are the same as previously defined and retained
     $query1 = "SELECT DISTINCT name FROM $blockGroupsTable";

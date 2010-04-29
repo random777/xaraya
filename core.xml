@@ -425,7 +425,7 @@
         <include name="var/index.html"/>
         <include name="var/**/index.html"/>
         <include name="var/rsd.xml"/>
-        <include name="var/messaging/**/*.xd" />
+        <include name="var/messaging/**/*.xt" />
         <include name="var/example.key.php" />
         <include name="var/cache/**"/>
 

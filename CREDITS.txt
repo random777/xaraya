@@ -213,7 +213,7 @@ Other development credits
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-Everyone Else (The countless fixers and bug hunters who have spent the past few months helping us realize our dream)
+Everyone Else (The countless fixers and bug hunters who have spent the past few years helping us realize our dream)
 
     Thanks to everyone who has contributed to this project in any way, shape, or form.  It certainly
     could not have been done without you.

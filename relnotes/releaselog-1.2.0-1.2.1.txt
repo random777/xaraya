@@ -1,0 +1,22 @@
+Release notes for Xaraya Core release 1.2.1
+
+Release 1.2.1 (relevant changes from 1.2.0 onwards included here)
+
+Possible incompatible changes, please check the following:
+    * Installing: see the file INSTALL.txt
+    * Upgrading : see the file UPGRADE.txt
+
+
+Major changes:
+
+General fixes and improvements:
+
+      Important changes / bug fixes: (check http://bugs.xaraya.com for detailed information)
+      bug   : short info
+      ------|-----------
+    * [6450] Duplicate entry 'base-adminmenu' during upgrade when block name already exists
+    * [6467] Blocks Admin view_groups template fails to compile due to parse error
+    * [6468] meta-refresh doesn't work during install phase 5 when create db is checked
+    * [6487] Roles getallactive adding empty where param
+    * [6516] Base Javascript defaults to automatically loading JS
+    * [6523] Missing messaging dir in release distros

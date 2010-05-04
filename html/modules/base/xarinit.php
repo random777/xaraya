@@ -473,7 +473,7 @@ function base_init()
     );
     xarModSetVar('base', 'RegisteredFrameworks', serialize($registeredframeworks));
     xarModSetVar('base', 'DefaultFramework', 'jquery');
-    xarModSetVar('base','AutoLoadDefaultFramework', 1);
+    xarModSetVar('base','AutoLoadDefaultFramework', 0);
 
     // Initialisation successful
     return true;

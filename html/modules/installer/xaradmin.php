@@ -1885,7 +1885,7 @@ function installer_admin_upgrade2()
     }
     $autloadfw = xarModGetVar('base','AutoLoadDefaultFramework');
     if (!isset($autoloadfw)) {
-        xarModSetVar('base','AutoLoadDefaultFramework', 1);
+        xarModSetVar('base','AutoLoadDefaultFramework', 0);
     }
     $content .= "<p><strong>Renaming ./var/messaging templates (.xd to .xt)</strong></p>";
     // rename *.xd -> *.xt in ./var/messaging/*

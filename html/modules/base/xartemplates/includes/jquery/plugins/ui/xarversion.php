@@ -19,6 +19,6 @@
 $plugininfo['name']         = 'ui';
 $plugininfo['id']           = 'ui';
 $plugininfo['displayname']  = 'jQuery UI';
-$plugininfo['version']      = '1.7.2';
-$plugininfo['defaultfile']  = 'jquery-ui-1.7.2.min.js'
+$plugininfo['version']      = '1.8.1';
+$plugininfo['defaultfile']  = 'jquery-ui-1.8.1.custom.min.js'
 ?>

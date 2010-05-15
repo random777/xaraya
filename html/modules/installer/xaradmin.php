@@ -2028,7 +2028,27 @@ function installer_admin_upgrade2()
         $content .= "<p><span style=\"color:red;\">WARNING!</span> There was a problem updating menu links.</p>";
     }
 
-/* End 1.2.0 Release Upgrades */
+/* End 1.2.1 Release Upgrades */
+/* Version 1.2.0 Release Upgrades */
+    $registeredframeworks = @unserialize(xarModGetVar('base', 'RegisteredFrameworks'));
+    if (empty($registeredframeworks) || !is_array($registeredframeworks)) {
+        $registeredframeworks = array();
+    }
+    if (!isset($registeredframeworks['jquery'])) {
+        $registeredframeworks['jquery'] = array(
+                            'displayname' => 'jQuery',
+                            'version' => '1.4.2',
+                            'module' => 'base',
+                            'file' => 'jquery-1.4.2.min.js',
+                            'status' => 1
+        );
+    } else {
+        $registeredframeworks['jquery']['version'] = '1.4.2';
+        $registeredframeworks['jquery']['file'] = 'jquery-1.4.2.min.js';
+    }
+    xarModSetVar('base', 'RegisteredFrameworks', serialize($registeredframeworks));
+    $content .= "<p>Updating jQuery Framework to 1.4.2 .... done!</p>";
+/* End 1.2.1 Release Upgrades */
 
     $thisdata['content']=$content;
     $thisdata['phase'] = 2;

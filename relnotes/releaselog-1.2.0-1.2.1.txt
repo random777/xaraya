@@ -8,8 +8,12 @@ Possible incompatible changes, please check the following:
 
 
 Major changes:
+    * No major changes in this release
 
 General fixes and improvements:
+
+    * jQuery Framework updated to version 1.4.2
+    * jQuery UI plugin updated to version 1.8.1
 
       Important changes / bug fixes: (check http://bugs.xaraya.com for detailed information)
       bug   : short info

@@ -23,7 +23,15 @@ class Dynamic_NumberBox_Property extends Dynamic_TextBox_Property
     var $size = 10;
     var $maxlength = 30;
     var $datatype = 'number';
-
+    
+    function Dynamic_NumberBox_Property($args)
+    {
+      parent::Dynamic_TextBox_Property($args);
+       // check validation for allowed min/max values
+        if (!empty($this->validation)) {
+            $this->parseValidation($this->validation);
+        }            
+    }    
     /**
      * Validate the input value to be of numeric type
      * @return bool true if value is numeric

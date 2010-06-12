@@ -332,6 +332,7 @@
         <include name="modules/**"/>
         
         <!-- Themes -->
+        <include name="themes/installer/**"/>
         <include name="themes/print/**"/>
         <include name="themes/rss/**"/>
         <include name="themes/Xaraya_Classic/**"/>

@@ -42,6 +42,7 @@
             <title>Undelete or permanently remove users/groups</title>
             <label>Recall/Purge</label>
         </menuitem>
+		<!--
         <menuitem>
             <mask>ManageRoles</mask>
             <includes>
@@ -51,6 +52,7 @@
             <title>Lock the site to all but selected users</title>
             <label>SiteLock</label>
         </menuitem>
+		-->
         <menuitem>
             <mask>AdminRoles</mask>
             <includes>

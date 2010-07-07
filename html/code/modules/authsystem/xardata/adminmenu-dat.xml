@@ -1,6 +1,7 @@
 <adminmenu>
     <menuitems>
         <menuitem>
+            <mask>EditAuthsystem</mask>
             <includes>
                 <includeitem>main</includeitem>
                 <includeitem>overview</includeitem>
@@ -8,7 +9,16 @@
             <target>main</target>
             <label>Overview</label>
         </menuitem>
-        <menuitem>
+		<menuitem>
+            <mask>AdminAuthsystem</mask>
+            <includes>
+                <includeitem>sitelock</includeitem>
+            </includes>
+            <target>sitelock</target>
+            <title>Prevent site log in by all but selected users</title>
+            <label>Site Lock</label>
+        </menuitem>
+		<menuitem>
             <mask>AdminAuthsystem</mask>
             <includes>
                 <includeitem>modifyconfig</includeitem>

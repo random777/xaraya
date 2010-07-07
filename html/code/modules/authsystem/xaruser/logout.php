@@ -18,23 +18,30 @@
 function authsystem_user_logout()
 {
     $redirect=xarServer::getBaseURL();
+    if (!xarUserIsLoggedIn())
+        xarController::redirect($redirect);
 
     // Get input parameters
     if (!xarVarFetch('redirecturl','str:1:254',$redirecturl,$redirect,XARVAR_NOT_REQUIRED)) return;
-    
-    $defaultauthdata=xarMod::apiFunc('roles','user','getdefaultauthdata');
-    $defaultlogoutmodname=$defaultauthdata['defaultlogoutmodname'];
-    $authmodule=$defaultauthdata['defaultauthmodname'];
-    // Defaults
-    //if (preg_match('/$authmodule}/',$redirecturl)) {
-    if (strstr($redirecturl, $defaultlogoutmodname)) {
+
+    if (strstr($redirecturl, 'authsystem')) {
         $redirecturl = $redirect;
     }
-
-    // Log user out
-    if (!xarUserLogOut()) {
-        throw new ForbiddenOperationException(array('authsystem', 'logout'),xarML('Problem Logging Out.  Module #(1) Function #(2)'));
+    // get the authenticating module
+    $authmodule = xarSessionGetVar('authenticationModule');
+    // let the authenticating module know this user is about to log out
+    // @CHECKME: do we want/need to notify *all* auth modules here?
+    sys::import('modules.authsystem.class.xarauth');
+    $authobj = xarAuth::getAuthObject($authmodule);
+    // @CHECKME: do we want to raise an exception here if authenticating module logout fails?
+    if ($authobj) {
+        if (!$authobj->logout(xarUserGetVar('id')))
+            throw new ForbiddenOperationException(array($authmodule, 'logout'),xarML('Problem Logging Out.  Module #(1) Function #(2)'));;
     }
+    // Log user out
+    if (!xarUserLogOut())
+        throw new ForbiddenOperationException(array('authsystem', 'logout'),xarML('Problem Logging Out.  Module #(1) Function #(2)'));
+
     xarController::redirect($redirecturl);
     return true;
 }

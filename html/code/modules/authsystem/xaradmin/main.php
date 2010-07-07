@@ -18,16 +18,18 @@
 function authsystem_admin_main()
 {
     if (!xarSecurityCheck('EditAuthsystem')) return;
-   
-    $refererinfo = xarController::$request->getInfo(xarServer::getVar('HTTP_REFERER'));
     $info = xarController::$request->getInfo();
-    $samemodule = $info[0] == $refererinfo[0];
-    
-    if (((bool)xarModVars::get('modules', 'disableoverview') == false) || $samemodule){
-        return xarTplModule('authsystem','admin','overview');
+    if ((bool)xarModVars::get('modules', 'disableoverview') == true) {
+        $refererinfo = xarController::$request->getInfo(xarServer::getVar('HTTP_REFERER'));
+        $overview = $info[0] == $refererinfo[0];
     } else {
-        xarController::redirect(xarModURL('authsystem', 'admin', 'modifyconfig'));
-        return true;
+        $overview = true;
     }
+    if (!$overview)
+        xarController::redirect(xarModURL($info[0], 'admin', 'modifyconfig'));
+
+    if (!xarVarFetch('tab', 'pre:trim:lower:str:1:', $data['tab'], null, XARVAR_NOT_REQUIRED)) return;
+    return xarTplModule($info[0],'admin','overview', $data);
+
 }
 ?>

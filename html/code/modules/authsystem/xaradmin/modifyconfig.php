@@ -21,6 +21,7 @@ function authsystem_admin_modifyconfig()
     if (!xarVarFetch('uselockout',   'checkbox',  $data['uselockout'],  xarModVars::get('authsystem', 'uselockout'),     XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('lockouttime',  'int:1:',    $data['lockouttime'], (int)xarModVars::get('authsystem', 'lockouttime'),       XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
     if (!xarVarFetch('lockouttries', 'int:1:',    $data['lockouttries'], (int)xarModVars::get('authsystem', 'lockouttries'),       XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
+    if (!xarVarFetch('lockoutnotify', 'checkbox', $data['lockoutnotify'], xarModVars::get('authsystem', 'lockoutnotify'), XARVAR_NOT_REQUIRED)) return;
 
     $data['module_settings'] = xarMod::apiFunc('base','admin','getmodulesettings',array('module' => 'authsystem'));
     $data['module_settings']->setFieldList('items_per_page, use_module_alias, module_alias_name, enable_short_urls');
@@ -34,16 +35,17 @@ function authsystem_admin_modifyconfig()
             // Confirm authorisation code
             if (!xarSecConfirmAuthKey()) {
                 return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
-            }        
+            }
             $isvalid = $data['module_settings']->checkInput();
             if (!$isvalid) {
-                return xarTplModule('authsystem','admin','modifyconfig', $data);        
+                return xarTplModule('authsystem','admin','modifyconfig', $data);
             } else {
                 $itemid = $data['module_settings']->updateItem();
             }
             xarModVars::set('authsystem', 'uselockout', $data['uselockout']);
             xarModVars::set('authsystem', 'lockouttime', $data['lockouttime']);
             xarModVars::set('authsystem', 'lockouttries', $data['lockouttries']);
+            xarModVars::set('authsystem', 'lockoutnotify', $data['lockoutnotify']);
             break;
     }
     return $data;

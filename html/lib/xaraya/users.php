@@ -82,12 +82,11 @@ function xarUser_init(Array &$args)
  * Log the user in
  *
  * @access public
- * @param  string  $userName the name of the user logging in
- * @param  string  $password the password of the user logging in
+ * @param  int     $userId the id of the user logging in
  * @param  integer $rememberMe whether or not to remember this login
+ * @param  string  $authModName name of the authenticating module
  * @return bool true if the user successfully logged in
  * @throws EmptyParameterException, SQLException
- * @todo <marco> #1 here we could also set a last_logon timestamp
  */
 function xarUserLogIn($userName, $password, $rememberMe = 0)
 {
@@ -96,9 +95,79 @@ function xarUserLogIn($userName, $password, $rememberMe = 0)
     if (empty($userName)) throw new EmptyParameterException('userName');
     if (empty($password)) throw new EmptyParameterException('password');
 
+    $rememberMe = empty($rememberMe) ? false : true;
+
+    $auth = xarMod::apiFunc('authsystem', 'user', 'authenticate',
+        array('uname' => $userName, 'pass' => $password, 'rememberme' => $rememberMe));
+
+    if (!empty($auth['invalid']) || empty($auth['id'])) return false;
+
+    $userId = $auth['id'];
+    $authModName = $auth['authmodule'];
+    // rememberme can be over-ridden by the authenticating module,
+    // eg authsystem prevents rememberme for last resort admin, so we use the returned value
+    $rememberMe = $auth['rememberme'];
+
+    // Set user session information
+    // TODO: make this a class static in xarSession.php
+    if (!xarSession_setUserInfo($userId, $rememberMe))
+        return false; // throw back
+
+    // Set user auth module information
+    $modInfo = xarMod::getBaseInfo($authModName);
+    $modId = $modInfo['systemid'];
+    // TODO: this should be inside roles module
+    $dbconn   = xarDB::getConn();
+    $xartable = xarDB::getTables();
+    $rolestable = $xartable['roles'];
+    try {
+        $dbconn->begin();
+        $query = "UPDATE $rolestable SET auth_module_id = ? WHERE id = ?";
+        $stmt = $dbconn->prepareStatement($query);
+        $stmt->executeUpdate(array($modId,$userId));
+        $dbconn->commit();
+    } catch (SQLException $e) {
+        $dbconn->rollback();
+        throw $e;
+    }
+
+    // Set session variables
+    // Keep a reference to auth module that authenticates successfully
+    // @CHECKME: what for?
+    xarSessionSetVar('authenticationModule', $authModName);
+
+    // User logged in successfully, trigger the proper event with the new userid
+    xarEvents::trigger('UserLogin',$userId);
+
+    xarSession::delVar('privilegeset');
+    return true;
+}
+/**
+ * Log the user in
+ *
+ * @access public
+ * @param  string  $userName the name of the user logging in
+ * @param  string  $password the password of the user logging in
+ * @param  integer $rememberMe whether or not to remember this login
+ * @return bool true if the user successfully logged in
+ * @throws EmptyParameterException, SQLException
+ * @todo <marco> #1 here we could also set a last_logon timestamp
+ */
+/* Deprecated function
+function xarUserLogIn($userName, $password, $rememberMe = 0)
+{
+    if (xarUserIsLoggedIn()) return true;
+
+    if (empty($userName)) throw new EmptyParameterException('userName');
+    if (empty($password)) throw new EmptyParameterException('password');
+
+    // authsystem_admin_login already took care of this
     $userId = XARUSER_AUTH_FAILED;
     $args = array('uname' => $userName, 'pass' => $password);
 
+    // @FIXME: The Authsystem module should take care of this, either by api...
+    // $userId = xarMod::apiFunc('authsystem', 'user', 'authenticate', $args);
+    // or handled directly in login.php
     foreach($GLOBALS['xarUser_authenticationModules'] as $authModName)
     {
         // Bug #918 - If the module has been deactivated, then continue
@@ -173,6 +242,7 @@ function xarUserLogIn($userName, $password, $rememberMe = 0)
     // Set session variables
 
     // Keep a reference to auth module that authenticates successfully
+    // @CHECKME: what for?
     xarSessionSetVar('authenticationModule', $authModName);
 
     // FIXME: <marco> here we could also set a last_logon timestamp

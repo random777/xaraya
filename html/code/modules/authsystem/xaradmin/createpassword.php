@@ -9,6 +9,7 @@
  *
  * @subpackage Authsystem module
  * @link http://xaraya.com/index.php/release/42.html
+ * @CHECKME: <chris> is this used anywhere?
  */
 /**
  * createpassword - create a new password for the user

@@ -11,13 +11,6 @@
  * @link http://xaraya.com/index.php/release/42.html
  */
 /**
- * log user in to system
- * Description of status
- * Status 0 = deleted user
- * Status 1 = inactive user
- * Status 2 = not validated user
- * Status 3 = actve user
- *
  * @param   uname users name
  * @param   pass user password
  * @param   rememberme session set to expire
@@ -26,269 +19,61 @@
  * @raise   exceptions raised if status is 0, 1, or 2
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
  */
-function authsystem_user_login()
+function authsystem_user_login($args)
 {
-    global $xarUser_authenticationModules;
-
-    if (!$_COOKIE) {
-        return xarTplModule('authsystem','user','errors',array('layout' => 'no_cookies'));
-    }
-
-    $unlockTime  = (int) xarSession::getVar('authsystem.login.lockedout');
-    $lockouttime = xarModVars::get('authsystem','lockouttime')? xarModVars::get('authsystem','lockouttime') : 15;
-    $lockouttries = xarModVars::get('authsystem','lockouttries') ? xarModVars::get('authsystem','lockouttries') : 3;
-
-    if ((time() < $unlockTime) && (xarModVars::get('authsystem','uselockout') == true)) {
-        return xarTplModule('authsystem','user','errors',array('layout' => 'locked_out', 'lockouttime' => $lockouttime));
-    }
-
-    if (!xarVarFetch('uname','str:0:64',$uname,'',XARVAR_NOT_REQUIRED)) return;
-    if (empty($uname))
-        return xarTplModule('authsystem','user','errors',array('layout' => 'missing_data', 'lockouttime' => $lockouttime));
-    if (!xarVarFetch('pass','str:0:254',$pass,'',XARVAR_NOT_REQUIRED)) return;
-    if (empty($pass))
-    return xarTplModule('authsystem','user','errors',array('layout' => 'missing_data', 'lockouttime' => $lockouttime));
-
-    $redirect = xarServer::getBaseURL();
+    if (!xarVarFetch('uname', 'str:1:64', $uname, '', XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('pass', 'str:1:254', $pass, '', XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('rememberme','checkbox',$rememberme,false,XARVAR_NOT_REQUIRED)) return;
-    if (!xarVarFetch('redirecturl','str:1:254',$redirecturl,$redirect,XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('redirecturl','str:1:254',$redirecturl, '', XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('authmodule', 'str:1:', $authmodule, null, XARVAR_NOT_REQUIRED)) return;
 
-    // Defaults
-    if (preg_match('/authsystem/',$redirecturl)) {
-        $redirecturl = $redirect;
-    }
+    extract($args);
 
-    // Scan authentication modules and set user state appropriately
-    $extAuthentication = false;
-    foreach($xarUser_authenticationModules as $authModName) {
+    // Authenticate user
+    $auth = xarMod::apiFunc('authsystem', 'user', 'authenticate', array(
+        'uname' => $uname,
+        'pass' => $pass,
+        'rememberme' => $rememberme,
+        'return_url' => $redirecturl,
+        'authmodule' => $authmodule,
+    ));
 
-       switch(strtolower($authModName)) {
-       // Ooof, didn't realize we were doing this.  We really need a hook here.
-            case 'authldap':
+    if (empty($auth['invalid'])) {
+        // authenticated user, attempt to log them in
+        if (xarUserLogIn($auth['uname'], $auth['pass'], $auth['rememberme'])) {
+            // Logged in, set any additional log in details for this user
+            // @TODO: handle last login time
+            // Let the authenticating module know the user was logged in
+            // @CHECKME: do we want/need to notify *all* auth modules here?
+            $authmod = $auth['authmodule'];
+            $authobj = xarAuth::getAuthObject($authmod);
+            if ($authobj)
+                $authobj->login(xarUserGetVar('id'));
 
-                // The authldap module allows the admin to allow an
-                // LDAP user to automatically login to Xaraya without
-                // having a Xaraya user account in the roles table.
-                // If the user is successfully retrieved from LDAP,
-                // then a corresponding entry will be created in the
-                // roles table.  So set the user state to allow for
-                // login.
-                $state = xarRoles::ROLES_STATE_ACTIVE;
-                $extAuthentication = true;
-                break;
+            // now send them on their way :)
+            // @TODO: implement the home page cascade
+            // Redirect cascade is as follows, first match takes precedence
+            // User specific, falling back to...
+            // Group specific, falling back to...
+            // All users, falling back to...
+            // Redirected URL from input, falling back to...
+            // Front Page
 
-            case 'authimap':
-            case 'authsso':
+            if (empty($return_url) && !empty($redirecturl))
+                $return_url = $redirecturl;
 
-                // The authsso module delegates login authority to
-                // web server (trusts the web server to authenticate
-                // the user's credentials), just as authldap
-                // delegates to an LDAP server. Behavior same as
-                // described in authldap case.
-                $state = xarRoles::ROLES_STATE_ACTIVE;
-                $extAuthentication = true;
-                break;
+            if (empty($return_url) || strpos($return_url, 'authsystem') !== false)
+                $return_url = xarServer::getBaseURL();
 
-            case 'authsystem':
-                //Set a $lastresort flag var
-                $lastresort=false;
-                // Still need to check if user exists as the user may be
-                // set to inactive in the user table
-                //Get and check last resort first before going to db table
-                $lastresortvalue=array();
-                $lastresortvalue=xarModVars::get('privileges','lastresort');
-                if (isset($lastresortvalue)) {
-                    $secret = @unserialize(xarModVars::get('privileges','lastresort'));
-                    if (is_array($secret)) {
-                        if ($secret['name'] == MD5($uname) && $secret['password'] == MD5($pass)) {
-                            $lastresort=true;
-                            $state = xarRoles::ROLES_STATE_ACTIVE;
-                            break; //let's go straight to login api
-                        }
-                    }
-                }
-                // check for user and grab id if exists
-                $user = xarMod::apiFunc('roles','user','get', array('uname' => $uname));
-
-                // Make sure we haven't already found authldap module
-                if (empty($user) && ($extAuthentication == false))
-                {
-                    return xarTplModule('authsystem','user','errors',array('layout' => 'bad_data'));
-                } elseif (empty($user)) {
-                    // Check if user has been deleted.
-                    try {
-                        $user = xarMod::apiFunc('roles','user','getdeleteduser',
-                                                array('uname' => $uname));
-                    } catch (xarExceptions $e) {
-                        //getdeleteduser raised an exception
-                    }
-                }
-
-                if (!empty($user)) {
-                    $rolestate = $user['state'];
-                    // If external authentication has already been set but
-                    // the Xaraya users table has a different state (ie invalid)
-                    // then override the external state
-                    if (($extAuthentication == true) && ($state != $rolestate)) {
-                        $state = $rolestate;
-                    } else {
-                        // No external authentication, so set state
-                        $state = $rolestate;
-                    }
-                }
-
-                break;
-            default:
-                // some other auth module is being used.  We're going to assume
-                // that xaraya will be the slave to the other system and
-                // if the user is successfully retrieved from that auth system,
-                // then a corresponding entry will be created in the
-                // roles table.  So set the user state to allow for
-                // login.
-                $state = xarRoles::ROLES_STATE_ACTIVE;
-                $extAuthentication = true;
-                break;
+            xarController::redirect($return_url);
         }
+        // If login returns false here, failed to set user info for this session
+        // @TODO: error message for failure?
+        $auth['invalid'] = array('layout' => 'unknown_error');
     }
 
-    switch(strtolower($state)) {
-
-        case xarRoles::ROLES_STATE_DELETED:
-
-            // User is deleted by all means.  Return a message that says the same.
-            return xarTplModule('authsystem','user','errors',array('layout' => 'account_deleted'));
-            break;
-
-        case xarRoles::ROLES_STATE_INACTIVE:
-
-            // User is inactive.  Return message stating.
-            return xarTplModule('authsystem','user','errors',array('layout' => 'account_inactive'));
-            break;
-
-        case xarRoles::ROLES_STATE_NOTVALIDATED:
-            //User still must validate
-            xarController::redirect(xarModURL('roles', 'user', 'getvalidation'));
-
-            break;
-
-        case xarRoles::ROLES_STATE_ACTIVE:
-        default:
-
-            // User is active.
-
-                // TODO: remove this when everybody has moved to 1.0
-                if(!xarModVars::get('roles', 'lockdata')) {
-                    $lockdata = array('roles' => array( array('id' => 4,
-                                                              'name' => 'Administrators',
-                                                              'notify' => TRUE)
-                                                       ),
-                                      'message' => '',
-                                      'locked' => 0,
-                                      'notifymsg' => '');
-                    xarModVars::set('roles', 'lockdata', serialize($lockdata));
-                }
-
-            // Check if the site is locked and this user is allowed in
-            $lockvars = unserialize(xarModVars::get('roles','lockdata'));
-            if ($lockvars['locked'] == 1) {
-                $rolesarray = array();
-                $roles = $lockvars['roles'];
-                for($i=0, $max = count($roles); $i < $max; $i++)
-                        $rolesarray[] = xarRoles::get($roles[$i]['id']);
-                $letin = array();
-                foreach($rolesarray as $roletoletin) {
-                    if ($roletoletin->isUser()) $letin[] = $roletoletin;
-                    else $letin = array_merge($letin,$roletoletin->getUsers());
-                }
-                $letthru = false;
-                foreach ($letin as $roletoletin) {
-                    if (strtolower($uname) == strtolower($roletoletin->getUser())) {
-                        $letthru = true;
-                        break;
-                    }
-                }
-
-                if (!$letthru) {
-                    // If there is a locked.xt page then use that, otherwise show the default.xt page
-                    xarTplSetPageTemplateName('locked');
-                    return xarTplModule('authsystem','user','errors',array('layout' => 'site_locked', 'message'  => $lockvars['message']));
-                }
-            }
-
-            // Get the default authentication data - we need to check again as authsystem is always installed and users could get here direct
-            $res = xarMod::apiFunc('authsystem','user','login',array('uname' => $uname, 'pass' => $pass, 'rememberme' => $rememberme));
-
-            if ($res === NULL) return;
-            elseif ($res == false) {
-                // Problem logging in
-                // TODO - work out flow, put in appropriate HTML
-
-                // Cast the result to an int in case VOID is returned
-                $attempts = (int) xarSession::getVar('authsystem.login.attempts');
-
-                if (($attempts >= $lockouttries) && (xarModVars::get('authsystem','uselockout')==true)){
-                    // Set the time for fifteen minutes from now
-                    xarSession::setVar('authsystem.login.lockedout', time() + (60 * $lockouttime));
-                    xarSession::setVar('authsystem.login.attempts', 0);
-                    return xarTplModule('authsystem','user','errors',array('layout' => 'bad_tries_exceeded', 'lockouttime' => $lockouttime));
-                } else{
-                    $newattempts = $attempts + 1;
-                    xarSession::setVar('authsystem.login.attempts', $newattempts);
-                    return xarTplModule('authsystem','user','errors',array('layout' => 'bad_try', 'attempts' => $newattempts));
-                }
-            }
-            //FR for last login - first capture the last login for this user
-            $thislastlogin =xarModUserVars::get('roles','userlastlogin');
-            if (!empty($thislastlogin)) {
-                //move this to a session var for this user
-                    xarSession::setVar('roles_thislastlogin',$thislastlogin);
-            }
-            xarModUserVars::set('roles','userlastlogin',time()); //this is what everyone else will see
-
-            $externalurl=false; //used as a flag for userhome external url
-            if ((bool)xarModVars::get('roles', 'loginredirect')) { //only redirect to home page if this option is set
-                $settings = explode(',',xarModVars::get('roles', 'duvsettings'));
-                if (in_array('userhome', $settings)) {
-                    $truecurrenturl = xarServer::getCurrentURL(array(), false);
-                    $url = xarMod::apiFunc('roles','user','getuserhome',array('itemid' => $user['id']));
-                    if (empty($url)) {
-                        $urldata['redirecturl'] = xarModURL(xarModVars::get('modules','defaultmodule'),xarModVars::get('modules','defaulttypename'),xarModVars::get('modules','defaultfuncname'));
-                        $urldata['externalurl'] = false;
-                    } else {
-                        /* move the half page of code out to a Roles function. No need to repeat everytime it's used*/
-                        $urldata = xarMod::apiFunc('roles','user','parseuserhome',array('url'=>$url,'truecurrenturl'=>$truecurrenturl));
-                    }
-                    $data = array();
-                    if (!is_array($urldata) || !$urldata) {
-                        $externalurl = false;
-                        $redirecturl = xarServer::getBaseURL();
-                    } else{
-                        $externalurl = $urldata['externalurl'];
-                        $redirecturl = $urldata['redirecturl'];
-                    }
-                }
-            } //end get homepage redirect data
-            if ($externalurl) {
-                /* Open in IFrame - works if you need it */
-                /* $data['page'] = $redirecturl;
-                   $data['title'] = xarML('Home Page');
-                   return xarTplModule('roles','user','homedisplay', $data);
-                 */
-                 xarController::redirect($redirecturl);
-            }else {
-                xarController::redirect($redirecturl);
-            }
-
-            return true;
-            break;
-        case xarRoles::ROLES_STATE_PENDING:
-
-            // User is pending activation
-                return xarTplModule('authsystem','user','errors',array('layout' => 'account_pending'));
-            break;
-    }
-
-    return true;
+    // login failed, return error message
+    return xarTplModule('authsystem', 'user', 'errors', $auth['invalid']);
 
 }
 ?>

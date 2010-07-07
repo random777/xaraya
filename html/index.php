@@ -7,7 +7,7 @@
  * @link http://www.xaraya.com
  * @subpackage entrypoint
  * @author Marco Canini
- * MenuArray Scenario
+ * Socialise Scenario
  */
 
 $GLOBALS["Xaraya_PageTime"] = microtime(true);

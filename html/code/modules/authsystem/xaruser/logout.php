@@ -27,20 +27,13 @@ function authsystem_user_logout()
     if (strstr($redirecturl, 'authsystem')) {
         $redirecturl = $redirect;
     }
-    // get the authenticating module
-    $authmodule = xarSessionGetVar('authenticationModule');
-    // let the authenticating module know this user is about to log out
-    // @CHECKME: do we want/need to notify *all* auth modules here?
+    
     sys::import('modules.authsystem.class.xarauth');
-    $authobj = xarAuth::getAuthObject($authmodule);
-    // @CHECKME: do we want to raise an exception here if authenticating module logout fails?
-    if ($authobj) {
-        if (!$authobj->logout(xarUserGetVar('id')))
-            throw new ForbiddenOperationException(array($authmodule, 'logout'),xarML('Problem Logging Out.  Module #(1) Function #(2)'));;
+    if (!xarAuth::logout()) {
+        $vars = array('authsystem', 'logout');
+        $msg = xarML('Problem Logging Out.  Module #(1) Function #(2)');        
+        throw new ForbiddenOperationException($vars,$msg);
     }
-    // Log user out
-    if (!xarUserLogOut())
-        throw new ForbiddenOperationException(array('authsystem', 'logout'),xarML('Problem Logging Out.  Module #(1) Function #(2)'));
 
     xarController::redirect($redirecturl);
     return true;

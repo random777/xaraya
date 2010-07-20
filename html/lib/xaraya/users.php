@@ -88,200 +88,21 @@ function xarUser_init(Array &$args)
  * @return bool true if the user successfully logged in
  * @throws EmptyParameterException, SQLException
  */
-function xarUserLogIn($userName, $password, $rememberMe = 0)
+function xarUserLogIn($userName, $password, $rememberMe = 0, $authmod=null)
 {
-    if (xarUserIsLoggedIn()) return true;
-
-    if (empty($userName)) throw new EmptyParameterException('userName');
-    if (empty($password)) throw new EmptyParameterException('password');
-
-    $rememberMe = empty($rememberMe) ? false : true;
-
-    $auth = xarMod::apiFunc('authsystem', 'user', 'authenticate',
-        array('uname' => $userName, 'pass' => $password, 'rememberme' => $rememberMe));
-
-    if (!empty($auth['invalid']) || empty($auth['id'])) return false;
-
-    $userId = $auth['id'];
-    $authModName = $auth['authmodule'];
-    // rememberme can be over-ridden by the authenticating module,
-    // eg authsystem prevents rememberme for last resort admin, so we use the returned value
-    $rememberMe = $auth['rememberme'];
-
-    // Set user session information
-    // TODO: make this a class static in xarSession.php
-    if (!xarSession_setUserInfo($userId, $rememberMe))
-        return false; // throw back
-
-    // Set user auth module information
-    $modInfo = xarMod::getBaseInfo($authModName);
-    $modId = $modInfo['systemid'];
-    // TODO: this should be inside roles module
-    $dbconn   = xarDB::getConn();
-    $xartable = xarDB::getTables();
-    $rolestable = $xartable['roles'];
-    try {
-        $dbconn->begin();
-        $query = "UPDATE $rolestable SET auth_module_id = ? WHERE id = ?";
-        $stmt = $dbconn->prepareStatement($query);
-        $stmt->executeUpdate(array($modId,$userId));
-        $dbconn->commit();
-    } catch (SQLException $e) {
-        $dbconn->rollback();
-        throw $e;
-    }
-
-    // Set session variables
-    // Keep a reference to auth module that authenticates successfully
-    // @CHECKME: what for?
-    xarSessionSetVar('authenticationModule', $authModName);
-
-    // User logged in successfully, trigger the proper event with the new userid
-    xarEvents::trigger('UserLogin',$userId);
-
-    xarSession::delVar('privilegeset');
-    return true;
+    sys::import('modules.authsystem.class.xarauth');
+    return xarAuth::login($userName, $password, $rememberMe, $authmod);
 }
 /**
- * Log the user in
- *
- * @access public
- * @param  string  $userName the name of the user logging in
- * @param  string  $password the password of the user logging in
- * @param  integer $rememberMe whether or not to remember this login
- * @return bool true if the user successfully logged in
- * @throws EmptyParameterException, SQLException
- * @todo <marco> #1 here we could also set a last_logon timestamp
- */
-/* Deprecated function
-function xarUserLogIn($userName, $password, $rememberMe = 0)
-{
-    if (xarUserIsLoggedIn()) return true;
-
-    if (empty($userName)) throw new EmptyParameterException('userName');
-    if (empty($password)) throw new EmptyParameterException('password');
-
-    // authsystem_admin_login already took care of this
-    $userId = XARUSER_AUTH_FAILED;
-    $args = array('uname' => $userName, 'pass' => $password);
-
-    // @FIXME: The Authsystem module should take care of this, either by api...
-    // $userId = xarMod::apiFunc('authsystem', 'user', 'authenticate', $args);
-    // or handled directly in login.php
-    foreach($GLOBALS['xarUser_authenticationModules'] as $authModName)
-    {
-        // Bug #918 - If the module has been deactivated, then continue
-        // checking with the next available authentication module
-        if (!xarMod::isAvailable($authModName))
-            continue;
-
-        // Every authentication module must at least implement the
-        // authentication interface so there's at least the authenticate_user
-        // user api function
-        if (!xarMod::apiLoad($authModName, 'user'))
-            continue;
-
-        $modInfo = xarMod::getBaseInfo($authModName);
-        $modId = $modInfo['systemid'];
-
-        // CHECKME: Does this raise an exception??? If so:
-        // TODO: test with multiple auth modules and wrap in try/catch clause
-        $userId = xarMod::apiFunc($authModName, 'user', 'authenticate_user', $args);
-        if (!isset($userId)) {
-            return; // throw back
-        } elseif ($userId != XARUSER_AUTH_FAILED) {
-            // Someone authenticated the user or passed XARUSER_AUTH_DENIED
-            break;
-        }
-    }
-    if ($userId == XARUSER_AUTH_FAILED || $userId == XARUSER_AUTH_DENIED)
-    {
-        if (xarModVars::get('privileges','lastresort'))
-        {
-            $secret = unserialize(xarModVars::get('privileges','lastresort'));
-            if ($secret['name'] == md5($userName) && $secret['password'] == md5($password))
-            {
-                $userId = XARUSER_LAST_RESORT;
-                $rememberMe = 0;
-            }
-         }
-        if ($userId !=XARUSER_LAST_RESORT) {
-            return false;
-        }
-    }
-
-    // Catch common variations (0, false, '', ...)
-    if (empty($rememberMe))
-        $rememberMe = false;
-    else
-        $rememberMe = true;
-
-    // Set user session information
-    // TODO: make this a class static in xarSession.php
-    if (!xarSession_setUserInfo($userId, $rememberMe))
-        return; // throw back
-
-    // Set user auth module information
-    $dbconn   = xarDB::getConn();
-    $xartable = xarDB::getTables();
-
-    $rolestable = $xartable['roles'];
-
-    // TODO: this should be inside roles module
-    try {
-        $dbconn->begin();
-        $query = "UPDATE $rolestable SET auth_module_id = ? WHERE id = ?";
-        $stmt = $dbconn->prepareStatement($query);
-        $stmt->executeUpdate(array($modId,$userId));
-        $dbconn->commit();
-    } catch (SQLException $e) {
-        $dbconn->rollback();
-        throw $e;
-    }
-
-    // Set session variables
-
-    // Keep a reference to auth module that authenticates successfully
-    // @CHECKME: what for?
-    xarSessionSetVar('authenticationModule', $authModName);
-
-    // FIXME: <marco> here we could also set a last_logon timestamp
-    //<jojodee> currently set in individual authsystem when success on login returned to it
-
-    // User logged in successfully, trigger the proper event with the new userid
-    xarEvents::trigger('UserLogin',$userId);
-
-    xarSession::delVar('privilegeset');
-    return true;
-}
-
-/**
- * Log the user out
+ * Log the current logged in user out
  *
  * @access public
  * @return bool true if the user successfully logged out
  */
 function xarUserLogOut()
 {
-    if (!xarUserIsLoggedIn()) {
-        return true;
-    }
-    // get the current userid before logging out
-    $userId = xarSessionGetVar('id');
-
-    // Reset user session information
-    $res = xarSession_setUserInfo(_XAR_ID_UNREGISTERED, false);
-    if (!isset($res)) {
-        return; // throw back
-    }
-
-    xarSessionDelVar('authenticationModule');
-
-    // User logged out successfully, trigger the proper event with the old userid
-    xarEvents::trigger('UserLogout',$userId);
-
-    xarSession::delVar('privilegeset');
-    return true;
+    sys::import('modules.authsystem.class.xarauth');
+    return xarAuth::logout();
 }
 
 /**

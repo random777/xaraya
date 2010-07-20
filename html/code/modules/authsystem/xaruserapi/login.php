@@ -18,6 +18,7 @@
  * @param $args['pass'] password of user
  * @param $args['rememberme'] remember this user (optional)
  * @return true on success, false on failure
+ * @TODO: this function is marked for deprecation, use xarAuth::login() instead
  */
 function authsystem_userapi_login($args)
 {

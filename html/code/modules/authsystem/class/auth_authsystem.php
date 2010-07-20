@@ -46,29 +46,8 @@ class AuthAuthsystem extends Object implements SplObserver
         }
         
         if (empty($user)) return false;
-
-        $dbconn = xarDB::getConn();
-        $xartable = xarDB::getTables();
-
-        // Get user information
-        $rolestable = $xartable['roles'];
-        $query = "SELECT id, pass FROM $rolestable WHERE uname = ?";
-        $stmt = $dbconn->prepareStatement($query);
-
-        $result = $stmt->executeQuery(array($uname));
-
-        if (!$result->first()) {
-            $result->close();
-            return false;
-        }
-
-        list($id, $realpass) = $result->fields;
-        $result->close();
-
-        // Confirm that passwords match
-        if (!xarUserComparePasswords($pass, $realpass, $uname, substr($realpass, 0, 2))) {
-            return false;
-        }
+        
+        if (!xarAuth::authenticate_user($uname, $pass)) return false;
         
         // return array of details (the Xaraya user to login) 
         return array(

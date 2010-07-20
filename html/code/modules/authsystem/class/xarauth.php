@@ -167,6 +167,38 @@ class xarAuth extends Object
         xarSession::delVar('privilegeset');
         return true;
     }    
+    /**
+    * Authenticate a users Xaraya credentials (username and password)
+    **/
+    public static function authenticate_user($uname, $pass)
+    {
+        if (empty($uname) || empty($pass)) return false;
+        
+        $dbconn = xarDB::getConn();
+        $xartable = xarDB::getTables();
+
+        // Get user information
+        $rolestable = $xartable['roles'];
+        $query = "SELECT id, pass FROM $rolestable WHERE uname = ?";
+        $stmt = $dbconn->prepareStatement($query);
+
+        $result = $stmt->executeQuery(array($uname));
+
+        if (!$result->first()) {
+            $result->close();
+            return false;
+        }
+
+        list($id, $realpass) = $result->fields;
+        $result->close();
+
+        // Confirm that passwords match
+        if (!xarUserComparePasswords($pass, $realpass, $uname, substr($realpass, 0, 2))) {
+            return false;
+        }
+        
+        return $id;
+    }    
     
     /**
     * Notify observers that an authsystem event is in progress

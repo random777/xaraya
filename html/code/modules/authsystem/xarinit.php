@@ -45,11 +45,14 @@ function authsystem_init()
                  'blockType' => 'login'));
     if (!$bid) return;
 
-    // Installation complete; check for upgrades
-    return authsystem_upgrade('2.0.0');
+    // Installation complete; <chris> don't check for upgrades here
+    // since we don't have all modules activated at install time 
+    // return authsystem_upgrade('2.0.0');
+    return true;
 }
 /*
  * We don't have all modules activated at install time
+ * @CHECKME: does this function run after an upgrade too?
  */
 function authsystem_activate()
 {
@@ -68,8 +71,21 @@ function authsystem_activate()
     xarModVars::set('authsystem', 'lockouttries', 3);
     xarModVars::set('authsystem', 'uselockout', false);
 
-    // Installation complete; check for upgrades
-    return authsystem_upgrade('2.0.0');
+    /* Added sitelock module var at 2.3.0 */
+    $sitelock = array(
+        'locked' => 0,
+        'lockstate' => 0,
+        'lockmessage' => xarML('The site is currently locked. Thank you for your patience'),
+        'lockaccess' => array(),                
+        'locknotify' => '',
+        'adminnotify' => 0,
+    );
+    xarModVars::set('authsystem', 'sitelock', serialize($sitelock));
+    
+    // Installation complete; <chris> no need to check for upgrades here
+    // all core modules should be automatically upgraded during core install/upgrade
+    // return authsystem_upgrade('2.0.0');
+    return true;
 }
 
 /**
@@ -82,7 +98,18 @@ function authsystem_upgrade($oldversion)
 {
     // Upgrade dependent on old version number
     switch ($oldversion) {
-        case '2.0.0':
+        case '2.2.0': // Upgrades to 2.3.0 
+            /* Added sitelock module var */
+            // @TODO: import lock settings from roles 
+            $sitelock = array(
+                'locked' => 0,
+                'lockstate' => 0,
+                'lockmessage' => xarML('The site is currently locked. Thank you for your patience'),
+                'lockaccess' => array(),                
+                'locknotify' => '',
+                'adminnotify' => 0,
+            );
+            xarModVars::set('authsystem', 'sitelock', serialize($sitelock));
       break;
     }
     return true;

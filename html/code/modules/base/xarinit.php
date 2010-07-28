@@ -123,6 +123,28 @@ function base_init()
         $query = xarDBCreateIndex($modVarsTable, $index);
         $dbconn->Execute($query);
 
+        /*********************************************************************
+         * Here we create a table for DB connections
+         *********************************************************************/
+
+        $connctionsTable = $prefix . '_connections';
+        $fields = array(
+                        'id'          => array('type' => 'integer', 'unsigned' => true, 'null' => false, 'increment' => true, 'primary_key' => true),
+                        'name'        => array('type'=>'varchar','size'=>64,'null'=>false, 'charset' => $charset),
+                        'host'        => array('type'=>'varchar','size'=>64,'null'=>false, 'charset' => $charset),
+                        'dbtype'      => array('type'=>'varchar','size'=>64,'null'=>false, 'charset' => $charset),
+                        'dbname'      => array('type'=>'varchar','size'=>64,'null'=>false, 'charset' => $charset),
+                        'dbuser'      => array('type'=>'varchar','size'=>64,'null'=>false, 'charset' => $charset),
+                        'dbpassword'  => array('type'=>'varchar','size'=>64,'null'=>false, 'charset' => $charset),
+                        'prefix'      => array('type'=>'varchar','size'=>64,'null'=>false, 'charset' => $charset),
+                        'charset'     => array('type'=>'varchar','size'=>64,'null'=>false, 'charset' => $charset),
+                        'description' => array('type'=>'text','size'=>'long', 'charset' => $charset),
+                        'state'       => array('type'=>'integer','unsigned'=>true,'null'=>true),
+                        );
+
+        $query = xarDBCreateTable($connctionsTable,$fields);
+        $dbconn->Execute($query);
+
         // Let's commit this, since we're gonna do some other stuff
         $dbconn->commit();
     } catch (Exception $e) {

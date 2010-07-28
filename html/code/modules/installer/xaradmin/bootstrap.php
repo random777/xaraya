@@ -40,6 +40,7 @@ function installer_admin_bootstrap()
                    'sample',
                    'dynamicdata_tablefields',
                    'module_settings',
+                   'connections',
                      );
 
     if(!xarMod::apiFunc('modules','admin','standardinstall',array('module' => 'dynamicdata', 'objects' => $objects))) return;

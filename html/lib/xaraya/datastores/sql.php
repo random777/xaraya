@@ -15,7 +15,8 @@ sys::import('modules.dynamicdata.class.datastores.base');
 
 class SQLDataStore extends OrderedDataStore implements ISQLDataStore
 {
-    protected $db     = null;
+    public $connection     = array();
+    protected $db          = null;
     //protected $tables = null;
 
     public $where  = array();
@@ -113,7 +114,20 @@ class SQLDataStore extends OrderedDataStore implements ISQLDataStore
     {
         // Note: the only reason we keep this variable is for getLastId()
         if (empty($this->db)) {
-            $this->db = xarDB::getConn();
+            if (!empty($this->connection)) {
+                xarDB::setPrefix($this->connection['prefix']);
+                $dsn = array(
+                    'databaseType' => $this->connection['dbtype'],
+                    'databaseHost' => $this->connection['host'],
+                    'userName' => $this->connection['dbuser'],
+                    'password' => $this->connection['dbpassword'],
+                    'databaseName' => $this->connection['dbname'],
+                    'databaseCharset' => $this->connection['charset'],
+                    );
+                $this->db = xarDBNewConn($dsn);
+            } else {
+                $this->db = xarDB::getConn();
+            }
         }
     }
 

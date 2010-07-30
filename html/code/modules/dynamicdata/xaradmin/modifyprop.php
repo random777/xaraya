@@ -108,6 +108,13 @@ function dynamicdata_admin_modifyprop()
     } else {
         $data['table'] = null;
     }
+    // FIXME: combine with some of the code above
+    if (!empty($objectinfo)) {
+        $tmpobject = DataObjectMaster::getObject(array('objectid' => $objectid));
+        if (!empty($tmpobject->connection)) {
+            $params['connection'] = $tmpobject->connection;
+        }
+    }
     $data['sources'] = DataStoreFactory::getDataSources($params);
     if (empty($data['sources'])) {
         $data['sources'] = array();

@@ -25,6 +25,15 @@
             <title>View recent released extensions</title>
             <label>Latest Releases</label>
         </menuitem>
+        <menuitem>
+            <mask>AdminBase</mask>
+            <includes>
+                <includeitem>connections</includeitem>
+            </includes>
+            <target>connections</target>
+            <title>Manage Database Connections</title>
+            <label>Database Connections</label>
+        </menuitem>
         <!--
         <menuitem>
             <mask>AdminBase</mask>

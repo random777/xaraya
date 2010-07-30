@@ -207,7 +207,22 @@ class DataStoreFactory extends Object
             }
         }
 
-        $dbconn = xarDB::getConn();
+        // FIXME: the connection is already defined.SHould just beable to call it here
+        if (isset($args['connection'])) {
+            xarDB::setPrefix($args['connection']['prefix']);
+            $dsn = array(
+                'databaseType' => $args['connection']['dbtype'],
+                'databaseHost' => $args['connection']['host'],
+                'userName' => $args['connection']['dbuser'],
+                'password' => $args['connection']['dbpassword'],
+                'databaseName' => $args['connection']['dbname'],
+                'databaseCharset' => $args['connection']['charset'],
+                );
+            $dbconn = xarDBNewConn($dsn);
+        } else {
+            $dbconn = xarDB::getConn();
+        }
+
         $dbInfo = $dbconn->getDatabaseInfo();
         $dbTables = $dbInfo->getTables();
         foreach($dbTables as $tblInfo)

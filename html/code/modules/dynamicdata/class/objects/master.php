@@ -32,11 +32,12 @@ class DataObjectMaster extends Object
 
     public $moduleid    = null;
     public $itemtype    = 0;
+    public $connection  = array();      // the DB connection of this object
 
     public $urlparam    = 'itemid';
     public $maxid       = 0;
-    public $config      = 'a:0:{}';       // the configuration parameters for this DD object
-    public $configuration;                // the exploded configuration parameters for this DD object
+    public $config      = 'a:0:{}';     // the configuration parameters for this DD object
+    public $configuration;              // the exploded configuration parameters for this DD object
     public $isalias     = 0;
     public $join        = '';
     public $table       = '';
@@ -363,6 +364,11 @@ class DataObjectMaster extends Object
         // get a new data store
         $datastore = DataStoreFactory::getDataStore($name, $type);
 
+        // set the datastore connection if appropriate
+        if (!empty($this->connection)) {
+            $datastore->connection = $this->connection;
+        }
+        
         // add it to the list of data stores
         $this->datastores[$datastore->name] =& $datastore;
 
@@ -543,30 +549,39 @@ class DataObjectMaster extends Object
         $xartable = xarDB::getTables();
 
         $dynamicobjects = $xartable['dynamic_objects'];
+        $connections = $xartable['connections'];
 
         $bindvars = array();
         xarLogMessage('DD: query in getObjectInfo');
-        $query = "SELECT id,
-                         name,
-                         label,
-                         module_id,
-                         itemtype,
-                         class,
-                         filepath,
-                         urlparam,
-                         maxid,
-                         config,
-                         isalias
-                  FROM $dynamicobjects ";
+        $query = "SELECT o.id,
+                         o.name,
+                         o.label,
+                         o.module_id,
+                         o.itemtype,
+                         o.connection,
+                         o.class,
+                         o.filepath,
+                         o.urlparam,
+                         o.maxid,
+                         o.config,
+                         o.isalias,
+                         c.host,
+                         c.dbtype,
+                         c.dbname,
+                         c.dbuser,
+                         c.dbpassword,
+                         c.prefix,
+                         c.charset
+                  FROM $dynamicobjects o LEFT JOIN $connections c ON o.connection = c.id";
         if (!empty($args['name'])) {
-            $query .= " WHERE name = ? ";
+            $query .= " WHERE o.name = ? ";
             $bindvars[] = $args['name'];
         } elseif (!empty($args['objectid'])) {
-            $query .= " WHERE id = ? ";
+            $query .= " WHERE o.id = ? ";
             $bindvars[] = (int) $args['objectid'];
         } else {
-            $query .= " WHERE module_id = ?
-                          AND itemtype = ? ";
+            $query .= " WHERE o.module_id = ?
+                          AND o.itemtype = ? ";
             $bindvars[] = (int) $args['moduleid'];
             $bindvars[] = (int) $args['itemtype'];
         }
@@ -575,13 +590,21 @@ class DataObjectMaster extends Object
         $result = $stmt->executeQuery($bindvars);
         if(!$result->first()) return;
         $info = array();
-        list(
-            $info['objectid'], $info['name'],     $info['label'],
-            $info['moduleid'], $info['itemtype'],
-            $info['class'], $info['filepath'],
-            $info['urlparam'], $info['maxid'],    $info['config'],
-            $info['isalias']
-        ) = $result->fields;
+            list(
+                $info['objectid'], $info['name'],     $info['label'],
+                $info['moduleid'], $info['itemtype'],$info['connect'],
+                $info['class'], $info['filepath'],
+                $info['urlparam'], $info['maxid'],    $info['config'],
+                $info['isalias'],
+                $info['connection']['host'],
+                $info['connection']['dbtype'],
+                $info['connection']['dbname'],
+                $info['connection']['dbuser'],
+                $info['connection']['dbpassword'],
+                $info['connection']['prefix'],
+                $info['connection']['charset'],
+            ) = $result->fields;
+            if (empty($info['connect'])) unset($info['connection']);
         $result->close();
         if(!empty($args['join']))
         {

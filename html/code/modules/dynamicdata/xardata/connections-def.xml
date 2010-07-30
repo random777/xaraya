@@ -3,6 +3,7 @@
   <label>Database Connections</label>
   <module_id>182</module_id>
   <itemtype>6</itemtype>
+  <connection>0</connection>
   <class>DataObject</class>
   <filepath>auto</filepath>
   <urlparam>itemid</urlparam>
@@ -11,7 +12,7 @@
   <isalias>true</isalias>
   <properties>
     <property name="id">
-      <id>46</id>
+      <id>47</id>
       <label>ID</label>
       <type>itemid</type>
       <defaultvalue></defaultvalue>
@@ -21,7 +22,7 @@
       <configuration></configuration>
     </property>
     <property name="name">
-      <id>47</id>
+      <id>48</id>
       <label>Name</label>
       <type>textbox</type>
       <defaultvalue></defaultvalue>
@@ -31,7 +32,7 @@
       <configuration></configuration>
     </property>
     <property name="host">
-      <id>48</id>
+      <id>49</id>
       <label>Host</label>
       <type>textbox</type>
       <defaultvalue>127.0.0.1</defaultvalue>
@@ -41,7 +42,7 @@
       <configuration></configuration>
     </property>
     <property name="database_type">
-      <id>111</id>
+      <id>50</id>
       <label>Database Type</label>
       <type>dropdown</type>
       <defaultvalue>mysql</defaultvalue>
@@ -51,7 +52,7 @@
       <configuration>a:2:{s:14:"display_layout";s:7:"default";s:22:"initialization_options";s:12:"mysql,MySQL;";}</configuration>
     </property>
     <property name="database_name">
-      <id>49</id>
+      <id>51</id>
       <label>Database Name</label>
       <type>textbox</type>
       <defaultvalue></defaultvalue>
@@ -61,27 +62,27 @@
       <configuration></configuration>
     </property>
     <property name="database_user">
-      <id>50</id>
+      <id>52</id>
       <label>Database User</label>
-      <type>textbox</type>
+      <type>password</type>
       <defaultvalue></defaultvalue>
       <source>xar_connections.dbuser</source>
       <status>34</status>
       <seq>6</seq>
-      <configuration></configuration>
+      <configuration>a:6:{s:12:"display_size";s:2:"25";s:17:"display_maxlength";s:3:"254";s:14:"display_layout";s:7:"default";s:21:"validation_min_length";s:1:"1";s:21:"validation_max_length";s:3:"100";s:24:"initialization_hash_type";s:4:"none";}</configuration>
     </property>
     <property name="db_password">
-      <id>51</id>
+      <id>53</id>
       <label>DB Password</label>
-      <type>textbox</type>
+      <type>password</type>
       <defaultvalue></defaultvalue>
       <source>xar_connections.dbpassword</source>
       <status>34</status>
       <seq>7</seq>
-      <configuration></configuration>
+      <configuration>a:6:{s:12:"display_size";s:2:"25";s:17:"display_maxlength";s:3:"254";s:14:"display_layout";s:7:"default";s:21:"validation_min_length";s:1:"1";s:21:"validation_max_length";s:3:"100";s:24:"initialization_hash_type";s:4:"none";}</configuration>
     </property>
     <property name="table_prefix">
-      <id>52</id>
+      <id>54</id>
       <label>Table Prefix</label>
       <type>textbox</type>
       <defaultvalue></defaultvalue>
@@ -91,7 +92,7 @@
       <configuration></configuration>
     </property>
     <property name="character_set">
-      <id>53</id>
+      <id>55</id>
       <label>Character Set</label>
       <type>dropdown</type>
       <defaultvalue>utf-8</defaultvalue>
@@ -101,7 +102,7 @@
       <configuration>a:3:{s:12:"display_rows";s:1:"0";s:14:"display_layout";s:7:"default";s:22:"initialization_options";s:11:"utf8,UTF-8;";}</configuration>
     </property>
     <property name="description">
-      <id>54</id>
+      <id>56</id>
       <label>Description</label>
       <type>textarea_medium</type>
       <defaultvalue></defaultvalue>
@@ -111,7 +112,7 @@
       <configuration></configuration>
     </property>
     <property name="state">
-      <id>55</id>
+      <id>57</id>
       <label>State</label>
       <type>dropdown</type>
       <defaultvalue></defaultvalue>

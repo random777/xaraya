@@ -103,7 +103,10 @@ function dynamicdata_user_search($args)
             if (!empty($dd_check[$field['id']])) {
                 $fields[$name]['checked'] = 1;
                 if (!empty($q)) {
-                    $wherelist[] = $name . " LIKE '%" . $q . "%'";
+                    //jojo: bug 6552 simple fix at entry point - should look at fixing at the point of the query when we have time 0.o
+                   $text = str_replace('%','\%',$q);
+                    $text = str_replace('_','\_',$text);
+                    $wherelist[] = $name . " LIKE '%" . $text . "%'";
                 }
             }
         }

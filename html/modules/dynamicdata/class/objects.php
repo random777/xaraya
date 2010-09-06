@@ -1399,6 +1399,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         if (!empty($args['numitems'])) {
             $this->numitems = $args['numitems'];
         }
+
         // set the start number to retrieve
         if (!empty($args['startnum'])) {
             $this->startnum = $args['startnum'];
@@ -1534,7 +1535,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         //jojo - single quotes break the current regex
         // Fix with new regex but assume here that any single quotes in the string are already escaped
         //first attempt at the regex more than likely requires improvement
-        if (preg_match_all("/'(.*?(?<!\\\\))\'*?'/",$where,$matches)) {
+          if (preg_match_all("/'(.*?(?<!\\\\))\'*?'/",$where,$matches)) {
             foreach ($matches[1] as $match) {
                 // skip if it doesn't contain and/or
                 if (!preg_match('/\s+(and|or)\s+/',$match)) {

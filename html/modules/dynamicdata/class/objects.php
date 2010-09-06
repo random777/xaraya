@@ -1399,6 +1399,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         if (!empty($args['numitems'])) {
             $this->numitems = $args['numitems'];
         }
+
         // set the start number to retrieve
         if (!empty($args['startnum'])) {
             $this->startnum = $args['startnum'];
@@ -1442,7 +1443,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         }
 
         // Note: they can be empty here, which means overriding any previous criteria
-        if (isset($args['sort']) || isset($args['where']) || isset($args['groupby']) || isset($args['cache'])) {
+        if (isset($args['sort']) || isset($args['where']) || isset($args['groupby']) || isset($args['cache']) || isset($args['bindvars']) ) {
             foreach (array_keys($this->datastores) as $name) {
                 // make sure we don't have some left-over sort criteria
                 if (isset($args['sort'])) {
@@ -1460,6 +1461,10 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                 if (isset($args['cache'])) {
                     $this->datastores[$name]->cache = $args['cache'];
                 }
+                if (isset($args['bindvars'])) {
+                    $this->datastores[$name]->cleanBindvars();
+                }
+
             }
         }
 
@@ -1477,11 +1482,15 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         if (!empty($args['groupby'])) {
             $this->setGroupBy($args['groupby']);
         }
-
+        // set the bindvars
+        if (!empty($args['bindvars'])) {
+            $this->setBindvars($args['bindvars']);
+        }
         // set the categories
         if (!empty($args['catid'])) {
             $this->setCategories($args['catid']);
         }
+
     }
 
     function setSort($sort)
@@ -1526,11 +1535,16 @@ class Dynamic_Object_List extends Dynamic_Object_Master
 
     function setWhere($where)
     {
+
         // find all single-quoted pieces of text with and/or and replace them first, to
         // allow where clauses like : title eq 'this and that' and body eq 'here or there'
         $idx = 0;
         $found = array();
-        if (preg_match_all("/'(.*?)'/",$where,$matches)) {
+        // if (preg_match_all("/'(.*?)'/",$where,$matches)) {
+        //jojo - single quotes break the current regex
+        // Fix with new regex but assume here that any single quotes in the string are already escaped
+        //first attempt at the regex more than likely requires improvement
+          if (preg_match_all("/'(.*?(?<!\\\\))\'*?'/",$where,$matches)) {
             foreach ($matches[1] as $match) {
                 // skip if it doesn't contain and/or
                 if (!preg_match('/\s+(and|or)\s+/',$match)) {
@@ -1609,6 +1623,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                         $mywhere .= $piece . ' ';
                     }
                 }
+
                 $this->datastores[$datastore]->addWhere($this->properties[$name],
                                                         $mywhere,
                                                         $join,
@@ -1617,6 +1632,19 @@ class Dynamic_Object_List extends Dynamic_Object_Master
             }
         }
     }
+    function setBindvars($bindvars)
+    {
+
+        if (is_array($bindvars)) {
+            $this->bindvars = $bindvars;
+        } else {
+            $this->bindvars = explode(',',$bindvars);
+        }
+        foreach (array_keys($this->datastores) as $name) {
+            $this->datastores[$name]->addBindvars($this->bindvars);
+        }
+    }
+
 
     function setGroupBy($groupby)
     {
@@ -1625,6 +1653,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         } else {
             $this->groupby = explode(',',$groupby);
         }
+
         $this->isgrouped = 1;
 
         foreach ($this->groupby as $name) {
@@ -1685,6 +1714,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         }
 
         // first get the items from the start store (if any)
+
         if (!empty($this->startstore)) {
             $this->datastores[$this->startstore]->getItems($args);
 
@@ -1753,6 +1783,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         if (empty($args['fieldlist'])) {
             $args['fieldlist'] = $this->fieldlist;
         }
+
         if (count($args['fieldlist']) > 0 || !empty($this->status)) {
             $args['properties'] = array();
             foreach ($args['fieldlist'] as $name) {
@@ -1840,7 +1871,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                 if ($dummy_mode && $this->items[$itemid]['moduleid'] != 182) {
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => '',
-                                       'ojoin'  => '',  
+                                       'ojoin'  => '',
                                        'oicon' => xarTplGetImage($icon1,'base'));
                 } else {
                     $options[] = array('otitle' => xarML('View'),
@@ -1881,7 +1912,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                          'table'        => $table,
                                                          $args['param'] => $itemid,
                                                          'template'     => $args['template'])),
-                                       'ojoin'  => '',  
+                                       'ojoin'  => '',
                                        'oicon' => xarTplGetImage($icon1,'base'));
                 }
                 $options[] = array('otitle' => xarML('Edit'),
@@ -1890,13 +1921,13 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                      'table'        => $table,
                                                      $args['param'] => $itemid,
                                                      'template'     => $args['template'])),
-                                   'ojoin'  => '|',  
+                                   'ojoin'  => '|',
                                    'oicon' => xarTplGetImage('icons/modify.png','base'));
             } elseif(xarSecurityCheck('ReadDynamicDataItem',0,'Item',$this->moduleid.':'.$this->itemtype.':'.$itemid)) {
                 if ($dummy_mode && $this->items[$itemid]['moduleid'] != 182) {
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => '',
-                                       'ojoin'  => '',  
+                                       'ojoin'  => '',
                                        'oicon' => xarTplGetImage($icon1,'base'));
                 } else {
                     $options[] = array('otitle' => xarML('View'),
@@ -1905,7 +1936,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                          'table'        => $table,
                                                          $args['param'] => $itemid,
                                                          'template'     => $args['template'])),
-                                       'ojoin'  => '',  
+                                       'ojoin'  => '',
                                        'oicon' => xarTplGetImage($icon1,'base'));
                 }
             }
@@ -2043,7 +2074,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                                                     'table'        => $table,
                                                                                     $args['param'] => $itemid,
                                                                                     'template'     => $args['template'])),
-                                                        'ojoin'  => '',  
+                                                        'ojoin'  => '',
                                                         'oicon' => xarTplGetImage('icons/display.png','base'));
         }
         if (!empty($this->isgrouped)) {

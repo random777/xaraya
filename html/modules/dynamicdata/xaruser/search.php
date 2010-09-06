@@ -85,6 +85,7 @@ function dynamicdata_user_search($args)
     } else {
         $myfunc = 'search';
     }
+     $dbconn = xarDBGetConn();
     foreach ($objects as $itemid => $object) {
         // skip the internal objects
         if ($itemid < 3) continue;
@@ -103,10 +104,13 @@ function dynamicdata_user_search($args)
             if (!empty($dd_check[$field['id']])) {
                 $fields[$name]['checked'] = 1;
                 if (!empty($q)) {
-                    //jojo: bug 6552 simple fix at entry point - should look at fixing at the point of the query when we have time 0.o
-                   $text = str_replace('%','\%',$q);
+                    //jojo: bug 6552 - requires adjustment in dd object master as well
+                    //cannot use qstr here
+                    //we must escape wildcards and single quotes to pass it to DD whereis
+                    $text = str_replace('%','\%',$q);
                     $text = str_replace('_','\_',$text);
-                    $wherelist[] = $name . " LIKE '%" . $text . "%'";
+                    $text = str_replace("'","\'",$text);
+                    $wherelist[] = $name . " LIKE '%" . $text."%'" ;
                 }
             }
         }

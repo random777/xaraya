@@ -1530,7 +1530,11 @@ class Dynamic_Object_List extends Dynamic_Object_Master
         // allow where clauses like : title eq 'this and that' and body eq 'here or there'
         $idx = 0;
         $found = array();
-        if (preg_match_all("/'(.*?)'/",$where,$matches)) {
+        // if (preg_match_all("/'(.*?)'/",$where,$matches)) {
+        //jojo - single quotes break the current regex
+        // Fix with new regex but assume here that any single quotes in the string are already escaped
+        //first attempt at the regex more than likely requires improvement
+        if (preg_match_all("/'(.*?(?<!\\\\))\'*?'/",$where,$matches)) {
             foreach ($matches[1] as $match) {
                 // skip if it doesn't contain and/or
                 if (!preg_match('/\s+(and|or)\s+/',$match)) {
@@ -1840,7 +1844,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                 if ($dummy_mode && $this->items[$itemid]['moduleid'] != 182) {
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => '',
-                                       'ojoin'  => '',  
+                                       'ojoin'  => '',
                                        'oicon' => xarTplGetImage($icon1,'base'));
                 } else {
                     $options[] = array('otitle' => xarML('View'),
@@ -1881,7 +1885,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                          'table'        => $table,
                                                          $args['param'] => $itemid,
                                                          'template'     => $args['template'])),
-                                       'ojoin'  => '',  
+                                       'ojoin'  => '',
                                        'oicon' => xarTplGetImage($icon1,'base'));
                 }
                 $options[] = array('otitle' => xarML('Edit'),
@@ -1890,13 +1894,13 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                      'table'        => $table,
                                                      $args['param'] => $itemid,
                                                      'template'     => $args['template'])),
-                                   'ojoin'  => '|',  
+                                   'ojoin'  => '|',
                                    'oicon' => xarTplGetImage('icons/modify.png','base'));
             } elseif(xarSecurityCheck('ReadDynamicDataItem',0,'Item',$this->moduleid.':'.$this->itemtype.':'.$itemid)) {
                 if ($dummy_mode && $this->items[$itemid]['moduleid'] != 182) {
                     $options[] = array('otitle' => xarML('View'),
                                        'olink'  => '',
-                                       'ojoin'  => '',  
+                                       'ojoin'  => '',
                                        'oicon' => xarTplGetImage($icon1,'base'));
                 } else {
                     $options[] = array('otitle' => xarML('View'),
@@ -1905,7 +1909,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                          'table'        => $table,
                                                          $args['param'] => $itemid,
                                                          'template'     => $args['template'])),
-                                       'ojoin'  => '',  
+                                       'ojoin'  => '',
                                        'oicon' => xarTplGetImage($icon1,'base'));
                 }
             }
@@ -2043,7 +2047,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
                                                                                     'table'        => $table,
                                                                                     $args['param'] => $itemid,
                                                                                     'template'     => $args['template'])),
-                                                        'ojoin'  => '',  
+                                                        'ojoin'  => '',
                                                         'oicon' => xarTplGetImage('icons/display.png','base'));
         }
         if (!empty($this->isgrouped)) {

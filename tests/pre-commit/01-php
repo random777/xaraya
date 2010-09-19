@@ -51,10 +51,10 @@ for index,file in pairs(commit_files) do
                 objlist = objlist..'  file: '..file..' uses a reference operator for constructing objects (like: $var =& new ...)\n'
             end
             -- missing, bad or ourdated copyright message, @copyright .*2009
-            local year = os.date("%Y")
-            if (string.find(content,'@copyright[^\n]*' ..year.. ' ') == nil) then
-                copyrlist = copyrlist..'  file: '..file..' misses or has an outdated copyright notice (like @copyright ... ' ..year.. ' ...)\n'
-            end
+            -- local year = os.date("%Y")
+            -- if (string.find(content,'@copyright[^\n]*' ..year.. ' ') == nil) then
+            --     copyrlist = copyrlist..'  file: '..file..' misses or has an outdated copyright notice (like @copyright ... ' ..year.. ' ...)\n'
+            -- end
             f:close()
         end
     end

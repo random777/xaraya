@@ -50,13 +50,29 @@ mt_root () {
     )
 }
 
+# Determine core version (aruba|jamaica|bermuda) from _MTN/options
+core_version () {
+    MTNOPTS="$1/_MTN/options"
+    if [ -f "$MTNOPTS" ]; then
+        # _MTN/options line 2, everything between the double quotes, 
+        # expressions reduce it to either an empty string (aruba) or jamaica or bermuda
+        VERSION=`echo $(sed -n '2p' $MTNOPTS) | sed "s/.*\"com\.xaraya\.[^\.]\+\.\([^\.]\+\)\.\?\(.*\)\?\"/\1/" | sed "/\(jamaica\|bermuda\)"/!d`
+        if [ "$VERSION" = "" ]; then
+            VERSION='aruba'
+        fi        
+        echo $VERSION        
+    fi
+}
+
 # The first argument should either be a file or nothing (takes current dir and below then)
 if [ $# -gt 0 ]; then
     WORKDIR=$(dirname $1)
     FILELIST=$(basename $1)
+    VERSION=`core_version $WORKDIR`
 else
     WORKDIR=`mt_root $PWD`
     FILELIST=`$monotone ls known . | grep -e $GREPPAT`
+    VERSION=`core_version $PWD`
 fi
 
 FAILED=0
@@ -68,10 +84,14 @@ for template in $FILELIST; do
   if [ $TPLDIR != 'pages' ]; then
     # normal template, add a root tag
     # echo '<!DOCTYPE blocklayout PUBLIC "-//XAR//DTD BL 1.0 Strict//EN" "http://www.xaraya.com/bl1/DTD/bl1-strict.dtd">' >> $TEMPFILE
-    echo '<!DOCTYPE blocklayout SYSTEM "'$DTD'">' >> $TEMPFILE
-    echo '<xar:blocklayout version="1.0" content="text/html" xmlns:xar="http://xaraya.com/2004/blocklayout">' >> $TEMPFILE
+    if [ "$VERSION" = "aruba" ]; then   
+        echo '<!DOCTYPE blocklayout SYSTEM "'$DTD'">' >> $TEMPFILE
+        echo '<xar:blocklayout version="1.0" content="text/html" xmlns:xar="http://xaraya.com/2004/blocklayout">' >> $TEMPFILE
+    fi
     cat $WORKDIR/$template >> $TEMPFILE
-    echo '</xar:blocklayout>' >> $TEMPFILE
+    if [ "$VERSION" = "aruba" ]; then     
+        echo '</xar:blocklayout>' >> $TEMPFILE
+    fi
   else 
     cat $WORKDIR/$template >> $TEMPFILE
   fi

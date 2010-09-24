@@ -52,7 +52,8 @@ mt_root () {
 
 # Determine core version (aruba|jamaica|bermuda) from _MTN/options
 core_version () {
-    MTNOPTS="$1/_MTN/options"
+    ROOTDIR=`mt_root $1`
+    MTNOPTS="$ROOTDIR/_MTN/options"
     if [ -f "$MTNOPTS" ]; then
         # _MTN/options line 2, everything between the double quotes, 
         # expressions reduce it to either an empty string (aruba) or jamaica or bermuda
@@ -89,7 +90,7 @@ for template in $FILELIST; do
         echo '<xar:blocklayout version="1.0" content="text/html" xmlns:xar="http://xaraya.com/2004/blocklayout">' >> $TEMPFILE
     fi
     cat $WORKDIR/$template >> $TEMPFILE
-    if [ "$VERSION" = "aruba" ]; then     
+    if [ "$VERSION" = "aruba" ]; then   
         echo '</xar:blocklayout>' >> $TEMPFILE
     fi
   else 
@@ -102,7 +103,7 @@ for template in $FILELIST; do
 FAILED : $WORKDIR/$template"
     if [ $PARSERTYPE = 'xmllint' ]
     then
-      echo $RESULT | awk 'BEGIN {RS="^"; FS=":"} {if(NF > 1) {printf("  Line"); printf(" %s",$2-2); for(i=4;i<=NF;i++) {printf(": %s",$i)}; print ""}}'
+      echo $RESULT | awk 'BEGIN {RS="^"; FS=":"} {if(NF > 1) {printf("  Line"); printf(" %s",$2-2); for(i=4;i<=NF;i++) {printf(": %s",$i)}; print ""; print $VERSION}}'
       FAILED=1
     else
       echo $RESULT

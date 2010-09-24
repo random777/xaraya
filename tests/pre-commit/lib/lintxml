@@ -85,12 +85,12 @@ for template in $FILELIST; do
   if [ $TPLDIR != 'pages' ]; then
     # normal template, add a root tag
     # echo '<!DOCTYPE blocklayout PUBLIC "-//XAR//DTD BL 1.0 Strict//EN" "http://www.xaraya.com/bl1/DTD/bl1-strict.dtd">' >> $TEMPFILE
-    if [ "$VERSION" = "aruba" ]; then   
+    if [ ! "$VERSION" = "jamaica" -a ! "$VERSION" = "bermuda" ]; then   
         echo '<!DOCTYPE blocklayout SYSTEM "'$DTD'">' >> $TEMPFILE
         echo '<xar:blocklayout version="1.0" content="text/html" xmlns:xar="http://xaraya.com/2004/blocklayout">' >> $TEMPFILE
     fi
     cat $WORKDIR/$template >> $TEMPFILE
-    if [ "$VERSION" = "aruba" ]; then   
+    if [ ! "$VERSION" = "jamaica" -a ! "$VERSION" = "bermuda" ]; then   
         echo '</xar:blocklayout>' >> $TEMPFILE
     fi
   else 

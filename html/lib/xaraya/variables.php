@@ -614,4 +614,30 @@ function xarVarPrepForOS()
         return $args;
     }
 }
+
+/**
+ * Run a variable through one or more transforms.
+ * If any of the transforms fails, return the original value
+ *
+ * @param  mixed $var the variable containing the value to be transformed
+ * @param  mixed $transforms an array or list of the transforms the variable will pass through
+ * @return mixed the transformed value
+**/
+function xarVarTransform($var, $transforms)
+{
+    if (empty($transforms)) return $var;
+    // make sure we have an array, the xar:transform tag will pass a list
+    if (!is_array($transforms)) $transforms = explode(',',$transforms);
+    
+    $temp = $var;
+    foreach ($transforms as $transform) {
+        try {
+        // run the transforms
+        
+        } catch (Exception $e) {
+            return $temp;
+        }
+    }
+    return $var;
+}
 ?>

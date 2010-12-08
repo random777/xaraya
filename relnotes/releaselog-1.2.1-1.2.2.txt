@@ -1,0 +1,19 @@
+Release notes for Xaraya Core release 1.2.2
+
+Release 1.2.2 (relevant changes from 1.2.1 onwards included here)
+
+Possible incompatible changes, please check the following:
+    * Installing: see the file INSTALL.txt
+    * Upgrading : see the file UPGRADE.txt
+
+
+Major changes:
+    * No major changes in this release
+
+General fixes and improvements:
+
+      Important changes / bug fixes: (check http://bugs.xaraya.com for detailed information)
+      bug   : short info
+      ------|-----------
+    * [6533] white screen during install (Relates to Dynamic_NumberBox_Property and php 5.3.x)
+    * [6552] SQL-injection in dynamicdata_user_search() function

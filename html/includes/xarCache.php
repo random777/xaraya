@@ -279,47 +279,47 @@ function xarCache_getParents()
  */
 function xarCache_getStorage($args)
 {
-    include_once 'includes/caching/storage.php';
+    sys::import('caching.storage';
     switch ($args['storage'])
     {
         case 'database':
-            include_once 'includes/caching/storage/database.php';
+            sys::import('caching.storage.database');
             $classname = 'xarCache_Database_Storage';
             break;
 
         case 'memcached':
             if (extension_loaded('memcache')) {
-                include_once 'includes/caching/storage/memcached.php';
+                sys::import('caching.storage.memcached');
                 $classname = 'xarCache_MemCached_Storage';
             } else {
-                include_once 'includes/caching/storage/filesystem.php';
+                sys::import('caching.storage.filesystem');
                 $classname = 'xarCache_FileSystem_Storage';
             }
             break;
 
         case 'mmcache':
             if (function_exists('mmcache')) {
-                include_once 'includes/caching/storage/mmcache.php';
+                sys::import('caching.storage.mmcache');
                 $classname = 'xarCache_MMCache_Storage';
             } else {
-                include_once 'includes/caching/storage/filesystem.php';
+                sys::import('caching.storage.filesystem');
                 $classname = 'xarCache_FileSystem_Storage';
             }
             break;
 
         case 'eaccelerator':
             if (function_exists('eaccelerator')) {
-                include_once 'includes/caching/storage/eaccelerator.php';
+                sys::import('caching.storage.eaccelerator');
                 $classname = 'xarCache_eAccelerator_Storage';
             } else {
-                include_once 'includes/caching/storage/filesystem.php';
+                sys::import('caching.storage.filesystem');
                 $classname = 'xarCache_FileSystem_Storage';
             }
             break;
 
         case 'filesystem':
         default:
-            include_once 'includes/caching/storage/filesystem.php';
+            sys::import('caching.storage.filesystem');
             $classname = 'xarCache_FileSystem_Storage';
             break;
     }

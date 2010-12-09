@@ -31,7 +31,7 @@
  * Include the base file
  *
  */
-include_once ('./includes/log/loggers/xarLogger.php');
+sys::import('log.loggers.xarLogger');
 
 /**
  * Mail logger

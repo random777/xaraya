@@ -473,16 +473,16 @@ function xarMLS_setCurrentLocale($locale)
 /* TODO: delete after new backend testing
     switch ($GLOBALS['xarMLS_backendName']) {
     case 'xml':
-        include_once 'includes/xarMLSXMLBackend.php';
+        sys::import('xarMLSXMLBackend');
         $GLOBALS['xarMLS_backend'] = new xarMLS__XMLTranslationsBackend($alternatives);
         break;
     case 'php':
-        include_once 'includes/xarMLSPHPBackend.php';
+        sys::import('xarMLSPHPBackend');
         $GLOBALS['xarMLS_backend'] = new xarMLS__PHPTranslationsBackend($alternatives);
         break;
     case 'xml2php':
 */
-        include_once 'includes/xarMLSXML2PHPBackend.php';
+        sys::import('xarMLSXML2PHPBackend');
         $GLOBALS['xarMLS_backend'] = new xarMLS__XML2PHPTranslationsBackend($alternatives);
 
 /*

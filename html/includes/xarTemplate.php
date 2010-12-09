@@ -1141,7 +1141,7 @@ function xarTpl_includeModuleTemplate($modName, $templateName, $tplData)
  */
 function xarTpl__getCompilerInstance()
 {
-    include_once 'includes/xarBLCompiler.php';
+    sys::import('xarBLCompiler');
     return xarTpl__Compiler::instance();
 }
 

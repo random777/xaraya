@@ -15,7 +15,7 @@
  * Include the base file
  *
  */
-include_once ('./includes/log/loggers/simple.php');
+sys::import('log.loggers.simple');
 
 /**
  * HTMLLoggger

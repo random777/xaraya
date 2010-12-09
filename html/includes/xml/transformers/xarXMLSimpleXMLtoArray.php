@@ -11,7 +11,7 @@
  *
  */
 
-include_once('./includes/xarXML.php');
+sys::import('xarXML');
 
 class xarXMLSimpleXMLtoArrayTransformer extends xarAbstractXmlHandler
 {

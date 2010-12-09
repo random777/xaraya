@@ -237,7 +237,7 @@ function &xarDBGetTables()
 function xarDBLoadTableMaintenanceAPI()
 {
     // Include Table Maintainance API file
-    include_once 'includes/xarTableDDL.php';
+    sys::import('xarTableDDL');
 
     return true;
 }
@@ -270,7 +270,7 @@ function &xarDBNewDataDict(&$dbconn, $mode = 'READONLY')
 {
     // Include the data dictionary source.
     // Depending on the mode, there may be one or more files to include.
-    include_once 'includes/xarDataDict.php';
+    sys::import('xarDataDict');
 
     // Decide which class to use.
     if ($mode == 'METADATA') {

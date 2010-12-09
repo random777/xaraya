@@ -13,7 +13,7 @@
  * Include the base class
  *
  */
-include_once ('./includes/log/loggers/xarLogger.php');
+sys::import('log.loggers.xarLogger');
 // Modified from the original by the Xaraya Team
 
 /**

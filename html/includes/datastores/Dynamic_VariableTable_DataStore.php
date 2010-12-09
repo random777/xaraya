@@ -11,7 +11,7 @@
  * Include the base class
  *
  */
-include_once "includes/datastores/Dynamic_SQL_DataStore.php";
+sys::import('datastores.Dynamic_SQL_DataStore');
 
 /**
  * Data store is a variable SQL table

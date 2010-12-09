@@ -21,7 +21,7 @@
  * @author  Nuncanada <nuncanada@ig.com.br>
  *
  */
-include_once ('./includes/log/loggers/xarLogger.php');
+sys::import('log.loggers.xarLogger');
 
 /**
  * The error_log class is an implementation of the xarLoggger

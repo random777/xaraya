@@ -12,6 +12,6 @@
  * @author mikespub <mikespub@xaraya.com>
  */
 
-require_once 'modules/dynamicdata/class/objects.php';
+sys::import('modules.dynamicdata.class.objects');
 
 ?>

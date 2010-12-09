@@ -39,9 +39,9 @@ function base_admin_release()
         return;
     }
     // Require the xmlParser class
-    require_once('modules/base/xarclass/xmlParser.php');
+    sys::import('modules.base.xarclass.xmlParser');
     // Require the feedParser class
-    require_once('modules/base/xarclass/feedParser.php');
+    sys::import('modules.base.xarclass.feedParser');
     // Check and see if a feed has been supplied to us.
     // Need to change the url once release module is moved to
     $feedfile = "http://www.xaraya.com/index.php?module=release&func=rssviewnotes&theme=rss&releaseno=$releasenumber";

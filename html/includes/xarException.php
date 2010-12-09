@@ -438,13 +438,13 @@ function xarException__formatStack($format,$stacktype = "ERROR")
 
         if ($format == 'template' || $format == 'rawhtml') {
             if (!class_exists('HTMLExceptionRendering')) {
-                include_once(dirname(__FILE__) . "/exceptions/htmlexceptionrendering.php");
+                sys::import('exceptions.htmlexceptionrendering');
             }
             $msg = new HTMLExceptionRendering($error);
         }
         else {
             if (!class_exists('TextExceptionRendering')) {
-                include_once(dirname(__FILE__) . "/exceptions/textexceptionrendering.php");
+                sys::import('exceptions.exceptionrendering');
             }
             $msg = new TextExceptionRendering($error);
         }

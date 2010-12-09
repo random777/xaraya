@@ -11,7 +11,7 @@
  * @author Marco Canini <marco@xaraya.com>
  */
 
-include_once dirname(__FILE__).'/xarMLS.php';
+sys::import('xarMLS');
 
 /**
  * This is the default translations backend and should be used for production sites.

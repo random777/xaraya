@@ -180,7 +180,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * Before we do anything make sure we can except out of code in a predictable matter
      *
      */
-    include 'includes/xarException.php';
+    sys::import('xarException');
     $systemArgs = array('enablePHPErrorHandler' => xarCore_getSystemVar('Exception.EnablePHPErrorHandler'));
     xarError_init($systemArgs, $whatToLoad);
 
@@ -283,7 +283,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * Bring Multi Language System online
      *
      */
-    include 'includes/xarMLS.php';
+    sys::import('xarMLS');
     $systemArgs = array('MLSMode'             => xarConfigGetVar('Site.MLS.MLSMode'),
 //                        'translationsBackend' => xarConfigGetVar('Site.MLS.TranslationsBackend'),
                         'translationsBackend' => 'xml2php',

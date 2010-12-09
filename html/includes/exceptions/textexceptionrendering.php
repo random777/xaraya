@@ -11,7 +11,7 @@
  */
 
 if (!class_exists('ExceptionRendering')) {
-    include_once(dirname(__FILE__) . "/exceptionrendering.php");
+    sys::import('exceptions.exceptionrendering');
 }
 
 /**

@@ -33,8 +33,8 @@ if (file_exists(xarCoreGetVarDirPath() . '/security/on.touch')) {
 
 // FIXME: Can we reverse this? (i.e. the module loading the files from here?)
 //        said another way, can we move the two files to /includes (partially preferably)
-include_once "$here/../modules/privileges/xarprivileges.php";
-include_once "$here/../modules/roles/xarroles.php";
+sys::import('modules.privileges.xarprivileges');
+sys::import('modules.roles.xarroles');
 
 /**
  * Start the security subsystem

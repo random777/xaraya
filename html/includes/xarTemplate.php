@@ -344,7 +344,7 @@ function xarTplAddStyleLink($module = null, $file = null, $fileext = null, $them
     $args = compact('module', 'file', 'fileext', 'themefolder', 'media', 'scope', 'method');
 
     // make sure we can use css object
-    require_once "modules/themes/xarclass/xarcss.php";
+    sys::import('modules.themes.xarclass.xarcss');
     $obj = new xarCSS($args);
     return $obj->run_output();
 }

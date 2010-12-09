@@ -19,7 +19,7 @@
  */
 function themes_userapi_register($args)
 {
-    require_once "modules/themes/xarclass/xarcss.class.php";
+    sys::import('modules.themes.xarclass.xarcss');
     $obj = new xarCSS($args);
     return $obj->run_output();
 }

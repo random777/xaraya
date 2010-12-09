@@ -53,14 +53,14 @@ function xarCache_init($args = false)
 
     if (file_exists($cacheDir . '/cache.pagelevel')) {
         define('XARCACHE_PAGE_IS_ENABLED',1);
-        require_once('includes/caching/page.php');
+        sys::import('caching.page');
         // Note : we may already exit here if session-less page caching is enabled
         xarPageCache_init($cachingConfiguration);
     }
 
     if (file_exists($cacheDir . '/cache.blocklevel')) {
         define('XARCACHE_BLOCK_IS_ENABLED',1);
-        require_once('includes/caching/block.php');
+        sys::import('caching.block');
         xarBlockCache_init($cachingConfiguration);
     }
 

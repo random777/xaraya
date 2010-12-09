@@ -11,7 +11,7 @@
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  */
 
-include_once dirname(__FILE__)."/exception.php";
+sys::import('exceptions.exception');
 /**
  * Class for the global user exceptions
  *

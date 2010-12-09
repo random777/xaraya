@@ -339,7 +339,7 @@ function xarDBDropTable($tableName, $databaseType = NULL)
             break;
         case 'mssql':
         case 'datadict':
-            include_once('includes/tableddl/datadict.php');
+            sys::import('tableddl.datadict');
             $sql = xarDB__datadictDropTable($tableName);
             break;
         // Other DBs go here

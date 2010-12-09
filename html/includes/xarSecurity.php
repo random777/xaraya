@@ -26,9 +26,9 @@
 // Maybe changing this touch to a centralized API would be a good idea?
 // Even if in the end it would use touched files too...
 $here = dirname(__FILE__);
-include_once "$here/xarCore.php";
+sys::import('xarCore');
 if (file_exists(xarCoreGetVarDirPath() . '/security/on.touch')) {
-    include_once "$here/xarCacheSecurity.php";
+    sys::import('xarCacheSecurity');
 }
 
 // FIXME: Can we reverse this? (i.e. the module loading the files from here?)
@@ -422,7 +422,7 @@ function xarIsAncestor($name1, $name2)
  */
 function xarTree()
 {
-    include_once 'modules/roles/xartreerenderer.php';
+    sys::import('modules/roles/xartreerenderer.php');
     $tree = new xarTreeRenderer();
     return $tree;
 }

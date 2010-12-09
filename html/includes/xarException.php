@@ -26,18 +26,18 @@ define('XAR_CORE_EXCEPTION', 11);
 define('XAR_DATABASE_EXCEPTION', 12);
 define('XAR_TEMPLATE_EXCEPTION', 13);
 
-// {ML_include 'includes/exceptions/defaultuserexception.class.php'}
-// {ML_include 'includes/exceptions/errorcollection.class.php'}
-// {ML_include 'includes/exceptions/exceptionstack.class.php'}
-// {ML_include 'includes/exceptions/htmlexceptionrendering.class.php'}
-// {ML_include 'includes/exceptions/noexception.class.php'}
-// {ML_include 'includes/exceptions/systemexception.class.php'}
-// {ML_include 'includes/exceptions/systemmessage.class.php'}
-// {ML_include 'includes/exceptions/textexceptionrendering.class.php'}
+// {ML_include 'includes/exceptions/defaultuserexception.php'}
+// {ML_include 'includes/exceptions/errorcollection.php'}
+// {ML_include 'includes/exceptions/exceptionstack.php'}
+// {ML_include 'includes/exceptions/htmlexceptionrendering.php'}
+// {ML_include 'includes/exceptions/noexception.php'}
+// {ML_include 'includes/exceptions/systemexception.php'}
+// {ML_include 'includes/exceptions/systemmessage.php'}
+// {ML_include 'includes/exceptions/textexceptionrendering.php'}
 
 // {ML_include 'includes/exceptions/defaultuserexception.defaults.php'}
-// {ML_include 'includes/exceptions/exception.class.php'}
-// {ML_include 'includes/exceptions/exceptionrendering.class.php'}
+// {ML_include 'includes/exceptions/exception.php'}
+// {ML_include 'includes/exceptions/exceptionrendering.php'}
 // {ML_include 'includes/exceptions/systemexception.defaults.php'}
 // {ML_include 'includes/exceptions/systemmessage.defaults.php'}
 
@@ -438,13 +438,13 @@ function xarException__formatStack($format,$stacktype = "ERROR")
 
         if ($format == 'template' || $format == 'rawhtml') {
             if (!class_exists('HTMLExceptionRendering')) {
-                include_once(dirname(__FILE__) . "/exceptions/htmlexceptionrendering.class.php");
+                include_once(dirname(__FILE__) . "/exceptions/htmlexceptionrendering.php");
             }
             $msg = new HTMLExceptionRendering($error);
         }
         else {
             if (!class_exists('TextExceptionRendering')) {
-                include_once(dirname(__FILE__) . "/exceptions/textexceptionrendering.class.php");
+                include_once(dirname(__FILE__) . "/exceptions/textexceptionrendering.php");
             }
             $msg = new TextExceptionRendering($error);
         }

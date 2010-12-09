@@ -9,7 +9,7 @@
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  */
 
-include_once dirname(__FILE__)."/exception.class.php";
+include_once dirname(__FILE__)."/exception.php";
 
 /**
  * ErrorCollection

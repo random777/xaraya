@@ -42,13 +42,13 @@ define('XAR_TEMPLATE_EXCEPTION', 13);
 // {ML_include 'includes/exceptions/systemmessage.defaults.php'}
 
 $here=dirname(__FILE__);
-include "$here/exceptions/exceptionstack.php";
+sys::import('exceptions.exceptionstack');
 
-include "$here/exceptions/systemmessage.php";
-include "$here/exceptions/systemexception.php";
-include "$here/exceptions/defaultuserexception.php";
-include "$here/exceptions/noexception.php";
-include "$here/exceptions/errorcollection.php";
+sys::import('exceptions.systemmessage');
+sys::import('exceptions.systemexception');
+sys::import('exceptions.defaultuserexception');
+sys::import('exceptions.noexception');
+sys::import('exceptions.errorcollection');
 
 global $CoreStack, $ErrorStack;
 
@@ -613,7 +613,7 @@ function xarException__phpErrorHandler($errorType, $errorString, $file, $line)
         $component = '';
         if ($module != '') {
             // load relative to the current file (e.g. for shutdown functions)
-            include(dirname(__FILE__) . "/exceptions/xarayacomponents.php");
+            sys::import('exceptions.xarayacomponents');
             foreach ($core as $corecomponent) {
                 if ($corecomponent['name'] == $module) {
                     $component = $corecomponent['fullname'];

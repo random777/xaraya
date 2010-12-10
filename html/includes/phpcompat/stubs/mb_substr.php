@@ -17,7 +17,7 @@
  */
 function mb_substr($str, $start, $len = '', $encoding='UTF-8')
 {
-    require_once dirname(__FILE__) . '/functions/_mb_substr.php';
+    sys::import('phpcompat.stubs.functions._mb_substr';
     return _mb_substr($str, $start, $len, $encoding);
 }
 ?>

@@ -19,7 +19,7 @@
 
 function fnmatch($pattern, $string)
 {
-    require_once dirname(__FILE__) . '/functions/_fnmatch.php';
+    sys::import('phpcompat.stubs.functions._fnmatch';
     return _fnmatch($pattern, $string);
 }
 

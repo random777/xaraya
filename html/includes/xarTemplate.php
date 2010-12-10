@@ -103,7 +103,7 @@ function xarTpl_init(&$args, $whatElseIsGoingLoaded)
     $GLOBALS['xarTpl_JavaScript'] = array('head'=>array(), 'body'=>array());
 
     // This is wrong here as well, but it's better at least than in xarMod
-    include "includes/xarTheme.php";
+    sys::import('xarTheme');
 
     // NOTE: starting from 0.9.11 we attempt to link core css to any css-aware xhtml theme
     // immediate goal is elimination of inline styles, consistency and other core UI related issues

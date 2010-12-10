@@ -1277,4 +1277,10 @@ function xarPage_httpCacheHeaders($cache_file)
     xarPageCache_sendHeaders($modtime);
 }
 
+// New legacy functions
+
+function xxarPreCoreGetVarDirPath() 
+{
+    return sys::varpath();
+}
 ?>

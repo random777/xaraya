@@ -19,7 +19,7 @@
  */
 function html_entity_decode($string)
 {
-    require_once dirname(__FILE__) . '/functions/_html_entity_decode.php';
+    sys::import('phpcompat.stubs.functions._html_entity_decode';
     return _html_entity_decode($string);
 }
 

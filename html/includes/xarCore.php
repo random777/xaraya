@@ -144,7 +144,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * Load PHP Version Backwards Compatibility Library
      *
      */
-    include 'includes/xarPHPCompat.php';
+    sys::import('xarPHPCompat');
     xarPHPCompat::loadAll('includes/phpcompat');
 
     /**
@@ -168,7 +168,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      *
      */
     // {ML_dont_parse 'includes/xarLog.php'}
-    include 'includes/xarLog.php';
+    sys::import('xarLog');
     $systemArgs = array('loggerName' => xarCore_getSystemVar('Log.LoggerName', true),
                         'loggerArgs' => xarCore_getSystemVar('Log.LoggerArgs', true),
                         'level'      => xarCore_getSystemVar('Log.LogLevel', true));
@@ -194,7 +194,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      *
      */
     if ($whatToLoad & XARCORE_SYSTEM_ADODB) { // yeah right, as if this is optional
-        include 'includes/xarDB.php';
+        sys::import('xarDB');
 
         // Decode encoded DB parameters
         $userName = xarCore_getSystemVar('DB.UserName');
@@ -224,7 +224,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      *
      */
     // {ML_dont_parse 'includes/xarEvt.php'}
-    include 'includes/xarEvt.php';
+    sys::import('xarEvt');
     $systemArgs = array('loadLevel' => $whatToLoad);
     xarEvt_init($systemArgs, $whatToLoad);
 
@@ -238,14 +238,14 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      *
      */
     if ($whatToLoad & XARCORE_SYSTEM_CONFIGURATION) {
-        include 'includes/xarConfig.php';
+        sys::import('xarConfig');
 
         // Start Configuration Unit
         $systemArgs = array();
         xarConfig_init($systemArgs, $whatToLoad);
 
         // Start Variables utilities
-        include 'includes/xarVar.php';
+        sys::import('xarVar');
         xarVar_init($systemArgs, $whatToLoad);
         $whatToLoad ^= XARCORE_BIT_CONFIGURATION;
     }
@@ -257,7 +257,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      *
      */
     if (xarConfigGetVar('Site.Core.LoadLegacy') == true) {
-        include 'includes/xarLegacy.php';
+        sys::import('xarLegacy');
     }
 
     /*
@@ -270,7 +270,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * Bring HTTP Protocol Server/Request/Response utilities into the story
      *
      */
-    include 'includes/xarServer.php';
+    sys::import('xarServer');
     $systemArgs = array('enableShortURLsSupport' => xarConfigGetVar('Site.Core.EnableShortURLsSupport'),
                         'defaultModuleName'      => xarConfigGetVar('Site.Core.DefaultModuleName'),
                         'defaultModuleType'      => xarConfigGetVar('Site.Core.DefaultModuleType'),
@@ -306,7 +306,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
     define('_XAR_ID_UNREGISTERED', $anonuid);
 
     if ($whatToLoad & XARCORE_SYSTEM_SESSION) {
-        include 'includes/xarSession.php';
+        sys::import('xarSession');
 
         $systemArgs = array('securityLevel'     => xarConfigGetVar('Site.Session.SecurityLevel'),
                             'duration'          => xarConfigGetVar('Site.Session.Duration'),
@@ -328,7 +328,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
     //        it's a legacy thought, we don't need it anymore
 
     if ($whatToLoad & XARCORE_SYSTEM_BLOCKS) {
-        include 'includes/xarBlocks.php';
+        sys::import('xarBlocks');
 
         // Start Blocks Support Sytem
         $systemArgs = array();
@@ -345,7 +345,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * @todo <mrb> i thought it was configurable
      */
     if ($whatToLoad & XARCORE_SYSTEM_MODULES) {
-        include 'includes/xarMod.php';
+        sys::import('xarMod');
         $systemArgs = array('enableShortURLsSupport' => xarConfigGetVar('Site.Core.EnableShortURLsSupport'),
                             'generateXMLURLs' => true);
         xarMod_init($systemArgs, $whatToLoad);
@@ -357,7 +357,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * Start BlockLayout Template Engine
      *
      */
-    include 'includes/xarTemplate.php';
+    sys::import('xarTemplate');
     $systemArgs = array(
         'enableTemplatesCaching' => xarConfigGetVar('Site.BL.CacheTemplates'),
         'themesBaseDirectory'    => xarConfigGetVar('Site.BL.ThemesDirectory'),
@@ -374,8 +374,8 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * @todo <marcinmilan> review what pasts of the old user system need to be retained
      */
     if ($whatToLoad & XARCORE_SYSTEM_USER) {
-        include 'includes/xarUser.php';
-        include 'includes/xarSecurity.php';
+        sys::import('xarUser');
+        sys::import('xarSecurity');
         xarSecurity_init();
         // Start User System
         $systemArgs = array('authenticationModules' => xarConfigGetVar('Site.User.AuthenticationModules'));

@@ -420,10 +420,11 @@ final class sys extends Object
     public static function varpath()
     {
         if (isset(self::$var)) return self::$var;
-        if (isset($GLOBALS['systemConfiguration']['varDir'])) {
-            self::$var = $GLOBALS['systemConfiguration']['varDir'];
+        if (file_exists('./var/.key.php')) {
+            include './var/.key.php';
+            $varpath = $protectedVarPath;
         } else {
-            self::$var = './var';
+            $varpath = './var';
         }
         return self::$var;
     }

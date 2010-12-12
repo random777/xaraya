@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /includes
 Disallow: /themes
 Disallow: /modules
 Disallow: /lib

@@ -41,7 +41,7 @@ function xarDB_init(&$args, $whatElseIsGoingLoaded)
     // FIXME: do we need a check if the constant is defined whether it has the
     //        right value?
     if (!defined('XAR_ADODB_DIR')) {
-        define('XAR_ADODB_DIR', 'xaradodb');
+        define('XAR_ADODB_DIR', 'lib/xaradodb');
     }
 
     // ADODB-to-Xaraya error-to-exception bridge

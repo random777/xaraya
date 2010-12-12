@@ -327,7 +327,7 @@ function installer_admin_phase5()
     // Load in ADODB
     // FIXME: This is also in xarDB init, does it need to be here?
     if (!defined('XAR_ADODB_DIR')) {
-        define('XAR_ADODB_DIR','xaradodb');
+        define('XAR_ADODB_DIR','lib/xaradodb');
     }
     include_once XAR_ADODB_DIR . '/adodb.inc.php';
     $ADODB_CACHE_DIR = xarCoreGetVarDirPath() . "/cache/adodb";

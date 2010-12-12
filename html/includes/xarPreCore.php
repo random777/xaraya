@@ -41,7 +41,7 @@ function xarPreCore__shutdown_handler()
  * @return string the var directory path name
  */
 function xarPreCoreGetVarDirPath()
-{
+{ 
     static $varpath = null;
     if (isset($varpath)) return $varpath;
     if (file_exists('./var/.key.php')) {

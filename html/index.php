@@ -13,7 +13,7 @@
  /**
  * Load the Xaraya pre core
  */
-include_once 'includes/xarPreCore.php';
+include_once 'lib/xaraya/xarPreCore.php';
 
 /**
  * Set up output caching if enabled
@@ -21,7 +21,7 @@ include_once 'includes/xarPreCore.php';
  *       without loading the core
  */
 if (file_exists(xarPreCoreGetVarDirPath() . '/cache/output/cache.touch')) {
-    include_once('includes/xarCache.php');
+    sys::import('xaraya.xarCache');
     // Note : we may already exit here if session-less page caching is enabled
     xarCache_init();
 }
@@ -29,7 +29,7 @@ if (file_exists(xarPreCoreGetVarDirPath() . '/cache/output/cache.touch')) {
 /**
  * Load the Xaraya core
  */
-include 'includes/xarCore.php';
+sys::import('xaraya.xarCore');
 
 /**
  * Main Xaraya Entry

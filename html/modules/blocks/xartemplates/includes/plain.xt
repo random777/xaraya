@@ -60,7 +60,7 @@
             </td>
             <td>
                 <xar:if condition="$block['template'] ne NULL">
-                    #$block['template']# &nbsp; 
+                    #$block['template']# &#160; 
                 <xar:else />
                     <xar:if condition="empty($block['group_template'])">
                         [ <xar:mlstring>default</xar:mlstring> ] 

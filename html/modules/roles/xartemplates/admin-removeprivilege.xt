@@ -64,7 +64,7 @@
         </dl>
     </div>
     <form method="post" action="#xarModURL('roles','admin','removeprivilege')#" enctype="application/x-www-form-urlencoded" >
-        <p><xar:mlstring>Confirm the removal of</xar:mlstring> '#$privname#' <xar:mlstring>from</xar:mlstring>&nbsp;
+        <p><xar:mlstring>Confirm the removal of</xar:mlstring> '#$privname#' <xar:mlstring>from</xar:mlstring>&#160;
         <xar:if condition="$ptype eq 1"><xar:mlstring>Group</xar:mlstring>
         <xar:else /><xar:mlstring>User</xar:mlstring>
         </xar:if>

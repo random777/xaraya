@@ -6,12 +6,12 @@
     <h2>
         <a href="#xarModURL('roles','user','view')#">
             <xar:mlstring>Member List</xar:mlstring>
-        </a>&nbsp;&gt;&nbsp;
+        </a>&#160;&gt;&#160;
         <a href="#xarModURL('roles','user','display',array('uid' => $uid))#">
             #xarVarPrepForDisplay($name)#
-        </a>&nbsp;&gt;&nbsp;
+        </a>&#160;&gt;&#160;
         <xar:mlstring>Send an Email to</xar:mlstring>
-        &nbsp;#xarVarPrepForDisplay($name)#
+        &#160;#xarVarPrepForDisplay($name)#
     </h2>
     <xar:if condition="!empty($error_message)">
         <div class="xar-error">#xarVarPrepForDisplay($error_message)#</div>

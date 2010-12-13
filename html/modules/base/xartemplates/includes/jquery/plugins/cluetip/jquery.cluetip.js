@@ -262,7 +262,7 @@
         $cluetipInner.html($truncloaded);
       }
       function doNothing() {}; //empty function
-      tipTitle ? $cluetipTitle.show().html(tipTitle) : (opts.showTitle) ? $cluetipTitle.show().html('&nbsp;') : $cluetipTitle.hide();
+      tipTitle ? $cluetipTitle.show().html(tipTitle) : (opts.showTitle) ? $cluetipTitle.show().html('&#160;') : $cluetipTitle.hide();
       if (opts.sticky) {
         var $closeLink = $('<div id="cluetip-close"><a href="#">' + opts.closeText + '</a></div>');
         (opts.closePosition == 'bottom') ? $closeLink.appendTo($cluetipInner) : (opts.closePosition == 'title') ? $closeLink.prependTo($cluetipTitle) : $closeLink.prependTo($cluetipInner);

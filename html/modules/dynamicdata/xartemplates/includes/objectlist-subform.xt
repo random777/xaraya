@@ -12,7 +12,7 @@
             </th>
         </xar:foreach>
         <th>
-            &nbsp;
+            &#160;
         </th>
     </tr>
     </thead>

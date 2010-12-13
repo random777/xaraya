@@ -12,7 +12,7 @@ if (!ie5) {
 				jQuery(this).attr('title',jQuery(this).attr('href')+'    (external link)');
 			else
 				jQuery(this).attr('title',jQuery(this).attr('title')+'    (external link)');
-			jQuery(this).append('<span class="external" title="'+jQuery(this).attr('title')+'">&nbsp;</span>').click(function(){
+			jQuery(this).append('<span class="external" title="'+jQuery(this).attr('title')+'">&#160;</span>').click(function(){
 				window.open(jQuery(this).attr('href')); return false;
 			});
 		});

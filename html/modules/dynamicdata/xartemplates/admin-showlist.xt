@@ -27,7 +27,7 @@
     <xar:if condition="!empty($newlink)">
     <tr>
         <xar:foreach in="$labels" value="$item">
-            <td>&nbsp;</td>
+            <td>&#160;</td>
         </xar:foreach>
         <td><a href="#$newlink#"><xar:mlstring>New</xar:mlstring></a></td>
     </tr>
@@ -42,7 +42,7 @@
             <xar:else />
                  ---
             </xar:if>
-            &nbsp;&nbsp;&nbsp;
+            &#160;&#160;&#160;
             <xar:if condition="!empty($nexturl)">
                  <a href="#$nexturl#"> &gt;&gt;</a>
             <xar:else />
@@ -71,7 +71,7 @@
     <xar:if condition="!empty($newlink)">
     <tr>
         <xar:foreach in="$labels" value="$item">
-            <td>&nbsp;</td>
+            <td>&#160;</td>
         </xar:foreach>
         <td><a href="#$newlink#"><xar:mlstring>New</xar:mlstring></a></td>
     </tr>
@@ -86,7 +86,7 @@
             <xar:else />
                  ---
             </xar:if>
-            &nbsp;&nbsp;&nbsp;
+            &#160;&#160;&#160;
             <xar:if condition="!empty($nexturl)">
                  <a href="#$nexturl#"> &gt;&gt;</a>
             <xar:else />

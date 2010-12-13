@@ -58,7 +58,7 @@
             <strong>
                 <xar:mlstring>Update the theme's files.</xar:mlstring> 
             </strong>
-            <xar:mlstring>Download the latest version of theme</xar:mlstring>&nbsp;#$themename#&nbsp;<xar:mlstring>from</xar:mlstring>&nbsp;<a href="http://www.xaraya.com">www.xaraya.com</a>&nbsp;<xar:mlstring>and update your file system.</xar:mlstring>
+            <xar:mlstring>Download the latest version of theme</xar:mlstring>&#160;#$themename#&#160;<xar:mlstring>from</xar:mlstring>&#160;<a href="http://www.xaraya.com">www.xaraya.com</a>&#160;<xar:mlstring>and update your file system.</xar:mlstring>
         </li>
         <li>
             <strong>

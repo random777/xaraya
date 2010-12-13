@@ -191,7 +191,7 @@ jQuery('#"."pmodule').add('#"."pcomponent').change(reloadform);
                         </label>
                         <xar:if condition="$loop:item['type'] eq 'manual'">
                             <input type="text" name="pinstance[]" id="pinstance#$loop:index#" value="All" class="xar-form-textmedium" />
-                            &nbsp;
+                            &#160;
                             <xar:mlstring>This field must/should contain a value</xar:mlstring>
                         <xar:else />
                             <select name="pinstance[]">

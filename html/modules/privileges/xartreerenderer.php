@@ -256,7 +256,7 @@ class xarTreeRenderer
                              'modifyprivilege',
                              array('pid'=>$object['pid'])) .'" title="'.$object['description'].'">' .$object['name'] . '</a>';
         $componentcount = count($this->privs->getChildren($object['pid']));
-        $this->html .= $componentcount > 0 ? "&nbsp;:&nbsp;" .$componentcount . '&nbsp;'.xarML('components') : "";
+        $this->html .= $componentcount > 0 ? "&#160;:&#160;" .$componentcount . '&#160;'.xarML('components') : "";
         $this->html .= "\n\t\t";
 
     // we've finished this row; now do the children of this privilege

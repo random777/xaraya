@@ -186,7 +186,7 @@ function themes_adminapi_getthemelist($args)
                             break;
                     }
                     //$themeInfo['class'] = "";
-                    $themeInfo['version'] = "&nbsp;";
+                    $themeInfo['version'] = "&#160;";
                     // end patch
                 }
                 $themeInfo = array_merge($themeInfo, $themeFileInfo);

@@ -31,7 +31,7 @@ ChiliBook = { //implied global
 	, recipeLoading:      true
 	, recipeFolder:       "" // used like: recipeFolder + recipeName + '.js'
 
-	// IE and FF convert &#160; to "&nbsp;", Safari and Opera do not
+	// IE and FF convert &#160; to "&#160;", Safari and Opera do not
 	, replaceSpace:       "&#160;"
 	, replaceTab:         "&#160;&#160;&#160;&#160;"
 	, replaceNewLine:     "&#160;<br/>"
@@ -631,16 +631,16 @@ $.fn.chili = function( options ) {
 		var empty_line = '<li>' + book.replaceSpace + '</li>';
 		var list_items = html
 			//extract newlines at the beginning of a span
-			.replace( /(<span [^>]+>)((?:(?:&nbsp;|\xA0)<br>)+)(.*?)(<\/span>)/ig, '$2$1$3$4' ) // I don't know why <span .*?> does not work here
+			.replace( /(<span [^>]+>)((?:(?:&#160;|\xA0)<br>)+)(.*?)(<\/span>)/ig, '$2$1$3$4' ) // I don't know why <span .*?> does not work here
 			//transform newlines inside of a span
-			.replace( /(.*?)(<span .*?>)(.*?)(?:<\/span>(?:&nbsp;|\xA0)<br>|<\/span>)/ig,       // but here it does
+			.replace( /(.*?)(<span .*?>)(.*?)(?:<\/span>(?:&#160;|\xA0)<br>|<\/span>)/ig,       // but here it does
 				function( all, before, open, content ) {
 					if (/<br>/i.test(content)) {
 						var pieces = before.split( br );
 						var lastPiece = pieces.pop();
 						before = pieces.join( br );
 						var aux = (before ? before + br : '') //+ replace1( lastPiece + content, open );
-							+ (lastPiece + content).replace( /((.*?)(?:&nbsp;|\xA0)<br>)|(.*)/ig, 
+							+ (lastPiece + content).replace( /((.*?)(?:&#160;|\xA0)<br>)|(.*)/ig, 
 							function( tmp, not_last_line, not_last, last ) {
 								var aux2 = makeListItem1( not_last_line, not_last, last, open );
 								return aux2;
@@ -654,7 +654,7 @@ $.fn.chili = function( options ) {
 				} 
 			)
 			//transform newlines outside of a span
-			.replace( /(<li>.*?<\/li>)|((.*?)(?:&nbsp;|\xA0)<br>)|(.+)/ig, 
+			.replace( /(<li>.*?<\/li>)|((.*?)(?:&#160;|\xA0)<br>)|(.+)/ig, 
 				function( tmp, prev_li, not_last_line, not_last, last ) {
 					var aux2 = makeListItem2( not_last_line, not_last, last, prev_li );
 					return aux2;

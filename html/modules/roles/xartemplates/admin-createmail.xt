@@ -140,7 +140,7 @@ jQuery('#"."cancelbutton').click(function() {
                 <td class="xar-align-center">
                     <select name="state" id="state" size="1" tabindex="5">
                         <xar:if condition="$uid eq -1">
-                            <option value="#$state#" selected="selected">&nbsp;</option>
+                            <option value="#$state#" selected="selected">&#160;</option>
                         <xar:elseif condition="$state eq -1" />
                             <option value="#$state#" selected="selected"><xar:mlstring>-- choose --</xar:mlstring></option>
                         </xar:if>

@@ -28,7 +28,7 @@
                         <a href="&xar-modurl-privileges-admin-modifyrealm;&amp;rid=#$loop:item['rid']#">#xarVarPrepForDisplay($loop:item['name'])#</a>
                     </td>
                     <td class="xar-item-actions">
-                        <a href="&xar-modurl-privileges-admin-modifyrealm;&amp;rid=#$loop:item['rid']#" title="#xarML('Modify this realm')#" class="xar-icon"><img src="#$icon_modify#" alt="#xarML('Modify this realm')#" /></a>&nbsp;
+                        <a href="&xar-modurl-privileges-admin-modifyrealm;&amp;rid=#$loop:item['rid']#" title="#xarML('Modify this realm')#" class="xar-icon"><img src="#$icon_modify#" alt="#xarML('Modify this realm')#" /></a>&#160;
                         <a href="&xar-modurl-privileges-admin-deleterealm;&amp;rid=#$loop:item['rid']#" title="#xarML('Delete this realm')#" class="xar-icon"><img src="#$icon_delete#" alt="#xarML('Delete this realm')#" /></a>
                     </td>
                 </tr>

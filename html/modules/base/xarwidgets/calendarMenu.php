@@ -36,7 +36,7 @@ function news_adminapi_buildCalendarMenu($args) //$automated, &$year, &$day, &$m
         $num = sprintf('%02d', $hour);
         $out .= '<option value="'.$num.'"'.(($hour == $cur)?' selected="selected"':'').'>'.xarVarPrepForDisplay($num)."</option>\n";
     }
-    $out .= '</select>&nbsp;'
+    $out .= '</select>&#160;'
         .": <select name=\"min\" class=\"xar-text\">"
     ;
     $cur = intval(date('i', $args['datestamp']));
@@ -45,7 +45,7 @@ function news_adminapi_buildCalendarMenu($args) //$automated, &$year, &$day, &$m
         $num = sprintf('%02d', $minute);
         $out .= '<option value="'.$num.'"'.(($minute == $cur)?' selected="selected"':'').'>'.xarVarPrepForDisplay($num)."</option>\n";
     }
-    $out .= '</select>&nbsp;&nbsp;'
+    $out .= '</select>&#160;&#160;'
         ._NEWS_DAY.": <select name=\"day\" class=\"xar-text\">"
     ;
     $cur = trim(date('j', $args['datestamp']));
@@ -54,7 +54,7 @@ function news_adminapi_buildCalendarMenu($args) //$automated, &$year, &$day, &$m
         $num = sprintf('%02d', $day);
         $out .= '<option value="'.$num.'"'.(($day == $cur)?' selected="selected"':'').'>'.xarVarPrepForDisplay($num)."</option>\n";
     }
-    $out .= "</select>&nbsp;&nbsp;"
+    $out .= "</select>&#160;&#160;"
         ._NEWS_MONTH.": <select name=\"month\" class=\"xar-text\">"
     ;
     $cur = trim(date('n', $args['datestamp']));
@@ -63,7 +63,7 @@ function news_adminapi_buildCalendarMenu($args) //$automated, &$year, &$day, &$m
         $num = sprintf('%02d', $month);
         $out .= '<option value="'.$num.'"'.(($month == $cur)?' selected="selected"':'').'>'.xarVarPrepForDisplay($num)."</option>\n";
     }
-    $out .= '</select>&nbsp;&nbsp;'
+    $out .= '</select>&#160;&#160;'
         ._NEWS_YEAR.': <input type="text" name="year" id="year" value="'.date('Y', $args['datestamp']).'" size="5" maxlength="4" /><br />'
     ;
 

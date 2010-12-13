@@ -59,12 +59,12 @@
                             #$instance.title#
                         </a>
                         <xar:if condition="!empty($instance['groups'])">
-                            <xar:mlstring>from</xar:mlstring>&nbsp;
+                            <xar:mlstring>from</xar:mlstring>&#160;
                             <xar:set name="grpcount">count($instance['groups'])</xar:set>
                             <xar:loop name="$instance['groups']">
                                 <a href="&xar-modurl-blocks-admin-modify_group;&amp;gid=#$loop:item.gid#">#$loop:item.name#</a><xar:if condition="$loop:index lt $grpcount-1">, </xar:if>
                             </xar:loop>
-                            &nbsp;
+                            &#160;
                             <xar:if condition="$grpcount eq 1">
                                 <xar:mlstring>group</xar:mlstring>
                             <xar:else />

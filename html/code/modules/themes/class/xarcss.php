@@ -3,11 +3,12 @@
  * Xaraya CSS class library
  *
  * @package modules
+ * @subpackage themes module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Themes module
  * @link http://xaraya.com/index.php/release/70.html
 **/
 
@@ -37,7 +38,6 @@ define("CSSCOMMONBASE", "base");
  * Base CSS class
  *
  *
- * @package themes
 **/
 class xarCSS extends Object
 {
@@ -86,7 +86,7 @@ class xarCSS extends Object
     public $suppress   = false;        // true == this css is suppressed
 
     // constructor
-    function __construct($args)
+    function __construct(Array $args=array())
     {
         extract($args);
         if (isset($method)) $this->method               = $method;
@@ -223,7 +223,6 @@ class xarCSS extends Object
  * Queue class. Holds the tag data until it is sent to the template
  *
  *
- * @package themes
  */
 
 class tagqueue extends Object
@@ -258,7 +257,7 @@ class tagqueue extends Object
         }
     }
 
-    function register($args)
+    function register(Array $args=array())
     {
         return $this->queue('register',$args);
     }

@@ -1,11 +1,12 @@
 <?php
 /**
  * @package modules
+ * @subpackage themes module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Themes module
  * @link http://xaraya.com/index.php/release/70.html
  */
 /**
@@ -18,11 +19,13 @@
  *
  * @author Marty Vance
  * @param id the theme id to upgrade
- * @returns
- * @return
+ * @return boolean true on success, false on failure
  */
 function themes_admin_upgrade()
 {
+    // Security
+    if (!xarSecurityCheck('AdminThemes')) return; 
+    
     // Security and sanity checks
     if (!xarSecConfirmAuthKey()) {
         return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
@@ -39,7 +42,6 @@ function themes_admin_upgrade()
     if(!isset($upgraded)) return;
 
     xarController::redirect(xarModURL('themes', 'admin', 'list'));
-
     return true;
 }
 

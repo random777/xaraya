@@ -2,12 +2,14 @@
 /**
  * Delete an item
  * @package modules
+ * @subpackage dynamicdata module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
+ *
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
@@ -15,7 +17,7 @@
  * @param 'itemid' the id of the item to be deleted
  * @param 'confirm' confirm that this item can be deleted
  */
-function dynamicdata_admin_delete($args)
+function dynamicdata_admin_delete(Array $args=array())
 {
    extract($args);
 
@@ -39,6 +41,8 @@ function dynamicdata_admin_delete($args)
                                          'tplmodule'  => $tplmodule,
                                          'template'   => $template));
     if (empty($myobject)) return;
+    
+    // Security
     if (!$myobject->checkAccess('delete'))
         return xarResponse::Forbidden(xarML('Delete #(1) is forbidden', $myobject->label));
 

@@ -1,26 +1,29 @@
 <?php
 /**
- * Modify blocks configuration
+ * Modify the configuration settings of this module
  *
  * @package modules
+ * @subpackage blocks module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Blocks module
  * @link http://xaraya.com/index.php/release/13.html
+ *
  * @author John Robeson
  * @author Greg Allan
  */
 /**
- * Modify blocks configuration
+ * Standard GUI function to display and update the configuration settings of the module based on input data.
  *
- * @return array of template values
+ * @return mixed data array for the template display or output display string if invalid data submitted
  */
 function blocks_admin_modifyconfig()
 {
-    // Security Check
+    // Security
     if(!xarSecurityCheck('AdminBlocks')) return;
+    
     if (!xarVarFetch('phase',        'str:1:100', $phase,       'modify', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
     if (!xarVarFetch('tab', 'str:1:100', $data['tab'], 'general', XARVAR_NOT_REQUIRED)) return;
 

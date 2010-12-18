@@ -1,11 +1,12 @@
 <?php
 /**
  * @package modules
+ * @subpackage roles module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage roles
  * @link http://xaraya.com/index.php/release/27.html
  */
 
@@ -41,7 +42,9 @@ function roles_admin_delete()
     $data['object'] = $role;
     $name = $role->getName();
 
+    // Security
     if (!xarSecurityCheck('ManageRoles',1,'Roles',$name)) return;
+    
     $data['frozen'] = !xarSecurityCheck('ManageRoles',0,'Roles',$name);
 
     // Prohibit removal of any groups that have children
@@ -86,6 +89,7 @@ function roles_admin_delete()
 
             // call item delete hooks (for DD etc.)
             // TODO: move to remove() function
+            $pargs['exclude_module'] = array('dynamicdata');
             $pargs['module'] = 'roles';
             $pargs['itemtype'] = $itemtype;
             $pargs['itemid'] = $id;
@@ -99,6 +103,7 @@ function roles_admin_delete()
         } else {
             xarController::redirect($returnurl);
         }
+        return true;
     }
 }
 ?>

@@ -1,17 +1,19 @@
 <?php
 /**
  * @package modules
+ * @subpackage blocks module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Blocks module
  * @link http://xaraya.com/index.php/release/13.html
  */
 /**
  * update attributes of a block instance
  *
- * @author Jim McDonald, Paul Rosania
+ * @author Jim McDonald
+ * @author Paul Rosania
  * @param $args['tab'] the current update phase
  * @param $args['bid'] the ID of the block to update
  * @param $args['title'] the new title of the block
@@ -20,16 +22,15 @@
  * @param $args['template'] the template of the block instance
  * @param $args['content'] the new content of the block
  * @param $args['refresh'] the new refresh rate of the block
- * @returns bool
- * @return true on success, false on failure
+ * @return boolean true on success, false on failure
  */
 function blocks_admin_update_instance()
 {
     if (!xarVarFetch('bid', 'int:1:', $bid, 0, XARVAR_NOT_REQUIRED)) return;
-    if (empty($bid)) return xarResponse::notFound();
     if (!xarVarFetch('tab', 'pre:trim:lower:str:1:', $tab, 'config', XARVAR_NOT_REQUIRED)) return;
 
-    // Security Check
+    // Security
+    if (empty($bid)) return xarResponse::notFound();
     if (!xarSecurityCheck('EditBlocks', 0, 'Instance')) {return;}
 
     if (!xarSecConfirmAuthKey())
@@ -234,7 +235,8 @@ function blocks_admin_update_instance()
     $return_url =  !empty($blockinfo['return_url']) ? $blockinfo['return_url'] :
         xarModURL('blocks', 'admin', 'modify_instance', array('bid' => $bid, 'tab' => $tab));
 
-    return xarController::redirect($return_url);
+    xarController::redirect($return_url);
+    return true;
 
 }
 ?>

@@ -3,11 +3,12 @@
  * Menu Block
  *
  * @package modules
+ * @subpackage base module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
  */
 
@@ -16,10 +17,7 @@
  *
  * @author  John Cox <admin@dinerminor.com>
  * @access  public
- * @param   none
- * @return  nothing
- * @throws  no exceptions
- * @todo    nothing
+ * @return  void
 */
 // Inherit properties and methods from MenuBlock class
 sys::import('xaraya.structures.containers.blocks.menublock');
@@ -59,6 +57,15 @@ class Base_MenuBlock extends MenuBlock implements iBlock
                                         'url' => '[base]&page=docs',
                                         'label'=> 'Documentation',
                                         'title' => 'General Documentation',
+                                        'visible' => 1,
+                                        'menulinks' => array(),
+                                    ),
+                                    array(
+                                        'id' => 1,
+                                        'name' => 'eventsystem',
+                                        'url' => '[base]page=events',
+                                        'label'=> 'Event System',
+                                        'title' => 'Event Messaging System Overview',
                                         'visible' => 1,
                                         'menulinks' => array(),
                                     ),
@@ -147,7 +154,8 @@ class Base_MenuBlock extends MenuBlock implements iBlock
 /**
  * This method is called by the BasicBlock class constructor
 **/
-    public function upgrade($oldversion) {
+    public function upgrade($oldversion) 
+    {
 
         switch ($oldversion) {
             case '0.0.0': // upgrade menu blocks to version 2.2.0

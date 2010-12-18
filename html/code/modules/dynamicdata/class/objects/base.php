@@ -1,12 +1,13 @@
 <?php
 /**
  * @package modules
+ * @subpackage dynamicdata module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage dynamicdata
- * @link http://xaraya.com/index.php/release/27.html
+ * @link http://xaraya.com/index.php/release/182.html
  */
 
 sys::import('modules.dynamicdata.class.objects.master');
@@ -155,7 +156,7 @@ class DataObject extends DataObjectMaster implements iDataObject
         foreach($fields as $name) {
             // Ignore disabled or ignored properties
             if(($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
-            || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_IGNORED))
+            || ($this->properties[$name]->getInputStatus() == DataPropertyMaster::DD_INPUTSTATE_IGNORED))
                 continue;
 
             // Give the property this object's reference so it can send back info on missing fields

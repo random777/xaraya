@@ -2,20 +2,22 @@
 /**
  * Get message templates
  * @package modules
+ * @subpackage mail module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Mail System
  * @link http://xaraya.com/index.php/release/771.html
  */
 
 /**
  * @author Marc Lutolf <marcinmilan@xaraya.com>
- * @param $args['module'] module directory in var/messaging
+ * @param array    $args array of optional parameters<br/>
+ *        string   $args['module'] module directory in var/messaging
  * @return array of template names and labels
  */
-function mail_adminapi_getmessagetemplates($args)
+function mail_adminapi_getmessagetemplates(Array $args=array())
 {
     extract($args);
 

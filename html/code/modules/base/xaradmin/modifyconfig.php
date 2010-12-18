@@ -1,24 +1,27 @@
 <?php
 /**
- * Modify site configuration
+ * Modify the configuration settings of this module
+ *
  * @package modules
+ * @subpackage base module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
  */
 /**
- * Modify site configuration
+ * Standard GUI function to display and update the configuration settings of the module based on input data.
  * @author John Robeson
  * @author Greg Allan
- * @return array of template values
+ * @return mixed data array for the template display or output display string if invalid data submitted
  */
 function base_admin_modifyconfig()
 {
-    // Security Check
+    // Security
     if(!xarSecurityCheck('AdminBase')) return;
+    
     if (!xarVarFetch('phase', 'str:1:100', $phase, 'modify', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
     if (!xarVarFetch('tab', 'str:1:100', $data['tab'], 'display', XARVAR_NOT_REQUIRED)) return;
 
@@ -57,6 +60,7 @@ function base_admin_modifyconfig()
         else $active = false;
         $data['locales'][] = array('id' => $locale, 'name' => $locale, 'active' => $active);
     }
+   
     $data['releasenumber'] = xarModVars::get('base','releasenumber');
 
     // TODO: delete after new backend testing
@@ -67,24 +71,26 @@ function base_admin_modifyconfig()
     $data['module_settings'] = xarMod::apiFunc('base','admin','getmodulesettings',array('module' => 'base'));
     $data['module_settings']->setFieldList('items_per_page, use_module_alias, module_alias_name, enable_short_urls, user_menu_link');
     $data['module_settings']->getItem();
-                    if (extension_loaded('mcrypt')) {
-                        include_once(sys::lib()."xaraya/encryption.php");
-                        $data['encryption'] = $encryption;
 
-                        $ciphers = array();
-                        $ciphermenu = mcrypt_list_algorithms();
-                        sort($ciphermenu);
-                        foreach ($ciphermenu as $item)
-                            $ciphers[] = array('id' => $item, 'name' => $item);
-                        $data['ciphers'] = $ciphers;
+    if (extension_loaded('mcrypt')) {
+        include_once(sys::lib()."xaraya/encryption.php");
+        $data['encryption'] = $encryption;
 
-                        $modes = array();
-                        $modemenu = mcrypt_list_modes();
-                        sort($modemenu);
-                        foreach ($modemenu as $item)
-                            $modes[] = array('id' => $item, 'name' => $item);
-                        $data['modes'] = $modes;
-                    }
+        $ciphers = array();
+        $ciphermenu = mcrypt_list_algorithms();
+        sort($ciphermenu);
+        foreach ($ciphermenu as $item)
+            $ciphers[] = array('id' => $item, 'name' => $item);
+        $data['ciphers'] = $ciphers;
+
+        $modes = array();
+        $modemenu = mcrypt_list_modes();
+        sort($modemenu);
+        foreach ($modemenu as $item)
+            $modes[] = array('id' => $item, 'name' => $item);
+        $data['modes'] = $modes;
+    }
+
     switch (strtolower($phase)) {
         case 'modify':
         default:
@@ -165,11 +171,19 @@ function base_admin_modifyconfig()
                     if (!xarVarFetch('mode','str:1',$mode,'cbc',XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('key','str:1',$key,'jamaica',XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('initvector','str:1',$initvector,'xaraya2x',XARVAR_NOT_REQUIRED)) return;
+                    if (!xarVarFetch('hint','str:1',$hint,'',XARVAR_NOT_REQUIRED)) return;
+
+                    if (!xarVarFetch('key','str:1',$key,'jamaica',XARVAR_NOT_REQUIRED)) return;
+                    $keyholder = DataPropertyMaster::getProperty(array('type' => 'password'));
+                    $keyholder->checkInput('key',$key);
+                    $key = $keyholder->value;
+
                     $args['filepath'] = sys::lib()."xaraya/encryption.php";
                     $args['variables'] = array(
                         'cipher' => $cipher,
                         'mode' => $mode,
                         'key' => $key,
+                        'hint' => $hint,
                         'initvector' => $initvector,
                     );
                     xarMod::apiFunc('installer','admin','modifysystemvars', $args);
@@ -177,16 +191,14 @@ function base_admin_modifyconfig()
                     break;
                 case 'locales':
                     if (!xarVarFetch('defaultlocale','str:1:',$defaultLocale)) return;
-                    if (!xarVarFetch('active','array',$active, array(), XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('mlsmode','str:1:',$MLSMode,'SINGLE', XARVAR_NOT_REQUIRED)) return;
 
                     sys::import('modules.dynamicdata.class.properties.master');
                     $locales = DataPropertyMaster::getProperty(array('name' => 'checkboxlist'));
                     $locales->checkInput('active');
-                    $localesList = explode(',',$locales->getValue());
+                    $localesList = $locales->getValue();
                     if (!in_array($defaultLocale,$localesList)) $localesList[] = $defaultLocale;
                     sort($localesList);
-
                     if ($MLSMode == 'UNBOXED') {
                         if (xarMLSGetCharsetFromLocale($defaultLocale) != 'utf-8') {
                             throw new ConfigurationException(null,'You should select utf-8 locale as default before selecting UNBOXED mode');
@@ -198,7 +210,7 @@ function base_admin_modifyconfig()
                     xarConfigVars::set(null, 'Site.MLS.DefaultLocale', $defaultLocale);
                     xarConfigVars::set(null, 'Site.MLS.AllowedLocales', $localesList);
 
-                    xarResponse::redirect(xarModURL('base', 'admin', 'modifyconfig', array('tab' => 'locales')));
+                    xarController::redirect(xarModURL('base', 'admin', 'modifyconfig', array('tab' => 'locales')));
                     break;
                 case 'other':
                     if (!xarVarFetch('loadlegacy',   'checkbox', $loadLegacy,    xarConfigVars::get(null, 'Site.Core.LoadLegacy'), XARVAR_NOT_REQUIRED)) return;

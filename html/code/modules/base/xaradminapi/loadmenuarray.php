@@ -3,12 +3,13 @@
  * Utility function pass individual menu items to the main menu
  *
  * @package modules
+ * @subpackage base module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Base module
- * @link http://xaraya.com/index.php/release/27.html
+ * @link http://xaraya.com/index.php/release/68.html
  */
 /**
  * Utility function to get an array of menulinks from {modtype} getmenulinks function or {modtype}menu-dat.xml file
@@ -30,17 +31,15 @@
  * <xar:template type="module" module="base" file="admin-menu" subdata="array('modname' => 'module', 'modtype' => 'user')"/>
  *
  * @author Marc Lutolf <marcinmilan@xaraya.com>
- * @param array $args optional array of arguments
- * @param string $args[modname] optional name of module to get links for (default current request module)
- * @param string $args[modtype] optional type of links to return [admin|user] (default current request type)
- * @param string $args[layout] return links for menu or links for tabs with menu title info (default links)
- * @param bool $args[noxml] optionally force looking for links only from a getmenulinks function
- * @param bool $args[nolinks] optionally force looking for links only from xml files
- * @returns array
- * @return array of menulinks for a module
- * @throws none
+ * @param array    $args array of optional parameters<br/>
+ * @param string   $args[modname] optional name of module to get links for (default current request module)<br/>
+ * @param string   $args[modtype] optional type of links to return [admin|user] (default current request type)<br/>
+ * @param string   $args[layout] return links for menu or links for tabs with menu title info (default links)<br/>
+ * @param boolean  $args[noxml] optionally force looking for links only from a getmenulinks function<br/>
+ * @param boolean  $args[nolinks] optionally force looking for links only from xml files
+ * @return array menulinks for the module
  */
-function base_adminapi_loadmenuarray($args)
+function base_adminapi_loadmenuarray(Array $args=array())
 {
     if (!isset($args['modname']) || !isset($args['modtype']) || !isset($args['funcname'])) {
         $urlinfo = xarController::$request->getInfo();

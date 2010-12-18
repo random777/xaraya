@@ -3,11 +3,12 @@
  * Menu Block
  *
  * @package modules
+ * @subpackage base module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
  */
 
@@ -16,10 +17,7 @@
  *
  * @author  John Cox <admin@dinerminor.com>
  * @access  public
- * @param   none
- * @return  nothing
- * @throws  no exceptions
- * @todo    nothing
+ * @return  void
 */
 sys::import('modules.base.xarblocks.menu');
 
@@ -267,8 +265,8 @@ class Base_MenuBlockAdmin extends Base_MenuBlock implements iBlock
             if (empty($modulelist[$modname]['visible']))
                 $modulelist[$modname]['visible'] = 0;
             if (empty($modulelist[$modname]['alias_name']) ||
-                empty($mod['aliases']) ||
-                !isset($mod['aliases'][$modulelist[$modname]['alias_name']])) {
+                empty($this->modulelist[$modname]['aliases']) ||
+                !isset($this->modulelist[$modname]['aliases'][$modulelist[$modname]['alias_name']])) {
                 $modulelist[$modname]['alias_name'] = $modname;
             }
             $isvalid = $accessproperty->checkInput('modulelist_'.$modname.'_view_access');

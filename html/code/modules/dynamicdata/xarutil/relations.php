@@ -2,19 +2,24 @@
 /**
  * Return relationship information
  * @package modules
+ * @subpackage dynamicdata module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
+ *
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
  * Return relationship information (test only)
  */
-function dynamicdata_util_relations($args)
+function dynamicdata_util_relations(Array $args=array())
 {
+    // Security
+    if (!xarSecurityCheck('AdminDynamicData')) return;
+
     if(!xarVarFetch('module',    'isset', $module,    NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('module_id', 'isset', $module_id, NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('itemtype',  'isset', $itemtype,  NULL, XARVAR_DONT_SET)) {return;}

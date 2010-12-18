@@ -1,11 +1,12 @@
 <?php
 /**
  * @package modules
+ * @subpackage modules module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Module System
  * @link http://xaraya.com/index.php/release/1.html
  */
 /**
@@ -19,11 +20,13 @@
  *
  * @access public
  * @param id the mdoule id to deactivate
- * @returns
- * @return
+ * @return boolean true on success, false on failure
  */
 function modules_admin_deactivate ()
 {
+    // Security
+    if (!xarSecurityCheck('AdminModules')) return; 
+    
     // Security and sanity checks
     if (!xarSecConfirmAuthKey()) {
         return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));

@@ -1,18 +1,23 @@
 <?php
 /**
+ * Pass individual menu items to the user menu
+ *
  * @package modules
+ * @subpackage roles module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage roles
  * @link http://xaraya.com/index.php/release/27.html
  */
 
 /**
- * Standard function to get main menu links
+ * Utility function pass individual menu items to the user menu.
  *
  * @author Marc Lutolf <marcinmilan@xaraya.com>
+ * @param array    $args array of optional parameters<br/>
+ * @return array the menulinks for the user menu items of this module.
  */
 function roles_userapi_getmenulinks()
 {

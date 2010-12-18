@@ -2,12 +2,14 @@
 /**
  * Search dynamic data
  * @package modules
+ * @subpackage dynamicdata module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ * @link http://xaraya.com/index.php/release/182.htm
  *
- * @subpackage dynamicdata
- * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
@@ -19,7 +21,7 @@
  * @param int numitems The number of items to get
  * @return array output of the items found
  */
-function dynamicdata_user_search($args)
+function dynamicdata_user_search(Array $args=array())
 {
 // Security Check
     if(!xarSecurityCheck('ViewDynamicData')) return;

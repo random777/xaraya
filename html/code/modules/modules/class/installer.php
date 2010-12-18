@@ -3,11 +3,14 @@
  * Module installer
  *
  * @package modules
+ * @subpackage modules module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ * @link http://xaraya.com/index.php/release/1.html
  *
- * @subpackage modules
  * @author Marc Lutolf <mfl@netspan.ch>
  */
 
@@ -530,13 +533,19 @@ class Installer extends Object
         xarMod::apiFunc('modules','admin','regenerate');
         $info = xarMod::getInfo($regid);
         if (!empty($info['dependencyinfo']) && !empty($info['dependencyinfo'][0])) {
-            $valid = false;
+            $valid_ge = true;
+            $valid_le = true;
             if (!empty($info['dependencyinfo'][0]['version_ge'])) {
                 sys::import('xaraya.version');
                 $result = xarVersion::compare(XARCORE_VERSION_NUM,$info['dependencyinfo'][0]['version_ge']);
-                $valid = $result >= 0;
+                $valid_ge = $result >= 0;
             }
-            return $valid;
+            if (!empty($info['dependencyinfo'][0]['version_le'])) {
+                sys::import('xaraya.version');
+                $result = xarVersion::compare(XARCORE_VERSION_NUM,$info['dependencyinfo'][0]['version_le']);
+                $valid_le = $result <= 0;
+            }
+            return $valid_ge && $valid_le;
         } else {
         // Let it slide for now
             return true;

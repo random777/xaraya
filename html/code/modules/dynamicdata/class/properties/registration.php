@@ -1,12 +1,14 @@
 <?php
 /**
  * @package modules
+ * @subpackage dynamicdata module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
+ *
  * @author mrb <marcel@xaraya.com>
  */
 
@@ -46,7 +48,7 @@ class PropertyRegistration extends DataContainer
         }
     }
 
-    static function clearCache()
+    static public function clearCache()
     {
         $dbconn = xarDB::getConn();
         xarMod::loadDbInfo('dynamicdata','dynamicdata');
@@ -56,7 +58,7 @@ class PropertyRegistration extends DataContainer
         return $res;
     }
 
-    function getRegistrationInfo(Object $class)
+    public function getRegistrationInfo(Object $class)
     {
         $this->id   = $class->id;
         $this->name = $class->name;
@@ -71,7 +73,7 @@ class PropertyRegistration extends DataContainer
     /**
      * Register a DataProperty in the database
      */
-    function Register()
+    public function Register()
     {
         static $stmt = null;
         static $types = array();
@@ -145,7 +147,7 @@ class PropertyRegistration extends DataContainer
         return $res;
     }
 
-    static function Retrieve()
+    static public function Retrieve()
     {
         if(xarCoreCache::isCached('DynamicData','PropertyTypes')) {
             return xarCoreCache::getCached('DynamicData','PropertyTypes');
@@ -227,7 +229,7 @@ class PropertyRegistration extends DataContainer
                 $propDirs = $dirs;
             } else {
                 // Clear the cache
-                PropertyRegistration::ClearCache();
+                self::ClearCache();
 
                 if (!xarVarGetCached('installer','installing')) {
                     // Repopulate the configurations table
@@ -298,7 +300,7 @@ class PropertyRegistration extends DataContainer
                     $dp = str_replace('/','.','properties/' . basename($file) . "/main");
                     try {
                         sys::import($dp);
-                    } catch (Exception $e) {echo file_exists($propertiesdir . basename($file) . "/main.php");
+                    } catch (Exception $e) {
                         throw new Exception(xarML('The file #(1) could not be loaded', $dp . '.php'));
                     }
                     $loaded[$file] = true;
@@ -392,9 +394,15 @@ class PropertyRegistration extends DataContainer
     
     static public function installproperty($propertyname) 
     {
-        if (file_exists(sys::code() . 'properties/' . $propertyname . '/install.php')) {
+        $class = UCFirst($propertyname) . 'PropertyInstall';
+        if (class_exists($class)) {
+            // Assume this is a property in a module
+            $descriptor = new DataObjectDescriptor();
+            $installer = new $class($descriptor);
+            $installer->install();
+        } elseif (file_exists(sys::code() . 'properties/' . $propertyname . '/install.php')) {
+            // Assume this is a standalone property
             sys::import('properties.' . $propertyname . '.install');
-            $class = UCFirst($propertyname) . 'PropertyInstall';
             $descriptor = new DataObjectDescriptor();
             $installer = new $class($descriptor);
             $installer->install();

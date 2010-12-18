@@ -1,11 +1,12 @@
 <?php
 /**
  * @package modules
+ * @subpackage themes module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Themes module
  * @link http://xaraya.com/index.php/release/70.html
  */
 /**
@@ -15,11 +16,13 @@
  * @param id $ the theme's registered id
  * @param newdisplayname $ the new display name
  * @param newdescription $ the new description
- * @returns bool
- * @return true on success, error message on failure
+ * @return boolean true on success, false on failure
  */
 function themes_admin_update()
 { 
+    // Security
+    if (!xarSecurityCheck('EditThemes')) return; 
+    
     // Get parameters
     if (!xarVarFetch('id', 'int:1:', $regId, 0, XARVAR_NOT_REQUIRED)) return;
     if (empty($regId)) return xarResponse::notFound();

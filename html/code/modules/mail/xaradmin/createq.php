@@ -1,9 +1,20 @@
 <?php
+/**
+ * @package modules
+ * @subpackage mail module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
+ * @copyright see the html/credits.html file in this release
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ * @link http://xaraya.com/index.php/release/771.html
+ */
 
-function mail_admin_createq($args)
+function mail_admin_createqArray(Array $args=array())
 {
-    // Are we allowed to be here?
+    // Security
     if (!xarSecurityCheck('AdminMail')) return;
+    
     if (!xarSecConfirmAuthKey()) {
         return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
     }        

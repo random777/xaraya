@@ -1,14 +1,16 @@
 <?php
 /**
- * Initialization function 
+ * Configuration information for the Mail module
  *
  * @package modules
+ * @subpackage mail module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Mail System
  * @link http://xaraya.com/index.php/release/771.html
+ *
  * @author John Cox <admin@dinerminor.com>
  */
 
@@ -18,6 +20,7 @@
  * may lead to inablity of the system to process
  * the file correctly, resulting in unexpected results.
  */
+ 
 $modversion['name']               = 'Mail';
 $modversion['id']                 = '771';
 $modversion['displayname']        = xarML('Mail');

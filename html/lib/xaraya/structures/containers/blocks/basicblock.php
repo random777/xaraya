@@ -1,4 +1,13 @@
 <?php
+/**
+ * @package core
+ * @subpackage blocks
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
+ * @copyright see the html/credits.html file in this release
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ */
     // @TODO: see validations note in constructor
 /**
  * BasicBlock class, default parent class for all blocks
@@ -209,7 +218,7 @@ class BasicBlock extends ObjectDescriptor implements iBlock
     // @param access (display|modify|delete)
     // this method is called by blocks_admin_modify|update|delete functions
     // and by xarBlock::render() method to determine access for current user
-    // @return bool true if access allowed
+    // @return boolean true if access allowed
     public function checkAccess($access)
     {
         if (empty($access)) throw new EmptyParameterException('Access method');

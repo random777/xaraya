@@ -3,17 +3,19 @@
  * Sends a new password to the user if they have forgotten theirs.
  *
  * @package modules
+ * @subpackage roles module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Roles module
  * @link http://xaraya.com/index.php/release/27.html
  */
 /**
  * Sends a new password to the user if they have forgotten theirs.
  *
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
+ * @return string output display string
  */
 function roles_user_lostpassword()
 {

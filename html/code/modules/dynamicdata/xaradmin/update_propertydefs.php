@@ -1,12 +1,14 @@
 <?php
 /**
  * @package modules
+ * @subpackage dynamicdata module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
+ *
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
@@ -15,14 +17,15 @@
  * This is a standard function to update the configuration parameters of the
  * module given the information passed back by the modification form
  *
- * @return bool and redirect to view_propertydefs
+ * @return boolean and redirect to view_propertydefs
  */
-function dynamicdata_admin_update_propertydefs($args)
+function dynamicdata_admin_update_propertydefs(Array $args=array())
 {
     extract($args);
 
     if (!xarVarFetch('flushPropertyCache', 'isset', $flushPropertyCache,  NULL, XARVAR_DONT_SET)) {return;}
 
+    // Security
     if (!xarSecurityCheck('AdminDynamicData')) return;
 
     if (!xarSecConfirmAuthKey()) {

@@ -1,11 +1,12 @@
 <?php
 /**
  * @package modules
+ * @subpackage modules module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Module System
  * @link http://xaraya.com/index.php/release/1.html
  */
 /**
@@ -18,10 +19,9 @@
  * @author Xaraya Development Team
  * @param id registered module id
  * @param return_url optional return URL after setting the hooks
- * @returns array
- * @return an array of variables to pass to the template
+ * @return array data for the template display
  */
-function modules_admin_modifyproperties($args)
+function modules_admin_modifyproperties(Array $args=array())
 {
     extract($args);
 
@@ -37,7 +37,7 @@ function modules_admin_modifyproperties($args)
 
     $modName     = $modInfo['name'];
 
-    // Security Check
+    // Security
     if(!xarSecurityCheck('AdminModules',0,'All',"$modName::$id")) return;
 
     $object = xarMod::apiFunc('base', 'admin', 'getmodulesettings', array('module' => $modName));

@@ -2,12 +2,13 @@
 /**
  * Installer
  *
- * @package Installer
+ * @package modules
+ * @subpackage installer module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Installer
  * @link http://xaraya.com/index.php/release/200.html
  */
 
@@ -15,6 +16,7 @@
  * This assumes the install.php and index.php are in the same directory.
  * @author Paul Rosania
  * @author Marcel van der Boom <marcel@hsdev.com>
+ * @return mixed data array for the template display or output display string if invalid data submitted
  */
 
 /**
@@ -28,7 +30,7 @@
  * @param dbPrefix
  * @param dbType
  * @param createDb
- * @todo better error checking on arguments
+ * @return array data for the template display
  */
 function installer_admin_phase5()
 {
@@ -51,14 +53,12 @@ function installer_admin_phase5()
         $dbHost = '127.0.0.1';
     }
     if ($dbName == '') {
-        $msg = xarML('No database was specified');
-        throw new Exception($msg);
+        return xarTplModule('installer','admin','errors',array('layout' => 'no_database'));
     }
 
     // allow only a-z 0-9 and _ in table prefix
     if (!preg_match('/^\w*$/',$dbPrefix)) {
-        $msg = xarML('Invalid character in table prefix. Only use a-z, a _ and/or 0-9 in the prefix.');
-        throw new Exception($msg);
+        return xarTplModule('installer','admin','errors',array('layout' => 'bad_character'));
     }
     // Save config data
     $config_args = array('dbHost'    => $dbHost,
@@ -95,11 +95,9 @@ function installer_admin_phase5()
       try {
         $init_args['databaseName'] ='';
         $dbconn = xarDBNewConn($init_args);
-      } catch(Exception $ex) {
+      } catch(Exception $e) {
         // It failed without dbname too
-        $msg = xarML('Database connection failed. The information supplied was erroneous, such as a bad or missing password or wrong username.
-                          The message was: ' . $ex->getMessage());
-        throw new Exception($msg);
+        return xarTplModule('installer','admin','errors',array('layout' => 'no_connection', 'message' => $e->getMessage()));
       }
     }
 
@@ -204,6 +202,8 @@ function installer_admin_phase5()
     sys::import('xaraya.modules');
     sys::import('xaraya.hooks');
     sys::import('xaraya.blocks');
+    // load events so register functions work 
+    sys::import('xaraya.events');
 
     // 1. Load base and modules module
     $modules = array('base','modules');

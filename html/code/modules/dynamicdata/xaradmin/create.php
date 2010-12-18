@@ -1,12 +1,14 @@
 <?php
 /**
  * @package modules
+ * @subpackage dynamicdata module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
+ *
  * @author mikespub <mikespub@xaraya.com>
  */
 
@@ -21,9 +23,9 @@
  * @param string table
  * @param string template
  * @param string tplmodule
- * @return bool
+ * @return boolean
  */
-function dynamicdata_admin_create($args)
+function dynamicdata_admin_create(Array $args=array())
 {
     extract($args);
 
@@ -42,6 +44,9 @@ function dynamicdata_admin_create($args)
     if (!xarSecConfirmAuthKey()) {
         return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
     }        
+
+    // Security
+    if(!xarSecurityCheck('AddDynamicData')) return;
 
     $myobject = & DataObjectMaster::getObject(array('objectid' => $objectid,
                                          'join'     => $join,
@@ -91,8 +96,7 @@ function dynamicdata_admin_create($args)
     } else {
         xarController::redirect(xarModURL('dynamicdata', 'admin', 'view',
                                       array(
-                                      'name'   => 'objects',
-                                      'itemid' => $itemid,
+                                      'itemid' => $objectid,
                                       'tplmodule' => $tplmodule
                                       )));
     }

@@ -3,23 +3,26 @@
  * Manage definition of instances for privileges
  *
  * @package modules
+ * @subpackage dynamicdata module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
+ *
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
  * Manage definition of instances for privileges (unfinished)
+ * @return array data for the template display
  */
-function dynamicdata_admin_privileges($args)
+function dynamicdata_admin_privileges(Array $args=array())
 { 
-    extract($args);
-
-    // Security Check
+    // Security
     if (!xarSecurityCheck('AdminDynamicData')) return;
+
+    extract($args);
 
     if (!xarVarFetch('objectid', 'id' , $objectid, NULL, XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('moduleid', 'str', $moduleid, 0, XARVAR_NOT_REQUIRED)) return; // empty, 'All', numeric or modulename

@@ -3,11 +3,12 @@
  * Base block management
  *
  * @package modules
+ * @subpackage base module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Base module
  * @link http://xaraya.com/index.php/release/68.html
  */
 
@@ -63,8 +64,8 @@ class Base_AdminmenuBlockAdmin extends Base_AdminmenuBlock implements iBlock
             if (empty($modulelist[$mod['name']]['visible']))
                 $modulelist[$mod['name']]['visible'] = 0;
             if (empty($modulelist[$mod['name']]['alias_name']) ||
-                empty($mod['aliases']) ||
-                !isset($mod['aliases'][$modulelist[$mod['name']]['alias_name']])) {
+                empty($this->modulelist[$mod['name']]['aliases']) ||
+                !isset($this->modulelist[$mod['name']]['aliases'][$modulelist[$mod['name']]['alias_name']])) {
                 $modulelist[$mod['name']]['alias_name'] = $mod['name'];
             }
             if (empty($modulelist[$mod['name']]['order']))

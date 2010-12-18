@@ -3,11 +3,13 @@
  * Main Controller class
  *
  * @package core
+ * @subpackage controllers
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage controllers
  * @author Marc Lutolf <mfl@netspan.ch>
 **/
 
@@ -36,7 +38,7 @@ class xarController extends Object
      * Initialize
      *
      */
-    static function init($args)
+    static function init(Array $args=array())
     {
         self::$allowShortURLs = $args['enableShortURLsSupport'];
 
@@ -53,7 +55,7 @@ class xarController extends Object
     /**
      * Get request variable
      *
-     * @access public
+     * 
      * @param name string
      * @param allowOnlyMethod string
      * @return mixed
@@ -158,8 +160,8 @@ class xarController extends Object
     /**
      * Check to see if this is a local referral
      *
-     * @access public
-     * @return bool true if locally referred, false if not
+     * 
+     * @return boolean true if locally referred, false if not
      */
     static function isLocalReferer()
     {
@@ -176,7 +178,7 @@ class xarController extends Object
     /**
      * Carry out a redirect
      *
-     * @access public
+     * 
      * @param redirectURL string the URL to redirect to
      */
     static function redirect($url)
@@ -237,7 +239,7 @@ class xarController extends Object
     /**
      * Generates an URL that references a module function.
      *
-     * @access public
+     * 
      * @param modName string registered name of module
      * @param modType string type of function
      * @param funcName string module function

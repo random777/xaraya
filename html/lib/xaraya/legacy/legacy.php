@@ -2,11 +2,14 @@
 /**
  * Legacy Functions
  *
- * @package lib
+ * @package core
  * @subpackage legacy
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
  * @author Marco Canini
  */
 
@@ -46,7 +49,7 @@ set_include_path(realpath(sys::code()) . PATH_SEPARATOR . get_include_path());
 /**
  * Returns the relative path name for the var directory
  *
- * @access public
+ * 
  * @return string the var directory path name
  * @deprec replaced by sys::varpath()
  * @see    sys
@@ -129,11 +132,13 @@ function xarResponseRedirect($redirectURL)                { return xarController
 /**
  * Wrapper functions to support Xaraya 1 API Module functions
  *
+ * TODO: see lib/xaraya/modules.php for more functions
+ *
 **/
-function xarModURL($modName=NULL, $modType='user', $funcName='main', $args=array(), $generateXMLURL=NULL, $fragment=NULL, $entrypoint=array())
-{   
-    return xarController::URL($modName, $modType, $funcName, $args, $generateXMLURL, $fragment, $entrypoint); 
-}
+//function xarModURL($modName=NULL, $modType='user', $funcName='main', $args=array(), $generateXMLURL=NULL, $fragment=NULL, $entrypoint=array())
+//{   
+//    return xarController::URL($modName, $modType, $funcName, $args, $generateXMLURL, $fragment, $entrypoint); 
+//}
 
 /**
  * Wrapper function to support Xaraya 1 API Database functions

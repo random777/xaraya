@@ -1,12 +1,14 @@
 <?php
 /**
  * @package modules
+ * @subpackage base module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage base
  * @link http://xaraya.com/index.php/release/68.html
+ *
  * @author mikespub <mikespub@xaraya.com>
  */
 /* include the base class */
@@ -49,7 +51,13 @@ class CheckboxListProperty extends SelectProperty
 
     public function showInput(Array $data = array())
     {
-        if (isset($data['value'])) $this->value = $data['value'];
+        if (isset($data['value'])) {
+            if (is_array($data['value'])) {
+                $this->value = implode(',',$data['value']);
+            } else {
+                $this->value = $data['value'];
+            }
+        }
         $data['value'] = $this->getValue();
         if (!isset($data['rows_cols'])) $data['rows_cols'] = $this->display_columns;
         return parent::showInput($data);
@@ -57,8 +65,7 @@ class CheckboxListProperty extends SelectProperty
 
     public function showOutput(Array $data = array())
     {
-        if (isset($data['value'])) $this->value = $data['value'];
-        $data['value'] = $this->getValue();
+        if (!isset($data['value'])) $data['value'] = $this->getValue();
         return parent::showOutput($data);
     }
 

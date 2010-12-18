@@ -3,11 +3,12 @@
  * Update users from roles_admin_showusers
  *
  * @package modules
+ * @subpackage roles module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Roles module
  * @link http://xaraya.com/index.php/release/27.html
  */
 /* Update users from roles_admin_showusers
@@ -15,8 +16,9 @@
  */
 function roles_admin_updatestate()
 {
-    // Security Check
+    // Security
     if (!xarSecurityCheck('EditRoles')) return;
+    
     // Get parameters
     if (!xarVarFetch('status',      'int:0:', $data['status'],   NULL,    XARVAR_DONT_SET)) {return;}
     if (!xarVarFetch('state',       'int:0:', $data['state'],    0,       XARVAR_NOT_REQUIRED)) {return;}
@@ -89,11 +91,11 @@ function roles_admin_updatestate()
      if ((!xarModVars::get('roles', 'ask'.$mailtype.'email')) || (count($idnotify) == 0)) {
             xarController::redirect(xarModURL('roles', 'admin', 'showusers',
                           array('id' => $data['groupid'], 'state' => $data['state'])));
-            return true;
      }
      else {
         xarController::redirect(xarModURL('roles', 'admin', 'asknotification',
                           array('id' => $ids, 'mailtype' => $mailtype, 'groupid' => $data['groupid'], 'state' => $data['state'])));
      }
+     return true;
 }
 ?>

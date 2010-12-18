@@ -1,13 +1,16 @@
 <?php
 /**
- * Initialization function
- * @package core modules
+ * Configuration information for the Privileges module
+ *
+ * @package modules
+ * @subpackage privileges module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Privileges module
  * @link http://xaraya.com/index.php/release/1098.html
+ *
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  */
 
@@ -17,6 +20,7 @@
  * may lead to inablity of the system to process
  * the file correctly, resulting in unexpected results.
  */
+ 
 $modversion['name']               = 'Privileges Adminstration';
 $modversion['id']                 = '1098';
 $modversion['version']            = '2.2.0';

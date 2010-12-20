@@ -1,12 +1,14 @@
 <?php
 /**
  * @package modules
+ * @subpackage dynamicdata module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
+ *
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
@@ -24,7 +26,7 @@
  * @param string join
  * @param string table
  */
-function dynamicdata_admin_update($args)
+function dynamicdata_admin_update(Array $args=array())
 {
     extract($args);
 
@@ -37,6 +39,9 @@ function dynamicdata_admin_update($args)
     if(!xarVarFetch('preview',    'isset', $preview,     0, XARVAR_NOT_REQUIRED)) {return;}
 
     if (!xarVarFetch('tab', 'pre:trim:lower:str:1', $data['tab'], 'edit', XARVAR_NOT_REQUIRED)) return;
+
+    // Security
+    if(!xarSecurityCheck('EditDynamicData')) return;
 
     if (!xarSecConfirmAuthKey()) {
         return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
@@ -83,6 +88,13 @@ function dynamicdata_admin_update($args)
                 $myobject->callHooks('modify');
                 $data['hooks'] = $myobject->hookoutput;
 
+                if ($myobject->objectid == 1) {
+                    $data['label'] = $myobject->properties['label']->value;
+                    xarTplSetPageTitle(xarML('Modify DataObject #(1)', $data['label']));
+                } else {
+                    $data['label'] = $myobject->label;
+                    xarTplSetPageTitle(xarML('Modify Item #(1) in #(2)', $data['itemid'], $data['label']));
+                }
                 return xarTplModule($tplmodule,'admin','modify', $data);
             }
 
@@ -116,26 +128,6 @@ function dynamicdata_admin_update($args)
 
             }
 
-        case 'access':
-            // only admins can change access rules
-            $adminaccess = xarSecurityCheck('',0,'All',$myobject->objectid . ":" . $myobject->name . ":" . "All",0,'',0,800);
-
-            if (!$adminaccess)
-                return xarTplModule('privileges','user','errors',array('layout' => 'no_privileges'));
-
-            // Get the object's configuration
-            $config = unserialize($myobject->config);
-            
-            // Get the access information from the template
-            $accessproperty = DataPropertyMaster::getProperty(array('name' => 'access'));
-            $isvalid = $accessproperty->checkInput($myobject->name . '_display');
-            $config['display_access'] = $accessproperty->value;
-            $isvalid = $accessproperty->checkInput($myobject->name . '_modify');
-            $config['modify_access'] = $accessproperty->value;
-            $isvalid = $accessproperty->checkInput($myobject->name . '_delete');
-            $config['delete_access'] = $accessproperty->value;
-            $configstring = serialize($config);
-            $itemid = $myobject->updateItem(array('config' => $configstring));
         break;
 
         case 'clone':
@@ -181,16 +173,16 @@ function dynamicdata_admin_update($args)
     }
     
     if (!empty($return_url)) {
-        xarResponse::redirect($return_url);
+        xarController::redirect($return_url);
     } elseif ($myobject->objectid == 2) { // for dynamic properties, return to modifyprop
         $objectid = $myobject->properties['objectid']->value;
-        xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'modifyprop',
+        xarController::redirect(xarModURL('dynamicdata', 'admin', 'modifyprop',
                                       array('itemid' => $objectid)));
     } elseif (!empty($table)) {
-        xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'view',
+        xarController::redirect(xarModURL('dynamicdata', 'admin', 'view',
                                       array('table' => $table)));
     } else {
-        xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'view',
+        xarController::redirect(xarModURL('dynamicdata', 'admin', 'view',
                                       array(
                                       'itemid' => $objectid,
                                       'tplmodule' => $tplmodule

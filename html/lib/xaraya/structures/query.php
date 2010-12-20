@@ -1,4 +1,15 @@
 <?php
+/**
+ * @package core
+ * @subpackage structures
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
+ * @copyright see the html/credits.html file in this release
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ * 
+ * 
+ */
   /**************************************************************************\
   * Query class for SQL abstraction                                          *
   * Written by Marc Lutolf (marcinmilan@xaraya.com)                          *
@@ -308,6 +319,7 @@ class Query
                     }
                     else {
                         $newfield = explode('=',$field);
+                        if (!isset($newfield[1])) throw new Exception("The field $newfield[0] needs to have a value");
                         $argsarray = array('name' => trim($newfield[0]), 'value' => trim($newfield[1]));
                     }
                 }
@@ -382,7 +394,7 @@ class Query
         }
     }
 
-    public function addtablelink($args)
+    public function addtablelink(Array $args=array())
     {
         $key = $this->key;
         $this->key++;
@@ -400,7 +412,7 @@ class Query
         }
         return $key;
     }
-    public function addhaving($args)
+    public function addhaving(Array $args=array())
     {
         $key = $this->key;
         $this->key++;
@@ -665,7 +677,7 @@ class Query
             }
     }
 
-    public function addsecuritycheck($args)
+    public function addsecuritycheck(Array $args=array())
     {
         $numargs = func_num_args();
         if ($numargs == 2) {
@@ -691,7 +703,7 @@ class Query
     public function addcondition($x,$active=1)
     {
         foreach($this->conditions as $key => $value)
-            if ($value == $x) return $key;
+            if ($value === $x) return $key;
 
         $key = $this->_getkey();        
         $this->conjunctions[$key]=array('conditions' => $key,
@@ -1670,6 +1682,9 @@ class Query
     {
         // If we don't have multiple tables, no need to optimize
         if (count($this->tables) < 2) return true;
+        
+        // If we want ALL fields (i.e. *), no need to optimize
+        if (empty($this->fields)) return true;
         
         // Put the table names in an array for processing
         $tables = array();

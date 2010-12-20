@@ -37,11 +37,19 @@
             <fieldset>
                 <legend>Selected Block Type Properties</legend>
                 <div class="xar-form-input-wrapper">
+                    <label class="xar-form-label">
+                Module:</label>#xarVarPrepForDisplay($detail['module'])#</div>
+                <div class="xar-form-input-wrapper">
                 <label class="xar-form-label">Block
                 Type:</label>#xarVarPrepForDisplay($detail['type'])#</div>
                 <div class="xar-form-input-wrapper">
-                    <label class="xar-form-label">
-                Module:</label>#xarVarPrepForDisplay($detail['module'])#</div>
+                    <label class="xar-form-label">Block Version:</label>
+                    <xar:if condition="empty($info['xarversion']) or $info['xarversion'] eq '0.0.0'">
+                        Unknown
+                    <xar:else/>
+                        #xarVarPrepForDisplay($info['xarversion'])#
+                    </xar:if>
+                </div>
                 <xar:if condition="!empty($info['text_type'])">
                     <div class="xar-form-input-wrapper">
                     <label class="xar-form-label">Short
@@ -150,7 +158,8 @@
                             </xar:if>
                         </td>
                         <td class="xar-align-center">
-                            <a href="#$loop:item['refreshurl']#" title="#xarML('Refresh block details')#">Refresh</a>
+                            <xar:var name="label">Refresh block details</xar:var>
+                            <a href="#$loop:item['refreshurl']#" title="#$label#">Refresh</a>
                         </td>
                     </tr>
                 </xar:loop>

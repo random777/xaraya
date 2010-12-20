@@ -1,22 +1,25 @@
 <?php
 /**
  * @package modules
+ * @subpackage blocks module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Blocks module
  * @link http://xaraya.com/index.php/release/13.html
  */
 
 /**
  * view block types
- * @author Jim McDonald, Paul Rosania
+ * @author Jim McDonald
+ * @author Paul Rosania
+ * @return array data for the template display
  */
 function blocks_admin_view_types()
 {
-    // Security Check
-    if (!xarSecurityCheck('EditBlock')) {return;}
+    // Security
+    if (!xarSecurityCheck('EditBlocks')) {return;}
 
     // Parameter to indicate a block type for which to get further details.
     if (!xarVarFetch('tid', 'id', $tid, 0, XARVAR_NOT_REQUIRED)) {return;}
@@ -53,6 +56,8 @@ function blocks_admin_view_types()
             if (is_array($init)) {
                 // Parse the initialisation data to extract further details.
                 foreach($init as $key => $value) {
+                    // not allowed to change xarversion
+                    if ($key == 'xarversion') continue;
                     $valuetype = gettype($value);
                     $params[$key]['name'] = $key;
 
@@ -87,8 +92,8 @@ function blocks_admin_view_types()
             );
             // cascading block files - order is method specific, admin specific, block specific
             $to_check = array();
-            $to_check[] = ucfirst($detail['type']) . 'BlockAdmin';    // from eg menu_admin.php
-            $to_check[] = ucfirst($detail['type']) . 'Block';         // from eg menu.php
+            $to_check[] = ucfirst($detail['module']) . '_' . ucfirst($detail['type']) . 'BlockAdmin';    // from eg menu_admin.php
+            $to_check[] = ucfirst($detail['module']) . '_' . ucfirst($detail['type']) . 'Block';         // from eg menu.php
             foreach ($to_check as $className) {
                 // @FIXME: class name should be unique
                 if (class_exists($className)) {
@@ -99,7 +104,7 @@ function blocks_admin_view_types()
             }
             // make sure we instantiated a block,
             if (empty($block)) {
-                // return classname not found (this is always class {$type}Block)
+                // return classname not found (this is always class [$type]Block)
                 throw new ClassNotFoundException($className);
             }
             if (method_exists($block, 'help')) {
@@ -119,14 +124,14 @@ function blocks_admin_view_types()
                                 // Render the extra settings if necessary.
                                 // Again we check for an exception, this time in the template rendering
                                 try {
-                                    $block_help = xarTplBlock($blockinfo['module'], 'help-' . $blockinfo['type'], $blockhelp);
+                                    $block_help = xarTplBlock($detail['module'], 'help-' . $detail['type'], $blockhelp);
                                 } catch (Exception $e) {
                                     // @TODO: global flag to raise exceptions or not
                                     if ((bool)xarModVars::get('blocks', 'noexceptions')) {
                                         $block_help = '';
                                     } else {
-                                        //throw ($e);
-                                        $block_help = '';
+                                        throw ($e);
+                                        //$block_help = '';
                                     }
                                 }
                             // Legacy: old help functions return a string
@@ -139,8 +144,8 @@ function blocks_admin_view_types()
                         if ((bool)xarModVars::get('blocks', 'noexceptions')) {
                             $block_help = '';
                         } else {
-                            //throw ($e);
-                            $block_help = '';
+                            throw ($e);
+                            //$block_help = '';
                         }
                     }
                 }

@@ -2,8 +2,13 @@
 /**
  * Data Store is a flat SQL table (= typical module tables)
  *
- * @package dynamicdata
+ * @package core
  * @subpackage datastores
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
+ * @copyright see the html/credits.html file in this release
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
  */
 
 /**
@@ -15,7 +20,6 @@ sys::import('xaraya.datastores.sql');
 /**
  * Class for flat table
  *
- * @package dynamicdata
  */
 class FlatTableDataStore extends SQLDataStore
 {
@@ -93,7 +97,7 @@ class FlatTableDataStore extends SQLDataStore
                 $query .= " AND " . join(' AND ', $where);
             }
         }
-        $stmt = $this->db->prepareStatement($query);
+        $stmt = $this->prepareStatement($query);
         $result = $stmt->executeQuery(array((int)$itemid),ResultSet::FETCHMODE_NUM);
 
         if (!$result->first()) {
@@ -118,7 +122,7 @@ class FlatTableDataStore extends SQLDataStore
     /**
      * Create an item in the flat table
      *
-     * @return bool true on success, false on failure
+     * @return boolean true on success, false on failure
      * @throws BadParameterException
      **/
     function createItem(Array $args = array())
@@ -179,12 +183,12 @@ class FlatTableDataStore extends SQLDataStore
             $join = ', ';
         }
         $query .= " )";
-        $stmt = $this->db->prepareStatement($query);
+        $stmt = $this->prepareStatement($query);
         $result = $stmt->executeUpdate($bindvars);
 
         // get the last inserted id
         if ($checkid) {
-            $itemid = $this->db->getLastId($table);
+            $itemid = $this->getLastId($table);
         }
 
         if (empty($itemid)) {
@@ -235,7 +239,7 @@ class FlatTableDataStore extends SQLDataStore
         }
         $query .= " WHERE $itemidfield=?";
         $bindvars[] = (int)$itemid;
-        $stmt = $this->db->prepareStatement($query);
+        $stmt = $this->prepareStatement($query);
         $stmt->executeUpdate($bindvars);
 
         return $itemid;
@@ -256,7 +260,7 @@ class FlatTableDataStore extends SQLDataStore
         }
 
         $query = "DELETE FROM $table WHERE $itemidfield = ?";
-        $stmt = $this->db->prepareStatement($query);
+        $stmt = $this->prepareStatement($query);
         $stmt->executeUpdate(array((int)$itemid));
         return $itemid;
     }
@@ -422,7 +426,7 @@ class FlatTableDataStore extends SQLDataStore
         }
 
         // We got the query, prepare it
-        $stmt = $this->db->prepareStatement($query);
+        $stmt = $this->prepareStatement($query);
 
         if ($numitems > 0) {
             $stmt->setLimit($numitems);
@@ -483,7 +487,7 @@ class FlatTableDataStore extends SQLDataStore
             return;
         }
 
-        if($this->db->databaseType == 'sqlite') {
+        if($this->getType() == 'sqlite') {
             $query = "SELECT COUNT(*)
                       FROM (SELECT DISTINCT $itemidfield FROM $table "; // WATCH OUT, STILL UNBALANCED
         } else {
@@ -509,9 +513,9 @@ class FlatTableDataStore extends SQLDataStore
         }
 
         // TODO: GROUP BY, LEFT JOIN, ... ? -> cfr. relationships
-        if($this->db->databaseType == 'sqlite') $query.=")";
+        if($this->getType() == 'sqlite') $query.=")";
 
-        $stmt = $this->db->prepareStatement($query);
+        $stmt = $this->prepareStatement($query);
         $result = $stmt->executeQuery($bindvars);
         if (!$result->first()) return;
 
@@ -533,7 +537,7 @@ class FlatTableDataStore extends SQLDataStore
             return $this->primary;
         }
 
-        $dbInfo = $this->db->getDatabaseInfo();
+        $dbInfo = $this->getDatabaseInfo();
         $tblInfo= $dbInfo->getTable($this->name);
         $keyInfo= $tblInfo->getPrimaryKey();
         if(empty($keyInfo)) {
@@ -615,7 +619,7 @@ class FlatTableDataStore extends SQLDataStore
                 $query .= " ORDER BY $itemidfield";
             }
             // We got the query, prepare it
-            $stmt = $this->db->prepareStatement($query);
+            $stmt = $this->prepareStatement($query);
 
             // Now set additional parameters if we need to
             if ($numitems > 0) {
@@ -672,7 +676,7 @@ class FlatTableDataStore extends SQLDataStore
 
             // custom operations depending on database type
             case 'COUNT_DISTINCT':
-                $dbtype = xarDB::getType();
+                $dbtype = $this->getType();
                 if ($dbtype == 'sqlite') {
 /* FIXME:
 For sqlite, we need something like
@@ -687,7 +691,7 @@ FROM ( SELECT DISTINCT field FROM table )
                 return $newfield . ' AS ' . $this->fields[$field]->aliasname;
 
             case 'UNIXTIME_BY_YEAR':
-                $dbtype = xarDB::getType();
+                $dbtype = $this->getType();
                 switch ($dbtype) {
                     case 'mysql':
                         $newfield = "LEFT(FROM_UNIXTIME($field),4)";
@@ -717,7 +721,7 @@ FROM ( SELECT DISTINCT field FROM table )
                 return $newfield . ' AS ' . $this->fields[$field]->aliasname;
 
             case 'UNIXTIME_BY_MONTH':
-                $dbtype = xarDB::getType();
+                $dbtype = $this->getType();
                 switch ($dbtype) {
                     case 'mysql':
                         $newfield = "LEFT(FROM_UNIXTIME($field),7)";
@@ -747,7 +751,7 @@ FROM ( SELECT DISTINCT field FROM table )
                 return $newfield . ' AS ' . $this->fields[$field]->aliasname;
 
             case 'UNIXTIME_BY_DAY':
-                $dbtype = xarDB::getType();
+                $dbtype = $this->getType();
                 switch ($dbtype) {
                     case 'mysql':
                         $newfield = "LEFT(FROM_UNIXTIME($field),10)";
@@ -777,7 +781,7 @@ FROM ( SELECT DISTINCT field FROM table )
                 return $newfield . ' AS ' . $this->fields[$field]->aliasname;
 
             case 'DATETIME_BY_YEAR':
-                $dbtype = xarDB::getType();
+                $dbtype = $this->getType();
                 switch ($dbtype) {
                     case 'mysql':
                         $newfield = "LEFT($field,4)";
@@ -807,7 +811,7 @@ FROM ( SELECT DISTINCT field FROM table )
                 return $newfield . ' AS ' . $this->fields[$field]->aliasname;
 
             case 'DATETIME_BY_MONTH':
-                $dbtype = xarDB::getType();
+                $dbtype = $this->getType();
                 switch ($dbtype) {
                     case 'mysql':
                         $newfield = "LEFT($field,7)";
@@ -837,7 +841,7 @@ FROM ( SELECT DISTINCT field FROM table )
                 return $newfield . ' AS ' . $this->fields[$field]->aliasname;
 
             case 'DATETIME_BY_DAY':
-                $dbtype = xarDB::getType();
+                $dbtype = $this->getType();
                 switch ($dbtype) {
                     case 'mysql':
                         $newfield = "LEFT($field,10)";

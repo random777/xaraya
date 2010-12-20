@@ -1,21 +1,24 @@
 <?php
 /**
  * @package modules
+ * @subpackage blocks module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Blocks module
  * @link http://xaraya.com/index.php/release/13.html
  */
 /**
  * view block instances
- * @author Jim McDonald, Paul Rosania
+ * @author Jim McDonald
+ * @author Paul Rosania
+ * @return array data for the template display
  */
 function blocks_admin_view_instances()
 {
-    // Security Check
-    if (!xarSecurityCheck('EditBlock', 0, 'Instance')) {return;}
+    // Security
+    if (!xarSecurityCheck('EditBlocks', 0, 'Instance')) {return;}
 
     $data = array();
 
@@ -70,7 +73,7 @@ function blocks_admin_view_instances()
     $data['authid'] = $authid;
     // State descriptions.
     $data['state_desc'][0] = xarML('Hidden');
-    $data['state_desc'][1] = xarML('Minimized');
+    $data['state_desc'][1] = xarML('Inactive');
     $data['state_desc'][2] = xarML('Visible');
     $data['blocks'] = $instances;
     $data['filter'] = $filter;

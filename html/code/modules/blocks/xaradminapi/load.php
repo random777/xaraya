@@ -1,11 +1,12 @@
 <?php
 /**
  * @package modules
+ * @subpackage blocks module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Blocks module
  * @link http://xaraya.com/index.php/release/13.html
  */
 /**
@@ -15,20 +16,22 @@
  * The function also checks the block class exists, and if a func is
  * specified, will check if the method named func exists in the block class
  *
- * @author Paul Rosania, Marco Canini <marco@xaraya.com>
+ * @author Marco Canini <marco@xaraya.com>
+ * @author Paul Rosania
  * @access protected
- * @param string modName the module name (deprec)
- * @param string module the module name
- * @param string blockType the name of the block (deprec)
- * @param string type the name of the block
- * @param string blockFunc the block function to load (deprec)
- * @param string func the block function to load ('modify', 'update', 'display', 'info', 'help') (deprec)
- * @param string func the block function to load ('modify', 'update', 'display', 'getInfo', 'getInit')
+ * @param array    $args array of optional parameters<br/>
+ *        string   $args['modName'] the module name (deprec)<br/>
+ *        string   $args['module'] the module name<br/>
+ *        string   $args['blockType'] the name of the block (deprec)<br/>
+ *        string   $args['type'] the name of the block<br/>
+ *        string   $args['blockFunc'] the block function to load (deprec)<br/>
+ *        string   $args['func'] the block function to load ('modify', 'update', 'display', 'info', 'help') (deprec)<br/>
+ *        string   $args['func'] the block function to load ('modify', 'update', 'display', 'getInfo', 'getInit')
  * @return boolean success or failure
  * @throws EmptyParameterException, ClassNotFoundException, FunctionNotFoundException,
  *         FileNotFoundException
  */
-function blocks_adminapi_load($args)
+function blocks_adminapi_load(Array $args=array())
 {
     // Array of block loaded flags.
     static $loaded = array();
@@ -70,16 +73,16 @@ function blocks_adminapi_load($args)
     $to_check = array();
     if (!empty($func)) {
         // check for method specific file, eg menu_modify.php
-        $className = ucfirst($type) . 'Block' . ucfirst($func);
+        $className = ucfirst($module) . '_' . ucfirst($type) . 'Block' . ucfirst($func);
         $to_check[$className] = "{$blockDir}/{$type}_{$func}.php";
         // check for generic admin file, eg menu_admin.php
         if ($func != 'display') {
-            $className = ucfirst($type) . 'BlockAdmin';
+            $className = ucfirst($module) . '_' . ucfirst($type) . 'BlockAdmin';
             $to_check[$className] = "{$blockDir}/{$type}_admin.php";
         }
     }
     // default block class to load
-    $className = ucfirst($type) . 'Block';
+    $className = ucfirst($module) . '_' . ucfirst($type) . 'Block';
     $to_check[$className] = "{$blockDir}/{$type}.php";
     foreach ($to_check as $className => $filePath) {
         if (file_exists($filePath)) {
@@ -101,6 +104,24 @@ function blocks_adminapi_load($args)
                 } else {
                     $loaded["$module:$type"] = 1;
                     break;
+                }
+
+            } elseif (xarConfigVars::get(null, 'Site.Core.LoadLegacy') == true) {
+                try {
+                    sys::import('xaraya.legacy.blocks.load');
+                    blocks_adminapi_load_legacy($module,$type,$func,$className,$blockDir);
+                    if (!empty($func)) {
+                        if (method_exists($className, $func)) {
+                            $loaded["$module:$type:$func"] = 1;
+                            break;
+                        } else {
+                            throw new FunctionNotFoundException($func);
+                        }
+                    } else {
+                        $loaded["$module:$type"] = 1;
+                        break;
+                    }
+                } catch (Exception $e) {
                 }
             } else {
                 throw new ClassNotFoundException($className);

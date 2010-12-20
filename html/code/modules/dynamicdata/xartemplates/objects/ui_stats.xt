@@ -2,7 +2,7 @@
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
     <div class="xar-mod-head">
-        <span class="xar-mod-title">Dynamic Data Object Interface</span>
+        <span class="xar-mod-title">#$tpltitle#</span>
     </div>
     <div class="xar-mod-body">
         <xar:set name="viewlink">xarObject::getActionURL($object, 'view')</xar:set>
@@ -21,7 +21,7 @@
             </a>
         </h2>
         <!-- TODO: distinguish between 'protected' and 'private' ? -->
-        <form method="get" action="#$statslink#">
+        <form method="post" action="#$statslink#">
             <fieldset>
                 <!-- if we use the current URL, the object is already specified -->
                 <xar:if condition="$object:linktype ne 'current'">
@@ -136,19 +136,20 @@
                     </div>
                 </xar:foreach>
                 <div class="xar-form-input-wrapper-after">
-                    <input type="submit" value="#xarML('Show Statistics')#" class="xar-margin-thickleft"/>
+                    <xar:var name="label">Show Statistics</xar:var>
+                    <input type="submit" value="#$label#" class="xar-margin-thickleft"/>
                 </div>
             </fieldset>
-            <xar:set name="instance">$object->moduleid .':'. $object->itemtype .':All'</xar:set>
-            <xar:sec mask="DeleteDynamicDataItem" catch="false" component="Item" instance="$instance">
+            <xar:if condition="$object:checkAccess('config')">
                 <fieldset>
                     <div class="xar-form-input-wrapper">
                         <label class="xar-form-label" for="report" title="Specify a name for this report if you want to save it">Save Report As</label>
                         <input type="text" name="report" id="report" value="#$stats['report']#"/>
-                        <input type="submit" name="save" value="#xarML('Save Report')#" class="xar-margin-thickleft"/>
+                        <xar:var name="label">Save Report</xar:var>
+                        <input type="submit" name="save" value="#$label#" class="xar-margin-thickleft"/>
                     </div>
                 </fieldset>
-            </xar:sec>
+            </xar:if>
         </form>
         <xar:if condition="!empty($result)">
             <!-- don't show a newlink here -->

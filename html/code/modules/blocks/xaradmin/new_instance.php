@@ -1,21 +1,24 @@
 <?php
 /**
  * @package modules
+ * @subpackage blocks module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Blocks module
  * @link http://xaraya.com/index.php/release/13.html
  */
 /**
  * display form for a new block instance
- * @author Jim McDonald, Paul Rosania
- */
+ * @author Jim McDonald
+ * @author Paul Rosania
+ * @return array data for the template display
+*/
 function blocks_admin_new_instance()
 {
-    // Security Check
-    if (!xarSecurityCheck('AddBlock', 0, 'Instance')) {return;}
+    // Security
+    if (!xarSecurityCheck('AddBlocks', 0, 'Instance')) {return;}
 
     // Can specify block types for a single module.
     xarVarFetch('formodule', 'str:1', $module, NULL, XARVAR_NOT_REQUIRED);
@@ -50,8 +53,8 @@ function blocks_admin_new_instance()
     $data['create_label'] = xarML('Create Instance');
     // populate block state options
     $data['state_options'] = array(
+        array('id' => xarBlock::BLOCK_STATE_INACTIVE, 'name' => xarML('Inactive')),
         array('id' => xarBlock::BLOCK_STATE_HIDDEN, 'name' => xarML('Hidden')),
-        // array('id' => xarBlock::BLOCK_STATE_INACTIVE, 'name' => xarML('Inactive')),
         array('id' => xarBlock::BLOCK_STATE_VISIBLE, 'name' => xarML('Visible')),
     );
 

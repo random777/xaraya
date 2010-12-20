@@ -5,9 +5,13 @@
  * The compiler is responsible for compiling xar + xml -> php + xml
  *
  * @package blocklayout
+ * @subpackage compiler
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
  * @author Marco Canini <marco@xaraya.com>
  * @author Paul Rosania  <paul@xaraya.com>
  * @author Marcel van der Boom <marcel@xaraya.com>
@@ -149,6 +153,22 @@ class xarBLCompiler extends Object implements IxarBLCompiler
         // Pass the custom tags of the client using Blocklayout
         $clienttags = $this->configure();
         $xslProc->setParameter('', 'clienttags', implode(',', $clienttags));
+        
+        // Pass any legacy tags if legacy support is turned on
+        try {
+            if (xarConfigVars::get(null, 'Site.Core.LoadLegacy')) {
+                $baseDir = sys::lib() . 'xaraya/legacy/tags';
+                $baseDir = realpath($baseDir);
+                if (strpos($baseDir, '\\') != false) {
+                    // On Windows, drive letters are preceeded by an extra / [file:///C:/...]
+                    $baseURI = 'file:///' . str_replace('\\','/',$baseDir);
+                } else {
+                    $baseURI = 'file://' . $baseDir;
+                }
+                $xslFiles = $this->getTagPaths($baseDir, $baseURI);
+                $xslProc->setParameter('', 'legacytags', implode(',', $xslFiles));
+            }
+        } catch (Exception $e) {}        
         
         // Compile the compiler
         $outDoc = $xslProc->transformToXML($doc);

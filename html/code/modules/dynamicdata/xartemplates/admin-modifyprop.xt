@@ -10,22 +10,8 @@
         <xar:if condition="!empty($objectid)">
             <h2>
                 Modify DataProperties #$label#
-                <xar:set name="editlink">xarModURL('dynamicdata','admin','modify',array('itemid' => $objectid))</xar:set>
-                &#160;<a href="#$editlink#" title="Modify DataObject #$label#">
-                    <img src="#xarTplGetImage('icons/modify.png', 'base')#" width="16" height="16" alt="modify"/>
-                </a>
-                <xar:set name="accesslink">xarModURL('dynamicdata','admin','modify',array('itemid' => $objectid, 'tab' => 'access'))</xar:set>
-                &#160;<a href="#$accesslink#" title="Modify Access Rules for #$label#">
-                    <img src="#xarTplGetImage('icons/privileges.png', 'base')#" width="16" height="16" alt="access"/>
-                </a>
-                <xar:set name="itemslink">xarModURL('dynamicdata','admin','view',array('itemid' => $objectid))</xar:set>
-                &#160;<a href="#$itemslink#" title="View Items #$label#">
-                    <img src="#xarTplGetImage('icons/item-list.png', 'base')#" width="16" height="16" alt="viewitems"/>
-                </a>
-                <xar:set name="exportlink">xarModURL('dynamicdata','util','export',array('objectid' => $objectid))</xar:set>
-                &#160;<a href="#$exportlink#" title="Export Object Definition #$label#">
-                    <img src="#xarTplGetImage('icons/export-xml.png', 'base')#" width="16" height="16" alt="export"/>
-                </a>
+                <xar:set name="tab">'modifyprop'</xar:set>
+                <xar:template type="module" file="object_menu"/>
                 <xar:if condition="!empty($fields)">
                     <script type="text/javascript">
                     function xar_dynamicdata_formpreview()
@@ -59,7 +45,7 @@
         <xar:if condition="!isset($layout)">
             <xar:set name="layout">'default'</xar:set>
         </xar:if>
-        <form method="post" action="&xar-modurl-dynamicdata-admin-updateprop;">
+        <form method="post" action="#xarModURL('dynamicdata','admin','updateprop')#">
             <xar:template file="proplist-$layout"/>
         </form>
         <p>[ 
@@ -90,8 +76,7 @@
                             <td>#$field['name']#</td>
                             <td>#$field['label']#</td>
                             <td>
-                                <xar:data-output property="$fieldtypeprop"
-                                name="static_type['.$field['id'].']" value="$field['type']"/>
+                                <xar:data-output property="$fieldtypeprop" name="static_type['.$field['id'].']" value="$field['type']"/>
                             </td>
                             <td>#$field['defaultvalue']#</td>
                             <td>#$field['source']#</td>
@@ -104,13 +89,14 @@
                 <!-- xar:data-view module="dynamicdata" itemtype="1" where="$where" param="itemid" layout="cells" / -->
                 <xar:if condition="count($tables) gt 0">
                     <xar:foreach in="$tables" value="$table">
-                        <form method="post" action="&xar-modurl-dynamicdata-util-importprops;">
+                        <form method="post" action="#xarModURL('dynamicdata','util','importprops')#">
                             <div class="xar-align-center">
                                 <input type="hidden" name="authid" id="authid" value="#$authid#"/>
                                 <input type="hidden" name="module_id" id="module_id" value="#$module_id#"/>
                                 <input type="hidden" name="itemtype" id="itemtype" value="#$itemtype#"/>
                                 <input type="hidden" name="table" id="table" value="#$table#"/>
-                                <input type="submit" value="#xarML('Import table')# #$table#"/>
+                                <xar:var name="label">Import table</xar:var>
+                                <input type="submit" value="#$label# #$table#"/>
                             </div>
                         </form>
                     </xar:foreach>
@@ -122,7 +108,7 @@
             <!--
             TODO: very much under construction, obviously :-)
             -->
-            <form method="post" action="&xar-modurl-dynamicdata-admin-modifyprop;">
+            <form method="post" action="#xarModURL('dynamicdata','admin','modifyprop')#">
                 <!-- don't accept updates for this (for now) -->
                 <xar:foreach in="$relations" value="$relation">
                     <xar:if condition="count($relation['links']) gt 0">

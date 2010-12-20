@@ -3,11 +3,12 @@
  * Getvalidation validates a new user into the system
  *
  * @package modules
+ * @subpackage roles module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Roles module
  * @link http://xaraya.com/index.php/release/27.html
  */
 /**
@@ -32,7 +33,7 @@ function roles_user_getvalidation()
     //If a user is already logged in, no reason to see this.
     //We are going to send them to their account.
     if (xarUserIsLoggedIn()) {
-       xarResponse::redirect(xarModURL('roles', 'user', 'account',
+       xarController::redirect(xarModURL('roles', 'user', 'account',
                                       array('id' => xarUserGetVar('id'))));
        return true;
     }
@@ -108,7 +109,7 @@ function roles_user_getvalidation()
                 // Update the user status table to reflect a pending account.
                 if (!xarMod::apiFunc('roles', 'user', 'updatestatus',
                                     array('uname' => $uname,
-                                          'state' => ROLES_STATE_PENDING)));
+                                          'state' => xarRoles::ROLES_STATE_PENDING)));
 
                 /*Send Pending Email toggable ?   User email
                 if (!xarMod::apiFunc( 'authentication',
@@ -125,7 +126,7 @@ function roles_user_getvalidation()
                 // Update the user status table to reflect a validated account.
                 if (!xarMod::apiFunc('roles', 'user', 'updatestatus',
                                     array('uname' => $uname,
-                                          'state' => ROLES_STATE_ACTIVE))) return;
+                                          'state' => xarRoles::ROLES_STATE_ACTIVE))) return;
                 //send welcome email (option)
                 if (xarModVars::get($regmodule, 'sendwelcomeemail')) {
                     if (!xarMod::apiFunc('roles','admin','senduseremail',
@@ -213,7 +214,7 @@ function roles_user_getvalidation()
             $data = xarTplModule('roles','user', 'getvalidation', $tplvars);
 
             // Redirect
-            xarResponse::redirect(xarModURL('roles', 'user', 'getvalidation',array('sent' => 1)));
+            xarController::redirect(xarModURL('roles', 'user', 'getvalidation',array('sent' => 1)));
 
         }
 

@@ -2,12 +2,14 @@
 /**
  * Dynamic Object User Interface Handler
  * @package modules
+ * @subpackage dynamicdata module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
+ *
  * @author mikespub <mikespub@xaraya.com>
  */
 
@@ -145,10 +147,7 @@ class DataObjectStatsHandler extends DataObjectDefaultHandler
             }
         }
 */
-        if(!empty($this->object->table) && !xarSecurityCheck('AdminDynamicData'))
-            return xarResponse::Forbidden(xarML('View Table #(1) is forbidden', $this->object->table));
-
-        if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',$this->object->moduleid.':'.$this->object->itemtype.':All'))
+        if (!$this->object->checkAccess('view'))
             return xarResponse::Forbidden(xarML('View #(1) is forbidden', $this->object->label));
 
         // load previously defined report if available
@@ -266,13 +265,14 @@ class DataObjectStatsHandler extends DataObjectDefaultHandler
             $result = 0;
 
         // save the report and redirect
-        } elseif (!empty($save) && !empty($stats['report']) && xarSecurityCheck('DeleteDynamicDataItem',0,'Item',$this->object->moduleid.':'.$this->object->itemtype.':All')) {
+        } elseif (!empty($save) && !empty($stats['report']) && $this->object->checkAccess('config')) {
             $this->saveReport($stats['report'], $stats, $info);
-            xarResponse::Redirect(xarServer::getObjectURL($this->object->name, 'report', array('report' => $stats['report'])));
+            xarController::Rredirect(xarServer::getObjectURL($this->object->name, 'report', array('report' => $stats['report'])));
             return true;
 
         // get the result
         } else {
+        // FIXME: support addFilters() when not grouping
             $this->object->getItems($info);
             $result = 1;
         }
@@ -290,7 +290,8 @@ class DataObjectStatsHandler extends DataObjectDefaultHandler
             $this->tplmodule, $this->object->template, 'ui_stats',
             array('object' => $this->object,
                   'stats'  => $stats,
-                  'result' => $result)
+                  'result' => $result,
+                  'tpltitle' => $this->tpltitle)
         );
 
         return $output;
@@ -331,10 +332,7 @@ class DataObjectStatsHandler extends DataObjectDefaultHandler
         $title = xarML('Report for #(1)', $this->object->label);
         xarTplSetPageTitle(xarVarPrepForDisplay($title));
 
-        if(!empty($this->object->table) && !xarSecurityCheck('AdminDynamicData'))
-            return xarResponse::Forbidden(xarML('View Table #(1) is forbidden', $this->object->table));
-
-        if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',$this->object->moduleid.':'.$this->object->itemtype.':All'))
+        if (!$this->object->checkAccess('view'))
             return xarResponse::Forbidden(xarML('View #(1) is forbidden', $this->object->label));
 
         $report['reportlist'] = $this->getReportList();
@@ -349,6 +347,7 @@ class DataObjectStatsHandler extends DataObjectDefaultHandler
         } else {
             // remove stats info
             unset($info['stats']);
+        // FIXME: support addFilters() when not grouping
             $this->object->getItems($info);
             $result = 1;
         }
@@ -357,7 +356,8 @@ class DataObjectStatsHandler extends DataObjectDefaultHandler
             $this->tplmodule, $this->object->template, 'ui_report',
             array('object' => $this->object,
                   'report' => $report,
-                  'result' => $result)
+                  'result' => $result,
+                  'tpltitle' => $this->tpltitle)
         );
 
         return $output;

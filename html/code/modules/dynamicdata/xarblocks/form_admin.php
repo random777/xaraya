@@ -2,12 +2,14 @@
 /**
  * Initialisation and display of the form block
  * @package modules
+ * @subpackage dynamicdata module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
+ *
  * @author mikespub <mikespub@xaraya.com>
  */
 /**
@@ -15,7 +17,7 @@
  */
     sys::import('modules.dynamicdata.xarblocks.form');
 
-class FormBlockAdmin extends FormBlock implements iBlock
+class Dynamicdata_FormBlockAdmin extends Dynamicdata_FormBlock implements iBlock
 {
 /**
  * Modify Function to the Blocks Admin

@@ -2,12 +2,13 @@
 /**
  * Intranet configuration
  *
- * @package Installer
+ * @package modules
+ * @subpackage installer module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Installer
  * @link http://xaraya.com/index.php/release/200.html
  */
 /*
@@ -55,7 +56,7 @@ function installer_intranet_privilegeoptions()
  * @access public
  * @return boolean
  */
-function installer_intranet_configuration_load($args)
+function installer_intranet_configuration_load(Array $args=array())
 {
 // load the privileges chosen
 
@@ -99,18 +100,18 @@ function installer_intranet_oversightrole()
                     'itemid' => 0,  // make this explicit, because we are going to reuse the roles we define
                     'users' => 0,
                     'regdate' => time(),
-                    'state' => ROLES_STATE_ACTIVE,
+                    'state' => xarRoles::ROLES_STATE_ACTIVE,
                     'valcode' => 'createdbysystem',
                     'authmodule' => xarMod::getID('roles'),
     );
     $group = DataObjectMaster::getObject(array('name' => 'roles_groups'));
-    $rolefields['role_type'] = ROLES_GROUPTYPE;
+    $rolefields['role_type'] = xarRoles::ROLES_GROUPTYPE;
     $rolefields['name'] = 'Oversight';
     $rolefields['uname'] = 'oversight';
     $group->createItem($rolefields);
 
     $user = DataObjectMaster::getObject(array('name' => 'roles_users'));
-    $rolefields['role_type'] = ROLES_USERTYPE;
+    $rolefields['role_type'] = xarRoles::ROLES_USERTYPE;
     $rolefields['name'] = 'Overseer';
     $rolefields['uname'] = 'overseer';
     $rolefields['password'] = MD5('password');

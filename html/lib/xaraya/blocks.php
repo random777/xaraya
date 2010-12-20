@@ -2,10 +2,14 @@
 /**
  * Display Blocks
  * *
- * @package blocks
+ * @package core
+ * @subpackage blocks
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
  * @author Paul Rosania
  * @TODO:
  * - system-level flag to switch between reporting or ignoring errors
@@ -22,9 +26,9 @@ Class xarBlock extends Object implements IxarBlock
  * Initialize blocks subsystem
  *
  * @author Paul Rosania
- * @access protected
+ * 
  * @param  array args
- * @return bool
+ * @return boolean
  */
     public static function init(&$args)
     {
@@ -42,8 +46,9 @@ Class xarBlock extends Object implements IxarBlock
 /**
  * Renders a block instance
  *
- * @author Paul Rosania, Marco Canini <marco@xaraya.com>
- * @access protected
+ * @author Paul Rosania
+ * @author Marco Canini <marco@xaraya.com>
+ * 
  * @param  array data block information parameters
  * @return string output the block to show
  * @throws  BAD_PARAM, DATABASE_ERROR, ID_NOT_EXIST, MODULE_FILE_NOT_EXIST
@@ -51,8 +56,8 @@ Class xarBlock extends Object implements IxarBlock
  */
     public static function render(Array $data=array())
     {
-        // Skip rendering inactive blocks
-        if ($data['state'] === xarBlock::BLOCK_STATE_INACTIVE) {
+        // Skip executing inactive blocks
+        if ($data['state'] == xarBlock::BLOCK_STATE_INACTIVE) {
             // @TODO: global flag to raise exceptions
             // if ((bool)xarModVars::get('blocks', 'noexceptions')) return '';
             return '';
@@ -90,7 +95,7 @@ Class xarBlock extends Object implements IxarBlock
         }
 
         // @FIXME: class name should be unique
-        $className = ucfirst($data['type']) . 'Block';
+        $className = ucfirst($data['module']) . '_' . ucfirst($data['type']) . 'Block';
         // if we're here, we can safely instantiate the block instance
         $block = new $className($data);
 
@@ -144,7 +149,7 @@ Class xarBlock extends Object implements IxarBlock
         }
 
         // Render block if it has content and isn't hidden
-        if (is_array($blockinfo['content']) && $data['state'] !== xarBlock::BLOCK_STATE_HIDDEN) {
+        if (is_array($blockinfo['content']) && $data['state'] != xarBlock::BLOCK_STATE_HIDDEN) {
             // Here $blockinfo['content'] is the array of template data
             // which will be passed to the inner block template
             // $blockinfo itself is passed to the outer template
@@ -173,7 +178,7 @@ Class xarBlock extends Object implements IxarBlock
             try {
                 $blockinfo['content'] = xarTplBlock(
                     $data['module'], $data['type'], $blockinfo['content'],
-                    $data['_bl_block_template'],
+                    !empty($blockinfo['_bl_block_template']) ? $blockinfo['_bl_block_template'] : NULL,
                     !empty($blockinfo['_bl_template_base']) ? $blockinfo['_bl_template_base'] : NULL
                 );
             } catch (Exception $e) {
@@ -227,7 +232,7 @@ Class xarBlock extends Object implements IxarBlock
  * Renders a single block
  *
  * @author John Cox
- * @access protected
+ * 
  * @param  string args[instance] id or name of block instance to render
  * @param  string args[module] module that owns the block
  * @param  string args[type] module that owns the block
@@ -248,8 +253,9 @@ Class xarBlock extends Object implements IxarBlock
 /**
  * Renders a block group
  *
- * @author Paul Rosania, Marco Canini <marco@xaraya.com>
- * @access protected
+ * @author Paul Rosania
+ * @author Marco Canini <marco@xaraya.com>
+ * 
  * @param string groupname the name of the block group
  * @param string template optional template to apply to all blocks in the group
  * @return string
@@ -261,6 +267,19 @@ Class xarBlock extends Object implements IxarBlock
         return self::renderBlock(array('instance' => $groupname, 'box_template' => $template));
     }
 
+    /**
+     * Check access for a specific action on block level (see also xarMod and xarObject)
+     *
+     * @param block object the block we want to check access for
+     * @param action string the action we want to take on this block (display/modify/delete)
+     * @param roleid mixed override the current user or null
+     * @return boolean true if access
+     */
+    static function checkAccess($block, $action, $roleid = null)
+    {
+        // TODO: support $roleid there someday ?
+        return $block->checkAccess($action);
+    }
 }
 
 Interface IxarBlock
@@ -269,11 +288,5 @@ Interface IxarBlock
     public static function renderBlock(Array $args=array());
     public static function renderGroup($groupname, $template=null);
 }
-
-// Legacy functions
-function xarBlock_init(&$args) { return xarBlock::init($args); }
-function xarBlock_render($blockinfo) { return xarBlock::render($blockinfo); }
-function xarBlock_renderBlock($args) { return xarBlock::renderBlock($args); }
-function xarBlock_renderGroup($groupname, $template=NULL) { return xarBlock::renderGroup($groupname, $template); }
 
 ?>

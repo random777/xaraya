@@ -3,12 +3,14 @@
  * Privileges administration API
  *
  * @package modules
+ * @subpackage privileges module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Privileges module
  * @link http://xaraya.com/index.php/release/1098.html
+ *
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  */
 
@@ -61,10 +63,7 @@ class xarSecurity extends Object
      *
      * @author  Marc Lutolf <marcinmilan@xaraya.com>
      * @access  public
-     * @param   none
      * @return  the masks object
-     * @throws  none
-     * @todo    none
     */
     public static function initialize()
     {
@@ -160,7 +159,7 @@ class xarSecurity extends Object
 
             // get the masks pertaining to the current module and the component requested
             // <mikespub> why do you need this in the first place ?
-            if ($module == '') list($module) = xarRequest::getInfo();
+            if ($module == '') list($module) = xarController::$request->getInfo();
 
             // I'm a bit lost on this line. Does this var ever get set?
             // <mikespub> this gets set in xarBlock_render, to replace the xarModVars::set /
@@ -201,7 +200,7 @@ class xarSecurity extends Object
             //perhaps something for later.
             // <mrb> i dont grok this, theme can be realm?
             case "theme":
-                $mask->setRealm(xarModVars::get('themes', 'default'));
+                $mask->setRealm(xarModVars::get('themes', 'default_theme'));
                 break;
             case "domain":
                 $host = xarServer::getHost();
@@ -262,20 +261,29 @@ class xarSecurity extends Object
         } else {
             $role = xarRoles::findRole($rolename);
         }
-        
+
         // check if we already have the irreducible set of privileges for the current user
         if (($rolename == '') || ($rolename == xarUserGetVar('uname'))) {
             // We are checking the privileges of the current user
             // See if we have something cached
             if (!xarVarIsCached('Security.Variables','privilegeset')) {
 
+            // CHECKME: why not cache this as module user variable instead of session ?
+            //          That would save a lot of space for anonymous sessions...
+
                 // No go from cache. Try and get it from the session
                 sys::import('modules.privileges.class.privilege');
                 $privileges = unserialize(xarSession::getVar('privilegeset'));
-                if (empty($privileges)) {
+                // Check that privileges haven't been changed since we last cached the privilegeset
+                $clearcache = xarModVars::get('privileges', 'clearcache');
+                if (empty($privileges) || empty($privileges['updated']) || $clearcache > $privileges['updated']) {
 
                     // Still no go. Assemble the privleges
                     $privileges = self::irreducibleset(array('roles' => array($role)),$mask->module);
+                    // Keep track of when this was last updated
+                    if (is_array($privileges)) {
+                        $privileges['updated'] = time();
+                    }
                     // Save them to the sesssion too
                     xarSession::setVar('privilegeset',serialize($privileges));
                 }
@@ -310,14 +318,20 @@ class xarSecurity extends Object
         // check if the exception needs to be caught here or not
 
         if ($catch && !$pass) {
+            $requrl = xarServer::getCurrentURL(array(),false);
             if (self::$exceptionredirect && !xarUserIsLoggedIn()) {
                 // The current authentication module will handle the authentication
                 //Redirect to login for anon users, and take their current url as well for redirect after login
-                $requrl = xarServer::getCurrentURL(array(),false);
-                xarResponse::redirect(xarModURL(xarModVars::get('roles','defaultauthmodule'),'user','showloginform',array('redirecturl'=> $requrl),false));
+                $redirectURL = xarModURL(xarModVars::get('roles','defaultauthmodule'),'user','showloginform',array('redirecturl'=> $requrl),false);
             } else {
-                xarResponse::redirect(xarModURL('privileges','user','errors',array('layout' => 'no_privileges')));
+                // Redirect to the privileges error page
+                $redirectURL = xarModURL('privileges','user','errors',array('layout' => 'no_privileges', 'redirecturl'=> $requrl),false);
             }
+            // Remove &amp; entites to prevent redirect breakage
+            $redirectURL = str_replace('&amp;', '&', $redirectURL);
+            $header = "Location: " . $redirectURL;
+            header($header, TRUE, 302);
+            exit();
         }
         return $pass;
     }
@@ -406,7 +420,7 @@ class xarSecurity extends Object
             }
             $privs = array();
             foreach ($privileges as $priv) $privs[] = $priv;
-            
+
             $coreset['privileges'] = array_merge($coreset['privileges'],$privs);
             $parents = array_merge($parents,$role->getParents());
         }

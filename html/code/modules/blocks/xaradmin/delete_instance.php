@@ -2,25 +2,28 @@
 /**
  * Block management - delete a block
  * @package modules
+ * @subpackage blocks module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Blocks module
  * @link http://xaraya.com/index.php/release/13.html
  */
 /**
  * delete a block instance
- * @author Jim McDonald, Paul Rosania
+ * @author Jim McDonald
+ * @author Paul Rosania
  */
 function blocks_admin_delete_instance()
 {
     // Get parameters
-    if (!xarVarFetch('bid', 'id', $bid)) return;
+    if (!xarVarFetch('bid', 'id', $bid, 0, XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('confirm', 'str:1:', $confirm, '', XARVAR_NOT_REQUIRED)) {return;}
 
-    // Security Check
-    if (!xarSecurityCheck('DeleteBlock', 0, 'Instance')) {return;}
+    // Security
+    if (empty($bid)) return xarResponse::notFound();
+    if (!xarSecurityCheck('ManageBlocks', 0, 'Instance')) {return;}
 
     // Get details on current block
     $blockinfo = xarModAPIFunc('blocks', 'user', 'get', array('bid' => $bid));
@@ -30,9 +33,9 @@ function blocks_admin_delete_instance()
 
     // cascading block files - order is method specific, admin specific, block specific
     $to_check = array();
-    $to_check[] = ucfirst($blockinfo['type']) . 'BlockDelete';   // from eg menu_delete.php
-    $to_check[] = ucfirst($blockinfo['type']) . 'BlockAdmin';    // from eg menu_admin.php
-    $to_check[] = ucfirst($blockinfo['type']) . 'Block';         // from eg menu.php
+    $to_check[] = ucfirst($blockinfo['module']) . '_' . ucfirst($blockinfo['type']) . 'BlockDelete';   // from eg menu_delete.php
+    $to_check[] = ucfirst($blockinfo['module']) . '_' . ucfirst($blockinfo['type']) . 'BlockAdmin';    // from eg menu_admin.php
+    $to_check[] = ucfirst($blockinfo['module']) . '_' . ucfirst($blockinfo['type']) . 'Block';         // from eg menu.php
     foreach ($to_check as $className) {
         // @FIXME: class name should be unique
         if (class_exists($className)) {
@@ -43,7 +46,7 @@ function blocks_admin_delete_instance()
     }
     // make sure we instantiated a block,
     if (empty($block)) {
-        // return classname not found (this is always class {$type}Block)
+        // return classname not found (this is always class [$type]Block)
         throw new ClassNotFoundException($className);
     }
 
@@ -76,8 +79,7 @@ function blocks_admin_delete_instance()
         array('bid' => $bid)
     );
 
-    xarResponse::redirect(xarModURL('blocks', 'admin', 'view_instances'));
-
+    xarController::redirect(xarModURL('blocks', 'admin', 'view_instances'));
     return true;
 }
 

@@ -1,17 +1,19 @@
 <?php
 /**
  * @package modules
+ * @subpackage blocks module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Blocks module
  * @link http://xaraya.com/index.php/release/13.html
  */
 /**
  * update attributes of a block instance
  *
- * @author Jim McDonald, Paul Rosania
+ * @author Jim McDonald
+ * @author Paul Rosania
  * @param $args['tab'] the current update phase
  * @param $args['bid'] the ID of the block to update
  * @param $args['title'] the new title of the block
@@ -20,16 +22,16 @@
  * @param $args['template'] the template of the block instance
  * @param $args['content'] the new content of the block
  * @param $args['refresh'] the new refresh rate of the block
- * @returns bool
- * @return true on success, false on failure
+ * @return boolean true on success, false on failure
  */
 function blocks_admin_update_instance()
 {
-    if (!xarVarFetch('bid', 'int:1:', $bid)) return;
+    if (!xarVarFetch('bid', 'int:1:', $bid, 0, XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('tab', 'pre:trim:lower:str:1:', $tab, 'config', XARVAR_NOT_REQUIRED)) return;
 
-    // Security Check
-    if (!xarSecurityCheck('EditBlock', 0, 'Instance')) {return;}
+    // Security
+    if (empty($bid)) return xarResponse::notFound();
+    if (!xarSecurityCheck('EditBlocks', 0, 'Instance')) {return;}
 
     if (!xarSecConfirmAuthKey())
         return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
@@ -45,9 +47,9 @@ function blocks_admin_update_instance()
 
     // cascading block files - order is method specific, admin specific, block specific
     $to_check = array();
-    $to_check[] = ucfirst($instance['type']) . 'BlockUpdate';   // from eg menu_update.php
-    $to_check[] = ucfirst($instance['type']) . 'BlockAdmin';    // from eg menu_admin.php
-    $to_check[] = ucfirst($instance['type']) . 'Block';         // from eg menu.php
+    $to_check[] = ucfirst($instance['module']) . '_' . ucfirst($instance['type']) . 'BlockUpdate';   // from eg menu_update.php
+    $to_check[] = ucfirst($instance['module']) . '_' . ucfirst($instance['type']) . 'BlockAdmin';    // from eg menu_admin.php
+    $to_check[] = ucfirst($instance['module']) . '_' . ucfirst($instance['type']) . 'Block';         // from eg menu.php
 
     // Block type properties config
     foreach ($to_check as $className) {
@@ -60,7 +62,7 @@ function blocks_admin_update_instance()
     }
     // make sure we instantiated a block,
     if (empty($block)) {
-        // return classname not found (this is always class {$type}Block)
+        // return classname not found (this is always class [$type]Block)
         throw new ClassNotFoundException($className);
     }
 
@@ -220,7 +222,7 @@ function blocks_admin_update_instance()
                     // need to raise an exception here if it doesn't
                 }
             }
-
+            $tab = null;
         break;
     }
 
@@ -230,11 +232,11 @@ function blocks_admin_update_instance()
     // Resequence blocks within groups.
     if (!xarMod::apiFunc('blocks', 'admin', 'resequence')) {return;}
 
-    // block update methods can specify a different return url if necessary
     $return_url =  !empty($blockinfo['return_url']) ? $blockinfo['return_url'] :
         xarModURL('blocks', 'admin', 'modify_instance', array('bid' => $bid, 'tab' => $tab));
 
-    return xarResponse::redirect($return_url);
+    xarController::redirect($return_url);
+    return true;
 
 }
 ?>

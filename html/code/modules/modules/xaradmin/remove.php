@@ -1,11 +1,12 @@
 <?php
 /**
  * @package modules
+ * @subpackage modules module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Module System
  * @link http://xaraya.com/index.php/release/1.html
  */
 /**
@@ -18,20 +19,23 @@
  * @author Xaraya Development Team
  * @access public
  * @param  id the module id
- * @returns mixed
- * @return true on success
+ * @return mixed true on success
  */
 
 // Remove/Deactivate/Install GUI functions are basically copied and pasted versions...
 // Refactor later on
 function modules_admin_remove ()
 {
+    // Security
+    if (!xarSecurityCheck('AdminModules')) return; 
+    
      // Security and sanity checks
     if (!xarSecConfirmAuthKey()) {
         return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
     }        
 
-    if (!xarVarFetch('id', 'int:1:', $id)) return;
+    if (!xarVarFetch('id', 'int:1:', $id, 0, XARVAR_NOT_REQUIRED)) return;
+    if (empty($id)) return xarResponse::notFound();
 
     //Checking if the user has already passed thru the GUI:
     xarVarFetch('command', 'checkbox', $command, false, XARVAR_NOT_REQUIRED);
@@ -51,7 +55,7 @@ function modules_admin_remove ()
             if(!xarMod::apiFunc('modules','admin','remove',array('regid' => $id)))  return;
             // Clear the property cache
             PropertyRegistration::importPropertyTypes(true);
-            xarResponse::redirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));
+            xarController::redirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));
         } else {
             // There are dependents, let's build a GUI
             $data                 = array();
@@ -75,8 +79,8 @@ function modules_admin_remove ()
 
     // Hmmm, I wonder if the target adding is considered a hack
     // it certainly depends on the implementation of xarModUrl
-    //    xarResponse::redirect(xarModURL('modules', 'admin', "list#$target"));
-    xarResponse::redirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));
+    //    xarController::redirect(xarModURL('modules', 'admin', "list#$target"));
+    xarController::redirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));
     // Never reached
     return true;
 }

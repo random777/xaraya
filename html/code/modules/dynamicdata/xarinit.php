@@ -3,11 +3,12 @@
  * Dynamic data initialization
  *
  * @package modules
+ * @subpackage dynamicdata module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
  */
 sys::import('xaraya.tableddl');
@@ -57,8 +58,8 @@ function dynamicdata_init()
         $stmt = $dbconn->prepareStatement($sql);
 
         $objects = array(
-            array('objects'   ,'Dynamic Objects'   ,$module_id,0,'DataObject','auto', 'itemid',0,'a:3:{s:14:"display_access";a:3:{s:5:"group";s:1:"0";s:5:"level";s:3:"200";s:7:"failure";s:1:"0";}s:13:"modify_access";a:3:{s:5:"group";s:1:"0";s:5:"level";s:3:"800";s:7:"failure";s:1:"0";}s:13:"delete_access";a:3:{s:5:"group";s:1:"0";s:5:"level";s:3:"800";s:7:"failure";s:1:"0";}}' ,false),
-            array('properties','Dynamic Properties',$module_id,1,'DataObject','auto', 'itemid',0,'a:3:{s:14:"display_access";a:3:{s:5:"group";s:1:"0";s:5:"level";s:3:"200";s:7:"failure";s:1:"0";}s:13:"modify_access";a:3:{s:5:"group";s:1:"0";s:5:"level";s:3:"800";s:7:"failure";s:1:"0";}s:13:"delete_access";a:3:{s:5:"group";s:1:"0";s:5:"level";s:3:"800";s:7:"failure";s:1:"0";}}' ,false),
+            array('objects'   ,'Dynamic Objects'   ,$module_id,0,'DataObject','auto', 'itemid',0,'a:4:{s:14:"display_access";a:3:{s:5:"group";s:1:"0";s:5:"level";s:3:"200";s:7:"failure";s:1:"0";}s:13:"modify_access";a:3:{s:5:"group";s:1:"0";s:5:"level";s:3:"800";s:7:"failure";s:1:"0";}s:13:"delete_access";a:3:{s:5:"group";s:1:"0";s:5:"level";s:3:"800";s:7:"failure";s:1:"0";}s:6:"access";s:174:"a:5:{s:7:"display";a:5:{i:0;i:5;i:1;i:2;i:2;i:1;i:3;i:3;i:4;i:4;}s:6:"update";a:1:{i:0;i:2;}s:6:"create";a:1:{i:0;i:2;}s:6:"delete";a:1:{i:0;i:2;}s:6:"config";a:1:{i:0;i:2;}}";}' ,false),
+            array('properties','Dynamic Properties',$module_id,1,'DataObject','auto', 'itemid',0,'a:4:{s:14:"display_access";a:3:{s:5:"group";s:1:"0";s:5:"level";s:3:"200";s:7:"failure";s:1:"0";}s:13:"modify_access";a:3:{s:5:"group";s:1:"0";s:5:"level";s:3:"800";s:7:"failure";s:1:"0";}s:13:"delete_access";a:3:{s:5:"group";s:1:"0";s:5:"level";s:3:"800";s:7:"failure";s:1:"0";}s:6:"access";s:174:"a:5:{s:7:"display";a:5:{i:0;i:5;i:1;i:2;i:2;i:1;i:3;i:3;i:4;i:4;}s:6:"update";a:1:{i:0;i:2;}s:6:"create";a:1:{i:0;i:2;}s:6:"delete";a:1:{i:0;i:2;}s:6:"config";a:1:{i:0;i:2;}}";}' ,false),
         );
 
         $objectid = array();
@@ -239,6 +240,7 @@ function dynamicdata_init()
 
     xarRegisterMask('ViewDynamicData','All','dynamicdata','All','All','ACCESS_OVERVIEW');
     xarRegisterMask('EditDynamicData','All','dynamicdata','All','All','ACCESS_EDIT');
+    xarRegisterMask('ManageDynamicData','All','dynamicdata','All','All','ACCESS_DELETE');
     xarRegisterMask('AdminDynamicData','All','dynamicdata','All','All','ACCESS_ADMIN');
 
     xarRegisterMask('ViewDynamicDataItems','All','dynamicdata','Item','All:All:All','ACCESS_OVERVIEW');
@@ -248,14 +250,6 @@ function dynamicdata_init()
     xarRegisterMask('DeleteDynamicDataItem','All','dynamicdata','Item','All:All:All','ACCESS_DELETE');
     xarRegisterMask('AdminDynamicDataItem','All','dynamicdata','Item','All:All:All','ACCESS_ADMIN');
 
-    xarRegisterMask('ReadDynamicDataField','All','dynamicdata','Field','All:All:All','ACCESS_READ');
-    xarRegisterMask('EditDynamicDataField','All','dynamicdata','Field','All:All:All','ACCESS_EDIT');
-    xarRegisterMask('AddDynamicDataField','All','dynamicdata','Field','All:All:All','ACCESS_ADD');
-    xarRegisterMask('DeleteDynamicDataField','All','dynamicdata','Field','All:All:All','ACCESS_DELETE');
-    xarRegisterMask('AdminDynamicDataField','All','dynamicdata','Field','All:All:All','ACCESS_ADMIN');
-
-    xarRegisterMask('ViewDynamicDataBlocks','All','dynamicdata','Block','All:All:All','ACCESS_OVERVIEW');
-    xarRegisterMask('ReadDynamicDataBlock','All','dynamicdata','Block','All:All:All','ACCESS_READ');
     /*********************************************************************
      * Define instances for this module
      * Format is
@@ -270,15 +264,6 @@ function dynamicdata_init()
         )
     );
     xarDefineInstance('dynamicdata','Item',$instances);
-
-    $instances = array(
-        array(
-            'header' => 'external', // this keyword indicates an external "wizard"
-            'query'  => xarModURL('dynamicdata', 'admin', 'privileges'),
-            'limit'  => 0
-        )
-    );
-    xarDefineInstance('dynamicdata','Field',$instances);
 
     // Installation complete; check for upgrades
     return dynamicdata_upgrade('2.0.0');
@@ -323,10 +308,6 @@ function dynamicdata_upgrade($oldversion)
 
             // fall through to next upgrade
 
-        case '2.0.1':
-
-            // fall through to next upgrade
-
         default:
             break;
     }
@@ -337,7 +318,7 @@ function dynamicdata_upgrade($oldversion)
  * Upgrade this module from an old version
  *
  * @param oldVersion
- * @returns bool
+ * @return boolean true on success, false on failure
  */
 function dynamicdata_delete()
 {

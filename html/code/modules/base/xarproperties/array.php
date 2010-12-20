@@ -1,11 +1,12 @@
 <?php
 /**
  * @package modules
+ * @subpackage base module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage base
  * @link http://xaraya.com/index.php/release/68.html
  */
 /* include the base class */
@@ -23,25 +24,17 @@ class ArrayProperty extends DataProperty
     public $fields = array();
 
     public $display_columns = 30;
-    //default value of column dimension
-    public $display_columns_count = 1;
+    public $display_columns_count = 1;              // default value of column dimension
     public $display_rows = 4;
-    public $initialization_addremove = 0;
-    //default value of Key label
-    public $display_key_label = "Key";
-    //default value of value label
-    public $display_value_label = "Value";
-    //to store the value as associative array
-    public $initialization_associative_array = 0;
-    //suffix for the Add/Remove Button
-    public $default_suffixlabel = "Row";
-    //property type and config for the array values
-    public $initialization_prop_type = 'textbox';
-// TODO: the config is displayed/stored as serialized text for now, to
-//       avoid nested configs (e.g. see the objects 'config' property)
-    public $initialization_prop_config = '';
-    //allow editing keys on input
-    public $initialization_fixed_keys = 0;
+    public $initialization_addremove = 0;           
+    public $display_key_label = "Key";              // default value of Key label
+    public $display_value_label = "Value";          // default value of value label
+    public $initialization_associative_array = 0;   // to store the value as associative array
+    public $default_suffixlabel = "Row";            // suffix for the Add/Remove Button
+    public $initialization_prop_type = 'textbox';   // property type and config for the array values
+    public $initialization_prop_config = '';        // TODO: the config is displayed/stored as serialized text for now, to                                                    
+                                                    //       avoid nested configs (e.g. see the objects 'config' property)
+    public $initialization_fixed_keys = 0;          // allow editing keys on input
 
     function __construct(ObjectDescriptor $descriptor)
     {
@@ -124,6 +117,7 @@ class ArrayProperty extends DataProperty
         if (!empty($value) && !is_array($value)) {
             $this->value = $value;
         } else {
+        //LEGACY
             if (empty($value)) $value = array();
             //this code is added to store the values as value1,value2 in the DB for non-associative storage
             if(!$this->initialization_associative_array) {
@@ -149,8 +143,15 @@ class ArrayProperty extends DataProperty
     public function getValue()
     {
         try {
+        // LEGACY
             if(!$this->initialization_associative_array) {
-                $value = $this->value;
+                $outer = explode(';',$this->value);
+                $value =array();
+                foreach ($outer as $element) {
+                    $inner = explode('%@$#',$element);
+                    if (count($inner)>1) $value[] = $inner;
+                    else $value[] = $element;
+                }
             } else {
                 $value = unserialize($this->value);
             }
@@ -205,9 +206,9 @@ class ArrayProperty extends DataProperty
         }
 
         // check if we have a specific property for the values
-        if (!isset($data['valuetype'])) $data['valuetype'] = $this->initialization_prop_type;
+        if (!isset($data['columntype'])) $data['columntype'] = $this->initialization_prop_type;
         if (!isset($data['valueconfig'])) $data['valueconfig'] = $this->initialization_prop_config;
-        $data['property'] = $this->getValueProperty($data['valuetype'], $data['valueconfig']);
+        $data['property'] = $this->getValueProperty($data['columntype'], $data['valueconfig']);
 
         // use a different default template when dealing with properties
         if (empty($data['template']) && !empty($data['property'])) {
@@ -221,9 +222,14 @@ class ArrayProperty extends DataProperty
             } elseif (is_array($value[$field])) {
                 foreach($value[$field] as $k => $v){
                     $data['value'][$field][$k] = xarVarPrepForDisplay($v);
-                }                
+                }
             } else {
-                $data['value'][$field] = $value[$field];
+                // CHECKME: skip this for array of properties ?
+                if (!empty($data['template']) && $data['template'] == 'array_of_props') {
+                    $data['value'][$field] = $value[$field];
+                } else {
+                    $data['value'][$field] = xarVarPrepForDisplay($value[$field]);
+                }
             }
         }
 

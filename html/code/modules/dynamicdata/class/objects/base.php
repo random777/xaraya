@@ -1,12 +1,13 @@
 <?php
 /**
  * @package modules
+ * @subpackage dynamicdata module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage dynamicdata
- * @link http://xaraya.com/index.php/release/27.html
+ * @link http://xaraya.com/index.php/release/182.html
  */
 
 sys::import('modules.dynamicdata.class.objects.master');
@@ -155,7 +156,7 @@ class DataObject extends DataObjectMaster implements iDataObject
         foreach($fields as $name) {
             // Ignore disabled or ignored properties
             if(($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_DISABLED)
-            || ($this->properties[$name]->getDisplayStatus() == DataPropertyMaster::DD_DISPLAYSTATE_IGNORED))
+            || ($this->properties[$name]->getInputStatus() == DataPropertyMaster::DD_INPUTSTATE_IGNORED))
                 continue;
 
             // Give the property this object's reference so it can send back info on missing fields
@@ -273,6 +274,9 @@ class DataObject extends DataObjectMaster implements iDataObject
             if (!is_array($args['fieldlist'])) throw new Exception('Badly formed fieldlist attribute');
         }
 
+        // If a different itemid was passed, get that item before we display
+        if (isset($args['itemid']) && ($args['itemid'] != $this->properties[$this->primary]->value)) $this->getItem(array('itemid' => $args['itemid']));
+
 // CHECKME: do we always transform here if we're primary ?
 
         // Note: you can preset the list of properties to be transformed via $this->hooktransform
@@ -354,6 +358,15 @@ class DataObject extends DataObjectMaster implements iDataObject
         } else {
             foreach ($args as $key => $value)
                 if (isset($this->properties[$key]))  $this->properties[$key]->setValue($value);
+        }
+        return true;
+    }
+
+    public function clearFieldValues(Array $args = array())
+    {
+        $properties = $this->getProperties($args);
+        foreach ($properties as $property) {
+            $fields[$property->name] = $property->clearValue();
         }
         return true;
     }

@@ -1,20 +1,19 @@
 <?php
 /**
- * Module insatller
+ * Module installer
  *
  * @package modules
+ * @subpackage modules module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ * @link http://xaraya.com/index.php/release/1.html
  *
- * @subpackage modules
  * @author Marc Lutolf <mfl@netspan.ch>
  */
 
-/**
- * Initialise the modules module
- */
- 
 class Installer extends Object
 {
     private $extType                  = 'modules';
@@ -127,20 +126,15 @@ class Installer extends Object
                 if (!isset($dbMods[$module_id]))
                     throw new ModuleNotFoundException($module_id,'Required module missing (ID #(1))');
 
-                if (xarMod::apiFunc('base','versions','compare',array(
-                    'version1'      => $conditions['minversion'],
-                    'version2'      => $dbMods[$module_id]['version'],
-                    )) < 0) {
+                sys::import('xaraya.version');
+                if (xarVersion::compare($conditions['minversion'], $dbMods[$module_id]['version']) >= 0) {
                     //Need to add some info for the user
                     return false; // 1st version is bigger
                 }
 
                //Not to be checked, at least not for now
                /*
-                if (xarMod::apiFunc('base','versions','compare',array(
-                    'version1'       => $conditions['maxversion'],
-                    'version2'       => $dbMods[$module_id]['version'],
-                    )) > 0) {
+                if (xarVersion::compare($conditions['maxversion'], $dbMods[$module_id]['version']) < 0) {
                     //Need to add some info for the user
                     return false; // 1st version is smaller
                 }
@@ -322,6 +316,7 @@ class Installer extends Object
     public function installmodule($regid=null)
     {
         if ($this->extType == 'modules') $this->assembledependencies($regid);
+        if ($this->extType == 'themes') $this->modulestack->push($regid);
         $this->installdependencies($regid);
     }
     
@@ -380,8 +375,7 @@ class Installer extends Object
 
     public function installdependencies($regid)
     {
-        $topid = $this->modulestack->peek();
-        
+        $topid = $this->modulestack->pop();
         if ($this->extType == 'themes'){
             $extInfo = xarThemeGetInfo($regid);
             if (!isset($extInfo)) {
@@ -403,14 +397,14 @@ class Installer extends Object
 
         if ($regid == $topid) {
             // First time we've come to this module
-            $regid = $this->modulestack->pop();
             // Is there an install page?
             if (!$initialised && file_exists(sys::code() . 'modules/' . $extInfo['osdirectory'] . '/xartemplates/includes/installoptions.xt')) {
-                xarResponse::redirect(xarModURL('modules','admin','modifyinstalloptions',array('regid' => $regid)));
+                xarController::redirect(xarModURL('modules','admin','modifyinstalloptions',array('regid' => $regid)));
                 return true;
             }
+        } else {
+            $regid = $topid;
         }
-
         //Checks if the extension is already initialised
         if (!$initialised) {
             // Finally, now that dependencies are dealt with, initialize the module
@@ -428,7 +422,7 @@ class Installer extends Object
 
         // if this is a theme we're done
         if ($this->extType == 'themes') {
-            xarResponse::redirect(xarModURL($this->extType, 'admin', 'list', array('state' => 0)));
+            xarController::redirect(xarModURL($this->extType, 'admin', 'list', array('state' => 0)));
             return true;
         }
         
@@ -447,7 +441,7 @@ class Installer extends Object
                 xarOutputFlushCached('base-block');
             }
 
-            xarResponse::redirect(xarModURL($this->extType, 'admin', 'list', array('state' => 0), NULL, $target));
+            xarController::redirect(xarModURL($this->extType, 'admin', 'list', array('state' => 0), NULL, $target));
         } else {
             // Do the next module
             if (!$this->installdependencies($nextmodule)) return;
@@ -532,6 +526,30 @@ class Installer extends Object
         }
 
         return true;
+    }
+
+    public function checkCore($regid=null)
+    {
+        xarMod::apiFunc('modules','admin','regenerate');
+        $info = xarMod::getInfo($regid);
+        if (!empty($info['dependencyinfo']) && !empty($info['dependencyinfo'][0])) {
+            $valid_ge = true;
+            $valid_le = true;
+            if (!empty($info['dependencyinfo'][0]['version_ge'])) {
+                sys::import('xaraya.version');
+                $result = xarVersion::compare(XARCORE_VERSION_NUM,$info['dependencyinfo'][0]['version_ge']);
+                $valid_ge = $result >= 0;
+            }
+            if (!empty($info['dependencyinfo'][0]['version_le'])) {
+                sys::import('xaraya.version');
+                $result = xarVersion::compare(XARCORE_VERSION_NUM,$info['dependencyinfo'][0]['version_le']);
+                $valid_le = $result <= 0;
+            }
+            return $valid_ge && $valid_le;
+        } else {
+        // Let it slide for now
+            return true;
+        }
     }
 }
 

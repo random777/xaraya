@@ -3,24 +3,28 @@
  * Display the privileges of this role
  *
  * @package modules
+ * @subpackage roles module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Roles module
  * @link http://xaraya.com/index.php/release/27.html
  */
 /**
  * showprivileges - display the privileges of this role
  *
  * @author Marc Lutolf <marcinmilan@xaraya.com>
+ * @return array data for the template display
  */
 function roles_admin_showprivileges()
 {
-    if (!xarVarFetch('id', 'int:1:', $id)) return;
+    // Security
+    if (!xarSecurityCheck('EditRoles')) return;
+    
+    if (!xarVarFetch('id', 'int:1:', $id, 0, XARVAR_NOT_REQUIRED)) return;
+    if (empty($id)) return xarResponse::notFound();
 
-    // Security Check
-    if (!xarSecurityCheck('EditRole')) return;
     // Call the Roles class and get the role
     $role = xarRoles::get($id);
 
@@ -99,7 +103,7 @@ function roles_admin_showprivileges()
     // extract the info for display by the template
     $currentprivileges = array();
     foreach ($curprivileges as $priv) {
-        $frozen = !xarSecurityCheck('DeassignPrivilege',0,'Privileges',$priv->getName());
+        $frozen = !xarSecurityCheck('ManagePrivileges',0,'Privileges',$priv->getName());
         if ($priv->getModule() == null) {
             $currentprivileges[] = array('privid' => $priv->getID(),
                 'name' => $priv->getName(),
@@ -186,14 +190,12 @@ function roles_admin_showprivileges()
     }
     $currentprivileges = $inherited[0];
     $inherited = array_reverse($xs);
-//    echo var_dump($inherited);exit;
 
 // -------------------------------------------------------------------
 // Load Template
     $data['object'] = $role;
     $data['pname'] = $role->getName();
     $data['itemtype'] = $role->getType();
-    $data['basetype'] = $data['itemtype'];
     $types = xarMod::apiFunc('roles','user','getitemtypes');
     $data['itemtypename'] = $types[$data['itemtype']]['label'];
     $data['roleid'] = $id;
@@ -211,8 +213,6 @@ function roles_admin_showprivileges()
         'showprivileges');
     $data['addlabel'] = xarML('Add');
     return $data;
-    // redirect to the next page
-    xarResponse::redirect(xarModURL('roles', 'admin', 'new'));
 }
 
 ?>

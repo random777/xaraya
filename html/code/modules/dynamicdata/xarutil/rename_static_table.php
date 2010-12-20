@@ -3,17 +3,19 @@
  * Delete a table
  *
  * @package modules
+ * @subpackage dynamicdata module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
  */
     sys::import('modules.dynamicdata.class.objects.master');
     
     function dynamicdata_util_rename_static_table()
     {
+        // Security
         if (!xarSecurityCheck('AdminDynamicData')) return;
 
         if (!xarVarFetch('table',      'str:1',  $data['table'],    '',     XARVAR_NOT_REQUIRED)) return;
@@ -26,13 +28,13 @@
 
         if ($data['confirm']) {
             if (empty($data['newtable'])) 
-                xarResponse::redirect(xarModURL('dynamicdata','util','view_static',array('table' => $data['table'])));
+                xarController::redirect(xarModURL('dynamicdata','util','view_static',array('table' => $data['table'])));
             $query = 'RENAME TABLE ' . $data['table'] . ' TO ' . $data['newtable'];
             $dbconn = xarDB::getConn();
             $dbconn->Execute($query);
 
             // Jump to the next page
-            xarResponse::redirect(xarModURL('dynamicdata','util','view_static',array('table' => $data['newtable'])));
+            xarController::redirect(xarModURL('dynamicdata','util','view_static',array('table' => $data['newtable'])));
             return true;
         }
         return $data;

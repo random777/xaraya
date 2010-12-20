@@ -1,12 +1,14 @@
 <?php
 /**
  * @package modules
+ * @subpackage dynamicdata module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage dynamicdata
  * @link http://xaraya.com/index.php/release/182.html
+ *
  * @author mikespub <mikespub@xaraya.com>
  * @todo move the xml generate code into a template based system.
  */
@@ -15,11 +17,8 @@
  *
  * @author mikespub <mikespub@xaraya.com>
  */
-function dynamicdata_utilapi_export($args)
+function dynamicdata_utilapi_export(Array $args=array())
 {
-    // restricted to DD Admins
-    if(!xarSecurityCheck('AdminDynamicData')) return;
-
         $myobject = & DataObjectMaster::getObject(array('name' => 'objects'));
     if (isset($args['objectref'])) {
         $myobject->getItem(array('itemid' => $args['objectref']->objectid));
@@ -69,6 +68,10 @@ function dynamicdata_utilapi_export($args)
                     $xml .= "    <$field>" . xarVarPrepForDisplay($value) . "</$field>\n";
                 }
                 $xml .= "  </$name>\n";
+            } elseif ($name == 'config') {
+                // don't replace anything in the serialized value
+                $value = $myobject->properties[$name]->value;
+                $xml .= "  <$name>" . $value . "</$name>\n";
             } else {
                 $value = $myobject->properties[$name]->value;
                 $xml .= "  <$name>" . xarVarPrepForDisplay($value) . "</$name>\n";

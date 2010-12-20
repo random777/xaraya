@@ -1,29 +1,30 @@
 <?php
 /**
  * @package modules
+ * @subpackage blocks module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage Blocks module
  * @link http://xaraya.com/index.php/release/13.html
  */
 /**
  * modify a block instance
  * @TODO Need to sperate this out to API calls.
- * @author Jim McDonald, Paul Rosania
+ * @author Jim McDonald
+ * @author Paul Rosania
+ * @return array data for the template display
  */
 
 function blocks_admin_modify_instance()
 {
     // Get parameters
-    if (!xarVarFetch('bid', 'int:1:', $bid)) {return;}
+    if (!xarVarFetch('bid', 'int:1:', $bid, 0, XARVAR_NOT_REQUIRED)) {return;}
     if (!xarVarFetch('tab', 'pre:trim:lower:str:1', $tab, 'config', XARVAR_NOT_REQUIRED)) return;
-
-    // Security Check
-    if (!xarSecurityCheck('EditBlock', 0, 'Instance')) {return;}
-
-    // Get the instance details.
+    
+    // Security
+    if (empty($bid)) return xarResponse::notFound();
     // @CHECKME: exception if the block is not found, does get do that?
     $instance = xarMod::apiFunc('blocks', 'user', 'get', array('bid' => $bid));
     // user needs admin access to modify block instance (name, title, etc)
@@ -35,9 +36,9 @@ function blocks_admin_modify_instance()
 
     // cascading block files - order is method specific, admin specific, block specific
     $to_check = array();
-    $to_check[] = ucfirst($instance['type']) . 'BlockModify';   // from eg menu_modify.php
-    $to_check[] = ucfirst($instance['type']) . 'BlockAdmin';    // from eg menu_admin.php
-    $to_check[] = ucfirst($instance['type']) . 'Block';         // from eg menu.php
+    $to_check[] = ucfirst($instance['module']) . '_' . ucfirst($instance['type']) . 'BlockModify';   // from eg menu_modify.php
+    $to_check[] = ucfirst($instance['module']) . '_' . ucfirst($instance['type']) . 'BlockAdmin';    // from eg menu_admin.php
+    $to_check[] = ucfirst($instance['module']) . '_' . ucfirst($instance['type']) . 'Block';         // from eg menu.php
     foreach ($to_check as $className) {
         // @FIXME: class name should be unique
         if (class_exists($className)) {
@@ -106,6 +107,9 @@ function blocks_admin_modify_instance()
                         throw ($e);
                     }
                 }
+            } elseif (!empty($blockinfo) && is_string($blockinfo)) {
+                // The output is already templated
+                $block_modify = $blockinfo;
             }
         } catch (Exception $e) {
             // @TODO: global flag to raise exceptions or not
@@ -180,8 +184,8 @@ function blocks_admin_modify_instance()
 
                 // populate block state options
                 $data['state_options'] = array(
+                    array('id' => xarBlock::BLOCK_STATE_INACTIVE, 'name' => xarML('Inactive')),
                     array('id' => xarBlock::BLOCK_STATE_HIDDEN, 'name' => xarML('Hidden')),
-                    // array('id' => xarBlock::BLOCK_STATE_INACTIVE, 'name' => xarML('Inactive')),
                     array('id' => xarBlock::BLOCK_STATE_VISIBLE, 'name' => xarML('Visible')),
                 );
 
@@ -298,6 +302,8 @@ function blocks_admin_modify_instance()
 
         break;
     }
+    // display the reported block version too
+    $instance['xarversion'] = !empty($block->xarversion) ? $block->xarversion : xarML('Unknown');
 
     // variables available to all tabs
     $data['bid'] = $bid;

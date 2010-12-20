@@ -3,20 +3,24 @@
  * Initialise the roles module
  *
  * @package modules
+ * @subpackage roles module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage roles
  * @link http://xaraya.com/index.php/release/27.html
- * @author Jan Schrage, John Cox, Gregor Rothfuss
+ *
+ * @author Jan Schrage
+ * @author Gregor Rothfuss
+ * @author John Cox
  */
 
 /**
  * Initialise the roles module
  *
  * @access public
- * @return bool
+ * @return boolean
  * @throws DATABASE_ERROR
  */
 function roles_init()
@@ -92,12 +96,12 @@ function roles_activate()
                     'itemid' => 0,  // make this explicit, because we are going to reuse the roles we define
                     'users' => 0,
                     'regdate' => time(),
-                    'state' => ROLES_STATE_ACTIVE,
+                    'state' => xarRoles::ROLES_STATE_ACTIVE,
                     'valcode' => 'createdbysystem',
                     'authmodule' => (int)xarMod::getID('roles'),
     );
     $group = DataObjectMaster::getObject(array('name' => 'roles_groups'));
-    $rolefields['role_type'] = ROLES_GROUPTYPE;
+    $rolefields['role_type'] = xarRoles::ROLES_GROUPTYPE;
     xarModVars::set('roles', 'defaultgroup', 0);
 
     // The top level group Everybody
@@ -136,7 +140,7 @@ function roles_activate()
     xarModVars::set('roles', 'defaultgroup', $usergroup);
 
     $user = DataObjectMaster::getObject(array('name' => 'roles_users'));
-    $rolefields['role_type'] = ROLES_USERTYPE;
+    $rolefields['role_type'] = xarRoles::ROLES_USERTYPE;
 
         // The Anonymous user
     $rolefields['name'] = 'Anonymous';
@@ -168,13 +172,13 @@ function roles_activate()
  * Upgrade this module from an old version
  *
  * @param oldVersion
- * @returns bool
+ * @return boolean true on success, false on failure
  */
 function roles_upgrade($oldversion)
 {
     // Upgrade dependent on old version number
     switch ($oldversion) {
-        case '2.0.0':
+        default:
             break;
     }
     return true;
@@ -183,7 +187,7 @@ function roles_upgrade($oldversion)
 /**
  * Delete this module
  *
- * @return bool
+ * @return boolean
  */
 function roles_delete()
 {

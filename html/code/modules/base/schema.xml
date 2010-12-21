@@ -3,13 +3,13 @@
 <schema name="xaraya">
   <table name="module_vars">
     <column id="module_vars.id" name="id" required="true" auto="true">
-      <number size="11"/>
+      <number unsigned="true"/>
     </column>
     <column id="module_vars.module_id" name="module_id">
-      <number size="11"/>
+      <number unsigned="true"/>
     </column>
     <column id="module_vars.name" name="name" required="true">
-      <text size="64" default=""/>
+      <text size="64"/>
     </column>
     <column id="module_vars.value" name="value">
       <text/>
@@ -38,19 +38,19 @@
       <text size="20"/>
     </column>
     <column id="session_info.first_use" name="first_use" required="true">
-      <number size="11" default="0"/>
+      <number unsigned="true" default="0"/>
     </column>
     <column id="session_info.last_use" name="last_use" required="true">
-      <number size="11" default="0"/>
+      <number unsigned="true" default="0"/>
     </column>
     <column id="session_info.role_id" name="role_id" required="true">
-      <number size="11" default="0"/>
+      <number unsigned="true"/>
     </column>
     <column id="session_info.vars" name="vars">
       <binary/>
     </column>
     <column id="session_info.remember" name="remember">
-      <number size="11" default="0"/>
+      <number size="1"/>
     </column>
     <constraints>
       <primary name="id">
@@ -62,28 +62,6 @@
       <index name="i_session_last_use">
         <column ref="session_info.last_use"/>
       </index>
-    </constraints>
-  </table>
-  <table name="template_tags">
-    <column id="template_tags.id" name="id" required="true" auto="true">
-      <number size="11"/>
-    </column>
-    <column id="template_tags.name" name="name" required="true">
-      <text size="255" default=""/>
-    </column>
-    <column id="template_tags.module_id" name="module_id" required="true">
-      <number size="11" default="0"/>
-    </column>
-    <column id="template_tags.handler" name="handler" required="true">
-      <text size="255" default=""/>
-    </column>
-    <column id="template_tags.data" name="data">
-      <text/>
-    </column>
-    <constraints>
-      <primary name="id">
-        <column ref="template_tags.id"/>
-      </primary>
     </constraints>
   </table>
 </schema>

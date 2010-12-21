@@ -63,7 +63,7 @@
     <xsl:apply-templates select="column"/>
     <xsl:text>) </xsl:text>
 
-   <!-- @todo how does mysql handles altering the table comments on any other operation?  -->
+   <!-- @todo how does mysql handle altering the table comments on any other operation?  -->
     <xsl:if test="description">
       <xsl:text>COMMENT='</xsl:text>
       <xsl:value-of select="description"/>
@@ -115,9 +115,20 @@
       </xsl:otherwise>
     </xsl:choose>
     <xsl:if test="*[@size != '']">(<xsl:value-of select="*/@size"/>)</xsl:if>
+    <xsl:if test="*[@unsigned = 'true']"> unsigned</xsl:if>
     <xsl:if test="@required = 'true'"> NOT NULL</xsl:if>
     <!--  @todo this won't work with  the current exported ddl -->
-    <xsl:if test="*[@default]"> DEFAULT '<xsl:value-of select="*/@default"/>'</xsl:if>
+    <xsl:if test="*[@default]">
+      <xsl:text> DEFAULT </xsl:text>
+      <xsl:choose>
+        <xsl:when test="*[@default != 'NULL']">
+        '<xsl:value-of select="*/@default"/>'
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text> NULL</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
     <xsl:if test="$ignoreauto = 'false'">
       <xsl:if test="@auto ='true'"> AUTO_INCREMENT</xsl:if>
     </xsl:if>

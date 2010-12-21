@@ -1,15 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE schema PUBLIC "-//XAR//DTD DDL 1.0 Strict//EN" "http://xaraya.com/schema/DTD/ddl-strict.dtd">
 <schema name="xaraya">
+  <table name="dynamic_configurations">
+    <column id="dynamic_configurations.id" name="id" required="true" auto="true">
+      <number unsigned="true"/>
+    </column>
+    <column id="dynamic_configurations.name" name="name" required="true">
+      <text size="254" default=""/>
+    </column>
+    <column id="dynamic_configurations.description" name="description" required="true">
+      <text size="254" default=""/>
+    </column>
+    <column id="dynamic_configurations.property_id" name="property_id" required="true">
+      <number unsigned="true" default="0"/>
+    </column>
+    <column id="dynamic_configurations.label" name="label" required="true">
+      <text size="254" default=""/>
+    </column>
+    <column id="dynamic_data.ignore_empty" name="ignore_empty" required="true">
+      <number size="1"/>
+    </column>
+    <column id="dynamic_configurations.configuration" name="configuration" required="true">
+      <text/>
+    </column>
+    <description>End of dynamic_data</description>
+  </table>
+
   <table name="dynamic_data">
     <column id="dynamic_data.id" name="id" required="true" auto="true">
-      <number size="11"/>
+      <number unsigned="true"/>
     </column>
     <column id="dynamic_data.property_id" name="property_id" required="true">
-      <number size="11" default="0"/>
+      <number unsigned="true"/>
     </column>
     <column id="dynamic_data.item_id" name="item_id" required="true">
-      <number size="11" default="0"/>
+      <number unsigned="true"/>
     </column>
     <column id="dynamic_data.value" name="value">
       <text/>
@@ -29,40 +54,37 @@
   </table>
   <table name="dynamic_objects">
     <column id="dynamic_objects.id" name="id" required="true" auto="true">
-      <number size="11"/>
+      <number unsigned="true"/>
     </column>
     <column id="dynamic_objects.name" name="name" required="true">
-      <text size="30" default=""/>
+      <text size="64"/>
     </column>
     <column id="dynamic_objects.label" name="label" required="true">
-      <text size="254" default=""/>
+      <text size="254"/>
     </column>
     <column id="dynamic_objects.module_id" name="module_id" required="true">
-      <number size="11" default="0"/>
+      <number unsigned="true"/>
     </column>
     <column id="dynamic_objects.itemtype" name="itemtype" required="true">
-      <number size="11" default="0"/>
-    </column>
-    <column id="dynamic_objects.parent_id" name="parent_id" required="true">
-      <number size="11" default="0"/>
+      <number unsigned="true" default="0"/>
     </column>
     <column id="dynamic_objects.class" name="class" required="true">
-      <text size="255" default="DataObject"/>
+      <text size="254" default="DataObject"/>
     </column>
     <column id="dynamic_objects.filepath" name="filepath" required="true">
-      <text size="255" default="modules/dynamicdata/class/objects/base.php"/>
+      <text size="254" default="modules/dynamicdata/class/objects/base.php"/>
     </column>
     <column id="dynamic_objects.urlparam" name="urlparam" required="true">
       <text size="30" default="itemid"/>
     </column>
     <column id="dynamic_objects.maxid" name="maxid" required="true">
-      <number size="11" default="0"/>
+      <number unsigned="true" default="0"/>
     </column>
     <column id="dynamic_objects.config" name="config">
       <text/>
     </column>
-    <column id="dynamic_objects.isalias" name="isalias" required="true">
-      <number size="4" default="1"/>
+    <column id="dynamic_objects.isalias" name="isalias">
+      <number size="1" default="1"/>
     </column>
     <constraints>
       <primary name="id">
@@ -79,33 +101,33 @@
   </table>
   <table name="dynamic_properties">
     <column id="dynamic_properties.id" name="id" required="true" auto="true">
-      <number size="11"/>
+      <number unsigned="true"/>
     </column>
     <column id="dynamic_properties.name" name="name" required="true">
-      <text size="30" default=""/>
+      <text size="64"/>
     </column>
     <column id="dynamic_properties.label" name="label" required="true">
-      <text size="254" default=""/>
+      <text size="254"/>
     </column>
     <column id="dynamic_properties.object_id" name="object_id" required="true">
-      <number size="11" default="0"/>
+      <number unsigned="true"/>
     </column>
     <column id="dynamic_properties.type" name="type" required="true">
-      <number size="11"/>
+      <number unsigned="true"/>
     </column>
     <column id="dynamic_properties.defaultvalue" name="defaultvalue">
-      <text size="254" default=""/>
+      <text size="254"/>
     </column>
     <column id="dynamic_properties.source" name="source" required="true">
       <text size="254" default="dynamic_data"/>
     </column>
     <column id="dynamic_properties.status" name="status" required="true">
-      <number size="11" default="33"/>
+      <number size="4" unsigned="true" default="33"/>
     </column>
     <column id="dynamic_properties.seq" name="seq" required="true">
-      <number size="4" default="0"/>
+      <number size="4" unsigned="true"/>
     </column>
-    <column id="dynamic_properties.validation" name="validation">
+    <column id="dynamic_properties.configuration" name="configuration">
       <text/>
     </column>
     <constraints>
@@ -121,37 +143,37 @@
   </table>
   <table name="dynamic_properties_def">
     <column id="dynamic_properties_def.id" name="id" required="true" auto="true">
-      <number size="11"/>
+      <number unsigned="true"/>
     </column>
     <column id="dynamic_properties_def.name" name="name">
-      <text size="254" default=""/>
+      <text size="254"/>
     </column>
     <column id="dynamic_properties_def.label" name="label">
-      <text size="254" default=""/>
+      <text size="254"/>
     </column>
     <column id="dynamic_properties_def.filepath" name="filepath">
-      <text size="254" default=""/>
+      <text size="254"/>
     </column>
     <column id="dynamic_properties_def.class" name="class">
-      <text size="254" default=""/>
+      <text size="254"/>
     </column>
-    <column id="dynamic_properties_def.validation" name="validation">
-      <text size="254" default=""/>
+    <column id="dynamic_properties_def.configuration" name="configuration">
+      <text size="254"/>
     </column>
     <column id="dynamic_properties_def.source" name="source">
-      <text size="254" default=""/>
+      <text size="254"/>
     </column>
     <column id="dynamic_properties_def.reqfiles" name="reqfiles">
-      <text size="254" default=""/>
+      <text size="254"/>
     </column>
-    <column id="dynamic_properties_def.modid" name="modid">
-      <number size="11"/>
+    <column id="dynamic_properties_def.modid" name="modid" required="true">
+      <number unsigned="true" default="0"/>
     </column>
     <column id="dynamic_properties_def.args" name="args" required="true">
       <text/>
     </column>
     <column id="dynamic_properties_def.aliases" name="aliases">
-      <text size="254" default=""/>
+      <text size="254"/>
     </column>
     <column id="dynamic_properties_def.format" name="format">
       <number size="11" default="0"/>

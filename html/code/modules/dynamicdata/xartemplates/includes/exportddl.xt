@@ -9,7 +9,7 @@
       </xar:if>
       <table name="#$tablename#">
             <xar:foreach in="#$table:getColumns()#" value="$column">
-        <column id="#$tablename#.#$column:getName()#" name="#$column:getName()#">
+                <column id="#$tablename#.#$column:getName()#" name="#$column:getName()#">
                     <!-- Determine the required and auto attribute and add these to the column tag -->
                     <xar:attribute name="required">
                     #!$column:isNullable()?'true':'false'#</xar:attribute>

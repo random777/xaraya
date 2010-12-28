@@ -652,6 +652,12 @@
 		return $sql;
 	}
 	
+	// Transition to Jamaica
+	function prepareStatement($sql)
+	{
+		$this->Prepare($sql);
+	}
+	
 	/**
 	 * Some databases, eg. mssql require a different function for preparing
 	 * stored procedures. So we cannot use Prepare().
@@ -1011,6 +1017,12 @@
 		}
 
 		return $ret;
+	}
+	
+	// Transition to Jamaica
+	function ExecuteQuery($sql,$inputarr=false) 
+	{
+	    return $this->Execute($sql,$inputarr);
 	}
 	
 	

@@ -505,7 +505,7 @@ function installer_admin_bootstrap()
     // with data which was already inserted during the failed run
 
     // create the default roles and privileges setup
-    include 'modules/privileges/xarsetup.php';
+    sys::import('modules.privileges.xarsetup');
     initializeSetup();
 
     // Set up default user properties, etc.

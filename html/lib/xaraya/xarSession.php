@@ -93,6 +93,9 @@ function xarSessionGetSecurityLevel()
  * The old interface as wrappers for the class methods are here, see xarSession class
  * for the implementation
  */
+/**
+ * Deprecation Row
+ */
 function xarSessionGetVar($name)         { return xarSession::getVar($name); }
 function xarSessionSetVar($name, $value) { return xarSession::setVar($name, $value); }
 function xarSessionDelVar($name)         { return xarSession::delVar($name); }
@@ -342,9 +345,9 @@ class xarSession extends Object implements IsessionHandler
             $query = "INSERT INTO $this->tbl
                          (xar_sessid, xar_ipaddr, xar_uid, xar_firstused, xar_lastused)
                       VALUES (?,?,?,?,?)";
-            $bindvars = array($this->sessionId, $ipAddress, _XAR_ID_UNREGISTERED, time(), time());//var_dump($bindvars);exit;
+            $bindvars = array($this->sessionId, $ipAddress, _XAR_ID_UNREGISTERED, time(), time());
             $stmt = $this->db->prepareStatement($query);
-            $result = $this->db->executeQuery($stmt,$bindvars);
+            $result = $this->db->Execute($query,$bindvars);
             if (!$result) return;
         } catch (SQLException $e) {
             // The rollback is useless, since there's only one statement (but the isolation level might be useful)
@@ -398,9 +401,9 @@ class xarSession extends Object implements IsessionHandler
     // Jamaica transition
 //        $query = "SELECT role_id, ip_addr, last_use, vars FROM $this->tbl WHERE id = ?";
         $query = "SELECT xar_uid, xar_ipaddr, xar_lastused, xar_vars FROM $this->tbl WHERE xar_sessid = ?";
-        $stmt = $this->db->Prepare($query);
+        $stmt = $this->db->prepareStatement($query);
 //        $result = $stmt->executeQuery(array($sessionId),ResultSet::FETCHMODE_NUM);
-        $result = $this->db->executeQuery($stmt,array($sessionId));
+        $result = $this->db->Execute($query,array($sessionId));
 
         if (!$result->EOF) {
             // Already have this session
@@ -443,14 +446,15 @@ class xarSession extends Object implements IsessionHandler
         try {
             $dbtype = xarDB::getType();
             if (substr($dbtype,0,4) == 'oci8' || substr($dbtype,0,5) == 'mssql') {
-                $query = "UPDATE $this->tbl SET xar_lastused = ? WHERE xar_sessid = ?";
-                $result =& $this->db->Execute($query,array(time(), $sessionId));
+                $stmt = $this->db->prepareStatement("UPDATE $this->tbl SET xar_lastused = ? WHERE xar_sessid = ?");
+                $result =& $this->db->execute($stmt,array(time(), $sessionId));
                 if (!$result) return;
                 $id = $this->db->qstr($sessionId);
                 // Note: not sure why we use BLOB instead of TEXT (aka CLOB) for this field
-                $result =& $this->db->UpdateBlob($sessioninfoTable, 'xar_vars', $vars, "xar_sessid = $id");
+                $result =& $this->db->UpdateBlob($this->tbl, 'xar_vars', $vars, "xar_sessid = $id");
                 if (!$result) return;
             } else {
+                $stmt = $this->db->prepareStatement("UPDATE $this->tbl SET xar_vars = ?, xar_lastused = ? WHERE xar_sessid = ?");
                 $query = "UPDATE $this->tbl SET xar_vars = ?, xar_lastused = ? WHERE xar_sessid = ?";
                 $result =& $this->db->Execute($query,array($vars, time(), $sessionId));
                 if (!$result) return;
@@ -485,12 +489,12 @@ class xarSession extends Object implements IsessionHandler
     function destroy($sessionId)
     {
         try {
-            $this->db->begin();
+//            $this->db->begin();
             $query = "DELETE FROM $this->tbl WHERE id = ?";
-            $this->db->execute($query,array($sessionId));
-            $this->db->commit();
+            $this->db->Execute($query,array($sessionId));
+//            $this->db->commit();
         } catch (SQLException $e) {
-            $this->db->rollback();
+//            $this->db->rollback();
             throw $e;
         }
         return true;
@@ -531,13 +535,13 @@ class xarSession extends Object implements IsessionHandler
             break;
         }
         try {
-            $this->db->begin();
+//            $this->db->begin();
             $query = "DELETE FROM $this->tbl WHERE $where";
             $stmt = $this->db->prepareStatement($query);
-            $stmt->executeUpdate($bindvars);
-            $this->db->commit();
+            $this->db->Execute($query,$bindvars);
+//            $this->db->commit();
         } catch (SQLException $e) {
-            $this->db->rollback();
+//            $this->db->rollback();
             throw $e;
         }
         return true;
@@ -612,16 +616,17 @@ class xarSession extends Object implements IsessionHandler
 
         $sessioninfoTable = $xartable['session_info'];
         try {
-            $dbconn->begin();
+//            $dbconn->begin();
             $query = "UPDATE $sessioninfoTable
                       SET role_id = ? ,remember = ?
                       WHERE id = ?";
             $bindvars = array($userId, $rememberSession, self::getId());
-            $stmt = $dbconn->prepareStatement($query);
-            $stmt->executeUpdate($bindvars);
-            $dbconn->commit();
+//            $stmt = $dbconn->prepareStatement($query);
+//            $stmt->executeUpdate($bindvars);
+            $result = $dbconn->Execute($query,$bindvars);
+//            $dbconn->commit();
         } catch (SQLException $e) {
-            $dbconn->rollback();
+//            $dbconn->rollback();die($query);
             throw $e;
         }
 

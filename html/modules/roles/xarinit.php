@@ -239,7 +239,7 @@ president@whitehouse.gov';
     $role = xarFindRole('Anonymous');
     xarConfigSetVar('Site.User.AnonymousUID', $role->getID());
     // set the current session information to the right anonymous uid
-    xarSession_setUserInfo($role->getID(), 0);
+    xarSession::setUserInfo($role->getID(), 0);
     $role = xarFindRole('Admin');
     if (!isset($role)) {
       $role=xarUFindRole('Admin');

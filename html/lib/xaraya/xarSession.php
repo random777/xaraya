@@ -617,9 +617,14 @@ class xarSession extends Object implements IsessionHandler
         $sessioninfoTable = $xartable['session_info'];
         try {
 //            $dbconn->begin();
+/*
             $query = "UPDATE $sessioninfoTable
                       SET role_id = ? ,remember = ?
                       WHERE id = ?";
+*/
+            $query = "UPDATE $sessioninfoTable
+                      SET xar_uid = ? ,xar_remembersess = ?
+                      WHERE xar_uid = ?";
             $bindvars = array($userId, $rememberSession, self::getId());
 //            $stmt = $dbconn->prepareStatement($query);
 //            $stmt->executeUpdate($bindvars);

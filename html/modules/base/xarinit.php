@@ -160,7 +160,7 @@ function base_init()
     $result =& $dbconn->Execute($query);
     if (!$result) return;
 
-    include_once 'includes/xarConfig.php';
+    sys::import('xaraya.xarConfig');
 
     // Start Configuration Unit
     $systemArgs = array();
@@ -265,7 +265,7 @@ function base_init()
     if (!$result) return;
 
     // {ML_dont_parse 'includes/xarMod.php'}
-    include_once 'includes/xarMod.php';
+    sys::import('xaraya.xarMod');
 
     // Start Modules Support
     $systemArgs = array('enableShortURLsSupport' => false,

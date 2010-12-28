@@ -333,7 +333,7 @@ function installer_admin_phase5()
     $ADODB_CACHE_DIR = xarCoreGetVarDirPath() . "/cache/adodb";
 
     // {ML_dont_parse 'includes/xarDB.php'}
-    include_once 'includes/xarDB.php';
+    sys::import('xaraya.xarDB');
 
     // Check if there is a xar- version of the driver, and use it.
     // Note the driver we load does not affect the database type.
@@ -452,7 +452,7 @@ function installer_admin_phase5()
     // install the security stuff here, but disable the registerMask and
     // and xarSecurityCheck functions until we've finished the installation process
 
-    include_once 'includes/xarSecurity.php';
+    sys::import('xaraya.xarSecurity');
     xarSecurity_init();
 
     // Load in modules/installer/xarinit.php and start the install
@@ -465,7 +465,7 @@ function installer_admin_phase5()
 
     // If we are here, the base system has completed
     // We can now pass control to xaraya.
-    include_once 'includes/xarConfig.php';
+    sys::import('xaraya.xarConfig');
     $params=array();
     xarConfig_init($params,XARCORE_SYSTEM_ADODB);
     xarConfigSetVar('Site.MLS.DefaultLocale', $install_language);
@@ -606,7 +606,7 @@ function installer_admin_create_administrator()
     $data['phase'] = 6;
     $data['phase_label'] = xarML('Create Administrator');
 
-    include_once 'modules/roles/xarroles.php';
+    sys::import('modules.roles.xarroles');
     $role = xarFindRole('Admin');
 
     if (!xarVarFetch('create', 'isset', $create, FALSE, XARVAR_NOT_REQUIRED)) return;

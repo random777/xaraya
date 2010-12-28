@@ -42,7 +42,9 @@ define ('XARINSTALL_PHASE_SETTINGS_COLLECTION', '5');
 define ('XARINSTALL_PHASE_BOOTSTRAP',           '6');
 
 // Include the core
-include 'includes/xarCore.php';
+
+include 'lib/xaraya/xarPreCore.php';
+sys::import('xaraya.xarCore');
 // Include some extra functions, as the installer is somewhat special
 // for loading gui and api functions
 include 'modules/installer/xarfunctions.php';
@@ -52,18 +54,18 @@ xarCoreActivateDebugger(XARDBG_ACTIVE | XARDBG_EXCEPTIONS | XARDBG_SHOW_PARAMS_I
 
 // Basic systems always loaded
 // {ML_dont_parse 'includes/xarLog.php'}
-include_once 'includes/xarLog.php';
+sys::import('xaraya.xarLog');
 // {ML_dont_parse 'includes/xarEvt.php'}
-include_once 'includes/xarEvt.php';
-include_once 'includes/xarException.php';
+sys::import('xaraya.xarEvt');
+sys::import('xaraya.xarException');
 // {ML_dont_parse 'includes/xarVar.php'}
-include_once 'includes/xarVar.php';
+sys::import('xaraya.xarVar');
 // {ML_dont_parse 'includes/xarServer.php'}
-include_once 'includes/xarServer.php';
+sys::import('xaraya.xarServer');
 // {ML_dont_parse 'includes/xarMLS.php'}
-include_once 'includes/xarMLS.php';
+sys::import('xaraya.xarMLS');
 // {ML_dont_parse 'includes/xarTemplate.php'}
-include_once 'includes/xarTemplate.php';
+sys::import('xaraya.xarTemplate');
 
 // Besides what we explicitly load, we dont want to load
 // anything extra for maximum control

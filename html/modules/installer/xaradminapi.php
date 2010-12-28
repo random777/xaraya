@@ -144,10 +144,10 @@ function installer_adminapi_createdb($args)
     $dbType  = xarCore_getSystemVar('DB.Type');
 */
     // {ML_dont_parse 'includes/xarDB.php'}
-    include_once 'includes/xarDB.php';
+    sys::import('xaraya.xarDB');
 
     // Load in Table Maintainance API
-    include_once 'includes/xarTableDDL.php';
+    sys::import('xaraya.xarTableDDL');
 
     // Load in ADODB
     // FIXME: This is also in xarDB init, does it need to be here?

@@ -441,17 +441,18 @@ class xarSession extends Object implements IsessionHandler
     function write($sessionId, $vars)
     {
         try {
+            $dbtype = xarDB::getType();
             if (substr($dbtype,0,4) == 'oci8' || substr($dbtype,0,5) == 'mssql') {
-                $query = "UPDATE $sessioninfoTable SET xar_lastused = ? WHERE xar_sessid = ?";
-                $result =& $dbconn->Execute($query,array($GLOBALS['xarSession_timestamp'], $sessionId));
+                $query = "UPDATE $this->tbl SET xar_lastused = ? WHERE xar_sessid = ?";
+                $result =& $this->db->Execute($query,array(time(), $sessionId));
                 if (!$result) return;
-                $id = $dbconn->qstr($sessionId);
+                $id = $this->db->qstr($sessionId);
                 // Note: not sure why we use BLOB instead of TEXT (aka CLOB) for this field
-                $result =& $dbconn->UpdateBlob($sessioninfoTable, 'xar_vars', $vars, "xar_sessid = $id");
+                $result =& $this->db->UpdateBlob($sessioninfoTable, 'xar_vars', $vars, "xar_sessid = $id");
                 if (!$result) return;
             } else {
-                $query = "UPDATE $sessioninfoTable SET xar_vars = ?, xar_lastused = ? WHERE xar_sessid = ?";
-                $result =& $dbconn->Execute($query,array($vars, $GLOBALS['xarSession_timestamp'], $sessionId));
+                $query = "UPDATE $this->tbl SET xar_vars = ?, xar_lastused = ? WHERE xar_sessid = ?";
+                $result =& $this->db->Execute($query,array($vars, time(), $sessionId));
                 if (!$result) return;
             }
         /*

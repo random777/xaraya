@@ -75,20 +75,6 @@ function xarDB_init(&$args, $whatElseIsGoingLoaded)
 }
 
 /**
- * Shutdown handler for the DB subsystem
- *
- * This function is the shutdown handler for the
- * DB subsystem. It runs on the end of a request
- *
- */
-function xarDB__shutdown_handler()
-{
-    // Shutdown handler for the DB subsystem
-    // Once the by reference handling of the dbconn is in, we can do
-    // a central close for the db connection here.
-}
-
-/**
  * Deprecation Row
  */
 function xarDBGetConn($index=0) {return xarDB::getConn($index);}
@@ -324,9 +310,9 @@ class xarDB extends Object
         self::$tables = array_merge(self::$tables,$tables);
     }
 
-    public static function getHost() { return self::$firstDSN['hostspec']; }
-    public static function getType() { return self::$firstDSN['phptype'];  }
-    public static function getName() { return self::$firstDSN['database']; }
+    public static function getHost() { return self::$firstDSN['databaseHost']; }
+    public static function getType() { return self::$firstDSN['databaseType'];  }
+    public static function getName() { return self::$firstDSN['databaseName']; }
 
     public static function configure($dsn, $flags = Creole::COMPAT_ASSOC_LOWER, $prefix = 'xar')
     {

@@ -46,11 +46,11 @@ function &xarMLSLoadLocaleData($locale = NULL)
             $locale = str_replace('ISO','iso',$locale);
             if (!in_array($locale, $siteLocales)) {
                 xarErrorSet(XAR_SYSTEM_EXCEPTION, 'LOCALE_NOT_AVAILABLE');
-                return null;
+                return nullreturn;
             }
         } else {
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'LOCALE_NOT_AVAILABLE');
-            return null;
+            return nullreturn;
         }
     }
 

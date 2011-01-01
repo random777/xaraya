@@ -3,11 +3,13 @@
  * Locales (Multi Language System)
  *
  * @package core
- * @copyright (C) 2002-2009 The Digital Development Foundation
+ * @subpackage multilanguage
+ * @category Xaraya Web Applications Framework
+ * @version 1.3.0
+ * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage multilanguage
  * @author Marco Canini <marco@xaraya.com>
  */
 /**
@@ -23,6 +25,7 @@
  */
 function &xarMLSLoadLocaleData($locale = NULL)
 {
+    static $loaded = array(); // keep track of files we have loaded
     if (!isset($locale)) {
         $locale = xarMLSGetCurrentLocale();
     }
@@ -37,6 +40,7 @@ function &xarMLSLoadLocaleData($locale = NULL)
     // check for locale availability
     $siteLocales = xarMLSListSiteLocales();
 
+    $nullreturn = null; $falsereturn = false;
     if (!in_array($locale, $siteLocales)) {
         if (strstr($locale,'ISO')) {
             $locale = str_replace('ISO','iso',$locale);
@@ -50,19 +54,18 @@ function &xarMLSLoadLocaleData($locale = NULL)
         }
     }
 
-    $fileName = xarCoreGetVarDirPath() . '/locales/$locale/locale.php';
-
-    if (!$parsedLocale = xarMLS__parseLocaleString($locale)) {
-        return false;
-    }
+    $fileName = sys::varpath() . '/locales/$locale/locale.php';
+    if (!$parsedLocale = xarMLS__parseLocaleString($locale)) return false;
     $siteCharset = $parsedLocale['charset'];
     $utf8locale = $parsedLocale['lang'].'_'.$parsedLocale['country'].'.utf-8';
-    $utf8FileName = xarCoreGetVarDirPath() . '/locales/$utf8locale/locale.php';
-    if (file_exists($fileName)) {
+    $utf8FileName = sys::varpath() . '/locales/$utf8locale/locale.php';
+    if (file_exists($fileName) && !(isset($loaded[$fileName]))) {
         include_once $fileName;
+        $loaded[$fileName] = true;
         $GLOBALS['xarMLS_localeDataCache'][$locale] = $localeData;
     } else if (file_exists($utf8FileName)) {
         include_once $utf8FileName;
+        $loaded[$fileName] = true;
         if ($siteCharset != 'utf-8') {
             foreach ( $localeData as $tempKey => $tempValue ) {
                 $tempValue = $GLOBALS['xarMLS_newEncoding']->convert($tempValue, 'utf-8', $siteCharset, 0);
@@ -74,9 +77,7 @@ function &xarMLSLoadLocaleData($locale = NULL)
 /* TODO: delete after new backend testing
         if ($GLOBALS['xarMLS_backendName'] == 'xml2php') {
 */
-    if (!$parsedLocale = xarMLS__parseLocaleString($locale)) {
-        return false;
-    }
+            if (!$parsedLocale = xarMLS__parseLocaleString($locale)) return $falsereturn;
             $utf8locale = $parsedLocale['lang'].'_'.$parsedLocale['country'].'.utf-8';
             $siteCharset = $parsedLocale['charset'];
             $res = $GLOBALS['xarMLS_localeDataLoader']->load($utf8locale);
@@ -84,11 +85,9 @@ function &xarMLSLoadLocaleData($locale = NULL)
                 // Can we use xarML here? border case, play it safe for now.
                 $msg = "The locale '$utf8locale' could not be loaded";
                 xarErrorSet(XAR_SYSTEM_EXCEPTION, 'LOCALE_NOT_EXIST',$msg);
-                return null;
+                return $nullreturn;
             }
-            if (!isset($res)) {
-                return null; // Throw back
-            }
+            if (!isset($res)) return $nullreturn; // Throw back
             $tempArray = $GLOBALS['xarMLS_localeDataLoader']->getLocaleData();
             if ($siteCharset != 'utf-8') {
                 foreach ( $tempArray as $tempKey => $tempValue ) {
@@ -105,7 +104,7 @@ function &xarMLSLoadLocaleData($locale = NULL)
                 // Can we use xarML here? border case, play it safe for now.
                 $msg = "The locale '$locale' could not be loaded";
                 xarErrorSet(XAR_SYSTEM_EXCEPTION, 'LOCALE_NOT_EXIST',$msg);
-                return null;
+                return $nullreturn;
             }
             $GLOBALS['xarMLS_localeDataCache'][$locale] = $GLOBALS['xarMLS_localeDataLoader']->getLocaleData();
         }
@@ -155,7 +154,7 @@ function xarLocaleParseNumber($number, $localeData = NULL, $isCurrency = false)
 }
 
 /**
- * Formats a currency according to locale data
+ * Formats a currency according to specified locale data
  *
  * @author Marco Canini <marco@xaraya.com>
  * @access public
@@ -277,8 +276,13 @@ function xarLocaleFormatNumber($number, $localeData = NULL, $isCurrency = false)
  */
 function xarLocaleGetFormattedUTCDate($length = 'short', $timestamp = null)
 {
+    if(!isset($timestamp)) {
+        // get UTC timestamp
+        $timestamp = time();
+    }
+
     // pass this to the regular function, but without using the timezone offset here
-    return xarLocaleGetFormattedDate($length, $timestamp, false);
+    return xarLocaleGetFormattedDate($length,$timestamp,$addoffset);
 }
 
 /**
@@ -386,6 +390,11 @@ function xarLocaleGetFormattedDate($length = 'short', $timestamp = null, $addoff
  */
 function xarLocaleGetFormattedUTCTime($length = 'short',$timestamp = null, $addoffset = false)
 {
+    if(!isset($timestamp)) {
+        // get UTC timestamp
+        $timestamp = time();
+    }
+
     return xarLocaleGetFormattedTime($length,$timestamp,$addoffset);
 }
 
@@ -404,8 +413,12 @@ function xarLocaleGetFormattedTime($length = 'short',$timestamp = null, $addoffs
  */
 function xarLocaleFormatUTCDate($format = null, $timestamp = null)
 {
+    if(!isset($time)) {
+        $time = time();
+    }
+
     // pass this to the regular function with suppressing the timezone offset
-    return xarLocaleFormatDate($format, $timestamp, false);
+    return xarLocaleFormatDate($format,$time,$addoffset);
 }
 
 /**
@@ -427,11 +440,19 @@ function xarLocaleFormatDate($format = null, $timestamp = null, $addoffset = tru
         if (isset($timestamp) && $timestamp === false) {
             return '';
         }
-        $timestamp = time();
-    }
-    if ($addoffset) {
-        // adjust for the user's timezone offset
-        $timestamp += xarMLS_userOffset($timestamp) * 3600;
+        if ($addoffset) {
+            $timestamp = xarMLS_userTime();
+        } else {
+            $timestamp = time();
+        }
+    } elseif ($timestamp >= 0) {
+        if ($addoffset) {
+            // adjust for the user's timezone offset
+            $timestamp += xarMLS_userOffset($timestamp) * 3600;
+        }
+    } else {
+        // invalid dates < 0 (e.g. from strtotime) return an empty date string
+        return '';
     }
     return xarMLS_strftime($format,$timestamp);
 }
@@ -636,22 +657,22 @@ function xarMLS_strftime($format=null,$timestamp=null)
  * @package core
  * @subpackage multilanguage
  */
-class xarMLS__LocaleDataLoader
+class xarMLS__LocaleDataLoader extends Object
 {
-    var $curData;
-    var $curPath;
+    public $curData;
+    public $curPath;
 
-    var $parser;
+    public $parser;
 
-    var $localeData;
+    public $localeData;
 
-    var $attribsStack = array();
+    public $attribsStack = array();
 
-    var $tmpVars;
+    public $tmpVars;
 
     function load($locale)
     {
-        $fileName = xarCoreGetVarDirPath() . "/locales/$locale/locale.xml";
+        $fileName = sys::varpath() . "/locales/$locale/locale.xml";
         if (!file_exists($fileName)) {
             return false;
         }

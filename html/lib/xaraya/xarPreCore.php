@@ -422,9 +422,9 @@ final class sys extends Object
         if (isset(self::$var)) return self::$var;
         if (file_exists('./var/.key.php')) {
             include './var/.key.php';
-            $varpath = $protectedVarPath;
+            self::$var = $protectedVarPath;
         } else {
-            $varpath = './var';
+            self::$var = './var';
         }
         return self::$var;
     }

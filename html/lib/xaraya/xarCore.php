@@ -283,7 +283,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * Bring Multi Language System online
      *
      */
-    sys::import('xaraya.xarMLS');
+    sys::import('xaraya.mls');
     $systemArgs = array('MLSMode'             => xarConfigGetVar('Site.MLS.MLSMode'),
 //                        'translationsBackend' => xarConfigGetVar('Site.MLS.TranslationsBackend'),
                         'translationsBackend' => 'xml2php',

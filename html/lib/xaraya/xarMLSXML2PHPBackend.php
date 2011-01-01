@@ -11,7 +11,7 @@
  * @author Marco Canini <marco@xaraya.com>
  */
 
-sys::import('xaraya.xarMLS');
+sys::import('xaraya.mls');
 
 /**
  * This is the default translations backend and should be used for production sites.

@@ -10,7 +10,7 @@
  * @subpackage multilanguage
  * @author Marco Canini <marco@xaraya.com>
  */
-sys::import('xaraya.xarMLS');
+sys::import('xaraya.mls');
 /**
  * XML based translation backend
  *

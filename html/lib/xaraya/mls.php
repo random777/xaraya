@@ -178,7 +178,7 @@ function xarMLSGetCharsetFromLocale($locale)
  * @access public
  * @return string the translated string, or the original string if no translation is available
  */
-function xarML($string/*, ...*/)
+function xarML($rawstring/*, ...*/)
 {
     // if an empty string is passed in, just return an empty string. it's
     // the most sensible thing to do

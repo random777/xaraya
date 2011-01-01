@@ -102,7 +102,7 @@
     <column id="cache_blocks.page" name="page">
       <number size="1"/>
     </column>
-    <column id="cache_blocks.theuser" name="user" required="true">
+    <column id="cache_blocks.theuser" name="theuser" required="true">
       <number unsigned="true"/>
     </column>
     <column id="cache_blocks.expire" name="expire">

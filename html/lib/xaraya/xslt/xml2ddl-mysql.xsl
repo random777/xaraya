@@ -92,12 +92,21 @@
     <!-- @todo move the specific types into their own templates -->
     <xsl:choose>
       <xsl:when test="number">
-        <xsl:text>INTEGER</xsl:text>
+        <xsl:choose>
+          <xsl:when test="*[@size != ''] and *[@size &lt; 5]">
+          
+            <xsl:text>TinyINT</xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:text>INTEGER</xsl:text>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:when>
       <xsl:when test="text">
         <xsl:choose>
           <xsl:when test="*[@size != '']">
               <xsl:text>VARCHAR</xsl:text>
+              (<xsl:value-of select="*/@size"/>)
           </xsl:when>
           <xsl:otherwise>
             <xsl:text>TEXT</xsl:text>
@@ -114,8 +123,32 @@
       <xsl:otherwise>
       </xsl:otherwise>
     </xsl:choose>
-    <xsl:if test="*[@size != '']">(<xsl:value-of select="*/@size"/>)</xsl:if>
-    <xsl:if test="*[@unsigned = 'true']"> unsigned</xsl:if>
+    
+    <xsl:if test="number">
+      <xsl:choose>
+        <xsl:when test="*[@size != '']">
+          <xsl:choose>
+            <xsl:when test="*[@unsigned = 'true']">
+            (<xsl:value-of select="*/@size -1"/>) unsigned
+            </xsl:when>
+            <xsl:otherwise>
+            (<xsl:value-of select="*/@size"/>)
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:choose>
+            <xsl:when test="*[@unsigned = 'true']">
+            (10) unsigned
+            </xsl:when>
+            <xsl:otherwise>
+            (11)
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
+
     <xsl:if test="@required = 'true'"> NOT NULL</xsl:if>
     <!--  @todo this won't work with  the current exported ddl -->
     <xsl:if test="*[@default]">

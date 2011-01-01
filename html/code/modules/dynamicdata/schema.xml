@@ -146,7 +146,7 @@
       <number unsigned="true"/>
     </column>
     <column id="dynamic_properties_def.name" name="name">
-      <text size="254"/>
+      <text size="64"/>
     </column>
     <column id="dynamic_properties_def.label" name="label">
       <text size="254"/>

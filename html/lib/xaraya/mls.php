@@ -3,11 +3,12 @@
  * Multi Language System
  *
  * @package core
- * @copyright (C) 2002-2009 The Digital Development Foundation
+ * @subpackage multilanguage
+ * @category Xaraya Web Applications Framework
+ * @version 1.3.0
+ * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage multilanguage
  * @author Marco Canini <marco@xaraya.com>
  * @todo Dynamic Translations
  *       Timezone and DST support (default offset is supported now)
@@ -113,11 +114,7 @@ function xarMLS__shutdown_handler()
  */
 function xarMLSGetMode()
 {
-    if (isset($GLOBALS['xarMLS_mode'])){
-        return $GLOBALS['xarMLS_mode'];
-    } else {
-        return 'BOXED';
-    }
+    return isset($GLOBALS['xarMLS_mode']) ? $GLOBALS['xarMLS_mode'] : 'BOXED';
 }
 
 /**
@@ -129,10 +126,7 @@ function xarMLSGetMode()
  * @return string the site locale
  * @todo   check
  */
-function xarMLSGetSiteLocale()
-{
-    return $GLOBALS['xarMLS_defaultLocale'];
-}
+function xarMLSGetSiteLocale() { return $GLOBALS['xarMLS_defaultLocale']; }
 
 /**
  * Returns an array of locales available in the site
@@ -159,10 +153,7 @@ function xarMLSListSiteLocales()
  * @access public
  * @return string current locale
  */
-function xarMLSGetCurrentLocale()
-{
-    return $GLOBALS['xarMLS_currentLocale'];
-}
+function xarMLSGetCurrentLocale() { return $GLOBALS['xarMLS_currentLocale']; }
 
 /**
  * Gets the charset component from a locale
@@ -191,7 +182,8 @@ function xarML($string/*, ...*/)
 {
     // if an empty string is passed in, just return an empty string. it's
     // the most sensible thing to do
-    if(empty($string)) return '';
+    $string = trim($rawstring);
+    if($string == '') return $rawstring;
 
     // Make sure string is sane
     // - hex 0D -> ''
@@ -269,10 +261,7 @@ function xarMLByKey($key/*, ...*/)
  * @access public
  * @return array locale info
  */
-function xarLocaleGetInfo($locale)
-{
-    return xarMLS__parseLocaleString($locale);
-}
+function xarLocaleGetInfo($locale) { return xarMLS__parseLocaleString($locale); }
 
 /**
  * Gets the locale string for the specified locale info.

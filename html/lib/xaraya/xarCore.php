@@ -306,7 +306,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
     define('_XAR_ID_UNREGISTERED', $anonuid);
 
     if ($whatToLoad & XARCORE_SYSTEM_SESSION) {
-        sys::import('xaraya.xarSession');
+        sys::import('xaraya.sessions');
 
         $systemArgs = array('securityLevel'     => xarConfigGetVar('Site.Session.SecurityLevel'),
                             'duration'          => xarConfigGetVar('Site.Session.Duration'),

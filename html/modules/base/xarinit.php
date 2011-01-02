@@ -218,7 +218,7 @@ function base_init()
     xarConfigSetVar('Site.Session.SecurityLevel', 'Medium');
     xarConfigSetVar('Site.Session.Duration', 7);
     xarConfigSetVar('Site.Session.InactivityTimeout', 90);
-    // use current defaults in includes/xarSession.php
+    // use current defaults in xaraya/sessions.php
     xarConfigSetVar('Site.Session.CookieName', '');
     xarConfigSetVar('Site.Session.CookiePath', '');
     xarConfigSetVar('Site.Session.CookieDomain', '');

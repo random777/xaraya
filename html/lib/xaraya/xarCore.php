@@ -270,13 +270,13 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * Bring HTTP Protocol Server/Request/Response utilities into the story
      *
      */
-    sys::import('xaraya.xarServer');
+    sys::import('xaraya.server');
     $systemArgs = array('enableShortURLsSupport' => xarConfigGetVar('Site.Core.EnableShortURLsSupport'),
                         'defaultModuleName'      => xarConfigGetVar('Site.Core.DefaultModuleName'),
                         'defaultModuleType'      => xarConfigGetVar('Site.Core.DefaultModuleType'),
                         'defaultModuleFunction'  => xarConfigGetVar('Site.Core.DefaultModuleFunction'),
                         'generateXMLURLs' => true);
-    xarSerReqRes_init($systemArgs, $whatToLoad);
+    xarServer::init($systemArgs);
 
 
     /*

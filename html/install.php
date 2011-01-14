@@ -61,7 +61,7 @@ sys::import('xaraya.exceptions');
 // {ML_dont_parse 'includes/xarVar.php'}
 sys::import('xaraya.xarVar');
 // {ML_dont_parse 'includes/xarServer.php'}
-sys::import('xaraya.xarServer');
+sys::import('xaraya.server');
 // {ML_dont_parse 'includes/xarMLS.php'}
 sys::import('xaraya.mls');
 // {ML_dont_parse 'includes/xarTemplate.php'}

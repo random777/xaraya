@@ -274,7 +274,7 @@ function xarLocaleFormatNumber($number, $localeData = NULL, $isCurrency = false)
  * @param int $timestamp optional unix timestamp in UTC to format
  * @return string
  */
-function xarLocaleGetFormattedUTCDate($length = 'short', $timestamp = null)
+function xarLocaleGetFormattedUTCDate($length = 'short', $timestamp = null, $addoffset = false)
 {
     if(!isset($timestamp)) {
         // get UTC timestamp

@@ -3,29 +3,26 @@
  * Short description of purpose of file
  *
  * @package validation
- * @copyright (C) 2002-2007 The Digital Development Foundation
- * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
- * @link http://www.xaraya.com
- */
+ * @copyright see the html/credits.html file in this release
+*/
+
+
 /**
  * notempty Validation Function
- * @param subject
- * @param parameters
- * @return bool true if not empty, false if empty
- */
-function variable_validations_notempty (&$subject, $parameters, $supress_soft_exc, &$name)
+ *
+ * @throws VariableValidationException
+ * @todo this class is probably too close to issetvalidation
+**/
+sys::import('xaraya.validations');
+class NotEmptyValidation extends ValueValidations
 {
-
-    if (empty($subject)) {
-        if ($name != '')
-            $msg = xarML('Variable #(1) should not be empty: "#(2)"', $name, '$subject');
-        else
-            $msg = xarML('Should not be empty: "#(1)"', '$subject');
-        if (!$supress_soft_exc) xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
-        return false;
+    function validate(&$subject, Array $parameters)
+    {
+        if (empty($subject)) {
+            $msg = 'Variable is empty';
+            throw new VariableValidationException(null, $msg);
+        }
+        return true;
     }
-
-    return true;
 }
-
 ?>

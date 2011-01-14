@@ -1,50 +1,42 @@
 <?php
 /**
- * Validate a file as enum
+ * Short description of purpose of file
  *
  * @package validation
- * @copyright (C) 2002-2007 The Digital Development Foundation
- * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
- * @link http://www.xaraya.com
- */
+ * @copyright see the html/credits.html file in this release
+*/
 
 /**
  * Enum Validation Function
  *
- * The function checks the entered value to be one of the possible options.
- * @param array $parameters Array of parameters entered.
- * @param $subject
- * @return bool true on successfull validation
-                false on unsuccessfull validation
- */
-function variable_validations_enum (&$subject, $parameters, $supress_soft_exc, &$name)
+ * @throws VariableValidationException
+**/
+sys::import('xaraya.validations');
+class EnumValidation extends ValueValidations
 {
+    function validate(&$subject, Array $parameters)
+    {
+        $found = false;
 
-    $found = false;
-
-    foreach ($parameters as $param) {
-        if ($subject == $param) {
-            $found = true;
-        }
-    }
-
-    if ($found) {
-        return true;
-    } else {
-        if ($name != '')
-            $msg = xarML('Input "#(1)" was not one of the possibilities for #(2): "', $subject, $name);
-        else
-            $msg = xarML('Input "#(1)" was not one of the possibilities.', $subject);
-        $first = true;
         foreach ($parameters as $param) {
-            if ($first) $first = false;
-            else $msg .= ' or ';
-
-            $msg .= $param;
+            if ($subject == $param) {
+                $found = true;
+            }
         }
-        if (!$supress_soft_exc) xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
-        return false;
+
+        if ($found) {
+            return true;
+        } else {
+            $msg = 'Input given is not in list of valid options';
+            $first = true;
+            foreach ($parameters as $param) {
+                if ($first) $first = false;
+                else $msg .= ' or '; // TODO: evaluate MLS consequences later on
+
+                $msg .= $param;
+            }
+            throw new VariableValidationException(null, $msg);
+        }
     }
 }
-
 ?>

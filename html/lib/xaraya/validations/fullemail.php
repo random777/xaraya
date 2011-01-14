@@ -3,23 +3,24 @@
  * Short description of purpose of file
  *
  * @package validation
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  */
 
 /**
  * Full Email Check -- Checks first thru the regexp and then by mx records
- * @return bool true if fullemail, false if not
- */
-function variable_validations_fullemail (&$subject, $parameters=null, $supress_soft_exc)
+ *
+**/
+sys::import('xaraya.validations.email');
+class FullEmailValidation extends EmailValidation
 {
-    if (xarVarValidate ('email', $subject, $supress_soft_exc) &&
-        xarVarValidate ('mxcheck', $subject, $supress_soft_exc)) {
-        return true;
+    function validate(&$subject, Array $parameters)
+    {
+        if (parent::validate($subject,array()) && xarVarValidate ('mxcheck', $subject)) {
+            return true;
+        }
+        return false;
     }
-
-    return false;
 }
-
 ?>

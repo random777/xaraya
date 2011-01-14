@@ -2,14 +2,54 @@
 /**
  * Variable utilities
  *
- * @package core
- * @copyright (C) 2002-2009 The Digital Development Foundation
+ * @package variables
+ * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage variables
  * @author Marco Canini marco@xaraya.com
+ * @author Flavio Botelho
  */
+
+/**
+ * Exceptions for this subsystem
+ *
+**/
+class VariableValidationException extends ValidationExceptions
+{
+    protected $message = 'The variable "#(1)" [Value: "#(2)"] did not comply with the required validation: "#(3)"';
+}
+/**
+ *
+ * @package config
+ * @todo this exception is too weak
+**/
+class ConfigurationException extends ConfigurationExceptions
+{
+    protected $message = 'There is an unknown configuration error detected.';
+}
+
+/**
+ * Interface declaration for classes dealing with sets of variables
+ *
+ * @todo this interface is simplistic, it probably needs more
+ */
+interface IxarVars
+{
+    static function get       ($scope, $name);
+    static function set       ($scope, $name, $value);
+    static function delete    ($scope, $name);
+}
+
+/**
+ * Base class for variable handling in core
+ *
+ * @package variables
+ * @author Marcel van der Boom <mrb@hsdev.com>
+ **/
+class xarVars extends Object
+{
+
+}
 
 /**
  * Variables package defines
@@ -22,8 +62,8 @@ define('XARVAR_GET_ONLY',     2);
 define('XARVAR_POST_ONLY',    4);
 
 define('XARVAR_NOT_REQUIRED', 64);
-define('XARVAR_VAL_RESULT',   32); //limited use, exceptions will be thrown too
-define('XARVAR_VAL_REQ',      XARVAR_VAL_RESULT | XARVAR_NOT_REQUIRED);
+//define('XARVAR_VAL_RESULT',   32); //limited use, exceptions will be thrown too
+//define('XARVAR_VAL_REQ',      XARVAR_VAL_RESULT | XARVAR_NOT_REQUIRED);
 define('XARVAR_DONT_SET',     128);
 define('XARVAR_DONT_REUSE',   256);
 
@@ -41,45 +81,24 @@ define('XARVAR_PREP_TRIM',        8);
  * @access protected
  * @global xarVar_allowableHTML array
  * @global xarVar_fixHTMLEntities bool
- * @global xarVar_enableCensoringWords bool
- * @global xarVar_censoredWords array
- * @global xarVar_censoredWordsReplacers array
  * @param args array
- * @param whatElseIsGoingLoaded integer
  * @return bool
- * @todo <johnny> fix the load level stuff here... it's inconsistant to the rest of the core
  * @todo <mrb> remove the two settings allowablehtml and fixhtmlentities
- */
-function xarVar_init(&$args, $whatElseIsGoingLoaded)
+ * @todo revisit naming of config_vars table
+**/
+function xarVar_init(&$args)
 {
-    /*
-     * Initialise the variable cache
-     */
-    $GLOBALS['xarVar_cacheCollection'] = array();
+    // Configuration init needs to be done first
+    $tables = array('config_vars' => xarDB::getPrefix() . '_module_vars');
 
-    $GLOBALS['xarVar_allowableHTML'] = xarConfigGetVar('Site.Core.AllowableHTML');
-    if (!isset($GLOBALS['xarVar_allowableHTML']) && xarCurrentErrorType() != XAR_NO_EXCEPTION) {
-        return; // throw back exception
-    }
+    xarDB::importTables($tables);
 
-    $GLOBALS['xarVar_fixHTMLEntities'] = xarConfigGetVar('Site.Core.FixHTMLEntities');
-    if (!isset($GLOBALS['xarVar_fixHTMLEntities']) && xarCurrentErrorType() != XAR_NO_EXCEPTION) {
-        return; // throw back exception
-    }
+    // Initialise the variable cache
+//    sys::import('xaraya.variables.config');
+    $GLOBALS['xarVar_allowableHTML'] = xarConfigGetVar('Site.Core.AllowableHTML', array());
+    $GLOBALS['xarVar_fixHTMLEntities'] = xarConfigGetVar('Site.Core.FixHTMLEntities',true);
 
-    // Subsystem initialized, register a handler to run when the request is over
-    //register_shutdown_function ('xarVar__shutdown_handler');
     return true;
-}
-
-/**
- * Shutdown handler for xarVar subsystem
- *
- * @access private
- */
-function xarVar__shutdown_handler()
-{
-    //xarLogMessage("xarVar shutdown handler");
 }
 
 /**
@@ -108,12 +127,10 @@ function xarVar__shutdown_handler()
  *  }
  *
  *
- * @author Flavio Botelho
  * @access public
  * @param arrays The arrays storing information equivalent to the xarVarFetch interface
  * @return array With the respective exceptions in case of failure
- * @throws BAD_PARAM
- */
+**/
 function xarVarBatchFetch()
 {
 
@@ -124,17 +141,14 @@ function xarVarBatchFetch()
 
     foreach ($batch as $line) {
         $result_array[$line[2]] = array();
-        $result = xarVarFetch($line[0], $line[1], $result_array[$line[2]]['value'], isset($line[3])?$line[3]:NULL, isset($line[4])?$line[4]:XARVAR_GET_OR_POST);
-
-        if (!$result) {
+        try {
+            $result = xarVarFetch($line[0], $line[1], $result_array[$line[2]]['value'], isset($line[3])?$line[3]:NULL, isset($line[4])?$line[4]:XARVAR_GET_OR_POST);
+            $result_array[$line[2]]['error'] = '';
+        } catch (ValidationExceptions $e) { // Only catch validation exceptions, the rest should be thrown
             //Records the error presented in the given input variable
-            $result_array[$line[2]]['error'] = xarCurrentError();
-            //Handle the Exception
-            xarErrorHandled();
+            $result_array[$line[2]]['error'] = $e->getMessage();
             //Mark that we've got an error
             $no_errors = false;
-        } else {
-            $result_array[$line[2]]['error'] = '';
         }
     }
 
@@ -142,7 +156,7 @@ function xarVarBatchFetch()
     //errors present in the Fetched variables.
     $result_array['no_errors'] = $no_errors;
 
-    return $result_array;
+    return $result_array; // TODO: Is it the responsability of the callee to further handle this? If they dont => security risk.
 }
 
 /**
@@ -164,9 +178,7 @@ function xarVarBatchFetch()
  * XARVAR_GET_OR_POST  - fetch from GET or POST variables
  * XARVAR_GET_ONLY     - fetch from GET variables only
  * XARVAR_POST_ONLY    - fetch from POST variables only
- * XARVAR_NOT_REQUIRED - allow the variable to be empty, not set and invalid, dont
- *                       raise exception
- * XARVAR_VAL_RESULT   - return the validation result
+ * XARVAR_NOT_REQUIRED - allow the variable to be empty/not set, dont raise exception if it is
  * XARVAR_DONT_REUSE   - if there is an existing value, do not reuse it
  * XARVAR_DONT_SET     - if there is an existing value, use it
  *
@@ -174,24 +186,18 @@ function xarVarBatchFetch()
  * to one of XARVAR_GET_ONLY or XARVAR_POST_ONLY.
  *
  * You can force xarVarFetch not to reuse the variable by setting
- * the $flag parameter to XARVAR_DONT_REUSE.
+ * the $flag parameter to XARVAR_DON_REUSE.
  *
  * By default $flag is XARVAR_GET_OR_POST which means tha xarVarFetch will lookup both GET and POST parameters and
  * that if the variable is not present or doesn't validate correctly an exception will be raised.
- *
- * If XARVAR_NOT_REQUIRED is set the function will always return TRUE, even if the
- * data is invalid. Using XARVAR_NOT_REQUIRED | XARVAR_VAL_RESULT (definied as XAVAR_VAL_REQ)
- * gives back the validation result as return value.
  *
  * The $prep flag will prepare $value by passing it to one of the following:
  *   XARVAR_PREP_FOR_NOTHING:    no prep (default)
  *   XARVAR_PREP_FOR_DISPLAY:    xarVarPrepForDisplay($value)
  *   XARVAR_PREP_FOR_HTML:       xarVarPrepHTMLDisplay($value)
- *  // FIXME: DELETE THIS once deprecation is complete
  *   XARVAR_PREP_FOR_STORE:      dbconn->qstr($value)
  *   XARVAR_PREP_TRIM:           trim($value)
  *
- * @author Marco Canini
  * @access public
  * @param name string the variable name
  * @param validation string the validation to be performed
@@ -203,8 +209,7 @@ function xarVarBatchFetch()
  * @todo  get rid of the explicit value of XARVAR_GET_OR_POST, use the bitmas (i.e. GET_OR_POST = GET + POST)
  * @todo  make dont_set and dont_reuse are too similar (conceptually) which make the code below confusing [phpdoc above implies REUSE is the default]
  * @todo  re-evaluate the prepping, prepforstore is deprecated for example, prep for display and prep for html are partially exclusive
- * @throws BAD_PARAM
- */
+**/
 function xarVarFetch($name, $validation, &$value, $defaultValue = NULL, $flags = XARVAR_GET_OR_POST, $prep = XARVAR_PREP_FOR_NOTHING)
 {
     assert('is_int($flags); /* Flags passed to xarVarFetch need to be numeric */');
@@ -225,14 +230,13 @@ function xarVarFetch($name, $validation, &$value, $defaultValue = NULL, $flags =
     // mrb: what doesn't work then? seems ok within the given workings
     // --------v  this is kinda confusing though, especially when dont_set is used as flag.
     if (!isset($value) || ($flags & XARVAR_DONT_REUSE)) {
-        $value = xarRequestGetVar($name, $allowOnlyMethod);
+        $value = xarRequest::getVar($name, $allowOnlyMethod);
     }
 
     // Suppress validation warnings when dont_set, not_required or a default value is specified
     $supress = (($flags & XARVAR_DONT_SET) || ($flags & XARVAR_NOT_REQUIRED) || isset($defaultValue));
     // Validate the $value given
     $validated = xarVarValidate($validation, $value, $supress, $name);
-    if (xarCurrentErrorType()) {return;} //Throw back
 
     if (!$validated) {
         // The value does not validate
@@ -247,16 +251,19 @@ function xarVarFetch($name, $validation, &$value, $defaultValue = NULL, $flags =
             // with XARVAR_DONT_SET, make sure we don't pass invalid old values back either
             $value = $oldValue;
         }
-        // XARVAR_VAL_RESULT returns the validation result
-        if ($flags & XARVAR_VAL_RESULT) {
-            return false;
-        }
-    }
-    // Prepare the 'value' regardless where it comes from or if it is NULL.
-    if ($prep & XARVAR_PREP_FOR_DISPLAY) $value = xarVarPrepForDisplay($value);
-    if ($prep & XARVAR_PREP_FOR_HTML)    $value = xarVarPrepHTMLDisplay($value);
-    if ($prep & XARVAR_PREP_TRIM)        $value = trim($value);
+    } else {
+        // Value is ok, handle preparation of that value
+        if ($prep & XARVAR_PREP_FOR_DISPLAY) $value = xarVarPrepForDisplay($value);
+        if ($prep & XARVAR_PREP_FOR_HTML)    $value = xarVarPrepHTMLDisplay($value);
 
+        // TODO: this is used nowhere, plus it introduces a db connection here which is of no use
+        if ($prep & XARVAR_PREP_FOR_STORE) {
+            $dbconn = xarDB::getConn();
+            $value = $dbconn->qstr($value);
+        }
+
+        if ($prep & XARVAR_PREP_TRIM) $value = trim($value);
+    }
     return true;
 }
 
@@ -277,7 +284,7 @@ function xarVarFetch($name, $validation, &$value, $defaultValue = NULL, $flags =
  * 'bool' matches a string that can be 'true' or 'false'
  *
  * 'str:<min len>:<max len>' matches a string which has a lenght between <min len> and <max len>, if <min len>
- *                           is omitted no control is done on minimum lenght, the same applies to <max len>
+ *                           is omitted no control is done on mininum lenght, the same applies to <max len>
  *
  * 'html:<level>' validates the subject by searching unallowed html tags, allowed tags are defined by specifying <level>
  *                that could be one of restricted, basic, enhanced, admin. This last level is not configurable and allows
@@ -301,50 +308,321 @@ function xarVarFetch($name, $validation, &$value, $defaultValue = NULL, $flags =
  *
  * The $validation parameter can be any of the implemented functions in html/modules/variable/validations/
  *
- * @author Marco Canini
  * @access public
- * @param mixed validation The validation to be performed
- * @param string subject The subject on which the validation must be performed, will be where the validated value will be returned
+ * @param validation mixed the validation to be performed
+ * @param subject string the subject on which the validation must be performed, will be where the validated value will be returned
+ * @throws EmptyParameterException
  * @return bool true if the $subject validates correctly, false otherwise
  */
-function xarVarValidate($validation, &$subject, $supress = false, $name='')
+function xarVarValidate($validation, &$subject, $supress = false, $name = '')
 {
-// <nuncanada> For now, i have moved all validations to html/modules/variable/validations
-//             I think that will incentivate 3rd party devs to create and send new validations back to us..
-//             As id/int/str are used in every page view, probably they should be here.
-
     $valParams = explode(':', $validation);
-    $valType = strtolower(array_shift($valParams));
+    $type = strtolower(array_shift($valParams));
 
-    if (empty($valType)) {
-        // Raise an exception
-        $msg = xarML('No validation type present.');
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
-        return;
+    if (empty($type)) throw new EmptyParameterException('type');
+
+    sys::import("xaraya.validations");
+    $v = ValueValidations::get($type);
+
+    try {
+        // Now featuring without passing the name everywhere :-)
+        $result = $v->validate($subject, $valParams);
+        return $result;
+    } catch (ValidationExceptions $e) {
+        // If a validation exception occurred, we can optionally suppress it
+        if(!$supress) {
+            // Rethrow with more verbose message
+            if($name == '') $name = '<unknown>'; // @todo MLS!
+            throw new VariableValidationException(array($name,$subject,$e->getMessage()));
+        }
+    } catch(Exception $e) {
+        // But not the others (note that this part is redundant)
+        throw $e;
+    }
+}
+
+/*
+ * Functions providing variable caching (within a single page request)
+ *
+ * Example :
+ *
+ * if (xarVarIsCached('MyCache', 'myvar')) {
+ *     $var = xarVarGetCached('MyCache', 'myvar');
+ * }
+ * ...
+ * xarVarSetCached('MyCache', 'myvar', 'this value');
+ * ...
+ * xarVarDelCached('MyCache', 'myvar');
+ * ...
+ * xarVarFlushCached('MyCache');
+ * ...
+ *
+ */
+
+/**@+
+ * Wrapper functions for var caching as in Xaraya 1 API
+ * See the documentation of protected xarCoreCache::*Cached for details
+ *
+ * @access public
+ * @see xarCore
+ */
+//function xarVarIsCached($scope,  $name)         { return xarCoreCache::isCached($scope, $name);         }
+//function xarVarGetCached($scope, $name)         { return xarCoreCache::getCached($scope, $name);        }
+//function xarVarSetCached($scope, $name, $value) { return xarCoreCache::setCached($scope, $name, $value);}
+//function xarVarDelCached($scope, $name)         { return xarCoreCache::delCached($scope, $name);        }
+//function xarVarFlushCached($scope)              { return xarCoreCache::flushCached($scope);             }
+/**@-*/
+
+/*
+    ---------------------------------------------------------------------
+    @todo LOOK AT  THIS, IT SEEMS ABANDONED, except for the transform of entities from named to numeric
+    Everything below should be remade, working thru xarVarEscape or xarVarTransform
+    * xarVarCleanFromInput
+    * xarVarCleanUntrusted
+    should disappear, there is nothing to prevent from input, that's not the way to add security.
+
+    They produce a false feeling of security... Handy for stopping script kids, but the holes
+    are still there, just harder to find.
+
+    * xarVarPrep* -- the rest, only one of them is needed usually, maybe one to
+         - escape XML
+         - another to escape HTML.
+
+    * Allowed HTML - how to handle that? imo it should be on input... The necessary function can be
+      offered here. If it's an allowed html input, do not escape on the output.
+                   - Why? Because the allowed html can change depending on the user - Would you
+                     want to check everytime if the author user is able to send such html?
+                   - The Allowed HTML can change between a post and it's view. That would display
+                     escaped html, which shouldnt...
+    ----------------------------------------------------------------------
+*/
+
+/**
+ * Ready user output
+ *
+ * Gets a variable, cleaning it up such that the text is
+ * shown exactly as expected. Can have as many parameters as desired.
+ *
+ * @access public
+ * @return mixed prepared variable if only one variable passed
+ * in, otherwise an array of prepared variables
+ */
+function xarVarPrepForDisplay()
+{
+    $resarray = array();
+//    $charset = xarSystemVars::get(sys::CONFIG, 'DB.Charset');
+    // stopgap for now. we need to agree on a naming convention for the charsets that won't confuse the hell out of everyone
+//    $charset = $charset == 'utf8' ? 'utf-8' : $charset;
+    foreach (func_get_args() as $var) {
+        if (is_bool($var)) {
+            $var = $var ? 'true' : 'false';
+        } else {
+            // Prepare var
+            try {
+                $var = htmlspecialchars($var);
+//                $var = htmlspecialchars($var, ENT_COMPAT, $charset);
+            } catch (Exception $e) {
+                $var = htmlspecialchars($var);
+            }
+        }
+        // Add to array
+        array_push($resarray, $var);
     }
 
-    // {ML_include 'lib/xaraya/validations/array.php'}
-    // {ML_include 'lib/xaraya/validations/bool.php'}
-    // {ML_include 'lib/xaraya/validations/checkbox.php'}
-    // {ML_include 'lib/xaraya/validations/email.php'}
-    // {ML_include 'lib/xaraya/validations/enum.php'}
-    // {ML_include 'lib/xaraya/validations/float.php'}
-    // {ML_include 'lib/xaraya/validations/fullemail.php'}
-    // {ML_include 'lib/xaraya/validations/html.php'}
-    // {ML_include 'lib/xaraya/validations/id.php'}
-    // {ML_include 'lib/xaraya/validations/int.php'}
-    // {ML_include 'lib/xaraya/validations/isset.php'}
-    // {ML_include 'lib/xaraya/validations/list.php'}
-    // {ML_include 'lib/xaraya/validations/mxcheck.php'}
-    // {ML_include 'lib/xaraya/validations/notempty.php'}
-    // {ML_include 'lib/xaraya/validations/regexp.php'}
-    // {ML_include 'lib/xaraya/validations/str.php'}
-
-    $function_name = xarVarLoad ('validations', $valType);
-    if (!$function_name) {return;}
-
-    return $function_name($subject, $valParams, $supress, $name);
+    // Return vars
+    if (func_num_args() == 1) {
+        return $resarray[0];
+    } else {
+        return $resarray;
+    }
 }
+
+/**
+ * Ready HTML output
+ *
+ * Gets a variable, cleaning it up such that the text is
+ * shown exactly as expected, except for allowed HTML tags which
+ * are allowed through. Can have as many parameters as desired.
+ *
+ * @access public
+ * @return mixed prepared variable if only one variable passed
+ * in, otherwise an array of prepared variables
+ */
+function xarVarPrepHTMLDisplay()
+{
+// <nuncanada> Moving email obscurer functionality somewhere else : autolinks, transforms or whatever
+    static $allowedtags = NULL;
+
+    if (!isset($allowedtags)) {
+        $allowedHTML = array();
+        foreach($GLOBALS['xarVar_allowableHTML'] as $k=>$v) {
+            if ($k == '!--') {
+                if ($v <> 0) {
+                    $allowedHTML[] = "$k.*?--";
+                }
+            } else {
+                switch($v) {
+                    case 0:
+                        break;
+                    case 1:
+                        $allowedHTML[] = "/?$k\s*/?";
+                        break;
+                    case 2:
+                        $allowedHTML[] = "/?$k(\s+[^>]*)?/?";
+                        break;
+                }
+            }
+        }
+        if (count($allowedHTML) > 0) {
+            $allowedtags = '~<(' . join('|',$allowedHTML) . ')>~is';
+        } else {
+            $allowedtags = '';
+        }
+    }
+
+    $resarray = array();
+    foreach (func_get_args() as $var) {
+        // Preparse var to mark the HTML that we want
+        if (!empty($allowedtags))
+            $var = preg_replace($allowedtags, "\022\\1\024", $var);
+
+        // Prepare var
+        $var = htmlspecialchars($var);
+
+        // Fix the HTML that we want
+/*
+        $var = preg_replace('/\022([^\024]*)\024/e',
+                               "'<' . strtr('\\1',
+                                            array('&gt;' => '>',
+                                                  '&lt;' => '<',
+                                                  '&quot;' => '\"',
+                                                  '&amp;' => '&'))
+                               . '>';", $var);
+*/
+        $var = preg_replace_callback('/\022([^\024]*)\024/',
+                                     'xarVarPrepHTMLDisplay__callback',
+                                     $var);
+
+        // Fix entities if required
+        if ($GLOBALS['xarVar_fixHTMLEntities']) {
+            $var = preg_replace('/&amp;([a-z#0-9]+);/i', "&\\1;", $var);
+        }
+
+        // Add to array
+        array_push($resarray, $var);
+    }
+
+    // Return vars
+    if (func_num_args() == 1) {
+        return $resarray[0];
+    } else {
+        return $resarray;
+    }
+}
+
+function xarVarPrepHTMLDisplay__callback($matches)
+{
+    return '<' . strtr($matches[1],
+                       array('&gt;' => '>',
+                             '&lt;' => '<',
+                             '&quot;' => '"',
+                             '&amp;' => '&'))
+           . '>';
+}
+
+/**
+ * Ready obfuscated e-mail output
+ *
+ * Gets a variable, cleaning it up such that e-mail addresses are
+ * slightly obfuscated against e-mail harvesters.
+ *
+ * @access public
+ * @return mixed prepared variable if only one variable passed
+ * in, otherwise an array of prepared variables
+ * @todo this looks like something for the mail module or an EmailAddress class somewhere
+ */
+function xarVarPrepEmailDisplay()
+{
+/*
+    // This search and replace finds the text 'x@y' and replaces
+    // it with HTML entities, this provides protection against
+    // email harvesters
+    //
+    // Note that the use of \024 and \022 are needed to ensure that
+    // this does not break HTML tags that might be around either
+    // the username or the domain name
+    static $search = array('/([^\024])@([^\022])/se');
+
+    static $replace = array('"&#" .
+                            sprintf("%03d", ord("\\1")) .
+                            ";&#064;&#" .
+                            sprintf("%03d", ord("\\2")) . ";";');
+
+*/
+    $resarray = array();
+    foreach (func_get_args() as $var) {
+        // Prepare var
+//        $var = preg_replace($search, $replace, $var);
+        $var = strtr($var,array('@' => '&#064;'));
+        // Add to array
+        array_push($resarray, $var);
+    }
+
+    // Return vars
+    if (func_num_args() == 1) {
+        return $resarray[0];
+    } else {
+        return $resarray;
+    }
+}
+
+/**
+ * Ready operating system output
+ *
+ * Gets a variable, cleaning it up such that any attempts
+ * to access files outside of the scope of the Xaraya
+ * system is not allowed. Can have as many parameters as desired.
+ *
+ * @access public
+ * @return mixed prepared variable if only one variable passed
+ * in, otherwise an array of prepared variables
+ *
+ * @todo the / also prevents relative access in some cases (template tag for example)
+ * @todo this puts responsibility on callee to know how things work, and gets a mangled name back, not very nice
+ * @todo make it have 1 return type
+ */
+function xarVarPrepForOS()
+{
+    static $special_characters = array(':'  => ' ',  // c:\foo\bar
+                                       '/'  => ' ',  // /etc/passwd
+                                       '\\' => ' ',  // \\financialserver\fire.these.people
+                                       '..' => ' ',  // ../../../etc/passwd
+                                       '?'  => ' ',  // wildcard
+                                       '*'  => ' '); // wildcard
+
+    $args = func_get_args();
+
+    foreach ($args as $key => $var) {
+        // Remove out bad characters
+        $args[$key] = strtr($var, $special_characters);
+    }
+
+
+    // Return vars
+    if (func_num_args() == 1) {
+        return $args[0];
+    } else {
+        return $args;
+    }
+}
+
+
+
+
+// --> Aruba stuff below, most to be removed or deprecated
+
+
+
 
 /*
  * Functions providing variable caching (within a single page request)
@@ -1177,209 +1455,5 @@ function xarVarCleanFromInput()
     }
 }
 
-/**
- * Ready user output
- *
- * Gets a variable, cleaning it up such that the text is
- * shown exactly as entered. This function uses the PHP function htmlspecialchars.
- * Can have as many parameters as desired.
- *
- * @access public
- * @return mixed prepared variable if only one variable passed
- * in, otherwise an array of prepared variables
- */
-function xarVarPrepForDisplay()
-{
-    $resarray = array();
-    foreach (func_get_args() as $var) {
-        // Prepare var
-        $var = htmlspecialchars($var);
-        // Add to array
-        array_push($resarray, $var);
-    }
 
-    // Return vars
-    if (func_num_args() == 1) {
-        return $resarray[0];
-    } else {
-        return $resarray;
-    }
-}
-
-/**
- * Ready HTML output
- *
- * Gets a variable, cleaning it up such that the text is
- * shown exactly as expected, except for allowed HTML tags which
- * are allowed through. Can have as many parameters as desired.
- *
- * @access public
- * @return mixed prepared variable if only one variable passed
- * in, otherwise an array of prepared variables
- * @throws DATABASE_ERROR, BAD_PARAM
- */
-function xarVarPrepHTMLDisplay()
-{
-// <nuncanada> Moving email obscurer functionality somewhere else : autolinks, transforms or whatever
-    static $allowedtags = NULL;
-
-    if (!isset($allowedtags)) {
-        $allowedHTML = array();
-        foreach($GLOBALS['xarVar_allowableHTML'] as $k=>$v) {
-            if ($k == '!--') {
-                if ($v <> 0) {
-                    $allowedHTML[] = "$k.*?--";
-                }
-            } else {
-                switch($v) {
-                    case 0:
-                        break;
-                    case 1:
-                        $allowedHTML[] = "/?$k\s*/?";
-                        break;
-                    case 2:
-                        $allowedHTML[] = "/?$k(\s+[^>]*)?/?";
-                        break;
-                }
-            }
-        }
-        if (count($allowedHTML) > 0) {
-            $allowedtags = '~<(' . join('|',$allowedHTML) . ')>~is';
-        } else {
-            $allowedtags = '';
-        }
-    }
-
-    $resarray = array();
-    foreach (func_get_args() as $var) {
-        // Preparse var to mark the HTML that we want
-        if (!empty($allowedtags))
-            $var = preg_replace($allowedtags, "\022\\1\024", $var);
-
-        // Prepare var
-        $var = htmlspecialchars($var);
-
-        // Fix the HTML that we want
-/*
-        $var = preg_replace('/\022([^\024]*)\024/e',
-                               "'<' . strtr('\\1',
-                                            array('&gt;' => '>',
-                                                  '&lt;' => '<',
-                                                  '&quot;' => '\"',
-                                                  '&amp;' => '&'))
-                               . '>';", $var);
-*/
-        $var = preg_replace_callback('/\022([^\024]*)\024/',
-                                     'xarVarPrepHTMLDisplay__callback',
-                                     $var);
-
-        // Fix entities if required
-        if ($GLOBALS['xarVar_fixHTMLEntities']) {
-            $var = preg_replace('/&amp;([a-z#0-9]+);/i', "&\\1;", $var);
-        }
-
-        // Add to array
-        array_push($resarray, $var);
-    }
-
-    // Return vars
-    if (func_num_args() == 1) {
-        return $resarray[0];
-    } else {
-        return $resarray;
-    }
-}
-
-function xarVarPrepHTMLDisplay__callback($matches)
-{
-    return '<' . strtr($matches[1],
-                       array('&gt;' => '>',
-                             '&lt;' => '<',
-                             '&quot;' => '"',
-                             '&amp;' => '&'))
-           . '>';
-}
-
-/**
- * Ready obfuscated e-mail output
- *
- * Gets a variable, cleaning it up such that e-mail addresses are
- * slightly obfuscated against e-mail harvesters.
- *
- * @access public
- * @return mixed prepared variable if only one variable passed
- * in, otherwise an array of prepared variables
- */
-function xarVarPrepEmailDisplay()
-{
-/*
-    // This search and replace finds the text 'x@y' and replaces
-    // it with HTML entities, this provides protection against
-    // email harvesters
-    //
-    // Note that the use of \024 and \022 are needed to ensure that
-    // this does not break HTML tags that might be around either
-    // the username or the domain name
-    static $search = array('/([^\024])@([^\022])/se');
-
-    static $replace = array('"&#" .
-                            sprintf("%03d", ord("\\1")) .
-                            ";&#064;&#" .
-                            sprintf("%03d", ord("\\2")) . ";";');
-
-*/
-    $resarray = array();
-    foreach (func_get_args() as $var) {
-        // Prepare var
-//        $var = preg_replace($search, $replace, $var);
-        $var = strtr($var,array('@' => '&#064;'));
-        // Add to array
-        array_push($resarray, $var);
-    }
-
-    // Return vars
-    if (func_num_args() == 1) {
-        return $resarray[0];
-    } else {
-        return $resarray;
-    }
-}
-
-/**
- * Ready operating system output
- *
- * Gets a variable, cleaning it up such that any attempts
- * to access files outside of the scope of the Xaraya
- * system is not allowed. Can have as many parameters as desired.
- *
- * @access public
- * @return mixed prepared variable if only one variable passed
- * in, otherwise an array of prepared variables
- * @todo This makes no sense to me anymore (mrb)
- */
-function xarVarPrepForOS()
-{
-    static $special_characters = array(':'  => ' ',   // for things like c:/file.txt?
-                                       //'/'  => ' ', // this makes vars with relative paths unusable (cfr. bug 5559 )
-                                       '\\' => ' ',   // for unc paths?
-                                       '..' => ' ',
-                                       '?'  => ' ',   // why?
-                                       '*'  => ' ');
-
-    $args = func_get_args();
-
-    foreach ($args as $key => $var) {
-        // Remove out bad characters
-        $args[$key] = strtr($var, $special_characters);
-    }
-
-
-    // Return vars
-    // <nuncanada> I really dont like this kind of behaviour... It's not consistent.
-    if (func_num_args() == 1) {
-        return $args[0];
-    } else {
-        return $args;
-    }
-}
 ?>

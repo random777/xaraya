@@ -3,54 +3,51 @@
  * Short description of purpose of file
  *
  * @package validation
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  */
 /**
  * Integer Validation Class
- * @return bool true on success of validation (value is an integer), false if not
- */
-function variable_validations_int (&$subject, $parameters, $supress_soft_exc, &$name)
+ * @return true on success of validation (value is an integer)
+ *
+ * @throws VariableValidationException, BadParameterException
+**/
+sys::import("xaraya.validations");
+class IntValidation extends ValueValidations
 {
-    $value = intval($subject);
+    function validate(&$subject, Array $parameters)
+    {
+        $value = intval($subject);
 
-    if ("$subject" != "$value") {
-        if ($name != '')
-            $msg = xarML('Variable #(1) is not an integer: "#(2)"', $name, $subject);
-        else
-            $msg = xarML('Not an integer: "#(1)"', $subject);
-        if (!$supress_soft_exc) xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
-        return false;
-    }
-
-    if (isset($parameters[0]) && trim($parameters[0]) != '') {
-        if (!is_numeric($parameters[0])) {
-            $msg = 'Parameter "'.$parameters[0].'" is not a Numeric Type';
-            xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
-            return;
-        } elseif ($value < (int) $parameters[0]) {
-            $msg = xarML('Integer Value "#(1)" is smaller than the specified minimum "#(2)"', $value, $parameters[0]);
-            if (!$supress_soft_exc) xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
-            return false;
+        $msg = 'Not an integer';
+        if ("$subject" != "$value") {
+            throw new VariableValidationException(null, $msg);
         }
-    }
 
-    if (isset($parameters[1]) && trim($parameters[1]) != '') {
-        if (!is_numeric($parameters[1])) {
-            $msg = 'Parameter "'.$parameters[1].'" is not a Numeric Type';
-            xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
-            return;
-        } elseif ($value > (int) $parameters[1]) {
-            $msg = xarML('Integer Value "#(1)" is bigger than the specified maximum "#(2)"', $value, $parameters[1]);
-            if (!$supress_soft_exc) xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
-            return false;
+        if (isset($parameters[0]) && trim($parameters[0]) != '') {
+            if (!is_numeric($parameters[0])) {
+                // We need a number for the minimum
+                throw new BadParameterException($parameters[0],'The parameter specifying the minimum value should be numeric. It is: "#(1)"');
+            } elseif ($value < (int) $parameters[0]) {
+                $msg = 'Integer Value "#(1)" is smaller than the specified minimum "#(2)"';
+                throw new VariableValidationException(array($value,$parameters[0]),$msg);
+            }
         }
+
+        if (isset($parameters[1]) && trim($parameters[1]) != '') {
+            if (!is_numeric($parameters[1])) {
+                // We need a number for the maximum
+                throw new BadParameterException($parameters[1],'The parameter specifying the maximum value should be numeric. It is: "#(1)"');
+            } elseif ($value > (int) $parameters[1]) {
+                $msg = 'Integer Value "#(1)" is larger than the specified minimum "#(2)"';
+                throw new VariableValidationException(array($value,$parameters[1]),$msg);
+            }
+        }
+
+        $subject = $value; //turn subject into an (int) type if it is not yet.
+
+        return true;
     }
-
-    $subject = $value; //turn subject into an (int) type if it is not yet.
-
-    return true;
 }
-
 ?>

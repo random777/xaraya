@@ -3,7 +3,7 @@
  * IsSet Validation Function
  *
  * @package validation
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  */
@@ -16,17 +16,18 @@
  * @param parameters
  * @param subject The parameter to check for
  * @return bool true on isset, false on !isset
- * @throws BAD_DATA
- */
-function variable_validations_isset (&$subject, $parameters, $supress_soft_exc)
+ * @throws VariableValidationException
+**/
+sys::import('xaraya.validations');
+class IssetValidation extends ValueValidations
 {
-    if (!isset($subject)) {
-        $msg = xarML('The variable is not set!');
-        if (!$supress_soft_exc) xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
-        return false;
+    function validate(&$subject, Array $parameters )
+    {
+        if (!isset($subject)) {
+            $msg = 'The variable was not set while the validation requires it to be.';
+            throw new VariableValidationException('subject', $msg);
+        }
+        return true;
     }
-
-    return true;
 }
-
 ?>

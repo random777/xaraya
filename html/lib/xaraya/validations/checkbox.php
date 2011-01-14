@@ -3,32 +3,30 @@
  * Short description of purpose of file
  *
  * @package validation
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
 */
 
 /**
  * Checkbox Validation Class
- * @return bool
+ *
+ * @throws VariableValidationException
  */
-function variable_validations_checkbox (&$subject, $parameters, $supress_soft_exc, &$name)
+sys::import('xaraya.validations');
+class CheckBoxValidation extends ValueValidations
 {
-
-    if (empty($subject) || is_null($subject)) {
-        $subject = false;
-    } elseif (is_string($subject)) {
-        $subject = true;
-    } else {
-        if ($name != '')
-            $msg = xarML('Variable #(1) is not a checkbox: "#(2)"', $name, $subject);
-        else
-            $msg = xarML('Not a scheckbox: "#(1)"', $subject);
-        if (!$supress_soft_exc) xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
-        return false;
+    function validate(&$subject, Array $parameters)
+    {
+        if (empty($subject) || is_null($subject)) {
+            $subject = 0;
+        } elseif (is_string($subject)) {
+            $subject = 1;
+        } else {
+            $msg = 'Not a checkbox value';
+            throw new VariableValidationException(null,$msg);
+        }
+        return true;
     }
-
-    return true;
 }
-
 ?>

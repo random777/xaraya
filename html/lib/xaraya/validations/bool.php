@@ -1,35 +1,31 @@
 <?php
 /**
- * Validate subject as a bool value
+ * Short description of purpose of file
  *
  * @package validation
- * @copyright (C) 2002-2007 The Digital Development Foundation
- * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
- * @link http://www.xaraya.com
+ * @copyright see the html/credits.html file in this release
 */
 
 /**
  * Boolean Validation Function
- * @return bool true if bool, false if not
- */
-function variable_validations_bool (&$subject, $parameters=null, $supress_soft_exc, &$name)
+ *
+ * @throws VariableValidationException
+**/
+sys::import('xaraya.validations');
+class BoolValidation extends ValueValidations
 {
-    //Added the '1' because that is what true is translated for afaik
-    if ($subject === true || $subject === 'true' || $subject == '1') {
-        $subject = true;
-    //Added '' becayse that is what false get translated for...
-    } elseif ($subject === false || $subject === 'false' || $subject == '0' || $subject == '') {
-        $subject = false;
-    } else {
-        if ($name != '')
-            $msg = xarML('Variable #(1) is not a boolean: "#(2)"', $name, $subject);
-        else
-            $msg = xarML('Not a boolean: "#(1)"', $subject);
-        if (!$supress_soft_exc) xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
-        return false;
+    function validate(&$subject, Array $parameters)
+    {
+        if ($subject === true || $subject === 'true') {
+            $subject = true;
+        //Added '' because that is what false gets translated for...
+        } elseif ($subject === false || $subject === 'false') {
+            $subject = false;
+        } else {
+            $msg = 'Not a boolean';
+            throw new VariableValidationException(null, $msg);
+        }
+        return true;
     }
-
-    return true;
 }
-
 ?>

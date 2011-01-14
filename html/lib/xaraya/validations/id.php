@@ -3,19 +3,21 @@
  * Short description of purpose of file
  *
  * @package validation
- * @copyright (C) 2002-2007 The Digital Development Foundation
- * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
- * @link http://www.xaraya.com
+ * @copyright see the html/credits.html file in this release
 */
 
 /**
  * Id Validation Class
- * That validation redirects to int:1 validation
- * @return bool
- */
-function variable_validations_id (&$subject, $parameters, $supress_soft_exc)
+ *
+ * Validates as integer larger than or equal than 1 'int:1'
+**/
+sys::import("xaraya.validations.int");
+class IdValidation extends IntValidation
 {
-    return xarVarValidate ('int:1', $subject, $supress_soft_exc);
+    function validate(&$subject, Array $parameters)
+    {
+        return parent::validate($subject,array(1));
+    }
 }
 
 ?>

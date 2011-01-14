@@ -1,13 +1,5 @@
 <?php
 /**
- * String List Validation function
- *
- * @package validation
- * @copyright (C) 2002-2007 The Digital Development Foundation
- * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
- * @link http://www.xaraya.com
- */
-/**
  * list:{sep}:...
  * Split the string into separate items using 'sep' as an item
  * separator, then validate each individually.
@@ -19,66 +11,66 @@
  * Validation of each item in the list will be further passed on to
  * any required validation type.
  *
- * @return mixed
- */
-function variable_validations_strlist (&$subject, $parameters, $supress_soft_exc, &$name)
+ *
+ * @package validation
+ * @copyright see the html/credits.html file in this release
+**/
+
+/**
+ * String List Validation Class
+ *
+ * @throws VariableValidationException, BadParameterException
+**/
+sys::import('xaraya.validations');
+class StrListValidation extends ValueValidations
 {
-    $return = true;
+    function validate(&$subject, Array $parameters)
+    {
+        $return = true;
 
-    if (!is_string($subject)) {
-        if ($name != '')
-            $msg = xarML('Variable #(1) is not a string: "#(2)"', $name, $subject);
-        else
-            $msg = xarML('Not a string: "#(1)"', $subject);
-        if (!$supress_soft_exc) {
-            xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
+        if (!is_string($subject)) {
+            $msg = 'Not a string';
+            throw new VariableValidationException(null, $msg);
         }
-        return false;
-    }
 
-    if (!empty($parameters)) {
-        // Get the separator characters.
-        $sep = array_shift($parameters);
+        if (!empty($parameters)) {
+            // Get the separator characters.
+            $sep = array_shift($parameters);
 
-        // TODO: error if no separator?
-        if (empty($sep)) {
-            $msg = xarML('No separator character(s) provided for validation type "strlist"');
-            if (!$supress_soft_exc) {
-                xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
+            // @todo error if no separator?
+            if (empty($sep)) {
+                $msg = xarML('No separator character(s) provided for validation type "strlist"');
+                throw new BadParameterException($msg);
             }
-            return false;
-        }
 
-        // Roll up the remaining validation parameters (noting there
-        // may not be any - $parameters could be empty).
-        $validation = implode(':', $parameters);
+            // Roll up the remaining validation parameters (noting there
+            // may not be any - $parameters could be empty).
+            $validation = implode(':', $parameters);
 
-        // Split up the string into elements.
-        $elements = preg_split('/[' . preg_quote($sep) . ']/', $subject);
+            // Split up the string into elements.
+            $elements = preg_split('/[' . preg_quote($sep) . ']/', $subject);
 
-        // Get count of elements.
-        $count = count($elements);
+            // Get count of elements.
+            $count = count($elements);
 
-        // Loop through each element if there are any elements, and if
-        // there is further validation to apply.
-        if ($count > 0 && !empty($validation)) {
-            for($i = 0; $i < $count; $i++) {
-                // Validate each element in turn.
-                $return = $return & xarVarValidate($validation, $elements[$i], $supress_soft_exc);
-                if (!$return) {
-                    // This one failed validation - don't try and validate any more.
-                    break;
+            // Loop through each element if there are any elements, and if
+            // there is further validation to apply.
+            if ($count > 0 && !empty($validation)) {
+                for($i = 0; $i < $count; $i++) {
+                    // Validate each element in turn.
+                    $return = $return & xarVarValidate($validation, $elements[$i]);
+                    if (!$return) {
+                        // This one failed validation - don't try and validate any more.
+                        break;
+                    }
                 }
             }
+
+            // Roll up the validated values. Use the first character
+            // from the separator character list.
+            $subject = implode(substr($sep, 0, 1), $elements);
         }
-
-        // Roll up the validated values. Use the first character
-        // from the separator character list.
-        // TODO: only roll up if validation was a success?
-        $subject = implode(substr($sep, 0, 1), $elements);
+        return $return;
     }
-
-    return $return;
 }
-
 ?>

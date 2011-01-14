@@ -3,54 +3,48 @@
  * Short description of purpose of file
  *
  * @package validation
- * @copyright (C) 2002-2007 The Digital Development Foundation
- * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
- * @link http://www.xaraya.com
- */
+ * @copyright see the html/credits.html file in this release
+ **/
+
 /**
  * Strings Validation Class
- * @return bool true if the value of $subject is a string
- */
-function variable_validations_str (&$subject, $parameters, $supress_soft_exc, &$name)
+ *
+ * @throws VariableValidationException, BadParameterException
+**/
+sys::import("xaraya.validations");
+class StrValidation extends ValueValidations
 {
-
-    if (!is_string($subject)) {
-        if ($name != '')
-            $msg = xarML('Variable #(1) is not a string: "#(2)"', $name, $subject);
-        else
-            $msg = xarML('Not a string: "#(1)"', $subject);
-        if (!$supress_soft_exc) xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
-        return false;
-    }
-
-    $length = strlen($subject);
-
-    if (isset($parameters[0]) && trim($parameters[0]) != '') {
-        if (!is_numeric($parameters[0])) {
-            $msg = 'Parameter "'.$parameters[0].'" is not a Numeric Type';
-            xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
-            return;
-        } elseif ($length < (int) $parameters[0]) {
-            $msg = xarML('Size of the string "#(1)" is smaller than the specified minimum "#(2)"', $subject, $parameters[0]);
-            if (!$supress_soft_exc) xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
-            return false;
+    function validate(&$subject, Array $parameters)
+    {
+        if (!is_string($subject)) {
+            $msg = 'Not a string';
+            throw new VariableValidationException(null, $msg);
         }
-    }
 
-    if (isset($parameters[1]) && trim($parameters[1]) != '') {
-        if (!is_numeric($parameters[1])) {
-            $msg = 'Parameter "'.$parameters[1].'" is not a Numeric Type';
-            xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
-            return;
-        } elseif ($length > (int) $parameters[1]) {
-            $msg = xarML('Size of the string "#(1)" is bigger than the specified maximum "#(2)"', $subject, $parameters[1]);
-            if (!$supress_soft_exc) xarErrorSet(XAR_USER_EXCEPTION, 'BAD_DATA', new DefaultUserException($msg));
-            return false;
+        $length = strlen($subject);
+
+        if (isset($parameters[0]) && trim($parameters[0]) != '') {
+            if (!is_numeric($parameters[0])) {
+                // We need a number for the minimum length
+                throw new BadParameterException($parameters[0],'The parameter specifying the minimum length of the string should be numeric. It is: "#(1)"');
+            } elseif ($length < (int) $parameters[0]) {
+                $msg = 'Size of the string "#(1)" is smaller than the specified minimum "#(2)"';
+                throw new VariableValidationException(array($subject, $parameters[0]),$msg);
+            }
         }
-    }
 
-    $subject = (string) $subject; //Is this useless?
-    return true;
+        if (isset($parameters[1]) && trim($parameters[1]) != '') {
+            if (!is_numeric($parameters[1])) {
+                // We need a number for the maximum length
+                throw new BadParameterException($parameters[1],'The parameter specifying the maximum length of the string should be numeric. It is: "#(1)"');
+            } elseif ($length > (int) $parameters[1]) {
+                $msg = 'Size of the string "#(1)" is larger than the specified maximum "#(2)"';
+                throw new VariableValidationException(array($subject, $parameters[1]),$msg);
+            }
+        }
+
+        $subject = (string) $subject; //Is this useless?
+        return true;
+    }
 }
-
 ?>

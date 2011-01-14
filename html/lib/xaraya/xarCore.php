@@ -181,8 +181,8 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      *
      */
     sys::import('xaraya.exceptions');
-    $systemArgs = array('enablePHPErrorHandler' => xarCore_getSystemVar('Exception.EnablePHPErrorHandler'));
-    xarError_init($systemArgs, $whatToLoad);
+//    $systemArgs = array('enablePHPErrorHandler' => xarCore_getSystemVar('Exception.EnablePHPErrorHandler'));
+//    xarError_init($systemArgs, $whatToLoad);
 
 
     /*

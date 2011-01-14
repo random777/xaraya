@@ -59,7 +59,7 @@ sys::import('xaraya.xarLog');
 sys::import('xaraya.xarEvt');
 sys::import('xaraya.exceptions');
 // {ML_dont_parse 'includes/xarVar.php'}
-sys::import('xaraya.xarVar');
+sys::import('xaraya.variables');
 // {ML_dont_parse 'includes/xarServer.php'}
 sys::import('xaraya.server');
 // {ML_dont_parse 'includes/xarMLS.php'}

@@ -2,6 +2,80 @@
 /**
  * Exception Handling System
  *
+ * For all documentation about exceptions see RFC-0054
+ *
+ * @package exceptions
+ * @copyright see the html/credits.html file in this release
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ * @author Marco Canini <marco@xaraya.com>
+ * @author Marc Lutolf <marcinmilan@xaraya.com>
+ * @author Marcel van der Boom <marcel@xaraya.com>
+ * @todo the exception handler receives the instantiated Exception class.
+ *       How do we know there what is available in the derived object so we can
+ *       specialize handling? To only allow deriving from XARExceptions and
+ *       standardize there is probably not enough, but lets do that for now.
+**/
+
+// Import all our exception types and the core exception handlers
+sys::import('xaraya.exceptions.types');
+sys::import('xaraya.exceptions.handlers');
+
+/**
+ * Deprecation Row
+ */
+function xarErrorSet($major, $errorID, $value = NULL) {return "xx";}
+function xarCurrentErrorID() { return false; }
+function xarErrorGet($stacktype = "ERROR",$format='data') { return array(); }
+function xarCurrentErrorType() { return false; }
+function xarCurrentError() { return false; }
+
+
+/**
+ * Default settings for:
+ * exceptions: send to 'default' handler
+ * errors    : send to 'phperrors' handler
+ *
+ * Of course, any piece of code can set their own handler after this
+ * is loaded, which is almost what we want.
+ *
+ * @todo do we want this abstracted?
+**/
+//set_exception_handler(array('ExceptionHandlers','debughandler'));
+//set_error_handler(array('ExceptionHandlers','phperrors'));
+
+/**
+ * General exception to cater for situation where the called function should
+ * really raise one and the callee should catch it, instead of the callee
+ * raising the exception. To prevent hub-hopping* all over the code
+ *
+ * @todo we need a way to determine the usage of this, because each use
+ *       signals a 'code out of place' error
+**/
+class GeneralException extends xarExceptions
+{
+    protected $message = "An unknown error occurred.";
+    protected $hint    = "The code raised an exception, but the nature of the error could not be determind";
+}
+
+/**
+ * Debug function, artificially throws an exception
+ *
+ * @access public
+ * @return void
+ * @throws DebugException
+**/
+function debug($anything)
+{
+    throw new DebugException('DEBUGGING',var_export($anything,true));
+}
+
+
+
+
+/**
+ * Exception Handling System
+ *
  * @package core
  * @copyright (C) 2002-2009 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
@@ -92,134 +166,6 @@ function xarError__shutdown_handler()
     //xarLogMessage("xarError shutdown handler");
 }
 
-/**
- * Allows the caller to raise an error
- *
- * Valid value for $major paramter are: XAR_NO_EXCEPTION, XAR_USER_EXCEPTION, XAR_SYSTEM_EXCEPTION, XAR_SYSTEM_MESSAGE.
- *
- * @author Marco Canini <marco@xaraya.com>
- * @access public
- * @param major integer error major number
- * @param errorID string error identifier
- * @param value error object
- * @return void
- */
-function xarErrorSet($major, $errorID, $value = NULL)
-{
-    global $ErrorStack;
-
-    if ($major != XAR_NO_EXCEPTION &&
-        $major != XAR_USER_EXCEPTION &&
-        $major != XAR_SYSTEM_EXCEPTION &&
-        $major != XAR_SYSTEM_MESSAGE) {
-            xarCore_die('Attempting to set an error with an invalid major value: ' . $major);
-    }
-
-    $stack = xarException__backTrace();
-    if (!is_object($value)) {
-        // The error passed in is just a msg or an identifier, try to construct
-        // the object here.
-        if (is_string($value)) {
-            // A msg was passed in, use that
-            $value = $value; // possibly redundant
-        } else {
-            if ($major == XAR_SYSTEM_EXCEPTION) {
-                $value = '';
-            } else {
-                $value = "No further information available.";
-            }
-        }
-
-        if ($major == XAR_SYSTEM_EXCEPTION) {
-            $obj = new SystemException($value);
-        } elseif ($major == XAR_USER_EXCEPTION){
-            $obj = new DefaultUserException($value);
-        } elseif ($major == XAR_SYSTEM_MESSAGE){
-            $obj = new UserMessage($value);
-        } else {
-            $obj = new NoException($value);
-        }
-
-    }
-    else {
-        $obj = $value;
-    }
-
-    // At this point we have a nice error object
-    // Now add whatever properties are still missing
-    $obj->setID($errorID);
-    $obj->setStack($stack);
-    $obj->major = $major;
-
-    // Stick the object on the error stack
-    $ErrorStack->push($obj);
-    // If the XARDBG_EXCEPTIONS flag is set we log every raised error.
-    // This can be useful in debugging since EHS is not so perfect as a native
-    // EHS could be (read damned PHP language :).
-    if (xarCoreIsDebugFlagSet(XARDBG_EXCEPTIONS)) {
-        // TODO: remove again once xarLogException works
-        if ($errorID == "ErrorCollection") $obj = $obj->exceptions[0];
-        xarLogMessage("Logged error: " . $obj->toString(), XARLOG_LEVEL_ERROR);
-        if (!empty($stack) && $major != XAR_USER_EXCEPTION)
-            xarLogMessage(
-                "Logged error backtrace: \n" . xarException__formatBacktrace($stack),
-                XARLOG_LEVEL_ERROR);
-        //xarLogException();
-    }
-}
-
-/**
- * Gets the major number of current error
- *
- * Allows the caller to establish whether an error was raised, and to get the major number of raised error.
- * The major number XAR_NO_EXCEPTION identifies the state in which no error was raised.
- *
- * @author Marco Canini <marco@xaraya.com>
- * @access public
- * @return integer the major value of raised error
- */
-function xarCurrentErrorType()
-{
-    global $ErrorStack;
-    if ($ErrorStack->isempty()) return false;
-    $err = $ErrorStack->peek();
-    return $err->getMajor();
-}
-
-/**
- * Gets the identifier of current error
- *
- * Returns the error identifier corresponding to the current error.
- * If invoked when no error was raised, a void value is returned.
- *
- * @author Marc Lutolf <marcinmilan@xaraya.com>
- * @access public
- * @return string the error identifier
- */
-function xarCurrentErrorID()
-{
-    global $ErrorStack;
-    if ($ErrorStack->isempty()) return false;
-    $err = $ErrorStack->peek();
-    return $err->getID();
-}
-
-/**
- * Gets the current error object
- *
- * Returns the value corresponding to the current error.
- * If invoked when no error or an error for which there is no associated information was raised, a void value is returned.
- *
- * @author Marc Lutolf <marcinmilan@xaraya.com>
- * @access public
- * @return mixed error value object
- */
-function xarCurrentError()
-{
-    global $ErrorStack;
-    if ($ErrorStack->isempty()) return false;
-    return $ErrorStack->peek();
-}
 
 /**
  * Resets current error status
@@ -381,34 +327,8 @@ function xarErrorRender($format, $stacktype = 'ERROR', $shortmsg = false)
     }
 }
 
-/**
- * Gets a formatted array of errors
- *
- * @author Marc Lutolf <marcinmilan@xaraya.com>
- * @access public
- * @param format string one of template or plain
- * @param stacktype string one of CORE or ERROR
- * @return array of formatted errors
- */
-function xarErrorGet($stacktype = "ERROR",$format='data')
-{
-    $msgs = xarException__formatStack($format,$stacktype);
-    $datamsgs = array();
 
-    foreach($msgs as $msg) {
-        $data['major'] = $msg->getMajor();
-        $data['type'] = $msg->getType();
-        $data['title'] = $msg->getTitle();
-        $data['short'] = $msg->getShort();
-        $data['long'] = $msg->getLong();
-        $data['hint'] = $msg->getHint();
-        $data['stack'] = $msg->getStack();
-        $data['product'] = $msg->getProduct();
-        $data['component'] = $msg->getComponent();
-        $datamsgs[] = $data;
-    }
-    return $datamsgs;
-}
+
 
 // PRIVATE FUNCTIONS
 

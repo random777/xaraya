@@ -245,7 +245,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
         xarConfig_init($systemArgs, $whatToLoad);
 
         // Start Variables utilities
-        sys::import('xaraya.xarVar');
+        sys::import('xaraya.variables');
         xarVar_init($systemArgs, $whatToLoad);
         $whatToLoad ^= XARCORE_BIT_CONFIGURATION;
     }
@@ -277,7 +277,8 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
                         'defaultModuleFunction'  => xarConfigGetVar('Site.Core.DefaultModuleFunction'),
                         'generateXMLURLs' => true);
     xarServer::init($systemArgs);
-
+    xarRequest::init($systemArgs);
+    xarResponse::init($systemArgs);
 
     /*
      * Bring Multi Language System online

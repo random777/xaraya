@@ -56,7 +56,7 @@ xarCoreActivateDebugger(XARDBG_ACTIVE | XARDBG_EXCEPTIONS | XARDBG_SHOW_PARAMS_I
 // {ML_dont_parse 'includes/xarLog.php'}
 sys::import('xaraya.xarLog');
 // {ML_dont_parse 'includes/xarEvt.php'}
-sys::import('xaraya.xarEvt');
+sys::import('xaraya.events');
 sys::import('xaraya.exceptions');
 // {ML_dont_parse 'includes/xarVar.php'}
 sys::import('xaraya.variables');
@@ -80,11 +80,6 @@ xarLog_init($systemArgs, $whatToLoad);
 // Start Exception Handling System very early too
 $systemArgs = array('enablePHPErrorHandler' => xarCore_getSystemVar('Exception.EnablePHPErrorHandler'));
 xarError_init($systemArgs, $whatToLoad);
-
-// Start Event Messaging System
-// <mrb> Is this needed? the events are dispatched to modules, which arent here yet.
-$systemArgs = array('loadLevel' => $whatToLoad);
-xarEvt_init($systemArgs, $whatToLoad);
 
 // Start HTTP Protocol Server/Request/Response utilities
 $systemArgs = array('enableShortURLsSupport' =>false,

@@ -224,10 +224,8 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      *
      */
     // {ML_dont_parse 'lib/xaraya/xarEvt.php'}
-    sys::import('xaraya.xarEvt');
-    $systemArgs = array('loadLevel' => $whatToLoad);
-    xarEvt_init($systemArgs, $whatToLoad);
-
+    sys::import('xaraya.events');
+   
 
     /*
      * Start Configuration System

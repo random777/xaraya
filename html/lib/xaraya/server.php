@@ -37,27 +37,10 @@ function xarSerReqRes_init(&$args, $whatElseIsGoingLoaded)
     $GLOBALS['xarRequest_shortURLVariables']    = array();
     $GLOBALS['xarResponse_closeSession']        = $whatElseIsGoingLoaded & XARCORE_SYSTEM_SESSION;
 
-    // Register the ServerRequest event
-    xarEvt_registerEvent('ServerRequest');
-
     // Subsystem initialized, register a handler to run when the request is over
     //register_shutdown_function ('xarServer__shutdown_handler');
     return true;
 }
-
-// SERVER FUNCTIONS
-
-/**
- * Shutdown handler for the xarServer subsystem
- *
- * @access private
- */
-function xarServer__shutdown_handler()
-{
-    //xarLogMessage("xarServer shutdown handler");
-}
-
-
 
 
 
@@ -267,7 +250,7 @@ class xarServer extends Object
     {
         self::$allowShortURLs = $args['enableShortURLsSupport'];
         self::$generateXMLURLs = $args['generateXMLURLs'];
-//        xarEvents::register('ServerRequest');
+        xarEvt_registerEvent('ServerRequest');
     }
     /**
      * Gets a server variable

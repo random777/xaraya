@@ -32,9 +32,24 @@ define('XARLOG_LEVEL_DEBUG',     128);
 // This is a special define that includes all the levels defined above
 define('XARLOG_LEVEL_ALL',       255);
 
-function xarLog_init(&$args, &$whatElseIsGoingLoaded)
+/**
+ * Exceptions raised within the loggers
+ *
+ * @package logging
+ */
+class LoggerException extends Exception
 {
+    // Fill in later.
+}
 
+/**
+ * Initialize the logging subsystem
+ *
+ * @return void
+ * @throws LoggerException
+**/
+function xarLog_init(&$args)
+{
     $GLOBALS['xarLog_loggers'] = array();
     $xarLogConfig = array();
 
@@ -61,9 +76,7 @@ function xarLog_init(&$args, &$whatElseIsGoingLoaded)
 
     // If none of these => do nothing.
      foreach ($xarLogConfig as $logger) {
-        $config = array_merge(array(
-            'loadLevel' => &$whatElseIsGoingLoaded), $logger['config']);
-         xarLog__add_logger($logger['type'], $config);
+        xarLog__add_logger($logger['type'], $logger['config']);
      }
 
     // Subsystem initialized, register a shutdown function
@@ -81,7 +94,7 @@ function xarLogConfigFile()
 
     if (isset($logConfigFile)) return $logConfigFile;
 
-    $logConfigFile = xarCoreGetVarDirPath() . '/logs/config.log.php';
+    $logConfigFile = sys::varpath() . '/logs/config.log.php';
 
     if (file_exists($logConfigFile)) {
         $logConfigFile = realpath($logConfigFile);
@@ -170,22 +183,26 @@ function xarLog__shutdown_handler()
  */
 }
 
+/**
+ * Add a logger to active loggers
+ *
+ * @return void
+ * @throws LoggerException
+**/
 function xarLog__add_logger($type, $config_args)
 {
-    if (!xarInclude ('lib/xaraya/log/loggers/'.$type.'.php')) {
-        xarCore_die('xarLog_init: Unable to load driver for logging: '.$type);
-    }
-
+    sys::import('xaraya.log.loggers.'.$type);
     $type = 'xarLogger_'.$type;
 
      if (!$observer = new $type()) {
-        xarCore_die('xarLog_init: Unable to instanciate class for logging: '.$type);
+         throw new LoggerException('xarLog_init: Unable to instantiate class for logging: '.$type);
      }
 
       $observer->setConfig($config_args);
 
       $GLOBALS['xarLog_loggers'][] = &$observer;
 }
+
 /**
  * Log a message
  * @param string message. The message to log
@@ -207,9 +224,8 @@ function xarLogVariable($name, $var, $level = XARLOG_LEVEL_DEBUG)
 {
     $args = array('name'=>$name, 'var'=>$var, 'format'=>'text');
 
-    //Lazy load these functions... With php5 this will be easier.
     //Encapsulate core libraries in classes and let __call work lazy loading
-    xarInclude('lib/xaraya/log/functions/dumpvariable.php');
+    sys::import('xaraya.log.functions.dumpvariable');
     xarLogMessage(xarLog__dumpVariable($args),$level);
 }
 

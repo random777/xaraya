@@ -54,7 +54,7 @@ xarCoreActivateDebugger(XARDBG_ACTIVE | XARDBG_EXCEPTIONS | XARDBG_SHOW_PARAMS_I
 
 // Basic systems always loaded
 // {ML_dont_parse 'includes/xarLog.php'}
-sys::import('xaraya.xarLog');
+sys::import('xaraya.log');
 // {ML_dont_parse 'includes/xarEvt.php'}
 sys::import('xaraya.events');
 sys::import('xaraya.exceptions');

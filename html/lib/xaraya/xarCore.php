@@ -167,12 +167,8 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * If there happens something we want to be able to log it
      *
      */
-    // {ML_dont_parse 'lib/xaraya/xarLog.php'}
-    sys::import('xaraya.xarLog');
-    $systemArgs = array('loggerName' => xarCore_getSystemVar('Log.LoggerName', true),
-                        'loggerArgs' => xarCore_getSystemVar('Log.LoggerArgs', true),
-                        'level'      => xarCore_getSystemVar('Log.LogLevel', true));
-    xarLog_init($systemArgs, $whatToLoad);
+    sys::import('xaraya.log');
+    xarLog_init($systemArgs);
 
     /*
      * Start Exception Handling System

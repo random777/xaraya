@@ -57,7 +57,7 @@ xarCoreActivateDebugger(XARDBG_ACTIVE | XARDBG_EXCEPTIONS | XARDBG_SHOW_PARAMS_I
 sys::import('xaraya.xarLog');
 // {ML_dont_parse 'includes/xarEvt.php'}
 sys::import('xaraya.xarEvt');
-sys::import('xaraya.xarException');
+sys::import('xaraya.exceptions');
 // {ML_dont_parse 'includes/xarVar.php'}
 sys::import('xaraya.xarVar');
 // {ML_dont_parse 'includes/xarServer.php'}

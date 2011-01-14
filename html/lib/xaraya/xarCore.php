@@ -180,7 +180,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * Before we do anything make sure we can except out of code in a predictable matter
      *
      */
-    sys::import('xaraya.xarException');
+    sys::import('xaraya.exceptions');
     $systemArgs = array('enablePHPErrorHandler' => xarCore_getSystemVar('Exception.EnablePHPErrorHandler'));
     xarError_init($systemArgs, $whatToLoad);
 

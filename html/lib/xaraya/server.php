@@ -36,7 +36,6 @@ function xarSerReqRes_init(&$args, $whatElseIsGoingLoaded)
                                                         $args['defaultModuleFunction']);
     $GLOBALS['xarRequest_shortURLVariables']    = array();
     $GLOBALS['xarResponse_closeSession']        = $whatElseIsGoingLoaded & XARCORE_SYSTEM_SESSION;
-    $GLOBALS['xarResponse_redirectCalled']      = false;
 
     // Register the ServerRequest event
     xarEvt_registerEvent('ServerRequest');
@@ -1049,22 +1048,6 @@ function xarRequest__resolveModuleAlias($aliasModName)
     } else {
         return $aliasModName;
     }
-}
-
-// RESPONSE FUNCTIONS
-
-
-/**
- * Checks if a redirection header has already been sent.
- *
- * @author Marco Canini
- * @access public
- * @global xarResponse_redirectCalled bool
- * @return bool
- */
-function xarResponseIsRedirected()
-{
-    return $GLOBALS['xarResponse_redirectCalled'];
 }
 
 ?>

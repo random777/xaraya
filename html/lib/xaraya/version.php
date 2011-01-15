@@ -138,7 +138,7 @@ class xarVersion extends Object
     {
         if (empty($version)) return true;
         if ($application == 'core') {
-            $version2 = xarConfigVars::get(null, 'System.Core.VersionNum');
+            $version2 = xarConfigGetVar('System.Core.VersionNum');
         } else {
             try {
                 $info = getBaseInfo($application);

@@ -11,9 +11,14 @@
  * @author mrb <marcel@xaraya.com> (this tag means responsible person)
 */
 
-// Theme Function Wrappers
-// FIXME: This should be done better integrated
-//        We have no redundancy at least with xarMod.php now, but it's still a bit messy
+/**
+ * Wrapper functions to support Xaraya 1 API
+ *
+**/
+//sys::import('xaraya.variables.theme');
+//function xarThemeGetVar($themeName, $name, $prep = NULL)                           {   return xarThemeVars::get($themeName, $name); }
+//function xarThemeSetVar($themeName, $name, $prime = NULL, $value, $description='') {   return xarThemeVars::set($themeName, $name, $value); }
+//function xarThemeDelVar($themeName, $name)                                         {   return xarThemeVars::delete($themeName, $name); }
 
 /**
  * get a theme variable

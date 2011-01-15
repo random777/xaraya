@@ -333,7 +333,7 @@ function installer_admin_phase5()
     $ADODB_CACHE_DIR = xarCoreGetVarDirPath() . "/cache/adodb";
 
     // {ML_dont_parse 'includes/xarDB.php'}
-    sys::import('xaraya.xarDB');
+    sys::import('xaraya.database');
 
     // Check if there is a xar- version of the driver, and use it.
     // Note the driver we load does not affect the database type.
@@ -465,9 +465,9 @@ function installer_admin_phase5()
 
     // If we are here, the base system has completed
     // We can now pass control to xaraya.
-    sys::import('xaraya.xarConfig');
+    sys::import('xaraya.variables.config');
     $params=array();
-    xarConfig_init($params,XARCORE_SYSTEM_ADODB);
+    xarConfig_init($params,XARCORE_SYSTEM_DATABASE);
     xarConfigSetVar('Site.MLS.DefaultLocale', $install_language);
 
     // Set the allowed locales to our "C" locale and the one used during installation
@@ -503,7 +503,6 @@ function installer_admin_bootstrap()
     // and the user clicks the link to continue, this function is executed
     // again, at which point it will fail since it attempts to populate the db
     // with data which was already inserted during the failed run
-
     // create the default roles and privileges setup
     sys::import('modules.privileges.xarsetup');
     initializeSetup();

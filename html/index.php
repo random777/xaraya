@@ -16,15 +16,13 @@
 include_once 'lib/xaraya/xarPreCore.php';
 
 /**
- * Set up output caching if enabled
+ * Set up caching
  * Note: this happens first so we can serve cached pages to first-time visitors
  *       without loading the core
  */
-if (file_exists(xarPreCoreGetVarDirPath() . '/cache/output/cache.touch')) {
-    sys::import('xaraya.xarCache');
-    // Note : we may already exit here if session-less page caching is enabled
-    xarCache_init();
-}
+sys::import('xaraya.caching');
+// Note : we may already exit here if session-less page caching is enabled
+xarCache::init();
 
 /**
  * Load the Xaraya core
@@ -80,7 +78,6 @@ function xarMain()
     if ($run) {
         // Load the module
         if (!xarModLoad($modName, $modType)) return; // throw back
-
 
         // if the debugger is active, start it
         if (xarCoreIsDebuggerActive()) {

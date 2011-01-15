@@ -13,15 +13,24 @@
  */
 
 /**
- * Core version informations
+ * Core version information
  *
  * should be upgraded on each release for
  * better control on config settings
  *
  */
+
+// Handy if we're running from a mt working copy, prolly comment out on distributing
+$rev = 'unknown';
+if(file_exists('../_MTN/revision'))
+{
+    $t= file('../_MTN/revision');
+    if (isset($t[4]))
+        $rev = str_replace(array('old_revision [',']'),'',$t[4]);
+}
 define('XARCORE_GENERATION',1);
-define('XARCORE_VERSION_NUM', '1.3.0');
 define('XARCORE_VERSION_ID',  'Xaraya');
+define('XARCORE_VERSION_NUM', '1.3.0');
 define('XARCORE_VERSION_SUB', 'adam_baum');
 // define BlockLayout Version (added in 1.2.0)
 define('XAR_BL_VERSION_NUM', '1.0.0');
@@ -64,32 +73,47 @@ define('XAR_BL_VERSION_NUM', '1.0.0');
  */
 
 define('XARCORE_SYSTEM_NONE', 0);
-define('XARCORE_SYSTEM_ADODB', 1);
-define('XARCORE_SYSTEM_SESSION', 2 | XARCORE_SYSTEM_ADODB);
+define('XARCORE_SYSTEM_DATABASE', 1);
+define('XARCORE_SYSTEM_SESSION', 2 | XARCORE_SYSTEM_DATABASE);
 define('XARCORE_SYSTEM_USER', 4 | XARCORE_SYSTEM_SESSION);
-define('XARCORE_SYSTEM_CONFIGURATION', 8 | XARCORE_SYSTEM_ADODB);
+define('XARCORE_SYSTEM_CONFIGURATION', 8 | XARCORE_SYSTEM_DATABASE);
 define('XARCORE_SYSTEM_BLOCKS', 16 | XARCORE_SYSTEM_CONFIGURATION);
 define('XARCORE_SYSTEM_MODULES', 32 | XARCORE_SYSTEM_CONFIGURATION);
 define('XARCORE_SYSTEM_ALL', 127); // bit OR of all optional systems (includes templates now)
 
-define('XARCORE_BIT_ADODB', 1);
+define('XARCORE_BIT_DATABASE', 1);
 define('XARCORE_BIT_SESSION', 2);
 define('XARCORE_BIT_USER', 4 );
 define('XARCORE_BIT_CONFIGURATION', 8);
 define('XARCORE_BIT_BLOCKS', 16);
 define('XARCORE_BIT_MODULES', 32);
-
-// Extra needed bit to figure out if this sub system was already loaded or not
 define('XARCORE_BIT_TEMPLATE', 64);
+/**#@-*/
 
 /*
  * Debug flags
- */
+ *
+ * @access private
+ * @todo   encapsulate in class 
+**/
 define('XARDBG_ACTIVE'           , 1);
 define('XARDBG_SQL'              , 2);
 define('XARDBG_EXCEPTIONS'       , 4);
 define('XARDBG_SHOW_PARAMS_IN_BT', 8);
 define('XARDBG_INACTIVE'         ,16);
+
+/**#@+
+ * Miscelaneous defines
+ *
+ * @access public
+ * @todo encapsulate in class
+**/
+define('XARCORE_CACHEDIR'     , '/cache');
+define('XARCORE_DB_CACHEDIR'  , '/cache/database');
+define('XARCORE_RSS_CACHEDIR' , '/cache/rss');
+define('XARCORE_TPL_CACHEDIR' , '/cache/templates');
+/**#@-*/
+
 /*
  * xarInclude flags
  */
@@ -106,6 +130,11 @@ define('XARCORE_CONFIG_FILE', 'config.system.php');
  */
 include_once(dirname(__FILE__).'/xarPreCore.php');
 
+// Before we do anything make sure we can except out of code in a predictable matter
+sys::import('xaraya.exceptions');
+// Load core caching in case we didn't go through xarCache::init()
+sys::import('xaraya.caching.core');
+
 /**
  * Initializes the core engine
  *
@@ -119,16 +148,13 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
 {
     static $current_load_level = XARCORE_SYSTEM_NONE;
     static $first_load = true;
+    
     $new_load_level = $whatToLoad;
 
-    // Make sure it only loads the current load level (or less than the current
-    // load level) once.
+    // Make sure it only loads the current load level (or less than the current load level) once.
     if ($whatToLoad <= $current_load_level) {
-        if (!$first_load) {
-            return true; // Does this ever happen? If so, we might consider an assert
-        } else {
-            $first_load = false;
-        }
+        if (!$first_load) return true; // Does this ever happen? If so, we might consider an assert
+        $first_load = false;
     } else {
         // if we are loading a load level higher than the
         // current one, make sure to XOR out everything
@@ -167,19 +193,16 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * If there happens something we want to be able to log it
      *
      */
+    $systemArgs = array();
     sys::import('xaraya.log');
     xarLog_init($systemArgs);
 
-    /*
-     * Start Exception Handling System
-     *
-     * Before we do anything make sure we can except out of code in a predictable matter
-     *
-     */
-    sys::import('xaraya.exceptions');
-//    $systemArgs = array('enablePHPErrorHandler' => xarCore_getSystemVar('Exception.EnablePHPErrorHandler'));
-//    xarError_init($systemArgs, $whatToLoad);
-
+    sys::import('xaraya.variables.system');
+    try {
+        date_default_timezone_set(xarSystemVars::get(sys::CONFIG, 'SystemTimeZone'));
+    } catch (Exception $e) {
+        die('Your configuration file appears to be missing. This usually indicates Xaraya has not been installed. <br/>Please refer to point 4 of the installation instructions <a href="readme.html" target="_blank">here</a>');
+    }
 
     /*
      * Start Database Connection Handling System
@@ -189,27 +212,43 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * It think this is the earliest we can do
      *
      */
-    if ($whatToLoad & XARCORE_SYSTEM_ADODB) { // yeah right, as if this is optional
-        sys::import('xaraya.xarDB');
+    if ($whatToLoad & XARCORE_SYSTEM_DATABASE) { // yeah right, as if this is optional
 
         // Decode encoded DB parameters
-        $userName = xarCore_getSystemVar('DB.UserName');
-        $password = xarCore_getSystemVar('DB.Password');
-        if (xarCore_getSystemVar('DB.Encoded') == '1') {
-            $userName = base64_decode($userName);
-            $password  = base64_decode($password);
+        // These need to be there
+        $userName = xarSystemVars::get(sys::CONFIG, 'DB.UserName');
+        $password = xarSystemVars::get(sys::CONFIG, 'DB.Password');
+        $persistent = null;
+        try {
+            $persistent = xarSystemVars::get(sys::CONFIG, 'DB.Persistent');
+        } catch(VariableNotFoundException $e) {
+            $persistent = null;
         }
+        try {
+            if (xarSystemVars::get(sys::CONFIG, 'DB.Encoded') == '1') {
+                $userName = base64_decode($userName);
+                $password  = base64_decode($password);
+            }
+        } catch(VariableNotFoundException $e) {
+            // doesnt matter, we assume not encoded
+        }
+
+        // Optionals dealt with, do the rest inline
         $systemArgs = array('userName' => $userName,
                             'password' => $password,
-                            'databaseHost' => xarCore_getSystemVar('DB.Host'),
-                            'databaseType' => xarCore_getSystemVar('DB.Type'),
-                            'databaseName' => xarCore_getSystemVar('DB.Name'),
-                            'persistent' => xarCore_getSystemVar('DB.Persistent',true),
+                            'databaseHost'    => xarSystemVars::get(sys::CONFIG, 'DB.Host'),
+                            'databaseType'    => xarSystemVars::get(sys::CONFIG, 'DB.Type'),
+                            'databaseName'    => xarSystemVars::get(sys::CONFIG, 'DB.Name'),
+                            'databaseCharset' => xarSystemVars::get(sys::CONFIG, 'DB.Charset'),
+                            'persistent'      => $persistent,
                             'systemTablePrefix' => xarCore_getSystemVar('DB.TablePrefix'),
                             'siteTablePrefix' => xarCore_getSystemVar('DB.TablePrefix'));
+
+        sys::import('xaraya.database');
+
         // Connect to database
-        xarDB_init($systemArgs, $whatToLoad);
-        $whatToLoad ^= XARCORE_BIT_ADODB;
+        xarDB_init($systemArgs);
+        $whatToLoad ^= XARCORE_BIT_DATABASE;
     }
 
     /*
@@ -219,9 +258,20 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * be as early as possible in place. This system is for *core* events
      *
      */
-    // {ML_dont_parse 'lib/xaraya/xarEvt.php'}
     sys::import('xaraya.events');
-   
+
+/* CHECKME: initialize autoload based on config vars, or based on modules, or earlier ?
+    sys::import('xaraya.autoload');
+    xarAutoload::initialize();
+
+// Testing of autoload + second-level cache storage - please do not use on live sites
+    sys::import('xaraya.caching.storage');
+    $cache = xarCache_Storage::getCacheStorage(array('storage' => 'xcache', 'type' => 'core'));
+    xarCoreCache::setCacheStorage($cache);
+    // For bulk load, we might have to do this after loading the modules, otherwise
+    // unserialize + autoload might trigger a function that complains about xarMod:: etc.
+    //xarCoreCache::setCacheStorage($cache,0,1);
+*/
 
     /*
      * Start Configuration System
@@ -232,16 +282,16 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      *
      */
     if ($whatToLoad & XARCORE_SYSTEM_CONFIGURATION) {
-        sys::import('xaraya.xarConfig');
-
-        // Start Configuration Unit
-        $systemArgs = array();
-        xarConfig_init($systemArgs, $whatToLoad);
-
         // Start Variables utilities
         sys::import('xaraya.variables');
-        xarVar_init($systemArgs, $whatToLoad);
+        xarVar_init($systemArgs);
         $whatToLoad ^= XARCORE_BIT_CONFIGURATION;
+        
+    // we're about done here - everything else requires configuration, at least to initialize them !?
+    } else {
+        // Make the current load level == the new load level
+        $current_load_level = $new_load_level;
+        return true;
     }
 
     /**
@@ -279,6 +329,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      *
      */
     sys::import('xaraya.mls');
+    // FIXME: Site.MLS.MLSMode is NULL during install
     $systemArgs = array('MLSMode'             => xarConfigGetVar('Site.MLS.MLSMode'),
 //                        'translationsBackend' => xarConfigGetVar('Site.MLS.TranslationsBackend'),
                         'translationsBackend' => 'xml2php',
@@ -300,17 +351,19 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
     $anonuid = !empty($anonuid) ? $anonuid : 2;
     define('_XAR_ID_UNREGISTERED', $anonuid);
 
-    if ($whatToLoad & XARCORE_SYSTEM_SESSION) {
+    if ($whatToLoad & XARCORE_SYSTEM_SESSION) 
+    {
         sys::import('xaraya.sessions');
 
-        $systemArgs = array('securityLevel'     => xarConfigGetVar('Site.Session.SecurityLevel'),
-                            'duration'          => xarConfigGetVar('Site.Session.Duration'),
-                            'inactivityTimeout' => xarConfigGetVar('Site.Session.InactivityTimeout'),
-                            'cookieName'        => xarConfigGetVar('Site.Session.CookieName'),
-                            'cookiePath'        => xarConfigGetVar('Site.Session.CookiePath'),
-                            'cookieDomain'      => xarConfigGetVar('Site.Session.CookieDomain'),
-                            'refererCheck'      => xarConfigGetVar('Site.Session.RefererCheck'));
-        xarSession_init($systemArgs, $whatToLoad);
+        $systemArgs = array(
+            'securityLevel'     => xarConfigGetVar('Site.Session.SecurityLevel'),
+            'duration'          => xarConfigGetVar('Site.Session.Duration'),
+            'inactivityTimeout' => xarConfigGetVar('Site.Session.InactivityTimeout'),
+            'cookieName'        => xarConfigGetVar('Site.Session.CookieName'),
+            'cookiePath'        => xarConfigGetVar('Site.Session.CookiePath'),
+            'cookieDomain'      => xarConfigGetVar('Site.Session.CookieDomain'),
+            'refererCheck'      => xarConfigGetVar('Site.Session.RefererCheck'));
+        xarSession_init($systemArgs);
 
         $whatToLoad ^= XARCORE_BIT_SESSION;
     }
@@ -322,7 +375,8 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
     // FIXME: This is wrong, should be part of templating
     //        it's a legacy thought, we don't need it anymore
 
-    if ($whatToLoad & XARCORE_SYSTEM_BLOCKS) {
+    if ($whatToLoad & XARCORE_SYSTEM_BLOCKS) 
+    {
         sys::import('xaraya.xarBlocks');
 
         // Start Blocks Support Sytem
@@ -352,16 +406,15 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * Start BlockLayout Template Engine
      *
      */
-    sys::import('xaraya.xarTemplate');
+    sys::import('xaraya.templates');
     $systemArgs = array(
         'enableTemplatesCaching' => xarConfigGetVar('Site.BL.CacheTemplates'),
         'themesBaseDirectory'    => xarConfigGetVar('Site.BL.ThemesDirectory'),
-        'defaultThemeDir'        => xarModGetVar('themes','default'),
+        'defaultThemeDir'        => xarModGetVar('themes','default', 'default'),
         'generateXMLURLs'      => true
     );
-    xarTpl_init($systemArgs, $whatToLoad);
+    xarTpl_init($systemArgs);
     $whatToLoad ^= XARCORE_BIT_TEMPLATE;
-
 
     /**
      * At last, we can give people access to the system.

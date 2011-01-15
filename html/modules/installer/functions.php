@@ -37,13 +37,8 @@ function xarInstallFunc($funcName = 'main', $args = array())
     $modFunc = "{$modName}_{$modType}_{$funcName}";
     if (!function_exists($modFunc)) {
         // try to load it
-        xarInstallLoad();
-        if(!function_exists($modFunc)) {
-            $msg = xarML('Module function #(1) does not exist.', $modFunc);
-            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_FUNCTION_NOT_EXIST',
-                            new SystemException($msg));
-            return;
-        }
+        xarInstallLoad($funcName);
+        if(!function_exists($modFunc)) throw new FunctionNotFoundException($modFunc);
     }
 
     // Load the translations file

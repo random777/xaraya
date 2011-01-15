@@ -160,12 +160,12 @@ function base_init()
     $result =& $dbconn->Execute($query);
     if (!$result) return;
 
-    sys::import('xaraya.xarConfig');
+    sys::import('xaraya.variables.config');
 
     // Start Configuration Unit
     $systemArgs = array();
     // change this loadlevel to the proper level
-    $whatToLoad = XARCORE_SYSTEM_ADODB;
+    $whatToLoad = XARCORE_SYSTEM_DATABASE;
     xarConfig_init($systemArgs, $whatToLoad);
     // Start Variable Utils
     xarVar_init($systemArgs, $whatToLoad);

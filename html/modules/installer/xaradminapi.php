@@ -144,7 +144,7 @@ function installer_adminapi_createdb($args)
     $dbType  = xarCore_getSystemVar('DB.Type');
 */
     // {ML_dont_parse 'includes/xarDB.php'}
-    sys::import('xaraya.xarDB');
+    sys::import('xaraya.database');
 
     // Load in Table Maintainance API
     sys::import('xaraya.xarTableDDL');

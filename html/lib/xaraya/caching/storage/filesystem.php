@@ -1,41 +1,48 @@
 <?php
-
 /**
  * Cache data on the filesystem (can also be a ramdisk/tmpfs/shmfs/...)
  */
 
-class xarCache_FileSystem_Storage extends xarCache_Storage
+class xarCache_FileSystem_Storage extends xarCache_Storage implements ixarCache_Storage
 {
-    var $dir = '';
-    var $blksize = 0;
-    var $bsknown = FALSE;
+    public $dir = '';
+    public $blksize = 0;
+    public $bsknown = false;
 
-    function xarCache_FileSystem_Storage($args = array())
+    public function __construct(Array $args = array())
     {
-        $this->xarCache_Storage($args);
+        parent::__construct($args);
 
         if ($this->type == 'template') {
-        // CHECKME: this assumes that we create this instance after loading xarTemplate.php
-            $this->dir = XAR_TPL_CACHE_DIR;
+            // CHECKME: this assumes that we create this instance after loading xarTemplate.php
+            $this->dir = sys::varpath() . XARCORE_TPL_CACHEDIR;
 
         } else {
             $this->dir = realpath($this->cachedir . '/' . $this->type);
         }
 
+        // CHECKME: we don't use 'type/namespace' as prefix for the cache keys here,
+        //          because the output cache directories are already split by type
+        $this->prefix = $this->namespace;
+
         $this->storage = 'filesystem';
     }
 
-    function isCached($key = '', $expire = 0, $log = 1)
+    public function setNamespace($namespace = '')
+    {
+        $this->namespace = $namespace;
+        // the default prefix for the cache keys will be 'type/namespace', except in filesystem (for now)
+        $this->prefix = $this->namespace;
+    }
+
+    public function isCached($key = '', $expire = 0, $log = 1)
     {
         if (empty($expire)) {
             $expire = $this->expire;
         }
-        $oldkey = $key;
-        if (!empty($this->code)) {
-            $key .= '-' . $this->code;
-        }
+        $cache_key = $this->getCacheKey($key);
 
-        $cache_file = $this->dir . '/' . $key . '.php';
+        $cache_file = $this->dir . '/' . $cache_key . '.php';
 
         if (// the file is present AND
             file_exists($cache_file) &&
@@ -46,25 +53,23 @@ class xarCache_FileSystem_Storage extends xarCache_Storage
              filemtime($cache_file) > time() - $expire)) {
 
             $this->modtime = filemtime($cache_file);
-            if ($log) $this->logStatus('HIT', $oldkey);
+            if ($log) $this->logStatus('HIT', $key);
             return true;
 
         } else {
-            if ($log) $this->logStatus('MISS', $oldkey);
+            if ($log) $this->logStatus('MISS', $key);
             return false;
         }
     }
 
-    function getCached($key = '', $output = 0, $expire = 0)
+    public function getCached($key = '', $output = 0, $expire = 0)
     {
         if (empty($expire)) {
             $expire = $this->expire;
         }
-        if (!empty($this->code)) {
-            $key .= '-' . $this->code;
-        }
+        $cache_key = $this->getCacheKey($key);
 
-        $cache_file = $this->dir . '/' . $key . '.php';
+        $cache_file = $this->dir . '/' . $cache_key . '.php';
 
         if ($this->type == 'template') {
             // CHECKME: the file will be included in xarTemplate.php ?
@@ -89,17 +94,15 @@ class xarCache_FileSystem_Storage extends xarCache_Storage
         return $data;
     }
 
-    function setCached($key = '', $value = '', $expire = 0)
+    public function setCached($key = '', $value = '', $expire = 0)
     {
         if (empty($expire)) {
             $expire = $this->expire;
         }
-        if (!empty($this->code)) {
-            $key .= '-' . $this->code;
-        }
+        $cache_key = $this->getCacheKey($key);
 
-        $tmp_file = $this->dir . '/' . $key; // without extension
-        $cache_file = $this->dir . '/' . $key . '.php';
+        $tmp_file = $this->dir . '/' . $cache_key; // without extension
+        $cache_file = $this->dir . '/' . $cache_key . '.php';
 
         $fp = @fopen($tmp_file, "w");
         if (!empty($fp)) {
@@ -115,21 +118,24 @@ class xarCache_FileSystem_Storage extends xarCache_Storage
         }
     }
 
-    function delCached($key = '')
+    public function delCached($key = '')
     {
-        if (!empty($this->code)) {
-            $key .= '-' . $this->code;
-        }
+        $cache_key = $this->getCacheKey($key);
 
-        $cache_file = $this->dir . '/' . $key . '.php';
+        $cache_file = $this->dir . '/' . $cache_key . '.php';
 
         if (file_exists($cache_file)) {
             @unlink($cache_file);
         }
     }
 
-    function flushCached($key = '')
+    public function flushCached($key = '')
     {
+        // add namespace prefix (not the type here)
+        if (!empty($this->namespace)) {
+            $key = $this->namespace . $key;
+        }
+
         $this->_flushDirCached($key, $this->dir);
 
         // check the cache size and clear the lockfile set by sizeLimitReached()
@@ -139,30 +145,8 @@ class xarCache_FileSystem_Storage extends xarCache_Storage
         }
     }
 
-    function cleanCached($expire = 0)
+    public function doGarbageCollection($expire = 0)
     {
-        if (empty($expire)) {
-            $expire = $this->expire;
-        }
-        if (empty($expire)) {
-            // TODO: delete oldest entries if we're at the size limit ?
-            return;
-        }
-
-        $touch_file = $this->cachedir . '/cache.' . $this->type . 'level';
-
-        // If the cache type has already been cleaned within the expiration time,
-        // don't bother checking again
-        if (file_exists($touch_file) && filemtime($touch_file) > time() - $expire) {
-            return;
-        }
-        if (!@touch($touch_file)) {
-            // hmm, somthings amiss... better let the administrator know,
-            // without disrupting the site
-            error_log('Error from Xaraya::xarCache::storage::filesystem
-                      - web process can not touch ' . $touch_file);
-        }
-
         $time = time() - ($expire + 60); // take some margin here
 
         if ($handle = @opendir($this->dir)) {
@@ -175,47 +159,43 @@ class xarCache_FileSystem_Storage extends xarCache_Storage
             }
             closedir($handle);
         }
-
-        // check the cache size and clear the lockfile set by sizeLimitReached()
-        $lockfile = $this->cachedir . '/cache.' . $this->type . 'full';
-        if ($this->getCacheSize() < $this->sizelimit && file_exists($lockfile)) {
-            @unlink($lockfile);
-        }
     }
 
-    function getCacheSize($countitems = false)
+    public function getCacheInfo()
     {
         if (empty($this->blksize)) {
             $dirstat = stat($this->dir);
             // we know the filesystem blocksize, use this to better calc the disk usage
             if ($dirstat['blksize'] > 0) {
                 $this->blksize = $dirstat['blksize'] / 8;
-                $this->bsknown = TRUE;
+                $this->bsknown = true;
             } else { // just count of the used bytes
                 $this->blksize = 1;
-                $this->bsknown = FALSE;
+                $this->bsknown = false;
             }
         }
 
-        if ($countitems) {
-            $this->numitems = 0;
-        }
+        $this->size = 0;
+        $this->items = 0;
+        $this->modtime = 0;
+        $this->size = $this->_getCacheDirSize($this->dir, true);
 
-        $this->size = $this->_getCacheDirSize($this->dir, $countitems);
-
-        return $this->size;
+        return array('size'    => $this->size,
+                     'items'   => $this->items,
+                     'hits'    => $this->hits,
+                     'misses'  => $this->misses,
+                     'modtime' => $this->modtime);
     }
 
-    function saveFile($key = '', $filename = '')
+    public function saveFile($key = '', $filename = '')
     {
         if (empty($filename)) return;
 
-        if (!empty($this->code)) {
-            $key .= '-' . $this->code;
-        }
+        $cache_key = $this->getCacheKey($key);
 
-        $cache_file = $this->dir . '/' . $key . '.php';
+        $cache_file = $this->dir . '/' . $cache_key . '.php';
 
+        // we use a direct file copy here, instead of getting the value again (cfr. session-less page caching)
         if (file_exists($cache_file)) {
             @copy($cache_file, $filename);
         }
@@ -224,7 +204,7 @@ class xarCache_FileSystem_Storage extends xarCache_Storage
     /**
      * private function for use in flushCached()
      */
-    function _flushDirCached($key = '', $dir = false)
+    private function _flushDirCached($key = '', $dir = false)
     {
         if (!$dir || !is_dir($dir)) {
             return;
@@ -232,7 +212,7 @@ class xarCache_FileSystem_Storage extends xarCache_Storage
 
         if (substr($dir,-1) != "/") $dir .= "/";
         if ($dirId = opendir($dir)) {
-            while (($item = readdir($dirId)) !== FALSE) {
+            while (($item = readdir($dirId)) !== false) {
                 if ($item[0] != '.') {
                     if (is_dir($dir . $item)) {
                         $this->_flushDirCached($key, $dir . $item);
@@ -251,7 +231,7 @@ class xarCache_FileSystem_Storage extends xarCache_Storage
     /**
      * private function for use in getCacheSize()
      */
-    function _getCacheDirSize($dir = FALSE, $countitems = false)
+    private function _getCacheDirSize($dir = false, $countitems = false)
     {
         $size = 0;
         $count = 0;
@@ -260,7 +240,7 @@ class xarCache_FileSystem_Storage extends xarCache_Storage
             if ($dir && is_dir($dir)) {
                 if (substr($dir,-1) != "/") $dir .= "/";
                 if ($dirId = opendir($dir)) {
-                    while (($item = readdir($dirId)) !== FALSE) {
+                    while (($item = readdir($dirId)) !== false) {
                         if ($item != "." && $item != "..") {
                             $filestat = stat($dir . $item);
                             $size += ($filestat['blocks'] * $this->blksize);
@@ -268,6 +248,9 @@ class xarCache_FileSystem_Storage extends xarCache_Storage
                                 $size += $this->_getCacheDirSize($dir . $item, $countitems);
                             } elseif ($countitems) {
                                 $count++;
+                                if ($this->modtime < $filestat['mtime']) {
+                                    $this->modtime = $filestat['mtime'];
+                                }
                             }
                         }
                     }
@@ -278,7 +261,7 @@ class xarCache_FileSystem_Storage extends xarCache_Storage
             if ($dir && is_dir($dir)) {
                 if (substr($dir,-1) != "/") $dir .= "/";
                 if ($dirId = opendir($dir)) {
-                    while (($item = readdir($dirId)) !== FALSE) {
+                    while (($item = readdir($dirId)) !== false) {
                         if ($item != "." && $item != "..") {
                             if (is_dir($dir . $item)) {
                                 $size += $this->_getCacheDirSize($dir . $item, $countitems);
@@ -286,6 +269,10 @@ class xarCache_FileSystem_Storage extends xarCache_Storage
                                 $size += filesize($dir . $item);
                                 if ($countitems) {
                                     $count++;
+                                    $time = filemtime($dir . $item);
+                                    if ($this->modtime < $time) {
+                                        $this->modtime = $time;
+                                    }
                                 }
                             }
                         }
@@ -295,16 +282,19 @@ class xarCache_FileSystem_Storage extends xarCache_Storage
             }
         }
         if ($countitems) {
-            $this->numitems = $this->numitems + $count;
+            $this->items = $this->items + $count;
         }
         return $size;
     }
 
-    function getCachedList()
+    public function getCachedList()
     {
         $list = array();
         if ($handle = @opendir($this->dir)) {
             while (($file = readdir($handle)) !== false) {
+                // filter out the keys that don't start with the right type/namespace prefix
+                if (!empty($this->prefix) && strpos($file, $this->prefix) !== 0) continue;
+            // CHECKME: this assumes the code is always hashed
                 if (!preg_match('/^(.*)-(\w*)\.php$/',$file,$matches)) {
                     continue;
                 }
@@ -314,6 +304,8 @@ class xarCache_FileSystem_Storage extends xarCache_Storage
                 $time = filemtime($cache_file);
                 $size = filesize($cache_file);
                 $check = '';
+                // remove the prefix from the key
+                if (!empty($this->prefix)) $key = str_replace($this->prefix,'',$key);
                 $list[] = array('key'   => $key,
                                 'code'  => $code,
                                 'time'  => $time,

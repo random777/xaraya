@@ -15,6 +15,8 @@
  */
 
 /**
+ * 0. basic requirements
+ * ---check required extensions and PHP version
  * 1. select language
  * ---set language
  * 2. read license agreement
@@ -31,6 +33,31 @@
 */
 
 /**
+ * Early PHP checks
+ *
+ */
+ 
+define('MYSQL_REQUIRED_VERSION', '5.0.0');
+define('PHP_REQUIRED_VERSION', '5.3.0');
+$xmlextension             = extension_loaded('xml');
+$xslextension             = extension_loaded('xsl');
+
+if (function_exists('version_compare')) {
+    if (version_compare(PHP_VERSION,PHP_REQUIRED_VERSION,'>=')) $metRequiredPHPVersion = true;
+} else {
+    $metRequiredPHPVersion = false;
+}
+/* Jamaica version
+if (!$metRequiredPHPVersion
+    || !$xmlextension
+    || !$xslextension
+    ) {
+        header('Location: requirements.html');
+        exit;
+    }
+*/
+    
+/**
  * Defines for the phases 
  *
  */
@@ -44,32 +71,35 @@ define ('XARINSTALL_PHASE_BOOTSTRAP',           '6');
 // Include the core
 
 include 'lib/xaraya/xarPreCore.php';
+sys::import('xaraya.caching');
 sys::import('xaraya.xarCore');
-// Include some extra functions, as the installer is somewhat special
-// for loading gui and api functions
-include 'modules/installer/xarfunctions.php';
-
-// Enable debugging always for the installer
-xarCoreActivateDebugger(XARDBG_ACTIVE | XARDBG_EXCEPTIONS | XARDBG_SHOW_PARAMS_IN_BT);
-
-// Basic systems always loaded
-// {ML_dont_parse 'includes/xarLog.php'}
-sys::import('xaraya.log');
-// {ML_dont_parse 'includes/xarEvt.php'}
-sys::import('xaraya.events');
-sys::import('xaraya.exceptions');
-// {ML_dont_parse 'includes/xarVar.php'}
-sys::import('xaraya.variables');
-// {ML_dont_parse 'includes/xarServer.php'}
-sys::import('xaraya.server');
-// {ML_dont_parse 'includes/xarMLS.php'}
-sys::import('xaraya.mls');
-// {ML_dont_parse 'includes/xarTemplate.php'}
-sys::import('xaraya.xarTemplate');
 
 // Besides what we explicitly load, we dont want to load
 // anything extra for maximum control
 $whatToLoad = XARCORE_SYSTEM_NONE;
+
+// Start Exception Handling System very early
+sys::import('xaraya.exceptions');
+/*
+    As long as we are coming in through install.php we need to pick up the
+    bones if something goes wrong, so set the handler to bone for now
+*/
+set_exception_handler(array('ExceptionHandlers','bone'));
+
+// Enable debugging always for the installer
+xarCoreActivateDebugger(XARDBG_ACTIVE | XARDBG_EXCEPTIONS | XARDBG_SHOW_PARAMS_IN_BT);
+
+// Include some extra functions, as the installer is somewhat special
+// for loading gui and api functions
+sys::import('modules.installer.functions');
+
+// Basic systems always loaded
+sys::import('xaraya.log');
+sys::import('xaraya.events');
+sys::import('xaraya.variables');
+sys::import('xaraya.server');
+sys::import('xaraya.mls');
+sys::import('xaraya.templates');
 
 // Start Logging Facilities as soon as possible
 $systemArgs = array('loggerName' => xarCore_getSystemVar('Log.LoggerName', true),
@@ -77,17 +107,15 @@ $systemArgs = array('loggerName' => xarCore_getSystemVar('Log.LoggerName', true)
                     'level'      => xarCore_getSystemVar('Log.LogLevel', true));
 xarLog_init($systemArgs, $whatToLoad);
 
-// Start Exception Handling System very early too
-$systemArgs = array('enablePHPErrorHandler' => xarCore_getSystemVar('Exception.EnablePHPErrorHandler'));
-xarError_init($systemArgs, $whatToLoad);
-
 // Start HTTP Protocol Server/Request/Response utilities
 $systemArgs = array('enableShortURLsSupport' =>false,
                     'defaultModuleName'      => 'installer',
                     'defaultModuleType'      => 'admin',
                     'defaultModuleFunction'  => 'main',
                     'generateXMLURLs'        => false);
-xarSerReqRes_init($systemArgs, $whatToLoad);
+xarServer::init($systemArgs);
+xarRequest::init($systemArgs);
+xarResponse::init($systemArgs);
 
 // Start BlockLayout Template Engine
 // This is probably the trickiest part, but we want the installer 
@@ -108,7 +136,7 @@ $GLOBALS['xarMLS_mode'] = 'SINGLE';
 xarVarFetch('install_language','str::',$install_language, 'en_US.utf-8', XARVAR_NOT_REQUIRED);
 
 // Construct an array of the available locale folders
-$locale_dir = xarCoreGetVarDirPath() . '/locales/';
+$locale_dir = sys::varpath() . '/locales/';
 $allowedLocales = array();
 if(is_dir($locale_dir)) {
     if ($dh = opendir($locale_dir)) {
@@ -126,7 +154,7 @@ if(is_dir($locale_dir)) {
 }
 
 if (empty($allowedLocales)) {
-    xarCore_die("The var directory is corrupted: no locale was found!");
+    throw new Exception("The var directory is corrupted: no locale was found!");
 }
 // A sorted combobox is better
 sort($allowedLocales);
@@ -153,7 +181,8 @@ function xarInstallMain()
 
     // Make sure we can render a page
     xarTplSetPageTitle(xarML('Xaraya installer'));
-    xarTplSetThemeName('installer') or  xarCore_die('You need the Installer theme if you want to install Xaraya.');
+    if(!xarTplSetThemeName('installer'))
+        throw new Exception('You need the installer theme if you want to install Xaraya.');
 
     // Handle installation phase designation
     xarVarFetch('install_phase','int:1:6',$phase,1,XARVAR_NOT_REQUIRED);
@@ -186,46 +215,12 @@ function xarInstallMain()
         ob_end_clean();
     }
 
-    // Here we check for exceptions even if $res isn't empty
-    if (xarCurrentErrorType() != XAR_NO_EXCEPTION) return; // throw back
-
     // Render page using the installer.xt page template
-    $pageOutput = xarTpl_renderPage($mainModuleOutput,NULL,'default');
-
-    // Handle exceptions
-    if (xarCurrentErrorType() != XAR_NO_EXCEPTION) return;
+    $pageOutput = xarTpl_renderPage($mainModuleOutput,'default');
 
     echo $pageOutput;
     return true;
 }
 
-if (!xarInstallMain()) {
-
-    // If we're here there must be surely an uncaught exception
-    $text = xarErrorRender('template');
-
-    // TODO: #2
-    if (xarCurrentErrorID() == 'TEMPLATE_NOT_EXIST') {
-        echo "<?xml version=\"1.0\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n<head><title>Error</title><body>$text</body></html>";
-    } else {
-        // It's important here to free exception before calling xarTplPrintPage
-        // As we are in the exception handling phase, we can clear it without side effects.
-        xarErrorFree();
-        // Render page
-        $pageOutput = xarTpl_renderPage($text,NULL,'installer');
-        if (xarCurrentErrorType() != XAR_NO_EXCEPTION) {
-            // Fallback to raw html
-            $msg = '<span style="color: #FF0000;">The current page is shown because the Blocklayout Template Engine failed to render the page, however this could be due to a problem not in BL itself but in the template. BL has raised or has left uncaught the following exception:</span>';
-            $msg .= '<br /><br />';
-            $msg .= xarErrorRender('rawhtml');
-            $msg .= '<br />';
-            $msg .= '<span style="color: #FF0000;">The following exception is instead the exception caught from the main catch clause (Please note that they could be the same if they were raised inside BL or inside the template):</span>';
-            $msg .= '<br /><br />';
-            $msg .= $text;
-            echo "<?xml version=\"1.0\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n<head><title>Error</title><body>$msg</body></html>";
-        } else {
-            echo $pageOutput;
-        }
-    }
-}
+xarInstallMain();
 ?>

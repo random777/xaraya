@@ -89,12 +89,13 @@ define('XARVAR_PREP_TRIM',        8);
 function xarVar_init(&$args)
 {
     // Configuration init needs to be done first
-    $tables = array('config_vars' => xarDB::getPrefix() . '_module_vars');
+//    $tables = array('config_vars' => xarDB::getPrefix() . '_module_vars');
 
-    xarDB::importTables($tables);
+//    xarDB::importTables($tables);
 
     // Initialise the variable cache
-//    sys::import('xaraya.variables.config');
+    sys::import('xaraya.variables.config');
+    xarConfig_init();
     $GLOBALS['xarVar_allowableHTML'] = xarConfigGetVar('Site.Core.AllowableHTML', array());
     $GLOBALS['xarVar_fixHTMLEntities'] = xarConfigGetVar('Site.Core.FixHTMLEntities',true);
 

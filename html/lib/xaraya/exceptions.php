@@ -24,12 +24,13 @@ sys::import('xaraya.exceptions.handlers');
 /**
  * Deprecation Row
  */
-function xarErrorSet($major, $errorID, $value = NULL) {return "xx";}
+function xarErrorSet($major, $errorID, $value = NULL) {return $errorID;}
 function xarCurrentErrorID() { return false; }
 function xarErrorGet($stacktype = "ERROR",$format='data') { return array(); }
 function xarCurrentErrorType() { return false; }
 function xarCurrentError() { return false; }
-
+function xarErrorFree() { return true; }
+function xarExceptionFree() { return true; }
 
 /**
  * Default settings for:
@@ -166,23 +167,6 @@ function xarError__shutdown_handler()
     //xarLogMessage("xarError shutdown handler");
 }
 
-
-/**
- * Resets current error status
- *
- * xarErrorFree is a shortcut for xarErrorSet(XAR_NO_EXCEPTION, NULL, NULL).
- * You must always call this function when you handle a caught error or
- * equivalently you don't throw the error back to the caller.
- *
- * @author Marc Lutolf <marcinmilan@xaraya.com>
- * @access public
- * @return void
- */
-function xarErrorFree()
-{
-    global $ErrorStack;
-    $ErrorStack->initialize();
-}
 
 /**
  * Handles the current error

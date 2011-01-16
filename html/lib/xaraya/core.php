@@ -6,7 +6,6 @@
  * @copyright (C) 2002-2010 The Digital Development Foundation
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
  * @author Marco Canini
  * @author Marcel van der Boom
  * @todo dependencies and runlevels!
@@ -28,7 +27,6 @@ if(file_exists('../_MTN/revision'))
     if (isset($t[4]))
         $rev = str_replace(array('old_revision [',']'),'',$t[4]);
 }
-define('XARCORE_GENERATION',1);
 define('XARCORE_VERSION_ID',  'Xaraya');
 define('XARCORE_VERSION_NUM', '1.3.0');
 define('XARCORE_VERSION_SUB', 'adam_baum');
@@ -72,35 +70,44 @@ define('XAR_BL_VERSION_NUM', '1.0.0');
  * dependancies will be automatically resolved
  */
 
-define('XARCORE_SYSTEM_NONE', 0);
-define('XARCORE_SYSTEM_DATABASE', 1);
-define('XARCORE_SYSTEM_SESSION', 2 | XARCORE_SYSTEM_DATABASE);
-define('XARCORE_SYSTEM_USER', 4 | XARCORE_SYSTEM_SESSION);
+define('XARCORE_SYSTEM_NONE'         , 0);
+define('XARCORE_SYSTEM_DATABASE'     , 1);
 define('XARCORE_SYSTEM_CONFIGURATION', 8 | XARCORE_SYSTEM_DATABASE);
-define('XARCORE_SYSTEM_BLOCKS', 16 | XARCORE_SYSTEM_CONFIGURATION);
-define('XARCORE_SYSTEM_MODULES', 32 | XARCORE_SYSTEM_CONFIGURATION);
-define('XARCORE_SYSTEM_ALL', 127); // bit OR of all optional systems (includes templates now)
-
-define('XARCORE_BIT_DATABASE', 1);
-define('XARCORE_BIT_SESSION', 2);
-define('XARCORE_BIT_USER', 4 );
-define('XARCORE_BIT_CONFIGURATION', 8);
-define('XARCORE_BIT_BLOCKS', 16);
-define('XARCORE_BIT_MODULES', 32);
-define('XARCORE_BIT_TEMPLATE', 64);
+define('XARCORE_SYSTEM_SESSION'      , 2 | XARCORE_SYSTEM_CONFIGURATION);
+define('XARCORE_SYSTEM_BLOCKS'       , 16 | XARCORE_SYSTEM_CONFIGURATION);
+define('XARCORE_SYSTEM_MODULES'      , 32 | XARCORE_SYSTEM_CONFIGURATION);
+define('XARCORE_SYSTEM_USER'         , 4 | XARCORE_SYSTEM_SESSION | XARCORE_SYSTEM_MODULES);
+define('XARCORE_SYSTEM_ALL'          , 127); // bit OR of all optional systems (includes templates now)
 /**#@-*/
 
-/*
+/**#@+
+ * Bit defines to keep track of the loading based on the defines which
+ * are passed in as arguments
+ *
+ * @access private
+ * @todo we should probably get rid of these
+**/
+define('XARCORE_BIT_DATABASE'     ,  1);
+define('XARCORE_BIT_SESSION'      ,  2);
+define('XARCORE_BIT_USER'         ,  4);
+define('XARCORE_BIT_CONFIGURATION',  8);
+define('XARCORE_BIT_BLOCKS'       , 16);
+define('XARCORE_BIT_MODULES'      , 32);
+define('XARCORE_BIT_TEMPLATE'     , 64);
+/**#@-*/
+
+/**#@+
  * Debug flags
  *
  * @access private
- * @todo   encapsulate in class 
+ * @todo   encapsulate in class
 **/
 define('XARDBG_ACTIVE'           , 1);
 define('XARDBG_SQL'              , 2);
 define('XARDBG_EXCEPTIONS'       , 4);
 define('XARDBG_SHOW_PARAMS_IN_BT', 8);
 define('XARDBG_INACTIVE'         ,16);
+/**#@-*/
 
 /**#@+
  * Miscelaneous defines
@@ -115,15 +122,60 @@ define('XARCORE_TPL_CACHEDIR' , '/cache/templates');
 /**#@-*/
 
 /*
+ * Deprecation Row
+ */
+/*
  * xarInclude flags
  */
 define('XAR_INCLUDE_ONCE'         , 1);
 define('XAR_INCLUDE_MAY_NOT_EXIST', 2);
 
+/**
+ * Load a file and capture any php errors
+ *
+ * @access public
+ * @param  string $fileName name of the file to load
+ * @param  bool   $flags    can this file only be loaded once, or multiple times? XAR_INCLUDE_ONCE and  XAR_INCLUDE_MAY_NOT_EXIST are the possible flags right now, INCLUDE_MAY_NOT_EXISTS makes the function succeed even in te absense of the file
+ * @return bool   true if file was loaded successfully, false on error (NO exception)
+ */
+function xarInclude($fileName, $flags = XAR_INCLUDE_ONCE)
+{
+    // If the file isn't there return according to the flags
+    if (!file_exists($fileName))
+        return ($flags & XAR_INCLUDE_MAY_NOT_EXIST);
+
+    //Commeting this to speed this function
+    //Anyways the error_msg wasnt being used for anything.
+    //I guess this doesnt work like this.
+    //You would have to trap all the page output to get the PHP parse errors?!
+    // Catch output, if any
+
+//    ob_start();
+
+    if ($flags & XAR_INCLUDE_ONCE) {
+        $r = include_once($fileName);
+    } else {
+        $r = include($fileName);
+    }
+
+//    $error_msg = strip_tags(ob_get_contents());
+//    ob_end_clean();
+
+    if (empty($r) || !$r) {
+        return false;
+    }
+
+    return true;
+}
+
 /*
  * Miscelaneous
  */
 define('XARCORE_CONFIG_FILE', 'config.system.php');
+
+function xarCore_getSystemVar($name, $returnNull = false) { return xarSystemVars::get(sys::CONFIG, $name); }
+function xarCoreGetVarDirPath() { return xarPreCoreGetVarDirPath(); }
+// -----------------------------------------------------
 
 /**
  * Load the Xaraya pre core early (in case we're not coming in via index.php)
@@ -170,28 +222,13 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * Load PHP Version Backwards Compatibility Library
      *
      */
+    //REMOVEME
     sys::import('xaraya.xarPHPCompat');
     xarPHPCompat::loadAll('lib/xaraya/phpcompat');
 
-    /**
-     * At this point we should be able to catch all low level errors, so we can start the debugger
-     * Set the types of debug you want to see by adding flags to the activation
-     *
-     * FLAGS:
-     *
-     * XARDBG_INACTIVE          disable  the debugger
-     * XARDBG_ACTIVE            enable   the debugger
-     * XARDBG_EXCEPTIONS        debug exceptions
-     * XARDBG_SQL               debug SQL statements
-     * XARDBG_SHOW_PARAMS_IN_BT show parameters in the backtrace
-     *
-     * Flags can be OR-ed together
-     */
-    xarCoreActivateDebugger(XARDBG_ACTIVE | XARDBG_EXCEPTIONS | XARDBG_SHOW_PARAMS_IN_BT);
-
     /*
-     * If there happens something we want to be able to log it
-     *
+     * If something happens we want to be able to log it
+     * And to do so we will need the system time
      */
     $systemArgs = array();
     sys::import('xaraya.log');
@@ -203,6 +240,23 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
     } catch (Exception $e) {
         die('Your configuration file appears to be missing. This usually indicates Xaraya has not been installed. <br/>Please refer to point 4 of the installation instructions <a href="readme.html" target="_blank">here</a>');
     }
+
+    /**
+     * At this point we should be able to catch all low level errors, so we can start the debugger
+     *
+     * FLAGS:
+     *
+     * XARDBG_INACTIVE          disable  the debugger
+     * XARDBG_ACTIVE            enable   the debugger
+     * XARDBG_EXCEPTIONS        debug exceptions
+     * XARDBG_SQL               debug SQL statements
+     * XARDBG_SHOW_PARAMS_IN_BT show parameters in the backtrace
+     *
+     * Flags can be OR-ed together
+     */
+// CHECKME: make this configurable too !?
+    xarCoreActivateDebugger(XARDBG_ACTIVE | XARDBG_EXCEPTIONS | XARDBG_SHOW_PARAMS_IN_BT);
+//    xarCoreActivateDebugger(XARDBG_INACTIVE);
 
     /*
      * Start Database Connection Handling System
@@ -440,55 +494,16 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
 }
 
 /**
- * Default shutdown handler
- *
- *
- */
-function xarCore__shutdown_handler()
-{
-    // Default shutdownhandler, nothing here yet,
-    // but i think we could do something here with the
-    // connection_aborted() function, signalling that
-    // the user prematurely aborted. (by hitting stop or closing browser)
-    // Also, the other subsystems can use a similar handler, for example to clean up
-    // session tables or removing online status flags etc.
-    // A carefully constructed combo with ignore_user_abort() and
-    // a check afterward will get all requests atomic which might save
-    // some headaches.
-
-    // This handler is guaranteed to be registered as the last one, which
-    // means that is also guaranteed to run last in the sequence of shutdown
-    // handlers, the last statement in this function
-    // is guaranteed to be the last statement of Xaraya ;-)
-}
-
-/**
- * Returns the relative path name for the var directory
- *
- * @author Marco Canini <marco@xaraya.com>
- * @access public
- * @return string the var directory path name
- * @todo   move the hardcoded stuff to something configurable
- */
-function xarCoreGetVarDirPath()
-{
-    return xarPreCoreGetVarDirPath();
-}
-
-/**
  * Activates the debugger.
  *
  * @access public
- * @global integer xarDebug
- * @global integer xarDebug_sqlCalls
- * @global string xarDebug_startTime
- * @param integer flags bit mask for the debugger flags
+ * @param integer $flags bit mask for the debugger flags
  * @todo  a big part of this should be in the exception (error handling) subsystem.
  * @return void
- */
+**/
 function xarCoreActivateDebugger($flags)
 {
-    $GLOBALS['xarDebug'] = $flags;
+    xarDebug::$flags = $flags;
     if ($flags & XARDBG_INACTIVE) {
         // Turn off error reporting
         error_reporting(0);
@@ -496,8 +511,11 @@ function xarCoreActivateDebugger($flags)
         assert_options(ASSERT_ACTIVE, 0);
     } elseif ($flags & XARDBG_ACTIVE) {
         // See if config.system.php has info for us on the errorlevel, but dont break if it has not
-        $errLevel = xarCore_getSystemVar('Exception.ErrorLevel',true);
-        if(!isset($errLevel)) $errLevel = E_ALL;
+        try {
+            $errLevel = xarSystemVars::get(sys::CONFIG, 'Exception.ErrorLevel');
+        } catch(Exception $e) {
+            $errLevel = E_ALL;
+        }
 
         error_reporting($errLevel);
         // Activate assertions
@@ -505,11 +523,9 @@ function xarCoreActivateDebugger($flags)
         assert_options(ASSERT_WARNING,   1);    // Issue a php warning
         assert_options(ASSERT_BAIL,      0);    // Stop processing?
         assert_options(ASSERT_QUIET_EVAL,0);    // Quiet evaluation of assert condition?
-        // Dependency! (move to xarException?)
-        assert_options(ASSERT_CALLBACK,'xarException__assertErrorHandler'); // Call this function when the assert fails
-        $GLOBALS['xarDebug_sqlCalls'] = 0;      // Set to 1 for inclusion of sql queries
+        xarDebug::$sqlCalls = 0;
         $lmtime = explode(' ', microtime());
-        $GLOBALS['xarDebug_startTime'] = $lmtime[1] + $lmtime[0];
+        xarDebug::$startTime = $lmtime[1] + $lmtime[0];
     }
 }
 
@@ -517,15 +533,11 @@ function xarCoreActivateDebugger($flags)
  * Check if the debugger is active
  *
  * @access public
- * @global integer xarDebug
  * @return bool true if the debugger is active, false otherwise
- */
+**/
 function xarCoreIsDebuggerActive()
 {
-    if(isset($GLOBALS['xarDebug'])) {
-        return $GLOBALS['xarDebug'] & XARDBG_ACTIVE;
-    } else return false;
-
+    return xarDebug::$flags & XARDBG_ACTIVE;
 }
 
 /**
@@ -534,152 +546,12 @@ function xarCoreIsDebuggerActive()
  * @access public
  * @param integer flag the debugger flag to check for activity
  * @return bool true if the flag is active, false otherwise
- */
+**/
 function xarCoreIsDebugFlagSet($flag)
 {
-    return ($GLOBALS['xarDebug'] & XARDBG_ACTIVE) && ($GLOBALS['xarDebug'] & $flag);
+    return (xarDebug::$flags & XARDBG_ACTIVE) && (xarDebug::$flags & $flag);
 }
 
-/**
- * Gets a core system variable
- *
- * System variables are REQUIRED to be set, if they cannot be found
- * the system cannot continue. Only use variables for this which are
- * absolutely necessary to be set. Otherwise use other types of variables
- *
- * @access protected
- * @static systemVars array
- * @param string name name of core system variable to get
- * @param boolean returnNull if System variable doesn't exist return null
- * @return mixed The value of the specific var
- */
-function xarCore_getSystemVar($name, $returnNull = false)
-{
-    static $systemVars = NULL;
-
-    if (xarCore_IsCached('Core.getSystemVar', $name)) {
-        return xarCore_GetCached('Core.getSystemVar', $name);
-    }
-    if (!isset($systemVars)) {
-        $fileName = xarCoreGetVarDirPath() . '/' . XARCORE_CONFIG_FILE;
-        if (!file_exists($fileName)) {
-            xarCore_die("xarCore_getSystemVar: Configuration file not present: ".$fileName);
-        }
-        include $fileName;
-        $systemVars = $systemConfiguration;
-    }
-
-    if (!isset($systemVars[$name])) {
-        if($returnNull)
-        {
-            return null;
-        } else {
-            // FIXME: remove if/when there's some way to upgrade config.system.php or equivalent
-            if ($name == 'DB.UseADODBCache') {
-                $systemVars[$name] = false;
-            } else {
-                xarCore_die("xarCore_getSystemVar: Unknown system variable: ".$name);
-            }
-        }
-    }
-
-    xarCore_SetCached('Core.getSystemVar', $name, $systemVars[$name]);
-
-    return $systemVars[$name];
-}
-
-
-/**
- * Load a file and capture any php errors
- *
- * @access public
- * @param  string $fileName name of the file to load
- * @param  bool   $flags    can this file only be loaded once, or multiple times? XAR_INCLUDE_ONCE and  XAR_INCLUDE_MAY_NOT_EXIST are the possible flags right now, INCLUDE_MAY_NOT_EXISTS makes the function succeed even in te absense of the file
- * @return bool   true if file was loaded successfully, false on error (NO exception)
- */
-function xarInclude($fileName, $flags = XAR_INCLUDE_ONCE)
-{
-    // If the file isn't there return according to the flags
-    if (!file_exists($fileName))
-        return ($flags & XAR_INCLUDE_MAY_NOT_EXIST);
-
-    //Commeting this to speed this function
-    //Anyways the error_msg wasnt being used for anything.
-    //I guess this doesnt work like this.
-    //You would have to trap all the page output to get the PHP parse errors?!
-    // Catch output, if any
-
-//    ob_start();
-
-    if ($flags & XAR_INCLUDE_ONCE) {
-        $r = include_once($fileName);
-    } else {
-        $r = include($fileName);
-    }
-
-//    $error_msg = strip_tags(ob_get_contents());
-//    ob_end_clean();
-
-    if (empty($r) || !$r) {
-        return false;
-    }
-
-    return true;
-}
-
-/**
- * Error function before Exceptions are loaded
- *
- * @access protected
- * @param string msg message to print as an error
- */
-function xarCore_die($msg)
-{
-    static $dying = false;
-    /*
-     * Prolly paranoid now, but to prevent looping we keep track if we have already
-     * been here.
-     */
-    if($dying) return;
-    $dying = true;
-
-    // This is allowed, in core itself
-    // NOTE that this will never be translated
-    if (xarCoreIsDebuggerActive()) {
-        $msg = nl2br($msg);
-$debug = <<<EOD
-<br /><br />
-<p align="center"><span style="color: blue">Technical information</span></p>
-<p>Xaraya has failed to serve the request, and the failure could not be handled.</p>
-<p>This is a bad sign and probably means that Xaraya is not configured properly.</p>
-<p>The failure reason is: <span style="color: red">$msg</span></p>
-EOD;
-    } else {
-       $debug = '';
-    }
-$errPage = <<<EOM
-<html>
-  <head>
-    <title>Fatal Error</title>
-  </head>
-  <body>
-    <p>A fatal error occurred while serving your request.</p>
-    <p>We are sorry for this inconvenience.</p>
-    <p>If this is the first time you see this message, you can try to access the site directly through index.php<br/>
-    If you see this message every time you tried to access to this service, it is probable that our server
-    is experiencing heavy problems, for this reason we ask you to retry in some hours.<br/>
-    If you see this message for days, we ask you to report the unavailablity of service to our webmaster. Thanks.
-    </p>
-    $debug
-  </body>
-</html>
-EOM;
-    if (headers_sent() == false)
-        header('HTTP/1.1 503 Service Unavailable');
-    echo $errPage;
-    // Sorry, this is the end, nothing can be trusted anymore.
-    die();
-}
 
 /**
  * Check whether a certain API type is allowed
@@ -831,4 +703,18 @@ function xarFuncIsDisabled($funcName)
 
     return (isset($disabled[$funcName]) ? true : false);
 }
+
+/**
+ * Convenience class for keeping track of debugger operation
+ *
+ * @package debug
+ * @todo this is close to exceptions or logging than core, see also notes earlier
+**/
+class xarDebug extends Object
+{
+    public static $flags     = 0; // default off?
+    public static $sqlCalls  = 0; // Should be in flags imo
+    public static $startTime = 0; // Should not be here at all
+}
+
 ?>

@@ -72,7 +72,7 @@ define ('XARINSTALL_PHASE_BOOTSTRAP',           '6');
 
 include 'lib/xaraya/xarPreCore.php';
 sys::import('xaraya.caching');
-sys::import('xaraya.xarCore');
+sys::import('xaraya.core');
 
 // Besides what we explicitly load, we dont want to load
 // anything extra for maximum control

@@ -27,7 +27,7 @@ xarCache::init();
 /**
  * Load the Xaraya core
  */
-sys::import('xaraya.xarCore');
+sys::import('xaraya.core');
 
 /**
  * Main Xaraya Entry

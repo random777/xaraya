@@ -26,7 +26,7 @@
 // Maybe changing this touch to a centralized API would be a good idea?
 // Even if in the end it would use touched files too...
 $here = dirname(__FILE__);
-sys::import('xaraya.xarCore');
+sys::import('xaraya.core');
 if (file_exists(xarCoreGetVarDirPath() . '/security/on.touch')) {
     sys::import('xaraya.xarCacheSecurity');
 }

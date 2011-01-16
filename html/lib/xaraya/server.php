@@ -288,12 +288,12 @@ class xarServer extends Object
         // it can be used to configure Xaraya for mod_rewrite by
         // setting BaseURI = '' in config.php
 /* Aruba versions */
-  $BaseURI =  xarCore_getSystemVar('BaseURI',true);
-  if( isset( $BaseURI) )
-  {
-    // If BaseURI set, just use it
-    return  $BaseURI;
-  }
+        try {
+            $BaseURI =  xarCore_getSystemVar(sys::CONFIG, 'BaseURI');
+            return $BaseURI;
+        } catch(Exception $e) {
+            // We need to build it
+        }
 
 /* Jamaica version
         try {

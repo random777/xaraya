@@ -406,7 +406,11 @@ function xarMLS_setCurrentLocale($locale)
 {
     static $called = 0;
 
-    assert('$called == 0; // Can only be called once during a page request');
+    // FIXME: during initialisation, the current locale was set, and it gets called
+    // again during user subsystem initialisation, we have to provide better defaults
+    // if we really want this to run only once.
+
+    //assert('$called == 0; // Can only be called once during a page request');
     $called++;
 
     $mode = xarMLSGetMode();
@@ -452,11 +456,11 @@ function xarMLS_setCurrentLocale($locale)
 /* TODO: delete after new backend testing
     switch ($GLOBALS['xarMLS_backendName']) {
     case 'xml':
-        sys::import('xaraya.mlsbackends.xarMLSXMLBackend');
+        sys::import('xaraya.mlsbackends.xml');
         $GLOBALS['xarMLS_backend'] = new xarMLS__XMLTranslationsBackend($alternatives);
         break;
     case 'php':
-        sys::import('xaraya.mlsbackends.xarMLSPHPBackend');
+        sys::import('xaraya.mlsbackends.php');
         $GLOBALS['xarMLS_backend'] = new xarMLS__PHPTranslationsBackend($alternatives);
         break;
     case 'xml2php':
@@ -470,7 +474,6 @@ function xarMLS_setCurrentLocale($locale)
 */
     // Load core translations
     xarMLS_loadTranslations(XARMLS_DNTYPE_CORE, 'xaraya', 'core:', 'core');
-
     //xarMLSLoadLocaleData($locale);
 }
 
@@ -504,18 +507,18 @@ function xarMLS_loadTranslations($dnType, $dnName, $ctxType, $ctxName)
         if ($dnType == XARMLS_DNTYPE_MODULE) {
             // Handle in a special way the module type
             // for which it's necessary to load common translations
-            if (!isset($loadedCommons[$dnName])) {
-                $loadedCommons[$dnName] = true;
+            if (!isset($loadedCommons[$dnName.'module'])) {
+                $loadedCommons[$dnName.'module'] = true;
                 if (!$GLOBALS['xarMLS_backend']->loadContext('modules:', 'common')) return; // throw back
                 if (!$GLOBALS['xarMLS_backend']->loadContext('modules:', 'version')) return; // throw back
             }
         }
         if ($dnType == XARMLS_DNTYPE_THEME) {
             // Load common translations
-            //bug 6136  if (!isset($loadedCommons[$dnName])) {
-                $loadedCommons[$dnName] = true;
+            if (!isset($loadedCommons[$dnName.'theme'])) {
+                $loadedCommons[$dnName.'theme'] = true;
                 if (!$GLOBALS['xarMLS_backend']->loadContext('themes:', 'common')) return; // throw back
-            //bug 6136  }
+            }
         }
 
         if (!$GLOBALS['xarMLS_backend']->loadContext($ctxType, $ctxName)) return; // throw back
@@ -674,8 +677,7 @@ function xarMLS__parseLocaleString($locale)
     // Match the locales standard format  : en_US.iso-8859-1
     // Thus: language code lowercase(2), country code uppercase(2), encoding lowercase(1+)
     if (!preg_match('/([a-z][a-z])(_([A-Z][A-Z]))?(\.([0-9a-z\-]+))?(@([0-9a-zA-Z]+))?/', $locale, $matches)) {
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', 'locale');
-        return;
+        throw new BadParameterException('locale');
     }
 
     $res['lang'] = $matches[1];
@@ -717,8 +719,6 @@ function xarMLS__getSingleByteCharset($langISO2Code)
     return @$charsets[$langISO2Code];
 }
 
-// MLS CLASSES
-
 
 /**
  * Create directories tree
@@ -738,13 +738,13 @@ function xarMLS__mkdirr($path)
     $next_path = substr($path, 0, strrpos($path, '/'));
     if (xarMLS__mkdirr($next_path)) {
         if (!file_exists($path)) {
-            $result = @mkdir($path, 0700);
-            if (!$result) {
+            $madeDir = @mkdir($path, 0700);
+            if (!$madeDir) {
                 $msg = xarML("The directories under #(1) must be writeable by PHP.", $next_path);
                 xarLogMessage($msg);
-                // xarErrorSet(XAR_USER_EXCEPTION, 'WrongPermissions', new DefaultUserException($msg));
+                // throw new PermissionException?
             }
-            return $result;
+            return $madeDir;
         }
     }
     return false;

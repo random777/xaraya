@@ -3,15 +3,27 @@
  * User System
  *
  * @package core
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
  * @subpackage user
  * @author Jim McDonald
+ * @author Marco Canini <marco@xaraya.com>
  * @todo <marco> user status field
- * @todo <johnny> look over xarUserComparePasswords
  */
+
+// IS THIS STILL USED?
+global $installing;
+
+/**
+ * Exceptions defined by this subsystem
+ *
+ */
+class NotLoggedInException extends xarExceptions
+{
+    protected $message = 'An operation was encountered that requires the user to be logged in. If you are currently logged in please report this as a bug.';
+}
 
 /**
  * Dynamic User Data types for User Properties
@@ -28,12 +40,12 @@ define('XARUSER_DUD_TYPE_INTEGER', 8);
  * Authentication modules capabilities
  * (to be revised e.g. to differentiate read & update capability for core & dynamic)
  */
-define('XARUSER_AUTH_AUTHENTICATION', 1);
-define('XARUSER_AUTH_DYNAMIC_USER_DATA_HANDLER', 2);
-define('XARUSER_AUTH_PERMISSIONS_OVERRIDER', 16);
-define('XARUSER_AUTH_USER_CREATEABLE', 32);
-define('XARUSER_AUTH_USER_DELETEABLE', 64);
-define('XARUSER_AUTH_USER_ENUMERABLE', 128);
+define('XARUSER_AUTH_AUTHENTICATION'           ,   1);
+define('XARUSER_AUTH_DYNAMIC_USER_DATA_HANDLER',   2);
+define('XARUSER_AUTH_PERMISSIONS_OVERRIDER'    ,  16);
+define('XARUSER_AUTH_USER_CREATEABLE'          ,  32);
+define('XARUSER_AUTH_USER_DELETEABLE'          ,  64);
+define('XARUSER_AUTH_USER_ENUMERABLE'          , 128);
 
 /*
  * Error codes
@@ -50,7 +62,7 @@ define('XARUSER_LAST_RESORT', -3);
  * @param args[authenticationModules] array
  * @return bool true on success
  */
-function xarUser_init(&$args, $whatElseIsGoingLoaded)
+function xarUser_init(&$args)
 {
     // User System and Security Service Tables
     $systemPrefix = xarDBGetSystemTablePrefix();
@@ -72,47 +84,26 @@ function xarUser_init(&$args, $whatElseIsGoingLoaded)
     // Register the UserLogout event
     xarEvt_registerEvent('UserLogout');
 
-    // Subsystem initialized, register a handler to run when the request is over
-    //register_shutdown_function ('xarUser__shutdown_handler');
     return true;
-}
-
-/**
- * Shutdown handler for user subsystem
- *
- * @access private
- */
-function xarUser__shutdown_handler()
-{
-    //xarLogMessage("xarUser shutdown handler");
 }
 
 /**
  * Log the user in
  *
- * @author Marco Canini
  * @access public
- * @param userName string the name of the user logging in
- * @param password string the password of the user logging in
- * @param rememberMe bool whether or not to remember this login
+ * @param  string  $userName the name of the user logging in
+ * @param  string  $password the password of the user logging in
+ * @param  integer $rememberMe whether or not to remember this login
  * @return bool true if the user successfully logged in
- * @throws DATABASE_ERROR, BAD_PARAM, MODULE_NOT_EXIST, MODULE_FILE_NOT_EXIST, MODULE_FUNCTION_NOT_EXIST
+ * @throws EmptyParameterException, SQLException
  * @todo <marco> #1 here we could also set a last_logon timestamp
  */
 function xarUserLogIn($userName, $password, $rememberMe=0)
 {
-    if (xarUserIsLoggedIn()) {
-        return true;
-    }
-    if (empty($userName)) {
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'EMPTY_PARAM', 'userName');
-        return;
-    }
-
-    if (empty($password)) {
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'EMPTY_PARAM', 'password');
-        return;
-    }
+    if (xarUserIsLoggedIn()) return true;
+    
+    if (empty($userName)) throw new EmptyParameterException('userName');
+    if (empty($password)) throw new EmptyParameterException('password');
 
     $userId = XARUSER_AUTH_FAILED;
     $args = array('uname' => $userName, 'pass' => $password);

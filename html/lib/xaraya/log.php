@@ -159,14 +159,14 @@ function xarLog__shutdown_handler()
      xarLogMessage("xarLog shutdown handler.");
 
     // If the debugger was active, we can dispose it now.
-    if($GLOBALS['xarDebug'] & XARDBG_SQL) {
-        xarLogMessage("Total SQL queries: $GLOBALS[xarDebug_sqlCalls].");
-    }
+     if(xarDebug::$flags & XARDBG_SQL) {
+         xarLogMessage("Total SQL queries: $GLOBALS[xarDebug_sqlCalls].");
+     }
 
-    if ($GLOBALS['xarDebug'] & XARDBG_ACTIVE) {
+     if (xarDebug::$flags & XARDBG_ACTIVE) {
         $lmtime = explode(' ', microtime());
         $endTime = $lmtime[1] + $lmtime[0];
-        $totalTime = ($endTime - $GLOBALS['xarDebug_startTime']);
+        $totalTime = ($endTime - xarDebug::$startTime);
         xarLogMessage("Response was served in $totalTime seconds.");
     }
 

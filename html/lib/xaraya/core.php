@@ -476,7 +476,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * @todo <marcinmilan> review what pasts of the old user system need to be retained
      */
     if ($whatToLoad & XARCORE_SYSTEM_USER) {
-        sys::import('xaraya.xarUser');
+        sys::import('xaraya.users');
         sys::import('xaraya.xarSecurity');
         xarSecurity_init();
         // Start User System

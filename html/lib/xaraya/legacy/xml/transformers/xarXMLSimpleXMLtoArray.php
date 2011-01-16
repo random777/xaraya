@@ -11,7 +11,7 @@
  *
  */
 
-sys::import('xaraya.xarXML');
+sys::import('xaraya.legacy.xarXML');
 
 class xarXMLSimpleXMLtoArrayTransformer extends xarAbstractXmlHandler
 {

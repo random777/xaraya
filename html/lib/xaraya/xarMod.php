@@ -276,14 +276,17 @@ function xarModURL($modName = NULL, $modType = 'user', $funcName = 'main', $args
 function xarModGetName()
 {   return xarMod::getName(); }
 
-function xarModGetIDFromName($modName, $type = 'module')
-{   return xarMod::getRegID($modName, $type); }
+function xarModGetNameFromID($regid)
+{   return xarMod::getName($regid); }
 
 function xarModGetDisplayableName($modName = NULL, $type = 'module')
 {   return xarMod::getDisplayName($modName, $type); }
 
 function xarModGetDisplayableDescription($modName = NULL, $type = 'module')
 {   return xarMod::getDisplayDescription($modName,$type); }
+
+function xarModGetIDFromName($modName, $type = 'module')
+{   return xarMod::getRegID($modName, $type); }
 
 function xarModIsAvailable($modName, $type = 'module')
 {   return xarMod::isAvailable($modName, $type); }
@@ -378,7 +381,7 @@ class xarMod extends Object implements IxarMod
         if(!isset($regID)) {
             list($modName) = xarRequest::getInfo();
         } else {
-            $modinfo = xarMod_getInfo($regID);
+            $modinfo = xarModGetInfo($regID);
             $modName = $modinfo['name'];
         }
         assert('!empty($modName)');
@@ -1740,14 +1743,6 @@ function xarModGetInfo($modRegId, $type = 'module')
     return $modInfo;
 }
 
-function xarModGetNameFromID($regid)
-{
-    $modinfo = xarModGetInfo($regid);
-    return $modinfo['name'];
-}
-
-
-
 
 
 
@@ -1863,6 +1858,62 @@ function xarMod__URLaddParametersToPath($args, $path, $pini, $psep)
     return $path;
 }
 
+/**
+ * Wrapper functions to support Xaraya 1 API for module aliases
+ *
+ */
+function xarModGetAlias($alias) { return xarModAlias::resolve($alias);}
+function xarModSetAlias($alias, $modName) { return xarModAlias::set($alias,$modName);}
+function xarModDelAlias($alias, $modName) { return xarModAlias::delete($alias,$modName);}
+
+/**
+ * Interface declaration for module aliases
+ *
+ */
+interface IxarModAlias
+{
+    static function resolve($alias);
+    static function set    ($alias,$modName);
+    static function delete ($alias,$modName);
+}
+
+/**
+ * Class to model interface to module aliases
+ *
+ * @todo evaluate dependency consequences
+ * @todo evaluate usage in modules, it's not very common, as in, perhaps worth to scrap and bolt onto a request mapper
+ */
+class xarModAlias extends Object implements IxarModAlias
+{
+    /**
+     * Resolve an alias for a module
+     */
+    static function resolve($alias)
+    {
+        $aliasesMap = xarConfigVars::get(null,'System.ModuleAliases');
+        return (!empty($aliasesMap[$alias])) ? $aliasesMap[$alias] : $alias;
+    }
+
+    /**
+     * Set an alias for a module
+     */
+    static function set($alias,$modName)
+    {
+        if (!xarMod::apiLoad('modules', 'admin')) return;
+        $args = array('modName' => $modName, 'aliasModName' => $alias);
+        return xarMod::apiFunc('modules', 'admin', 'add_module_alias', $args);
+    }
+
+    /**
+     * Delete an alias for a module
+     */
+    static function delete($alias, $modName)
+    {
+        if (!xarMod::apiLoad('modules', 'admin')) return;
+        $args = array('modName' => $modName, 'aliasModName' => $alias);
+        return xarMod::apiFunc('modules', 'admin', 'delete_module_alias', $args);
+    }
+}
 
 
 
@@ -2755,44 +2806,6 @@ function xarModUnregisterHook($hookObject,
     return true;
 }
 
-
-/**
- * Resolve a module alias
- *
- * This is only a convenience wrapper fot xarRequest function
- *
- * @todo evaluate dependency consequences
-*/
-function xarModGetAlias($var)
-{
-    return xarRequest__resolveModuleAlias($var);
-}
-
-/**
- * Set an alias for a module
- *
- * @todo evalutate dependency consequences
- *
-*/
-function xarModSetAlias($alias, $modName)
-{
-    if (!xarModAPILoad('modules', 'admin')) return;
-    $args = array('modName' => $modName, 'aliasModName' => $alias);
-    return xarModAPIFunc('modules', 'admin', 'add_module_alias', $args);
-}
-
-/**
- * Delete an alias for a module
- * @todo evaluate dependency consequences
- * @param string $alias
- * @param string $modName
- */
-function xarModDelAlias($alias, $modName)
-{
-    if (!xarModAPILoad('modules', 'admin')) return;
-    $args = array('modName' => $modName, 'aliasModName' => $alias);
-    return xarModAPIFunc('modules', 'admin', 'delete_module_alias', $args);
-}
 
 
 ?>

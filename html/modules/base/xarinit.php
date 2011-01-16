@@ -265,7 +265,7 @@ function base_init()
     if (!$result) return;
 
     // {ML_dont_parse 'includes/xarMod.php'}
-    sys::import('xaraya.xarMod');
+    sys::import('xaraya.modules');
 
     // Start Modules Support
     $systemArgs = array('enableShortURLsSupport' => false,

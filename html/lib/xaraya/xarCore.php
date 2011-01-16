@@ -394,7 +394,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      * @todo <mrb> i thought it was configurable
      */
     if ($whatToLoad & XARCORE_SYSTEM_MODULES) {
-        sys::import('xaraya.xarMod');
+        sys::import('xaraya.modules');
         $systemArgs = array('enableShortURLsSupport' => xarConfigGetVar('Site.Core.EnableShortURLsSupport'),
                             'generateXMLURLs' => true);
         xarMod::init($systemArgs, $whatToLoad);

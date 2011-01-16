@@ -2,16 +2,12 @@
 /**
  * Multi Language System
  *
- * @package core
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @package multilanguage
+ * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
- *
- * @subpackage multilanguage
  * @author Marco Canini <marco@xaraya.com>
  */
-
-sys::import('xaraya.mls');
 
 /**
  * This is the default translations backend and should be used for production sites.
@@ -20,15 +16,17 @@ sys::import('xaraya.mls');
  *
  * @package multilanguage
  */
-class xarMLS__XML2PHPTranslationsBackend extends xarMLS__ReferencesBackend
-{
-    var $gen;
-    var $basePHPDir;
-    var $baseXMLDir;
+sys::import('xaraya.mlsbackends.reference');
 
-    function xarMLS__XML2PHPTranslationsBackend($locales)
+class xarMLS__XML2PHPTranslationsBackend extends xarMLS__ReferencesBackend implements ITranslationsBackend
+{
+    public $gen;
+    public $basePHPDir;
+    public $baseXMLDir;
+
+    function __construct($locales)
     {
-        parent::xarMLS__ReferencesBackend($locales);
+        parent::__construct($locales);
         $this->backendtype = "php";
 
         $this->gen = new PHPBackendGenerator(xarMLSGetCurrentLocale());
@@ -99,10 +97,10 @@ class xarMLS__XML2PHPTranslationsBackend extends xarMLS__ReferencesBackend
 
         if ($bindResult) {
             if (!isset($this->gen)) return false;
-//            if (!isset($this->gen)) {
-//                $this->gen = new PHPBackendGenerator(xarMLSGetCurrentLocale());
-//                if (!isset($this->gen)) return false;
-//            }
+            //            if (!isset($this->gen)) {
+            //                $this->gen = new PHPBackendGenerator(xarMLSGetCurrentLocale());
+            //                if (!isset($this->gen)) return false;
+            //            }
 
             if (!$this->gen->bindDomain($dnType, $dnName)) return false;
             if (parent::bindDomain($dnType, $dnName)) return true;
@@ -110,7 +108,7 @@ class xarMLS__XML2PHPTranslationsBackend extends xarMLS__ReferencesBackend
         }
 
         // FIXME: I should comment it because it creates infinite loop
-        // MLS -> xarMod_getBaseInfo -> xarDisplayableName -> xarMod_getFileInfo -> MLS
+        // MLS -> xarMod::getBaseInfo -> xarDisplayableName -> xarMod::getFileInfo -> MLS
         // We don't use and don't translate KEYS files now,
         // but I will recheck this code in the menus clone
         // if ($dnType == XARMLS_DNTYPE_MODULE) {
@@ -125,7 +123,7 @@ class xarMLS__XML2PHPTranslationsBackend extends xarMLS__ReferencesBackend
 /*
     function loadKEYS($dnName)
     {
-        $modBaseInfo = xarMod_getBaseInfo($dnName);
+        $modBaseInfo = xarMod::getBaseInfo($dnName);
         $fileName = "modules/$modBaseInfo[directory]/KEYS";
         if (file_exists($fileName)) {
 
@@ -148,7 +146,7 @@ class xarMLS__XML2PHPTranslationsBackend extends xarMLS__ReferencesBackend
         $phpFileName = $this->basePHPDir;
         $xmlFileName = $this->baseXMLDir;
 
-        if (!preg_match("/^[a-z]+:$/", $ctxType)) {
+        if (!mb_ereg("^[a-z]+:$", $ctxType)) {
             list($prefix,$directory) = explode(':',$ctxType);
             if ($directory != "") {
                 $phpFileName .= $directory . "/";
@@ -213,21 +211,16 @@ class xarMLS__XML2PHPTranslationsBackend extends xarMLS__ReferencesBackend
     }
 }
 
-/**
- * Generates the MLSXML2PHP backend
- *
- * @package multilanguage
- */
-class PHPBackendGenerator
+class PHPBackendGenerator extends Object
 {
 
-    var $locale;
-    var $outCharset;
-    var $fp;
-    var $baseDir;
-    var $baseXMLDir;
+    public $locale;
+    public $outCharset;
+    public $fp;
+    public $baseDir;
+    public $baseXMLDir;
 
-    function PHPBackendGenerator($locale)
+    function __construct($locale)
     {
         $this->locale = $locale;
         $l = xarLocaleGetInfo($locale);
@@ -296,7 +289,7 @@ class PHPBackendGenerator
         $this->fileName = $this->baseDir;
         $this->xmlFileName = $this->baseXMLDir;
 
-        if (!preg_match("/^[a-z]+:$/", $ctxType)) {
+        if (!mb_ereg("^[a-z]+:$", $ctxType)) {
             list($prefix,$directory) = explode(':',$ctxType);
             if ($directory != "") {
                 $this->fileName .= $directory . "/";
@@ -332,8 +325,8 @@ class PHPBackendGenerator
             fputs($fp2, 'global $xarML_PHPBackend_entries;'."\n");
             fputs($fp2, 'global $xarML_PHPBackend_keyEntries;'."\n");
             foreach ($vals as $node) {
-                if (!array_key_exists('tag',$node)) continue;
-                if (!array_key_exists('value',$node)) $node['value'] = '';
+                if (!isset($node['tag'])) continue;
+                if (!isset($node['value'])) $node['value'] = '';
                 if ($node['tag'] == 'STRING') {
                     $node['value'] = str_replace('\'', '\\\'', $node['value']);
                     $start = '$xarML_PHPBackend_entries[\''.$node['value']."']";
@@ -357,8 +350,8 @@ class PHPBackendGenerator
             global $xarML_PHPBackend_entries;
             global $xarML_PHPBackend_keyEntries;
             foreach ($vals as $node) {
-                if (!array_key_exists('tag',$node)) continue;
-                if (!array_key_exists('value',$node)) $node['value'] = '';
+                if (!isset($node['tag'])) continue;
+                if (!isset($node['value'])) $node['value'] = '';
                 if ($node['tag'] == 'STRING') {
                     $node['value'] = str_replace('\'', '\\\'', $node['value']);
                     $entryIndex = $node['value'];

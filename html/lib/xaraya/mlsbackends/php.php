@@ -3,28 +3,30 @@
  * Multi Language System
  *
  * @package core
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @subpackage multilanguage
+ * @category Xaraya Web Applications Framework
+ * @version 1.3.0
+ * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage multilanguage
  * @author Marco Canini <marco@xaraya.com>
  */
 
-sys::import('xaraya.mls');
 
 /**
  * This is the default translations backend and should be used for production sites.
  * Note that it does not support the xarMLS__ReferencesBackend interface.
  * <marc> why? have changed this to be able to collapse common methods
  *
- * @package multilanguage
  */
-class xarMLS__PHPTranslationsBackend extends xarMLS__ReferencesBackend
+
+sys::import('xaraya.mlsbackends.reference');
+class xarMLS__PHPTranslationsBackend extends xarMLS__ReferencesBackend implements ITranslationsBackend
 {
-    function xarMLS__PHPTranslationsBackend($locales)
+    function __construct($locales)
     {
-        parent::xarMLS__ReferencesBackend($locales);
+        parent::__construct($locales);
         $this->backendtype = "php";
     }
 
@@ -65,19 +67,19 @@ class xarMLS__PHPTranslationsBackend extends xarMLS__ReferencesBackend
     function bindDomain($dnType, $dnName='xaraya')
     {
         if (parent::bindDomain($dnType, $dnName)) return true;
-// FIXME: I should comment it because it creates infinite loop
-// MLS -> xarMod_getBaseInfo -> xarDisplayableName -> xarMod_getFileInfo -> MLS
-// We don't use and don't translate KEYS files now,
-// but I will recheck this code in the menus clone
-//        if ($dnType == XARMLS_DNTYPE_MODULE) {
-//            $this->loadKEYS($dnName);
-//        }
+        // FIXME: I should comment it because it creates infinite loop
+        // MLS -> xarMod::getBaseInfo -> xarDisplayableName -> xarMod::getFileInfo -> MLS
+        // We don't use and don't translate KEYS files now,
+        // but I will recheck this code in the menus clone
+        //        if ($dnType == XARMLS_DNTYPE_MODULE) {
+        //            $this->loadKEYS($dnName);
+        //        }
         return false;
     }
 /*
     function loadKEYS($dnName)
     {
-        $modBaseInfo = xarMod_getBaseInfo($dnName);
+        $modBaseInfo = xarMod::getBaseInfo($dnName);
         $fileName = "modules/$modBaseInfo[directory]/KEYS";
         if (file_exists($fileName)) {
 
@@ -96,10 +98,11 @@ class xarMLS__PHPTranslationsBackend extends xarMLS__ReferencesBackend
     {
         if (!$fileName = $this->findContext($ctxType, $ctxName)) {
 //            $msg = xarML("Context type: #(1) and file name: #(2)", $ctxType, $ctxName);
-//            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'CONTEXT_NOT_EXIST', new SystemException($msg));
+//            throw new ContextNotFoundException?
 //            return;
             return true;
         }
+        // @todo do we need to wrap this into a try/catch construct?
         include $fileName;
 
         return true;

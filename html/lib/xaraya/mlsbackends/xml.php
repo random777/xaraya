@@ -3,41 +3,42 @@
  * Multi Language System - XML Translations Backend
  *
  * @package core
- * @copyright (C) 2002-2007 The Digital Development Foundation
+ * @subpackage multilanguage
+ * @category Xaraya Web Applications Framework
+ * @version 1.3.0
+ * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  *
- * @subpackage multilanguage
  * @author Marco Canini <marco@xaraya.com>
  */
-sys::import('xaraya.mls');
+sys::import('xaraya.mlsbackends.reference');
 /**
  * XML based translation backend
  *
  * Implements a concrete translations backend based on the XML language.
  * All xml files are encoded in UTF-8. This backend is useful only when
  * running Xaraya in the multi-language mode (UTF-8).
- * @package core
- * @subpackage multilanguage
+ * @throws Exception, XMLParseException
  */
-class xarMLS__XMLTranslationsBackend extends xarMLS__ReferencesBackend
+class xarMLS__XMLTranslationsBackend extends xarMLS__ReferencesBackend implements ITranslationsBackend
 {
-    var $curEntry;
-    var $curData;
+    public $curEntry;
+    public $curData;
 
-    var $parser;
+    public $parser;
 
-    var $trans = array(); // where translations are kept
-    var $transEntries = array(); // mapping for string-based translations
-    var $transKeyEntries = array(); // mapping for key-based translations
+    public $trans = array(); // where translations are kept
+    public $transEntries = array(); // mapping for string-based translations
+    public $transKeyEntries = array(); // mapping for key-based translations
 
-    var $transInd = 0;
-    var $transKeyInd = 0;
+    public $transInd = 0;
+    public $transKeyInd = 0;
 
 
-    function xarMLS__XMLTranslationsBackend($locales)
+    function __construct($locales)
     {
-        parent::xarMLS__ReferencesBackend($locales);
+        parent::__construct($locales);
         $this->backendtype = "xml";
     }
 
@@ -97,7 +98,7 @@ class xarMLS__XMLTranslationsBackend extends xarMLS__ReferencesBackend
         }
 
         if ($xmlExtensionLoaded === false) {
-            xarCore_die('Using the "xml" backend for translations, but the php-xml extension is not loaded. Please modify your php.ini to load the extension or choose the "php" backend.');
+            throw new Exception('Using the "xml" backend for translations, but the php-xml extension is not loaded. Please modify your php.ini to load the extension or choose the "php" backend.');
         }
 
         $this->curData = '';
@@ -121,9 +122,7 @@ class xarMLS__XMLTranslationsBackend extends xarMLS__ReferencesBackend
         xml_set_character_data_handler($this->parser, "characterData");
 
         if (!$fileName = $this->findContext($ctxType, $ctxName)) {
-//            die("Could not load context:" . $ctxName . " in " . $this->locale);
-//            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'CONTEXT_NOT_EXIST', new SystemException($ctxType.': '.$ctxName));
-//            return;
+            //  throw new ContextNotFounException(array($ctxName,$this->locale),'Could not load context:"#(1)" in "#(2)"');
             return true;
         }
 
@@ -139,9 +138,7 @@ class xarMLS__XMLTranslationsBackend extends xarMLS__ReferencesBackend
                 // NOTE: <marco> Of course don't use xarML here!
                 $errstr = xml_error_string(xml_get_error_code($this->parser));
                 $line = xml_get_current_line_number($this->parser);
-                xarErrorSet(XAR_SYSTEM_EXCEPTION, 'XML_PARSER_ERROR',
-                                new SystemException("XML parser error in $fileName: $errstr at line $line."));
-                return;
+                throw new XMLParseException(array($fileName,$line,$errstr));
             }
         }
 

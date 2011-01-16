@@ -1009,6 +1009,7 @@ function xarTpl__executeFromFile($sourceFileName, $tplData, $tplType = 'module')
         $templateCode = null;
 
         // Determine if we need to compile this template
+    // FIXME: REMOVE THIS
     sys::import('xaraya.caching.template');
     xarTemplateCache::init(sys::varpath() . XARCORE_TPL_CACHEDIR, 1);
         if (xarTemplateCache::isDirty($sourceFileName)) {

@@ -3,19 +3,21 @@
  * Multi Language System
  *
  * @package core
- * @subpackage multilanguage
- * @category Xaraya Web Applications Framework
- * @version 1.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
+ *
+ * @subpackage multilanguage
  * @author Marco Canini <marco@xaraya.com>
+ * @author Roger Raymond <roger@asphyxia.com>
+ * @author Marcel van der Boom <mrb@hsdev.com>
+ * @author Volodymyr Metenchuk <voll@xaraya.com>
  * @todo Dynamic Translations
- *       Timezone and DST support (default offset is supported now)
- *       Write standard core translations
- *       Complete changes as described in version 0.9 of MLS RFC
- *       Implements the request(ed) locale APIs for backend interactions
- *       See how utf-8 works for xml backend
+ * @todo Timezone and DST support (default offset is supported now)
+ * @todo Write standard core translations
+ * @todo Complete changes as described in version 0.9 of MLS RFC
+ * @todo Implements the request(ed) locale APIs for backend interactions
+ * @todo See how utf-8 works for xml backend
  */
 
 /**
@@ -32,15 +34,16 @@ define('XARMLS_DNTYPE_MODULE', 3);
 
 sys::import('xaraya.locales');
 sys::import('xaraya.transforms.xarCharset');
+sys::import('xaraya.mlsbackends.reference');
 
 /**
  * Initializes the Multi Language System
  *
- * @author Marco Canini <marco@xaraya.com>
  * @access protected
+ * @throws Exception
  * @return bool true
  */
-function xarMLS_init(&$args, $whatElseIsGoingLoaded)
+function xarMLS_init(&$args)
 {
     switch ($args['MLSMode']) {
     case XARMLS_SINGLE_LANGUAGE_MODE:
@@ -51,58 +54,46 @@ function xarMLS_init(&$args, $whatElseIsGoingLoaded)
         $GLOBALS['xarMLS_mode'] = $args['MLSMode'];
         if (!function_exists('mb_http_input')) {
             // mbstring required
-            xarCore_die('xarMLS_init: Mbstring PHP extension is required for UNBOXED MULTI language mode.');
+            throw new Exception('xarMLS_init: Mbstring PHP extension is required for UNBOXED MULTI language mode.');
         }
         break;
     default:
-        xarCore_die('xarMLS_init: Unknown MLS mode: '.$args['MLSMode']);
+        $GLOBALS['xarMLS_mode'] = 'BOXED';
+        //throw new Exception('xarMLS_init: Unknown MLS mode: '.$args['MLSMode']);
     }
     $GLOBALS['xarMLS_backendName'] = $args['translationsBackend'];
-/* TODO: delete after new backend testing
-    if ($GLOBALS['xarMLS_backendName'] != 'php' && $GLOBALS['xarMLS_backendName'] != 'xml' && $GLOBALS['xarMLS_backendName'] != 'xml2php') {
-        xarCore_die('xarML_init: Unknown translations backend: '.$GLOBALS['xarMLS_backendName']);
-    }
-*/
+
     // USERLOCALE FIXME Delete after new backend testing
     $GLOBALS['xarMLS_localeDataLoader'] = new xarMLS__LocaleDataLoader();
     $GLOBALS['xarMLS_localeDataCache'] = array();
 
-    $GLOBALS['xarMLS_currentLocale'] = '';
+    $GLOBALS['xarMLS_currentLocale'] = ''; // <-- FIXME: this causes problems
+
     $GLOBALS['xarMLS_defaultLocale'] = $args['defaultLocale'];
     $GLOBALS['xarMLS_allowedLocales'] = $args['allowedLocales'];
 
     $GLOBALS['xarMLS_newEncoding'] = new xarCharset;
 
-    $GLOBALS['xarMLS_defaultTimeZone'] = isset($args['defaultTimeZone']) ?
-                                         $args['defaultTimeZone'] : '';
+    $GLOBALS['xarMLS_defaultTimeZone'] = !empty($args['defaultTimeZone']) ?
+                                         $args['defaultTimeZone'] : @date_default_timezone_get();
     $GLOBALS['xarMLS_defaultTimeOffset'] = isset($args['defaultTimeOffset']) ?
                                            $args['defaultTimeOffset'] : 0;
 
+    // Set the timezone
+    date_default_timezone_set ($GLOBALS['xarMLS_defaultTimeZone']);
+
     // Register MLS events
     // These should be done before the xarMLS_setCurrentLocale function
-    xarEvt_registerEvent('MLSMissingTranslationString');
-    xarEvt_registerEvent('MLSMissingTranslationKey');
-    xarEvt_registerEvent('MLSMissingTranslationDomain');
+    xarEvents::register('MLSMissingTranslationString');
+    xarEvents::register('MLSMissingTranslationKey');
+    xarEvents::register('MLSMissingTranslationDomain');
 
-    if (!($whatElseIsGoingLoaded & XARCORE_SYSTEM_USER)) {
-        // The User System won't be started
-        // MLS will use the default locale
-        xarMLS_setCurrentLocale($args['defaultLocale']);
-    }
-
-    // Subsystem initialized, register a handler to run when the request is over
-    //register_shutdown_function ('xarMLS__shutdown_handler');
+    // FIXME: this was previously conditional on User subsystem initialisation,
+    // but in the 2.x flow we need it earlier apparently, so made this unconditional
+    // *AND* commented out the assertion on running this once per request lower
+    // in this file. We need to investigate this better after the MLS refactoring
+    xarMLS_setCurrentLocale($args['defaultLocale']);
     return true;
-}
-
-/**
- * Shutdown handler for the MLS subsystem
- *
- * @access private
- */
-function xarMLS__shutdown_handler()
-{
-    //xarLogMessage("xarMLS shutdown handler");
 }
 
 /**
@@ -185,12 +176,15 @@ function xarML($rawstring/*, ...*/)
     $string = trim($rawstring);
     if($string == '') return $rawstring;
 
+    $start = strpos($rawstring, $string);
+    $prefix = substr($rawstring,0,$start);
+    $suffix = substr($rawstring,$start+strlen($string));
+
     // Make sure string is sane
     // - hex 0D -> ''
     // - space around newline -> ' '
     // - multiple newlines -> 1 newline
-    $string = preg_replace(array('[\x0d]','/[\t ]+/','/\s*\n\s*/'),
-                           array('',' ',"\n"),$string);
+//    $string = preg_replace(array('[\x0d]','/[\t ]+/','/\s*\n\s*/'), array('',' ',"\n"),$string);
 
     if (isset($GLOBALS['xarMLS_backend'])) {
         $trans = $GLOBALS['xarMLS_backend']->translate($string,1);
@@ -211,7 +205,7 @@ function xarML($rawstring/*, ...*/)
         $trans = xarMLS__bindVariables($trans, $args);
     }
 
-    return $trans;
+    return $prefix . $trans . $suffix;
 }
 
 /**
@@ -219,16 +213,13 @@ function xarML($rawstring/*, ...*/)
  *
  * @author Marco Canini <marco@xaraya.com>
  * @access public
+ * @throws BadParameterException
  * @return string the translation string, or the key if no translation is available
  */
 function xarMLByKey($key/*, ...*/)
 {
     // Key must have a value and not contain spaces
-    if(empty($key) || strpos($key," ")) {
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM');
-        return;
-    }
-
+    if(empty($key) || strpos($key," ")) throw new BadParameterException('key');
 
     if (isset($GLOBALS['xarMLS_backend'])) {
         $trans = $GLOBALS['xarMLS_backend']->translateByKey($key);
@@ -269,24 +260,23 @@ function xarLocaleGetInfo($locale) { return xarMLS__parseLocaleString($locale); 
  *
  * @author Marco Canini <marco@xaraya.com>
  * @access public
+ * @throws BadParameterException
  * @return string locale string
  */
 function xarLocaleGetString($localeInfo)
 {
-    if (!isset($localeInfo['lang']) || !isset($localeInfo['country']) || !isset($localeInfo['specializer']) || !isset($localeInfo['charset'])) {
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', 'localeInfo');
-        return;
+    if (!isset($localeInfo['lang']) ||
+        !isset($localeInfo['country']) ||
+        !isset($localeInfo['specializer']) ||
+        !isset($localeInfo['charset'])) {
+        throw new BadParameterException('localeInfo');
     }
-    if (strlen($localeInfo['lang']) != 2) {
-        xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', 'localeInfo');
-        return;
-    }
+    if (strlen($localeInfo['lang']) != 2) throw new BadParameterException('localeInfo');
+
     $locale = strtolower($localeInfo['lang']);
     if (!empty($localeInfo['country'])) {
-        if (strlen($localeInfo['country']) != 2) {
-            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', 'localeInfo');
-            return;
-        }
+        if (strlen($localeInfo['country']) != 2) throw new BadParameterException('localeInfo');
+
         $locale .= '_'.strtoupper($localeInfo['country']);
     }
     if (!empty($localeInfo['charset'])) {
@@ -333,13 +323,13 @@ function xarLocaleGetList($filter=array())
  *  @access protected
  *  @return int unix timestamp.
  */
-function xarMLS_userTime($time=null)
+function xarMLS_userTime($time=null,$flag=1)
 {
     // get the current UTC time
     if (!isset($time)) {
         $time = time();
     }
-    $time += xarMLS_userOffset($time) * 3600;
+    if ($flag) $time += xarMLS_userOffset($time) * 3600;
     // return the corrected timestamp
     return $time;
 }

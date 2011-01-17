@@ -38,7 +38,7 @@ function mail_adminapi_hookmaildelete($args)
         if (!empty($extrainfo['module'])) {
             $modname = $extrainfo['module'];
         } else {
-            $modname = xarModGetName();
+            $modname = xarMod::getName();
         }
     }
 

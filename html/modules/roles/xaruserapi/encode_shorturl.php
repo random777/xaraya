@@ -49,7 +49,7 @@ function roles_userapi_encode_shorturl($args)
     // Initialise the path.
     $path = array();
 
-    // we can't rely on xarModGetName() here -> you must specify the modname.
+    // we can't rely on xarMod::getName() here -> you must specify the modname.
     $module = 'roles';
 
     switch($func) {

@@ -68,7 +68,7 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
                 $list = xarModGetHookList(xarMod::getName($this->_moduleid), 'item', 'transform', $this->_itemtype);
             } else {
                 // The old method as fallback.
-                $list = xarModGetHookList(xarModGetName(), 'item', 'transform');
+                $list = xarModGetHookList(xarMod::getName(), 'item', 'transform');
             }
             foreach ($list as $hook) {
                 if ($hook['module'] == 'uploads') {

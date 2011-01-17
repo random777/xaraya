@@ -46,7 +46,7 @@ function dynamicdata_userapi_showview($args)
 
     if (empty($modid)) {
         if (empty($module)) {
-            $modname = xarModGetName();
+            $modname = xarMod::getName();
         } else {
             $modname = $module;
         }

@@ -42,7 +42,7 @@ function &dynamicdata_userapi_getitem($args)
 
     if (empty($modid) && empty($moduleid)) {
         if (empty($module)) {
-            $modname = xarModGetName();
+            $modname = xarMod::getName();
         } else {
             $modname = $module;
         }

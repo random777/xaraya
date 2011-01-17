@@ -59,7 +59,7 @@ function modules_adminapi_activate($args)
         return NULL;
     }
 
-    if (function_exists('xarOutputFlushCached') && function_exists('xarModGetName') && xarModGetName() != 'installer') {
+    if (function_exists('xarOutputFlushCached') && function_exists('xarMod::getName') && xarMod::getName() != 'installer') {
         xarOutputFlushCached('base');
         xarOutputFlushCached('base-block');
     }

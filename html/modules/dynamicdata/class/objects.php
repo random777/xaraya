@@ -108,7 +108,7 @@ class Dynamic_Object_Master
         }
         if (empty($this->moduleid)) {
             if (empty($this->objectid)) {
-                $this->moduleid = xarMod::getRegID(xarModGetName());
+                $this->moduleid = xarMod::getRegID(xarMod::getName());
             }
         } elseif (!is_numeric($this->moduleid) && is_string($this->moduleid)) {
             $this->moduleid = xarMod::getRegID($this->moduleid);
@@ -466,7 +466,7 @@ class Dynamic_Object_Master
             $bindvars[] = (string) $args['name'];
         } else {
             if (empty($args['moduleid'])) {
-                $args['moduleid'] = xarMod::getRegID(xarModGetName());
+                $args['moduleid'] = xarMod::getRegID(xarMod::getName());
             }
             if (empty($args['itemtype'])) {
                 $args['itemtype'] = 0;

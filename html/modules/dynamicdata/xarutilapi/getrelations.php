@@ -34,7 +34,7 @@ function dynamicdata_utilapi_getrelations($args)
         $modid = xarMod::getRegID($module);
     }
     if (empty($modid)) {
-        $modid = xarMod::getRegID(xarModGetName());
+        $modid = xarMod::getRegID(xarMod::getName());
     }
     $modinfo = xarModGetInfo($modid);
     if (empty($itemtype)) {

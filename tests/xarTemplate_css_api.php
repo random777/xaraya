@@ -211,7 +211,7 @@ function xarTplSetPageTitle($title = NULL, $module = NULL)
         $order      = xarModGetVar('themes', 'SiteTitleOrder');
         $separator  = xarModGetVar('themes', 'SiteTitleSeparator');
         if (empty($module)) {
-            $module = ucwords(xarModGetName());
+            $module = ucwords(xarMod::getName());
         }
         switch(strtolower($order)) {
             case 'default':

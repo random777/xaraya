@@ -40,7 +40,7 @@ function &dynamicdata_userapi_getitems($args)
     $nullreturn = null;
     if (empty($modid) && empty($moduleid)) {
         if (empty($module)) {
-            $modname = xarModGetName();
+            $modname = xarMod::getName();
         } else {
             $modname = $module;
         }

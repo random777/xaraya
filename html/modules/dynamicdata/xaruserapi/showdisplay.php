@@ -38,7 +38,7 @@ function dynamicdata_userapi_showdisplay($args)
         $tplmodule = 'dynamicdata';
     }
     if (empty($module)) {
-        $modname = xarModGetName();
+        $modname = xarMod::getName();
     } else {
         $modname = $module;
     }

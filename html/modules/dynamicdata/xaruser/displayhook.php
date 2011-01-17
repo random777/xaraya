@@ -44,7 +44,7 @@ function dynamicdata_user_displayhook($args)
     if (is_array($extrainfo) && !empty($extrainfo['module']) && is_string($extrainfo['module'])) {
         $modname = $extrainfo['module'];
     } else {
-        $modname = xarModGetName();
+        $modname = xarMod::getName();
     }
 
     $modid = xarMod::getRegID($modname);

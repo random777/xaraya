@@ -34,7 +34,7 @@ function dynamicdata_userapi_encode_shorturl($args)
     $path = '';
     // if we want to add some common arguments as URL parameters below
     $join = '?';
-    // we can't rely on xarModGetName() here !
+    // we can't rely on xarMod::getName() here !
     $module = 'dynamicdata';
 
     // return immediately when we're dealing with the main function (don't load unnecessary stuff)

@@ -39,7 +39,7 @@ include dirname(__FILE__).'/pnHTML.php';
 * pnModAPIFunc -> xarMod::apiFunc
 * pnModAvailable -> xarMod::isAvailable
 *
-* pnModDBInfoLoad -> xarModDBInfoLoad
+* pnModDBInfoLoad -> xarMod::loadDbInfo
 * pnModGetInfo -> xarModGetInfo
 * pnModGetUserMods -> xarModGetList(array('UserCapable' => 1))
 * pnModGetAdminMods -> xarModGetList(array('AdminCapable' => 1))
@@ -694,7 +694,7 @@ function pnModCallHooks($hookobject, $hookaction, $hookid, $extrainfo)
 
 function pnModDBInfoLoad($modname, $directory='')
 {
-    return xarModDBInfoLoad($modname, $directory);
+    return xarMod::loadDbInfo($modname, $directory);
 }
 
 function pnModDelVar($modName, $name)

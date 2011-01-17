@@ -116,11 +116,11 @@ function xarThemeGetInfo($regId)
  *
  * @param string themeName name of theme to load database definition for
  * @param string themeDir directory that theme is in (if known)
- * @return xarModDBInfoLoad for processing.
+ * @return xarMod::loadDbInfo for processing.
  */
 function xarThemeDBInfoLoad($themeName, $themeDir = NULL)
 {
-    return xarModDBInfoLoad($themeName, $themeDir, $type = 'theme');
+    return xarMod::loadDbInfo($themeName, $themeDir, $type = 'theme');
 }
 
 

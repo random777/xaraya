@@ -19,7 +19,7 @@
     echo "<strong>$step. Importing old downloads</strong><br/>\n";
 
     $userid = unserialize(xarModGetVar('installer','userid'));
-    if (xarModIsAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
+    if (xarMod::isAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
         $docounter = 1;
     }
     $downloads_cats = unserialize(xarModGetVar('installer','downloads_cats'));

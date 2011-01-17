@@ -116,7 +116,7 @@ function dynamicdata_adminapi_importpropertytypes( $args )
                     $modulesNeeded = explode(';', $baseInfo['requiresmodule']);
                     foreach( $modulesNeeded as $moduleName ) {
                         // If a required module is not available continue with the next property
-                        if( !xarModIsAvailable($moduleName) ) continue 2;
+                        if( !xarMod::isAvailable($moduleName) ) continue 2;
                     }
                 }
 

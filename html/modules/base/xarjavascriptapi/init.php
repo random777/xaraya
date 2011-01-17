@@ -37,7 +37,7 @@ function base_javascriptapi_init($args)
         if (empty($fwinfo['module'])) return '';
         $modName = $fwinfo['module'];
     }
-    if (!xarModIsAvailable($modName)) return '';
+    if (!xarMod::isAvailable($modName)) return '';
 
     if (!isset($file) && isset($fwinfo['file'])) {
         $file = $fwinfo['file'];

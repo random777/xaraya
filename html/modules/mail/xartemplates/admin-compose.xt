@@ -113,7 +113,7 @@ jQuery('#"."scan').click(function() {
                     <textarea name="message" id="message" class="xar-form-textarealarge"></textarea>
                 </div>
            </div>
-            <xar:if condition="xarModIsAvailable('scheduler')">
+            <xar:if condition="xarMod::isAvailable('scheduler')">
                 <div class="xar-form-input-wrapper">
                     <label for="when_input" title="#xarML('Test scheduled mails.')#" class="xar-form-label">
                         <xar:mlstring>No Earlier Than:</xar:mlstring>

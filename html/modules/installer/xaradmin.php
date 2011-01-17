@@ -1555,7 +1555,7 @@ function installer_admin_upgrade2()
     $allowregistration =xarModGetVar('roles','allowregistration');
     if (isset($allowregistration) && ($allowregistration==1)) {
         //We need to tell user about the new Registration module - let's just warn them for now
-        if (!xarModIsAvailable('registration')){
+        if (!xarMod::isAvailable('registration')){
             $content .= "<h2 style=\"color:red;\">WARNING!</h2><p>Your setup indicates you allow User Registration on your site.</p>";
             $content .= "<p>Handling of User Registration has changed in this version. Please install and activate the <strong>Registration</strong> module to continue User Registration on your site.</p>";
             $content .= "<p>You should also remove any existing login blocks and install the Registration module Login block if you wish to include a Registration link in the block.</p>";
@@ -1800,7 +1800,7 @@ function installer_admin_upgrade2()
     // if it is active and the default is currently not set
     $defaultregmodule= xarModGetVar('roles','defaultregmodule');
     if (!isset($defaultregmodule)) {
-        if (xarModIsAvailable('registration')) {
+        if (xarMod::isAvailable('registration')) {
             xarModSetVar('roles','defaultregmodule',xarModGetIDFromName('registration'));
         }
     }

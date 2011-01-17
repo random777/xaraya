@@ -152,7 +152,7 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
     {
         if (!empty($args['module']) &&
             preg_match('/^\w+$/',$args['module']) &&
-            xarModIsAvailable($args['module'])) {
+            xarMod::isAvailable($args['module'])) {
 
             $this->module = $args['module'];
             if (isset($args['itemtype']) && is_numeric($args['itemtype'])) {
@@ -207,7 +207,7 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
         if (!empty($parts[0])) {
             $modparts = explode('.', $parts[0], 2);
             // The module is valid
-            if (xarModIsAvailable($modparts[0])) {
+            if (xarMod::isAvailable($modparts[0])) {
                 $this->module = $modparts[0];
 
                 // The module has an itemtype specified.

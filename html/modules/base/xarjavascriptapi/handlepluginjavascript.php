@@ -60,7 +60,7 @@ function base_javascriptapi_handlepluginjavascript($args)
         }
     }
     // no module name, bail
-    if (!isset($module) || !xarModIsAvailable($module)) return '';
+    if (!isset($module) || !xarMod::isAvailable($module)) return '';
     $module = strtolower($module);
 
     if (empty($file)) {

@@ -149,7 +149,7 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
         if (!$result) {
             die("Oops, select HTMLpages content failed : " . $dbconn->ErrorMsg());
         }
-        if (xarModIsAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
+        if (xarMod::isAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
             $docounter = 1;
         }
         while (!$result->EOF) {

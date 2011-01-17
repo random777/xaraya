@@ -66,7 +66,7 @@ function mail_adminapi__sendmail($args)
     }
 
 
-    if (!empty($when) && $when > time() && xarModIsAvailable('scheduler')) {
+    if (!empty($when) && $when > time() && xarMod::isAvailable('scheduler')) {
         if (xarMod::apiFunc('mail','admin','_queuemail', $args)) {
             // we're done here
             return true;

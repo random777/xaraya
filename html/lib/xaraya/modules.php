@@ -1994,9 +1994,9 @@ function xarModCallHooks($hookObject, $hookAction, $hookId, $extraInfo, $callerM
     // Call each hook
     foreach ($hooklist as $hook) {
         //THIS IS BROKEN
-        //$hook['type'] and $type in the xarModIsAvailable ARE NOT THE SAME THING
-        //if (!xarModIsAvailable($hook['module'], $hook['type'])) continue;
-        if (!xarModIsAvailable($hook['module'])) continue;
+        //$hook['type'] and $type in the xarMod::isAvailable ARE NOT THE SAME THING
+        //if (!xarMod::isAvailable($hook['module'], $hook['type'])) continue;
+        if (!xarMod::isAvailable($hook['module'])) continue;
         if ($hook['area'] == 'GUI') {
             $isGUI = true;
             if (!xarModLoad($hook['module'], $hook['type']))  return;

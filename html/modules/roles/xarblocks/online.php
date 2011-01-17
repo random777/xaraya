@@ -97,7 +97,7 @@ function roles_onlineblock_display($blockinfo)
             );
 
             if ($session['name'] == xarUserGetVar('name')) {
-                if (xarModIsAvailable('messages')) {
+                if (xarMod::isAvailable('messages')) {
                     $args['test1'][$key]['total'] = xarMod::apiFunc(
                         'messages', 'user', 'count_total',
                         array('uid'=>$session['uid'])

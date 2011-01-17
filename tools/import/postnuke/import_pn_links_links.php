@@ -19,7 +19,7 @@
     echo "<strong>$step. Importing old web links</strong><br/>\n";
 
     $userid = unserialize(xarModGetVar('installer','userid'));
-    if (xarModIsAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
+    if (xarMod::isAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
         $docounter = 1;
     }
     $weblinks = unserialize(xarModGetVar('installer','weblinks'));

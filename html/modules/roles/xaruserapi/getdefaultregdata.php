@@ -29,7 +29,7 @@ function roles_userapi_getdefaultregdata()
     //if it is not set then use registration module    
     if (!isset($defaultregmodid) || $defaultregmodid<=0) {
         //user Registration if it's there else display appropriate error
-        if (xarModIsAvailable('registration')) { 
+        if (xarMod::isAvailable('registration')) { 
            $defaultregmodname   = 'registration';
            $defaultregid = xarModGetIDFromName('registration');
         } else {
@@ -39,11 +39,11 @@ function roles_userapi_getdefaultregdata()
         }
     } elseif (isset($defaultregmodid)){
         $defaultregmodname = xarModGetNameFromID($defaultregmodid);
-        if (xarModIsAvailable($defaultregmodname)) {
+        if (xarMod::isAvailable($defaultregmodname)) {
             $defaultregmodname   = $defaultregmodname;
             $defaultregid        = $defaultregmodid;   
         } else {
-            if (xarModIsAvailable('registration')) { 
+            if (xarMod::isAvailable('registration')) { 
                 $defaultregmodname   = 'registration';
                 $defaultregid = xarModGetIDFromName('registration');
             } else {

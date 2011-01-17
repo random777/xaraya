@@ -109,7 +109,7 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
     if (!xarModAPILoad('dynamicdata','util')) {
         die("Unable to load the dynamicdata util API");
     }
-    if (xarModIsAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
+    if (xarMod::isAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
         $docounter = 1;
     }
     $tables =& xarDBGetTables();
@@ -292,7 +292,7 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
     $dbconn->Execute('OPTIMIZE TABLE ' . $tables['categories']);
     $dbconn->Execute('OPTIMIZE TABLE ' . $tables['articles']);
     $dbconn->Execute('OPTIMIZE TABLE ' . $tables['categories_linkage']);
-    if (xarModIsAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
+    if (xarMod::isAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
         $dbconn->Execute('OPTIMIZE TABLE ' . $tables['hitcount']);
     }
     $dbconn->Execute('OPTIMIZE TABLE ' . $tables['comments']);

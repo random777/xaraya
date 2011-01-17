@@ -375,7 +375,7 @@ jQuery('#"."mailmodifyconfig').validate({
                 <label for="interval" title="#xarML('Specify the interval to check for mails to send.')#" class="xar-form-label">
                     <xar:mlstring>Support Scheduled Mail:</xar:mlstring>
                 </label>
-                <xar:if condition="xarModIsAvailable('scheduler')">
+                <xar:if condition="xarMod::isAvailable('scheduler')">
                     <select name="interval" id="interval">
                         <option value=""><xar:mlstring>not supported</xar:mlstring></option>
                         <xar:foreach in="$intervals" key="$id" value="$name">

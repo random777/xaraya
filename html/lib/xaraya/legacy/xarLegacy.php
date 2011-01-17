@@ -37,7 +37,7 @@ include dirname(__FILE__).'/pnHTML.php';
 * pnModAPILoad -> xarModAPILoad
 * pnModFunc -> xarMod::guiFunc
 * pnModAPIFunc -> xarMod::apiFunc
-* pnModAvailable -> xarModIsAvailable
+* pnModAvailable -> xarMod::isAvailable
 *
 * pnModDBInfoLoad -> xarModDBInfoLoad
 * pnModGetInfo -> xarModGetInfo
@@ -279,7 +279,7 @@ function pnModGetName()
  */
 function pnModAvailable($modName)
 {
-    return xarModIsAvailable($modName);
+    return xarMod::isAvailable($modName);
 }
 
 /**

@@ -29,7 +29,7 @@
     if (!$result) {
         die("Oops, select section content failed : " . $dbconn->ErrorMsg());
     }
-    if (xarModIsAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
+    if (xarMod::isAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
         $docounter = 1;
     }
     while (!$result->EOF) {

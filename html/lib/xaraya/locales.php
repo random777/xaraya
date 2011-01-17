@@ -21,7 +21,7 @@
  * @access public
  * @return array locale data or Null on error or False
  * @throws  LOCALE_NOT_EXIST, LOCALE_NOT_AVAILABLE
- * @todo   figure out why we go through this function for xarModIsAvailable
+ * @todo   figure out why we go through this function for xarMod::isAvailable
  */
 function &xarMLSLoadLocaleData($locale = NULL)
 {

@@ -18,7 +18,7 @@
 
     echo "<strong>$step. Importing private messages</strong><br/>\n";
 
-    if (!xarModIsAvailable('messages')) {
+    if (!xarMod::isAvailable('messages')) {
         echo "The messages module is not activated in Xaraya<br/>\n";
         $step++;
         return;

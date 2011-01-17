@@ -55,7 +55,7 @@ function xarWebservicesMain()
     switch($type) {
     case  'xmlrpc':
         // xmlrpc server does automatic processing directly
-        if (xarModIsAvailable('xmlrpcserver')) {
+        if (xarMod::isAvailable('xmlrpcserver')) {
             $server = xarMod::apiFunc('xmlrpcserver','user','initxmlrpcserver');
         }
         if (!$server) {
@@ -71,7 +71,7 @@ function xarWebservicesMain()
     // Trackback with it's mixed spec. i.e. not an xml formatted request, but a simple POST
     // It doesnt mean however we can't treat the thing the same, ergo move the specifics out of here
     case  'trackback':
-        if (xarModIsAvailable('trackback')) {
+        if (xarMod::isAvailable('trackback')) {
             $error = array();
             if (!xarVarFetch('url', 'str:1:', $url)) {
                 // Gots to return the proper error reply
@@ -107,7 +107,7 @@ function xarWebservicesMain()
         
         break;
     case 'soap' :
-        if(xarModIsAvailable('soapserver')) {
+        if(xarMod::isAvailable('soapserver')) {
             $server = xarMod::apiFunc('soapserver','user','initsoapserver');
         
             if (!$server) {
@@ -133,7 +133,7 @@ function xarWebservicesMain()
         break;
     case 'webdav' :
         xarLogMessage("WebDAV request");
-        if(xarModIsAvailable('webdavserver')) {
+        if(xarMod::isAvailable('webdavserver')) {
             $server = xarMod::apiFunc('webdavserver','user','initwebdavserver');
             if(!$server) {
                 xarLogMessage('Could not load webdav server, giving up');
@@ -147,7 +147,7 @@ function xarWebservicesMain()
         break;
       case 'flashremoting' :
           xarLogMessage("FlashRemoting request");
-        if(xarModIsAvailable('flashservices')) {
+        if(xarMod::isAvailable('flashservices')) {
           $server = xarMod::apiFunc('flashservices','user','initflashservices');
           if (is_object($server)) {
               $server->service();

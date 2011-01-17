@@ -9,6 +9,7 @@
  *
  * @subpackage themes
  * @author mrb <marcel@xaraya.com> (this tag means responsible person)
+ * @todo Most of this doesnt belong here, but in the themes module, move it away
 */
 
 /**
@@ -91,6 +92,8 @@ function xarThemeDelVar($themeName, $name)
  */
 function xarThemeGetIDFromName($themeName)
 {
+    if (empty($themeName)) throw new EmptyParameterException('themeName');
+
     return xarModGetIDFromName($themeName, $type = 'theme');
 }
 
@@ -147,7 +150,7 @@ function xarThemeGetDisplayableName($themeName)
  */
 function xarThemeIsAvailable($themeName)
 {
-    return xarModIsAvailable($themeName, $type = 'theme');
+    return xarMod::isAvailable($themeName, $type = 'theme');
 }
 
 

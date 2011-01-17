@@ -55,7 +55,7 @@ function base_javascriptapi_appendframeworkevent($args)
         return '';
     }
 
-    if (!isset($modName) || !xarModIsAvailable($modName)) {
+    if (!isset($modName) || !xarMod::isAvailable($modName)) {
         $modName = $fwinfo['module'];
     }
     if ((!isset($file) || $file == '') && (!isset($code) || $code == '')) {

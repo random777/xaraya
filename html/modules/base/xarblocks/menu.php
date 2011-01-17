@@ -250,7 +250,7 @@ function base_menublock_display($blockinfo)
                 $list = array();
                 foreach ($modlist as $mod) {
                     $temp = xarMod_getBaseInfo($mod);
-                    if(!empty($temp) && xarModIsAvailable($temp['name']))
+                    if(!empty($temp) && xarMod::isAvailable($temp['name']))
                         if (isset($temp)) $list[] = $temp;
                 }
                 $mods = $list;

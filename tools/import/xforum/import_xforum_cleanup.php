@@ -34,7 +34,7 @@
     $url = xarModURL('xarbb','user','view',
                      array('ptid' => $ptid));
     // Enable bbcode hooks for 'forums' pubtype of articles
-    if (xarModIsAvailable('bbcode')) {
+    if (xarMod::isAvailable('bbcode')) {
         xarMod::apiFunc('modules','admin','enablehooks',
                       array('callerModName' => 'xarbb', 'callerItemType' => $ptid, 'hookModName' => 'bbcode'));
     }

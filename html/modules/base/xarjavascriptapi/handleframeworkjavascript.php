@@ -40,7 +40,7 @@ function base_javascriptapi_handleframeworkjavascript($args)
 
     if (empty($fwinfo['module'])) return '';
     $module = $fwinfo['module'];
-    if (!xarModIsAvailable($module)) return '';
+    if (!xarMod::isAvailable($module)) return '';
 
     if (!isset($file) && isset($fwinfo['file'])) {
         $file = $fwinfo['file'];

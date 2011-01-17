@@ -35,7 +35,7 @@ function modules_admin_updatehooks()
 
     // Only update if the module is active.
     $modinfo = xarModGetInfo($regId);
-    if (!empty($modinfo) && xarModIsAvailable($modinfo['name'])) {
+    if (!empty($modinfo) && xarMod::isAvailable($modinfo['name'])) {
         // Pass to API
         $updated = xarMod::apiFunc(
             'modules', 'admin', 'updatehooks',

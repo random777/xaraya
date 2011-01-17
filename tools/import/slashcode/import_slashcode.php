@@ -372,10 +372,10 @@ if (empty($step)) {
     if (!xarModAPILoad('dynamicdata','util')) {
         die("Unable to load the dynamicdata util API");
     }
-    if (xarModIsAvailable('polls') && !xarModAPILoad('polls','admin')) {
+    if (xarMod::isAvailable('polls') && !xarModAPILoad('polls','admin')) {
         die("Unable to load the polls admin API");
     }
-    if (xarModIsAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
+    if (xarMod::isAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
         $docounter = 1;
     }
 

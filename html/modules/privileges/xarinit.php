@@ -22,7 +22,7 @@
  */
 function privileges_init()
 {
-/*    if(!xarModIsAvailable('roles')) {
+/*    if(!xarMod::isAvailable('roles')) {
         $msg=xarML('The roles module should be activated first');
         xarErrorSet(XAR_SYSTEM_EXCEPTION,'MODULE_DEPENDENCY',
                         new SystemException($msg));

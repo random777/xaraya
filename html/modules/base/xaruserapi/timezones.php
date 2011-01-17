@@ -22,7 +22,7 @@
 function base_userapi_timezones($args)
 {
 /*
-    if (isset($time) && xarModIsAvailable('timezone')) {
+    if (isset($time) && xarMod::isAvailable('timezone')) {
         // get time-dependent timezone information from the timezone module
         ...
         return $Zones;

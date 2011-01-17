@@ -29,7 +29,7 @@ function roles_userapi_getdefaultauthdata()
     if (isset($defaultauthmoduleid) && !empty($defaultauthmoduleid)) {
         $defaultauthmodulename =xarModGetNameFromId($defaultauthmoduleid);
         //check the module is still available else we have no alternative to fall back
-        if (!xarModIsAvailable($defaultauthmodulename)) {
+        if (!xarMod::isAvailable($defaultauthmodulename)) {
            $defaultauthmodulename='authsystem'; //core authentication
         }
     }

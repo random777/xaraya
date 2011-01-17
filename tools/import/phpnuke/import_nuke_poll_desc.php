@@ -18,7 +18,7 @@
 
     echo "<strong>$step. Importing old poll descriptions</strong><br/>\n";
 
-    if (!xarModIsAvailable('polls')) {
+    if (!xarMod::isAvailable('polls')) {
         echo "The polls module is not activated in Xaraya<br/>\n";
         $step++;
         return;

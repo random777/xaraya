@@ -48,12 +48,12 @@
         $url = xarModURL('articles','user','view',
                          array('ptid' => $ptid));
         // Enable bbcode hooks for 'forums' pubtype of articles
-        if (xarModIsAvailable('bbcode') && !xarModIsHooked('bbcode','articles',$ptid)) {
+        if (xarMod::isAvailable('bbcode') && !xarModIsHooked('bbcode','articles',$ptid)) {
             xarMod::apiFunc('modules','admin','enablehooks',
                           array('callerModName' => 'articles', 'callerItemType' => $ptid, 'hookModName' => 'bbcode'));
         }
     } else {
-        if (xarModIsAvailable('bbcode') && !xarModIsHooked('bbcode','xarbb')) {
+        if (xarMod::isAvailable('bbcode') && !xarModIsHooked('bbcode','xarbb')) {
             xarMod::apiFunc('modules','admin','enablehooks',
                           array('callerModName' => 'xarbb', 'hookModName' => 'bbcode'));
         }

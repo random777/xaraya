@@ -16,14 +16,14 @@
                  &#160;
              </td>
              <td colspan="2">
-                 <xar:if condition="xarModIsAvailable('messages')">
+                 <xar:if condition="xarMod::isAvailable('messages')">
                      <xar:mlstring>Messages</xar:mlstring>
                      <xar:else />
                      &#160;
                  </xar:if>
              </td>
          </tr>
-         <xar:if condition="xarModIsAvailable('messages')">
+         <xar:if condition="xarMod::isAvailable('messages')">
              <tr>
                  <td>
                      &#160;

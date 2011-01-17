@@ -90,7 +90,7 @@ function mail_admin_updateconfig()
     xarModSetVar('mail', 'redirectsending', $redirectsending);
     xarModSetVar('mail', 'redirectaddress', $redirectaddress);
 
-    if (xarModIsAvailable('scheduler')) {
+    if (xarMod::isAvailable('scheduler')) {
         if (!xarVarFetch('interval', 'str:1', $interval, '', XARVAR_NOT_REQUIRED)) return;
         // see if we have a scheduler job running to send queued mail
         $job = xarMod::apiFunc('scheduler','user','get',

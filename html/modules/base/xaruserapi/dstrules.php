@@ -23,7 +23,7 @@
 function base_userapi_dstrules($args)
 {
 /*
-    if (isset($time) && xarModIsAvailable('timezone')) {
+    if (isset($time) && xarMod::isAvailable('timezone')) {
         // get time-dependent DST rules from the timezone module
         ...
         return $Rules;

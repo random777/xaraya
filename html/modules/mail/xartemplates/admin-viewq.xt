@@ -13,7 +13,7 @@
        We only show this if we can use it eg scheduler is installed and hooked to mail
    </xar:comment>
 
-   <xar:if condition="xarModIsAvailable('scheduler') and xarModIsHooked('mail','scheduler')">
+   <xar:if condition="xarMod::isAvailable('scheduler') and xarModIsHooked('mail','scheduler')">
    <xar:comment>We only show this if we can use it eg scheduler is installed and hooked to mail </xar:comment>
     <xar:if condition="!empty($log)">
         <pre>#$log#</pre>

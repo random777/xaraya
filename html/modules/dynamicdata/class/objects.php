@@ -1659,7 +1659,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
 
     function setCategories($catid)
     {
-        if (!xarModIsAvailable('categories')) return;
+        if (!xarMod::isAvailable('categories')) return;
         $categoriesdef = xarMod::apiFunc('categories','user','leftjoin',
                                        array('modid' => $this->moduleid,
                                              'itemtype' => $this->itemtype,

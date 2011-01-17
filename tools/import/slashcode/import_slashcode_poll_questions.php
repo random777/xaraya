@@ -21,7 +21,7 @@
     // mapping discussion - poll id
     $polldiscussions = array();
 
-    if (!xarModIsAvailable('polls')) {
+    if (!xarMod::isAvailable('polls')) {
         echo "The polls module is not activated in Xaraya<br/>\n";
         $step++;
         xarModSetVar('installer','polldiscussions',serialize($polldiscussions));

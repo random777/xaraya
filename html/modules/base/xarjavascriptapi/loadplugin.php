@@ -57,7 +57,7 @@ function base_javascriptapi_loadplugin($args)
         }
     }
     // no module name, bail
-    if (!isset($modName) || !xarModIsAvailable($modName)) return '';
+    if (!isset($modName) || !xarMod::isAvailable($modName)) return '';
     $modName = strtolower($modName);
 
     if (empty($file)) {

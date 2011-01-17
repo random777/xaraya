@@ -64,7 +64,7 @@ class Dynamic_Function_DataStore extends Dynamic_DataStore
                     xarErrorFree();
                 }
             } else {
-            // TODO: don't we want auto-loading for xarModFunc too ???
+            // TODO: don't we want auto-loading for xarMod::guiFunc too ???
                 // try to load the module GUI
                 if (!xarModLoad($fmod,$ftype)) {
                     if (xarCurrentErrorType() != XAR_NO_EXCEPTION) {
@@ -75,7 +75,7 @@ class Dynamic_Function_DataStore extends Dynamic_DataStore
                 }
                 // try to invoke the function with some common parameters
             // TODO: standardize this, or allow the admin to specify the arguments
-                $value = xarModFunc($fmod,$ftype,$ffunc,
+                $value = xarMod::guiFunc($fmod,$ftype,$ffunc,
                                     array('modname' => $modname,
                                           'modid' => $modid,
                                           'itemtype' => $itemtype,

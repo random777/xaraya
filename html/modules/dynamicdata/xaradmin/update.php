@@ -14,7 +14,7 @@
 /**
  * Update current item
  * This is a standard function that is called with the results of the
- * form supplied by xarModFunc('dynamicdata','admin','modify') to update a current item
+ * form supplied by xarMod::guiFunc('dynamicdata','admin','modify') to update a current item
  * @param 'exid' the id of the item to be updated
  * @param 'name' the name of the item to be updated
  * @param 'number' the number of the item to be updated

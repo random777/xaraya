@@ -76,7 +76,7 @@ function <xsl:value-of select="$module_prefix" />_<xsl:value-of select="@name" /
     /*
      * Compose the data for the template
      */
-    $preview = xarModFunc(
+    $preview = xarMod::guiFunc(
         '<xsl:value-of select="../../registry/name" />'
         ,'user'
         ,'display'

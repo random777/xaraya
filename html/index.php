@@ -85,7 +85,7 @@ function xarMain()
         }
 
         // Call the main module function
-        $mainModuleOutput = xarModFunc($modName, $modType, $funcName);
+        $mainModuleOutput = xarMod::guiFunc($modName, $modType, $funcName);
 
         if (xarCoreIsDebuggerActive()) {
             if (ob_get_length() > 0) {

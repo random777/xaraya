@@ -63,7 +63,7 @@ function xarUpgradeMain()
     xarTplSetPageTitle(xarML("Upgrading Xaraya"));
 
     // start the output buffer
-    $mainModuleOutput =xarModFunc('installer','admin',$funcName);
+    $mainModuleOutput =xarMod::guiFunc('installer','admin',$funcName);
   
     if (xarCoreIsDebuggerActive()) {
         if (ob_get_length() > 0) {

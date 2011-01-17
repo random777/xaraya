@@ -2951,9 +2951,9 @@ class xarTpl__XarModuleNode extends xarTpl__TplTagNode
             }
         // TODO: improve handling of extra arguments if necessary
             if (isset($args['args']) && substr($args['args'],0,1) == '$') {
-                return 'xarModFunc("'.$module.'", "'.$type.'", "'.$func.'", '.$args['args'].')';
+                return 'xarMod::guiFunc("'.$module.'", "'.$type.'", "'.$func.'", '.$args['args'].')';
             } elseif (count($args) > 0) {
-                $out = 'xarModFunc("'.$module.'", "'.$type.'", "'.$func.'", array(';
+                $out = 'xarMod::guiFunc("'.$module.'", "'.$type.'", "'.$func.'", array(';
                 foreach ($args as $key => $val) {
                     $out .= "'$key' => ";
                     if (substr($val,0,1) == '$') {
@@ -2965,7 +2965,7 @@ class xarTpl__XarModuleNode extends xarTpl__TplTagNode
                 $out .= '))';
                 return $out;
             } else {
-                return 'xarModFunc("'.$module.'", "'.$type.'", "'.$func.'")';
+                return 'xarMod::guiFunc("'.$module.'", "'.$type.'", "'.$func.'")';
             }
         }
     }

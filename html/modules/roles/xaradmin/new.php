@@ -21,6 +21,6 @@
  */
 function roles_admin_new()
 {
-    return xarModFunc('roles', 'admin', 'newrole');
+    return xarMod::guiFunc('roles', 'admin', 'newrole');
 }
 ?>

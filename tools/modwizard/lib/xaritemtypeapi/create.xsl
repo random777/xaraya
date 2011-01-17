@@ -94,7 +94,7 @@ function <xsl:value-of select="$module_prefix" />_<xsl:value-of select="@name" /
     } else {
 
         // Back to new
-        return xarModFunc(
+        return xarMod::guiFunc(
             '<xsl:value-of select="$module_prefix" />'
             ,'admin'
             ,'new'

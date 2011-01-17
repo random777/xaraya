@@ -2008,7 +2008,7 @@ function xarModCallHooks($hookObject, $hookAction, $hookId, $extraInfo, $callerM
                 We still need a review of this function - and at each step where there is now an existing return.
             */
 
-            $res = xarModFunc($hook['module'],
+            $res = xarMod::guiFunc($hook['module'],
                               $hook['type'],
                               $hook['func'],
                               array('objectid' => $hookId,

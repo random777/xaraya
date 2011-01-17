@@ -83,7 +83,7 @@ function <xsl:value-of select="$module_prefix" />_<xsl:value-of select="@name" /
          * We create the preview with the <xsl:value-of select="$module_prefix" />_userapi_view<xsl:value-of select="@name" />()
          * function.
          */
-        $preview = xarModFunc(
+        $preview = xarMod::guiFunc(
             '<xsl:value-of select="../../registry/name" />'
             ,'user'
             ,'display'

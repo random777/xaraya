@@ -35,7 +35,7 @@ include dirname(__FILE__).'/pnHTML.php';
 * pnModGetIDFromName -> xarModGetIDFromName
 * pnModLoad -> xarModLoad
 * pnModAPILoad -> xarModAPILoad
-* pnModFunc -> xarModFunc
+* pnModFunc -> xarMod::guiFunc
 * pnModAPIFunc -> xarMod::apiFunc
 * pnModAvailable -> xarModIsAvailable
 *
@@ -704,7 +704,7 @@ function pnModDelVar($modName, $name)
 
 function pnModFunc($modname, $type='user', $func='main', $args=array())
 {
-    return xarModFunc($modname, $type, $func, $args);
+    return xarMod::guiFunc($modname, $type, $func, $args);
 }
 
 function pnModGetIDFromName($module)

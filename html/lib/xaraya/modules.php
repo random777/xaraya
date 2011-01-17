@@ -1890,7 +1890,7 @@ class xarModAlias extends Object implements IxarModAlias
      */
     static function resolve($alias)
     {
-        $aliasesMap = xarConfigVars::get(null,'System.ModuleAliases');
+        $aliasesMap = xarConfigGetVar(null,'System.ModuleAliases');
         return (!empty($aliasesMap[$alias])) ? $aliasesMap[$alias] : $alias;
     }
 

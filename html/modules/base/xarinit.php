@@ -474,6 +474,11 @@ function base_init()
     xarModSetVar('base', 'RegisteredFrameworks', serialize($registeredframeworks));
     xarModSetVar('base', 'DefaultFramework', 'jquery');
     xarModSetVar('base','AutoLoadDefaultFramework', 0);
+    
+    // FIXME: Review this when we look at core module ports from Jamaica
+    xarModSetVar('modules','defaultmodule', 'base');
+    xarModSetVar('modules','defaultmoduletype', 'user');
+    xarModSetVar('modules','defaultmodulefunction', 'main');
 
     // Initialisation successful
     return true;

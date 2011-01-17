@@ -105,6 +105,9 @@ function xarUserLogIn($userName, $password, $rememberMe=0)
     if (empty($userName)) throw new EmptyParameterException('userName');
     if (empty($password)) throw new EmptyParameterException('password');
 
+    $userId = XARUSER_AUTH_FAILED;
+    $args = array('uname' => $userName, 'pass' => $password);
+
     foreach($GLOBALS['xarUser_authenticationModules'] as $authModName)
     {
         // Bug #918 - If the module has been deactivated, then continue
@@ -165,6 +168,7 @@ function xarUserLogIn($userName, $password, $rememberMe=0)
     $rolestable = $xartable['roles'];
 
     // TODO: this should be inside roles module
+    /* Jamaica version
     try {
         $dbconn->begin();
         $query = "UPDATE $rolestable SET auth_module_id = ? WHERE id = ?";
@@ -175,6 +179,12 @@ function xarUserLogIn($userName, $password, $rememberMe=0)
         $dbconn->rollback();
         throw $e;
     }
+    */
+
+    /* Aruba version */
+    $query = "UPDATE $rolestable SET xar_auth_module = ? WHERE xar_uid = ?";
+    $result =& $dbconn->Execute($query,array($authModName,$userId));
+    if (!$result) return;
 
     // Set session variables
 

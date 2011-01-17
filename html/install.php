@@ -86,6 +86,7 @@ sys::import('xaraya.exceptions');
 */
 set_exception_handler(array('ExceptionHandlers','bone'));
 
+    sys::import('xaraya.variables.system');
 // Enable debugging always for the installer
 xarCoreActivateDebugger(XARDBG_ACTIVE | XARDBG_EXCEPTIONS | XARDBG_SHOW_PARAMS_IN_BT);
 
@@ -102,10 +103,8 @@ sys::import('xaraya.mls');
 sys::import('xaraya.templates');
 
 // Start Logging Facilities as soon as possible
-$systemArgs = array('loggerName' => xarCore_getSystemVar('Log.LoggerName', true),
-                    'loggerArgs' => xarCore_getSystemVar('Log.LoggerArgs', true),
-                    'level'      => xarCore_getSystemVar('Log.LogLevel', true));
-xarLog_init($systemArgs, $whatToLoad);
+$systemArgs = array();
+xarLog_init($systemArgs);
 
 // Start HTTP Protocol Server/Request/Response utilities
 $systemArgs = array('enableShortURLsSupport' =>false,

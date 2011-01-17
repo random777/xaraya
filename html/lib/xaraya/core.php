@@ -369,10 +369,7 @@ function xarCoreInit($whatToLoad = XARCORE_SYSTEM_ALL)
      *
      */
     sys::import('xaraya.server');
-    $systemArgs = array('enableShortURLsSupport' => xarConfigGetVar('Site.Core.EnableShortURLsSupport'),
-                        'defaultModuleName'      => xarConfigGetVar('Site.Core.DefaultModuleName'),
-                        'defaultModuleType'      => xarConfigGetVar('Site.Core.DefaultModuleType'),
-                        'defaultModuleFunction'  => xarConfigGetVar('Site.Core.DefaultModuleFunction'),
+    $systemArgs = array('enableShortURLsSupport' => xarConfigGetVar(null, 'Site.Core.EnableShortURLsSupport'),
                         'generateXMLURLs' => true);
     xarServer::init($systemArgs);
     xarRequest::init($systemArgs);

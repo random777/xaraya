@@ -766,9 +766,9 @@ class xarRequest extends Object
                 if (isset($params[1]) && $params[1] == 'admin') $modType = 'admin';
 
                 // Check if this is an alias for some other module
-                $modName = xarRequest__resolveModuleAlias($modName);
+                $modName = xarModAlias::resolve($modName);
                 // Call the appropriate decode_shorturl function
-                if (xarMod::isAvailable($modName) && xarModGetVars($modName, 'enable_short_urls') && xarMod::apiLoad($modName, $modType)) {
+                if (xarMod::isAvailable($modName) && xarModGetVar($modName, 'enable_short_urls') && xarMod::apiLoad($modName, $modType)) {
                     $loopHole = array($modName,$modType,$funcName);
                     // don't throw exception on missing file or function anymore
                     try {
@@ -797,7 +797,7 @@ class xarRequest extends Object
 
         if (!empty($modName)) {
             // Check if this is an alias for some other module
-            $modName = xarRequest__resolveModuleAlias($modName);
+            $modName = xarModAlias::resolve($modName);
             // Cache values into info static var
             $requestInfo = array($modName, $modType, $funcName);
         } else {

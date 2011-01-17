@@ -28,7 +28,7 @@
             #xarVarPrepForDisplay($email)#
         </div>
 
-        <xar:if condition="xarModGetVar(xarModGetNameFromID(xarModGetVar('roles','defaultauthmodule')), 'showdynamic')" >
+        <xar:if condition="xarModGetVar(xarMod::getName(xarModGetVar('roles','defaultauthmodule')), 'showdynamic')" >
             <xar:if condition="isset($properties)" >
                 <xar:foreach in="$properties" key="$name">
                     <div class="xar-form-input-wrapper">

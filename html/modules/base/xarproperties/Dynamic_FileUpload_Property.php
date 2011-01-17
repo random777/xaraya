@@ -65,7 +65,7 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
             // 2008-11-11 judgej@xaraya.com Get the list of hooks from the module and itemtype that this
             // dd object is a part of. Default to the current module if we are not a part of a DD object.
             if (isset($this->_moduleid) && isset($this->_itemtype)) {
-                $list = xarModGetHookList(xarModGetNameFromID($this->_moduleid), 'item', 'transform', $this->_itemtype);
+                $list = xarModGetHookList(xarMod::getName($this->_moduleid), 'item', 'transform', $this->_itemtype);
             } else {
                 // The old method as fallback.
                 $list = xarModGetHookList(xarModGetName(), 'item', 'transform');

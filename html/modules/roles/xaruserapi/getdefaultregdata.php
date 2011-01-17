@@ -38,7 +38,7 @@ function roles_userapi_getdefaultregdata()
                 return false;       
         }
     } elseif (isset($defaultregmodid)){
-        $defaultregmodname = xarModGetNameFromID($defaultregmodid);
+        $defaultregmodname = xarMod::getName($defaultregmodid);
         if (xarMod::isAvailable($defaultregmodname)) {
             $defaultregmodname   = $defaultregmodname;
             $defaultregid        = $defaultregmodid;   

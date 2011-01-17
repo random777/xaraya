@@ -276,7 +276,7 @@ function xarModURL($modName = NULL, $modType = 'user', $funcName = 'main', $args
 function xarModGetName()
 {   return xarMod::getName(); }
 
-function xarMod::getNameFromID($regid)
+function xarModGetNameFromID($regid)
 {   return xarMod::getName($regid); }
 
 function xarModGetDisplayableName($modName = NULL, $type = 'module')

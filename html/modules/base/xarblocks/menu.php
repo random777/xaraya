@@ -274,7 +274,7 @@ function base_menublock_display($blockinfo)
                 } else {
                     $label = xarModGetDisplayableName($mod['name']);
                 }
-                $title = xarModGetDisplayableDescription($mod['name']);
+                $title = xarMod::getDisplayDescription($mod['name']);
                 $link = xarModURL($mod['name'] ,'user', 'main', array());
                 // depending on which module is currently loaded we display accordingly
                 if($mod['name'] == $thismodname && $thismodtype == 'user'){
@@ -348,7 +348,7 @@ function base_menublock_display($blockinfo)
             }
             $usermods[] = array('label' => xarModGetDisplayableName('roles'),
                 'link' => xarModUrl('roles', 'user', 'main'),
-                'desc' => xarModGetDisplayableDescription('roles'),
+                'desc' => xarMod::getDisplayDescription('roles'),
                 'modactive' => 0);
         }
     } /*else {

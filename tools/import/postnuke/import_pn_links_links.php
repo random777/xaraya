@@ -23,7 +23,7 @@
         $docounter = 1;
     }
     $weblinks = unserialize(xarModGetVar('installer','weblinks'));
-    $regid = xarModGetIDFromName('articles');
+    $regid = xarMod::getRegID('articles');
 
     // Use different unix timestamp conversion function for
     // MySQL and PostgreSQL databases

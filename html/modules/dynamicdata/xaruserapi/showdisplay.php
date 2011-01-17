@@ -48,7 +48,7 @@ function dynamicdata_userapi_showdisplay($args)
         $modinfo = xarModGetInfo($modid);
         $modname = $modinfo['name'];
     } else {
-        $modid = xarModGetIDFromName($modname);
+        $modid = xarMod::getRegID($modname);
     }
     if (empty($modid)) {
         $msg = xarML('Invalid #(1) for #(2) function #(3)() in module #(4)',

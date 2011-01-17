@@ -49,7 +49,7 @@ function &dynamicdata_userapi_getitem($args)
         if (is_numeric($modname)) {
             $modid = $modname;
         } else {
-            $modid = xarModGetIDFromName($modname);
+            $modid = xarMod::getRegID($modname);
         }
     } elseif (empty($modid)) {
         $modid = $moduleid;

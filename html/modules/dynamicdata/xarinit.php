@@ -110,7 +110,7 @@ function dynamicdata_init()
      *        because dynamicdata doesn't know anything about objects yet :-)
      */
 
-    $modid = xarModGetIDFromName('dynamicdata');
+    $modid = xarMod::getRegID('dynamicdata');
 
     // create default objects for dynamic data
     $objects = array(

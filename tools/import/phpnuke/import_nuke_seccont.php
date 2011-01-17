@@ -18,7 +18,7 @@
 
     echo "<strong>$step. Importing section content</strong><br/>\n";
 
-    $regid = xarModGetIDFromName('articles');
+    $regid = xarMod::getRegID('articles');
     $sections = xarModGetVar('installer','sections');
     $sectionid = unserialize(xarModGetVar('installer','sectionid'));
 

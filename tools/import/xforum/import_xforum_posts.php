@@ -38,7 +38,7 @@
     } else {
         $postid = unserialize($posts);
     }
-     $regid = xarModGetIDFromName('xarbb');
+     $regid = xarMod::getRegID('xarbb');
     $pid2cid = array();
             @set_time_limit(600);
 // TODO: fix issue for large # of comments (64 KB limit)
@@ -115,7 +115,7 @@
 
 
         $pid = 0;
-        $data['modid'] = xarModGetIDFromName('xarbb');
+        $data['modid'] = xarMod::getRegID('xarbb');
         $data['objectid'] = $topicid[$tid];
         if (!empty($pid) && !empty($pid2cid[$pid])) {
             $pid = $pid2cid[$pid];

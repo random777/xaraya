@@ -20,7 +20,7 @@
 
     echo "<strong>$step. Importing xforum categories into categories</strong><br/>\n";
 
-    $regid = xarModGetIDFromName('xarbb');
+    $regid = xarMod::getRegID('xarbb');
     $xarbbcats = xarMod::apiFunc('categories', 'admin', 'create',
                                 array('name' => 'xarBB Forum Index',
                                       'description' => 'xarBB Forum Index',

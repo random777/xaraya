@@ -568,7 +568,7 @@ function <xsl:value-of select="$module_prefix" />_upgrade($oldversion)
         ,'user'
         ,'getobjectinfo'
         ,array(
-            'modid'     => xarModGetIDFromName('<xsl:value-of select="$module_prefix" />' )
+            'modid'     => xarMod::getRegID('<xsl:value-of select="$module_prefix" />' )
             ,'itemtype' => <xsl:value-of select="@itemtype" /> ));
 
     if (!isset($objectinfo) || empty($objectinfo['objectid'])) {

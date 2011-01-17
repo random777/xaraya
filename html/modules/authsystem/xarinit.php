@@ -68,7 +68,7 @@ function authsystem_upgrade($oldVersion)
            //Set the default authmodule if not already set
            $isdefaultauth = xarModGetVar('roles','defaultauthmodule');
            if (!isset($isdefaultauth) || !is_integer($isdefaultauth)) {
-               xarModSetVar('roles', 'defaultauthmodule', xarModGetIDFromName('authsystem'));
+               xarModSetVar('roles', 'defaultauthmodule', xarMod::getRegID('authsystem'));
            }
 
            // Get database setup
@@ -76,7 +76,7 @@ function authsystem_upgrade($oldVersion)
            $xartable =& xarDBGetTables();
            $systemPrefix = xarDBGetSystemTablePrefix();
            $modulesTable = $systemPrefix .'_modules';
-           $modid=xarModGetIDFromName('authsystem');
+           $modid=xarMod::getRegID('authsystem');
            // update the modversion class and admin capable
            $query = "UPDATE $modulesTable
                      SET xar_class         = 'Authentication',

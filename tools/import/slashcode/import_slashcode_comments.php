@@ -73,8 +73,8 @@
     $commentcount = xarModGetVar('installer','commentcount');
     echo "Found " . $commentcount . " comments<br/>\n";
 
-    $artid = xarModGetIDFromName('articles');
-    $pollid = xarModGetIDFromName('polls');
+    $artid = xarMod::getRegID('articles');
+    $pollid = xarMod::getRegID('polls');
 
     $polldiscussions = unserialize(xarModGetVar('installer','polldiscussions'));
 

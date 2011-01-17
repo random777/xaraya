@@ -76,7 +76,7 @@ function base_javascriptapi_getframeworkinfo($args)
     $module = strtolower($module);
     $name = strtolower($name);
 
-    $modid = xarModGetIDFromName($module);
+    $modid = xarMod::getRegID($module);
 
     if (!is_numeric($modid)) {
         $msg = xarML('Invalid framework host module name: #(1)', $module);

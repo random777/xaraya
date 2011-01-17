@@ -107,7 +107,7 @@ class Dynamic_Function_DataStore extends Dynamic_DataStore
             $args['modname'] = $mod;
         }
         if (!array_key_exists('modid', $args)) {
-            $args['modid'] = xarModGetIDFromName($mod);
+            $args['modid'] = xarMod::getRegID($mod);
         }
         if (!array_key_exists('itemtype', $args)) {
             $args['itemtype'] = $this->itemtype;

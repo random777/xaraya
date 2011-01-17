@@ -31,10 +31,10 @@ function dynamicdata_utilapi_getrelations($args)
     extract($args);
 
     if (empty($modid) && !empty($module)) {
-        $modid = xarModGetIDFromName($module);
+        $modid = xarMod::getRegID($module);
     }
     if (empty($modid)) {
-        $modid = xarModGetIDFromName(xarModGetName());
+        $modid = xarMod::getRegID(xarModGetName());
     }
     $modinfo = xarModGetInfo($modid);
     if (empty($itemtype)) {
@@ -89,7 +89,7 @@ function dynamicdata_utilapi_getrelations($args)
         foreach ($modlist as $mod => $val) {
             // get the list of static properties for this hook module
             $modstatic = xarMod::apiFunc('dynamicdata','util','getstatic',
-                                       array('modid' => xarModGetIDFromName($mod)));
+                                       array('modid' => xarMod::getRegID($mod)));
                                        // skip this for now
                                        //      'itemtype' => $itemtype));
         // TODO: automatically find the link(s) on module, item type, item id etc.

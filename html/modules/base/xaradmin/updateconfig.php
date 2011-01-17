@@ -166,7 +166,7 @@ function base_admin_updateconfig()
                 if(is_array($fwinfo) && isset($fwinfo[$fwname])) {
                     // Get details for the module if we have a valid module id.
                     if (!empty($fwinfo[$fwname]['module'])) {
-                        $modId = xarModGetIDFromName($fwinfo[$fwname]['module']);
+                        $modId = xarMod::getRegID($fwinfo[$fwname]['module']);
                         $modInfo = xarModGetInfo($modId);
                         if (!empty($modInfo)) {
                             $modOsDir = $modInfo['osdirectory'];

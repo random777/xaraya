@@ -19,7 +19,7 @@
     echo "<strong>$step. Importing comments</strong><br/>\n";
 
     $userid = unserialize(xarModGetVar('installer','userid'));
-    $regid = xarModGetIDFromName('articles');
+    $regid = xarMod::getRegID('articles');
     $pid2cid = array();
 // TODO: fix issue for large # of comments
     $pids = xarModGetVar('installer','commentid');

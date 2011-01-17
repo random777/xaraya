@@ -138,7 +138,7 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
     }
 
     if ($step == 2) {
-        $regid = xarModGetIDFromName('articles');
+        $regid = xarMod::getRegID('articles');
         $sections = xarModGetVar('installer','sections');
         $sectionid = unserialize(xarModGetVar('installer','sectionid'));
         echo "<strong>2. Importing HTMLpages</strong><br/>\n";

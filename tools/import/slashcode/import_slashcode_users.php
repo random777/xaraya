@@ -175,7 +175,7 @@
     $myobject = xarMod::apiFunc('dynamicdata',
                               'user',
                               'getobject',
-                              array('moduleid' => xarModGetIDFromName('roles'), // it's this module
+                              array('moduleid' => xarMod::getRegID('roles'), // it's this module
                                      'itemtype' => 0));                          // with no item type
 
     if (empty($myobject) || empty($myobject->objectid)) {

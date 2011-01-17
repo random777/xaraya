@@ -18,7 +18,7 @@
 
     echo "<strong>$step. Importing FAQ questions & answers</strong><br/>\n";
 
-    $regid = xarModGetIDFromName('articles');
+    $regid = xarMod::getRegID('articles');
     $faqs = xarModGetVar('installer','faqs');
     $faqid = unserialize(xarModGetVar('installer','faqid'));
 

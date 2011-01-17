@@ -127,7 +127,7 @@ function dynamicdata_utilapi_import($args)
                 unset($object['objectid']);
 
                 // for objects that belong to dynamicdata itself, reset the itemtype too
-                if ($object['moduleid'] == xarModGetIDFromName('dynamicdata')) {
+                if ($object['moduleid'] == xarMod::getRegID('dynamicdata')) {
                     $object['itemtype'] = -1;
                 }
 

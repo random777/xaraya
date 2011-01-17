@@ -31,7 +31,7 @@
     }
     $count = $result->fields[0];
     $result->Close();
-    $regid = xarModGetIDFromName('articles');
+    $regid = xarMod::getRegID('articles');
 
     // Use different unix timestamp conversion function for
     // MySQL and PostgreSQL databases

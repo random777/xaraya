@@ -195,7 +195,7 @@ function roles_activate()
 # Create some modvars
 #
     //TODO: improve on this hardwiring
-    xarModSetVar('roles', 'defaultauthmodule', xarModGetIDFromName('authsystem')); //Setting a default
+    xarModSetVar('roles', 'defaultauthmodule', xarMod::getRegID('authsystem')); //Setting a default
     xarModSetVar('roles', 'defaultregmodule', '');
     if (xarModGetVar('roles','itemsperpage')) return true;
     xarModSetVar('roles', 'rolesdisplay', 'tabbed');
@@ -289,7 +289,7 @@ function roles_upgrade($oldVersion)
         case '1.1.0':
 
             // is there an authentication module?
-            $regid = xarModGetIDFromName('authsystem');
+            $regid = xarMod::getRegID('authsystem');
 
             if (isset($regid)) {
 
@@ -317,7 +317,7 @@ function roles_upgrade($oldVersion)
                 xarModDelVar('roles', 'disallowedips');
 
                 // create one new roles modvar
-                xarModSetVar('roles', 'defaultauthmodule', xarModGetIDFromName('authsystem'));
+                xarModSetVar('roles', 'defaultauthmodule', xarMod::getRegID('authsystem'));
              } else {
 //                $msg = xarML('I could not load the authentication module. Please make it available and try again');
 //                xarErrorSet(XAR_USER_EXCEPTION, 'MODULE_FILE_NOT_EXIST', new DefaultUserException($msg));

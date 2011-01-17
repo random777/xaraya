@@ -519,7 +519,7 @@ function installer_admin_bootstrap()
     }
 
     //Hb: Authsystem is part of the core. Should we check the completeness here?
-    $regid=xarModGetIDFromName('authsystem');
+    $regid=xarMod::getRegID('authsystem');
     if (empty($regid)) {
         die(xarML('I cannot load the Authsystem module. Please make it available and reinstall'));
     }
@@ -530,7 +530,7 @@ function installer_admin_bootstrap()
    $modlist=array('roles','privileges');
     foreach ($modlist as $mod) {
         // Set state to inactive first
-        $regid=xarModGetIDFromName($mod);
+        $regid=xarMod::getRegID($mod);
         if (isset($regid)) {
             if (!xarMod::apiFunc('modules','admin','setstate',
                                 array('regid'=> $regid, 'state'=> XARMOD_STATE_INACTIVE))) return;
@@ -567,7 +567,7 @@ function installer_admin_bootstrap()
     $modlist = array('mail', 'dynamicdata');
     foreach ($modlist as $mod) {
         // Initialise the module
-        $regid = xarModGetIDFromName($mod);
+        $regid = xarMod::getRegID($mod);
         if (isset($regid)) {
             if (!xarMod::apiFunc('modules', 'admin', 'initialise', array('regid' => $regid))) return;
             // Activate the module
@@ -1095,7 +1095,7 @@ function installer_admin_confirm_configuration()
         // didn't get initialised in the normal way.
         $modlist = array('authsystem', 'base', 'roles', 'themes', 'privileges', 'blocks', 'modules');
         foreach ($modlist as $modname) {
-            $modId = xarModGetIDFromName($modname);
+            $modId = xarMod::getRegID($modname);
             if (!isset($modId)) return;
             $modInfo = xarModGetInfo($modId);
             if (!isset($modInfo)) return;
@@ -1108,7 +1108,7 @@ function installer_admin_confirm_configuration()
         }
 
      //TODO: Check why this var is being reset to null in sqlite install - reset here for now to be sure
-     //xarModSetVar('roles', 'defaultauthmodule', xarModGetIDFromName('authsystem'));
+     //xarModSetVar('roles', 'defaultauthmodule', xarMod::getRegID('authsystem'));
 
         xarResponseRedirect(xarModURL('installer', 'admin', 'cleanup'));
     }
@@ -1628,7 +1628,7 @@ function installer_admin_upgrade2()
      xarModSetVar('authsystem', 'lockouttime', 15);
     xarModSetVar('authsystem', 'lockouttries', 3);
     xarModSetVar('authsystem', 'uselockout', false);
-    xarModSetVar('roles', 'defaultauthmodule', xarModGetIDFromName('authsystem'));
+    xarModSetVar('roles', 'defaultauthmodule', xarMod::getRegID('authsystem'));
 
 
     $content .= "<p><strong>Removing Adminpanels module and move functions to other  modules</strong></p>";
@@ -1801,7 +1801,7 @@ function installer_admin_upgrade2()
     $defaultregmodule= xarModGetVar('roles','defaultregmodule');
     if (!isset($defaultregmodule)) {
         if (xarMod::isAvailable('registration')) {
-            xarModSetVar('roles','defaultregmodule',xarModGetIDFromName('registration'));
+            xarModSetVar('roles','defaultregmodule',xarMod::getRegID('registration'));
         }
     }
 
@@ -1979,7 +1979,7 @@ function installer_admin_upgrade2()
     $filemodules = xarMod::apiFunc('modules', 'admin', 'getfilemodules');
     if (!empty($filemodules)) {
         foreach (array_keys($filemodules) as $modname) {
-            $modId = xarModGetIDFromName($modname);
+            $modId = xarMod::getRegID($modname);
             if (!isset($modId)) continue;
             $modInfo = xarModGetInfo($modId);
             if (!isset($modInfo)) continue;

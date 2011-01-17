@@ -87,14 +87,14 @@ function xarThemeDelVar($themeName, $name)
  *
  * @access public
  * @param string themeName The name of the theme
- * @return xarModGetIDFromName for processing
+ * @return xarMod::getRegID for processing
  * @throws DATABASE_ERROR, BAD_PARAM, THEME_NOT_EXIST
  */
 function xarThemeGetIDFromName($themeName)
 {
     if (empty($themeName)) throw new EmptyParameterException('themeName');
 
-    return xarModGetIDFromName($themeName, $type = 'theme');
+    return xarMod::getRegID($themeName, $type = 'theme');
 }
 
 /**

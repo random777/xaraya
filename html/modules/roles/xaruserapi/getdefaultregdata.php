@@ -31,7 +31,7 @@ function roles_userapi_getdefaultregdata()
         //user Registration if it's there else display appropriate error
         if (xarMod::isAvailable('registration')) { 
            $defaultregmodname   = 'registration';
-           $defaultregid = xarModGetIDFromName('registration');
+           $defaultregid = xarMod::getRegID('registration');
         } else {
            $msg = xarML('There is no active registration module installed');
                 xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_NOT_EXIST', new DefaultUserException($msg));
@@ -45,7 +45,7 @@ function roles_userapi_getdefaultregdata()
         } else {
             if (xarMod::isAvailable('registration')) { 
                 $defaultregmodname   = 'registration';
-                $defaultregid = xarModGetIDFromName('registration');
+                $defaultregid = xarMod::getRegID('registration');
             } else {
                 $msg = xarML('There is no active registration module installed');
                 xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_NOT_EXIST', new DefaultUserException($msg));

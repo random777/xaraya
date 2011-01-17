@@ -30,7 +30,7 @@
     } else {
         $userid = unserialize($users);
     }
-    $regid = xarModGetIDFromName('polls');
+    $regid = xarMod::getRegID('polls');
     $pid2cid = array();
 // TODO: fix issue for large # of poll comments
 /*

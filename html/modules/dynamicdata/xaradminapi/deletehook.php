@@ -48,7 +48,7 @@ function dynamicdata_adminapi_deletehook($args)
         $modname = $extrainfo['module'];
     }
 
-    $modid = xarModGetIDFromName($modname);
+    $modid = xarMod::getRegID($modname);
     if (empty($modid)) {
         $msg = xarML('Invalid #(1) for #(2) function #(3)() in module #(4)',
                     'module name', 'admin', 'createhook', 'dynamicdata');

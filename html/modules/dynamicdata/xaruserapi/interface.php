@@ -24,7 +24,7 @@
 function &dynamicdata_userapi_interface($args)
 {
     if (empty($args['moduleid']) && !empty($args['module'])) {
-       $args['moduleid'] = xarModGetIDFromName($args['module']);
+       $args['moduleid'] = xarMod::getRegID($args['module']);
     }
     if (empty($args['moduleid']) && !empty($args['modid'])) {
        $args['moduleid'] = $args['modid'];

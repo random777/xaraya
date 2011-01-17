@@ -62,7 +62,7 @@ function <xsl:value-of select="$module_prefix" />_hook_module_modifyconfig ( $ar
         $modname = $extrainfo['module'];
     }
 
-    $modid = xarModGetIDFromName($modname);
+    $modid = xarMod::getRegID($modname);
     if (empty($modid)) {
         $msg = xarML('Invalid #(1) for #(2) function #(3)() in module #(4)','module name', 'admin', 'module_modifyconfig', '<xsl:value-of select="$module_prefix" />');
         xarExceptionSet(XAR_USER_EXCEPTION, 'BAD_PARAM', new SystemException($msg));

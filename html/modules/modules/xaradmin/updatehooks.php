@@ -25,7 +25,7 @@ function modules_admin_updatehooks()
     if (!xarSecConfirmAuthKey()) {return;}
     if (!xarVarFetch('curhook', 'str:1:', $curhook)) {return;}
 
-    $regId = xarModGetIDFromName($curhook);
+    $regId = xarMod::getRegID($curhook);
     if (!isset($curhook) || !isset($regId)) {
         $msg = xarML('Invalid hook');
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',

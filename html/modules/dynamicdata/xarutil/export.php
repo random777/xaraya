@@ -29,7 +29,7 @@ function dynamicdata_util_export($args)
     if(!xarVarFetch('convert',  'isset', $convert,  NULL, XARVAR_DONT_SET)) {return;}
 
     if (empty($modid)) {
-        $modid = xarModGetIDFromName('dynamicdata');
+        $modid = xarMod::getRegID('dynamicdata');
     }
     if (empty($itemtype)) {
         $itemtype = 0;

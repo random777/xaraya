@@ -22,14 +22,14 @@
         $dbconn->Execute("DELETE FROM " . $tables['categories']);
         //$dbconn->Execute('FLUSH TABLE ' . $tables['categories']);
     }
-    $regid = xarModGetIDFromName('articles');
+    $regid = xarMod::getRegID('articles');
     if ($reset) {
         $dbconn->Execute("DELETE FROM " . $tables['categories_linkage'] . " WHERE xar_modid=$regid");
         //$dbconn->Execute('FLUSH TABLE ' . $tables['categories_linkage']);
     }
     if (!empty($docounter)) {
         if ($reset) {
-            $regid2 = xarModGetIDFromName('categories');
+            $regid2 = xarMod::getRegID('categories');
             $dbconn->Execute("DELETE FROM " . $tables['hitcount'] . " WHERE xar_moduleid = " . $regid2);
             //$dbconn->Execute('FLUSH TABLE ' . $tables['hitcount']);
         }

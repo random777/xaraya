@@ -266,7 +266,7 @@ function xarTplAddStyleLink($modName, $fileName, $fileType = 'text/css')
 
     // Get module directory.
     if (!empty($modName)) {
-        $moduleid = xarModGetIDFromName($modName);
+        $moduleid = xarMod::getRegID($modName);
     }
     $modInfo = xarModGetInfo($moduleid);
     if (!isset($modInfo)) {

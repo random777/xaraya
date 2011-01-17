@@ -377,7 +377,7 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
 
         if (!empty($this->module)) {
             $data['modname'] = $this->module;
-            $data['modid']   = xarModGetIDFromName($this->module);
+            $data['modid']   = xarMod::getRegID($this->module);
             if (isset($this->itemtype)) {
                 $data['itemtype'] = $this->itemtype;
                 if (isset($this->func)) {

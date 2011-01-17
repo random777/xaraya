@@ -30,7 +30,7 @@ function dynamicdata_admin_view($args)
     if(!xarVarFetch('layout',   'str:1' , $layout,   'default', XARVAR_NOT_REQUIRED)) {return;}
 
     if (empty($modid)) {
-        $modid = xarModGetIDFromName('dynamicdata');
+        $modid = xarMod::getRegID('dynamicdata');
     }
     if (!isset($itemtype)) {
         $itemtype = 0;

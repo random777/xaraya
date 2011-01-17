@@ -323,7 +323,7 @@ function base_menublock_display($blockinfo)
 
                 }else{
 /*
-                    $modid = xarModGetIDFromName($mod['name']);
+                    $modid = xarMod::getRegID($mod['name']);
                     $modinfo = xarModGetInfo($modid);
                     if($modinfo){
                         $desc = $modinfo['displaydescription'];
@@ -339,7 +339,7 @@ function base_menublock_display($blockinfo)
                 }
             }
         } else {
-            $modid = xarModGetIDFromName('roles');
+            $modid = xarMod::getRegID('roles');
             $modinfo = xarModGetInfo($modid);
             if ($modinfo){
                 $title = $modinfo['displaydescription'];

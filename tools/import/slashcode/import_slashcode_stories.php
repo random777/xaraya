@@ -31,7 +31,7 @@
     $storycount = xarModGetVar('installer','storycount');
     echo "Found " . $storycount . " stories<br/>\n";
 
-    $regid = xarModGetIDFromName('articles');
+    $regid = xarMod::getRegID('articles');
 
     // Remove all articles if reset
     if ($reset && $startnum == 0) {

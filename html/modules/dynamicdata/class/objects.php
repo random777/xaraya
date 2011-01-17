@@ -108,10 +108,10 @@ class Dynamic_Object_Master
         }
         if (empty($this->moduleid)) {
             if (empty($this->objectid)) {
-                $this->moduleid = xarModGetIDFromName(xarModGetName());
+                $this->moduleid = xarMod::getRegID(xarModGetName());
             }
         } elseif (!is_numeric($this->moduleid) && is_string($this->moduleid)) {
-            $this->moduleid = xarModGetIDFromName($this->moduleid);
+            $this->moduleid = xarMod::getRegID($this->moduleid);
         }
         if (empty($this->itemtype)) {
             $this->itemtype = 0;
@@ -466,7 +466,7 @@ class Dynamic_Object_Master
             $bindvars[] = (string) $args['name'];
         } else {
             if (empty($args['moduleid'])) {
-                $args['moduleid'] = xarModGetIDFromName(xarModGetName());
+                $args['moduleid'] = xarMod::getRegID(xarModGetName());
             }
             if (empty($args['itemtype'])) {
                 $args['itemtype'] = 0;
@@ -1135,7 +1135,7 @@ class Dynamic_Object extends Dynamic_Object_Master
 
         // special case when we try to create a new object handled by dynamicdata
         if ($this->objectid == 1 &&
-            $this->properties['moduleid']->value == xarModGetIDFromName('dynamicdata') &&
+            $this->properties['moduleid']->value == xarMod::getRegID('dynamicdata') &&
             $this->properties['itemtype']->value < 2) {
             $this->properties['itemtype']->setValue($this->getNextItemtype($args));
         }

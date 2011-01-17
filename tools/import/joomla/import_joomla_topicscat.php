@@ -21,13 +21,13 @@
     if ($resetcat) {
         $dbconn->Execute("DELETE FROM " . $tables['categories']);
     }
-    $regid = xarModGetIDFromName('articles');
+    $regid = xarMod::getRegID('articles');
     if ($reset) {
         $dbconn->Execute("DELETE FROM " . $tables['categories_linkage'] . " WHERE xar_modid=$regid");
     }
     if (!empty($docounter)) {
         if ($reset) {
-            $regid2 = xarModGetIDFromName('categories');
+            $regid2 = xarMod::getRegID('categories');
             $dbconn->Execute("DELETE FROM " . $tables['hitcount'] . " WHERE xar_moduleid = " . $regid2);
             //$dbconn->Execute('FLUSH TABLE ' . $tables['hitcount']);
         }

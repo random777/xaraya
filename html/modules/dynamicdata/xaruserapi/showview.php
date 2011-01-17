@@ -55,7 +55,7 @@ function dynamicdata_userapi_showview($args)
             $modinfo = xarModGetInfo($modid);
             $modname = $modinfo['name'];
         } else {
-            $modid = xarModGetIDFromName($modname);
+            $modid = xarMod::getRegID($modname);
         }
     } else {
             $modinfo = xarModGetInfo($modid);

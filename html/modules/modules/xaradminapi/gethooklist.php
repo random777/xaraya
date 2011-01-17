@@ -71,7 +71,7 @@ function modules_adminapi_gethooklist($args)
 
         // Let's check to make sure this isn't a stale hook
         // if it is, unregister it and continue onto the next iteration in the for loop
-        if (is_null(xarModGetIdFromName($tmodName))) {
+        if (is_null(xarMod::getRegID($tmodName))) {
             xarModUnregisterHook($object, $action, $area, $tmodName, $tmodType, $tmodFunc);
             continue;
         }

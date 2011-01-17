@@ -52,7 +52,7 @@
     $count = $result->fields[0];
     echo "Total number of threads is ".$count."<br /><br />";
     $result->Close();
-    $regid = xarModGetIDFromName('xarbb');
+    $regid = xarMod::getRegID('xarbb');
     $query = 'SELECT t.tid, t.fid, t.subject, t.lastpost, t.views, t.replies, t.author, t.message, t.dateline, t.closed, t.topped, useip,bbcodeoff,m.uid,f.fup
               FROM ' . $oldprefix . '_XForum_threads as t
               LEFT JOIN ' . $oldprefix . '_XForum_forums as f

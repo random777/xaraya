@@ -354,7 +354,7 @@
                             if ($new_aid !== FALSE && $new_aid) {
                                 foreach ($article['comments'] as $cid => $comment) {
                                     echo "<br />Attaching comment to article: $new_aid from user: $comment[author] with uid: $comment[uid]";
-                                    $comment['modid']    = xarModGetIDFromName('articles');
+                                    $comment['modid']    = xarMod::getRegID('articles');
                                     $comment['itemtype'] = $pubid;
                                     $comment['objectid'] = $new_aid;
                                     $comment['comment']  = $comment['body'];

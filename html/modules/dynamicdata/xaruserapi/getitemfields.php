@@ -27,7 +27,7 @@ function dynamicdata_userapi_getitemfields($args)
 
     $proptypes = xarMod::apiFunc('dynamicdata','user','getproptypes');
 
-    $modid = xarModGetIDFromName('dynamicdata');
+    $modid = xarMod::getRegID('dynamicdata');
     $fields = xarMod::apiFunc('dynamicdata','user','getprop',
                             array('modid'    => $modid,
                                   'itemtype' => $itemtype));

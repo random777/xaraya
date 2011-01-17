@@ -53,7 +53,7 @@ class Dynamic_Object_Interface
                                   array('name' => $args['object']));
             $args = array_merge($args, $info);
         } elseif (!empty($args['module']) && empty($args['moduleid'])) {
-            $args['moduleid'] = xarModGetIDFromName($args['module']);
+            $args['moduleid'] = xarMod::getRegID($args['module']);
         }
         // fill in the default object variables
         $this->args = $args;

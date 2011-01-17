@@ -30,7 +30,7 @@
     $submissioncount = xarModGetVar('installer','submissioncount');
     echo "Found " . $submissioncount . " submissions<br/>\n";
 
-    $regid = xarModGetIDFromName('articles');
+    $regid = xarMod::getRegID('articles');
 
     // Use different unix timestamp conversion function for
     // MySQL and PostgreSQL databases

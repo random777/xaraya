@@ -122,7 +122,7 @@ function base_admin_modifyconfig()
             $data['fwfiles'] = array();
             // Get details for the module if we have a valid module id.
             if (!empty($data['fwinfo']['module'])) {
-                $modId = xarModGetIDFromName($data['fwinfo']['module']);
+                $modId = xarMod::getRegID($data['fwinfo']['module']);
                 $modInfo = xarModGetInfo($modId);
                 if (!empty($modInfo)) {
                     $modOsDir = $modInfo['osdirectory'];

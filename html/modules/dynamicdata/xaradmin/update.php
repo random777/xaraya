@@ -35,7 +35,7 @@ function dynamicdata_admin_update($args)
     if (!xarSecConfirmAuthKey()) return;
 
     if (empty($modid)) {
-        $modid = xarModGetIDFromName('dynamicdata');
+        $modid = xarMod::getRegID('dynamicdata');
     }
     if (empty($itemtype)) {
         $itemtype = 0;

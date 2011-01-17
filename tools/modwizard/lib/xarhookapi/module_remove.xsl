@@ -66,7 +66,7 @@ function <xsl:value-of select="$module_prefix" />_hookapi_module_remove ( $args 
         return $extrainfo;
     }
 
-    $modid = xarModGetIDFromName($objectid);
+    $modid = xarMod::getRegID($objectid);
     if (empty($modid)) {
         $msg = xarML('Invalid #(1) for #(2) function #(3)() in module #(4)',
                     'module ID', 'hook', 'module_remove', '<xsl:value-of select="$module_prefix" />');

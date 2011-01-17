@@ -49,9 +49,9 @@
     $ptid = xarModGetVar('installer','ptid');
 
 if ($importmodule == 'articles') {
-    $regid = xarModGetIDFromName('articles');
+    $regid = xarMod::getRegID('articles');
 } else {
-    $regid = xarModGetIDFromName('xarbb');
+    $regid = xarMod::getRegID('xarbb');
 }
     $pid2cid = array();
 // TODO: fix issue for large # of comments (64 KB limit) - not relevant for phpBB

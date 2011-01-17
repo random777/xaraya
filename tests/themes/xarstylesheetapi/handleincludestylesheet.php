@@ -63,7 +63,7 @@ function themes_stylesheetapi_handleincludestylesheet($args)
 
     // Get module directory.
     if (!empty($module)) {
-        $moduleid = xarModGetIDFromName($module);
+        $moduleid = xarMod::getRegID($module);
     }
     $modInfo = xarModGetInfo($moduleid);
     if (!isset($modInfo)) {

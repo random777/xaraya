@@ -40,7 +40,7 @@
     $result->Close();
 
     // Remove all polls if reset
-    $regid = xarModGetIDFromName('polls');
+    $regid = xarMod::getRegID('polls');
     if ($reset) {
         $dbconn->Execute("DELETE FROM " . $tables['polls']);
         $dbconn->Execute("DELETE FROM " . $tables['polls_info']);

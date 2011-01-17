@@ -31,7 +31,7 @@
         $userid = unserialize($users);
     }
 
-    $regid = xarModGetIDFromName('messages');
+    $regid = xarMod::getRegID('messages');
 
     $query = 'SELECT COUNT(*) FROM ' . $oldprefix . '_privmsgs';
     $result =& $dbconn->Execute($query);

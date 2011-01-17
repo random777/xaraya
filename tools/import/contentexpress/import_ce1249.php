@@ -121,7 +121,7 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
     if ($step == 1) {
     echo "<strong>1. Importing menus into categories</strong><br/>\n";
 
-    $regid = xarModGetIDFromName('articles');
+    $regid = xarMod::getRegID('articles');
     echo "Creating root for old ContentExpress<br/>\n";
     $contentexpress = xarMod::apiFunc('categories', 'admin', 'create', array(
                                'name' => 'ContentExpress',
@@ -169,7 +169,7 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
     }
     $count = $result->fields[0];
     $result->Close();
-    $regid = xarModGetIDFromName('articles');
+    $regid = xarMod::getRegID('articles');
 
     // Copy articles tree structure
     walk_ce_articletree(-1,0,"");
@@ -190,7 +190,7 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
 
     if ($step == 9) {
     $userid = unserialize(xarModGetVar('installer','userid'));
-    $regid = xarModGetIDFromName('articles');
+    $regid = xarMod::getRegID('articles');
     $pid2cid = array();
 // TODO: fix issue for large # of comments
     $pids = xarModGetVar('installer','commentid');

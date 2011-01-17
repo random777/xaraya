@@ -53,7 +53,7 @@ function base_javascriptapi_modulefile($args)
 
     foreach ($files as $file) {
         $args['filename'] = addslashes($file);
-        $filePath = xarModAPIfunc('base', 'javascript', '_findfile', $args);
+        $filePath = xarMod::apiFunc('base', 'javascript', '_findfile', $args);
 
         // A failure to find a file is recorded, but does not stop subsequent files.
         if (!empty($filePath)) {

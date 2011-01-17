@@ -36,7 +36,7 @@ include dirname(__FILE__).'/pnHTML.php';
 * pnModLoad -> xarModLoad
 * pnModAPILoad -> xarModAPILoad
 * pnModFunc -> xarModFunc
-* pnModAPIFunc -> xarModAPIFunc
+* pnModAPIFunc -> xarMod::apiFunc
 * pnModAvailable -> xarModIsAvailable
 *
 * pnModDBInfoLoad -> xarModDBInfoLoad
@@ -540,7 +540,7 @@ function pnVarValidate($var, $type, $args = NULL)
  */
 function pnModGetUserMods()
 {
-    return xarModAPIFunc('modules',
+    return xarMod::apiFunc('modules',
                           'admin',
                           'GetList',
                           array('filter'     => array('UserCapable' => 1)));
@@ -554,7 +554,7 @@ function pnModGetUserMods()
  */
 function pnModGetAdminMods()
 {
-    return xarModAPIFunc('modules',
+    return xarMod::apiFunc('modules',
                           'admin',
                           'GetList',
                           array('filter'     => array('AdminCapable' => 1)));
@@ -592,7 +592,7 @@ function pnConfigDelVar($name)
 
 function pnBlockGetInfo($bid)
 {
-    $blockinfo = xarModAPIFunc('blocks',
+    $blockinfo = xarMod::apiFunc('blocks',
                                'admin',
                                'getinfo', array('blockId' => $bid));
     return $blockinfo;
@@ -668,7 +668,7 @@ function pnInit()
 
 function pnModAPIFunc($modName, $modType='user', $funcName='main', $args = array())
 {
-    return xarModAPIFunc($modName, $modType, $funcName, $args);
+    return xarMod::apiFunc($modName, $modType, $funcName, $args);
 }
 
 function pnModAPILoad($modName, $modType='user')
@@ -978,7 +978,7 @@ function xarBlockTypeExists($modName, $blockType)
 {
     if (!xarModAPILoad('blocks', 'admin')) return;
     $args = array('modName'=>$modName, 'blockType'=>$blockType);
-    return xarModAPIFunc('blocks', 'admin', 'block_type_exists', $args);
+    return xarMod::apiFunc('blocks', 'admin', 'block_type_exists', $args);
 }
 
 /**

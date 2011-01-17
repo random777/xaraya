@@ -23,6 +23,6 @@
     xarModSetVar('scheduler','running',1);
 
     // call the API function to run the jobs
-    echo xarModAPIFunc('scheduler','user','runjobs');
+    echo xarMod::apiFunc('scheduler','user','runjobs');
 
 ?>

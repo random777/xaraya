@@ -35,7 +35,7 @@ function blocks_admin_delete_type()
 
     $data = array();
     // get information about the blocktype
-    $blocktype = xarModAPIFunc('blocks', 'user', 'getblocktype', array('tid' => $tid));
+    $blocktype = xarMod::apiFunc('blocks', 'user', 'getblocktype', array('tid' => $tid));
 
     // check we got a valid blocktype
     if (empty($blocktype)) {
@@ -46,7 +46,7 @@ function blocks_admin_delete_type()
 
     // get all instances of this block type
     $instances = array();
-    $allinst = xarModAPIFunc('blocks', 'user', 'getall');
+    $allinst = xarMod::apiFunc('blocks', 'user', 'getall');
     if (!empty($allinst)) {
         foreach ($allinst as $instance) {
             if ($instance['tid'] != $tid) continue;
@@ -57,7 +57,7 @@ function blocks_admin_delete_type()
     if ($confirm) {
         if (!xarSecConfirmAuthKey()) return;
         // remove block type and its instances
-        if (!xarModAPIFunc('blocks',
+        if (!xarMod::apiFunc('blocks',
                            'admin',
                            'unregister_block_type',
                            array('modName'  => $blocktype['module'],

@@ -65,7 +65,7 @@ function mail_admin_sendtest()
     // Set the html message context to the plaintext content
     $htmlmessage = $message;
 
-    if (!xarModAPIFunc('mail',
+    if (!xarMod::apiFunc('mail',
             'admin',
             'sendmail',
             array('info' => $email,

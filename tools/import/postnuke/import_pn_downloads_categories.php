@@ -18,7 +18,7 @@
 
     echo "<strong>$step. Importing old downloads categories</strong><br/>\n";
 
-    $downloads_cats[0] = xarModAPIFunc('categories', 'admin', 'create', array(
+    $downloads_cats[0] = xarMod::apiFunc('categories', 'admin', 'create', array(
                                 'name' => 'Downloads',
                                 'description' => 'Downloads Categories (.7x style)',
                                 'parent_id' => 0));
@@ -36,7 +36,7 @@
         // Set parent category to the weblinks category we just created
         $parent = $downloads_cats[0];
 
-        $downloads_cats[$id] = xarModAPIFunc('categories', 'admin', 'create', array(
+        $downloads_cats[$id] = xarMod::apiFunc('categories', 'admin', 'create', array(
                                       'name' => $title,
                                       'description' => $descr,
                                       'parent_id' => $parent));

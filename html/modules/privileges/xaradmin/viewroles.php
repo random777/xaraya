@@ -71,7 +71,7 @@ function privileges_admin_viewroles()
                              array('pid'=>$pid));
     $data['trees'] = $renderer->drawtrees($data['show']);
     $data['parents'] = $parents;
-    $data['groups'] = xarModAPIFunc('roles','user','getallgroups');
+    $data['groups'] = xarMod::apiFunc('roles','user','getallgroups');
     return $data;
 }
 

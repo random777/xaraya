@@ -57,7 +57,7 @@ function roles_admin_deleterole()
                      new SystemException($msg));
         return false;
     }
-    if(strtolower($role->getName()) == strtolower(xarModAPIFunc('roles','user','getdefaultgroup'))) {
+    if(strtolower($role->getName()) == strtolower(xarMod::apiFunc('roles','user','getdefaultgroup'))) {
         $msg = xarML('The group #(1) is the default group for new users. If you want to remove this group change the roles configuration setting first.', $role->getName());
         xarErrorSet(XAR_USER_EXCEPTION,
                     'CANNOT_CONTINUE',
@@ -77,7 +77,7 @@ function roles_admin_deleterole()
         // Check for authorization code
         if (!xarSecConfirmAuthKey()) return;
         // Check to make sure the user is not active on the site.
-        $check = xarModAPIFunc('roles', 'user', 'getactive',
+        $check = xarMod::apiFunc('roles', 'user', 'getactive',
                               array('uid' => $uid));
 
 if (empty($check)) {

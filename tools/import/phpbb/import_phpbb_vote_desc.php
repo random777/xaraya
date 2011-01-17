@@ -75,7 +75,7 @@
         } else {
             $itemtype = $forumid[$fid];
         }
-        $newpid = xarModAPIFunc('polls','admin','create',
+        $newpid = xarMod::apiFunc('polls','admin','create',
                                 array('title' => $title,
                                       'polltype' => 'single', // does phpBB support any other kind ?
                                       'private' => 0,

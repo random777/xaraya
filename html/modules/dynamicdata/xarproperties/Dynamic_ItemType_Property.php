@@ -188,10 +188,10 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
      *       show the list of items for that module+itemtype via getitemlinks()
      *       E.g. "articles.1" = the list of articles in publication type 1 News Articles
      *
-     *   module.itemtype:xarModAPIFunc(...)
-     *       show some list of "item types" for that module via xarModAPIFunc(...)
+     *   module.itemtype:xarMod::apiFunc(...)
+     *       show some list of "item types" for that module via xarMod::apiFunc(...)
      *       and use itemtype to retrieve individual items via getitemlinks()
-     *       E.g. "articles.1:xarModAPIFunc('articles','user','dropdownlist',array('ptid' => 1, 'where' => ...))"
+     *       E.g. "articles.1:xarMod::apiFunc('articles','user','dropdownlist',array('ptid' => 1, 'where' => ...))"
      *       = some filtered list of articles in publication type 1 News Articles
      *
      *   An additional third parameter is supported, with a value of 0 or 1 (defaut 0)
@@ -214,7 +214,7 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
                 if (isset($modparts[1]) && is_numeric($modparts[1])) $this->itemtype = $modparts[1];
 
                 // The custom function is specified.
-                if (!empty($parts[1]) && preg_match('/^xarModAPIFunc.*/i', $parts[1])) {
+                if (!empty($parts[1]) && preg_match('/^xarMod::apiFunc.*/i', $parts[1])) {
                     $this->func = $parts[1];
                 }
             }
@@ -243,7 +243,7 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
             if (!isset($this->itemtype)) {
                 // We are interested in the module itemtypes (= default behaviour)
                 // Do not throw an exception if this function does not exist.
-                $itemtypes = xarModAPIFunc($this->module, 'user', 'getitemtypes', array(), 0);
+                $itemtypes = xarMod::apiFunc($this->module, 'user', 'getitemtypes', array(), 0);
 
                 if (!empty($itemtypes)) {
                     foreach ($itemtypes as $typeid => $typeinfo) {
@@ -255,7 +255,7 @@ class Dynamic_ItemType_Property extends Dynamic_NumberBox_Property
             } elseif (empty($this->func)) {
                 // We are interested in the items for module+itemtype
                 // Do not throw an exception if this function does not exist
-                $itemlinks = xarModAPIFunc($this->module, 'user', 'getitemlinks',
+                $itemlinks = xarMod::apiFunc($this->module, 'user', 'getitemlinks',
                     array('itemtype' => $this->itemtype, 'itemids'  => null), 0
                 );
 

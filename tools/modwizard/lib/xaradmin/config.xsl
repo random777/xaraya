@@ -61,7 +61,7 @@ function <xsl:value-of select="$module_prefix" />_admin_config( $args )
     switch( $itemtype ) {
     <xsl:for-each select="database/table[@admin='true']">
         case <xsl:value-of select="@itemtype" />:
-            $data = xarModAPIFunc(
+            $data = xarMod::apiFunc(
                 '<xsl:value-of select="$module_prefix" />'
                 ,'<xsl:value-of select="@name" />'
                 ,'config'
@@ -87,7 +87,7 @@ function <xsl:value-of select="$module_prefix" />_admin_config( $args )
  */
 function <xsl:value-of select="$module_prefix" />_adminpriv_config( $args ) 
 {
-    $data = xarModAPIFunc(
+    $data = xarMod::apiFunc(
         '<xsl:value-of select="$module_prefix" />'
         ,'private'
         ,'common'
@@ -172,7 +172,7 @@ function <xsl:value-of select="$module_prefix" />_adminpriv_config( $args )
     </xsl:if>
 
     $data['common']['menu_label'] = xarML( 'Configure' );
-    $data['common']['menu']       = xarModAPIFunc(
+    $data['common']['menu']       = xarMod::apiFunc(
         '<xsl:value-of select="$module_prefix" />'
         ,'private'
         ,'adminconfigmenu'

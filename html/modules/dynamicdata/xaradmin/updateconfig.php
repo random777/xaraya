@@ -32,7 +32,7 @@ function dynamicdata_admin_updateconfig($args)
     if ( isset($flushPropertyCache) && ($flushPropertyCache == true) )
     {
         $args['flush'] = 'true';
-        $success = xarModAPIFunc('dynamicdata','admin','importpropertytypes', $args);
+        $success = xarMod::apiFunc('dynamicdata','admin','importpropertytypes', $args);
 
         if( $success )
         {
@@ -51,7 +51,7 @@ function dynamicdata_admin_updateconfig($args)
         return true;
     }
 
-    $proptypes = xarModAPIFunc('dynamicdata','user','getproptypes');
+    $proptypes = xarMod::apiFunc('dynamicdata','user','getproptypes');
 
     $dbconn =& xarDBGetConn();
     $xartable =& xarDBGetTables();

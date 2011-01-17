@@ -19,7 +19,7 @@
     echo "<strong>$step. Importing old FAQs into categories</strong><br/>\n";
 
     echo "Creating root for old FAQs<br/>\n";
-    $faqs = xarModAPIFunc('categories', 'admin', 'create', array(
+    $faqs = xarMod::apiFunc('categories', 'admin', 'create', array(
                              'name' => 'FAQs',
                              'description' => 'Frequently Asked Questions (.7x style)',
                              'parent_id' => 0));
@@ -61,7 +61,7 @@
             if (!isset($faqid[$parent])) {
                 echo "Oops, missing parent $parent for FAQ ($id) $name<br/>\n";
             } else {
-                $faqid[$id] = xarModAPIFunc('categories', 'admin', 'create',
+                $faqid[$id] = xarMod::apiFunc('categories', 'admin', 'create',
                                            array('name' => $name,
                                            'description' => $name,
                                            'parent_id' => $faqid[$parent]));

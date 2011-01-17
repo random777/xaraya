@@ -190,14 +190,14 @@ function roles_admin_modifyconfig()
                     if ($usereditaccount) {
                         //check and hook Roles to roles if not already hooked
                          if (!xarModIsHooked('roles', 'roles')) {
-                         xarModAPIFunc('modules','admin','enablehooks',
+                         xarMod::apiFunc('modules','admin','enablehooks',
                                  array('callerModName' => 'roles',
                                        'hookModName'   => 'roles'));
                          }
                     } else {
                          //unhook roles from roles
                          if (xarModIsHooked('roles', 'roles')) {
-                         xarModAPIFunc('modules','admin','disablehooks',
+                         xarMod::apiFunc('modules','admin','disablehooks',
                                  array('callerModName' => 'roles',
                                        'hookModName'   => 'roles'));
                          }
@@ -236,13 +236,13 @@ function roles_admin_modifyconfig()
                                         xarConfigSetVar('Site.Core.TimeZone','Europe/London');
                                         $defaultzone = xarConfigGetVar('Site.Core.TimeZone');
                                     }
-                                    $timeinfo = xarModAPIFunc('base','user','timezones', array('timezone' => $defaultzone));
+                                    $timeinfo = xarMod::apiFunc('base','user','timezones', array('timezone' => $defaultzone));
                                     if (!is_array($timeinfo)){ //we still need to set this to something
                                         xarConfigSetVar('Site.Core.TimeZone','Europe/London');
                                         $defaultzone = xarConfigGetVar('Site.Core.TimeZone');
                                     }
                                     //And try again
-                                    $timeinfo = xarModAPIFunc('base','user','timezones', array('timezone' => $defaultzone));
+                                    $timeinfo = xarMod::apiFunc('base','user','timezones', array('timezone' => $defaultzone));
 
                                     list($hours,$minutes) = explode(':',$timeinfo[0]);
                                     $offset               = (float) $hours + (float) $minutes / 60;

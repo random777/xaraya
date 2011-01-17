@@ -82,7 +82,7 @@ class Dynamic_GroupList_Property extends Dynamic_Select_Property
                 $select_options['group'] = implode(',', $this->grouplist);
             }
 // TODO: handle large # of groups too (optional - less urgent than for users)
-            $groups = xarModAPIFunc('roles', 'user', 'getallgroups', $select_options);
+            $groups = xarMod::apiFunc('roles', 'user', 'getallgroups', $select_options);
             foreach ($groups as $group) {
                 $options[] = array('id' => $group['uid'], 'name' => $group['name']);
             }
@@ -98,7 +98,7 @@ class Dynamic_GroupList_Property extends Dynamic_Select_Property
         }
         if (!empty($value)) {
             // check if this is a valid group id
-            $group = xarModAPIFunc('roles','user','get',
+            $group = xarMod::apiFunc('roles','user','get',
                                    array('uid' => $value,
                                          'type' => 1)); // we're looking for a group here
             if (!empty($group)) {
@@ -158,7 +158,7 @@ class Dynamic_GroupList_Property extends Dynamic_Select_Property
             $group = array();
             $groupname = '';
         } else {
-            $group = xarModAPIFunc('roles','user','get',
+            $group = xarMod::apiFunc('roles','user','get',
                                    array('uid' => $value,
                                          'type' => 1)); // we're looking for a group here
             if (empty($group) || empty($group['name'])) {

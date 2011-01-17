@@ -21,7 +21,7 @@ xarCoreInit(XARCORE_SYSTEM_ALL);
 if (!xarVarFetch('v', 'str:1', $v)) return;
 if (!xarVarFetch('u', 'str:1', $u)) return;
 
-$user = xarModAPIFunc('roles', 'user', 'get',
+$user = xarMod::apiFunc('roles', 'user', 'get',
                        array('uid' => $u));
 
 //check no-one is already logged into a xaraya session and log out just in case

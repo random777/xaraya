@@ -33,7 +33,7 @@ function dynamicdata_userapi_getprop($args)
     extract($args);
 
     if (!empty($objectid)) {
-        $object = xarModAPIFunc('dynamicdata','user','getobjectinfo',
+        $object = xarMod::apiFunc('dynamicdata','user','getobjectinfo',
                                 array('objectid' => $objectid));
         if (!empty($object)) {
             $modid = $object['moduleid'];
@@ -114,7 +114,7 @@ function dynamicdata_userapi_getprop($args)
 
     if (!empty($static)) {
         // get the list of static properties for this module
-        $staticlist = xarModAPIFunc('dynamicdata','util','getstatic',
+        $staticlist = xarMod::apiFunc('dynamicdata','util','getstatic',
                                     array('modid' => $modid,
                                           'itemtype' => $itemtype));
 // TODO: watch out for conflicting property ids ?

@@ -83,7 +83,7 @@
         if (empty($title)) {
             $title = xarML('[none]');
         }
-        $newaid = xarModAPIFunc('articles',
+        $newaid = xarMod::apiFunc('articles',
                                 'admin',
                                 'create',
                                 array('title' => $title,

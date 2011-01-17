@@ -69,7 +69,7 @@ function dynamicdata_utilapi_maketable($args)
     // get the list of properties for a Dynamic Property
     $property_properties = Dynamic_Property_Master::getProperties(array('objectid' => 2));
 
-    $proptypes = xarModAPIFunc('dynamicdata','user','getproptypes');
+    $proptypes = xarMod::apiFunc('dynamicdata','user','getproptypes');
 
     $prefix = xarDBGetSystemTablePrefix();
     $prefix .= '_';
@@ -82,7 +82,7 @@ function dynamicdata_utilapi_maketable($args)
     $table = $prefix . 'dd_' . $myobject->name;
 
     // check if this table already exists
-    $meta = xarModAPIFunc('dynamicdata','util','getmeta');
+    $meta = xarMod::apiFunc('dynamicdata','util','getmeta');
     if (!empty($meta[$table])) {
         return true;
     }

@@ -84,7 +84,7 @@ function base_menublock_display($blockinfo)
 
     // are there any user modules, then get their names
     // checking as early as possible :)
-    $mods = xarModAPIFunc('modules',
+    $mods = xarMod::apiFunc('modules',
                           'admin',
                           'getlist',
                           array('filter'     => array('UserCapable' => 1)));
@@ -113,7 +113,7 @@ function base_menublock_display($blockinfo)
     //$menustyle = xarModGetVar('adminpanels','menustyle');
     $logoutlabel = xarVarPrepForDisplay(xarML('logout'));
 
-    $authmoduledata=xarModAPIFunc('roles','user','getdefaultauthdata');
+    $authmoduledata=xarMod::apiFunc('roles','user','getdefaultauthdata');
     $authmodlogout=$authmoduledata['defaultloginmodname'];
 
     $logouturl = xarModURL($authmodlogout,'user', 'logout', array());
@@ -200,7 +200,7 @@ function base_menublock_display($blockinfo)
                             $cids = array();
                         }
                         $catid = str_replace('_', '', $catid);
-                        $ancestors = xarModAPIFunc('categories','user','getancestors',
+                        $ancestors = xarMod::apiFunc('categories','user','getancestors',
                                                   array('cid' => $catid,
                                                         'cids' => $cids,
                                                         'return_itself' => true));
@@ -293,7 +293,7 @@ function base_menublock_display($blockinfo)
                     if (function_exists($label.'_userapi_getmenulinks') ||
                         file_exists("modules/$mod[osdirectory]/xaruserapi/getmenulinks.php")){
                         // The user API function is called.
-                        $menulinks = xarModAPIFunc($mod['name'],  'user', 'getmenulinks');
+                        $menulinks = xarMod::apiFunc($mod['name'],  'user', 'getmenulinks');
                     } else {
                         $menulinks = '';
                     }

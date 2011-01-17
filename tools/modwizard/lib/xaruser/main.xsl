@@ -44,7 +44,7 @@ function <xsl:value-of select="$module_prefix" />_user_main()
     // generally either 'edit' or 'delete'. </xsl:if>
     if (!xarSecurityCheck( 'View<xsl:value-of select="$module_prefix" />')) return;
 
-    $data = xarModAPIFunc(
+    $data = xarMod::apiFunc(
         '<xsl:value-of select="$module_prefix" />'
         ,'private'
         ,'common'

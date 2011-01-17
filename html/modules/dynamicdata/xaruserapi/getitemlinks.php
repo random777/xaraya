@@ -27,7 +27,7 @@ function dynamicdata_userapi_getitemlinks($args)
         $itemtype = null;
     }
     $status = 1;
-    list($properties,$items) = xarModAPIFunc('dynamicdata','user','getitemsforview',
+    list($properties,$items) = xarMod::apiFunc('dynamicdata','user','getitemsforview',
                                                    // for items managed by DD itself only
                                              array('modid' => xarModGetIDFromName('dynamicdata'),
                                                    'itemtype' => $itemtype,

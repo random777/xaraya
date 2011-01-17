@@ -42,7 +42,7 @@ function dynamicdata_utilapi_import($args)
         return;
     }
 
-    $proptypes = xarModAPIFunc('dynamicdata','user','getproptypes');
+    $proptypes = xarMod::apiFunc('dynamicdata','user','getproptypes');
     $name2id = array();
     foreach ($proptypes as $propid => $proptype) {
         $name2id[$proptype['name']] = $propid;
@@ -131,7 +131,7 @@ function dynamicdata_utilapi_import($args)
                     $object['itemtype'] = -1;
                 }
 
-                $objectid = xarModAPIFunc('dynamicdata','admin','createobject',
+                $objectid = xarMod::apiFunc('dynamicdata','admin','createobject',
                                           $object);
                 if (!isset($objectid)) {
                     fclose($fp);
@@ -140,7 +140,7 @@ function dynamicdata_utilapi_import($args)
 
                 // retrieve the correct itemtype if necessary
                 if ($object['itemtype'] < 0) {
-                    $objectinfo = xarModAPIFunc('dynamicdata','user','getobjectinfo',
+                    $objectinfo = xarMod::apiFunc('dynamicdata','user','getobjectinfo',
                                                 array('objectid' => $objectid));
                     $object['itemtype'] = $objectinfo['itemtype'];
                 }
@@ -204,7 +204,7 @@ function dynamicdata_utilapi_import($args)
                 // replace default xar_* table prefix with local one
                 $property['source'] = preg_replace("/^xar_/",$prefix,$property['source']);
 
-                $prop_id = xarModAPIFunc('dynamicdata','admin','createproperty',
+                $prop_id = xarMod::apiFunc('dynamicdata','admin','createproperty',
                                          $property);
                 if (!isset($prop_id)) {
                     fclose($fp);

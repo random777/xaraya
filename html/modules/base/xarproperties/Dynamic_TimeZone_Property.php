@@ -72,7 +72,7 @@ class Dynamic_TimeZone_Property extends Dynamic_Select_Property
         }
 
         // check if the timezone exists
-        $info = xarModAPIFunc('base','user','timezones',
+        $info = xarMod::apiFunc('base','user','timezones',
                               array('timezone' => $timezone));
         if (empty($info)) {
             $this->invalid = xarML('timezone');
@@ -268,7 +268,7 @@ class Dynamic_TimeZone_Property extends Dynamic_Select_Property
         if (count($this->options) > 0) {
             return $this->options;
         }
-        $timezones = xarModAPIFunc('base','user','timezones');
+        $timezones = xarMod::apiFunc('base','user','timezones');
         $options = array();
         $options[] = array('id' => '', 'name' => '');
         foreach ($timezones as $timezone => $info) {

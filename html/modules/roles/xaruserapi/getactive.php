@@ -33,7 +33,7 @@ function roles_userapi_getactive($args)
     // We are only interested in the user ID (not sure why though).
     // Since the uid is mandatory, we will either get a single record or not.
     $args['mode'] = 'UID';
-    $users = xarModAPIfunc('roles', 'user', 'getallactive', $args);
+    $users = xarMod::apiFunc('roles', 'user', 'getallactive', $args);
 
     if (empty($users)){
         $sessions = '';

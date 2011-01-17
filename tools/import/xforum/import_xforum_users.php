@@ -48,22 +48,22 @@
       die("Oops, select users failed : " . $dbconn->ErrorMsg());
   }
   // check if there's a dynamic object defined for users
-  $myobject = xarModAPIFunc('dynamicdata','user','getobject',
+  $myobject = xarMod::apiFunc('dynamicdata','user','getobject',
                             array('moduleid' => xarModGetIDFromName('roles'), // it's this module
                                   'itemtype' => 0));                          // with no item type
   if (empty($myobject) || empty($myobject->objectid)) {
      // if not, import the dynamic properties for users
-     $objectid = xarModAPIFunc('dynamicdata','util','import',
+     $objectid = xarMod::apiFunc('dynamicdata','util','import',
                                   array('file' => 'modules/dynamicdata/users.xml'));
       if (empty($objectid)) {
          die('Error creating the dynamic user properties');
       }
-      $myobject = xarModAPIFunc('dynamicdata','user','getobject',
+      $myobject = xarMod::apiFunc('dynamicdata','user','getobject',
                                 array('objectid' => $objectid));
      }
      // Disable dynamicdata hooks for roles (to avoid create + update)
      if (xarModIsHooked('dynamicdata','roles')) {
-         xarModAPIFunc('modules','admin','disablehooks',
+         xarMod::apiFunc('modules','admin','disablehooks',
                       array('callerModName' => 'roles', 'hookModName' => 'dynamicdata'));
      }
      // Check for the default users group
@@ -72,7 +72,7 @@
          $userRole = xarModGetVar('roles', 'defaultgroup');
 
          // Get the group id
-         $defaultRole = xarModAPIFunc('roles',
+         $defaultRole = xarMod::apiFunc('roles',
                                      'user',
                                      'get',
                                      array('uname'  => $userRole,
@@ -142,7 +142,7 @@
                       'authmodule' => 'authsystem',
                       'state'      => 3);
          // this will *not* fill in the dynamic properties now
-         $newuid = xarModAPIFunc('roles',
+         $newuid = xarMod::apiFunc('roles',
                                 'admin',
                                 'create',
                                 $user);
@@ -161,7 +161,7 @@
              // same player, shoot again :)
              $user['uname'] .= $uid;
              echo "trying again with username " . $user['uname'] . " : ";
-             $newuid = xarModAPIFunc('roles',
+             $newuid = xarMod::apiFunc('roles',
                                     'admin',
                                     'create',
                                     $user);
@@ -206,7 +206,7 @@
          xarMakeRoleMemberByID($newuid, $defaultgid);
 
 /*       // TODO: import groups once roles/privileges are ok
-         if (!xarModAPIFunc('groups',
+         if (!xarMod::apiFunc('groups',
                            'user',
                            'newuser', array('gname' => $usergroup,
                                             'uid'   => $uid))) {
@@ -231,7 +231,7 @@
         echo '<a href="import_xforum.php?module=roles&step=' . $step . '&startnum=' . $startnum . '">Go to step ' . $step . ' - users ' . $startnum . '+ of ' . $count . '</a><br/>';
     } else {
         // Enable dynamicdata hooks for roles
-        xarModAPIFunc('modules','admin','enablehooks',
+        xarMod::apiFunc('modules','admin','enablehooks',
                       array('callerModName' => 'roles', 'hookModName' => 'dynamicdata'));
         echo '<a href="import_xforum.php?module=categories&step=' . ($step+1) . '">Go to step ' . ($step+1) . '</a><br/>';
     }

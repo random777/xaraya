@@ -25,17 +25,17 @@ function themes_adminapi_regenerate()
     if(!xarSecurityCheck('AdminTheme',1,'All','All','themes')) return;
 
     //Finds and updates missing themes
-    if (!xarModAPIFunc('themes','admin','checkmissing')) {return;}
+    if (!xarMod::apiFunc('themes','admin','checkmissing')) {return;}
 
     //Finds and adds new themes
-    if (!xarModAPIFunc('themes','admin','checknew')) {return;}
+    if (!xarMod::apiFunc('themes','admin','checknew')) {return;}
 
     //Get all themes in the filesystem
-    $fileThemes = xarModAPIFunc('themes','admin','getfilethemes');
+    $fileThemes = xarMod::apiFunc('themes','admin','getfilethemes');
     if (!isset($fileThemes)) return;
 
     // Get all themes in DB
-    $dbThemes = xarModAPIFunc('themes','admin','getdbthemes');
+    $dbThemes = xarMod::apiFunc('themes','admin','getdbthemes');
     if (!isset($dbThemes)) return;
 
     // current block layout version
@@ -50,7 +50,7 @@ function themes_adminapi_regenerate()
         if ($dbThemes[$name]['state'] != XARTHEME_STATE_ACTIVE &&
             $dbThemes[$name]['state'] != XARTHEME_STATE_UPGRADED) {
             $bl_ver = $themeInfo['bl_version'];
-            $vercompare = xarModAPIfunc(
+            $vercompare = xarMod::apiFunc(
                 'base', 'versions', 'compare',
                 array(
                     'ver1'=>$bl_ver,
@@ -62,7 +62,7 @@ function themes_adminapi_regenerate()
             if ($vercompare <> 0) {
                 if ($dbThemes[$name]['state'] == XARTHEME_STATE_BL_ERROR_UNINITIALISED) continue;
                 if ($dbThemes[$name]['state'] == XARTHEME_STATE_UNINITIALISED) {
-                    if (!xarModAPIFunc('themes','admin','setstate',
+                    if (!xarMod::apiFunc('themes','admin','setstate',
                         array(
                             'regid' => $dbThemes[$name]['regid'],
                             'state' => XARTHEME_STATE_BL_ERROR_UNINITIALISED
@@ -75,7 +75,7 @@ function themes_adminapi_regenerate()
         // BEGIN bugfix (561802) - cmgrote
         if ($dbThemes[$name]['version'] != $themeInfo['version'] &&
             $dbThemes[$name]['state'] != XARTHEME_STATE_UNINITIALISED) {
-            if (!xarModAPIFunc('themes','admin','setstate',
+            if (!xarMod::apiFunc('themes','admin','setstate',
                 array(
                     'regid' => $dbThemes[$name]['regid'],
                     'state' => XARTHEME_STATE_UPGRADED
@@ -91,7 +91,7 @@ function themes_adminapi_regenerate()
             break;
         }
         if ($newstate != XARTHEME_STATE_ANY) {
-            $set = xarModAPIFunc(
+            $set = xarMod::apiFunc(
                 'themes', 'admin', 'setstate',
                 array(
                     'regid' => $dbThemes[$name]['regid'],

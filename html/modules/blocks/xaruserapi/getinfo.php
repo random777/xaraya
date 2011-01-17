@@ -47,7 +47,7 @@ function blocks_userapi_getinfo($args)
             if (xarVarIsCached('Block.Infos2', $instance)) {
                 $blockinfo = xarVarGetCached('Block.Infos2', $instance);
             } else {
-                $blockinfo = xarModAPIfunc('blocks', 'user', 'get', array('bid' => $instance));
+                $blockinfo = xarMod::apiFunc('blocks', 'user', 'get', array('bid' => $instance));
             }
 
             if (empty($blockinfo)) {
@@ -62,7 +62,7 @@ function blocks_userapi_getinfo($args)
 
             // TODO: return here if the block name fails a security check.
         } else {
-            $blockinfo = xarModAPIfunc('blocks', 'user', 'get', array('name' => $instance));
+            $blockinfo = xarMod::apiFunc('blocks', 'user', 'get', array('name' => $instance));
         }
     } else {
         // Standalone block - load it from file and seed with default details.
@@ -77,7 +77,7 @@ function blocks_userapi_getinfo($args)
         );
 
         // Get block default content.
-        $default_content = xarModAPIfunc(
+        $default_content = xarMod::apiFunc(
             'blocks', 'user', 'read_type_init',
             array('module' => $module, 'type' => $type)
         );

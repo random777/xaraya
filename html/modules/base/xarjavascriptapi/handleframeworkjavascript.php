@@ -31,7 +31,7 @@ function base_javascriptapi_handleframeworkjavascript($args)
     if (empty($name)) return '';
     $name = strtolower($name);
 
-    $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => $name));
+    $fwinfo = xarMod::apiFunc('base','javascript','getframeworkinfo', array('name' => $name));
     if (!is_array($fwinfo)) return '';
 
     if ($fwinfo['status'] != 1) {
@@ -47,7 +47,7 @@ function base_javascriptapi_handleframeworkjavascript($args)
     }
 
     return "
-        xarModAPIFunc('base','javascript','init', array('name' => '$name', 'modName' => '$module', 'file' => '$file'));
+        xarMod::apiFunc('base','javascript','init', array('name' => '$name', 'modName' => '$module', 'file' => '$file'));
     ";
 
 }

@@ -74,7 +74,7 @@ function base_adminmenublock_display($blockinfo)
 
     // are there any admin modules, then get the whole list sorted by names
     // checking this as early as possible
-    $mods = xarModAPIFunc('modules', 'admin', 'getlist', array('filter' => array('AdminCapable' => 1)));
+    $mods = xarMod::apiFunc('modules', 'admin', 'getlist', array('filter' => array('AdminCapable' => 1)));
 
 
     // which module is loaded atm?
@@ -136,7 +136,7 @@ function base_adminmenublock_display($blockinfo)
                 if (($modname == $thismodname && in_array($thismodtype, $admintypes)) || $showall) {
                     // For active module we need to display the mod functions links
                     // call the api function to obtain function links, but don't raise an exception if it's not there
-                    $menulinks = xarModAPIFunc($modname, 'admin', 'getmenulinks', array(), false);
+                    $menulinks = xarMod::apiFunc($modname, 'admin', 'getmenulinks', array(), false);
 
                     // scan array and prepare the links
                     if (!empty($menulinks)) {
@@ -199,7 +199,7 @@ function base_adminmenublock_display($blockinfo)
                 if (($modname == $thismodname && in_array($thismodtype, $admintypes)) || $showall) {
                     // For active module we need to display the mod functions links
                     // call the api function to obtain function links, but don't raise an exception if it's not there
-                    $menulinks = xarModAPIFunc($modname, 'admin', 'getmenulinks', array(), false);
+                    $menulinks = xarMod::apiFunc($modname, 'admin', 'getmenulinks', array(), false);
 
                     // scan array and prepare the links
                     if (!empty($menulinks)) {

@@ -28,7 +28,7 @@
 function themes_cssapi_registercss($args)
 {
 
-    $out = "xarModAPIFunc('themes', 'user', 'register',\n";
+    $out = "xarMod::apiFunc('themes', 'user', 'register',\n";
     $out .= " array(\n";
     foreach ($args as $key => $val) {
         if (is_numeric($val) || substr($val,0,1) == '$') {

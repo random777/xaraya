@@ -18,7 +18,7 @@
 
     echo "<strong>$step. Importing old web link categories</strong><br/>\n";
 
-    $weblinks[0] = xarModAPIFunc('categories', 'admin', 'create', array(
+    $weblinks[0] = xarMod::apiFunc('categories', 'admin', 'create', array(
                                 'name' => 'Web Links',
                                 'description' => 'Web Link Categories (.7x style)',
                                 'parent_id' => 0));
@@ -44,7 +44,7 @@
             $parent = $weblinks[0];
         }
 
-        $weblinks[$id] = xarModAPIFunc('categories', 'admin', 'create', array(
+        $weblinks[$id] = xarMod::apiFunc('categories', 'admin', 'create', array(
                                       'name' => $title,
                                       'description' => $descr,
                                  //     'image' => "$imgurl/topics/$image",

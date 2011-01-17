@@ -40,7 +40,7 @@ function dynamicdata_userapi_handleDisplayTag($args)
         }
     }
 
-    $out = "echo xarModAPIFunc('dynamicdata',
+    $out = "echo xarMod::apiFunc('dynamicdata',
                    'user',
                    'showdisplay',\n";
     if (isset($args['definition'])) {

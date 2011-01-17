@@ -93,14 +93,14 @@ function mail_admin_updateconfig()
     if (xarModIsAvailable('scheduler')) {
         if (!xarVarFetch('interval', 'str:1', $interval, '', XARVAR_NOT_REQUIRED)) return;
         // see if we have a scheduler job running to send queued mail
-        $job = xarModAPIFunc('scheduler','user','get',
+        $job = xarMod::apiFunc('scheduler','user','get',
                              array('module' => 'mail',
                                    'type' => 'scheduler',
                                    'func' => 'sendmail'));
         if (empty($job) || empty($job['interval'])) {
             if (!empty($interval)) {
                 // create a scheduler job
-                xarModAPIFunc('scheduler','admin','create',
+                xarMod::apiFunc('scheduler','admin','create',
                               array('module' => 'mail',
                                     'type' => 'scheduler',
                                     'func' => 'sendmail',
@@ -108,13 +108,13 @@ function mail_admin_updateconfig()
             }
         } elseif (empty($interval)) {
             // delete the scheduler job
-            xarModAPIFunc('scheduler','admin','delete',
+            xarMod::apiFunc('scheduler','admin','delete',
                           array('module' => 'mail',
                                 'type' => 'scheduler',
                                 'func' => 'sendmail'));
         } elseif ($interval != $job['interval']) {
             // update the scheduler job
-            xarModAPIFunc('scheduler','admin','update',
+            xarMod::apiFunc('scheduler','admin','update',
                           array('module' => 'mail',
                                 'type' => 'scheduler',
                                 'func' => 'sendmail',

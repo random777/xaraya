@@ -42,7 +42,7 @@ class Dynamic_Hook_DataStore extends Dynamic_DataStore
         foreach (array_keys($this->fields) as $hook) {
             if (xarModIsAvailable($hook)) {
             // TODO: find some more consistent way to do this !
-                $value = xarModAPIFunc($hook,'user','get',
+                $value = xarMod::apiFunc($hook,'user','get',
                                        array('modname' => $modname,
                                              'modid' => $modid,
                                              'itemtype' => $itemtype,

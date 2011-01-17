@@ -30,7 +30,7 @@ function themes_cssapi_delivercss($args)
         $argstring .= "'" . $key . "' => '" . $value . "',";
     }
     $argstring .= ")";
-    return "echo xarModAPIFunc('themes', 'user', 'deliver',$argstring);\n";
+    return "echo xarMod::apiFunc('themes', 'user', 'deliver',$argstring);\n";
 }
 
 ?>

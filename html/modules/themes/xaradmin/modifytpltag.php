@@ -27,7 +27,7 @@ function themes_admin_modifytpltag()
     if (!xarVarFetch('tagname', 'str::', $tagname, '')) return;
 
     // get the tags as an array
-    $aTplTag = xarModAPIFunc('themes',
+    $aTplTag = xarMod::apiFunc('themes',
                              'admin',
                              'gettpltag',
                              array('tagname'=>$tagname));

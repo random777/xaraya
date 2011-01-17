@@ -32,7 +32,7 @@ function roles_userapi_countallactive($args)
         $args['mode'] = 'COUNTSESS';
     }
 
-    return xarModAPIfunc('roles', 'user', 'getallactive', $args);
+    return xarMod::apiFunc('roles', 'user', 'getallactive', $args);
 }
 
 ?>

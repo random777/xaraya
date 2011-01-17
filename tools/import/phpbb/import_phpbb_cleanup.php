@@ -35,12 +35,12 @@ if ($importmodule == 'articles') {
                      array('ptid' => $ptid));
     // Enable bbcode hooks for 'forums' pubtype of articles
     if (xarModIsAvailable('bbcode') && !xarModIsHooked('bbcode','articles',$ptid)) {
-        xarModAPIFunc('modules','admin','enablehooks',
+        xarMod::apiFunc('modules','admin','enablehooks',
                       array('callerModName' => 'articles', 'callerItemType' => $ptid, 'hookModName' => 'bbcode'));
     }
 } else {
     if (xarModIsAvailable('bbcode') && !xarModIsHooked('bbcode','xarbb')) {
-        xarModAPIFunc('modules','admin','enablehooks',
+        xarMod::apiFunc('modules','admin','enablehooks',
                       array('callerModName' => 'xarbb', 'hookModName' => 'bbcode'));
     }
     $url = xarModURL('xarbb','user','main');

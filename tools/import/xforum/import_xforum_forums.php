@@ -99,7 +99,7 @@
             // The API function is called
             // Hmmm - can't directly create all new data in forum here with current xarBB function
             // heh - just modifed the function so we can pass in values
-            $forumid[$id]=xarModAPIFunc('xarbb',
+            $forumid[$id]=xarMod::apiFunc('xarbb',
                                'admin',
                                'create',
                                array('fname'    => $name,

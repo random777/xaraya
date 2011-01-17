@@ -124,7 +124,7 @@
         $data['date'] = $date;
         $data['postanon'] = 0;
 
-        $cid = xarModAPIFunc('comments','user','add',$data);
+        $cid = xarMod::apiFunc('comments','user','add',$data);
         if (empty($cid)) {
             echo "Failed inserting poll comment ($sid $pid) $uname - $subject : ".$dbconn->ErrorMsg()."<br/>\n";
         } elseif ($count < 200) {
@@ -143,7 +143,7 @@
     echo '<a href="import_pn.php">Return to start</a>&nbsp;&nbsp;&nbsp;
           <a href="import_pn.php?step=' . ($step+1) . '">Go to step ' . ($step+1) . '</a><br/>';
     // Enable comments hooks for polls
-    xarModAPIFunc('modules','admin','enablehooks',
+    xarMod::apiFunc('modules','admin','enablehooks',
                   array('callerModName' => 'polls', 'hookModName' => 'comments'));
 
 ?>

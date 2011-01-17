@@ -27,7 +27,7 @@ function blocks_admin_delete_group()
         // No confirmation yet - get one
 
         // Get details on current group
-        $group = xarModAPIFunc(
+        $group = xarMod::apiFunc(
             'blocks', 'admin', 'groupgetinfo',
             array('blockGroupId' => $gid)
         );
@@ -45,7 +45,7 @@ function blocks_admin_delete_group()
     if (!xarSecConfirmAuthKey()) {return;}
 
     // Pass to API
-    xarModAPIFunc(
+    xarMod::apiFunc(
         'blocks', 'admin', 'delete_group', array('gid' => $gid)
     );
 

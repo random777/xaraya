@@ -56,7 +56,7 @@ function base_javascriptapi_getframeworkinfo($args)
     }
 
     $basedir = 'xartemplates/includes/' . strtolower($name);
-    $fwfiles = xarModAPIFunc('base', 'user', 'browse_files',
+    $fwfiles = xarMod::apiFunc('base', 'user', 'browse_files',
         array(
             'module' => $module,
             'basedir' => $basedir,
@@ -99,7 +99,7 @@ function base_javascriptapi_getframeworkinfo($args)
     ksort($fwinfo);
     xarModSetVar('base','RegisteredFrameworks', serialize($fwinfo));
 
-    xarModAPIFunc('base', 'javascript', 'importplugins');
+    xarMod::apiFunc('base', 'javascript', 'importplugins');
 
 }
 ?>

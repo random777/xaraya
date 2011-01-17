@@ -2019,7 +2019,7 @@ function xarModCallHooks($hookObject, $hookAction, $hookId, $extraInfo, $callerM
             $output[$hook['module']] = $res;
         } else {
             if (!xarModAPILoad($hook['module'], $hook['type']))  return; //return;
-            $res = xarModAPIFunc($hook['module'],
+            $res = xarMod::apiFunc($hook['module'],
                                  $hook['type'],
                                  $hook['func'],
                                  array('objectid' => $hookId,

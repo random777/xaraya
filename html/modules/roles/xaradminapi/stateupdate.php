@@ -36,7 +36,7 @@ function roles_adminapi_stateupdate($args)
         return;
     }
 
-    $item = xarModAPIFunc('roles',
+    $item = xarMod::apiFunc('roles',
                           'user',
                           'get',
                           array('uid' => $uid));

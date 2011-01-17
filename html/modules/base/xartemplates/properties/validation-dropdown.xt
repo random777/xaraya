@@ -20,7 +20,7 @@
         <p>
             <xar:mlstring>Get a list of id =&gt; name options via API function call</xar:mlstring>
             <br/>
-            <xar:mlstring>Syntax : xarModAPIFunc(...)</xar:mlstring>
+            <xar:mlstring>Syntax : xarMod::apiFunc(...)</xar:mlstring>
         </p>
     </div>
 </div>
@@ -35,7 +35,7 @@
             <p>
               <xar:mlstring>Get/check a single option with id = $value via API</xar:mlstring>
               <br/>
-              <xar:mlstring>Syntax : xarModAPIFunc(..., array(... => $value))</xar:mlstring>
+              <xar:mlstring>Syntax : xarMod::apiFunc(..., array(... => $value))</xar:mlstring>
             </p>
         </div>
     </div>

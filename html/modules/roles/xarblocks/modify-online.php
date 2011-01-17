@@ -31,7 +31,7 @@ function roles_onlineblock_modify($blockinfo)
     }
 
     // Values used in the form update: list of groups, max count of users.
-    $vars['all_groups'] = xarModAPIfunc('roles','user','getallgroups');
+    $vars['all_groups'] = xarMod::apiFunc('roles','user','getallgroups');
 
     $vars['bid'] = $blockinfo['bid'];
 

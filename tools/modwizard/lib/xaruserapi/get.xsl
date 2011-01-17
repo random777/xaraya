@@ -53,7 +53,7 @@ function <xsl:value-of select="$module_prefix" />_userapi_get( $args )
     }
 
     // Retrieve the object via the dynamicdata module api.
-    $object = xarModAPIFunc(
+    $object = xarMod::apiFunc(
         'dynamicdata'
         ,'user'
         ,'getitem'

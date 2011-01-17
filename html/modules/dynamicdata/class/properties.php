@@ -273,7 +273,7 @@ class Dynamic_Property_Master
         // If no properties are found, import them in.
         if( $result->EOF)
         {
-            $property_types = xarModAPIFunc('dynamicdata','admin','importpropertytypes', array('flush'=>false));
+            $property_types = xarMod::apiFunc('dynamicdata','admin','importpropertytypes', array('flush'=>false));
         } else {
             $property_types = array();
             while (!$result->EOF)

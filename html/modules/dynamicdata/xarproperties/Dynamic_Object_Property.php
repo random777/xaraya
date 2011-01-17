@@ -47,7 +47,7 @@ class Dynamic_Object_Property extends Dynamic_Select_Property
                     list($option_type, $option_value) = explode(':', $option, 2);
                     if ($option_type == 'static' && $option_value == 1) {
                         $includestatics = true;
-                        $modlist = xarModAPIFunc('modules',
+                        $modlist = xarMod::apiFunc('modules',
                                          'admin',
                                          'GetList');
                         foreach ($modlist as $modinfo) {
@@ -64,7 +64,7 @@ class Dynamic_Object_Property extends Dynamic_Select_Property
             }
             foreach ($objects as $objectid => $object) {
                 if (!empty($includestatics)) {
-                    $ancestors = xarModAPIFunc('dynamicdata','user','getancestors',array('objectid' => $objectid, 'top' => false));
+                    $ancestors = xarMod::apiFunc('dynamicdata','user','getancestors',array('objectid' => $objectid, 'top' => false));
                     $name ="";
                     foreach ($ancestors as $parent) $name .= $parent['name'] . ".";
                     $this->options[] = array('id' => '182.' . $objectid, 'name' => $name . $object['name']);

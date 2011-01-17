@@ -61,7 +61,7 @@ function dynamicdata_admin_update($args)
     $isvalid = $myobject->checkInput();
 
     if (!empty($preview) || !$isvalid) {
-        $data = xarModAPIFunc('dynamicdata','admin','menu');
+        $data = xarMod::apiFunc('dynamicdata','admin','menu');
         $data['object'] = & $myobject;
 
         $data['objectid'] = $myobject->objectid;
@@ -101,13 +101,13 @@ function dynamicdata_admin_update($args)
             // no alias defined yet, so we create one
             if ($alias == $name) {
                 $args = array('modName'=>'dynamicdata', 'aliasModName'=> $name);
-                xarModAPIFunc('modules', 'admin', 'add_module_alias', $args);
+                xarMod::apiFunc('modules', 'admin', 'add_module_alias', $args);
             }
         } else {
             // this was a defined alias, so we remove it
             if ($alias == 'dynamicdata') {
                 $args = array('modName'=>'dynamicdata', 'aliasModName'=> $name);
-                xarModAPIFunc('modules', 'admin', 'delete_module_alias', $args);
+                xarMod::apiFunc('modules', 'admin', 'delete_module_alias', $args);
             }
         }
 
@@ -115,7 +115,7 @@ function dynamicdata_admin_update($args)
         $objectid = $myobject->properties['objectid']->value;
         $moduleid = $myobject->properties['moduleid']->value;
         $itemtype = $myobject->properties['itemtype']->value;
-        if (!xarModAPIFunc('dynamicdata','admin','syncprops',
+        if (!xarMod::apiFunc('dynamicdata','admin','syncprops',
                            array('objectid' => $objectid,
                                  'moduleid' => $moduleid,
                                  'itemtype' => $itemtype))) {

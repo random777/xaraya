@@ -68,7 +68,7 @@ function base_waitingcontentblock_display($blockinfo)
     if(!xarSecurityCheck('EditBaseBlock',0,'Block',"waitingcontent:$blockinfo[title]:$blockinfo[bid]")) {return;}
 
     // Get publication types
-    $data = xarModAPIFunc('base', 'admin', 'waitingcontent');
+    $data = xarMod::apiFunc('base', 'admin', 'waitingcontent');
 
     $blockinfo['content'] = array(
         'output'   => $data['output'],

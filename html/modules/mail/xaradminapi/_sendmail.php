@@ -67,14 +67,14 @@ function mail_adminapi__sendmail($args)
 
 
     if (!empty($when) && $when > time() && xarModIsAvailable('scheduler')) {
-        if (xarModAPIFunc('mail','admin','_queuemail', $args)) {
+        if (xarMod::apiFunc('mail','admin','_queuemail', $args)) {
             // we're done here
             return true;
         }
     }
 
     // Global search and replace %%text%%
-    $replace = xarModAPIFunc('mail',
+    $replace = xarMod::apiFunc('mail',
                              'admin',
                              'replace',
                              array('message'        => $message,

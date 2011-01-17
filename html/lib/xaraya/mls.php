@@ -381,8 +381,8 @@ function xarMLS_userOffset($timestamp = null)
         }
     }
     // this will depend on the current $timestamp
-    if (isset($timestamp) && !empty($timezone) && function_exists('xarModAPIFunc')) {
-        $adjust = xarModAPIFunc('base','user','dstadjust',
+    if (isset($timestamp) && !empty($timezone) && function_exists('xarMod::apiFunc')) {
+        $adjust = xarMod::apiFunc('base','user','dstadjust',
                                 array('timezone' => $timezone,
                                       // pass the timestamp *with* the offset
                                       'time'     => $timestamp + $offset * 3600));

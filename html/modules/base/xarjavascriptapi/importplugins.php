@@ -21,12 +21,12 @@ function base_javascriptapi_importplugins($args)
 
     extract($args);
 
-    $fwinfo = xarModAPIFunc('base', 'javascript', 'getframeworkinfo');
+    $fwinfo = xarMod::apiFunc('base', 'javascript', 'getframeworkinfo');
     if (empty($fwinfo)) return;
 
     if (isset($framework) && !isset($fwinfo[$framework])) return;
 
-    $scanmods = xarModAPIFunc('modules', 'admin', 'getlist', array('state' => XARMOD_STATE_ACTIVE));
+    $scanmods = xarMod::apiFunc('modules', 'admin', 'getlist', array('state' => XARMOD_STATE_ACTIVE));
 
     $themedir = xarTplGetThemeDir();
     // scan frameworks
@@ -51,7 +51,7 @@ function base_javascriptapi_importplugins($args)
             $scandirs[] = $modPath;
             // scan folders for plugin files
             foreach ($scandirs as $scandir) {
-                $modFiles = xarModAPIFunc('base', 'user', 'browse_files',
+                $modFiles = xarMod::apiFunc('base', 'user', 'browse_files',
                     array(
                         'basedir'   => $scandir,
                         'levels'    => 2,

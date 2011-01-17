@@ -30,11 +30,11 @@ function modules_adminapi_checkversion()
     if(!xarSecurityCheck('AdminModules',1,'All','All','modules')) return;
 
     // Get all modules in the filesystem
-    $fileModules = xarModAPIFunc('modules','admin','getfilemodules');
+    $fileModules = xarMod::apiFunc('modules','admin','getfilemodules');
     if (!isset($fileModules)) return;
 
     // Get all modules in DB
-    $dbModules = xarModAPIFunc('modules','admin','getdbmodules');
+    $dbModules = xarMod::apiFunc('modules','admin','getdbmodules');
     if (!isset($dbModules)) return;
 
     // See if we have lost any modules since last generation
@@ -57,12 +57,12 @@ function modules_adminapi_checkversion()
                         break;
                     case XARMOD_STATE_INACTIVE || XARMOD_STATE_ACTIVE || XARMOD_STATE_UPGRADED:
                         $newstate = XARMOD_STATE_INACTIVE;
-                        xarModAPIFunc('modules','admin','upgrade',
+                        xarMod::apiFunc('modules','admin','upgrade',
                                         array(    'regid'    => $regId,
                                                 'state'    => $newstate));
                         
                         $newstate = XARMOD_STATE_ACTIVE;
-                        xarModAPIFunc('modules','admin','activate',
+                        xarMod::apiFunc('modules','admin','activate',
                                         array(    'regid'    => $regId,
                                                 'state'    => $newstate));
                         break;
@@ -96,7 +96,7 @@ function modules_adminapi_checkversion()
                         break;
                 }
                 if (isset($newstate)) {
-                    $set = xarModAPIFunc('modules','admin','setstate',
+                    $set = xarMod::apiFunc('modules','admin','setstate',
                                         array(    'regid'    => $regId,
                                                 'state'    => $newstate));
                 }

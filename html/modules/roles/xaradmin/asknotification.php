@@ -36,7 +36,7 @@ function roles_admin_asknotification($args)
                     $data['subject'] = '';
                     $data['message'] = '';
                 } else {
-                    $strings = xarModAPIFunc('roles','admin','getmessagestrings', array('template' => $data['mailtype']));
+                    $strings = xarMod::apiFunc('roles','admin','getmessagestrings', array('template' => $data['mailtype']));
                     if (!isset($strings)) return;
 
                     $data['subject'] = $strings['subject'];
@@ -53,7 +53,7 @@ function roles_admin_asknotification($args)
                 if (xarModIsHooked('dynamicdata','roles')) {
                     // get the Dynamic Object defined for this module (and itemtype, if relevant)
                     // Bug 4785: removed a & on next line
-                    $object = xarModAPIFunc('dynamicdata', 'user', 'getobject',
+                    $object = xarMod::apiFunc('dynamicdata', 'user', 'getobject',
                         array('module' => 'roles'));
                     if (isset($object) && !empty($object->objectid)) {
                         // get the Dynamic Properties of this object
@@ -77,7 +77,7 @@ function roles_admin_asknotification($args)
             $data['message'] = str_replace(" ","&#160;", $data['message']);
 
             // Get System/Site vars
-            $vars  = xarModAPIFunc('roles','admin','getmessageincludestring', array('template' => 'message-vars'));
+            $vars  = xarMod::apiFunc('roles','admin','getmessageincludestring', array('template' => 'message-vars'));
 
             // Compile Template before sending it to senduseremail()
             $data['message'] = xarTplCompileString($vars . $data['message']);
@@ -89,7 +89,7 @@ function roles_admin_asknotification($args)
 
             //Send notification
             $uid = unserialize(base64_decode($uid));
-            if (!xarModAPIFunc('roles','admin','senduseremail', array( 'uid' => $uid, 'mailtype' => $data['mailtype'], 'subject' => $data['subject'], 'message' => $data['message'], 'pass' => $data['pass'], 'ip' => $data['ip']))) {
+            if (!xarMod::apiFunc('roles','admin','senduseremail', array( 'uid' => $uid, 'mailtype' => $data['mailtype'], 'subject' => $data['subject'], 'message' => $data['message'], 'pass' => $data['pass'], 'ip' => $data['ip']))) {
                 return;
                 $msg = xarML('Problem sending email for #(1) Userid: #(2)',$data['mailtype'],$uid);
                 xarErrorSet(XAR_USER_EXCEPTION, 'MISSING_DATA', new DefaultUserException($msg));

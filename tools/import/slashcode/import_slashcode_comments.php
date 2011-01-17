@@ -194,7 +194,7 @@
         $data['postanon'] = 0;
 
         // Add comment
-        $newcid = xarModAPIFunc('comments',
+        $newcid = xarMod::apiFunc('comments',
                                 'user',
                                 'add',
                                 $data);

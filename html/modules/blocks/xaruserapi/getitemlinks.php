@@ -39,7 +39,7 @@ function blocks_userapi_getitemlinks($args)
             if (!empty($itemids) && count($itemids) == 1) {
                 $param['tid'] = $itemids[0];
             }
-            $types = xarModAPIFunc('blocks','user','getallblocktypes',$param);
+            $types = xarMod::apiFunc('blocks','user','getallblocktypes',$param);
             if (empty($itemids)) {
                 $itemids = array_keys($types);
             }
@@ -58,7 +58,7 @@ function blocks_userapi_getitemlinks($args)
             if (!empty($itemids) && count($itemids) == 1) {
                 $param['gid'] = $itemids[0];
             }
-            $groups = xarModAPIFunc('blocks','user','getallgroups',$param);
+            $groups = xarMod::apiFunc('blocks','user','getallgroups',$param);
             if (empty($itemids)) {
                 $itemids = array_keys($groups);
             }
@@ -78,7 +78,7 @@ function blocks_userapi_getitemlinks($args)
             if (!empty($itemids) && count($itemids) == 1) {
                 $param['bid'] = $itemids[0];
             }
-            $instances = xarModAPIFunc('blocks','user','getall',$param);
+            $instances = xarMod::apiFunc('blocks','user','getall',$param);
             if (empty($itemids)) {
                 $itemids = array_keys($instances);
             }

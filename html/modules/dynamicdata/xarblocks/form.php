@@ -51,7 +51,7 @@ function dynamicdata_formblock_display($blockinfo)
 
     // Populate block info and pass to theme
     if (!empty($vars['objectid'])) {
-        $objectinfo = xarModAPIFunc('dynamicdata','user','getobjectinfo',
+        $objectinfo = xarMod::apiFunc('dynamicdata','user','getobjectinfo',
                                     $vars);
         if (!empty($objectinfo)) {
             if (!xarSecurityCheck('AddDynamicDataItem',0,'Item',"$objectinfo[moduleid]:$objectinfo[itemtype]:All")) return;

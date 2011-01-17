@@ -20,12 +20,12 @@ function dynamicdata_user_main()
 // Security Check
     if(!xarSecurityCheck('ViewDynamicData')) return;
 
-    $data = xarModAPIFunc('dynamicdata','user','menu');
+    $data = xarMod::apiFunc('dynamicdata','user','menu');
 
     if (!xarModAPILoad('dynamicdata','user')) return;
 
     // get items from the objects table
-    $objects = xarModAPIFunc('dynamicdata','user','getobjects');
+    $objects = xarMod::apiFunc('dynamicdata','user','getobjects');
 
     $data['items'] = array();
     $mymodid = xarModGetIDFromName('dynamicdata');

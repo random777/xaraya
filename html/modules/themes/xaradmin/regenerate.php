@@ -28,7 +28,7 @@ function themes_admin_regenerate()
     // Security check
     if (!xarSecConfirmAuthKey()) return;
     // Regenerate themes
-    $regenerated = xarModAPIFunc('themes', 'admin', 'regenerate');
+    $regenerated = xarMod::apiFunc('themes', 'admin', 'regenerate');
 
     if (!isset($regenerated)) return;
     // Redirect

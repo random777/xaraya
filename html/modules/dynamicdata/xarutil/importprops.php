@@ -38,7 +38,7 @@ function dynamicdata_util_importprops()
     // in false data to the system
     if (!xarSecConfirmAuthKey()) return;
 
-    if (!xarModAPIFunc('dynamicdata','util','importproperties',
+    if (!xarMod::apiFunc('dynamicdata','util','importproperties',
                        array('modid' => $modid,
                              'itemtype' => $itemtype,
                              'table' => $table,

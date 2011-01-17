@@ -30,7 +30,7 @@ function roles_adminapi_purge($args)
         return;
     }
 
-    $items = xarModAPIFunc('roles',
+    $items = xarMod::apiFunc('roles',
              'user',
              'getall',
              array('state' => $state));
@@ -38,7 +38,7 @@ function roles_adminapi_purge($args)
         foreach ($items as $item) {
 
         // The user API function is called.
-        $user = xarModAPIFunc('roles',
+        $user = xarMod::apiFunc('roles',
                 'user',
                 'get',
                 array('uid' => $item['uid']));

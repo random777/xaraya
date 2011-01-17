@@ -15,8 +15,8 @@
  * Base User version management functions
  *
  * Compare two legal-style versions supplied as strings or arrays
- * Usage : $which = xarModAPIFunc('base', 'versions', 'compare', array('ver1'=>$version1, 'ver2'=>$version2));
- * or shortcut $which = xarModAPIFunc('base', 'versions', 'compare', array($version1, $version2));
+ * Usage : $which = xarMod::apiFunc('base', 'versions', 'compare', array('ver1'=>$version1, 'ver2'=>$version2));
+ * or shortcut $which = xarMod::apiFunc('base', 'versions', 'compare', array($version1, $version2));
  *
  * @author Jason Judge
  * @param $args['ver1'] or $args[0] version number 1 (string or array)
@@ -91,7 +91,7 @@ function base_versionsapi_compare($args)
             return false;
         }
 
-        $result = xarModAPIFunc('base','versions',$func, array('ver' => $version));
+        $result = xarMod::apiFunc('base','versions',$func, array('ver' => $version));
 
         if (!$result) {
             // throw a more meaningful exception from here

@@ -21,7 +21,7 @@
     echo "<strong>$step. Importing xforum categories into categories</strong><br/>\n";
 
     $regid = xarModGetIDFromName('xarbb');
-    $xarbbcats = xarModAPIFunc('categories', 'admin', 'create',
+    $xarbbcats = xarMod::apiFunc('categories', 'admin', 'create',
                                 array('name' => 'xarBB Forum Index',
                                       'description' => 'xarBB Forum Index',
                                       'parent_id' => 0));
@@ -48,13 +48,13 @@
     while (!$result->EOF) {
         list($ctype, $id, $title, $order,$fup) = $result->fields;
         if ($fup==0) {
-        $catid[$id] = xarModAPIFunc('categories', 'admin', 'create',
+        $catid[$id] = xarMod::apiFunc('categories', 'admin', 'create',
                                     array('name' => $title,
                                           'description' => $title,
                                           'parent_id' => $xarbbcats));
         echo "Creating category ($id) $title<br/>\n";
         }else {
-        $catid[$id] = xarModAPIFunc('categories', 'admin', 'create',
+        $catid[$id] = xarMod::apiFunc('categories', 'admin', 'create',
                                     array('name' => $title,
                                           'description' => $title,
                                           'parent_id' => $catid[$fup]));

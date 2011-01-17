@@ -53,7 +53,7 @@ function <xsl:value-of select="$module_prefix" />_admin_main()
     if (xarModGetVar('adminpanels', 'overview') == 0) {
 
         // Yes we should
-        $data = xarModAPIFunc(
+        $data = xarMod::apiFunc(
             '<xsl:value-of select="$module_prefix" />'
             ,'private'
             ,'common'

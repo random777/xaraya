@@ -42,7 +42,7 @@ function base_javascriptapi_appendframeworkevent($args)
         $framework = xarModGetVar('base','DefaultFramework');
     }
 
-    $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => $framework));
+    $fwinfo = xarMod::apiFunc('base','javascript','getframeworkinfo', array('name' => $framework));
 
     if (!is_array($fwinfo)) {
         $msg = xarML('Bad framework name');
@@ -67,7 +67,7 @@ function base_javascriptapi_appendframeworkevent($args)
 
     // ensure framework init has happened
     if (!isset($GLOBALS['xarTpl_JavaScript'][$framework])) {
-        $fwinit = xarModAPIFunc($modName, $framework, 'init', array());
+        $fwinit = xarMod::apiFunc($modName, $framework, 'init', array());
         if (!$fwinit) {
             $msg = xarML('Framework #(1) init failed', $framework);
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
@@ -87,7 +87,7 @@ function base_javascriptapi_appendframeworkevent($args)
     }
 
     if (isset($file) && !empty($file)) {
-        $filepath = xarModAPIfunc('base', 'javascript', '_findfile', array(
+        $filepath = xarMod::apiFunc('base', 'javascript', '_findfile', array(
             'module' => $modName,
             'filename' => "$framework/events/$file"));
         if (!empty($filepath)) {
@@ -131,7 +131,7 @@ function base_javascriptapi_appendframeworkevent($args)
     $args['framework'] = $framework;
     $args['once'] = $once;
 
-    $append = xarModAPIFunc($modName, $framework, 'appendframeworkevent', $args);
+    $append = xarMod::apiFunc($modName, $framework, 'appendframeworkevent', $args);
 
     return $append;
 }

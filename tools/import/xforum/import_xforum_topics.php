@@ -138,7 +138,7 @@
        }else {
            $tstatus=0;
        }
-       $newtid=xarModAPIFunc('xarbb',
+       $newtid=xarMod::apiFunc('xarbb',
                                'user',
                                'createtopic',
                                array('fid'      => $forumids[$fid],

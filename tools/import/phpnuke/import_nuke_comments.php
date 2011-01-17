@@ -112,7 +112,7 @@
         $data['date'] = $date;
         $data['postanon'] = 0;
 
-        $cid = xarModAPIFunc('comments','user','add',$data);
+        $cid = xarMod::apiFunc('comments','user','add',$data);
         if (empty($cid)) {
             echo "Failed inserting comment ($sid $pid) $uname - $subject : ".$dbconn->ErrorMsg()."<br/>\n";
         } elseif ($count < 200) {

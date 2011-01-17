@@ -130,7 +130,7 @@
         $data['date'] = $postdate;
         $data['postanon'] = 0;
 
-        $cid = xarModAPIFunc('comments','user','add',$data);
+        $cid = xarMod::apiFunc('comments','user','add',$data);
 
         $cupdata = array("fid" => $fid,
                         "ttitle" => $subject,
@@ -140,7 +140,7 @@
 
         echo "Post $cid for post ". $subject." imported.<br />";
 
-        $cidup=xarModAPIFunc('xarbb','user','updatetopic',$cupdata);
+        $cidup=xarMod::apiFunc('xarbb','user','updatetopic',$cupdata);
 
         if ((empty($cid))) {
             echo "Failed inserting post ($ppid $tid) $uname - $subject : ".$dbconn->ErrorMsg()."<br/>\n";

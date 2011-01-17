@@ -24,7 +24,7 @@
  */
 function base_userapi_handletimesincetag($args)
 {
-    $out = "echo xarModAPIFunc('base', 'user', 'timesince',\n";
+    $out = "echo xarMod::apiFunc('base', 'user', 'timesince',\n";
     $out .= " array(\n";
     foreach ($args as $key => $val) {
         if (is_numeric($val) || substr($val,0,1) == '$') {

@@ -44,7 +44,7 @@ function modules_adminapi_installwithdependencies ($args)
     }
 
     // See if we have lost any modules since last generation
-    if (!xarModAPIFunc('modules', 'admin', 'checkmissing')) {
+    if (!xarMod::apiFunc('modules', 'admin', 'checkmissing')) {
         return;
     }
 
@@ -91,7 +91,7 @@ function modules_adminapi_installwithdependencies ($args)
             $modId = $conditions;
         }
 
-        if (!xarModAPIFunc('modules', 'admin', 'installwithdependencies', array('regid'=>$modId))) {
+        if (!xarMod::apiFunc('modules', 'admin', 'installwithdependencies', array('regid'=>$modId))) {
             $msg = xarML('Unable to initialize dependency module with ID (#(1)).', $modId);
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', $msg);
             return;
@@ -101,7 +101,7 @@ function modules_adminapi_installwithdependencies ($args)
     //Checks if the module is already initialised
     if (!$initialised) {
         // Finally, now that dependencies are dealt with, initialize the module
-        if (!xarModAPIFunc('modules', 'admin', 'initialise', array('regid' => $mainId))) {
+        if (!xarMod::apiFunc('modules', 'admin', 'initialise', array('regid' => $mainId))) {
             $msg = xarML('Unable to initialize module "#(1)".', $modInfo['displayname']);
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', $msg);
             return;
@@ -109,7 +109,7 @@ function modules_adminapi_installwithdependencies ($args)
     }
 
     // And activate it!
-    if (!xarModAPIFunc('modules', 'admin', 'activate', array('regid' => $mainId))) {
+    if (!xarMod::apiFunc('modules', 'admin', 'activate', array('regid' => $mainId))) {
         $msg = xarML('Unable to activate module "#(1)".', $modInfo['displayname']);
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', $msg);
         return;

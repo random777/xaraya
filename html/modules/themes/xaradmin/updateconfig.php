@@ -87,7 +87,7 @@ function themes_admin_updateconfig()
             }
         }
 
-        // we need to redirect instead of using xarModAPIFunc() because the
+        // we need to redirect instead of using xarMod::apiFunc() because the
         // updatehooks() API function calls xarVarFetch rather than taking
         // input via an $args array.
         $redirecturl = xarModURL('modules', 'admin', 'updatehooks', array(

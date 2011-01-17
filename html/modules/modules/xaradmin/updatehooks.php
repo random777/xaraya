@@ -37,7 +37,7 @@ function modules_admin_updatehooks()
     $modinfo = xarModGetInfo($regId);
     if (!empty($modinfo) && xarModIsAvailable($modinfo['name'])) {
         // Pass to API
-        $updated = xarModAPIFunc(
+        $updated = xarMod::apiFunc(
             'modules', 'admin', 'updatehooks',
             array('regid' => $regId)
         );

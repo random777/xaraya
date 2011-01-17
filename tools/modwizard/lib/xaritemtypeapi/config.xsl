@@ -41,7 +41,7 @@
  */
 function <xsl:value-of select="$module_prefix" />_<xsl:value-of select="@name" />api_config( $args ) 
 {
-    $data =&amp; xarModAPIFunc(
+    $data =&amp; xarMod::apiFunc(
         '<xsl:value-of select="$module_prefix" />'
         ,'private'
         ,'common'
@@ -129,7 +129,7 @@ function <xsl:value-of select="$module_prefix" />_<xsl:value-of select="@name" /
      * Populate the rest of the template
      */
     $data['common']['menu_label'] = xarML( 'Configure' );
-    $data['common']['menu']       = xarModAPIFunc(
+    $data['common']['menu']       = xarMod::apiFunc(
         '<xsl:value-of select="$module_prefix" />'
         ,'private'
         ,'adminconfigmenu'

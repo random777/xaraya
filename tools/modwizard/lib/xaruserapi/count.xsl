@@ -46,7 +46,7 @@ function <xsl:value-of select="$module_prefix" />_userapi_count( $args )
     extract( $args );
 
     // Retrieve all objects via the dynamicdata module api.
-    $numitems =&amp; xarModAPIFunc(
+    $numitems =&amp; xarMod::apiFunc(
         'dynamicdata'
         ,'user'
         ,'countitems'

@@ -19,7 +19,7 @@
 if ($importmodule == 'articles') {
     echo "<strong>$step. Creating publication type for phpBB forums in articles</strong><br/>\n";
 
-    $pubtypes = xarModAPIFunc('articles','user','getpubtypes');
+    $pubtypes = xarMod::apiFunc('articles','user','getpubtypes');
     $ptid = '';
     foreach ($pubtypes as $id => $pubtype) {
         if ($pubtype['name'] == 'forums') {
@@ -28,7 +28,7 @@ if ($importmodule == 'articles') {
         }
     }
     if (empty($ptid)) {
-        $ptid = xarModAPIFunc('articles', 'admin', 'createpubtype',
+        $ptid = xarMod::apiFunc('articles', 'admin', 'createpubtype',
                               array (
                                 'name' => 'forums',
                                 'descr' => 'Discussion Forums',

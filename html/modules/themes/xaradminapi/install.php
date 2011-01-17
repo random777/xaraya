@@ -43,7 +43,7 @@ function themes_adminapi_install($args)
     }
 
     // See if we have lost any modules since last generation
-    if (!xarModAPIFunc('themes', 'admin', 'checkmissing')) return;
+    if (!xarMod::apiFunc('themes', 'admin', 'checkmissing')) return;
 
     // Make xarModGetInfo not cache anything...
     //We should make a funcion to handle this or maybe whenever we
@@ -73,7 +73,7 @@ function themes_adminapi_install($args)
     //Checks if the theme is already initialised
     if (!$initialised) {
         // Finally, now that dependencies are dealt with, initialize the module
-        if (!xarModAPIFunc('themes', 'admin', 'initialise', array('regid' => $mainId))) {
+        if (!xarMod::apiFunc('themes', 'admin', 'initialise', array('regid' => $mainId))) {
             $msg = xarML('Unable to initialize theme "#(1)".', $modInfo['displayname']);
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', $msg);
             return;
@@ -81,7 +81,7 @@ function themes_adminapi_install($args)
     }
 
     // And activate it!
-    if (!xarModAPIFunc('themes', 'admin', 'activate', array('regid' => $mainId))) {
+    if (!xarMod::apiFunc('themes', 'admin', 'activate', array('regid' => $mainId))) {
         $msg = xarML('Unable to activate module "#(1)".', $modInfo['displayname']);
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', $msg);
         return;

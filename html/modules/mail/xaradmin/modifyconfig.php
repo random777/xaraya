@@ -53,9 +53,9 @@ function mail_admin_modifyconfig()
     }
 
     if (xarModIsAvailable('scheduler')) {
-        $data['intervals'] = xarModAPIFunc('scheduler','user','intervals');
+        $data['intervals'] = xarMod::apiFunc('scheduler','user','intervals');
         // see if we have a scheduler job running to send queued mail
-        $job = xarModAPIFunc('scheduler','user','get',
+        $job = xarMod::apiFunc('scheduler','user','get',
                              array('module' => 'mail',
                                    'type' => 'scheduler',
                                    'func' => 'sendmail'));

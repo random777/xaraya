@@ -56,7 +56,7 @@ function roles_admin_modifyemail($args)
     switch (strtolower($phase)) {
         case 'modify':
         default:
-            $strings = xarModAPIFunc('roles','admin','getmessagestrings', array('template' => $data['mailtype']));
+            $strings = xarMod::apiFunc('roles','admin','getmessagestrings', array('template' => $data['mailtype']));
             $data['subject'] = $strings['subject'];
             $data['message'] = $strings['message'];
             $data['authid']  = xarSecGenAuthKey();
@@ -67,7 +67,7 @@ function roles_admin_modifyemail($args)
             if (xarModIsHooked('dynamicdata','roles')) {
                 // get the Dynamic Object defined for this module (and itemtype, if relevant)
                 // FIXME: 'Only variables should be assigned by reference' notice in php4.4
-                @$object = xarModAPIFunc('dynamicdata', 'user', 'getobject',
+                @$object = xarMod::apiFunc('dynamicdata', 'user', 'getobject',
                     array('module' => 'roles'));
                 if (isset($object) && !empty($object->objectid)) {
                     // get the Dynamic Properties of this object

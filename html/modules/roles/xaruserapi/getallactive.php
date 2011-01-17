@@ -73,7 +73,7 @@ function roles_userapi_getallactive($args)
         $groups = explode(',', $group);
         $group_list = array();
         foreach ($groups as $group) {
-            $group = xarModAPIFunc(
+            $group = xarMod::apiFunc(
                 'roles', 'user', 'get', array(
                     (is_numeric($group) ? 'uid' : 'name') => $group,
                     'type' => 1
@@ -146,13 +146,13 @@ function roles_userapi_getallactive($args)
     // then find the anonymous user's uid and add an exclusion
     // to the where clause.
     if (!$include_anonymous) {
-        $anon = xarModAPIFunc('roles', 'user', 'get', array('uname'=>'anonymous'));
+        $anon = xarMod::apiFunc('roles', 'user', 'get', array('uname'=>'anonymous'));
         $where[] = 'a.xar_uid != ?';
         $bindvars[] = (int) $anon['uid'];
     }
 
     if (!$include_myself) {
-        $thisrole = xarModAPIFunc('roles', 'user', 'get', array('uname' => 'myself'));
+        $thisrole = xarMod::apiFunc('roles', 'user', 'get', array('uname' => 'myself'));
         $where[] = 'a.xar_uid != ?';
         $bindvars[] = (int) $thisrole['uid'];
     }

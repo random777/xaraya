@@ -92,7 +92,7 @@ function <xsl:value-of select="$module_prefix" />_admin_delete( $args )
             switch( $itemtype ) {
             <xsl:for-each select="database/table[@admin='true']">
                 case <xsl:value-of select="@itemtype" />:
-                    xarModAPIFunc(
+                    xarMod::apiFunc(
                         '<xsl:value-of select="$module_prefix" />'
                         ,'<xsl:value-of select="@name" />'
                         ,'delete'
@@ -127,7 +127,7 @@ function <xsl:value-of select="$module_prefix" />_admin_delete( $args )
     switch( $itemtype ) {
     <xsl:for-each select="database/table[@admin='true']">
         case <xsl:value-of select="@itemtype" />:
-            $data = xarModAPIFunc(
+            $data = xarMod::apiFunc(
                 '<xsl:value-of select="$module_prefix" />'
                 ,'<xsl:value-of select="@name" />'
                 ,'confirmdelete'

@@ -37,7 +37,7 @@ function blocks_adminapi_create_type($args)
         $info = serialize($info);
     }
 
-    $origtype = xarModAPIFunc('blocks', 'user', 'getblocktype', array('module'=>$module, 'type'=>$type));
+    $origtype = xarMod::apiFunc('blocks', 'user', 'getblocktype', array('module'=>$module, 'type'=>$type));
 
     if (!empty($origtype)) {
         // Already registered - no need to raise an error, since we are where we wanted to be.
@@ -60,7 +60,7 @@ function blocks_adminapi_create_type($args)
     }
 
     // Update the block info details.
-    xarModAPIfunc('blocks', 'admin', 'update_type_info', array('tid' => $nextID));
+    xarMod::apiFunc('blocks', 'admin', 'update_type_info', array('tid' => $nextID));
 
     return $nextID;
 }

@@ -39,7 +39,7 @@ function dynamicdata_util_import($args)
     $data['authid'] = xarSecGenAuthKey();
 
     $filetype = 'xml';
-    $files = xarModAPIFunc('dynamicdata','admin','browse',
+    $files = xarMod::apiFunc('dynamicdata','admin','browse',
                            array('basedir' => $basedir,
                                  'filetype' => $filetype));
     if (!isset($files) || count($files) < 1) {
@@ -67,17 +67,17 @@ function dynamicdata_util_import($args)
                                new SystemException($msg));
                 return;
             }
-            $objectid = xarModAPIFunc('dynamicdata','util','import',
+            $objectid = xarMod::apiFunc('dynamicdata','util','import',
                                       array('file' => $basedir . '/' . $file,
                                             'keepitemid' => $keepitemid));
         } else {
-            $objectid = xarModAPIFunc('dynamicdata','util','import',
+            $objectid = xarMod::apiFunc('dynamicdata','util','import',
                                       array('xml' => $xml,
                                             'keepitemid' => $keepitemid));
         }
         if (empty($objectid)) return;
 
-        $objectinfo = xarModAPIFunc('dynamicdata','user','getobjectinfo',
+        $objectinfo = xarMod::apiFunc('dynamicdata','user','getobjectinfo',
                                     array('objectid' => $objectid));
         if (empty($objectinfo)) return;
 

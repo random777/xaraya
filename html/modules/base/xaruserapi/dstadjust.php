@@ -44,7 +44,7 @@ function base_userapi_dstadjust($args)
         $dstid = $rule . $offset;
         if (!isset($cachedst[$dstid][$year])) {
             // get the DST information for this rule
-            $dstinfo = xarModAPIFunc('base','user','dstrules',
+            $dstinfo = xarMod::apiFunc('base','user','dstrules',
                                      array('rule' => $rule,
                                            'time' => $time));
         }
@@ -54,7 +54,7 @@ function base_userapi_dstadjust($args)
         $dstid = $timezone;
         if (!isset($cachedst[$dstid][$year])) {
             // get the timezone information
-            $tzinfo = xarModAPIFunc('base','user','timezones',
+            $tzinfo = xarMod::apiFunc('base','user','timezones',
                                     array('timezone' => $timezone,
                                           'time'     => $time));
             // Check that a timezone was returned
@@ -64,7 +64,7 @@ function base_userapi_dstadjust($args)
                 $offset = (float) $hours + (float) $minutes / 60;
                 if (!empty($tzinfo[1]) && $tzinfo[1] != '-') {
                     // get the DST information for this rule
-                    $dstinfo = xarModAPIFunc('base','user','dstrules',
+                    $dstinfo = xarMod::apiFunc('base','user','dstrules',
                                              array('rule' => $tzinfo[1],
                                                    'time' => $time));
                 }

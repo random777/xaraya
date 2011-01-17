@@ -51,7 +51,7 @@ function dynamicdata_admin_updateprop()
 
     if (!xarModAPILoad('dynamicdata', 'user')) return; // throw back
 
-    $object = xarModAPIFunc('dynamicdata','user','getobjectinfo',
+    $object = xarMod::apiFunc('dynamicdata','user','getobjectinfo',
                             array('objectid' => $objectid,
                                   'moduleid' => $modid,
                                   'itemtype' => $itemtype));
@@ -67,7 +67,7 @@ function dynamicdata_admin_updateprop()
                 $name .= '_' . $itemtype;
             }
             if (!xarModAPILoad('dynamicdata','admin')) return;
-            $objectid = xarModAPIFunc('dynamicdata','admin','createobject',
+            $objectid = xarMod::apiFunc('dynamicdata','admin','createobject',
                                       array('moduleid' => $modid,
                                             'itemtype' => $itemtype,
                                             'name' => $name,
@@ -83,7 +83,7 @@ function dynamicdata_admin_updateprop()
         return $msg;
     }
 
-    $fields = xarModAPIFunc('dynamicdata','user','getprop',
+    $fields = xarMod::apiFunc('dynamicdata','user','getprop',
                            array('modid' => $modid,
                                  'itemtype' => $itemtype,
                                  'allprops' => true));
@@ -99,7 +99,7 @@ function dynamicdata_admin_updateprop()
         $i++;
         if (empty($dd_label[$id])) {
             // delete property (and corresponding data) in xaradminapi.php
-            if (!xarModAPIFunc('dynamicdata','admin','deleteprop',
+            if (!xarMod::apiFunc('dynamicdata','admin','deleteprop',
                               array('prop_id' => $id))) {
                 return;
             }
@@ -122,7 +122,7 @@ function dynamicdata_admin_updateprop()
                 $dd_prop_order = $field['order'];
             }
 
-            if (!xarModAPIFunc('dynamicdata','admin','updateprop',
+            if (!xarMod::apiFunc('dynamicdata','admin','updateprop',
                               array('prop_id' => $id,
                               //      'modid' => $modid,
                               //      'itemtype' => $itemtype,
@@ -148,7 +148,7 @@ function dynamicdata_admin_updateprop()
         $name = strtolower($dd_label[0]);
         $name = preg_replace('/[^a-z0-9_]+/','_',$name);
         $name = preg_replace('/_$/','',$name);
-        $prop_id = xarModAPIFunc('dynamicdata','admin','createproperty',
+        $prop_id = xarMod::apiFunc('dynamicdata','admin','createproperty',
                                 array('name' => $name,
                                       'label' => $dd_label[0],
                                       'objectid' => $objectid,

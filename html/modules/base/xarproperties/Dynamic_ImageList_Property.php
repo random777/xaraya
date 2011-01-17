@@ -78,7 +78,7 @@ class Dynamic_ImageList_Property extends Dynamic_Select_Property
             $options = $this->getOptions();
         }
         if (count($options) == 0 && !empty($this->basedir)) {
-            $files = xarModAPIFunc('dynamicdata','admin','browse',
+            $files = xarMod::apiFunc('dynamicdata','admin','browse',
                 array('basedir' => $this->basedir, 'filetype' => $this->filetype)
             );
             if (!isset($files)) {

@@ -59,7 +59,7 @@ function roles_userapi_getall($args)
         $groups = explode(',', $group);
         $group_list = array();
         foreach ($groups as $group) {
-            $group = xarModAPIFunc(
+            $group = xarMod::apiFunc(
                 'roles', 'user', 'get',
                 array(
                     (is_numeric($group) ? 'uid' : 'name') => $group,
@@ -127,13 +127,13 @@ function roles_userapi_getall($args)
     // a where clause to the query.
     // By default, include both 'myself' and 'anonymous'.
     if (isset($include_anonymous) && !$include_anonymous) {
-        $thisrole = xarModAPIFunc('roles', 'user', 'get', array('uname'=>'anonymous'));
+        $thisrole = xarMod::apiFunc('roles', 'user', 'get', array('uname'=>'anonymous'));
         $where_clause[] = 'roletab.xar_uid <> ?';
         $bindvars[] = (int) $thisrole['uid'];
     }
     if (isset($include_myself) && !$include_myself) {
 
-        $thisrole = xarModAPIFunc('roles', 'user', 'get', array('uname'=>'myself'));
+        $thisrole = xarMod::apiFunc('roles', 'user', 'get', array('uname'=>'myself'));
         $where_clause[] = 'roletab.xar_uid <> ?';
         $bindvars[] = (int) $thisrole['uid'];
     }

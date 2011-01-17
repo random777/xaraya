@@ -29,13 +29,13 @@ function mail_admin_template($args)
     else $data['mailtype'] = $mailtype;
 
     // Get the list of available templates
-    $data['templates'] = xarModAPIFunc('mail','admin','getmessagetemplates',
+    $data['templates'] = xarMod::apiFunc('mail','admin','getmessagetemplates',
                                        array('module' => 'mail'));
 
     switch (strtolower($phase)) {
         case 'modify':
         default:
-            $strings = xarModAPIFunc('mail','admin','getmessagestrings',
+            $strings = xarMod::apiFunc('mail','admin','getmessagestrings',
                                      array('module' => 'mail',
                                            'template' => $data['mailtype']));
             $data['subject'] = $strings['subject'];
@@ -49,7 +49,7 @@ function mail_admin_template($args)
             // Confirm authorisation code
             if (!xarSecConfirmAuthKey()) return;
 
-            if (!xarModAPIFunc('mail','admin','updatemessagestrings',
+            if (!xarMod::apiFunc('mail','admin','updatemessagestrings',
                                array('module' => 'mail',
                                      'template' => $data['mailtype'],
                                      'subject' => $subject,
@@ -64,14 +64,14 @@ function mail_admin_template($args)
     }
     // Get the hooked module for a listing
     $data['settings'] = array();
-    $hookedmodules = xarModAPIFunc('modules', 'admin', 'gethookedmodules',
+    $hookedmodules = xarMod::apiFunc('modules', 'admin', 'gethookedmodules',
                                    array('hookModName' => 'mail'));
     if (isset($hookedmodules) && is_array($hookedmodules)) {
         foreach ($hookedmodules as $modname => $value) {
             // we have hooks for individual item types here
             if (!isset($value[0])) {
                 // Get the list of all item types for this module (if any)
-                $mytypes = xarModAPIFunc($modname,'user','getitemtypes',
+                $mytypes = xarMod::apiFunc($modname,'user','getitemtypes',
                                          // don't throw an exception if this function doesn't exist
                                          array(), 0);
                 foreach ($value as $itemtype => $val) {

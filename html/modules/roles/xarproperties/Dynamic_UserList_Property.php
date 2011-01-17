@@ -110,7 +110,7 @@ class Dynamic_UserList_Property extends Dynamic_Select_Property
                 $select_options['group'] = implode(',', $this->grouplist);
             }
 
-            $users = xarModAPIFunc('roles', 'user', 'getall', $select_options);
+            $users = xarMod::apiFunc('roles', 'user', 'getall', $select_options);
 
             // Loop for each user retrived and populate the options array.
             if (empty($this->showlist)) {
@@ -183,7 +183,7 @@ class Dynamic_UserList_Property extends Dynamic_Select_Property
 
     function parseValidation($validation = '')
     {
-        if (preg_match('/^xarModAPIFunc/i',$validation)) {
+        if (preg_match('/^xarMod::apiFunc/i',$validation)) {
             return parent::parseValidation($validation);
         } else {
             foreach(preg_split('/(?<!\\\);/', $validation) as $option) {

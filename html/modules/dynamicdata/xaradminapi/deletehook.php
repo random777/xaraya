@@ -78,7 +78,7 @@ function dynamicdata_adminapi_deletehook($args)
         return $extrainfo;
     }
 
-    if (!xarModAPIFunc('dynamicdata', 'admin', 'delete',
+    if (!xarMod::apiFunc('dynamicdata', 'admin', 'delete',
                       array('modid'    => $modid,
                             'itemtype' => $itemtype,
                             'itemid'   => $itemid))) {

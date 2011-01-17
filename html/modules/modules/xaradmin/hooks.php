@@ -27,7 +27,7 @@ function modules_admin_hooks($args)
     extract($args);
 
     // Get the list of all hook modules, and the current hooks enabled for all modules
-    $hooklist = xarModAPIFunc('modules','admin','gethooklist');
+    $hooklist = xarMod::apiFunc('modules','admin','gethooklist');
 
     $data = array();
     $data['savechangeslabel'] = xarML('Save Changes');
@@ -47,7 +47,7 @@ function modules_admin_hooks($args)
     if (!empty($curhook)) {
         // Get list of modules likely to be "interested" in hooks
         //$modList = xarModGetList(array('Category' => 'Content'));
-        $modList = xarModAPIFunc('modules',
+        $modList = xarMod::apiFunc('modules',
                           'admin',
                           'getlist',
                           array('orderBy'     => 'category/name'));
@@ -64,7 +64,7 @@ function modules_admin_hooks($args)
                 $catmodlist[$modcat] = array();
             }
             // Get the list of all item types for this module (if any)
-            $itemtypes = xarModAPIFunc($modList[$i]['name'],'user','getitemtypes',
+            $itemtypes = xarMod::apiFunc($modList[$i]['name'],'user','getitemtypes',
                                        // don't throw an exception if this function doesn't exist
                                        array(), 0);
             if (isset($itemtypes)) {

@@ -45,7 +45,7 @@
             $catid[$cid] = 0;
         }
         if ($importmodule == 'articles') {
-            $forumid[$fid] = xarModAPIFunc('categories', 'admin', 'create', array(
+            $forumid[$fid] = xarMod::apiFunc('categories', 'admin', 'create', array(
                                   'name' => $name,
                                   'description' => $descr,
                                   'parent_id' => $catid[$cid]));
@@ -56,7 +56,7 @@
             if (empty($lastposter) || $lastposter < 2) {
                 $lastposter = _XAR_ID_UNREGISTERED;
             }
-            $forumid[$fid]=xarModAPIFunc('xarbb',
+            $forumid[$fid]=xarMod::apiFunc('xarbb',
                                'admin',
                                'create',
                                array('fname'    => $name,

@@ -94,7 +94,7 @@
      * REGISTER BLOCKS
      */
     <xsl:for-each select="blocks/block">
-    if (!xarModAPIFunc('blocks',
+    if (!xarMod::apiFunc('blocks',
                        'admin',
                        'register_block_type',
                        array('modName'  => '<xsl:value-of select="$module_prefix" />',
@@ -235,7 +235,7 @@
      */
 <xsl:for-each select="configuration/hooks/hook">
     // Hook for module <xsl:value-of select="@module" />
-    xarModAPIFunc(
+    xarMod::apiFunc(
         'modules'
         ,'admin'
         ,'enablehooks'
@@ -395,7 +395,7 @@
     /*
      * REGISTER THE TABLES AT DYNAMICDATA
      */
-    $objectid = xarModAPIFunc(
+    $objectid = xarMod::apiFunc(
         'dynamicdata'
         ,'util'
         ,'import'
@@ -563,7 +563,7 @@ function <xsl:value-of select="$module_prefix" />_upgrade($oldversion)
     if (!$result) return;
 
     // remove the table from dynamic data
-    $objectinfo = xarModAPIFunc(
+    $objectinfo = xarMod::apiFunc(
         'dynamicdata'
         ,'user'
         ,'getobjectinfo'
@@ -577,7 +577,7 @@ function <xsl:value-of select="$module_prefix" />_upgrade($oldversion)
     $objectid = $objectinfo['objectid'];
 
     if (!empty($objectid)) {
-        xarModAPIFunc('dynamicdata','admin','deleteobject',array('objectid' => $objectid));
+        xarMod::apiFunc('dynamicdata','admin','deleteobject',array('objectid' => $objectid));
     }
     </xsl:for-each>
 
@@ -595,7 +595,7 @@ function <xsl:value-of select="$module_prefix" />_upgrade($oldversion)
      * UNREGISTER BLOCKS
      */
     <xsl:for-each select="blocks/block">
-    if (!xarModAPIFunc('blocks',
+    if (!xarMod::apiFunc('blocks',
                        'admin',
                        'unregister_block_type',
                        array('modName'  => '<xsl:value-of select="$module_prefix" />',

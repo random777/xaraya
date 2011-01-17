@@ -39,7 +39,7 @@ function roles_adminapi_update($args)
                        new SystemException($msg));
         return;
     }
-    $item = xarModAPIFunc('roles', 'user', 'get',
+    $item = xarMod::apiFunc('roles', 'user', 'get',
             array('uid' => $uid));
 
     if ($item == false) {

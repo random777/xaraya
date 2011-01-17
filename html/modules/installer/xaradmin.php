@@ -510,7 +510,7 @@ function installer_admin_bootstrap()
     // Set up default user properties, etc.
 
     // load modules into *_modules table
-    if (!xarModAPIFunc('modules', 'admin', 'regenerate')) {
+    if (!xarMod::apiFunc('modules', 'admin', 'regenerate')) {
         xarCore_die(xarML('An unknown error occured while regenerating the modules list'));
     }
     if (xarCurrentErrorType() != XAR_NO_EXCEPTION) {
@@ -532,17 +532,17 @@ function installer_admin_bootstrap()
         // Set state to inactive first
         $regid=xarModGetIDFromName($mod);
         if (isset($regid)) {
-            if (!xarModAPIFunc('modules','admin','setstate',
+            if (!xarMod::apiFunc('modules','admin','setstate',
                                 array('regid'=> $regid, 'state'=> XARMOD_STATE_INACTIVE))) return;
 
             // Then run activate function
-            if (!xarModAPIFunc('modules','admin','activate', array('regid'=> $regid))) return;
+            if (!xarMod::apiFunc('modules','admin','activate', array('regid'=> $regid))) return;
         }
     }
 
 
     // load themes into *_themes table
-    if (!xarModAPIFunc('themes', 'admin', 'regenerate')) {
+    if (!xarMod::apiFunc('themes', 'admin', 'regenerate')) {
         return NULL;
     }
 
@@ -552,11 +552,11 @@ function installer_admin_bootstrap()
         // Set state to inactive
         $regid=xarThemeGetIDFromName($theme);
         if (isset($regid)) {
-            if (!xarModAPIFunc('themes','admin','setstate', array('regid'=> $regid,'state'=> XARTHEME_STATE_INACTIVE))){
+            if (!xarMod::apiFunc('themes','admin','setstate', array('regid'=> $regid,'state'=> XARTHEME_STATE_INACTIVE))){
                 return;
             }
             // Activate the theme
-            if (!xarModAPIFunc('themes','admin','activate', array('regid'=> $regid)))
+            if (!xarMod::apiFunc('themes','admin','activate', array('regid'=> $regid)))
             {
                 return;
             }
@@ -569,9 +569,9 @@ function installer_admin_bootstrap()
         // Initialise the module
         $regid = xarModGetIDFromName($mod);
         if (isset($regid)) {
-            if (!xarModAPIFunc('modules', 'admin', 'initialise', array('regid' => $regid))) return;
+            if (!xarMod::apiFunc('modules', 'admin', 'initialise', array('regid' => $regid))) return;
             // Activate the module
-            if (!xarModAPIFunc('modules', 'admin', 'activate', array('regid' => $regid))) return;
+            if (!xarMod::apiFunc('modules', 'admin', 'activate', array('regid' => $regid))) return;
         }
     }
 
@@ -579,7 +579,7 @@ function installer_admin_bootstrap()
  * Create wrapper DD objects for the native itemtypes of the privileges module
  */
 
-    if (!xarModAPIFunc('privileges','admin','createobjects')) return;
+    if (!xarMod::apiFunc('privileges','admin','createobjects')) return;
 
     xarResponseRedirect(xarModURL('installer', 'admin', 'create_administrator',array('install_language' => $install_language)));
 }
@@ -697,7 +697,7 @@ function installer_admin_create_administrator()
     $blocks = array('adminmenu','waitingcontent','finclude','html','menu','php','text','content');
 
     foreach ($blocks as $block) {
-        if (!xarModAPIFunc('blocks', 'admin', 'register_block_type', array('modName'  => 'base', 'blockType'=> $block))) return;
+        if (!xarMod::apiFunc('blocks', 'admin', 'register_block_type', array('modName'  => 'base', 'blockType'=> $block))) return;
     }
 
     if (xarVarIsCached('Mod.BaseInfos', 'blocks')) xarVarDelCached('Mod.BaseInfos', 'blocks');
@@ -713,9 +713,9 @@ function installer_admin_create_administrator()
                                   );
 
     foreach ($default_blockgroups as $name => $template) {
-        if(!xarModAPIFunc('blocks','user','groupgetinfo', array('name' => $name))) {
+        if(!xarMod::apiFunc('blocks','user','groupgetinfo', array('name' => $name))) {
             // Not there yet
-            if(!xarModAPIFunc('blocks','admin','create_group', array('name' => $name, 'template' => $template))) return;
+            if(!xarMod::apiFunc('blocks','admin','create_group', array('name' => $name, 'template' => $template))) return;
         }
     }
 
@@ -742,7 +742,7 @@ function installer_admin_create_administrator()
 
     list ($leftBlockGroup) = $result->fields;
     /* We don't need this for adminpanels now - done in Base module */
-        $adminBlockType = xarModAPIFunc('blocks', 'user', 'getblocktype',
+        $adminBlockType = xarMod::apiFunc('blocks', 'user', 'getblocktype',
                                     array('module'  => 'base',
                                           'type'    => 'adminmenu'));
 
@@ -752,8 +752,8 @@ function installer_admin_create_administrator()
 
     $adminBlockTypeId = $adminBlockType['tid'];
 
-    if (!xarModAPIFunc('blocks', 'user', 'get', array('name'  => 'adminpanel'))) {
-        if (!xarModAPIFunc('blocks', 'admin', 'create_instance',
+    if (!xarMod::apiFunc('blocks', 'user', 'get', array('name'  => 'adminpanel'))) {
+        if (!xarMod::apiFunc('blocks', 'admin', 'create_instance',
                            array('title'    => 'Admin',
                                  'name'     => 'adminpanel',
                                  'type'     => $adminBlockTypeId,
@@ -771,7 +771,7 @@ function installer_admin_create_administrator()
     $varshtml['expire'] = $now + 24000;
     $msg = serialize($varshtml);
 
-    $htmlBlockType = xarModAPIFunc('blocks', 'user', 'getblocktype',
+    $htmlBlockType = xarMod::apiFunc('blocks', 'user', 'getblocktype',
                                  array('module'  => 'base',
                                        'type'    => 'html'));
 
@@ -781,8 +781,8 @@ function installer_admin_create_administrator()
 
     $htmlBlockTypeId = $htmlBlockType['tid'];
 
-    if (!xarModAPIFunc('blocks', 'user', 'get', array('name'  => 'reminder'))) {
-        if (!xarModAPIFunc('blocks', 'admin', 'create_instance',
+    if (!xarMod::apiFunc('blocks', 'user', 'get', array('name'  => 'reminder'))) {
+        if (!xarMod::apiFunc('blocks', 'admin', 'create_instance',
                            array('title'    => 'Reminder',
                                  'name'     => 'reminder',
                                  'content'  => $msg,
@@ -814,7 +814,7 @@ function installer_admin_choose_configuration()
     xarTplSetThemeName('installer');
 
     //Get all modules in the filesystem
-    $fileModules = xarModAPIFunc('modules','admin','getfilemodules');
+    $fileModules = xarMod::apiFunc('modules','admin','getfilemodules');
     if (!isset($fileModules)) return;
 
     // Make sure all the core modules are here
@@ -1015,12 +1015,12 @@ function installer_admin_confirm_configuration()
 
         // disable caching of module state in xarMod.php
             $GLOBALS['xarMod_noCacheState'] = true;
-            xarModAPIFunc('modules','admin','regenerate');
+            xarMod::apiFunc('modules','admin','regenerate');
 
         // load the modules from the configuration
             foreach ($options2 as $module) {
                 if(in_array($module['item'],$chosen)) {
-                   $dependents = xarModAPIFunc('modules','admin','getalldependencies',array('regid'=>$module['item']));
+                   $dependents = xarMod::apiFunc('modules','admin','getalldependencies',array('regid'=>$module['item']));
                    if (count($dependents['unsatisfiable']) > 0) {
                         $msg = xarML("Cannot load because of unsatisfied dependencies. One or more of the following modules is missing: ");
                         foreach ($dependents['unsatisfiable'] as $dependent) {
@@ -1033,8 +1033,8 @@ function installer_admin_confirm_configuration()
                         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_DEPENDENCY', $msg);
                         return;
                    }
-                   xarModAPIFunc('modules','admin','installwithdependencies',array('regid'=>$module['item']));
-//                    xarModAPIFunc('modules','admin','activate',array('regid'=>$module['item']));
+                   xarMod::apiFunc('modules','admin','installwithdependencies',array('regid'=>$module['item']));
+//                    xarMod::apiFunc('modules','admin','activate',array('regid'=>$module['item']));
                 }
             }
         $func = "installer_" . basename(strval($configuration),'.conf.php') . "_configuration_load";
@@ -1067,7 +1067,7 @@ function installer_admin_confirm_configuration()
 
         list ($leftBlockGroup) = $result->fields;
 
-        $menuBlockType = xarModAPIFunc('blocks', 'user', 'getblocktype',
+        $menuBlockType = xarMod::apiFunc('blocks', 'user', 'getblocktype',
                                      array('module'  => 'base',
                                            'type'=> 'menu'));
 
@@ -1077,8 +1077,8 @@ function installer_admin_confirm_configuration()
 
         $menuBlockTypeId = $menuBlockType['tid'];
 
-        if (!xarModAPIFunc('blocks', 'user', 'get', array('name'  => 'mainmenu'))) {
-            if (!xarModAPIFunc('blocks', 'admin', 'create_instance',
+        if (!xarMod::apiFunc('blocks', 'user', 'get', array('name'  => 'mainmenu'))) {
+            if (!xarMod::apiFunc('blocks', 'admin', 'create_instance',
                           array('title' => 'Main Menu',
                                 'name'  => 'mainmenu',
                                 'type'  => $menuBlockTypeId,
@@ -1161,7 +1161,7 @@ function installer_admin_cleanup()
     list ($rightBlockGroup) = $result->fields;
 
    //Get the info and add the Login block which is now in authsystem module
-    $loginBlockType = xarModAPIFunc('blocks', 'user', 'getblocktype',
+    $loginBlockType = xarMod::apiFunc('blocks', 'user', 'getblocktype',
                                     array('module' => 'authsystem',
                                           'type'   => 'login'));
 
@@ -1172,8 +1172,8 @@ function installer_admin_cleanup()
     // Forget the registration module. Registration login block can be installed later if needed
     $loginBlockTypeId = $loginBlockType['tid'];
 
-    if (!xarModAPIFunc('blocks', 'user', 'get', array('name'  => 'login'))) {
-        if (!xarModAPIFunc('blocks', 'admin', 'create_instance',
+    if (!xarMod::apiFunc('blocks', 'user', 'get', array('name'  => 'login'))) {
+        if (!xarMod::apiFunc('blocks', 'admin', 'create_instance',
                            array('title'    => 'Login',
                                  'name'     => 'login',
                                  'type'     => $loginBlockTypeId,
@@ -1203,7 +1203,7 @@ function installer_admin_cleanup()
 
     list ($headerBlockGroup) = $result->fields;
 
-    $metaBlockType = xarModAPIFunc('blocks', 'user', 'getblocktype',
+    $metaBlockType = xarMod::apiFunc('blocks', 'user', 'getblocktype',
                                    array('module' => 'themes',
                                          'type'   => 'meta'));
 
@@ -1213,8 +1213,8 @@ function installer_admin_cleanup()
 
     $metaBlockTypeId = $metaBlockType['tid'];
 
-    if (!xarModAPIFunc('blocks', 'user', 'get', array('name'  => 'meta'))) {
-        if (!xarModAPIFunc('blocks', 'admin', 'create_instance',
+    if (!xarMod::apiFunc('blocks', 'user', 'get', array('name'  => 'meta'))) {
+        if (!xarMod::apiFunc('blocks', 'admin', 'create_instance',
                            array('title'    => 'Meta',
                                  'name'     => 'meta',
                                  'type'     => $metaBlockTypeId,
@@ -1237,8 +1237,8 @@ function installer_admin_cleanup()
 
 function installer_admin_finish()
 {
-    xarModAPIFunc('dynamicdata','admin','importpropertytypes', array('flush' => true));
-    xarModAPIFunc('base', 'javascript', 'importplugins');
+    xarMod::apiFunc('dynamicdata','admin','importpropertytypes', array('flush' => true));
+    xarMod::apiFunc('base', 'javascript', 'importplugins');
     xarResponseRedirect('index.php');
 }
 
@@ -1322,7 +1322,7 @@ function installer_admin_upgrade2()
 
     // after 0911, make sure CSS class lib is deployed and css tags are registered
     $content .= "<p><strong>Making sure CSS tags are registered</strong></p>";
-    if(!xarModAPIFunc('themes', 'css', 'registercsstags')) {
+    if(!xarMod::apiFunc('themes', 'css', 'registercsstags')) {
         $content .= "<p>FAILED to register CSS tags</p>";
     } else {
         $content .= "<p>CSS tags registered successfully, css subsystem is ready to be deployed.</p>";
@@ -1639,7 +1639,7 @@ function installer_admin_upgrade2()
     //if so set them now for Base
     if (xarModIsHooked('articles','adminpanels')) {
         //set it to Base now
-         xarModAPIFunc('modules','admin','enablehooks',
+         xarMod::apiFunc('modules','admin','enablehooks',
                        array('callerModName' => 'base', 'hookModName' => 'articles'));
     }
     //Safest way is to just set the dash off for now
@@ -1647,7 +1647,7 @@ function installer_admin_upgrade2()
     xarModSetVar('themes','dashtemplate','admin');
 
     $table_name['admin_menu']=$sitePrefix . '_admin_menu';
-    $upgrade['admin_menu'] = xarModAPIFunc('installer',
+    $upgrade['admin_menu'] = xarMod::apiFunc('installer',
                                                 'admin',
                                                 'CheckTableExists',
                                                 array('table_name' => $table_name['admin_menu']));
@@ -1684,7 +1684,7 @@ function installer_admin_upgrade2()
                 // Bug 6450: check base module doesn't already have a block of this type
                 // before we try setting the module to base for the block we found,
                 // otherwise we get a duplicate entry error
-                $typeexists = xarModAPIFunc('blocks', 'user', 'getblocktype',
+                $typeexists = xarMod::apiFunc('blocks', 'user', 'getblocktype',
                     array('type' => $newblock, 'module' => 'base'));
                 if (!empty($typeexists)) {
                     $blockproblem[] = 1;
@@ -1709,7 +1709,7 @@ function installer_admin_upgrade2()
                }
             }
             //Remove the original block
-            if (!xarModAPIFunc('blocks','admin','unregister_block_type',
+            if (!xarMod::apiFunc('blocks','admin','unregister_block_type',
                        array('modName'  => 'adminpanels',
                              'blockType'=> $newblock))) {
               $blockproblem[]=1;
@@ -1896,7 +1896,7 @@ function installer_admin_upgrade2()
     $systemVarPath = xarCoreGetVarDirPath();
     $regExd = '!\.xd$!';
     $msgPath = $systemVarPath . '/messaging';
-    $xdFiles = xarModAPIFunc('base', 'user', 'browse_files',
+    $xdFiles = xarMod::apiFunc('base', 'user', 'browse_files',
         array(
             'basedir'   => $msgPath,
             'match_re'  => $regExd,
@@ -1943,7 +1943,7 @@ function installer_admin_upgrade2()
     $content .= "<p><strong>Updating Hook Order</strong></p>";
     $hkerror=0;
     $hooksTable = $systemPrefix .'_hooks';
-    $hookList = xarModAPIFunc('modules', 'admin', 'gethooklist');
+    $hookList = xarMod::apiFunc('modules', 'admin', 'gethooklist');
     if (!empty($hookList) && is_array($hookList)) {
         $i = 1;
         $updated = array();
@@ -1976,7 +1976,7 @@ function installer_admin_upgrade2()
     $content .= "<p><strong>Updating menu links</strong></p>";
     $lierror=0;
     // get the module settings
-    $filemodules = xarModAPIFunc('modules', 'admin', 'getfilemodules');
+    $filemodules = xarMod::apiFunc('modules', 'admin', 'getfilemodules');
     if (!empty($filemodules)) {
         foreach (array_keys($filemodules) as $modname) {
             $modId = xarModGetIDFromName($modname);
@@ -2008,7 +2008,7 @@ function installer_admin_upgrade2()
             // put the db user_capable setting back in line with the file setting
             if ($filemodules[$modname]['user_capable'] != $modInfo['user_capable'] ||
                 $filemodules[$modname]['admin_capable'] != $modInfo['admin_capable']) {
-                if (!xarModAPIFunc('modules', 'admin', 'updateproperties',
+                if (!xarMod::apiFunc('modules', 'admin', 'updateproperties',
                     array(
                         'regid' => $modId,
                         'user_capable' => $filemodules[$modname]['user_capable'],
@@ -2086,11 +2086,11 @@ function installer_admin_upgrade3()
         }
     }
   // Bug 630, let's throw the reminder back up after upgrade.
-    if (!xarModAPIFunc('blocks', 'user', 'get', array('name' => 'reminder'))) {
+    if (!xarMod::apiFunc('blocks', 'user', 'get', array('name' => 'reminder'))) {
         $varshtml['html_content'] = 'Please delete install.php and upgrade.php from your webroot.';
         $varshtml['expire'] = time() + 7*24*60*60; // 7 days
 
-        $htmlBlockType = xarModAPIFunc(
+        $htmlBlockType = xarMod::apiFunc(
             'blocks', 'user', 'getblocktype',
             array('module' => 'base', 'type' => 'html')
         );
@@ -2101,13 +2101,13 @@ function installer_admin_upgrade3()
 
         // Get the first available group ID, and assume that will be
         // visible to the administrator.
-        $allgroups = xarModAPIFunc(
+        $allgroups = xarMod::apiFunc(
             'blocks', 'user', 'getallgroups',
             array('order' => 'id')
         );
         $topgroup = array_shift($allgroups);
 
-        if (!xarModAPIFunc(
+        if (!xarMod::apiFunc(
             'blocks', 'admin', 'create_instance',
             array(
                 'title'    => 'Reminder',
@@ -2124,7 +2124,7 @@ function installer_admin_upgrade3()
     // Flush the property cache, so on upgrade all proptypes
     // are properly set in the database.
     $content .=  "<h3><strong>Flushing the property cache</strong></h3>";
-    if(!xarModAPIFunc('dynamicdata','admin','importpropertytypes', array('flush' => true))) {
+    if(!xarMod::apiFunc('dynamicdata','admin','importpropertytypes', array('flush' => true))) {
         $content .=  "<p>WARNING: Flushing property cache failed</p>";
     } else {
         $content .=  "<p>Success! Flushing property cache complete</p>";
@@ -2133,7 +2133,7 @@ function installer_admin_upgrade3()
     // Flush the plugins cache, so on upgrade all plugins
     // are properly set for each framework
     $content .=  "<p><strong>Flushing the framework plugins cache</strong></p>";
-    if(!xarModAPIFunc('base','javascript','importplugins')) {
+    if(!xarMod::apiFunc('base','javascript','importplugins')) {
         $content .=  "<p>WARNING: Flushing framework plugins cache failed</p>";
     } else {
         $content .=  "<p>Success! Flushing framework plugins cache complete</p>";

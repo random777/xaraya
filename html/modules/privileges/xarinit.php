@@ -495,7 +495,7 @@ function privileges_upgrade($oldVersion)
 {
     switch($oldVersion) {
     case '0.1.0':
-        if (!xarModAPIFunc('privileges','admin','createobjects')) return;
+        if (!xarMod::apiFunc('privileges','admin','createobjects')) return;
         break;
     }
     return true;

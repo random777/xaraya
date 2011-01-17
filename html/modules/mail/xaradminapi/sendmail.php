@@ -65,7 +65,7 @@ function mail_adminapi_sendmail($args)
     // Check if HTML mail has been configured by the admin
     // and send to sendhtmlmail()
     if (xarModGetVar('mail', 'html')) {
-        return xarModAPIFunc('mail', 'admin', 'sendhtmlmail', $args);
+        return xarMod::apiFunc('mail', 'admin', 'sendhtmlmail', $args);
     } else {
         // Check info
         if (!isset($info)){
@@ -150,7 +150,7 @@ function mail_adminapi_sendmail($args)
             $attachPath = '';
         }
         // Call private sendmail
-        return xarModAPIFunc('mail', 'admin', '_sendmail',
+        return xarMod::apiFunc('mail', 'admin', '_sendmail',
             array('info'          => $info,
                   'name'          => $name,
                   'recipients'    => $recipients,

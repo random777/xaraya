@@ -67,7 +67,7 @@ function blocks_adminapi_update_group($args)
 
         // Do a resequence tidy-up, in case the instance list passed in was not complete.
         // Limit the reorder to just this group to avoid updating more than is necessary.
-        xarModAPIfunc('blocks', 'admin', 'resequence', array('gid' => $gid));
+        xarMod::apiFunc('blocks', 'admin', 'resequence', array('gid' => $gid));
     }
 
     return true;

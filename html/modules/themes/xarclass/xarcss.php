@@ -267,7 +267,7 @@ class tagqueue
                 // Also fill up the legacy global.
                 if($this->legacy) {
                     // This actually gets called too much, filling up 1 line at a time
-                    $GLOBALS['xarTpl_additionalStyles'] = xarModApiFunc( 'themes','user','deliver', array('method' => 'renderlegacy','base' => 'theme'));
+                    $GLOBALS['xarTpl_additionalStyles'] = xarMod::apiFunc( 'themes','user','deliver', array('method' => 'renderlegacy','base' => 'theme'));
                 }
                 return true;
             case 'deliver':

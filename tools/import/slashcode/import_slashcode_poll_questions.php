@@ -48,7 +48,7 @@
     }
 
     // Enable categories hooks for polls
-    xarModAPIFunc('modules',
+    xarMod::apiFunc('modules',
                   'admin',
                   'enablehooks',
                   array('callerModName' => 'polls', 'hookModName' => 'categories'));
@@ -130,7 +130,7 @@
             $cids[] = $categories[$topic];
         }
         // Create new poll
-        $newpid = xarModAPIFunc('polls',
+        $newpid = xarMod::apiFunc('polls',
                                 'admin',
                                 'create',
                                 array('title' => $question,

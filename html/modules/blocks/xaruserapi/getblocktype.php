@@ -28,7 +28,7 @@ function blocks_userapi_getblocktype($args)
         return;
     }
 
-    $types = xarModAPIfunc('blocks', 'user', 'getallblocktypes', $args);
+    $types = xarMod::apiFunc('blocks', 'user', 'getallblocktypes', $args);
 
     // We should have exactly one block type: throw back if not.
     if (count($types) <> 1) {return;}

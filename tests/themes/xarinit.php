@@ -174,16 +174,16 @@ function themes_activate()
     xarModSetVar('themes', 'ShowPHPCommentBlockInTemplates', 0);
     xarModSetVar('themes', 'ShowTemplates', 0);
     // Register blocks
-    if(!xarModAPIFunc('blocks','admin','block_type_exists',array('modName' => 'themes','blockType' => 'meta'))) {
-        if (!xarModAPIFunc('blocks',
+    if(!xarMod::apiFunc('blocks','admin','block_type_exists',array('modName' => 'themes','blockType' => 'meta'))) {
+        if (!xarMod::apiFunc('blocks',
                            'admin',
                            'register_block_type',
                            array('modName' => 'themes',
                                  'blockType' => 'meta'))) return;
     }
     // Register blocks
-    if(!xarModAPIFunc('blocks','admin','block_type_exists',array('modName' => 'themes','blockType' => 'syndicate'))) {
-        if (!xarModAPIFunc('blocks',
+    if(!xarMod::apiFunc('blocks','admin','block_type_exists',array('modName' => 'themes','blockType' => 'syndicate'))) {
+        if (!xarMod::apiFunc('blocks',
                            'admin',
                            'register_block_type',
                            array('modName' => 'themes',
@@ -210,7 +210,7 @@ function themes_upgrade($oldversion)
 
         case 1.1:
 
-            if (!xarModAPIFunc('blocks', 'admin', 'register_block_type',
+            if (!xarMod::apiFunc('blocks', 'admin', 'register_block_type',
                 array('modName' => 'themes', 'blockType' => 'meta'))) return;
         case 1.2:
 

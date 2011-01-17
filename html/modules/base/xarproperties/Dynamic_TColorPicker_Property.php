@@ -67,13 +67,13 @@ class Dynamic_TColorPicker_Property extends Dynamic_Property
 
         // Include color picker javascript options.
         // Allows the options to be over-ridden in a theme.
-        xarModAPIFunc(
+        xarMod::apiFunc(
             'base', 'javascript', 'modulecode',
             array('module' => 'base', 'filename' => 'tcolorpickeroptions.js')
         );
 
         // Include color picker javascript.
-        xarModAPIFunc(
+        xarMod::apiFunc(
             'base','javascript','modulefile',
             array('module' => 'base', 'filename' => 'tcolorpicker.js')
         );

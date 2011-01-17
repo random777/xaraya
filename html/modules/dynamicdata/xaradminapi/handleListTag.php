@@ -42,7 +42,7 @@ function dynamicdata_adminapi_handleListTag($args)
     }
 
     // if we don't have an object yet, we'll make one below
-    $out = "echo xarModAPIFunc('dynamicdata',
+    $out = "echo xarMod::apiFunc('dynamicdata',
                    'admin',
                    'showlist',\n";
     $out .= "                   array(\n";

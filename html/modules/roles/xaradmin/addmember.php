@@ -57,7 +57,7 @@ function roles_admin_addmember()
         return;
     }
     // assign the child to the parent and bail if an error was thrown
-    if (!xarModAPIFUnc('roles','user','addmember', array('uid' => $uid, 'gid' => $roleid))) return;
+    if (!xarMod::apiFunc('roles','user','addmember', array('uid' => $uid, 'gid' => $roleid))) return;
 
     // redirect to the next page
     xarResponseRedirect(xarModURL('roles', 'admin', 'modifyrole',

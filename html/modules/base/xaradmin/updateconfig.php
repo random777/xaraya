@@ -128,7 +128,7 @@ function base_admin_updateconfig()
             // Timezone, offset and DST
             if (!xarVarFetch('defaulttimezone','str:1:',$defaulttimezone,'',XARVAR_NOT_REQUIRED)) return;
             if (!empty($defaulttimezone)) {
-                $timezoneinfo = xarModAPIFunc('base','user','timezones',
+                $timezoneinfo = xarMod::apiFunc('base','user','timezones',
                                               array('timezone' => $defaulttimezone));
                 if (!empty($timezoneinfo)) {
                     xarConfigSetVar('Site.Core.TimeZone', $defaulttimezone);
@@ -147,7 +147,7 @@ function base_admin_updateconfig()
             break;
         case 'javascript':
             if (!xarVarFetch('framework', 'pre:trim:lower:str:1', $fwname, NULL, XARVAR_DONT_SET)) return;
-            $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo',array('all' => true));
+            $fwinfo = xarMod::apiFunc('base','javascript','getframeworkinfo',array('all' => true));
             if (empty($fwname)) {
                 if (!xarVarFetch('defaultframework', 'str:1:', $defaultframework, 'jquery', XARVAR_NOT_REQUIRED)) return;
                 if (!xarVarFetch('autoloaddefaultframework', 'checkbox', $autoloaddefaultframework, true, XARVAR_NOT_REQUIRED)) return;
@@ -181,7 +181,7 @@ function base_admin_updateconfig()
                         $basedirs[] = $themedir . '/modules/' . $modOsDir . '/xarincludes/' . $fwname;
                         $basedirs[] = 'modules/' . $modOsDir . '/xartemplates/includes/' . $fwname;
                         foreach($basedirs as $basedir) {
-                            $ffiles = xarModAPIFunc('base', 'user', 'browse_files',
+                            $ffiles = xarMod::apiFunc('base', 'user', 'browse_files',
                                 array(
                                     'basedir' => $basedir,
                                     'match_re' => '/\.js$/',

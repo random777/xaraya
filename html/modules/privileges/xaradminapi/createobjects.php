@@ -27,7 +27,7 @@ function privileges_adminapi_createobjects($args)
 #
     $prefix = xarDBGetSiteTablePrefix();
     $itemtype = 1;
-    $objectid = xarModAPIFunc('dynamicdata','admin','createobject',array(
+    $objectid = xarMod::apiFunc('dynamicdata','admin','createobject',array(
                                     'name'     => 'baseprivilege',
                                     'label'    => 'Base Privilege',
                                     'moduleid' => $moduleid,
@@ -35,7 +35,7 @@ function privileges_adminapi_createobjects($args)
                                     'parent'    => 0,
                                     ));
     if (!$objectid) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'id',
                                     'label'    => 'ID',
                                     'objectid' => $objectid,
@@ -52,7 +52,7 @@ function privileges_adminapi_createobjects($args)
 # Create the privilege object
 #
     $itemtype = 2;
-    $objectid = xarModAPIFunc('dynamicdata','admin','createobject',array(
+    $objectid = xarMod::apiFunc('dynamicdata','admin','createobject',array(
                                     'name'     => 'privilege',
                                     'label'    => 'Privilege',
                                     'moduleid' => $moduleid,
@@ -60,7 +60,7 @@ function privileges_adminapi_createobjects($args)
                                     'parent'    => 0,
                                     ));
     if (!$objectid) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'id',
                                     'label'    => 'ID',
                                     'objectid' => $objectid,
@@ -71,7 +71,7 @@ function privileges_adminapi_createobjects($args)
                                     'status'   => 1,
                                     'order'    => 1,
                                     ))) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'name',
                                     'label'    => 'Name',
                                     'objectid' => $objectid,
@@ -83,7 +83,7 @@ function privileges_adminapi_createobjects($args)
                                     'status'   => 1,
                                     'order'    => 2,
                                     ))) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'realm',
                                     'label'    => 'Realm',
                                     'objectid' => $objectid,
@@ -95,7 +95,7 @@ function privileges_adminapi_createobjects($args)
                                     'status'   => 1,
                                     'order'    => 3,
                                     ))) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'module',
                                     'label'    => 'Module',
                                     'objectid' => $objectid,
@@ -107,7 +107,7 @@ function privileges_adminapi_createobjects($args)
                                     'status'   => 1,
                                     'order'    => 4,
                                     ))) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'component',
                                     'label'    => 'Component',
                                     'objectid' => $objectid,
@@ -119,7 +119,7 @@ function privileges_adminapi_createobjects($args)
                                     'status'   => 1,
                                     'order'    => 5,
                                     ))) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'instance',
                                     'label'    => 'Instance',
                                     'objectid' => $objectid,
@@ -131,7 +131,7 @@ function privileges_adminapi_createobjects($args)
                                     'status'   => 1,
                                     'order'    => 6,
                                     ))) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'level',
                                     'label'    => 'Level',
                                     'objectid' => $objectid,
@@ -143,7 +143,7 @@ function privileges_adminapi_createobjects($args)
                                     'status'   => 1,
                                     'order'    => 7,
                                     ))) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'description',
                                     'label'    => 'Description',
                                     'objectid' => $objectid,
@@ -161,7 +161,7 @@ function privileges_adminapi_createobjects($args)
 # Create the mask object
 #
     $itemtype = 3;
-    $objectid = xarModAPIFunc('dynamicdata','admin','createobject',array(
+    $objectid = xarMod::apiFunc('dynamicdata','admin','createobject',array(
                                     'name'     => 'mask',
                                     'label'    => 'Mask',
                                     'moduleid' => $moduleid,
@@ -169,7 +169,7 @@ function privileges_adminapi_createobjects($args)
                                     'parent'    => 0,
                                     ));
     if (!$objectid) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'id',
                                     'label'    => 'ID',
                                     'objectid' => $objectid,
@@ -180,7 +180,7 @@ function privileges_adminapi_createobjects($args)
                                     'status'   => 1,
                                     'order'    => 1,
                                     ))) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'name',
                                     'label'    => 'Name',
                                     'objectid' => $objectid,
@@ -192,7 +192,7 @@ function privileges_adminapi_createobjects($args)
                                     'status'   => 1,
                                     'order'    => 2,
                                     ))) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'realm',
                                     'label'    => 'Realm',
                                     'objectid' => $objectid,
@@ -204,7 +204,7 @@ function privileges_adminapi_createobjects($args)
                                     'status'   => 1,
                                     'order'    => 3,
                                     ))) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'module',
                                     'label'    => 'Module',
                                     'objectid' => $objectid,
@@ -216,7 +216,7 @@ function privileges_adminapi_createobjects($args)
                                     'status'   => 1,
                                     'order'    => 4,
                                     ))) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'component',
                                     'label'    => 'Component',
                                     'objectid' => $objectid,
@@ -228,7 +228,7 @@ function privileges_adminapi_createobjects($args)
                                     'status'   => 1,
                                     'order'    => 5,
                                     ))) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'instance',
                                     'label'    => 'Instance',
                                     'objectid' => $objectid,
@@ -240,7 +240,7 @@ function privileges_adminapi_createobjects($args)
                                     'status'   => 1,
                                     'order'    => 6,
                                     ))) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'level',
                                     'label'    => 'Level',
                                     'objectid' => $objectid,
@@ -252,7 +252,7 @@ function privileges_adminapi_createobjects($args)
                                     'status'   => 1,
                                     'order'    => 7,
                                     ))) return;
-    if (!xarModAPIFunc('dynamicdata','admin','createproperty',array(
+    if (!xarMod::apiFunc('dynamicdata','admin','createproperty',array(
                                     'name'     => 'description',
                                     'label'    => 'Description',
                                     'objectid' => $objectid,

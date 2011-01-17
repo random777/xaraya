@@ -30,12 +30,12 @@ function base_admin_modifyconfig()
 
     if (xarConfigGetVar('Site.Core.DefaultModuleType') == 'admin'){
     // Get list of user capable mods
-        $data['mods'] = xarModAPIFunc('modules',
+        $data['mods'] = xarMod::apiFunc('modules',
                           'admin',
                           'getlist',
                           array('filter'     => array('AdminCapable' => 1)));
     } else {
-        $data['mods'] = xarModAPIFunc('modules',
+        $data['mods'] = xarMod::apiFunc('modules',
                           'admin',
                           'getlist',
                           array('filter'     => array('UserCapable' => 1)));
@@ -84,9 +84,9 @@ function base_admin_modifyconfig()
         if (!xarVarFetch('importplugins', 'checkbox', $importplugins, false, XARVAR_NOT_REQUIRED)) return;
         if (!xarVarFetch('framework', 'pre:trim:lower:str:1', $fwname, NULL, XARVAR_DONT_SET)) return;
         if ($importplugins) {
-            xarModAPIFunc('base', 'javascript', 'importplugins', array('framework' => $fwname));
+            xarMod::apiFunc('base', 'javascript', 'importplugins', array('framework' => $fwname));
         }
-        $frameworks = xarModAPIFunc('base','javascript','getframeworkinfo');
+        $frameworks = xarMod::apiFunc('base','javascript','getframeworkinfo');
         if (!empty($fwname) && isset($frameworks[$fwname])) {
             $data['fwinfo'] = $frameworks[$fwname];
             if (!isset($data['fwinfo']['plugins'])) {
@@ -136,7 +136,7 @@ function base_admin_modifyconfig()
                 $basedirs[] = $themedir . '/modules/' . $modOsDir . '/xarincludes/' . $fwname;
                 $basedirs[] = 'modules/' . $modOsDir . '/xartemplates/includes/' . $fwname;
                 foreach($basedirs as $basedir) {
-                    $fwfiles = xarModAPIFunc('base', 'user', 'browse_files',
+                    $fwfiles = xarMod::apiFunc('base', 'user', 'browse_files',
                         array(
                             'basedir' => $basedir,
                             'match_re' => '/\.js$/',

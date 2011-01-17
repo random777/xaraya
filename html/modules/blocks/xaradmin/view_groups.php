@@ -20,7 +20,7 @@ function blocks_admin_view_groups()
     if (!xarSecurityCheck('AdminBlock', 0, 'Instance')) {return;}
     $authid = xarSecGenAuthKey();
 
-    $block_groups = xarModAPIfunc(
+    $block_groups = xarMod::apiFunc(
         'blocks', 'user', 'getallgroups', array('order' => 'name')
     );
 
@@ -29,7 +29,7 @@ function blocks_admin_view_groups()
         $block_groups[$index]['id'] = $block_group['gid']; // Legacy
 
         // Get details on current group
-        $block_groups[$index] = xarModAPIFunc(
+        $block_groups[$index] = xarMod::apiFunc(
             'blocks', 'admin', 'groupgetinfo',
             array('blockGroupId' => $block_groups[$index]['gid'])
         );

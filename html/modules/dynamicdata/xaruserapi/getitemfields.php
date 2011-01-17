@@ -25,10 +25,10 @@ function dynamicdata_userapi_getitemfields($args)
     $itemfields = array();
     if (empty($itemtype)) return $itemfields;
 
-    $proptypes = xarModAPIFunc('dynamicdata','user','getproptypes');
+    $proptypes = xarMod::apiFunc('dynamicdata','user','getproptypes');
 
     $modid = xarModGetIDFromName('dynamicdata');
-    $fields = xarModAPIFunc('dynamicdata','user','getprop',
+    $fields = xarMod::apiFunc('dynamicdata','user','getprop',
                             array('modid'    => $modid,
                                   'itemtype' => $itemtype));
 

@@ -233,7 +233,7 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
             $override = null;
         }
 
-        $return = xarModAPIFunc(
+        $return = xarMod::apiFunc(
             'uploads', 'admin', 'validatevalue',
             array(
                 'id' => $name, // not $this->id
@@ -309,7 +309,7 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
             } else {
                 $override = null;
             }
-            return xarModAPIFunc('uploads', 'admin', 'showinput',
+            return xarMod::apiFunc('uploads', 'admin', 'showinput',
                 array(
                     'id' => $name, // not $this->id
                     'value' => $value,
@@ -369,7 +369,7 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
         if (isset($args['style'])) $this->style = $args['style'];
 
         if ($this->UploadsModule_isHooked) {
-            return xarModAPIFunc('uploads', 'user', 'showoutput',
+            return xarMod::apiFunc('uploads', 'user', 'showoutput',
                 array(
                     'value' => $value,
                     'format' => 'fileupload',
@@ -442,7 +442,7 @@ class Dynamic_FileUpload_Property extends Dynamic_Property
         if ($this->UploadsModule_isHooked == TRUE) {
             // Fetch uploads module hook-specific configuration.
             list($this->multiple, $this->methods, $this->basedir, $this->importdir)
-                = xarModAPIFunc('uploads', 'admin', 'dd_configure', $validation);
+                = xarMod::apiFunc('uploads', 'admin', 'dd_configure', $validation);
             $this->maxsize = xarModGetVar('uploads', 'file.maxsize');
             // TODO: the uploads module *probably* wants to store its files under the
             // system var area, but this is how it handles it for now, with the

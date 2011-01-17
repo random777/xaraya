@@ -35,7 +35,7 @@ function dynamicdata_util_static($args)
     $data = array();
     $data['menutitle'] = xarML('Dynamic Data Utilities');
 
-    $static = xarModAPIFunc('dynamicdata','util','getstatic',
+    $static = xarMod::apiFunc('dynamicdata','util','getstatic',
                             array('module'   => $module,
                                   'modid'    => $modid,
                                   'itemtype' => $itemtype,

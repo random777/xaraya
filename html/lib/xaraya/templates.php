@@ -425,7 +425,7 @@ function xarTplGetJavaScript($position = '', $index = '')
         // Autoload framework, only if we have valid framework info
         if ($autoload && isset($fwinfo[$basefw])) {
             // load the base framework into globals array
-            xarModAPIFunc('base', 'javascript', 'init', array('module' => $fwinfo[$basefw]['module'], 'name' => $basefw, 'file' => $fwinfo[$basefw]['file']));
+            xarMod::apiFunc('base', 'javascript', 'init', array('module' => $fwinfo[$basefw]['module'], 'name' => $basefw, 'file' => $fwinfo[$basefw]['file']));
         }
 
         $head_pre = array();
@@ -623,7 +623,7 @@ function xarTplFramework($modName, $frameworkName, $tplData = array(), $template
 
     // Ensure framework is initialized
     if (!isset($GLOBALS['xarTpl_JavaScript']['frameworks'][$frameworkName])) {
-        $init = xarModAPIFunc('base','javascript','init', array('name' => $frameworkName, 'modName' => $modName));
+        $init = xarMod::apiFunc('base','javascript','init', array('name' => $frameworkName, 'modName' => $modName));
         if (!$init) {
             $msg = xarML('#(1) initialization falied', $name);
             xarErrorSet(XAR_SYSTEM_EXCEPTION, 'UNOKNOWN',
@@ -1605,7 +1605,7 @@ class xarTemplateTag
         }
         // Add the type to the args
         $args['handler_type'] = $handler_type;
-        $code = xarModAPIFunc($this->_module, $this->_type, $this->_func, $args);
+        $code = xarMod::apiFunc($this->_module, $this->_type, $this->_func, $args);
         assert('is_string($code); /* A custom tag should return a string with the code to put into the compiled template */');
         // Make sure the code has UNIX line endings too
         $code = str_replace(array("\r\n","\r"),"\n",$code);

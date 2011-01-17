@@ -35,7 +35,7 @@ function base_javascriptapi_handlepluginjavascript($args)
         $framework = xarModGetVar('base','DefaultFramework');
     }
     $framework = strtolower($framework);
-    $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => $framework));
+    $fwinfo = xarMod::apiFunc('base','javascript','getframeworkinfo', array('name' => $framework));
     // no framework info, bail
     if (!is_array($fwinfo)) return '';
     // framework disabled, bail
@@ -86,7 +86,7 @@ function base_javascriptapi_handlepluginjavascript($args)
     }
 
     return "
-        xarModAPIFunc('base','javascript','loadplugin', array('name' => '$name', 'modName' => '$module', 'file' => '$file', 'style' => '$style'));
+        xarMod::apiFunc('base','javascript','loadplugin', array('name' => '$name', 'modName' => '$module', 'file' => '$file', 'style' => '$style'));
     ";
 }
 

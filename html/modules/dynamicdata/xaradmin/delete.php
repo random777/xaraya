@@ -56,7 +56,7 @@ function dynamicdata_admin_delete($args)
     if(!xarSecurityCheck('DeleteDynamicDataItem',1,'Item',"$modid:$itemtype:$itemid")) return;
 
     if (empty($confirm)) {
-        $data = xarModAPIFunc('dynamicdata','admin','menu');
+        $data = xarMod::apiFunc('dynamicdata','admin','menu');
         $data['object'] = & $myobject;
         if ($myobject->objectid == 1) {
             $mylist = & Dynamic_Object_Master::getObjectList(array('objectid' => $itemid));

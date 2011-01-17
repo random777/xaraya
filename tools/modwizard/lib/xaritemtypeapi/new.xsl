@@ -48,7 +48,7 @@ function <xsl:value-of select="$module_prefix" />_<xsl:value-of select="@name" /
     extract( $args );
 
     // Retrieve the object via the dynamicdata module api.
-    $object = xarModAPIFunc(
+    $object = xarMod::apiFunc(
         'dynamicdata'
         ,'user'
         ,'getobject'
@@ -61,7 +61,7 @@ function <xsl:value-of select="$module_prefix" />_<xsl:value-of select="@name" /
     /*
      * Initialize the data array();
      */
-    $data = xarModAPIFunc(
+    $data = xarMod::apiFunc(
         '<xsl:value-of select="$module_prefix" />'
         ,'private'
         ,'common'

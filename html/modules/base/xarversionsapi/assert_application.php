@@ -35,11 +35,11 @@ function base_versionsapi_assert_application($args)
         }
     }
 
-    $ok = xarModAPIFunc('base','versions','validate',array($ver));
+    $ok = xarMod::apiFunc('base','versions','validate',array($ver));
 
     if (!$ok) { return false; }
 
-    $result = xarModAPIfunc('base', 'versions', 'compare',
+    $result = xarMod::apiFunc('base', 'versions', 'compare',
         array(
             'ver1' => $ver,
             'ver2' => xarConfigGetVar('System.Core.VersionNum')

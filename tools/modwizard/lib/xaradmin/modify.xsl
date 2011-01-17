@@ -91,7 +91,7 @@ function <xsl:value-of select="$module_prefix" />_admin_modify( $args )
             switch( $itemtype ) {
             <xsl:for-each select="database/table[@admin='true']">
                 case <xsl:value-of select="@itemtype" />:
-                    return xarModAPIFunc(
+                    return xarMod::apiFunc(
                         '<xsl:value-of select="$module_prefix" />'
                         ,'<xsl:value-of select="@name" />'
                         ,'update'
@@ -111,7 +111,7 @@ function <xsl:value-of select="$module_prefix" />_admin_modify( $args )
     switch( $itemtype ) {
     <xsl:for-each select="database/table[@admin='true']">
         case <xsl:value-of select="@itemtype" />:
-            $data = xarModAPIFunc(
+            $data = xarMod::apiFunc(
                 '<xsl:value-of select="$module_prefix" />'
                 ,'<xsl:value-of select="@name" />'
                 ,'modify'

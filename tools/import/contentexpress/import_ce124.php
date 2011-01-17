@@ -114,7 +114,7 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
 
     $regid = xarModGetIDFromName('articles');
     echo "Creating root for old ContentExpress<br/>\n";
-    $contentexpress = xarModAPIFunc('categories', 'admin', 'create', array(
+    $contentexpress = xarMod::apiFunc('categories', 'admin', 'create', array(
                                'name' => 'ContentExpress',
                                'description' => 'ContentExpress Articles',
                                'parent_id' => 0));
@@ -196,7 +196,7 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
             $cids[] = $contentexpress;
         }
 
-        $newaid = xarModAPIFunc('articles',
+        $newaid = xarMod::apiFunc('articles',
                                 'admin',
                                 'create',
                                 array(//'aid' => $id,
@@ -306,7 +306,7 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
         $data['date'] = $date;
         $data['postanon'] = 0;
 
-        $cid = xarModAPIFunc('comments','user','add',$data);
+        $cid = xarMod::apiFunc('comments','user','add',$data);
         if (empty($cid)) {
             echo "Failed inserting comment ($sid $pid) $uname - $subject : ".$dbconn->ErrorMsg()."<br/>\n";
         } elseif ($count < 200) {
@@ -430,7 +430,7 @@ function walk_ce_menutree($parent_id, $categ_parent = 0)
             echo "No new category for leaf item ($id) $title - Parent: $parent_id<br/>\n";
         } else {
             // Has childs, create as normal category and find its childs
-            $ce_menus[$id] = xarModAPIFunc('categories', 'admin', 'create', array(
+            $ce_menus[$id] = xarMod::apiFunc('categories', 'admin', 'create', array(
                       'name' => $title,
                       'description' => $title,
                       'image' => "",

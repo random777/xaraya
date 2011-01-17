@@ -111,7 +111,7 @@ class Dynamic_DataStore_Master
 
         // try to get the meta table definition
         if (!empty($args['table'])) {
-            $meta = xarModAPIFunc('dynamicdata','util','getmeta',$args,0);
+            $meta = xarMod::apiFunc('dynamicdata','util','getmeta',$args,0);
             if (!empty($meta) && !empty($meta[$args['table']])) {
                 foreach ($meta[$args['table']] as $column) {
                     if (!empty($column['source'])) {
@@ -122,7 +122,7 @@ class Dynamic_DataStore_Master
         }
 
         // Get table list from database, not xar_tables.
-        $tables = xarModAPIFunc('dynamicdata', 'util', 'getmeta', array('db' => '', 'table' => ''));
+        $tables = xarMod::apiFunc('dynamicdata', 'util', 'getmeta', array('db' => '', 'table' => ''));
         foreach($tables as $table) {
            foreach($table as $column) {
               $sources[] = $column['source'];

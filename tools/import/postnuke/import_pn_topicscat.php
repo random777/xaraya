@@ -35,12 +35,12 @@
         }
     }
     echo "Creating root for old news topics<br/>\n";
-    $topics = xarModAPIFunc('categories', 'admin', 'create', array(
+    $topics = xarMod::apiFunc('categories', 'admin', 'create', array(
                                'name' => 'Topics',
                                'description' => 'News Topics (.7x style)',
                                'parent_id' => 0));
     echo "Creating root for old news categories<br/>\n";
-    $categories = xarModAPIFunc('categories', 'admin', 'create', array(
+    $categories = xarMod::apiFunc('categories', 'admin', 'create', array(
                                   'name' => 'Categories',
                                   'description' => 'News Categories (.7x style)',
                                   'parent_id' => 0));
@@ -56,7 +56,7 @@
         // you'll be in trouble with your categories here...
     }
     echo "Creating old default 'Articles' news category<br/>\n";
-    $catid[0] = xarModAPIFunc('categories', 'admin', 'create', array(
+    $catid[0] = xarMod::apiFunc('categories', 'admin', 'create', array(
                                  'name' => 'Articles',
                                  'description' => 'Articles',
                                  'parent_id' => $categories));
@@ -70,14 +70,14 @@
     }
     while (!$result->EOF) {
         list($id, $name, $text, $image, $counter) = $result->fields;
-        $topicid[$id] = xarModAPIFunc('categories', 'admin', 'create', array(
+        $topicid[$id] = xarMod::apiFunc('categories', 'admin', 'create', array(
                               'name' => $text,
                               'description' => $text,
                               'image' => "$imgurl/topics/$image",
                               'parent_id' => $topics));
         echo "Creating topic ($id) $text - $name [$image]<br/>\n";
         if (!empty($docounter)) {
-            $hcid = xarModAPIFunc('hitcount','admin','create',array('modname' => 'categories',
+            $hcid = xarMod::apiFunc('hitcount','admin','create',array('modname' => 'categories',
                                                                'objectid' => $topicid[$id],
                                                                'hits' => $counter));
             if (!isset($hcid)) {
@@ -97,13 +97,13 @@
     }
     while (!$result->EOF) {
         list($id, $title, $counter) = $result->fields;
-        $catid[$id] = xarModAPIFunc('categories', 'admin', 'create', array(
+        $catid[$id] = xarMod::apiFunc('categories', 'admin', 'create', array(
                               'name' => $title,
                               'description' => $title,
                               'parent_id' => $categories));
         echo "Creating category ($id) $title - $title<br/>\n";
         if (!empty($docounter)) {
-            $hcid = xarModAPIFunc('hitcount','admin','create',array('modname' => 'categories',
+            $hcid = xarMod::apiFunc('hitcount','admin','create',array('modname' => 'categories',
                                                                'objectid' => $catid[$id],
                                                                'hits' => $counter));
             if (!isset($hcid)) {

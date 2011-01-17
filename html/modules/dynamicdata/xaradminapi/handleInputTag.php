@@ -63,7 +63,7 @@ function dynamicdata_adminapi_handleInputTag($args)
         }
     }
     // we'll call a function to do it for us
-    $out = "echo xarModAPIFunc('dynamicdata',
+    $out = "echo xarMod::apiFunc('dynamicdata',
                    'admin',
                    'showinput',\n";
     if (isset($args['field'])) {

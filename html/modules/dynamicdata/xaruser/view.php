@@ -45,7 +45,7 @@ function dynamicdata_user_view($args)
         $itemtype = 0;
     }
     if (!xarModAPILoad('dynamicdata','user')) return;
-    $object = xarModAPIFunc('dynamicdata','user','getobjectinfo',
+    $object = xarMod::apiFunc('dynamicdata','user','getobjectinfo',
                             array('objectid' => $objectid,
                                   'moduleid' => $modid,
                                   'itemtype' => $itemtype,
@@ -64,7 +64,7 @@ function dynamicdata_user_view($args)
     }
     if(!xarSecurityCheck('ViewDynamicDataItems',1,'Item',"$modid:$itemtype:All")) return;
 
-    $data = xarModAPIFunc('dynamicdata','user','menu');
+    $data = xarMod::apiFunc('dynamicdata','user','menu');
     $data['objectid'] = $objectid;
     $data['modid'] = $modid;
     $data['itemtype'] = $itemtype;

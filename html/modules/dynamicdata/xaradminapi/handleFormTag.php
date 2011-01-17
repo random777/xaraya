@@ -40,7 +40,7 @@ function dynamicdata_adminapi_handleFormTag($args)
         }
     }
 
-    $out = "echo xarModAPIFunc('dynamicdata',
+    $out = "echo xarMod::apiFunc('dynamicdata',
                    'admin',
                    'showform',\n";
     if (isset($args['definition'])) {

@@ -45,7 +45,7 @@ function <xsl:value-of select="$module_prefix" />_<xsl:value-of select="@name" /
     list( $type, $startnum, $itemid ) = xarVarCleanFromInput( 'type', 'startnum', 'itemid' );
     extract( $args );
 
-    $data =&amp; xarModAPIFunc(
+    $data =&amp; xarMod::apiFunc(
         '<xsl:value-of select="$module_prefix" />'
         ,'private'
         ,'common'
@@ -58,7 +58,7 @@ function <xsl:value-of select="$module_prefix" />_<xsl:value-of select="@name" /
             '<xsl:value-of select="$module_prefix" />'
             ,'itemsperpage.' . <xsl:value-of select="@itemtype" /> );
 
-    $objects =&amp; xarModAPIFunc(
+    $objects =&amp; xarMod::apiFunc(
         '<xsl:value-of select="$module_prefix" />'
         ,'user'
         ,'getall'
@@ -79,7 +79,7 @@ function <xsl:value-of select="$module_prefix" />_<xsl:value-of select="@name" /
     $data['itemtype'] = <xsl:value-of select="@itemtype" />;
     $data['pager'] = xarTplGetPager(
         $startnum
-        ,xarModAPIFunc(
+        ,xarMod::apiFunc(
             '<xsl:value-of select="$module_prefix" />'
             ,'user'
             ,'count'

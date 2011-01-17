@@ -36,7 +36,7 @@ function dynamicdata_admin_view($args)
         $itemtype = 0;
     }
 
-    $object = xarModAPIFunc('dynamicdata','user','getobjectinfo',
+    $object = xarMod::apiFunc('dynamicdata','user','getobjectinfo',
                             array('objectid' => $itemid,
                                   'moduleid' => $modid,
                                   'itemtype' => $itemtype,
@@ -52,7 +52,7 @@ function dynamicdata_admin_view($args)
         return;
     }
 
-    $data = xarModAPIFunc('dynamicdata','admin','menu');
+    $data = xarMod::apiFunc('dynamicdata','admin','menu');
 
 /*
     $mylist = & Dynamic_Object_Master::getObjectList(array('objectid' => $itemid,
@@ -82,13 +82,13 @@ function dynamicdata_admin_view($args)
     // show other modules
     $data['modlist'] = array();
     if ($objectid == 1 && empty($table)) {
-        $objects = xarModAPIFunc('dynamicdata','user','getobjects');
+        $objects = xarMod::apiFunc('dynamicdata','user','getobjects');
         $seenmod = array();
         foreach ($objects as $object) {
             $seenmod[$object['moduleid']] = 1;
         }
 
-        $modList = xarModAPIFunc('modules',
+        $modList = xarMod::apiFunc('modules',
                           'admin',
                           'getlist',
                           array('orderBy'     => 'category/name'));

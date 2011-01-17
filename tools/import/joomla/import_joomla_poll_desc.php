@@ -66,7 +66,7 @@
         if (empty($title)) {
             $title = xarML('[none]');
         }
-        $newpid = xarModAPIFunc('polls','admin','create',
+        $newpid = xarMod::apiFunc('polls','admin','create',
                                 array('title' => $title,
                                       'polltype' => 'single', // does Joomla support any other kind ?
                                       'private' => 0,

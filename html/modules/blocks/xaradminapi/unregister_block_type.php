@@ -22,7 +22,7 @@
  */
 function blocks_adminapi_unregister_block_type($args)
 {
-    $res = xarModAPIFunc('blocks','admin','block_type_exists',$args);
+    $res = xarMod::apiFunc('blocks','admin','block_type_exists',$args);
     if (!isset($res)) return; // throw back
     if (!$res) return true; // Already unregistered
 
@@ -51,7 +51,7 @@ function blocks_adminapi_unregister_block_type($args)
         list($bid) = $result->fields;
 
         // Pass ids to API
-        xarModAPIFunc('blocks',
+        xarMod::apiFunc('blocks',
                       'admin',
                       'delete_instance', array('bid' => $bid));
 

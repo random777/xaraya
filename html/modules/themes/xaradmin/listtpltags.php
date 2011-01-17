@@ -26,7 +26,7 @@ function themes_admin_listtpltags()
     if (!xarVarFetch('modname', 'str:1:', $sSelectedModule, '', XARVAR_NOT_REQUIRED)) return;
 
     // get the tags as an array
-    $aTplTags = xarModAPIFunc('themes',
+    $aTplTags = xarMod::apiFunc('themes',
                               'admin',
                               'gettpltaglist',
                               array('module'=>$sSelectedModule));

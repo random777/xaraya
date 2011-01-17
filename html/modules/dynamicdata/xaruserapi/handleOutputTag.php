@@ -40,7 +40,7 @@ function dynamicdata_userapi_handleOutputTag($args)
         }
     }
 
-    $out = "echo xarModAPIFunc('dynamicdata',
+    $out = "echo xarMod::apiFunc('dynamicdata',
                    'user',
                    'showoutput',\n";
     if (isset($args['field'])) {

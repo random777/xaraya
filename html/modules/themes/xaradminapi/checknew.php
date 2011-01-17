@@ -31,11 +31,11 @@ function themes_adminapi_checknew()
     if(!xarSecurityCheck('AdminTheme',1,'All','All','themes')) return;
 
     //Get all modules in the filesystem
-    $fileThemes = xarModAPIFunc('themes','admin','getfilethemes');
+    $fileThemes = xarMod::apiFunc('themes','admin','getfilethemes');
     if (!isset($fileThemes)) return;
 
     // Get all modules in DB
-    $dbThemes = xarModAPIFunc('themes','admin','getdbthemes');
+    $dbThemes = xarMod::apiFunc('themes','admin','getdbthemes');
     if (!isset($dbThemes)) return;
 
     //Setup database object for theme insertion
@@ -88,7 +88,7 @@ function themes_adminapi_checknew()
             $result = $dbconn->Execute($sql,$bindvars);
             if (!$result) return;
 
-            if (!xarModAPIFunc('themes',
+            if (!xarMod::apiFunc('themes',
                                 'admin',
                                 'setstate',
                                 array('regid' => $themeInfo['regid'],

@@ -44,7 +44,7 @@ function dynamicdata_userapi_handleGetItemTag($args)
     }
 
     // if we don't have an object yet, we'll make one below
-    $out = 'list('.$args['name']. ") = xarModAPIFunc('dynamicdata',
+    $out = 'list('.$args['name']. ") = xarMod::apiFunc('dynamicdata',
                    'user',
                    'getitemfordisplay',\n";
     // PHP >= 4.2.0 only

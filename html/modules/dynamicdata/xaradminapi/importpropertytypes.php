@@ -40,7 +40,7 @@ function dynamicdata_adminapi_importpropertytypes( $args )
       $result =& $dbconn->Execute($clearCache);
       if(!$result) return; // db error
 
-      $activeMods = xarModApiFunc('modules','admin','getlist', array('filter' => array('State' => XARMOD_STATE_ACTIVE)));
+      $activeMods = xarMod::apiFunc('modules','admin','getlist', array('filter' => array('State' => XARMOD_STATE_ACTIVE)));
       if(empty($activeMods)) return; // this should never happen
       $propDirs[] = 'includes/properties/'; // Initialize it with the core location of properties
 

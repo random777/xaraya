@@ -173,7 +173,7 @@ function roles_admin_createmail()
     $data['uid']       = $uid;
     $data['state']     = $state;
     $data['authid']    = xarSecGenAuthKey();
-    $data['groups']    = xarModAPIFunc('roles', 'user', 'getallgroups');
+    $data['groups']    = xarMod::apiFunc('roles', 'user', 'getallgroups');
     //selstyle
     $data['style'] = array('1' => xarML('No'),
                            '2' => xarML('Yes')
@@ -184,7 +184,7 @@ function roles_admin_createmail()
         $data['subject'] = '';
         $data['message'] = '';
     } else {
-        $strings = xarModAPIFunc('roles','admin','getmessagestrings', array('template' => $data['mailtype']));
+        $strings = xarMod::apiFunc('roles','admin','getmessagestrings', array('template' => $data['mailtype']));
         if (!isset($strings)) return;
 
         $data['subject'] = $strings['subject'];

@@ -32,7 +32,7 @@ function roles_adminapi_delete($args)
     }
 
     // The user API function is called.
-    $item = xarModAPIFunc('roles',
+    $item = xarMod::apiFunc('roles',
             'user',
             'get',
             array('uid' => $uid));

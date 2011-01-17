@@ -52,7 +52,7 @@ function roles_admin_addrole()
         }
 
         // check for duplicate username
-        $user = xarModAPIFunc('roles',
+        $user = xarMod::apiFunc('roles',
             'user',
             'get',
             array('uname' => $puname));
@@ -76,7 +76,7 @@ function roles_admin_addrole()
         }
         // check for duplicate email address
         if(xarModGetVar('roles','uniqueemail')) {
-            $user = xarModAPIFunc('roles',
+            $user = xarMod::apiFunc('roles',
                 'user',
                 'get',
                 array('email' => $pemail));
@@ -110,7 +110,7 @@ function roles_admin_addrole()
             $duvs['userhome'] = $phome;
         if (xarModGetVar('roles','setprimaryparent')) {
             //the primary parent is a string name inline with default role etc
-            $parentrole= xarModAPIFunc('roles', 'user', 'get', array('uid'  => $pparentid, 'type'   => 1));
+            $parentrole= xarMod::apiFunc('roles', 'user', 'get', array('uid'  => $pparentid, 'type'   => 1));
             $duvs['primaryparent'] = $parentrole['uname'];
         }
 

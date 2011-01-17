@@ -151,7 +151,7 @@ class Dynamic_URLIcon_Property extends Dynamic_TextBox_Property
                     $data['value']= $value;
 
                     /* FIXME: getfavicon needs to send back nothing if the favicon doens't exist. */
-                    $data['icon'] = xarModAPIFunc('base',
+                    $data['icon'] = xarMod::apiFunc('base',
                                                   'user',
                                                   'getfavicon',
                                 array('url' => $data['value']));

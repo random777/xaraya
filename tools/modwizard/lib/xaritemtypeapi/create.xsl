@@ -47,7 +47,7 @@ function <xsl:value-of select="$module_prefix" />_<xsl:value-of select="@name" /
     extract( $args );
 
     // Retrieve the object via the dynamicdata module api.
-    $object = xarModAPIFunc(
+    $object = xarMod::apiFunc(
         'dynamicdata'
         ,'user'
         ,'getobject'
@@ -69,7 +69,7 @@ function <xsl:value-of select="$module_prefix" />_<xsl:value-of select="@name" /
         if (empty( $itemid) ) return; // throw back
 
         // The 'api:create' hook is called from dynamic data during createItem() !
-        $item_title = xarModAPIFunc(
+        $item_title = xarMod::apiFunc(
             '<xsl:value-of select="$module_prefix" />'
             ,'user'
             ,'gettitle'

@@ -76,7 +76,7 @@ $test_array = array(
 <html>
 <head><title>Version Compare tests</title></head>
 <body>
-<p><b>xarModAPIFunc('base', 'versions', 'compare', array('ver1'=>version1, 'ver2'=>version2 [, 'levels'=>level][, 'strict'=>strict-flag]))</b></p>
+<p><b>xarMod::apiFunc('base', 'versions', 'compare', array('ver1'=>version1, 'ver2'=>version2 [, 'levels'=>level][, 'strict'=>strict-flag]))</b></p>
 <table border="1">
    <tr>
       <th>Version 1</th>
@@ -95,7 +95,7 @@ $test_array = array(
          if (isset($test['levels'])) {$params['levels'] = $test['levels'];}
          if (isset($test['normalize'])) {$params['normalize'] = $test['normalize'];}
          if (isset($test['sep'])) {$params['sep'] = $test['sep'];}
-         $actual = xarModAPIFunc('base', 'versions', 'compare', $params);
+         $actual = xarMod::apiFunc('base', 'versions', 'compare', $params);
          if ($actual == $test['result']) {$status = 'Pass';} else {$status = '<b>Fail</b>';}
          if (!is_array($test['ver1'])) {$ver1 = '&quot;'.$test['ver1'].'&quot;';}
          else {ob_start(); var_dump($test['ver1']); $ver1 = ob_get_contents(); ob_end_clean();}

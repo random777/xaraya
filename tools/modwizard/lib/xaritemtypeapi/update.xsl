@@ -48,7 +48,7 @@ function <xsl:value-of select="$module_prefix" />_<xsl:value-of select="@name" /
     extract( $args );
 
     // Retrieve the object
-    $object =&amp; xarModAPIFunc(
+    $object =&amp; xarMod::apiFunc(
         '<xsl:value-of select="$module_prefix" />'
         ,'user'
         ,'get'
@@ -86,7 +86,7 @@ function <xsl:value-of select="$module_prefix" />_<xsl:value-of select="@name" /
         /*
          * Compose the statusmessage
          */
-        $item_title = xarModAPIFunc(
+        $item_title = xarMod::apiFunc(
             '<xsl:value-of select="$module_prefix" />'
             ,'user'
             ,'gettitle'

@@ -43,7 +43,7 @@ function roles_admin_updaterole()
         $primaryparent='';
     }
     if (!empty($utimezone) && is_string($utimezone) && xarModGetVar('roles','setusertimezone')) {
-        $timeinfo = xarModAPIFunc('base','user','timezones', array('timezone' => $utimezone));
+        $timeinfo = xarMod::apiFunc('base','user','timezones', array('timezone' => $utimezone));
 
         list($hours,$minutes) = explode(':',$timeinfo[0]);
         $offset        = (float) $hours + (float) $minutes / 60;
@@ -74,7 +74,7 @@ function roles_admin_updaterole()
         if (!xarVarFetch('pstate', 'int:1:',    $pstate)) return;
 
         // check for duplicate username
-        $user = xarModAPIFunc('roles','user','get', array('uname' => $puname));
+        $user = xarMod::apiFunc('roles','user','get', array('uname' => $puname));
 
         if (($user != false) && ($user['uid'] != $uid)) {
             $msg = xarML('That username is already taken.');
@@ -163,7 +163,7 @@ function roles_admin_updaterole()
     //Change the defaultgroup var values if the name is changed
     if ($ptype == 1) {
         $defaultgroup = xarModGetVar('roles', 'defaultgroup');
-        $defaultgroupuid = xarModAPIFunc('roles','user','get',
+        $defaultgroupuid = xarMod::apiFunc('roles','user','get',
                                    array('uname'  => $defaultgroup,
                                          'type'   => 1));
         if ($uid == $defaultgroupuid) xarModSetVar('roles', 'defaultgroup', $pname);

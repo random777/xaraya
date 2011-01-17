@@ -669,7 +669,7 @@ function xarUser__syncUsersTableFields()
     if (!isset($authModName)) return; // throw back
     if ($authModName == 'authsystem') return true; // Already synced
 
-    $res = xarModAPIFunc($authModName, 'user', 'has_capability',
+    $res = xarMod::apiFunc($authModName, 'user', 'has_capability',
                          array('capability' => XARUSER_AUTH_DYNAMIC_USER_DATA_HANDLER));
     if (!isset($res)) return; // throw back
     if ($res == false) return true; // Impossible to go out of sync

@@ -31,7 +31,7 @@ function modules_admin_upgrade()
     if (!xarVarFetch('id', 'int:1:', $id)) return;
 
     //First check the modules dependencies
-    if (!xarModAPIFunc('modules','admin','verifydependency',array('regid'=>$id))) {
+    if (!xarMod::apiFunc('modules','admin','verifydependency',array('regid'=>$id))) {
         //Oops, we got problems...
         //Handle the exception with a nice GUI:
         xarErrorHandled();
@@ -63,13 +63,13 @@ function modules_admin_upgrade()
         }
 
         $data['authid']       = xarSecGenAuthKey();
-        $data['dependencies'] = xarModAPIFunc('modules','admin','getalldependencies',array('regid'=>$id));
+        $data['dependencies'] = xarMod::apiFunc('modules','admin','getalldependencies',array('regid'=>$id));
         $data['displayname'] = $thisinfo['displayname'];
         return $data;
     }
 
     // See if we have lost any modules since last generation
-    if (!xarModAPIFunc('modules', 'admin', 'checkmissing')) {
+    if (!xarMod::apiFunc('modules', 'admin', 'checkmissing')) {
         return;
     }
 
@@ -78,7 +78,7 @@ function modules_admin_upgrade()
     //Bail if we've lost our module
     if ($minfo['state'] != XARMOD_STATE_MISSING_FROM_UPGRADED) {
         // Upgrade module
-        $upgraded = xarModAPIFunc(
+        $upgraded = xarMod::apiFunc(
             'modules', 'admin', 'upgrade',
             array('regid' => $id)
         );
@@ -127,12 +127,12 @@ function modules_admin_upgrade()
 
     // The module might have new or updated properties, after upgrading, flush the
     // property cache otherwise you will get errors on displaying the property.
-    if(!xarModAPIFunc('dynamicdata','admin','importpropertytypes', array('flush' => true))) {
+    if(!xarMod::apiFunc('dynamicdata','admin','importpropertytypes', array('flush' => true))) {
         return false; //FIXME: Do we want an exception here if flushing fails?
     }
     // The module might have new js plugins, after upgrading, flush the plugin
     // cache otherwise you will get errors on calling the plugin
-    if (!xarModAPIFunc('base', 'javascript', 'importplugins')) {
+    if (!xarMod::apiFunc('base', 'javascript', 'importplugins')) {
         return false; //FIXME: Do we want an exception here if flushing fails?
     }
 

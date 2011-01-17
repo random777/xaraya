@@ -1508,7 +1508,7 @@ class xarTemplateTag
             }
         }
         //xarModAPILoad($this->_module, $this->_type);
-        return xarModAPIFunc($this->_module, $this->_type, $this->_func, $args);
+        return xarMod::apiFunc($this->_module, $this->_type, $this->_func, $args);
     }
 }
 

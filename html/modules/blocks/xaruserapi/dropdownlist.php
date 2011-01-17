@@ -41,7 +41,7 @@ function blocks_userapi_dropdownlist($args)
     }
     
     if (isset($gid) && is_numeric($gid)) {
-        $group = xarmodAPIFunc('blocks','user','getgroup', array('gid' => $gid));
+        $group = xarMod::apiFunc('blocks','user','getgroup', array('gid' => $gid));
         
         if (!$group) {
             $msg = xarML('Invalid #(1) for #(2) function #(3)() in module #(4)',
@@ -151,7 +151,7 @@ function blocks_userapi_dropdownlist($args)
             if (!isset($sort) || ($sort != 'id' && $sort != 'name')) {
                 $sort = 'name';
             }
-            $groups = xarModAPIFunc('blocks','user','getallgroups', array('order' => $sort));
+            $groups = xarMod::apiFunc('blocks','user','getallgroups', array('order' => $sort));
             foreach ($groups as $gid => $group) {
                 $items[$gid] = $group['name'];
             }
@@ -171,7 +171,7 @@ function blocks_userapi_dropdownlist($args)
                 $sort = 'module,type';
             }
 
-            $types = xarModAPIFunc('blocks','user','getallblocktypes', array('order' => $sort));
+            $types = xarMod::apiFunc('blocks','user','getallblocktypes', array('order' => $sort));
             foreach ($types as $tid => $btype) {
                 $items[$tid] = $btype['module'] . '/' . $btype['type'];
             }

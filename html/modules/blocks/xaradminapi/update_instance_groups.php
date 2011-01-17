@@ -65,7 +65,7 @@ function blocks_adminapi_update_instance_groups($args)
     }
 
     // Get all groups for the main update loop.
-    $allgroups = xarModAPIfunc('blocks', 'user', 'getallgroups');
+    $allgroups = xarMod::apiFunc('blocks', 'user', 'getallgroups');
 
     // Key the new groups on the gid for convenience
     $newgroups = array();
@@ -134,7 +134,7 @@ function blocks_adminapi_update_instance_groups($args)
     // Resequence the position values, since we may have changed the existing values.
     // Span the resequence across all groups, since any number of groups could have
     // been affected.
-    xarModAPIfunc('blocks', 'admin', 'resequence');
+    xarMod::apiFunc('blocks', 'admin', 'resequence');
 
     return true;
 }

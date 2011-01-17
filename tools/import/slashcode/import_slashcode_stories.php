@@ -143,7 +143,7 @@
             $title = xarML('[none]');
         }
     // Note: we try to use the same article id as the old story id here
-        $newaid = xarModAPIFunc('articles',
+        $newaid = xarMod::apiFunc('articles',
                                 'admin',
                                 'create',
                                 array('aid' => $stoid,

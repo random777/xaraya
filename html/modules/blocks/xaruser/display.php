@@ -25,10 +25,10 @@ function blocks_user_display($args)
 
     // Use $name or $bid to fetch block, but we prefer $bid
     if ($bid != NULL) {
-        $blockinfo = xarModAPIFunc('blocks','user','get', array('bid' => $bid));
+        $blockinfo = xarMod::apiFunc('blocks','user','get', array('bid' => $bid));
     }
     if ($name != NULL && empty($blockinfo)) {
-        $blockinfo = xarModAPIFunc('blocks','user','get', array('name' => $name));
+        $blockinfo = xarMod::apiFunc('blocks','user','get', array('name' => $name));
     }
 
     if (empty($blockinfo)) {

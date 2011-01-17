@@ -22,7 +22,7 @@ function dynamicdata_admin_modifyconfig()
     // the blocklayout template, and get the common menu configuration - it
     // helps if all of the module pages have a standard menu at the top to
     // support easy navigation
-    $data = xarModAPIFunc('dynamicdata','admin','menu');
+    $data = xarMod::apiFunc('dynamicdata','admin','menu');
 
     // Security check
     if(!xarSecurityCheck('AdminDynamicData')) return;
@@ -33,7 +33,7 @@ function dynamicdata_admin_modifyconfig()
     if (!xarModAPILoad('dynamicdata', 'user')) return;
 
     // Get the defined property types from somewhere...
-    $data['fields'] = xarModAPIFunc('dynamicdata','user','getproptypes');
+    $data['fields'] = xarMod::apiFunc('dynamicdata','user','getproptypes');
     if (!isset($data['fields']) || $data['fields'] == false) {
         $data['fields'] = array();
     }

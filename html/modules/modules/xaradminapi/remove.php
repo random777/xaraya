@@ -34,7 +34,7 @@ function modules_adminapi_remove($args)
 
     //TODO: Add check if there is any dependents
 /*
-    if (!xarModAPIFunc('modules','admin','verifydependents',array('regid'=>$regid))) {
+    if (!xarMod::apiFunc('modules','admin','verifydependents',array('regid'=>$regid))) {
         //TODO: Add description of the dependencies
         $msg = xarML('There are dependents to the module "#(1)" that weren\'t removed yet.', $modInfo['displayname']);
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_DEPENDENCY', $msg);
@@ -63,7 +63,7 @@ function modules_adminapi_remove($args)
     }
     else {
         // Module deletion function
-        if (!xarModAPIFunc('modules',
+        if (!xarMod::apiFunc('modules',
                            'admin',
                            'executeinitfunction',
                            array('regid'    => $regid,
@@ -80,7 +80,7 @@ function modules_adminapi_remove($args)
         xarModDelAllVars($modinfo['name']);
 
         // Update state of module
-        $res = xarModAPIFunc('modules',
+        $res = xarMod::apiFunc('modules',
                             'admin',
                             'setstate',
                              array('regid' => $regid,
@@ -106,7 +106,7 @@ function modules_adminapi_remove($args)
     //
 
     // Get block types.
-    $blocktypes = xarModAPIfunc(
+    $blocktypes = xarMod::apiFunc(
         'blocks', 'user', 'getallblocktypes',
         array('module' => $modinfo['name'])
     );
@@ -114,7 +114,7 @@ function modules_adminapi_remove($args)
     // Delete block types.
     if (is_array($blocktypes) && !empty($blocktypes)) {
         foreach($blocktypes as $blocktype) {
-            $result = xarModAPIfunc(
+            $result = xarMod::apiFunc(
                 'blocks', 'admin', 'delete_type', $blocktype
             );
         }

@@ -117,7 +117,7 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
     if ($step == 1) {
         echo "<strong>1. Create a HTMLPages category</strong><br/>\n";
         echo "Creating root for HTMLpages<br/>\n";
-        $sections = xarModAPIFunc('categories', 'admin', 'create', array(
+        $sections = xarMod::apiFunc('categories', 'admin', 'create', array(
                              'name' => 'HTMLpages',
                              'description' => 'HTMLpages (.7x style)',
                              'parent_id' => 0));
@@ -162,7 +162,7 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
                 $cids[] = $sections;
             }
             $status = 2;
-            $newaid = xarModAPIFunc('articles',
+            $newaid = xarMod::apiFunc('articles',
                                 'admin',
                                 'create',
                                 array('title' => $title,

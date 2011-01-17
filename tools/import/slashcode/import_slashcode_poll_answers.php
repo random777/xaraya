@@ -69,7 +69,7 @@
         }
 
         // Create new poll
-        $newvid = xarModAPIFunc('polls',
+        $newvid = xarMod::apiFunc('polls',
                                 'admin',
                                 'createopt',
                                 array('pid' => $pollid[$qid],
@@ -96,7 +96,7 @@
           <a href="import_slashcode.php?step=' . ($step+1) . '">Go to step ' . ($step+1) . '</a><br/>';
 
     // Enable comments hooks for polls
-    xarModAPIFunc('modules',
+    xarMod::apiFunc('modules',
                   'admin',
                   'enablehooks',
                   array('callerModName' => 'polls', 'hookModName' => 'comments'));

@@ -81,7 +81,7 @@ class Dynamic_ObjectRef_Property extends Dynamic_Select_Property
         $objInfo  = Dynamic_Object_Master::getObjectInfo(array('name' => $this->refobject));
 
         // TODO: do we need to check whether the properties are actually in the object?
-        $items =  xarModApiFunc('dynamicdata', 'user', 'getitems', array (
+        $items =  xarMod::apiFunc('dynamicdata', 'user', 'getitems', array (
                                     'modid'    => $objInfo['moduleid'],
                                     'itemtype' => $objInfo['itemtype'],
                                     'sort'     => $this->display_prop,
@@ -125,7 +125,7 @@ class Dynamic_ObjectRef_Property extends Dynamic_Select_Property
         $objInfo  = Dynamic_Object_Master::getObjectInfo(array('name' => $this->refobject));
 
         // TODO: do we need to check whether the properties are actually in the object?
-        $items =  xarModApiFunc('dynamicdata', 'user', 'getitems', array (
+        $items =  xarMod::apiFunc('dynamicdata', 'user', 'getitems', array (
                                     'modid'    => $objInfo['moduleid'],
                                     'itemtype' => $objInfo['itemtype'],
                                     // Note: store_prop might not be the itemid here

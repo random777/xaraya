@@ -395,7 +395,7 @@ function dynamicdata_init()
     /**
      * Register blocks
      */
-    if (!xarModAPIFunc('blocks',
+    if (!xarMod::apiFunc('blocks',
                        'admin',
                        'register_block_type',
                        array('modName'  => 'dynamicdata',
@@ -563,7 +563,7 @@ function dynamicdata_init()
                     );
     xarDefineInstance('dynamicdata','Field',$instances);
 
-    xarModAPIFunc('modules','admin','enablehooks',
+    xarMod::apiFunc('modules','admin','enablehooks',
                   array('callerModName' => 'roles', 'hookModName' => 'dynamicdata'));
 
     // Initialisation successful
@@ -689,7 +689,7 @@ function dynamicdata_delete()
     /**
      * Unregister blocks
      */
-    if (!xarModAPIFunc('blocks',
+    if (!xarMod::apiFunc('blocks',
                        'admin',
                        'unregister_block_type',
                        array('modName'  => 'dynamicdata',

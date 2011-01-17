@@ -23,9 +23,9 @@ function themes_userapi_handlecsstags($args)
     }
         $argstring .= ")";
     if (isset($args['method']) && $args['method'] == 'render') {
-        return "echo xarModAPIFunc('themes', 'user', 'deliver',$argstring);\n";
+        return "echo xarMod::apiFunc('themes', 'user', 'deliver',$argstring);\n";
     } else {
-        return "xarModAPIFunc('themes', 'user', 'register',$argstring);\n";
+        return "xarMod::apiFunc('themes', 'user', 'register',$argstring);\n";
     }
 }
 ?>

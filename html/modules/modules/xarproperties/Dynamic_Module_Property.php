@@ -29,7 +29,7 @@ class Dynamic_Module_Property extends Dynamic_Select_Property
     {
         $this->Dynamic_Select_Property($args);
         if (count($this->options) == 0) {
-            $modlist = xarModAPIFunc('modules',
+            $modlist = xarMod::apiFunc('modules',
                              'admin',
                              'getlist',$args);
             foreach ($modlist as $modinfo) {

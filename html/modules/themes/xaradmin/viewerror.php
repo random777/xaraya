@@ -27,7 +27,7 @@ function themes_admin_viewerror()
     //if (!xarSecConfirmAuthKey()) return;
 
     // Get module information from the database
-    $dbTheme = xarModAPIFunc('themes',
+    $dbTheme = xarMod::apiFunc('themes',
                               'admin',
                               'getdbthemes',
                               array('regid' => $regId));
@@ -37,7 +37,7 @@ function themes_admin_viewerror()
     }
 
     // Get module information from the filesystem
-    $fileTheme = xarModAPIFunc('themes',
+    $fileTheme = xarMod::apiFunc('themes',
                                 'admin',
                                 'getfilethemes',
                                 array('regid' => $regId));

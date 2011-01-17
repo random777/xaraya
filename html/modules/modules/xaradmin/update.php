@@ -39,7 +39,7 @@ function modules_admin_update()
     if (!xarSecConfirmAuthKey()) return;
 
     // Pass to API
-    $updated = xarModAPIFunc('modules',
+    $updated = xarMod::apiFunc('modules',
                              'admin',
                              'update',
                               array('regid' => $regId,

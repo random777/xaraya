@@ -53,7 +53,7 @@ function modules_adminapi_updatehooks($args)
     if (!$result) return;
 
     // get the list of all (active) modules
-    $modList = xarModAPIFunc('modules', 'admin', 'getlist');
+    $modList = xarMod::apiFunc('modules', 'admin', 'getlist');
     //throw back
     if (!isset($modList)) return;
 

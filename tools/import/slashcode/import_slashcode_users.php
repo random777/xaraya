@@ -22,7 +22,7 @@
         $userRole = xarModGetVar('roles', 'defaultgroup');
 
         // Get the group id
-        $defaultRole = xarModAPIFunc('roles',
+        $defaultRole = xarMod::apiFunc('roles',
                                      'user',
                                      'get',
                                      array('uname'  => $userRole,
@@ -40,7 +40,7 @@
     $admingid = xarModGetVar('installer', 'admingid');
     if (empty($admingid)) {
         // Get the group id
-        $adminRole = xarModAPIFunc('roles',
+        $adminRole = xarMod::apiFunc('roles',
                                    'user',
                                    'get',
                                    array('uname'  => 'Administrators',
@@ -172,7 +172,7 @@
     }
   
     // check if there's a dynamic object defined for users
-    $myobject = xarModAPIFunc('dynamicdata',
+    $myobject = xarMod::apiFunc('dynamicdata',
                               'user',
                               'getobject',
                               array('moduleid' => xarModGetIDFromName('roles'), // it's this module
@@ -180,7 +180,7 @@
 
     if (empty($myobject) || empty($myobject->objectid)) {
         // if not, import the dynamic properties for users
-        $objectid = xarModAPIFunc('dynamicdata',
+        $objectid = xarMod::apiFunc('dynamicdata',
                                   'util',
                                   'import',
                                   array('file' => 'modules/dynamicdata/users.xml'));
@@ -189,7 +189,7 @@
             die('Error creating the dynamic user properties');
         }
  
-        $myobject = xarModAPIFunc('dynamicdata',
+        $myobject = xarMod::apiFunc('dynamicdata',
                                   'user',
                                   'getobject',
                                   array('objectid' => $objectid));
@@ -197,7 +197,7 @@
     
     // Disable dynamicdata hooks for roles (to avoid create + update)
     if (xarModIsHooked('dynamicdata','roles')) {
-        xarModAPIFunc('modules',
+        xarMod::apiFunc('modules',
                       'admin',
                       'disablehooks',
                       array('callerModName' => 'roles', 'hookModName' => 'dynamicdata'));
@@ -243,7 +243,7 @@
                       'state'      => 3);           
 
         // this will *not* fill in the dynamic properties now
-        $newuid = xarModAPIFunc('roles',
+        $newuid = xarMod::apiFunc('roles',
                                 'admin',
                                 'create',
                                 $user);
@@ -261,7 +261,7 @@
             // same player, shoot again :)
             $user['uname'] .= $uid;
             echo "trying again with username " . $user['uname'] . " : ";
-            $newuid = xarModAPIFunc('roles',
+            $newuid = xarMod::apiFunc('roles',
                                     'admin',
                                     'create',
                                     $user);
@@ -316,7 +316,7 @@
         // import user into appropriate group
         if ($seclev >= 100) {
             // This user should be added to the Admin group
-            if (!xarModAPIFunc('roles',
+            if (!xarMod::apiFunc('roles',
                                'user',
                                'addmember', 
                                array('gid' => $admingid,
@@ -324,7 +324,7 @@
                 echo "Insert user ($newuid) $uname in admin group ($admingid) failed : " . xarErrorRender('text') . "<br/>\n";
             }
         } else {
-            if (!xarModAPIFunc('roles',
+            if (!xarMod::apiFunc('roles',
                                'user',
                                'addmember', 
                                array('gid' => $defaultgid,
@@ -355,7 +355,7 @@
 
     } else {
         // Enable dynamicdata hooks for roles
-        xarModAPIFunc('modules',
+        xarMod::apiFunc('modules',
                       'admin',
                       'enablehooks',
                       array('callerModName' => 'roles', 'hookModName' => 'dynamicdata'));

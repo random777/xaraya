@@ -61,7 +61,7 @@ function dynamicdata_utilapi_getrelations($args)
     }
 
     // get the list of static properties for this module
-    $static = xarModAPIFunc('dynamicdata','util','getstatic',
+    $static = xarMod::apiFunc('dynamicdata','util','getstatic',
                             array('modid' => $modid,
                                   'itemtype' => $itemtype));
 
@@ -88,7 +88,7 @@ function dynamicdata_utilapi_getrelations($args)
         // for each enabled hook module
         foreach ($modlist as $mod => $val) {
             // get the list of static properties for this hook module
-            $modstatic = xarModAPIFunc('dynamicdata','util','getstatic',
+            $modstatic = xarMod::apiFunc('dynamicdata','util','getstatic',
                                        array('modid' => xarModGetIDFromName($mod)));
                                        // skip this for now
                                        //      'itemtype' => $itemtype));

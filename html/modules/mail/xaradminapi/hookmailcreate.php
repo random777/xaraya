@@ -76,7 +76,7 @@ function mail_adminapi_hookmailcreate($args)
     $fromname = xarModGetVar('mail', 'adminname');
 
 // Get the templates for this message
-    $strings = xarModAPIFunc('mail','admin','getmessagestrings',
+    $strings = xarMod::apiFunc('mail','admin','getmessagestrings',
                              array('module' => 'mail',
                                    'template' => 'createhook'));
 
@@ -84,7 +84,7 @@ function mail_adminapi_hookmailcreate($args)
     $message = $strings['message'];
 
 // Get the template that defines the substitution vars
-    $vars  = xarModAPIFunc('mail','admin','getmessageincludestring',
+    $vars  = xarMod::apiFunc('mail','admin','getmessageincludestring',
                            array('module' => 'mail',
                                  'template' => 'message-vars'));
 
@@ -116,9 +116,9 @@ function mail_adminapi_hookmailcreate($args)
                       'fromname' => $fromname);
     // Check if HTML mail has been configured by the admin
     if (xarModGetVar('mail', 'html')) {
-        xarModAPIFunc('mail', 'admin', 'sendhtmlmail', $mailargs);
+        xarMod::apiFunc('mail', 'admin', 'sendhtmlmail', $mailargs);
     } else {
-        xarModAPIFunc('mail', 'admin', 'sendmail', $mailargs);
+        xarMod::apiFunc('mail', 'admin', 'sendmail', $mailargs);
     }
     // life goes on, and so do hook calls :)
     return $extrainfo;

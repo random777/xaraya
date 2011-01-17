@@ -84,7 +84,7 @@ function themes_admin_cssconfig()
             $data['resettagsurl'] = xarModURL('themes', 'admin', 'cssconfig', array('resetcsstags'=>'all'));
 
             if($resetcsstags == 'all') {
-                xarModAPIFunc('themes', 'css', 'registercsstags');
+                xarMod::apiFunc('themes', 'css', 'registercsstags');
                 $data['resettagsurlstatus'] = xarML('All tags have been restored');
             } else {
                 $data['resettagsurlstatus'] = xarML('Restore defaults');

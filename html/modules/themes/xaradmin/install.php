@@ -28,7 +28,7 @@ function themes_admin_install()
     if (!xarSecConfirmAuthKey()) return;
     if (!xarVarFetch('id', 'int:1:', $id)) return;
     $minfo=xarThemeGetInfo($id);
-    if (!xarModAPIFunc('themes','admin','install',array('regid'=>$id))) return;
+    if (!xarMod::apiFunc('themes','admin','install',array('regid'=>$id))) return;
 
     // set the target location (anchor) to go to within the page
     $target = $minfo['name'];

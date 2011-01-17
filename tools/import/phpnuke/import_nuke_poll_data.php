@@ -44,7 +44,7 @@
             $result->MoveNext();
             continue;
         }
-        $newvid = xarModAPIFunc('polls','admin','createopt',
+        $newvid = xarMod::apiFunc('polls','admin','createopt',
                                 array('pid' => $pollid[$pid],
                                       'option' => $text,
                                       'votes' => $count));

@@ -41,7 +41,7 @@ function roles_user_search()
     if (!isset($q)) {
         if (xarModIsHooked('dynamicdata','roles')) {
             // get the Dynamic Object defined for this module
-            $object = xarModAPIFunc('dynamicdata','user','getobject',
+            $object = xarMod::apiFunc('dynamicdata','user','getobject',
                                      array('module' => 'roles'));
             if (isset($object) && !empty($object->objectid)) {
                 // get the Dynamic Properties of this object
@@ -115,7 +115,7 @@ function roles_user_search()
                             continue;
                         }
                         // Get user information
-                        $data['users'][$uid] = xarModAPIFunc('roles', 'user', 'get',
+                        $data['users'][$uid] = xarMod::apiFunc('roles', 'user', 'get',
                                                        array('uid' => $uid));
                     }
                 }
@@ -136,7 +136,7 @@ function roles_user_search()
 
     $selection .= ")";
 
-    $data['total'] = xarModAPIFunc('roles', 'user', 'countall',
+    $data['total'] = xarMod::apiFunc('roles', 'user', 'countall',
                              array('selection'         => $selection,
                                    'include_anonymous' => false,
                                    'include_myself'    => false));
@@ -149,7 +149,7 @@ function roles_user_search()
         return $data;
     }
 
-    $users = xarModAPIFunc('roles',
+    $users = xarMod::apiFunc('roles',
                            'user',
                            'getall',
                             array('startnum'          => $startnum,

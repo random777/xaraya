@@ -38,7 +38,7 @@ function modules_adminapi_getalldependencies($args)
     }
 
     // See if we have lost any modules since last generation
-    if (!xarModAPIFunc('modules', 'admin', 'checkmissing')) {
+    if (!xarMod::apiFunc('modules', 'admin', 'checkmissing')) {
         return;
     }
 
@@ -124,7 +124,7 @@ function modules_adminapi_getalldependencies($args)
             $core_req = isset($conditions['version_eq']) ? $conditions['version_eq'] : '';
             if (!empty($core_req)) {
                 // match exact core version required
-                $vercompare = xarModAPIfunc(
+                $vercompare = xarMod::apiFunc(
                     'base', 'versions', 'compare',
                     array(
                         'ver1'=>$core_req,
@@ -137,7 +137,7 @@ function modules_adminapi_getalldependencies($args)
                 $core_min = isset($conditions['version_ge']) ? $conditions['version_ge'] : '';
                 $core_max = isset($conditions['version_le']) ? $conditions['version_le'] : '';
                 if (!empty($core_min)) {
-                    $vercompare = xarModAPIfunc(
+                    $vercompare = xarMod::apiFunc(
                         'base', 'versions', 'compare',
                         array(
                             'ver1'=>$core_cur,
@@ -150,7 +150,7 @@ function modules_adminapi_getalldependencies($args)
                     $min_pass = true;
                 }
                 if (!empty($core_max)) {
-                    $vercompare = xarModAPIfunc(
+                    $vercompare = xarMod::apiFunc(
                         'base', 'versions', 'compare',
                         array(
                             'ver1'=>$core_cur,
@@ -193,7 +193,7 @@ function modules_adminapi_getalldependencies($args)
                 $mver_req = isset($conditions['version_eq']) ? $conditions['version_eq'] : '';
                 if (!empty($mver_req)) {
                     // match exact module version required
-                    $vercompare = xarModAPIfunc(
+                    $vercompare = xarMod::apiFunc(
                         'base', 'versions', 'compare',
                         array(
                             'ver1'=>$mver_req,
@@ -213,7 +213,7 @@ function modules_adminapi_getalldependencies($args)
                         $mver_max = $conditions['maxversion'];
                     }
                     if (!empty($mver_min)) {
-                        $vercompare = xarModAPIfunc(
+                        $vercompare = xarMod::apiFunc(
                             'base', 'versions', 'compare',
                             array(
                                 'ver1'=>$mver_cur,
@@ -226,7 +226,7 @@ function modules_adminapi_getalldependencies($args)
                         $min_pass = true;
                     }
                     if (!empty($mver_max)) {
-                        $vercompare = xarModAPIfunc(
+                        $vercompare = xarMod::apiFunc(
                             'base', 'versions', 'compare',
                             array(
                                 'ver1'=>$mver_cur,
@@ -251,7 +251,7 @@ function modules_adminapi_getalldependencies($args)
                 }
             }
             // RECURSIVE CALL
-            $output = xarModAPIFunc('modules', 'admin', 'getalldependencies', array('regid'=>$modId));
+            $output = xarMod::apiFunc('modules', 'admin', 'getalldependencies', array('regid'=>$modId));
             if (!$output) {
                 $msg = xarML('Unable to get dependencies for module with ID (#(1)).', $modId);
                 xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', $msg);

@@ -36,7 +36,7 @@ function modules_adminapi_activate($args)
     }
 
     // Module activate function
-    if (!xarModAPIFunc('modules',
+    if (!xarMod::apiFunc('modules',
                            'admin',
                            'executeinitfunction',
                            array('regid'    => $regid,
@@ -49,7 +49,7 @@ function modules_adminapi_activate($args)
 
 
     // Update state of module
-    $res = xarModAPIFunc('modules',
+    $res = xarMod::apiFunc('modules',
                         'admin',
                         'setstate',
                         array('regid' => $regid,

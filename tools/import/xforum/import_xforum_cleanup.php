@@ -35,7 +35,7 @@
                      array('ptid' => $ptid));
     // Enable bbcode hooks for 'forums' pubtype of articles
     if (xarModIsAvailable('bbcode')) {
-        xarModAPIFunc('modules','admin','enablehooks',
+        xarMod::apiFunc('modules','admin','enablehooks',
                       array('callerModName' => 'xarbb', 'callerItemType' => $ptid, 'hookModName' => 'bbcode'));
     }
     xarModDelVar('installer','ptid');

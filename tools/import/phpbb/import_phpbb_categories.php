@@ -18,7 +18,7 @@
 
     echo "<strong>$step. Importing phpBB categories into categories</strong><br/>\n";
 
-    $categories = xarModAPIFunc('categories', 'admin', 'create',
+    $categories = xarMod::apiFunc('categories', 'admin', 'create',
                                 array('name' => 'Forum Index',
                                       'description' => 'Forum Index',
                                       'parent_id' => 0));
@@ -47,7 +47,7 @@
     $catid = array();
     while (!$result->EOF) {
         list($id, $title, $order) = $result->fields;
-        $catid[$id] = xarModAPIFunc('categories', 'admin', 'create',
+        $catid[$id] = xarMod::apiFunc('categories', 'admin', 'create',
                                     array('name' => $title,
                                           'description' => $title,
                                           'parent_id' => $categories));

@@ -30,7 +30,7 @@
     <div class="xar-form-container-after">
         <input type="text" name="#$name#[func]" id="#$id#_func" value="#xarVarPrepForDisplay($func)#" size="40" tabindex="#$tabindex#" />
         <div>
-            <xar:mlstring>Get the list of items via API function call (optional).  Syntax : xarModAPIFunc(...)</xar:mlstring>
+            <xar:mlstring>Get the list of items via API function call (optional).  Syntax : xarMod::apiFunc(...)</xar:mlstring>
         </div>
     </div>
 </div>

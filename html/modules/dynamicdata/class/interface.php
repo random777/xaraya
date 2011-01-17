@@ -49,7 +49,7 @@ class Dynamic_Object_Interface
 
         // retrieve the object information for this object
         if (!empty($args['object'])) {
-            $info = xarModAPIFunc('dynamicdata','user','getobjectinfo',
+            $info = xarMod::apiFunc('dynamicdata','user','getobjectinfo',
                                   array('name' => $args['object']));
             $args = array_merge($args, $info);
         } elseif (!empty($args['module']) && empty($args['moduleid'])) {

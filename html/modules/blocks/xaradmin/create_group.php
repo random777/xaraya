@@ -32,7 +32,7 @@ function blocks_admin_create_group()
     if(!xarSecurityCheck('AddBlock', 0, 'Instance')) {return;}
 
     // Check the group name has not already been used.
-    $checkname = xarModAPIfunc('blocks', 'user', 'groupgetinfo', array('name' => $name));
+    $checkname = xarMod::apiFunc('blocks', 'user', 'groupgetinfo', array('name' => $name));
     if (!empty($checkname)) {
         $msg = xarML('Block group name "#(1)" already exists', $name);
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM', new SystemException($msg));
@@ -40,7 +40,7 @@ function blocks_admin_create_group()
     }
 
     // Pass to API
-    if (!xarModAPIFunc(
+    if (!xarMod::apiFunc(
         'blocks', 'admin', 'create_group',
         array('name' => $name, 'template' => $template))
     ) {return;}

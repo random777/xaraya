@@ -79,10 +79,10 @@ function dynamicdata_util_migrate($args)
     }
 
     // Get the list of all modules
-    $modlist = xarModAPIFunc('modules', 'admin', 'getlist');
+    $modlist = xarMod::apiFunc('modules', 'admin', 'getlist');
 
     // Get the list of all hook modules, and the current hooks enabled for all modules
-    $hooklist = xarModAPIFunc('modules','admin','gethooklist');
+    $hooklist = xarMod::apiFunc('modules','admin','gethooklist');
 
     $data = array();
 
@@ -114,7 +114,7 @@ function dynamicdata_util_migrate($args)
             $modinfo = xarModGetInfo($from['module']);
 
             // get the list of itemtypes for this module
-            $itemtypes = xarModAPIFunc($modinfo['name'],'user','getitemtypes',
+            $itemtypes = xarMod::apiFunc($modinfo['name'],'user','getitemtypes',
                                        array(),
                                        0);
             if (!empty($itemtypes)) {
@@ -136,12 +136,12 @@ function dynamicdata_util_migrate($args)
 
                 // get the list of items for this module+itemtype
                 if (empty($from['itemid'])) {
-                    $items = xarModAPIFunc($modinfo['name'],'user','getitemlinks',
+                    $items = xarMod::apiFunc($modinfo['name'],'user','getitemlinks',
                                            array('itemtype' => $from['itemtype'],
                                                  'itemids'  => null),
                                            0);
                 } else {
-                    $items = xarModAPIFunc($modinfo['name'],'user','getitemlinks',
+                    $items = xarMod::apiFunc($modinfo['name'],'user','getitemlinks',
                                            array('itemtype' => $from['itemtype'],
                                                  'itemids'  => $from['itemid']),
                                            0);
@@ -157,7 +157,7 @@ function dynamicdata_util_migrate($args)
                 }
 
                 // get the list of fields for this module+itemtype
-                $fields = xarModAPIFunc($modinfo['name'],'user','getitemfields',
+                $fields = xarMod::apiFunc($modinfo['name'],'user','getitemfields',
                                         array('itemtype' => $from['itemtype']),
                                         0);
                 if (!empty($fields)) {
@@ -189,10 +189,10 @@ function dynamicdata_util_migrate($args)
 
                 // add DD properties to field list
                 if (!empty($data['fromhooklist']['dynamicdata'])) {
-                    $props = xarModAPIFunc('dynamicdata','user','getprop',
+                    $props = xarMod::apiFunc('dynamicdata','user','getprop',
                                            array('modid'    => $data['from']['module'],
                                                  'itemtype' => $data['from']['itemtype']));
-                    $proptypes = xarModAPIFunc('dynamicdata','user','getproptypes');
+                    $proptypes = xarMod::apiFunc('dynamicdata','user','getproptypes');
                     foreach ($props as $name => $info) {
                         if (empty($info['label'])) continue;
                         if (!empty($proptypes[$info['type']])) {
@@ -223,7 +223,7 @@ function dynamicdata_util_migrate($args)
             $modinfo = xarModGetInfo($to['module']);
 
             // get the list of itemtypes for this module
-            $itemtypes = xarModAPIFunc($modinfo['name'],'user','getitemtypes',
+            $itemtypes = xarMod::apiFunc($modinfo['name'],'user','getitemtypes',
                                        array(),
                                        0);
             if (!empty($itemtypes)) {
@@ -244,7 +244,7 @@ function dynamicdata_util_migrate($args)
                 }
 
                 // get the list of fields for this module+itemtype
-                $fields = xarModAPIFunc($modinfo['name'],'user','getitemfields',
+                $fields = xarMod::apiFunc($modinfo['name'],'user','getitemfields',
                                         array('itemtype' => $to['itemtype']),
                                         0);
                 if (!empty($fields)) {
@@ -276,10 +276,10 @@ function dynamicdata_util_migrate($args)
 
                 // add DD properties to field list
                 if (!empty($data['tohooklist']['dynamicdata'])) {
-                    $props = xarModAPIFunc('dynamicdata','user','getprop',
+                    $props = xarMod::apiFunc('dynamicdata','user','getprop',
                                            array('modid'    => $data['to']['module'],
                                                  'itemtype' => $data['to']['itemtype']));
-                    $proptypes = xarModAPIFunc('dynamicdata','user','getproptypes');
+                    $proptypes = xarMod::apiFunc('dynamicdata','user','getproptypes');
                     foreach ($props as $name => $info) {
                         if (empty($info['label'])) continue;
                         if (!empty($proptypes[$info['type']])) {
@@ -345,7 +345,7 @@ function dynamicdata_util_migrate($args)
         if (!empty($test)) {
             $data['debug'] = xarML('Test Results') . "\n";
         }
-        $result = xarModAPIFunc('dynamicdata','util','migrate',
+        $result = xarMod::apiFunc('dynamicdata','util','migrate',
                                 $data);
         if (!$result) return;
         if (!empty($test)) {

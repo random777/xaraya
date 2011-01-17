@@ -50,13 +50,13 @@ function roles_userapi_countall($args)
     // then find the anonymous user's uid and add
     // a where clause to the query
    if (isset($include_anonymous) && !$include_anonymous) {
-        $thisrole = xarModAPIFunc('roles','user','get',array('uname'=>'anonymous'));
+        $thisrole = xarMod::apiFunc('roles','user','get',array('uname'=>'anonymous'));
         $query .= " AND xar_uid != ?";
         $bindvars[] =  (int) $thisrole['uid'];
     }
     if (isset($include_myself) && !$include_myself) {
 
-        $thisrole = xarModAPIFunc('roles','user','get',array('uname'=>'myself'));
+        $thisrole = xarMod::apiFunc('roles','user','get',array('uname'=>'myself'));
         $query .= " AND xar_uid != ?";
         $bindvars[] = (int) $thisrole['uid'];
     }

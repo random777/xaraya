@@ -73,7 +73,7 @@ class Dynamic_BLT_Property extends Dynamic_Property
             $value = $this->value;
         }
         if (!empty($this->basedir)) {
-            $files = xarModAPIFunc('dynamicdata','admin','browse',
+            $files = xarMod::apiFunc('dynamicdata','admin','browse',
                                    array('basedir' => $this->basedir,
                                          'filetype' => $this->filetype));
             if (!isset($files)) {

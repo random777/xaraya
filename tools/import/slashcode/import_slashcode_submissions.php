@@ -111,7 +111,7 @@
             $subj = xarML('[none]');
         }
     // Note: we don't try to use the same article id as the old submission id here
-        $newaid = xarModAPIFunc('articles',
+        $newaid = xarMod::apiFunc('articles',
                                 'admin',
                                 'create',
                                 array(//'aid' => $subid,

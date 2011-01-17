@@ -39,7 +39,7 @@ function modules_adminapi_initialise($args)
     }
 
     //Checks module dependency
-    if (!xarModAPIFunc('modules','admin','verifydependency',array('regid'=>$regid))) {
+    if (!xarMod::apiFunc('modules','admin','verifydependency',array('regid'=>$regid))) {
         //TODO: Add description of the dependencies
         $msg = xarML('The dependencies to initialize the module "#(1)" were not met.', $modInfo['displayname']);
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_DEPENDENCY', $msg);
@@ -48,7 +48,7 @@ function modules_adminapi_initialise($args)
     }
 
     // Module deletion function
-    if (!xarModAPIFunc('modules',
+    if (!xarMod::apiFunc('modules',
                        'admin',
                        'executeinitfunction',
                        array('regid'    => $regid,
@@ -58,7 +58,7 @@ function modules_adminapi_initialise($args)
     }
 
     // Update state of module
-    $set = xarModAPIFunc('modules',
+    $set = xarMod::apiFunc('modules',
                         'admin',
                         'setstate',
                         array('regid' => $regid,

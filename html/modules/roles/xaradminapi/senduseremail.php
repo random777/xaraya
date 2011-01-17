@@ -39,9 +39,9 @@ function roles_adminapi_senduseremail($args)
     }
 
     // Get the predefined email if none is defined
-    $strings = xarModAPIFunc('roles','admin','getmessagestrings', array('module' => 'roles','template' => $mailtype));
+    $strings = xarMod::apiFunc('roles','admin','getmessagestrings', array('module' => 'roles','template' => $mailtype));
 
-    $vars  = xarModAPIFunc('roles','admin','getmessageincludestring', array('module' => 'roles','template' => 'message-vars'));
+    $vars  = xarMod::apiFunc('roles','admin','getmessageincludestring', array('module' => 'roles','template' => 'message-vars'));
 
     if (!isset($subject)) $subject = xarTplCompileString($vars . $strings['subject']);
     if (!isset($message)) $message = xarTplCompileString($vars . $strings['message']);
@@ -50,7 +50,7 @@ function roles_adminapi_senduseremail($args)
     //if (is_array($uid)) {
         foreach ($uid as $userid => $val) {
             ///get the user info
-            $user = xarModAPIFunc('roles','user','get', array('uid' => $userid));
+            $user = xarMod::apiFunc('roles','user','get', array('uid' => $userid));
             if (!isset($pass)) $pass = '';
             if (!isset($ip)) $ip = '';
             if (isset($user['valcode'])) $validationlink = xarServerGetBaseURL() . "val.php?v=".$user['valcode']."&u=".$userid;
@@ -78,7 +78,7 @@ function roles_adminapi_senduseremail($args)
             // retrieve the dynamic properties (if any) for use in the e-mail too
             if (xarModIsHooked('dynamicdata','roles')) {
                 // get the Dynamic Object defined for this module and item id
-                $object = xarModAPIFunc('dynamicdata','user','getobject',
+                $object = xarMod::apiFunc('dynamicdata','user','getobject',
                                          array('module' => 'roles',
                                                // we know the item id now...
                                                'itemid' => $userid));
@@ -102,7 +102,7 @@ function roles_adminapi_senduseremail($args)
             $message = xarTplString($message, $data);
             // TODO Make HTML Message.
             // Send confirmation email
-            if (!xarModAPIFunc('mail',
+            if (!xarMod::apiFunc('mail',
                                'admin',
                                'sendmail',
                                array('info' => $user['email'],

@@ -39,7 +39,7 @@ function roles_user_usermenu($args)
 
             if (xarModIsHooked('dynamicdata','roles')) {
                 // get the Dynamic Object defined for this module (and itemtype, if relevant)
-                $object = xarModAPIFunc('dynamicdata','user','getobject',
+                $object = xarMod::apiFunc('dynamicdata','user','getobject',
                                   array('module' => 'roles'));
                 if (isset($object) && !empty($object->objectid)) {
                     // get the Dynamic Properties of this object
@@ -138,7 +138,7 @@ function roles_user_usermenu($args)
 
             //adjust the timezone value for saving
             if (xarModGetVar('roles','setusertimezone') && (isset($utimezone))) {
-                $timeinfo = xarModAPIFunc('base','user','timezones', array('timezone' => $utimezone));
+                $timeinfo = xarMod::apiFunc('base','user','timezones', array('timezone' => $utimezone));
                 list($hours,$minutes) = explode(':',$timeinfo[0]);
                 $offset        = (float) $hours + (float) $minutes / 60;
                 $timeinfoarray = array('timezone' => $utimezone, 'offset' => $offset);
@@ -184,7 +184,7 @@ function roles_user_usermenu($args)
 
                 $oldemail = xarUserGetVar('email');
                 // The API function is called.
-                if(!xarModAPIFunc('roles', 'admin', 'update',
+                if(!xarMod::apiFunc('roles', 'admin', 'update',
                                    array('uid'   => $uid,
                                          'uname' => $uname,
                                          'name'  => $name,
@@ -207,7 +207,7 @@ function roles_user_usermenu($args)
                 */
 
                 // Step 1
-                $emailcheck = xarModAPIFunc('roles','user','validatevar',
+                $emailcheck = xarMod::apiFunc('roles','user','validatevar',
                                       array('var'  => $email,
                                             'type' => 'email'));
 
@@ -218,7 +218,7 @@ function roles_user_usermenu($args)
                 }
                 if (xarModGetVar('roles','uniqueemail')) {
                     // check for duplicate email address
-                    $user = xarModAPIFunc('roles', 'user','get',
+                    $user = xarMod::apiFunc('roles', 'user','get',
                                     array('email' => $email));
 
                     if ($user != false) {
@@ -245,7 +245,7 @@ function roles_user_usermenu($args)
                 $requireValidation = xarModGetVar('roles', 'requirevalidation');
                 if ((!xarModGetVar('roles', 'requirevalidation')) || (xarUserGetVar('uname') == 'admin')){
                     // The API function is called.
-                    if(!xarModAPIFunc('roles',  'admin', 'update',
+                    if(!xarMod::apiFunc('roles',  'admin', 'update',
                                        array('uid'     => $uid,
                                              'uname'   => $uname,
                                              'name'    => $name,
@@ -256,12 +256,12 @@ function roles_user_usermenu($args)
                 } else { // if we need validation
                     // Step 2
                     // Create confirmation code and time registered
-                    $confcode = xarModAPIFunc('roles','user','makepass');
+                    $confcode = xarMod::apiFunc('roles','user','makepass');
 
                     // Step 3
                     // Set the user to not validated
                     // The API function is called.
-                    if(!xarModAPIFunc('roles', 'admin', 'update',
+                    if(!xarMod::apiFunc('roles', 'admin', 'update',
                                        array('uid'      => $uid,
                                              'uname'    => $uname,
                                              'name'     => $name,
@@ -272,7 +272,7 @@ function roles_user_usermenu($args)
                                              'state'    => ROLES_STATE_NOTVALIDATED))) return;
                     // Step 4
                     //Send validation email
-                    if (!xarModAPIFunc( 'roles',  'admin', 'senduseremail',
+                    if (!xarMod::apiFunc( 'roles',  'admin', 'senduseremail',
                                   array('uid' => array($uid => '1'), 'mailtype' => 'validation'))) {
 
                         $msg = xarML('Problem sending confirmation email');
@@ -291,7 +291,7 @@ function roles_user_usermenu($args)
                 $email = xarUserGetVar('email');
 
                 // The API function is called.
-                if(!xarModAPIFunc('roles', 'admin', 'update',
+                if(!xarMod::apiFunc('roles', 'admin', 'update',
                                    array('uid'     => $uid,
                                          'uname'   => $uname,
                                          'name'    => $name,

@@ -153,12 +153,12 @@ class Dynamic_Select_Property extends Dynamic_Property
             foreach($validation as $id => $name) {
                 array_push($this->options, array('id' => $id, 'name' => $name));
             }
-        // if the validation field starts with xarModAPIFunc, we'll assume that this is
+        // if the validation field starts with xarMod::apiFunc, we'll assume that this is
         // a function call that returns an array of names, or an array of id => name
-        } elseif (preg_match('/^xarModAPIFunc/i',$validation)) {
-            // if the validation field contains two ;-separated xarModAPIFunc calls,
+        } elseif (preg_match('/^xarMod::apiFunc/i',$validation)) {
+            // if the validation field contains two ;-separated xarMod::apiFunc calls,
             // the second one is used to get/check the result for a single $value
-            if (preg_match('/^(xarModAPIFunc.+)\s*;\s*(xarModAPIFunc.+)$/i',$validation,$matches)) {
+            if (preg_match('/^(xarMod::apiFunc.+)\s*;\s*(xarMod::apiFunc.+)$/i',$validation,$matches)) {
                 $this->func = $matches[1];
                 $this->itemfunc = $matches[2];
             } else {
@@ -376,10 +376,10 @@ class Dynamic_Select_Property extends Dynamic_Property
         // do something with the validation and save it in $this->validation
         if (isset($validation)) {
             if (is_array($validation)) {
-                if (!empty($validation['func']) && preg_match('/^xarModAPIFunc/i',$validation['func'])) {
+                if (!empty($validation['func']) && preg_match('/^xarMod::apiFunc/i',$validation['func'])) {
                     $this->validation = $validation['func'];
                     // only supported when we use func too
-                    if (!empty($validation['itemfunc']) && preg_match('/^xarModAPIFunc/i',$validation['itemfunc'])) {
+                    if (!empty($validation['itemfunc']) && preg_match('/^xarMod::apiFunc/i',$validation['itemfunc'])) {
                         $this->validation .= ';' . $validation['itemfunc'];
                     }
 

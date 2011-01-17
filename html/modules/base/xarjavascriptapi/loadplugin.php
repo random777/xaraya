@@ -32,7 +32,7 @@ function base_javascriptapi_loadplugin($args)
         $framework = xarModGetVar('base','DefaultFramework');
     }
     $framework = strtolower($framework);
-    $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => $framework));
+    $fwinfo = xarMod::apiFunc('base','javascript','getframeworkinfo', array('name' => $framework));
     // no framework info, bail
     if (!is_array($fwinfo)) return '';
     // framework disabled, bail
@@ -75,9 +75,9 @@ function base_javascriptapi_loadplugin($args)
         return '';
     }
 
-    if (!xarModAPIFunc($fwinfo['module'], $framework, 'init', array())) return '';
+    if (!xarMod::apiFunc($fwinfo['module'], $framework, 'init', array())) return '';
 
-    $filepath = xarModAPIfunc('base', 'javascript', '_findfile', array('module' => $modName, 'filename' => "$framework/plugins/$name/$file"));
+    $filepath = xarMod::apiFunc('base', 'javascript', '_findfile', array('module' => $modName, 'filename' => "$framework/plugins/$name/$file"));
 
     if (empty($filepath)) {
         return '';
@@ -101,7 +101,7 @@ function base_javascriptapi_loadplugin($args)
         }
         foreach ($style as $stylesheet) {
             //themes_userapi_register
-            $styleload = xarModAPIFunc('themes','user','register', array(
+            $styleload = xarMod::apiFunc('themes','user','register', array(
                 'scope' => 'module',
                 'module' => $modName,
                 'file' => $framework . '/plugins/' . $name . '/' . preg_replace('/\.css$/', '', $stylesheet)
@@ -110,7 +110,7 @@ function base_javascriptapi_loadplugin($args)
 
     }
 
-    $load = xarModAPIFunc($modName, $framework, 'loadplugin', $args, false);
+    $load = xarMod::apiFunc($modName, $framework, 'loadplugin', $args, false);
 
     return $load;
 }

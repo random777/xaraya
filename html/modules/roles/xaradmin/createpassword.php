@@ -26,7 +26,7 @@ function roles_admin_createpassword()
         return;
     }
 
-    $pass = xarModAPIFunc('roles', 'user', 'makePass');
+    $pass = xarMod::apiFunc('roles', 'user', 'makePass');
     if (empty($pass)) {
             $msg = xarML('Problem generating new password');
             xarErrorSet(XAR_USER_EXCEPTION, 'MISSING_DATA', new DefaultUserException($msg));

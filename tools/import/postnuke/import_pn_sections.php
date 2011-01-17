@@ -18,7 +18,7 @@
 
     echo "<strong>$step. Importing old sections into categories</strong><br/>\n";
     echo "Creating root for old sections<br/>\n";
-    $sections = xarModAPIFunc('categories', 'admin', 'create', array(
+    $sections = xarMod::apiFunc('categories', 'admin', 'create', array(
                              'name' => 'Sections',
                              'description' => 'Document Sections (.7x style)',
                              'parent_id' => 0));
@@ -41,7 +41,7 @@
         }
         while (!$result->EOF) {
             list($id, $name, $image) = $result->fields;
-            $sectionid[$id] = xarModAPIFunc('categories', 'admin', 'create', array(
+            $sectionid[$id] = xarMod::apiFunc('categories', 'admin', 'create', array(
                               'name' => $name,
                               'description' => $name,
                               'image' => "$imgurl/sections/$image",

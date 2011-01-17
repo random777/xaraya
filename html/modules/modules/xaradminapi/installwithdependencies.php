@@ -44,7 +44,7 @@ function modules_adminapi_installwithdependencies ($args)
     }
 
     // See if we have lost any modules since last generation
-    if (!xarModAPIFunc('modules', 'admin', 'checkmissing')) {
+    if (!xarMod::apiFunc('modules', 'admin', 'checkmissing')) {
         return;
     }
 
@@ -104,7 +104,7 @@ function modules_adminapi_installwithdependencies ($args)
             $modId = $module_id;
         }
         if (empty($modId)) continue;
-        if (!xarModAPIFunc('modules', 'admin', 'installwithdependencies', array('regid'=>$modId))) {
+        if (!xarMod::apiFunc('modules', 'admin', 'installwithdependencies', array('regid'=>$modId))) {
             if (xarCurrentErrorType() != XAR_NO_EXCEPTION) {
                 return;
             } else {
@@ -118,7 +118,7 @@ function modules_adminapi_installwithdependencies ($args)
     //Checks if the module is already initialised
     if (!$initialised) {
         // Finally, now that dependencies are dealt with, initialize the module
-        if (!xarModAPIFunc('modules', 'admin', 'initialise', array('regid' => $mainId))) {
+        if (!xarMod::apiFunc('modules', 'admin', 'initialise', array('regid' => $mainId))) {
             if (xarCurrentErrorType() != XAR_NO_EXCEPTION) {
                 return;
             } else {
@@ -130,7 +130,7 @@ function modules_adminapi_installwithdependencies ($args)
     }
 
     // And activate it!
-    if (!xarModAPIFunc('modules', 'admin', 'activate', array('regid' => $mainId))) {
+    if (!xarMod::apiFunc('modules', 'admin', 'activate', array('regid' => $mainId))) {
         if (xarCurrentErrorType() != XAR_NO_EXCEPTION) {
             return;
         } else {

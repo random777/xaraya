@@ -19,7 +19,7 @@
  */
 function roles_adminapi_viewgroup($args)
 {
-    return xarModAPIFunc('roles','user','getusers',$args);
+    return xarMod::apiFunc('roles','user','getusers',$args);
 
 }
 

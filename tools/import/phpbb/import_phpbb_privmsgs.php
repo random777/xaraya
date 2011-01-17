@@ -90,7 +90,7 @@
         $data['date'] = $date;
         $data['postanon'] = 0;
 
-        $cid = xarModAPIFunc('comments','user','add',$data);
+        $cid = xarMod::apiFunc('comments','user','add',$data);
         if (empty($cid)) {
             echo "Failed inserting privmsg ($id) $from $to - $subject : ".$dbconn->ErrorMsg()."<br/>\n";
         } elseif ($count < 200) {

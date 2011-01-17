@@ -36,7 +36,7 @@ function themes_user_usermenu($args)
         case 'form':
             // Get list of themes
             $filter['Class'] = 2;
-            $data['themes'] = xarModAPIFunc('themes',
+            $data['themes'] = xarMod::apiFunc('themes',
                 'admin',
                 'getlist',
                 $filter);

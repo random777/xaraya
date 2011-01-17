@@ -23,7 +23,7 @@ function authsystem_user_showloginform($args = array())
     if (!isset($redirecturl)) $redirecturl = xarServerGetBaseURL();
     xarVarFetch('redirecturl', 'str:1:254', $data['redirecturl'], $redirecturl, XARVAR_NOT_REQUIRED);
 
-    $defaultauthdata=xarModAPIFunc('roles','user','getdefaultauthdata');
+    $defaultauthdata=xarMod::apiFunc('roles','user','getdefaultauthdata');
     $defaultloginmodname=$defaultauthdata['defaultloginmodname'];
 
     if (!xarUserIsLoggedIn()) {

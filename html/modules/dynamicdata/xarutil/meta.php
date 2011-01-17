@@ -42,13 +42,13 @@ function dynamicdata_util_meta($args)
             $data['databases'] = array($db);
         }
     } else {
-        $data['tables'] = xarModAPIFunc('dynamicdata','util','getmeta',
+        $data['tables'] = xarMod::apiFunc('dynamicdata','util','getmeta',
                                         array('db' => $db, 'table' => $table));
     }
 
     $data['table'] = $table;
     $data['export'] = $export;
-    $data['prop'] = xarModAPIFunc('dynamicdata','user','getproperty',array('type' => 'fieldtype', 'name' => 'dummy'));
+    $data['prop'] = xarMod::apiFunc('dynamicdata','user','getproperty',array('type' => 'fieldtype', 'name' => 'dummy'));
 
     if (xarModGetVar('themes','usedashboard')) {
         $admin_tpl = xarModGetVar('themes','dashtemplate');

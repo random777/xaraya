@@ -131,7 +131,7 @@ if ($importmodule != 'articles') {
             $status = 3; // locked
         }
 if ($importmodule == 'articles') {
-        $newaid = xarModAPIFunc('articles',
+        $newaid = xarMod::apiFunc('articles',
                                 'admin',
                                 'create',
                                 array(//'aid' => $tid, // don't keep topic id here
@@ -159,7 +159,7 @@ if ($importmodule == 'articles') {
         if (empty($lasttime[$tid])) {
             $lasttime[$tid] = $time;
         }
-        $newaid=xarModAPIFunc('xarbb',
+        $newaid=xarMod::apiFunc('xarbb',
                                'user',
                                'createtopic',
                                array('fid'      => $forumid[$fid],

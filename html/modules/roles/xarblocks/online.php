@@ -61,7 +61,7 @@ function roles_onlineblock_display($blockinfo)
         $vars = $blockinfo['content'];
     }
 
-    $args['numusers'] = xarModAPIfunc(
+    $args['numusers'] = xarMod::apiFunc(
         'roles', 'user', 'countallactive',
         array('count_users' => true, 'include_anonymous' => false)
     );
@@ -70,7 +70,7 @@ function roles_onlineblock_display($blockinfo)
     }
 
     // FIXME: there could be many active users, but we only want a handful of them.
-    $sessions = xarModAPIFunc(
+    $sessions = xarMod::apiFunc(
         'roles', 'user', 'getallactive',
         array(
             'order' => 'name',
@@ -98,12 +98,12 @@ function roles_onlineblock_display($blockinfo)
 
             if ($session['name'] == xarUserGetVar('name')) {
                 if (xarModIsAvailable('messages')) {
-                    $args['test1'][$key]['total'] = xarModAPIFunc(
+                    $args['test1'][$key]['total'] = xarMod::apiFunc(
                         'messages', 'user', 'count_total',
                         array('uid'=>$session['uid'])
                     );
 
-                    $args['test1'][$key]['unread'] = xarModAPIFunc(
+                    $args['test1'][$key]['unread'] = xarMod::apiFunc(
                         'messages', 'user', 'count_unread',
                         array('uid'=>$session['uid'])
                     );
@@ -117,7 +117,7 @@ function roles_onlineblock_display($blockinfo)
         }
     }
 
-    $args['numguests'] = xarModAPIfunc('roles', 'user', 'countallactive', array('uid' => 2));
+    $args['numguests'] = xarMod::apiFunc('roles', 'user', 'countallactive', array('uid' => 2));
     if (empty($args['numguests'])) {
         $args['numguests'] = 0;
     }
@@ -141,13 +141,13 @@ function roles_onlineblock_display($blockinfo)
     if (!empty($uid)) {
         if (!is_numeric($uid)) {
             // Remove this further down the line
-            $status = xarModAPIFunc(
+            $status = xarMod::apiFunc(
                 'roles', 'user', 'get',
                 array('uname' => $uid)
             );
 
         } else {
-            $status = xarModAPIFunc(
+            $status = xarMod::apiFunc(
                 'roles', 'user', 'get',
                 array('uid' => $uid)
             );

@@ -158,7 +158,7 @@ function themes_init()
     // deprecated by andyv in corecss - delete comments
 
     // register complete set of css tags is now encapsulated in the module's api function
-    if(!xarModAPIFunc('themes', 'css', 'registercsstags', array())) {
+    if(!xarMod::apiFunc('themes', 'css', 'registercsstags', array())) {
         return false;
     }
 
@@ -217,7 +217,7 @@ function themes_upgrade($oldversion)
             }
 
         case '1.1':
-            if (!xarModAPIFunc('blocks', 'admin', 'register_block_type',
+            if (!xarMod::apiFunc('blocks', 'admin', 'register_block_type',
                 array('modName' => 'themes', 'blockType' => 'meta'))) return;
 
         case '1.2':
@@ -235,13 +235,13 @@ function themes_upgrade($oldversion)
             // deprecated by andyv in corecss - delete comments
 
             // register complete set of css tags is now encapsulated in the module's api function
-            if(!xarModAPIFunc('themes', 'css', 'registercsstags', array())) {
+            if(!xarMod::apiFunc('themes', 'css', 'registercsstags', array())) {
                 return false;
             }
 
             // Ensure the meta blocktype is registered
-            if(!xarModAPIFunc('blocks','admin','block_type_exists',array('modName' => 'themes','blockType' => 'meta'))) {
-                if (!xarModAPIFunc('blocks', 'admin', 'register_block_type',
+            if(!xarMod::apiFunc('blocks','admin','block_type_exists',array('modName' => 'themes','blockType' => 'meta'))) {
+                if (!xarMod::apiFunc('blocks', 'admin', 'register_block_type',
                                     array('modName' => 'themes',
                                           'blockType' => 'meta'))) return;
             }

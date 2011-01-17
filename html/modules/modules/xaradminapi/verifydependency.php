@@ -44,7 +44,7 @@ function modules_adminapi_verifydependency($args)
 
 
     // See if we have lost any modules since last generation
-    if (!xarModAPIFunc('modules','admin','checkmissing')) {
+    if (!xarMod::apiFunc('modules','admin','checkmissing')) {
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_NOT_EXIST', xarML('Missing Module'));
         return;
     }
@@ -52,7 +52,7 @@ function modules_adminapi_verifydependency($args)
     // Get all modules in DB
     // A module is able to fullfil a dependency only if it is activated at least.
     // So db modules should be a safe start to go looking for them
-    $dbModules = xarModAPIFunc('modules','admin','getdbmodules');
+    $dbModules = xarMod::apiFunc('modules','admin','getdbmodules');
     if (!isset($dbModules)) {
         xarErrorSet(XAR_SYSTEM_EXCEPTION, 'MODULE_NOT_EXIST', xarML('Unable to find modules in the database'));
         return;
@@ -122,7 +122,7 @@ function modules_adminapi_verifydependency($args)
             $core_req = isset($conditions['version_eq']) ? $conditions['version_eq'] : '';
             if (!empty($core_req)) {
                 // match exact core version required
-                $vercompare = xarModAPIfunc(
+                $vercompare = xarMod::apiFunc(
                     'base', 'versions', 'compare',
                     array(
                         'ver1'=>$core_req,
@@ -135,7 +135,7 @@ function modules_adminapi_verifydependency($args)
                 $core_min = isset($conditions['version_ge']) ? $conditions['version_ge'] : '';
                 $core_max = isset($conditions['version_le']) ? $conditions['version_le'] : '';
                 if (!empty($core_min)) {
-                    $vercompare = xarModAPIfunc(
+                    $vercompare = xarMod::apiFunc(
                         'base', 'versions', 'compare',
                         array(
                             'ver1'=>$core_cur,
@@ -148,7 +148,7 @@ function modules_adminapi_verifydependency($args)
                     $min_pass = true;
                 }
                 if (!empty($core_max)) {
-                    $vercompare = xarModAPIfunc(
+                    $vercompare = xarMod::apiFunc(
                         'base', 'versions', 'compare',
                         array(
                             'ver1'=>$core_cur,
@@ -174,7 +174,7 @@ function modules_adminapi_verifydependency($args)
             $mver_req = isset($conditions['version_eq']) ? $conditions['version_eq'] : '';
             if (!empty($mver_req)) {
                 // match exact core version required
-                $vercompare = xarModAPIfunc(
+                $vercompare = xarMod::apiFunc(
                     'base', 'versions', 'compare',
                     array(
                         'ver1'=>$mver_req,
@@ -194,7 +194,7 @@ function modules_adminapi_verifydependency($args)
                     $mver_max = $conditions['maxversion'];
                 }
                 if (!empty($mver_min)) {
-                    $vercompare = xarModAPIfunc(
+                    $vercompare = xarMod::apiFunc(
                         'base', 'versions', 'compare',
                         array(
                             'ver1'=>$mver_cur,
@@ -207,7 +207,7 @@ function modules_adminapi_verifydependency($args)
                     $min_pass = true;
                 }
                 if (!empty($mver_max)) {
-                    $vercompare = xarModAPIfunc(
+                    $vercompare = xarMod::apiFunc(
                         'base', 'versions', 'compare',
                         array(
                             'ver1'=>$mver_cur,

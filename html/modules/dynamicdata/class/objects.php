@@ -92,7 +92,7 @@ class Dynamic_Object_Master
             }
         }
         if (!empty($this->table)) {
-            $meta = xarModAPIFunc('dynamicdata','util','getmeta',
+            $meta = xarMod::apiFunc('dynamicdata','util','getmeta',
                                   array('table' => $this->table));
             // we throw an exception here because we assume a table should always exist (for now)
             if (!isset($meta) || !isset($meta[$this->table])) {
@@ -142,7 +142,7 @@ class Dynamic_Object_Master
                                                         'objectref' => & $this)); // we pass this object along
         }
         if (!empty($this->join)) {
-            $meta = xarModAPIFunc('dynamicdata','util','getmeta',
+            $meta = xarMod::apiFunc('dynamicdata','util','getmeta',
                                   array('table' => $this->join));
             // we throw an exception here because we assume a table should always exist (for now)
             if (!isset($meta) || !isset($meta[$this->join])) {
@@ -727,7 +727,7 @@ class Dynamic_Object_Master
     function joinTable($args)
     {
         if (empty($args['table'])) return;
-        $meta = xarModAPIFunc('dynamicdata','util','getmeta',
+        $meta = xarMod::apiFunc('dynamicdata','util','getmeta',
                               array('table' => $args['table']));
         // we throw an exception here because we assume a table should always exist (for now)
         if (!isset($meta) || !isset($meta[$args['table']])) {
@@ -1660,7 +1660,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
     function setCategories($catid)
     {
         if (!xarModIsAvailable('categories')) return;
-        $categoriesdef = xarModAPIFunc('categories','user','leftjoin',
+        $categoriesdef = xarMod::apiFunc('categories','user','leftjoin',
                                        array('modid' => $this->moduleid,
                                              'itemtype' => $this->itemtype,
                                              'catid' => $catid));

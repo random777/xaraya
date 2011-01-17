@@ -55,7 +55,7 @@ function base_javascriptapi_registerplugin($args)
     $name = strtolower($name);
     $framework = strtolower($framework);
 
-    $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => $framework));
+    $fwinfo = xarMod::apiFunc('base','javascript','getframeworkinfo', array('name' => $framework));
 
     if (!is_array($fwinfo)) {
         $msg = xarML('Bad framework name');

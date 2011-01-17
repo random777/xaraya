@@ -29,7 +29,7 @@ function blocks_adminapi_groupgetinfo($args)
         return;
     }
 
-    return xarModAPIFunc(
+    return xarMod::apiFunc(
         'blocks', 'user', 'groupgetinfo',
         array('gid' => $blockGroupId)
     );

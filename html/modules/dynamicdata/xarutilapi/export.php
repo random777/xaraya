@@ -57,7 +57,7 @@ function dynamicdata_utilapi_export($args)
     // get the list of properties for a Dynamic Property
     $property_properties = Dynamic_Property_Master::getProperties(array('objectid' => 2));
 
-    $proptypes = xarModAPIFunc('dynamicdata','user','getproptypes');
+    $proptypes = xarMod::apiFunc('dynamicdata','user','getproptypes');
 
     $prefix = xarDBGetSystemTablePrefix();
     $prefix .= '_';

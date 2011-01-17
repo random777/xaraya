@@ -52,7 +52,7 @@
             $result->MoveNext();
             continue;
         }
-        $newvid = xarModAPIFunc('polls','admin','createopt',
+        $newvid = xarMod::apiFunc('polls','admin','createopt',
                                 array('pid' => $pollid[$pid],
                                       'option' => $text,
                                       'votes' => $count));
@@ -75,11 +75,11 @@
 
 if ($importmodule == 'articles') {
     // Enable polls hooks for 'forums' pubtype of articles
-    xarModAPIFunc('modules','admin','enablehooks',
+    xarMod::apiFunc('modules','admin','enablehooks',
                   array('callerModName' => 'articles', 'callerItemType' => $ptid, 'hookModName' => 'polls'));
 } else {
     // Enable polls hooks for all forums in xarbb
-    xarModAPIFunc('modules','admin','enablehooks',
+    xarMod::apiFunc('modules','admin','enablehooks',
                   array('callerModName' => 'xarbb', 'hookModName' => 'polls'));
 }
 

@@ -27,10 +27,10 @@ function blocks_admin_view_instances()
     // CHECKME: & removed below for php 4.4.
     $rowstodo = xarModGetVar('blocks','itemsperpage');
     // Need to find a better way to do this without breaking the API
-    $instances = xarModAPIfunc('blocks', 'user', 'getall', array('filter' => $filter,
+    $instances = xarMod::apiFunc('blocks', 'user', 'getall', array('filter' => $filter,
                                                                  'order' => 'name'));
     $total = count($instances);
-    $instances = xarModAPIfunc('blocks', 'user', 'getall', array('filter' => $filter,
+    $instances = xarMod::apiFunc('blocks', 'user', 'getall', array('filter' => $filter,
                                                                  'order' => 'name',
                                                                  'rowstodo' => $rowstodo,
                                                                  'startat' => $startat));

@@ -50,7 +50,7 @@ function <xsl:value-of select="$module_prefix" />_user_view( $args )
     switch( $itemtype ) {
     <xsl:for-each select="database/table[@user='true']">
         case <xsl:value-of select="@itemtype" />:
-            $data = xarModAPIFunc(
+            $data = xarMod::apiFunc(
                 '<xsl:value-of select="$module_prefix" />'
                 ,'<xsl:value-of select="@name" />'
                 ,'view'

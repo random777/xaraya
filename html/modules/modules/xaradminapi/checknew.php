@@ -27,11 +27,11 @@ function modules_adminapi_checknew()
     if(!xarSecurityCheck('AdminModules',1,'All','All','modules')) return;
 
     // Get all modules in the filesystem
-    $fileModules = xarModAPIFunc('modules','admin','getfilemodules');
+    $fileModules = xarMod::apiFunc('modules','admin','getfilemodules');
     if (!isset($fileModules)) return;
 
     // Get all modules in DB
-    $dbModules = xarModAPIFunc('modules','admin','getdbmodules');
+    $dbModules = xarMod::apiFunc('modules','admin','getdbmodules');
     if (!isset($dbModules)) return;
 
     //Setup database object for module insertion
@@ -100,7 +100,7 @@ function modules_adminapi_checknew()
             if (!$result) return;
 
             // @TODO: check core dependency here?
-            $set = xarModAPIFunc(
+            $set = xarMod::apiFunc(
                 'modules', 'admin', 'setstate',
                 array(
                     'regid' => $modinfo['regid'],

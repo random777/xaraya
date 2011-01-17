@@ -28,7 +28,7 @@ function modules_admin_regenerate()
     if (!xarSecConfirmAuthKey()) return;
 
     // Regenerate modules
-    $regenerated = xarModAPIFunc('modules', 'admin', 'regenerate');
+    $regenerated = xarMod::apiFunc('modules', 'admin', 'regenerate');
     
     if (!isset($regenerated)) return;
     

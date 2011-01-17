@@ -49,7 +49,7 @@ function dynamicdata_utilapi_importproperties($args)
 
     // search for an object, or create one
     if (empty($objectid)) {
-        $object = xarModAPIFunc('dynamicdata','user','getobjectinfo',
+        $object = xarMod::apiFunc('dynamicdata','user','getobjectinfo',
                                 array('modid' => $modid,
                                       'itemtype' => $itemtype));
         if (!isset($object)) {
@@ -58,7 +58,7 @@ function dynamicdata_utilapi_importproperties($args)
             if (!empty($itemtype)) {
                 $name .= '_' . $itemtype;
             }
-            $objectid = xarModAPIFunc('dynamicdata','admin','createobject',
+            $objectid = xarMod::apiFunc('dynamicdata','admin','createobject',
                                       array('moduleid' => $modid,
                                             'itemtype' => $itemtype,
                                             'name' => $name,
@@ -69,7 +69,7 @@ function dynamicdata_utilapi_importproperties($args)
         }
     }
 
-    $fields = xarModAPIFunc('dynamicdata','util','getstatic',
+    $fields = xarMod::apiFunc('dynamicdata','util','getstatic',
                             array('modid' => $modid,
                                   'itemtype' => $itemtype,
                                   'table' => $table));
@@ -77,7 +77,7 @@ function dynamicdata_utilapi_importproperties($args)
 
     // create new properties
     foreach ($fields as $name => $field) {
-        $prop_id = xarModAPIFunc('dynamicdata','admin','createproperty',
+        $prop_id = xarMod::apiFunc('dynamicdata','admin','createproperty',
                                 array('name'       => $name,
                                       'label'      => $field['label'],
                                       'objectid'   => $objectid,

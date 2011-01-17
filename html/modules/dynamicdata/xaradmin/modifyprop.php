@@ -25,7 +25,7 @@
 function dynamicdata_admin_modifyprop()
 {
     // Initialise the $data variable with menu
-    $data = xarModAPIFunc('dynamicdata','admin','menu');
+    $data = xarMod::apiFunc('dynamicdata','admin','menu');
 
     // Security check - important to do this as early as possible to avoid
     // potential security holes or just too much wasted processing
@@ -57,7 +57,7 @@ function dynamicdata_admin_modifyprop()
 
     if (!xarModAPILoad('dynamicdata', 'user')) return; // throw back
 
-    $object = xarModAPIFunc('dynamicdata','user','getobjectinfo',
+    $object = xarMod::apiFunc('dynamicdata','user','getobjectinfo',
                             array('objectid' => $itemid,
                                   'moduleid' => $modid,
                                   'itemtype' => $itemtype));
@@ -98,7 +98,7 @@ function dynamicdata_admin_modifyprop()
         }
     }
 
-    $data['fields'] = xarModAPIFunc('dynamicdata','user','getprop',
+    $data['fields'] = xarMod::apiFunc('dynamicdata','user','getprop',
                                    array('modid' => $modid,
                                          'itemtype' => $itemtype,
                                          'allprops' => true));
@@ -183,7 +183,7 @@ function dynamicdata_admin_modifyprop()
 // TODO: allow modules to specify their own properties
     // (try to) show the "static" properties, corresponding to fields in dedicated
     // tables for this module
-    $data['static'] = xarModAPIFunc('dynamicdata','util','getstatic',
+    $data['static'] = xarMod::apiFunc('dynamicdata','util','getstatic',
                                    array('modid' => $modid,
                                          'itemtype' => $itemtype));
     if (!isset($data['static']) || $data['static'] == false) {
@@ -203,7 +203,7 @@ function dynamicdata_admin_modifyprop()
 
 // TODO: allow other kinds of relationships than hooks
     // (try to) get the relationships between this module and others
-    $data['relations'] = xarModAPIFunc('dynamicdata','util','getrelations',
+    $data['relations'] = xarMod::apiFunc('dynamicdata','util','getrelations',
                                        array('modid' => $modid,
                                              'itemtype' => $itemtype));
     if (!isset($data['relations']) || $data['relations'] == false) {

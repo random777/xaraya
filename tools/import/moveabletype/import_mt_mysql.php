@@ -162,9 +162,9 @@
                     $row['date'] = $dbconn->DBTimeStamp(time());
                     $row['state'] = _USER_STATE_ACTIVE;
                     echo "<br />Adding User: [<b>$row[uname]</b>]";
-                    $newuid = xarModAPIFunc('roles', 'admin', 'create', $row);
+                    $newuid = xarMod::apiFunc('roles', 'admin', 'create', $row);
                     if ($newuid === 0) {
-                        $aUser = xarModAPIFunc('roles','user','get', array('uname' => $row['uname']));
+                        $aUser = xarMod::apiFunc('roles','user','get', array('uname' => $row['uname']));
                         $newuid = $aUser['uid'];
                         echo " -- user already exists with uid: [<b>$newuid</b>]";
                     } else {
@@ -203,12 +203,12 @@
 
                     $row['cdate'] = $result->UnixTimeStamp($row['cdate']);
                     $signature = "\n--\n$row[author]\n$row[email]\n$row[url]";
-                    $test1 = xarModAPIFunc('roles','user','get', array('uname' => $row['author']));
-                    $test2 = xarModAPIFunc('roles','user','get', array('name' => $row['author']));
+                    $test1 = xarMod::apiFunc('roles','user','get', array('uname' => $row['author']));
+                    $test2 = xarMod::apiFunc('roles','user','get', array('name' => $row['author']));
                     echo "<br />Working on Comment $cid: by author: $row[author]";
                     if (!is_array($test1) && !is_array($test2)) {
                         if (!is_numeric($row['uid'])) {
-                            $u = xarModAPIFunc('roles','user','get',array('uname'=>'anonymous'));
+                            $u = xarMod::apiFunc('roles','user','get',array('uname'=>'anonymous'));
                             $row['uid'] = $u['uid'];
                             $row['body'] .= $signature;
                         }
@@ -282,7 +282,7 @@
     echo "<br />Adding Publication Type: [<b>blog</b>]";
 
     $pubtype_added = false;
-    $pubtypes = xarModAPIFunc('articles','user','getpubtypes');
+    $pubtypes = xarMod::apiFunc('articles','user','getpubtypes');
 
     foreach ($pubtypes as $pubid => $pubtype) {
         if ($pubtype['name'] == 'blog') {
@@ -292,13 +292,13 @@
     }
 
     if (!$pubtype_added) {
-        $pubid = xarModAPIFunc('articles','admin','createpubtype',
+        $pubid = xarMod::apiFunc('articles','admin','createpubtype',
                          array('name'   => 'blog',
                                'descr'  => 'Blogging Publications',
                                'config' => $pubtype_config));
     }
 
-    $cat_list = xarModAPIFunc('categories','user','getcat',array());
+    $cat_list = xarMod::apiFunc('categories','user','getcat',array());
     $roots = array();
 
     if (is_numeric($pubid) && $pubid) {
@@ -310,7 +310,7 @@
                 if (empty($blog['description'])) {
                     $blog['description'] = $blog['name'];
                 }
-                $bid = xarModAPIFunc('categories','admin','create',
+                $bid = xarMod::apiFunc('categories','admin','create',
                                array('name'         => $blog['name'],
                                      'description'  => $blog['description'],
                                      'parent_id'    => 0));
@@ -330,7 +330,7 @@
                         if (empty($category['description']))
                             $category['description'] = $category['name'];
 
-                        $new_catid = xarModAPIFunc('categories','admin','create',
+                        $new_catid = xarMod::apiFunc('categories','admin','create',
                                              array('name'        => $category['name'],
                                                    'description' => $category['description'],
                                                    'parent_id'   => $bid));
@@ -349,7 +349,7 @@
                             $new_article['authorid']    = $userid[$article['uid']];
                             $new_article['cids']        = $new_catid;
 
-                            $new_aid = xarModAPIFunc('articles','admin','create',$new_article);
+                            $new_aid = xarMod::apiFunc('articles','admin','create',$new_article);
 
                             if ($new_aid !== FALSE && $new_aid) {
                                 foreach ($article['comments'] as $cid => $comment) {
@@ -361,7 +361,7 @@
                                     unset($comment['cid']);
                                     $comment['author']   = $comment['uid'];
                                     $comment['date']     = $comment['cdate'];
-                                    $new_cid = xarModAPIFunc('comments','user','add',$comment);
+                                    $new_cid = xarMod::apiFunc('comments','user','add',$comment);
                                 }
                             }
                         }

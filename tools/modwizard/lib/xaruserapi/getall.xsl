@@ -71,7 +71,7 @@ function <xsl:value-of select="$module_prefix" />_userapi_getall( $args )
     }
 
     // Retrieve all objects via the dynamicdata module api.
-    $objects =&amp; xarModAPIFunc(
+    $objects =&amp; xarMod::apiFunc(
         'dynamicdata'
         ,'user'
         ,'getitems'

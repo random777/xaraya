@@ -82,7 +82,7 @@ function roles_user_lostpassword()
                 }
 
                // check for user and grab uid if exists
-                $user = xarModAPIFunc('roles',  'user', 'get', $userargs);
+                $user = xarMod::apiFunc('roles',  'user', 'get', $userargs);
                 if (!empty($user)) {
                     //we have what we want, so reset all these
                     $invalid =array();
@@ -105,7 +105,7 @@ function roles_user_lostpassword()
             }
 
             // We must have found a user if we got here so make new password
-            $user['pass'] = xarModAPIFunc('roles', 'user', 'makepass');
+            $user['pass'] = xarMod::apiFunc('roles', 'user', 'makepass');
 
             if (empty($user['pass'])) {
                 $msg = xarML('Problem generating new password');
@@ -122,12 +122,12 @@ function roles_user_lostpassword()
             // Bug 6440: add flag to skip sec check during this update
             $user['resetpassword'] = true;
             // check for user and grab uid if exists
-            if (!xarModAPIFunc('roles','admin','update',$user)) {
+            if (!xarMod::apiFunc('roles','admin','update',$user)) {
                 $msg = xarML('Problem updating the user information');
                 xarErrorSet(XAR_USER_EXCEPTION, 'MISSING_DATA', new DefaultUserException($msg));
             }
               // Send Reminder Email
-            if (!xarModAPIFunc('roles', 'admin','senduseremail',
+            if (!xarMod::apiFunc('roles', 'admin','senduseremail',
                           array('uid'      => array($user['uid'] => '1'),
                                                     'mailtype'   => 'reminder',
                                                     'pass'       => $user['pass']))) return;

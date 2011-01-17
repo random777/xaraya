@@ -63,7 +63,7 @@
         if (empty($title)) {
             $title = xarML('[none]');
         }
-        $newpid = xarModAPIFunc('polls','admin','create',
+        $newpid = xarMod::apiFunc('polls','admin','create',
                                 array('title' => $title,
                                       'polltype' => 'single', // does PN support any other kind ?
                                       'private' => 0,

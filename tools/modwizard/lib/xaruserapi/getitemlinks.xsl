@@ -50,7 +50,7 @@ function <xsl:value-of select="$module_prefix" />_userapi_getitemlinks ( $args )
     }
 
     $itemlinks = array();
-    $objects =&amp; xarModAPIFunc(
+    $objects =&amp; xarMod::apiFunc(
         '<xsl:value-of select="$module_prefix" />'
         ,'user'
         ,'getall'
@@ -66,7 +66,7 @@ function <xsl:value-of select="$module_prefix" />_userapi_getitemlinks ( $args )
 
     foreach( $data as $id => $object ) {
 
-        $title = xarModAPIFunc(
+        $title = xarMod::apiFunc(
             '<xsl:value-of select="$module_prefix" />'
             ,'user'
             ,'gettitle'

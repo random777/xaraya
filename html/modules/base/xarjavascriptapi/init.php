@@ -26,7 +26,7 @@ function base_javascriptapi_init($args)
     if (empty($name)) return '';
     $name = strtolower($name);
 
-    $fwinfo = xarModAPIFunc('base','javascript','getframeworkinfo', array('name' => $name));
+    $fwinfo = xarMod::apiFunc('base','javascript','getframeworkinfo', array('name' => $name));
     if (!is_array($fwinfo)) return '';
 
     if ($fwinfo['status'] != 1) {
@@ -52,7 +52,7 @@ function base_javascriptapi_init($args)
     }
     // Events will be set up as needed
 
-    $filepath = xarModAPIfunc('base', 'javascript', '_findfile', array('module' => $modName, 'filename' => "$name/$file"));
+    $filepath = xarMod::apiFunc('base', 'javascript', '_findfile', array('module' => $modName, 'filename' => "$name/$file"));
 
     if (empty($filepath)) {
         $msg = xarML('File \'#(1)\' in #(2) could not be found', $file, $name);
@@ -72,7 +72,7 @@ function base_javascriptapi_init($args)
     $args['file'] = $file;
     $args['filepath'] = $filepath;
 
-    $init = xarModAPIFunc($modName, $name, 'init', $args);
+    $init = xarMod::apiFunc($modName, $name, 'init', $args);
 
     return $init;
 }

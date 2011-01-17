@@ -88,7 +88,7 @@ function authsystem_upgrade($oldVersion)
            // Create the login block
            if (!$result) return;
             //create the blocktype
-            $bid = xarModAPIFunc('blocks','admin','register_block_type',
+            $bid = xarMod::apiFunc('blocks','admin','register_block_type',
                    array('modName' => 'authsystem',
                          'blockType' => 'login'));
            if (!$bid) return;
@@ -112,7 +112,7 @@ function authsystem_upgrade($oldVersion)
 function authsystem_delete()
 {
     /* Get all available block types for this module */
-    $blocktypes = xarModAPIfunc(
+    $blocktypes = xarMod::apiFunc(
         'blocks', 'user', 'getallblocktypes',
         array('module' => 'authsystem')
     );
@@ -120,7 +120,7 @@ function authsystem_delete()
     /* Delete block types. */
     if (is_array($blocktypes) && !empty($blocktypes)) {
         foreach($blocktypes as $blocktype) {
-            $result = xarModAPIfunc(
+            $result = xarMod::apiFunc(
                 'blocks', 'admin', 'delete_type', $blocktype
             );
         }

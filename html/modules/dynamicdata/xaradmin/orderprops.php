@@ -40,7 +40,7 @@ function dynamicdata_admin_orderprops()
 
     if (!xarModAPILoad('dynamicdata', 'user')) return; // throw back
 
-    $object = xarModAPIFunc('dynamicdata','user','getobjectinfo',
+    $object = xarMod::apiFunc('dynamicdata','user','getobjectinfo',
                             array('objectid' => $objectid,
                                   'moduleid' => $modid,
                                   'itemtype' => $itemtype));
@@ -56,7 +56,7 @@ function dynamicdata_admin_orderprops()
                 $name .= '_' . $itemtype;
             }
             if (!xarModAPILoad('dynamicdata','admin')) return;
-            $objectid = xarModAPIFunc('dynamicdata','admin','createobject',
+            $objectid = xarMod::apiFunc('dynamicdata','admin','createobject',
                                       array('moduleid' => $modid,
                                             'itemtype' => $itemtype,
                                             'name' => $name,
@@ -72,7 +72,7 @@ function dynamicdata_admin_orderprops()
         return $msg;
     }
 
-    $fields = xarModAPIFunc('dynamicdata','user','getprop',
+    $fields = xarMod::apiFunc('dynamicdata','user','getprop',
                            array('modid' => $modid,
                                  'itemtype' => $itemtype,
                                  'allprops' => true));
@@ -112,7 +112,7 @@ function dynamicdata_admin_orderprops()
             $i++;
         }
         if (isset($swappos)) {
-            if (!xarModAPIFunc('dynamicdata','admin','updateprop',
+            if (!xarMod::apiFunc('dynamicdata','admin','updateprop',
                               array('prop_id' => $currentid,
                                     'label' => $currentlabel,
                                     'type' => $currenttype,
@@ -120,7 +120,7 @@ function dynamicdata_admin_orderprops()
                 return;
             }
 
-            if (!xarModAPIFunc('dynamicdata','admin','updateprop',
+            if (!xarMod::apiFunc('dynamicdata','admin','updateprop',
                               array('prop_id' => $swaporderid,
                                     'label' => $swaplabel,
                                     'type' => $swaptype,

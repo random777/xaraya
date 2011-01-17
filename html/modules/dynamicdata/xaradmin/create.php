@@ -54,7 +54,7 @@ function dynamicdata_admin_create($args)
     $isvalid = $myobject->checkInput();
 
     if (!empty($preview) || !$isvalid) {
-        $data = xarModAPIFunc('dynamicdata','admin','menu');
+        $data = xarMod::apiFunc('dynamicdata','admin','menu');
 
         $data['object'] = & $myobject;
 

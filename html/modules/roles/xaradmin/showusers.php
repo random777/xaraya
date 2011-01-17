@@ -21,8 +21,8 @@ function roles_admin_showusers()
     if (xarVarIsCached('roles', 'defaultgroupuid')) {
         $defaultgroupuid = xarVarGetCached('roles', 'defaultgroupuid');
     } else {
-        $defaultgroup = xarModAPIFunc('roles','user','getdefaultgroup');
-        $defaultgroupuid = xarModAPIFunc('roles','user','get',
+        $defaultgroup = xarMod::apiFunc('roles','user','getdefaultgroup');
+        $defaultgroupuid = xarMod::apiFunc('roles','user','get',
                                                  array('uname'  => $defaultgroup,
                                                        'type'   => 1));
     }
@@ -54,9 +54,9 @@ function roles_admin_showusers()
     $data['treenode'] = array($renderer->maketree());
 
     // Get information on the group we're at
-    $data['groups']     = xarModAPIFunc('roles', 'user', 'getallgroups');
+    $data['groups']     = xarMod::apiFunc('roles', 'user', 'getallgroups');
     $data['groupuid']   = $uid;
-    $data['totalusers'] = xarModAPIFunc('roles','user','countall');
+    $data['totalusers'] = xarMod::apiFunc('roles','user','countall');
 
     if ($uid != 0) {
         // Call the Roles class and get the role

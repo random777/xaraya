@@ -133,7 +133,7 @@ function authsystem_user_login()
                 }
 
                 // check for user and grab uid if exists
-                $user = xarModAPIFunc('roles','user','get', array('uname' => $uname));
+                $user = xarMod::apiFunc('roles','user','get', array('uname' => $uname));
 
                 // Make sure we haven't already found authldap module
                 if (empty($user) && ($extAuthentication == false))
@@ -143,7 +143,7 @@ function authsystem_user_login()
                     return;
                 } elseif (empty($user)) {
                     // Check if user has been deleted.
-                    $user = xarModAPIFunc('roles', 'user', 'getdeleteduser',
+                    $user = xarMod::apiFunc('roles', 'user', 'getdeleteduser',
                                           array('uname' => $uname));
                     if (xarCurrentErrorType() == XAR_USER_EXCEPTION)
                     {
@@ -211,7 +211,7 @@ function authsystem_user_login()
             /* Grab the default roles admin and find their parent group (post 1.0)
             $defaultadmin = xarModGetVar('roles','admin');
             if (isset($defaultadmin)) and !empty($defaultadmin)) {
-                $admindata = xarModAPIFunc('roles','user','getrole',array('uid' => $defaultadmin));
+                $admindata = xarMod::apiFunc('roles','user','getrole',array('uid' => $defaultadmin));
                 //get the site admin parent group
                 $adminrole = xarUFindRole($admindata['uname']);
                 $parentrole = $adminrole->getParents();
@@ -276,7 +276,7 @@ function authsystem_user_login()
             // login API function and let that determine for us if this user/pw
             // combo can be authenticated.
             xarLogMessage("Authsystem: passing authentication to core");
-            $res = xarModAPIFunc(
+            $res = xarMod::apiFunc(
                 'authsystem','user','login',
                 array('uname' => $uname, 'pass' => $pass, 'rememberme' => $rememberme)
             );
@@ -324,7 +324,7 @@ function authsystem_user_login()
             if (xarModGetVar('roles', 'loginredirect'))
             {
                 //only redirect to home page if this option is set
-                if (xarModAPIFunc('roles','admin','checkduv',array('name' => 'setuserhome', 'state' => 1)))
+                if (xarMod::apiFunc('roles','admin','checkduv',array('name' => 'setuserhome', 'state' => 1)))
                 {
                     $truecurrenturl = xarServerGetCurrentURL(array(), false);
                     $role = xarUFindRole($uname);
@@ -357,7 +357,7 @@ function authsystem_user_login()
                     }
 
                     /* move the half page of code out to a Roles function. No need to repeat everytime it's used */
-                    $urldata = xarModAPIFunc(
+                    $urldata = xarMod::apiFunc(
                         'roles','user','userhome',
                         array('url'=>$url,'truecurrenturl'=>$truecurrenturl)
                     );

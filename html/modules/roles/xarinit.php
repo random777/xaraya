@@ -175,11 +175,11 @@ function roles_init()
             'roles', 'user', 'usermenu')) {
         return false;
     }
-    xarModAPIFunc('modules', 'admin', 'enablehooks',
+    xarMod::apiFunc('modules', 'admin', 'enablehooks',
         array('callerModName' => 'roles', 'hookModName' => 'roles'));
     // This won't work because the dynamicdata hooks aren't registered yet when this is
     // called at installation --> put in xarinit.php of dynamicdata instead
-    //xarModAPIFunc('modules','admin','enablehooks',
+    //xarMod::apiFunc('modules','admin','enablehooks',
     // array('callerModName' => 'roles', 'hookModName' => 'dynamicdata'));
 
     return true;
@@ -251,19 +251,19 @@ president@whitehouse.gov';
 #
 # Register block types
 #
-    if (!xarModAPIFunc('blocks',
+    if (!xarMod::apiFunc('blocks',
             'admin',
             'register_block_type',
             array('modName' => 'roles',
                 'blockType' => 'online'))) return;
 
-    if (!xarModAPIFunc('blocks',
+    if (!xarMod::apiFunc('blocks',
             'admin',
             'register_block_type',
             array('modName' => 'roles',
                 'blockType' => 'user'))) return;
 
-    if (!xarModAPIFunc('blocks',
+    if (!xarMod::apiFunc('blocks',
             'admin',
             'register_block_type',
             array('modName' => 'roles',
@@ -294,12 +294,12 @@ function roles_upgrade($oldVersion)
             if (isset($regid)) {
 
                 // upgrade and activate the authsystem module - should be done before roles upgrade
-                //if (!xarModAPIFunc('modules', 'admin', 'upgrade', array('regid' => $regid))) return;
+                //if (!xarMod::apiFunc('modules', 'admin', 'upgrade', array('regid' => $regid))) return;
                     // Activate the module
-                //if (!xarModAPIFunc('modules', 'admin', 'activate', array('regid' => $regid))) return;
+                //if (!xarMod::apiFunc('modules', 'admin', 'activate', array('regid' => $regid))) return;
 
                 // remove the login block type and block from roles
-                $result = xarModAPIfunc('blocks', 'admin', 'delete_type', array('module' => 'roles', 'type' => 'login'));
+                $result = xarMod::apiFunc('blocks', 'admin', 'delete_type', array('module' => 'roles', 'type' => 'login'));
                 // delete the old roles modvars
                 xarModDelVar('roles', 'allowregistration');
                 xarModDelVar('roles', 'rolesperpage');

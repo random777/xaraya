@@ -29,10 +29,10 @@ $args = array(
 
     // Use $name or $gid to fetch block, but we prefer $gid
     if ($gid != NULL) {
-        $groupinfo = xarModAPIFunc('blocks','user','getgroup', array('gid' => $gid));
+        $groupinfo = xarMod::apiFunc('blocks','user','getgroup', array('gid' => $gid));
     }
     if ($name != NULL && empty($groupinfo)) {
-        $groupinfo = xarModAPIFunc('blocks','user','getgroup', array('name' => $name));
+        $groupinfo = xarMod::apiFunc('blocks','user','getgroup', array('name' => $name));
     }
 //die(var_dump($groupinfo));
 

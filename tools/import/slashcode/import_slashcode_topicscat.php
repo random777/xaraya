@@ -51,7 +51,7 @@
     // we'll brute force our way through the tables.
     
     echo "Creating root category for sections<br/>\n";
-    $sections_cid = xarModAPIFunc('categories', 
+    $sections_cid = xarMod::apiFunc('categories', 
                                   'admin', 
                                   'create', 
                                   array('name' => 'Sections',
@@ -63,7 +63,7 @@
     }
                                
     echo "Creating root category for topics<br/>\n";
-    $categories_cid = xarModAPIFunc('categories', 
+    $categories_cid = xarMod::apiFunc('categories', 
                                     'admin', 
                                     'create', 
                                     array('name' => 'Topics',
@@ -104,7 +104,7 @@
     while (!$result->EOF) {
         list($id, $title, $url) = $result->fields;
         // Create a new category based on the section
-        $sections[$id] = xarModAPIFunc('categories', 
+        $sections[$id] = xarMod::apiFunc('categories', 
                                        'admin', 
                                        'create', 
                                        array('name' => $title,
@@ -113,7 +113,7 @@
                                          
         echo "Creating section ($id) $title<br/>\n";
         if (!empty($docounter)) {
-            $hcid = xarModAPIFunc('hitcount',
+            $hcid = xarMod::apiFunc('hitcount',
                                   'admin',
                                   'create',
                                   array('modname' => 'categories',
@@ -220,7 +220,7 @@
             $parentcid = $categories[$parentid];
         }
         // Create category
-        $cid = xarModAPIFunc('categories', 
+        $cid = xarMod::apiFunc('categories', 
                              'admin', 
                              'create', 
                              array('name' => $textname,
@@ -233,7 +233,7 @@
         echo "Creating category ($cid) $textname - parent " . $parentcid . "<br/>\n";
         
         if (!empty($docounter)) {
-            $hcid = xarModAPIFunc('hitcount',
+            $hcid = xarMod::apiFunc('hitcount',
                                   'admin',
                                   'create',
                                   array('modname' => 'categories',

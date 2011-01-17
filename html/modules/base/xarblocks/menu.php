@@ -289,7 +289,7 @@ function base_menublock_display($blockinfo)
                     // Lets check to see if the function exists and just skip it if it doesn't
                     // with the new api load, it causes some problems.  We need to load the api
                     // in order to do it right.
-                    xarModAPILoad($mod['name'], 'user');
+                    xarMod::apiLoad($mod['name'], 'user');
                     if (function_exists($label.'_userapi_getmenulinks') ||
                         file_exists("modules/$mod[osdirectory]/xaruserapi/getmenulinks.php")){
                         // The user API function is called.

@@ -77,7 +77,7 @@ function xarMain()
 
     if ($run) {
         // Load the module
-        if (!xarModLoad($modName, $modType)) return; // throw back
+        if (!xarMod::load($modName, $modType)) return; // throw back
 
         // if the debugger is active, start it
         if (xarCoreIsDebuggerActive()) {

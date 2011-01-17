@@ -93,16 +93,16 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
 
     $dbconn =& xarDBGetConn();
 
-    if (!xarModAPILoad('roles','admin')) {
+    if (!xarMod::apiLoad('roles','admin')) {
         die("Unable to load the users admin API");
     }
-    if (!xarModAPILoad('categories','user')) {
+    if (!xarMod::apiLoad('categories','user')) {
         die("Unable to load the categories user API");
     }
-    if (!xarModAPILoad('categories','admin')) {
+    if (!xarMod::apiLoad('categories','admin')) {
         die("Unable to load the categories admin API");
     }
-    if (!xarModAPILoad('articles','admin')) {
+    if (!xarMod::apiLoad('articles','admin')) {
         die("Unable to load the articles admin API");
     }
     $tables =& xarDBGetTables();
@@ -149,7 +149,7 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
         if (!$result) {
             die("Oops, select HTMLpages content failed : " . $dbconn->ErrorMsg());
         }
-        if (xarMod::isAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
+        if (xarMod::isAvailable('hitcount') && xarMod::apiLoad('hitcount','admin')) {
             $docounter = 1;
         }
         while (!$result->EOF) {

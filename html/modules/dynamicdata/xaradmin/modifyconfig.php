@@ -30,7 +30,7 @@ function dynamicdata_admin_modifyconfig()
     // Generate a one-time authorisation code for this operation
     $data['authid'] = xarSecGenAuthKey();
 
-    if (!xarModAPILoad('dynamicdata', 'user')) return;
+    if (!xarMod::apiLoad('dynamicdata', 'user')) return;
 
     // Get the defined property types from somewhere...
     $data['fields'] = xarMod::apiFunc('dynamicdata','user','getproptypes');

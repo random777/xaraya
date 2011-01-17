@@ -54,7 +54,7 @@ function dynamicdata_admin_modifyconfighook($args)
         $itemtype = null;
     }
 
-    if (!xarModAPILoad('dynamicdata', 'user')) return;
+    if (!xarMod::apiLoad('dynamicdata', 'user')) return;
 
     $fields = xarMod::apiFunc('dynamicdata','user','getprop',
                            array('modid' => $modid,

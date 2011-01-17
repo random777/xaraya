@@ -38,7 +38,7 @@ function dynamicdata_admin_orderprops()
         $itemtype = 0;
     }
 
-    if (!xarModAPILoad('dynamicdata', 'user')) return; // throw back
+    if (!xarMod::apiLoad('dynamicdata', 'user')) return; // throw back
 
     $object = xarMod::apiFunc('dynamicdata','user','getobjectinfo',
                             array('objectid' => $objectid,
@@ -55,7 +55,7 @@ function dynamicdata_admin_orderprops()
             if (!empty($itemtype)) {
                 $name .= '_' . $itemtype;
             }
-            if (!xarModAPILoad('dynamicdata','admin')) return;
+            if (!xarMod::apiLoad('dynamicdata','admin')) return;
             $objectid = xarMod::apiFunc('dynamicdata','admin','createobject',
                                       array('moduleid' => $modid,
                                             'itemtype' => $itemtype,
@@ -76,7 +76,7 @@ function dynamicdata_admin_orderprops()
                            array('modid' => $modid,
                                  'itemtype' => $itemtype,
                                  'allprops' => true));
-    if (!xarModAPILoad('dynamicdata', 'admin')) return;
+    if (!xarMod::apiLoad('dynamicdata', 'admin')) return;
 
     if (isset($fields[$move_prop]) && !empty($direction)) {
         $currentorder   = $fields[$move_prop]['order'];

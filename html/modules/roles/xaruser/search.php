@@ -71,7 +71,7 @@ function roles_user_search()
 
     if (xarModIsHooked('dynamicdata','roles')) {
         // make sure the DD classes are loaded
-        if (!xarModAPILoad('dynamicdata','user')) return $data;
+        if (!xarMod::apiLoad('dynamicdata','user')) return $data;
 
         // get a new object list for roles
         $object = new Dynamic_Object_List(array('moduleid'  => xarModGetIDFromName('roles')));

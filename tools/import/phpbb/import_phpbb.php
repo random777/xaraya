@@ -90,31 +90,31 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
 
     $dbconn =& xarDBGetConn();
 
-    if (!xarModAPILoad('roles','admin')) {
+    if (!xarMod::apiLoad('roles','admin')) {
         die("Unable to load the users admin API");
     }
-    if (!xarModAPILoad('categories','user')) {
+    if (!xarMod::apiLoad('categories','user')) {
         die("Unable to load the categories user API");
     }
-    if (!xarModAPILoad('categories','admin')) {
+    if (!xarMod::apiLoad('categories','admin')) {
         die("Unable to load the categories admin API");
     }
-    if ($importmodule == 'articles' && !xarModAPILoad('articles','admin')) {
+    if ($importmodule == 'articles' && !xarMod::apiLoad('articles','admin')) {
         die("Unable to load the articles admin API");
     }
-    if ($importmodule == 'xarbb' && !xarModAPILoad('xarbb','admin')) {
+    if ($importmodule == 'xarbb' && !xarMod::apiLoad('xarbb','admin')) {
         die("Unable to load the xarbb admin API");
     }
-    if (!xarModAPILoad('comments','user')) {
+    if (!xarMod::apiLoad('comments','user')) {
         die("Unable to load the comments user API");
     }
-    if (!xarModAPILoad('dynamicdata','util')) {
+    if (!xarMod::apiLoad('dynamicdata','util')) {
         die("Unable to load the dynamicdata util API");
     }
-    if (xarMod::isAvailable('polls') && !xarModAPILoad('polls','admin')) {
+    if (xarMod::isAvailable('polls') && !xarMod::apiLoad('polls','admin')) {
         die("Unable to load the polls admin API");
     }
-    if (xarMod::isAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
+    if (xarMod::isAvailable('hitcount') && xarMod::apiLoad('hitcount','admin')) {
         $docounter = 1;
     }
     $tables =& xarDBGetTables();

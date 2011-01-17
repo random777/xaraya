@@ -33,8 +33,8 @@ include dirname(__FILE__).'/pnHTML.php';
 * pnModURL -> xarModURL
 * pnModGetName -> xarRequestGetInfo (use list() = $modName = xarRequestGetInfo() )
 * pnModGetIDFromName -> xarModGetIDFromName
-* pnModLoad -> xarModLoad
-* pnModAPILoad -> xarModAPILoad
+* pnModLoad -> xarMod::load
+* pnModAPILoad -> xarMod::apiLoad
 * pnModFunc -> xarMod::guiFunc
 * pnModAPIFunc -> xarMod::apiFunc
 * pnModAvailable -> xarMod::isAvailable
@@ -673,7 +673,7 @@ function pnModAPIFunc($modName, $modType='user', $funcName='main', $args = array
 
 function pnModAPILoad($modName, $modType='user')
 {
-    return xarModAPILoad($modName, $modType);
+    return xarMod::apiLoad($modName, $modType);
 }
 
 function pnModCallHooks($hookobject, $hookaction, $hookid, $extrainfo)
@@ -724,7 +724,7 @@ function pnModGetVar($modName, $name)
 
 function pnModLoad($modname, $type='user')
 {
-    return xarModLoad($modname, $type);
+    return xarMod::load($modname, $type);
 }
 
 function pnModSetVar($modName, $name, $value)
@@ -976,7 +976,7 @@ function pnVarPrepHTMLDisplay($var)
 
 function xarBlockTypeExists($modName, $blockType)
 {
-    if (!xarModAPILoad('blocks', 'admin')) return;
+    if (!xarMod::apiLoad('blocks', 'admin')) return;
     $args = array('modName'=>$modName, 'blockType'=>$blockType);
     return xarMod::apiFunc('blocks', 'admin', 'block_type_exists', $args);
 }

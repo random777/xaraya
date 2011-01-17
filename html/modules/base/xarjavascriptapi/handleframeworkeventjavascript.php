@@ -19,8 +19,8 @@
  */
 function base_javascriptapi_handleframeworkeventjavascript($args)
 {
-    // FIXME: MrB Does the wrapping of xarModAPILoad have any consequences for this?
-    $out = "xarModAPILoad('base','javascript');
+    // FIXME: MrB Does the wrapping of xarMod::apiLoad have any consequences for this?
+    $out = "xarMod::apiLoad('base','javascript');
         echo xarMod::apiFunc('base',
                    'javascript',
                    'appendframeworkevent',

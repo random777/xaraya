@@ -82,25 +82,25 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
 
     $dbconn =& xarDBGetConn();
 
-    if (!xarModAPILoad('roles','admin')) {
+    if (!xarMod::apiLoad('roles','admin')) {
         die("Unable to load the users admin API");
     }
-    if (!xarModAPILoad('categories','user')) {
+    if (!xarMod::apiLoad('categories','user')) {
         die("Unable to load the categories user API");
     }
-    if (!xarModAPILoad('categories','admin')) {
+    if (!xarMod::apiLoad('categories','admin')) {
         die("Unable to load the categories admin API");
     }
-    if (!xarModAPILoad('articles','admin')) {
+    if (!xarMod::apiLoad('articles','admin')) {
         die("Unable to load the articles admin API");
     }
-    if (!xarModAPILoad('comments','user')) {
+    if (!xarMod::apiLoad('comments','user')) {
         die("Unable to load the comments user API");
     }
-    if (!xarModAPILoad('dynamicdata','util')) {
+    if (!xarMod::apiLoad('dynamicdata','util')) {
         die("Unable to load the dynamicdata util API");
     }
-    if (xarMod::isAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
+    if (xarMod::isAvailable('hitcount') && xarMod::apiLoad('hitcount','admin')) {
         $docounter = 1;
     }
     $tables =& xarDBGetTables();
@@ -345,7 +345,7 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
     $dbconn->Execute('OPTIMIZE TABLE ' . $tables['categories']);
     $dbconn->Execute('OPTIMIZE TABLE ' . $tables['articles']);
     $dbconn->Execute('OPTIMIZE TABLE ' . $tables['categories_linkage']);
-    if (xarMod::isAvailable('hitcount') && xarModAPILoad('hitcount','admin')) {
+    if (xarMod::isAvailable('hitcount') && xarMod::apiLoad('hitcount','admin')) {
         $dbconn->Execute('OPTIMIZE TABLE ' . $tables['hitcount']);
     }
     $dbconn->Execute('OPTIMIZE TABLE ' . $tables['comments']);

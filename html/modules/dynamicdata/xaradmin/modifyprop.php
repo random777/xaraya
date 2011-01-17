@@ -55,7 +55,7 @@ function dynamicdata_admin_modifyprop()
     //echo var_dump($myobject);
 */
 
-    if (!xarModAPILoad('dynamicdata', 'user')) return; // throw back
+    if (!xarMod::apiLoad('dynamicdata', 'user')) return; // throw back
 
     $object = xarMod::apiFunc('dynamicdata','user','getobjectinfo',
                             array('objectid' => $itemid,

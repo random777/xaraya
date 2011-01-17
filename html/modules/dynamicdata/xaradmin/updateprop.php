@@ -49,7 +49,7 @@ function dynamicdata_admin_updateprop()
         $itemtype = 0;
     }
 
-    if (!xarModAPILoad('dynamicdata', 'user')) return; // throw back
+    if (!xarMod::apiLoad('dynamicdata', 'user')) return; // throw back
 
     $object = xarMod::apiFunc('dynamicdata','user','getobjectinfo',
                             array('objectid' => $objectid,
@@ -66,7 +66,7 @@ function dynamicdata_admin_updateprop()
             if (!empty($itemtype)) {
                 $name .= '_' . $itemtype;
             }
-            if (!xarModAPILoad('dynamicdata','admin')) return;
+            if (!xarMod::apiLoad('dynamicdata','admin')) return;
             $objectid = xarMod::apiFunc('dynamicdata','admin','createobject',
                                       array('moduleid' => $modid,
                                             'itemtype' => $itemtype,
@@ -87,7 +87,7 @@ function dynamicdata_admin_updateprop()
                            array('modid' => $modid,
                                  'itemtype' => $itemtype,
                                  'allprops' => true));
-    if (!xarModAPILoad('dynamicdata', 'admin')) return;
+    if (!xarMod::apiLoad('dynamicdata', 'admin')) return;
 
     $isprimary = 0;
 

@@ -22,7 +22,7 @@ function dynamicdata_user_main()
 
     $data = xarMod::apiFunc('dynamicdata','user','menu');
 
-    if (!xarModAPILoad('dynamicdata','user')) return;
+    if (!xarMod::apiLoad('dynamicdata','user')) return;
 
     // get items from the objects table
     $objects = xarMod::apiFunc('dynamicdata','user','getobjects');

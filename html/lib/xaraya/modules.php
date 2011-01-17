@@ -1999,7 +1999,7 @@ function xarModCallHooks($hookObject, $hookAction, $hookId, $extraInfo, $callerM
         if (!xarMod::isAvailable($hook['module'])) continue;
         if ($hook['area'] == 'GUI') {
             $isGUI = true;
-            if (!xarModLoad($hook['module'], $hook['type']))  return;
+            if (!xarMod::load($hook['module'], $hook['type']))  return;
             // return; Bug 4843 return causes all hooks to fail
             /* jojodee : it's not the return causing the fail necessarily. In fact there is no logical fail due to api or mod not loading
                 in many cases, as the module or hook function is successfully loaded. The failure is in some modules' hook
@@ -2018,7 +2018,7 @@ function xarModCallHooks($hookObject, $hookAction, $hookId, $extraInfo, $callerM
             //       so using the module name as key here is OK (and easier for designers)
             $output[$hook['module']] = $res;
         } else {
-            if (!xarModAPILoad($hook['module'], $hook['type']))  return; //return;
+            if (!xarMod::apiLoad($hook['module'], $hook['type']))  return; //return;
             $res = xarMod::apiFunc($hook['module'],
                                  $hook['type'],
                                  $hook['func'],

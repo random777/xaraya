@@ -44,7 +44,7 @@ function dynamicdata_user_view($args)
     if (empty($itemtype)) {
         $itemtype = 0;
     }
-    if (!xarModAPILoad('dynamicdata','user')) return;
+    if (!xarMod::apiLoad('dynamicdata','user')) return;
     $object = xarMod::apiFunc('dynamicdata','user','getobjectinfo',
                             array('objectid' => $objectid,
                                   'moduleid' => $modid,

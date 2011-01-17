@@ -66,7 +66,7 @@ class Dynamic_Function_DataStore extends Dynamic_DataStore
             } else {
             // TODO: don't we want auto-loading for xarMod::guiFunc too ???
                 // try to load the module GUI
-                if (!xarModLoad($fmod,$ftype)) {
+                if (!xarMod::load($fmod,$ftype)) {
                     if (xarCurrentErrorType() != XAR_NO_EXCEPTION) {
                         // ignore any exceptions on retrieval for now
                         xarErrorFree();

@@ -72,18 +72,18 @@
     } else {
         $dbconn =& xarDBGetConn();
 
-        if (!xarModAPILoad('roles','admin')) {
+        if (!xarMod::apiLoad('roles','admin')) {
         }
-        if (!xarModAPILoad('categories','user')) {
+        if (!xarMod::apiLoad('categories','user')) {
             die("Unable to load the categories user API");
         }
-        if (!xarModAPILoad('categories','admin')) {
+        if (!xarMod::apiLoad('categories','admin')) {
             die("Unable to load the categories admin API");
         }
-        if (!xarModAPILoad('articles','admin')) {
+        if (!xarMod::apiLoad('articles','admin')) {
             die("Unable to load the articles admin API");
         }
-        if (!xarModAPILoad('comments','user')) {
+        if (!xarMod::apiLoad('comments','user')) {
             die("Unable to load the comments user API");
         }
         $tables =& xarDBGetTables();

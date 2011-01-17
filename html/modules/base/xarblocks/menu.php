@@ -272,7 +272,7 @@ function base_menublock_display($blockinfo)
                 if (isset($useAliasName) && $useAliasName==1 && isset($aliasname) && !empty($aliasname)) {
                     $label = $aliasname;
                 } else {
-                    $label = xarModGetDisplayableName($mod['name']);
+                    $label = xarMod::getDisplayName($mod['name']);
                 }
                 $title = xarMod::getDisplayDescription($mod['name']);
                 $link = xarModURL($mod['name'] ,'user', 'main', array());
@@ -346,7 +346,7 @@ function base_menublock_display($blockinfo)
             } else {
                   $title = xarML('No description');
             }
-            $usermods[] = array('label' => xarModGetDisplayableName('roles'),
+            $usermods[] = array('label' => xarMod::getDisplayName('roles'),
                 'link' => xarModUrl('roles', 'user', 'main'),
                 'desc' => xarMod::getDisplayDescription('roles'),
                 'modactive' => 0);

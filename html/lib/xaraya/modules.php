@@ -282,7 +282,7 @@ function xarModGetNameFromID($regid)
 function xarModGetDisplayableName($modName = NULL, $type = 'module')
 {   return xarMod::getDisplayName($modName, $type); }
 
-function xarMod::getDisplayDescription($modName = NULL, $type = 'module')
+function xarModGetDisplayableDescription($modName = NULL, $type = 'module')
 {   return xarMod::getDisplayDescription($modName,$type); }
 
 function xarModGetIDFromName($modName, $type = 'module')
@@ -1676,7 +1676,7 @@ function xarModGetInfo($modRegId, $type = 'module')
 
     $modInfo['regid'] = (int) $modRegId;
     $modInfo['mode'] = (int) $mode;
-    $modInfo['displayname'] = xarModGetDisplayableName($modInfo['name'], $type);
+    $modInfo['displayname'] = xarMod::getDisplayName($modInfo['name'], $type);
     $modInfo['displaydescription'] = xarMod::getDisplayDescription($modInfo['name'], $type);
 
     // Shortcut for os prepared directory
@@ -2422,7 +2422,7 @@ function xarMod_getBaseInfo($modName, $type = 'module')
     $modBaseInfo['state'] = (int) $state;
     $modBaseInfo['name'] = $name;
     $modBaseInfo['directory'] = $directory;
-    $modBaseInfo['displayname'] = xarModGetDisplayableName($directory, $type);
+    $modBaseInfo['displayname'] = xarMod::getDisplayName($directory, $type);
     $modBaseInfo['displaydescription'] = xarMod::getDisplayDescription($directory, $type);
     // Shortcut for os prepared directory
     // TODO: <marco> get rid of it since useless

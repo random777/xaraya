@@ -167,7 +167,7 @@ function modules_adminapi_getlist($args)
                 $modList[] = xarVarGetCached('Mod.Infos', $modInfo['regid']);
             } else {
                 $modInfo['mode'] = (int) $mode;
-                $modInfo['displayname'] = xarModGetDisplayableName($modInfo['name']);
+                $modInfo['displayname'] = xarMod::getDisplayName($modInfo['name']);
                 $modInfo['displaydescription'] = xarMod::getDisplayDescription($modInfo['name']);
                 // Shortcut for os prepared directory
                 $modInfo['osdirectory'] = xarVarPrepForOS($modInfo['directory']);

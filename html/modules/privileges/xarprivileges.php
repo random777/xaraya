@@ -1188,7 +1188,7 @@ class xarPrivileges extends xarMasks
                 list($mid, $name) = $result->fields;
                 $modules[] = array('id' => $mid,
                                    'name' => $name,
-                                   //'display' => xarModGetDisplayableName($name),
+                                   //'display' => xarMod::getDisplayName($name),
                                    'display' => ucfirst($name));
                 $result->MoveNext();
             }

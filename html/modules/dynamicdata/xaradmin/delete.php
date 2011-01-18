@@ -40,10 +40,10 @@ function dynamicdata_admin_delete($args)
 
     if (!empty($noconfirm)) {
         if (!empty($table)) {
-            xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
+            xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'view',
                                           array('table' => $table)));
         } else {
-            xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
+            xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'view',
                                           array('itemid' => $objectid)));
         }
         return true;
@@ -98,7 +98,7 @@ function dynamicdata_admin_delete($args)
         }
     }
 
-    return xarResponseRedirect($return_url);
+    return xarResponse::redirect($return_url);
 
 }
 

@@ -62,7 +62,7 @@ function themes_user_usermenu($args)
 
             xarModSetUserVar('themes', 'default', $themeInfo['directory'], $uid);
             // Redirect
-            xarResponseRedirect(xarModURL('roles', 'user', 'account', array('moduleload' => 'themes')));
+            xarResponse::redirect(xarModURL('roles', 'user', 'account', array('moduleload' => 'themes')));
 
             break;
     }

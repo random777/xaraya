@@ -60,7 +60,7 @@ function roles_admin_addmember()
     if (!xarMod::apiFunc('roles','user','addmember', array('uid' => $uid, 'gid' => $roleid))) return;
 
     // redirect to the next page
-    xarResponseRedirect(xarModURL('roles', 'admin', 'modifyrole',
+    xarResponse::redirect(xarModURL('roles', 'admin', 'modifyrole',
             array('uid' => $uid)));
 }
 

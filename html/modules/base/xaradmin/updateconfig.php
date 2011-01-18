@@ -229,9 +229,9 @@ function base_admin_updateconfig()
 
     if (isset($data['returnurl'])) {
         if (isset($fragment)) $data['returnurl'] .= '#' . $fragment;
-        xarResponseRedirect($data['returnurl']);
+        xarResponse::redirect($data['returnurl']);
     } else {
-        xarResponseRedirect(xarModURL('base', 'admin', 'modifyconfig',
+        xarResponse::redirect(xarModURL('base', 'admin', 'modifyconfig',
                                       array('tab' => $data['tab']), NULL, isset($fragment) ? $fragment : NULL));
     }
 

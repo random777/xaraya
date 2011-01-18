@@ -44,14 +44,14 @@ function authsystem_admin_createpassword()
         return;
      }
      if (!xarModGetVar('roles', 'askpasswordemail')) {
-        xarResponseRedirect(xarModURL('roles', 'admin', 'showusers',
+        xarResponse::redirect(xarModURL('roles', 'admin', 'showusers',
                       array('uid' => $data['groupuid'], 'state' => $data['state'])));
         return true;
     }
     else {
 
         xarSessionSetVar('tmppass',$pass);
-        xarResponseRedirect(xarModURL('roles', 'admin', 'asknotification',
+        xarResponse::redirect(xarModURL('roles', 'admin', 'asknotification',
         array('uid' => array($uid => '1'), 'mailtype' => 'password', 'groupuid' => $groupuid, 'state' => $state)));
     }
 }

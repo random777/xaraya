@@ -72,7 +72,7 @@ function mail_admin_viewq($args)
                     $serialqueue = serialize($queue);
                     xarModSetVar('mail','queue',$serialqueue);
 
-                    xarResponseRedirect(xarModURL('mail', 'admin', 'viewq'));
+                    xarResponse::redirect(xarModURL('mail', 'admin', 'viewq'));
                     return true;
                 }
                 break;

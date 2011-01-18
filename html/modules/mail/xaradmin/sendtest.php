@@ -80,7 +80,7 @@ function mail_admin_sendtest()
                 'when' => $when))) return;
 
     // lets update status and display updated configuration
-    xarResponseRedirect(xarModURL('mail', 'admin', 'compose'));
+    xarResponse::redirect(xarModURL('mail', 'admin', 'compose'));
     // Return
     return true;
 }

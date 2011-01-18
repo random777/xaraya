@@ -123,11 +123,11 @@ function roles_user_email($args)
             )) return;
 
             if (!empty($return_url)) {
-                xarResponseRedirect($return_url);
+                xarResponse::redirect($return_url);
             }
             else {
                 // lets update status and display updated configuration
-                xarResponseRedirect(xarModURL('roles', 'user', 'view'));
+                xarResponse::redirect(xarModURL('roles', 'user', 'view'));
             }
 
             break;

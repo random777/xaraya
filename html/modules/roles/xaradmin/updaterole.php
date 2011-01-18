@@ -178,7 +178,7 @@ function roles_admin_updaterole()
         if ($ppass1 != '') {
             if (xarModGetVar('roles', 'askpasswordemail')) {
                 xarSessionSetVar('tmppass',$ppass1);
-                xarResponseRedirect(xarModURL('roles', 'admin', 'asknotification',
+                xarResponse::redirect(xarModURL('roles', 'admin', 'asknotification',
                 array('uid' => array($uid => '1'), 'mailtype' => 'password')));
             }
             //TODO : If askpasswordemail is false, the user won't know his new password...
@@ -201,7 +201,7 @@ function roles_admin_updaterole()
                 break;
             }
             if (xarModGetVar('roles', 'ask'.$mailtype.'email')) {
-                xarResponseRedirect(xarModURL('roles', 'admin', 'asknotification',
+                xarResponse::redirect(xarModURL('roles', 'admin', 'asknotification',
                               array('uid' => array($uid => '1'), 'mailtype' => $mailtype)));
             }
             //TOTHINK : If ask$mailtypeemail is false, the user won't know his new state...
@@ -210,9 +210,9 @@ function roles_admin_updaterole()
 
     // redirect to the next page
     if (empty($returnurl)) {
-        xarResponseRedirect(xarModURL('roles', 'admin', 'modifyrole', array('uid' => $uid)));
+        xarResponse::redirect(xarModURL('roles', 'admin', 'modifyrole', array('uid' => $uid)));
     } else {
-        xarResponseRedirect($returnurl);
+        xarResponse::redirect($returnurl);
     }
 }
 

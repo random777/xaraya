@@ -65,7 +65,7 @@ include dirname(__FILE__).'/pnHTML.php';
 * SERVER FUNCTIONS (URL URI)
 * pnGetBaseURI -> xarServer::getBaseURI
 * pnGetBaseURL -> xarServer::getBaseURL
-* pnRedirect -> xarResponseRedirect
+* pnRedirect -> xarResponse::redirect
 * pnIsRedirected -> xarResponseIsRedirected CHECK THIS ONE!!! Where is this function?
 * pnLocalReferer -> xarResponseIsLocalReferer
 *
@@ -166,7 +166,7 @@ function pnGetBaseURL()
  */
 function pnRedirect($redirecturl)
 {
-    return xarResponseRedirect($redirecturl);
+    return xarResponse::redirect($redirecturl);
 }
 
 /**

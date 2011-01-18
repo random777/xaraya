@@ -209,7 +209,7 @@ function roles_admin_modifyconfig()
             // Update module variables
 //            xarModSetVar('roles', 'allowinvisible', $allowinvisible);
 
-            xarResponseRedirect(xarModURL('roles', 'admin', 'modifyconfig',array('tab' => $data['tab'])));
+            xarResponse::redirect(xarModURL('roles', 'admin', 'modifyconfig',array('tab' => $data['tab'])));
             // Return
             return true;
             break;

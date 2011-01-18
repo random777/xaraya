@@ -101,7 +101,7 @@ function themes_admin_updateconfig()
     }
 
     // lets update status and display updated configuration
-    xarResponseRedirect($redirecturl);
+    xarResponse::redirect($redirecturl);
     // Return
     return true;
 }

@@ -67,7 +67,7 @@ function <xsl:value-of select="$module_prefix" />_admin_new( $args )
 
         // This function generated no output, and so now it is complete we redirect
         // the user to an appropriate page for them to carry on their work
-        return xarResponseRedirect(
+        return xarResponse::redirect(
             xarModURL(
                 '<xsl:value-of select="$module_prefix" />'
                 ,'admin'
@@ -99,7 +99,7 @@ function <xsl:value-of select="$module_prefix" />_admin_new( $args )
             </xsl:for-each>
                 default:
                     // TODO // Add statusmessage
-                    return xarResponseRedirect(
+                    return xarResponse::redirect(
                         xarModURL(
                             '<xsl:value-of select="$module_prefix" />'
                             ,'admin'
@@ -122,7 +122,7 @@ function <xsl:value-of select="$module_prefix" />_admin_new( $args )
     </xsl:for-each>
         default:
             // TODO // Add statusmessage
-            return xarResponseRedirect(
+            return xarResponse::redirect(
                 xarModURL(
                     '<xsl:value-of select="$module_prefix" />'
                     ,'admin'

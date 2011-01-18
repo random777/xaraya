@@ -507,7 +507,7 @@ class xarMasks
                 //authsystem will handle the authentication
                 //Redirect to login for anon users, and take their current url as well for redirect after login
                 $requrl = xarServer::getCurrentURL(array(),false);
-                xarResponseRedirect(xarModURL('authsystem','user','showloginform',array('redirecturl'=> $requrl),false));
+                xarResponse::redirect(xarModURL('authsystem','user','showloginform',array('redirecturl'=> $requrl),false));
             } else {
                 $msg = xarML('No privilege for #(1)',$mask->getName());
                 xarErrorSet(XAR_USER_EXCEPTION, 'NO_PRIVILEGES',

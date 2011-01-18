@@ -36,7 +36,7 @@ function dynamicdata_admin_updateconfig($args)
 
         if( $success )
         {
-            xarResponseRedirect(xarModURL('dynamicdata','admin','modifyconfig'));
+            xarResponse::redirect(xarModURL('dynamicdata','admin','modifyconfig'));
             return true;
         } else {
             return 'Unknown error while clearing and reloading Property Definition Cache.';
@@ -47,7 +47,7 @@ function dynamicdata_admin_updateconfig($args)
     if (!xarVarFetch('validation','list:str:',$validation,NULL,XARVAR_NOT_REQUIRED)) return;
 
     if (empty($label) && empty($validation)) {
-        xarResponseRedirect(xarModURL('dynamicdata','admin','modifyconfig'));
+        xarResponse::redirect(xarModURL('dynamicdata','admin','modifyconfig'));
         return true;
     }
 
@@ -77,7 +77,7 @@ function dynamicdata_admin_updateconfig($args)
         }
     }
 
-    xarResponseRedirect(xarModURL('dynamicdata','admin','modifyconfig'));
+    xarResponse::redirect(xarModURL('dynamicdata','admin','modifyconfig'));
     return true;
 }
 

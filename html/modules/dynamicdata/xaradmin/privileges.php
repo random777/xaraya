@@ -107,7 +107,7 @@ function dynamicdata_admin_privileges($args)
         }
 
         // redirect to the privilege
-        xarResponseRedirect(xarModURL('privileges', 'admin', 'modifyprivilege',
+        xarResponse::redirect(xarModURL('privileges', 'admin', 'modifyprivilege',
                                       array('pid' => $pid)));
         return true;
     }

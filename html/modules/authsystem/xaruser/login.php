@@ -195,7 +195,7 @@ function authsystem_user_login()
             break;
         case ROLES_STATE_NOTVALIDATED:
             //User still must validate
-            xarResponseRedirect(xarModURL('roles', 'user', 'getvalidation'));
+            xarResponse::redirect(xarModURL('roles', 'user', 'getvalidation'));
             break;
         case ROLES_STATE_ACTIVE:
         default:
@@ -379,9 +379,9 @@ function authsystem_user_login()
                    $data['title'] = xarML('Home Page');
                    return xarTplModule('roles','user','homedisplay', $data);
                  */
-                 xarResponseRedirect($redirecturl);
+                 xarResponse::redirect($redirecturl);
             } else {
-                xarResponseRedirect($redirecturl);
+                xarResponse::redirect($redirecturl);
             }
             return true;
             break;

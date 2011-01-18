@@ -32,7 +32,7 @@ function themes_admin_install()
 
     // set the target location (anchor) to go to within the page
     $target = $minfo['name'];
-    xarResponseRedirect(xarModURL('themes', 'admin', 'list', array('state' => 0), NULL, $target));
+    xarResponse::redirect(xarModURL('themes', 'admin', 'list', array('state' => 0), NULL, $target));
     return true;
 }
 ?>

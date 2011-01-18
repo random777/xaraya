@@ -178,6 +178,6 @@ function roles_admin_showusers()
                                          $numitems);
     return $data;
     // redirect to the next page
-    xarResponseRedirect(xarModURL('roles', 'admin', 'newrole'));
+    xarResponse::redirect(xarModURL('roles', 'admin', 'newrole'));
 }
 ?>

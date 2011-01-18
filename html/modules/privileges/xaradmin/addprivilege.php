@@ -80,7 +80,7 @@ function privileges_admin_addprivilege()
                     'privileges'));
 
 // redirect to the next page
-    xarResponseRedirect(xarModURL('privileges', 'admin', 'newprivilege'));
+    xarResponse::redirect(xarModURL('privileges', 'admin', 'newprivilege'));
 }
 
 ?>

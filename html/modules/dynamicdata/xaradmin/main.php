@@ -20,7 +20,7 @@ function dynamicdata_admin_main()
 // Security Check
     if(!xarSecurityCheck('EditDynamicData')) return;
 
-    xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view'));
+    xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'view'));
 
     return true;
 }

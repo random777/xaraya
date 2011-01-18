@@ -46,9 +46,9 @@ function modules_admin_updatehooks()
 
     if (!xarVarFetch('return_url', 'isset', $return_url, '', XARVAR_NOT_REQUIRED)) {return;}
     if (!empty($return_url)) {
-        xarResponseRedirect($return_url);
+        xarResponse::redirect($return_url);
     } else {
-        xarResponseRedirect(xarModURL('modules', 'admin', 'hooks',
+        xarResponse::redirect(xarModURL('modules', 'admin', 'hooks',
                                       array('hook' => $curhook)));
     }
     return true;

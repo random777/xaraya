@@ -175,7 +175,7 @@ function dynamicdata_admin_updateprop()
                               'itemtype' => $itemtype));
     }
 
-    xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'modifyprop',
+    xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'modifyprop',
                         array('modid'    => $modid,
                               'itemtype' => $itemtype,
                               'table'    => $table)));

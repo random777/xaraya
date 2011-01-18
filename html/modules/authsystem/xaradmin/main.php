@@ -21,7 +21,7 @@ function authsystem_admin_main()
     // Security Check
     if (!xarSecurityCheck('AdminAuthsystem')) return;
 
-    xarResponseRedirect(xarModURL('authsystem', 'admin', 'modifyconfig'));
+    xarResponse::redirect(xarModURL('authsystem', 'admin', 'modifyconfig'));
 
     // success
     return true;

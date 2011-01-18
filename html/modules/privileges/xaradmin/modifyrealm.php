@@ -52,7 +52,7 @@ function privileges_admin_modifyrealm()
         $q->addfield('xar_name', $newname);
         $q->eq('xar_rid', $rid);
         if(!$q->run()) return;
-        xarResponseRedirect(xarModURL('privileges', 'admin', 'viewrealms'));
+        xarResponse::redirect(xarModURL('privileges', 'admin', 'viewrealms'));
     }
 
     $data['rid'] = $rid;

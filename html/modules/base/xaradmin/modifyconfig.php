@@ -117,7 +117,7 @@ function base_admin_modifyconfig()
                 }
                 $frameworks[$fwname] = $data['fwinfo'];
                 xarModSetVar('base','RegisteredFrameworks', serialize($frameworks));
-                return xarResponseRedirect(xarModURL('base', 'admin', 'modifyconfig', array('tab' => 'javascript', 'framework' => $fwname)));
+                return xarResponse::redirect(xarModURL('base', 'admin', 'modifyconfig', array('tab' => 'javascript', 'framework' => $fwname)));
             }
             $data['fwfiles'] = array();
             // Get details for the module if we have a valid module id.

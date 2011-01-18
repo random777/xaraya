@@ -134,7 +134,7 @@ function installer_admin_phase3()
 
     if ($agree != 'agree') {
         // didn't agree to license, don't install
-        xarResponseRedirect('install.php?install_phase=2&install_language='.$install_language.'&retry=1');
+        xarResponse::redirect('install.php?install_phase=2&install_language='.$install_language.'&retry=1');
     }
 
     //Defaults
@@ -581,7 +581,7 @@ function installer_admin_bootstrap()
 
     if (!xarMod::apiFunc('privileges','admin','createobjects')) return;
 
-    xarResponseRedirect(xarModURL('installer', 'admin', 'create_administrator',array('install_language' => $install_language)));
+    xarResponse::redirect(xarModURL('installer', 'admin', 'create_administrator',array('install_language' => $install_language)));
 }
 
 /**
@@ -794,7 +794,7 @@ function installer_admin_create_administrator()
             return;
         }
     }
-    xarResponseRedirect(xarModURL('installer', 'admin', 'choose_configuration',array('install_language' => $install_language)));
+    xarResponse::redirect(xarModURL('installer', 'admin', 'choose_configuration',array('install_language' => $install_language)));
 }
 
 /**
@@ -1110,7 +1110,7 @@ function installer_admin_confirm_configuration()
      //TODO: Check why this var is being reset to null in sqlite install - reset here for now to be sure
      //xarModSetVar('roles', 'defaultauthmodule', xarMod::getRegID('authsystem'));
 
-        xarResponseRedirect(xarModURL('installer', 'admin', 'cleanup'));
+        xarResponse::redirect(xarModURL('installer', 'admin', 'cleanup'));
     }
 
 }
@@ -1239,7 +1239,7 @@ function installer_admin_finish()
 {
     xarMod::apiFunc('dynamicdata','admin','importpropertytypes', array('flush' => true));
     xarMod::apiFunc('base', 'javascript', 'importplugins');
-    xarResponseRedirect('index.php');
+    xarResponse::redirect('index.php');
 }
 
 function installer_admin_upgrade1()

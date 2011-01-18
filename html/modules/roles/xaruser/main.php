@@ -30,7 +30,7 @@ function roles_user_main()
         if (xarModGetVar('modules', 'overview') == 0){
             return xarTplModule('roles','admin', 'main',array());
         } else {
-            xarResponseRedirect(xarModURL('roles', 'admin', 'viewroles'));
+            xarResponse::redirect(xarModURL('roles', 'admin', 'viewroles'));
         }
     }
     elseif(xarSecurityCheck('ViewRoles',0)) {
@@ -43,9 +43,9 @@ function roles_user_main()
     $authmodule=$defaultauthdata['defaultauthmodname'];
 
     if (xarUserIsLoggedIn()) {
-        xarResponseRedirect(xarModURL('roles', 'user', 'account'));
+        xarResponse::redirect(xarModURL('roles', 'user', 'account'));
     } else {
-        xarResponseRedirect(xarModURL($loginmodule, 'user', 'showloginform'));
+        xarResponse::redirect(xarModURL($loginmodule, 'user', 'showloginform'));
     }
 
    /*

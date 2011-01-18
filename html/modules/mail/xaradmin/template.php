@@ -57,7 +57,7 @@ function mail_admin_template($args)
                 return;
             }
 
-            xarResponseRedirect(xarModURL('mail', 'admin', 'template',
+            xarResponse::redirect(xarModURL('mail', 'admin', 'template',
                                           array('mailtype' => $data['mailtype'])));
             return true;
             break;

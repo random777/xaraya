@@ -94,7 +94,7 @@ function dynamicdata_admin_showpropval($args)
                     );
                     return xarTplModule('base','message','confirm', $confirm);
                 } else {
-                    xarResponseRedirect($return_url);
+                    xarResponse::redirect($return_url);
                 }
                 return true;
             }

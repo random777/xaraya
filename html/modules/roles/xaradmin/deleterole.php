@@ -96,7 +96,7 @@ if (empty($check)) {
             return;
         }
         // redirect to the next page
-        xarResponseRedirect(xarModURL('roles', 'admin', 'showusers'));
+        xarResponse::redirect(xarModURL('roles', 'admin', 'showusers'));
     }
 }
 ?>

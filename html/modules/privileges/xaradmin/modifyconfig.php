@@ -133,7 +133,7 @@ function privileges_admin_modifyconfig()
                     if (strcmp($password, $password2) != 0) {
                         $msg = xarML('Last Resort Admin Creation failed! <br />The two password entries are not the same, please try again.');
                         xarSessionSetVar('statusmsg', $msg);
-                       xarResponseRedirect(xarModURL('privileges', 'admin', 'modifyconfig',array('tab' => $data['tab'])));
+                       xarResponse::redirect(xarModURL('privileges', 'admin', 'modifyconfig',array('tab' => $data['tab'])));
                     }
                     $secret = array(
                                 'name' => MD5($name),
@@ -155,7 +155,7 @@ function privileges_admin_modifyconfig()
                     break;
             }
 
-            xarResponseRedirect(xarModURL('privileges', 'admin', 'modifyconfig',array('tab' => $data['tab'])));
+            xarResponse::redirect(xarModURL('privileges', 'admin', 'modifyconfig',array('tab' => $data['tab'])));
             // Return
             return true;
             break;

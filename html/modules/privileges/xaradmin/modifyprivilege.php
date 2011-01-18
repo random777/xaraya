@@ -109,7 +109,7 @@ function privileges_admin_modifyprivilege()
 
 // send to external wizard if necessary
     if (!empty($instances['external']) && $instances['external'] == "yes") {
-//    xarResponseRedirect($instances['target'] . "&extpid=$pid&extname=$name&extrealm=$realm&extmodule=$module&extcomponent=$component&extlevel=$level");
+//    xarResponse::redirect($instances['target'] . "&extpid=$pid&extname=$name&extrealm=$realm&extmodule=$module&extcomponent=$component&extlevel=$level");
 //        return;
         $data['target'] = $instances['target'] . '&amp;extpid='.$data['ppid'].'&amp;extname='.$data['pname'].'&amp;extrealm='.$data['prealm'].'&amp;extmodule='.$data['pmodule'].'&amp;extcomponent='.$data['pcomponent'].'&amp;extlevel='.$data['plevel'];
         $data['target'] .= '&amp;extinstance=' . urlencode(join(':',$default));

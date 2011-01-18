@@ -61,7 +61,7 @@ function privileges_admin_newprivilege()
     $instances = $privs->getinstances($data['pmodule'],$data['pcomponent']);
 // send to external wizard if necessary
     if (!empty($instances['external']) && $instances['external'] == "yes") {
-//    xarResponseRedirect($instances['target'] . "&extpid=0&extname=$name&extrealm=$realm&extmodule=$module&extcomponent=$component&extlevel=$level");
+//    xarResponse::redirect($instances['target'] . "&extpid=0&extname=$name&extrealm=$realm&extmodule=$module&extcomponent=$component&extlevel=$level");
 //        return;
         $data['target'] = $instances['target'] . '&amp;extpid=0&amp;extname='.$data['pname'].'&amp;extrealm='.$data['prealm'].'&amp;extmodule='.$data['pmodule'].'&amp;extcomponent='.$data['pcomponent'].'&amp;extlevel='.$data['plevel'].'&amp;extdescription='.$data['pdescription'];
         $data['target'] .= '&amp;pparentid=' . $data['pparentid'];

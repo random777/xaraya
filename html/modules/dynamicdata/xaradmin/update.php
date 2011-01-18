@@ -129,13 +129,13 @@ function dynamicdata_admin_update($args)
 
 
     if (!empty($return_url)) {
-        xarResponseRedirect($return_url);
+        xarResponse::redirect($return_url);
     } elseif ($myobject->objectid == 2) { // for dynamic properties, return to modifyprop
         if(xarRequestIsAjAX()) {
             $confirm['title'] = xarML('Property "#(1)" Updated', $myobject->properties['name']->value);
             return xarTplModule('base','message','confirm', $confirm);
         } else {
-            xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'modifyprop',
+            xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'modifyprop',
                                       array('itemid' => $myobject->properties['objectid']->value)));
         }
     } elseif (!empty($table)) {
@@ -143,7 +143,7 @@ function dynamicdata_admin_update($args)
             $confirm['title'] = xarML('Object "#(1)" Updated', $myobject->properties['name']->value);
             return xarTplModule('base','message','confirm', $confirm);
         } else {
-            xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
+            xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'view',
                                       array('table' => $table)));
         }
     } else {
@@ -151,7 +151,7 @@ function dynamicdata_admin_update($args)
             $confirm['title'] = xarML('Object "#(1)" Updated', $myobject->properties['name']->value);
             return xarTplModule('base','message','confirm', $confirm);
         } else {
-            xarResponseRedirect(xarModURL('dynamicdata', 'admin', 'view',
+            xarResponse::redirect(xarModURL('dynamicdata', 'admin', 'view',
                                           array('itemid' => $myobject->objectid)));
         }
     }

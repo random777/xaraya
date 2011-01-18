@@ -91,7 +91,7 @@ function blocks_admin_update_group()
         )
     ) {return;}
 
-    xarResponseRedirect(xarModURL('blocks', 'admin', 'modify_group', array('gid' => $gid)));
+    xarResponse::redirect(xarModURL('blocks', 'admin', 'modify_group', array('gid' => $gid)));
 
     return true;
 }

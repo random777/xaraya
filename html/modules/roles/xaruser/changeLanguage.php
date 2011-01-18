@@ -36,7 +36,7 @@ function roles_user_changelanguage()
         // <paul> throw an exception. trap it later if we want it to look nice,
         // that's the whole point of exceptions.
     }
-    xarResponseRedirect($return_url);
+    xarResponse::redirect($return_url);
 }
 
 ?>

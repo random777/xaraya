@@ -75,7 +75,7 @@ function privileges_admin_removerole()
                         'privileges'));
 
 // redirect to the next page
-        xarResponseRedirect(xarModURL('privileges',
+        xarResponse::redirect(xarModURL('privileges',
                                  'admin',
                                  'viewroles',
                                  array('pid'=>$pid)));

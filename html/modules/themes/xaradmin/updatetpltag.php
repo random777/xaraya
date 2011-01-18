@@ -60,7 +60,7 @@ function themes_admin_updatetpltag()
         return;
     }
 
-    xarResponseRedirect(xarModUrl('themes', 'admin', 'listtpltags'));
+    xarResponse::redirect(xarModUrl('themes', 'admin', 'listtpltags'));
 
     return true;
 }

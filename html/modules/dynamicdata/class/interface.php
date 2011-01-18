@@ -130,9 +130,9 @@ class Dynamic_Object_Interface
 
                 if (!xarVarFetch('return_url',  'isset', $args['return_url'], NULL, XARVAR_DONT_SET)) {return;}
                 if (!empty($args['return_url'])) {
-                    xarResponseRedirect($args['return_url']);
+                    xarResponse::redirect($args['return_url']);
                 } else {
-                    xarResponseRedirect(xarModURL($this->urlmodule, 'user', $this->func,
+                    xarResponse::redirect(xarModURL($this->urlmodule, 'user', $this->func,
                                                   array('object' => $this->object->name)));
                 }
                 // Return
@@ -202,9 +202,9 @@ class Dynamic_Object_Interface
 
                 if (!xarVarFetch('return_url',  'isset', $args['return_url'], NULL, XARVAR_DONT_SET)) {return;}
                 if (!empty($args['return_url'])) {
-                    xarResponseRedirect($args['return_url']);
+                    xarResponse::redirect($args['return_url']);
                 } else {
-                    xarResponseRedirect(xarModURL($this->urlmodule, 'user', $this->func,
+                    xarResponse::redirect(xarModURL($this->urlmodule, 'user', $this->func,
                                                   array('object' => $this->object->name)));
                 }
                 // Return
@@ -254,9 +254,9 @@ class Dynamic_Object_Interface
         if (!empty($args['cancel'])) {
             if (!xarVarFetch('return_url',  'isset', $args['return_url'], NULL, XARVAR_DONT_SET)) {return;}
             if (!empty($args['return_url'])) {
-                xarResponseRedirect($args['return_url']);
+                xarResponse::redirect($args['return_url']);
             } else {
-                xarResponseRedirect(xarModURL($this->urlmodule, 'user', $this->func,
+                xarResponse::redirect(xarModURL($this->urlmodule, 'user', $this->func,
                                               array('object' => $this->object->name)));
             }
             // Return
@@ -281,9 +281,9 @@ class Dynamic_Object_Interface
 
             if (!xarVarFetch('return_url',  'isset', $args['return_url'], NULL, XARVAR_DONT_SET)) {return;}
             if (!empty($args['return_url'])) {
-                xarResponseRedirect($args['return_url']);
+                xarResponse::redirect($args['return_url']);
             } else {
-                xarResponseRedirect(xarModURL($this->urlmodule, 'user', $this->func,
+                xarResponse::redirect(xarModURL($this->urlmodule, 'user', $this->func,
                                               array('object' => $this->object->name)));
             }
             // Return

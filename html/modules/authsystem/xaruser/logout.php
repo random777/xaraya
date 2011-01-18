@@ -37,7 +37,7 @@ function authsystem_user_logout()
         xarErrorSet(XAR_USER_EXCEPTION, 'LOGIN_ERROR', new DefaultUserException($msg));
         return;
     }
-    xarResponseRedirect($redirecturl);
+    xarResponse::redirect($redirecturl);
     return true;
 }
 ?>

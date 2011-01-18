@@ -28,7 +28,7 @@ $user = xarMod::apiFunc('roles', 'user', 'get',
 if (xarUserIsLoggedIn()) {
     xarUserLogOut();
 }
-xarResponseRedirect(xarModURL('roles', 'user', 'getvalidation',
+xarResponse::redirect(xarModURL('roles', 'user', 'getvalidation',
                               array('stage'   => 'getvalidate',
                                     'valcode' => $v,
                                     'uname'   => $user['uname'],

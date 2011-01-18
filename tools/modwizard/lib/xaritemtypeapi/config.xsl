@@ -95,7 +95,7 @@ function <xsl:value-of select="$module_prefix" />_<xsl:value-of select="@name" /
         /*
          * Finished. Back to the sender!
          */
-        xarResponseRedirect(
+        xarResponse::redirect(
             xarModURL(
                 '<xsl:value-of select="$module_prefix" />'
                 ,'admin'

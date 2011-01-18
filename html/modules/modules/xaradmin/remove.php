@@ -50,7 +50,7 @@ function modules_admin_remove ()
         if (!(count($dependents['active']) > 0 || count($dependents['initialised']) > 1 )) {
             //No dependents, just remove the module
             if(!xarMod::apiFunc('modules','admin','remove',array('regid' => $id)))  return;
-            xarResponseRedirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));
+            xarResponse::redirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));
         } else {
             // There are dependents, let's build a GUI
             $data                 = array();
@@ -71,8 +71,8 @@ function modules_admin_remove ()
 
     // Hmmm, I wonder if the target adding is considered a hack
     // it certainly depends on the implementation of xarModUrl
-    //    xarResponseRedirect(xarModURL('modules', 'admin', "list#$target"));
-    xarResponseRedirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));
+    //    xarResponse::redirect(xarModURL('modules', 'admin', "list#$target"));
+    xarResponse::redirect(xarModURL('modules', 'admin', 'list', array('state' => 0), NULL, $target));
     // Never reached
     return true;
 }

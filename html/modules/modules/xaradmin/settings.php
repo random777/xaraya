@@ -32,7 +32,7 @@ function modules_admin_settings()
     xarModSetUserVar('modules', 'selfilter', $selfilter);
     xarModSetUserVar('modules', 'selsort', $selsort);
     
-    xarResponseRedirect(xarModURL('modules', 'admin', 'list', array('regen' => $regen)));
+    xarResponse::redirect(xarModURL('modules', 'admin', 'list', array('regen' => $regen)));
 }
 
 ?>

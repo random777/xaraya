@@ -32,7 +32,7 @@ function roles_user_getvalidation()
     //If a user is already logged in, no reason to see this.
     //We are going to send them to their account.
     if (xarUserIsLoggedIn()) {
-       xarResponseRedirect(xarModURL('roles', 'user', 'account',
+       xarResponse::redirect(xarModURL('roles', 'user', 'account',
                                       array('uid' => xarUserGetVar('uid'))));
        return true;
     }
@@ -247,7 +247,7 @@ function roles_user_getvalidation()
             $data = xarTplModule('roles','user', 'getvalidation', $tplvars);
 
             // Redirect
-            xarResponseRedirect(xarModURL('roles', 'user', 'getvalidation',array('sent' => 1)));
+            xarResponse::redirect(xarModURL('roles', 'user', 'getvalidation',array('sent' => 1)));
 
         }
     return $data;

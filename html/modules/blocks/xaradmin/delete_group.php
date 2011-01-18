@@ -49,7 +49,7 @@ function blocks_admin_delete_group()
         'blocks', 'admin', 'delete_group', array('gid' => $gid)
     );
 
-    xarResponseRedirect(xarModURL('blocks', 'admin', 'view_groups'));
+    xarResponse::redirect(xarModURL('blocks', 'admin', 'view_groups'));
 
     return true;
 }

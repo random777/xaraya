@@ -60,7 +60,7 @@ function privileges_admin_deleteprivilege()
                     'privileges'));
 
 // redirect to the next page
-    xarResponseRedirect(xarModURL('privileges', 'admin', 'viewprivileges'));
+    xarResponse::redirect(xarModURL('privileges', 'admin', 'viewprivileges'));
 }
 
 ?>

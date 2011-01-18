@@ -144,7 +144,7 @@ function roles_admin_modifyemail($args)
                     return;
                 }
             }
-            xarResponseRedirect(xarModURL('roles', 'admin', 'modifyemail', array('mailtype' => $data['mailtype'])));
+            xarResponse::redirect(xarModURL('roles', 'admin', 'modifyemail', array('mailtype' => $data['mailtype'])));
             return true;
             break;
     }

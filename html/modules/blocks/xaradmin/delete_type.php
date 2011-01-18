@@ -62,7 +62,7 @@ function blocks_admin_delete_type()
                            'unregister_block_type',
                            array('modName'  => $blocktype['module'],
                                  'blockType'=> $blocktype['type']))) return;
-        return xarResponseRedirect(xarModURL('blocks', 'admin', 'view_types'));
+        return xarResponse::redirect(xarModURL('blocks', 'admin', 'view_types'));
     }
 
     $data['tid'] = $tid;

@@ -39,7 +39,7 @@ function authsystem_user_showloginform($args = array())
 
       return $data;
     } else {
-      xarResponseRedirect($data['redirecturl']);
+      xarResponse::redirect($data['redirecturl']);
     }// if
 }
 ?>

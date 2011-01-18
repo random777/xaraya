@@ -20,7 +20,7 @@ function privileges_admin_main()
 // Security Check
     if(!xarSecurityCheck('ViewPrivileges')) return;
 
-    xarResponseRedirect(xarModURL('privileges', 'admin', 'viewprivileges'));
+    xarResponse::redirect(xarModURL('privileges', 'admin', 'viewprivileges'));
 
     // success
     return true;

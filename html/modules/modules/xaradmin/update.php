@@ -63,12 +63,12 @@ function modules_admin_update()
 
     xarVarFetch('return_url', 'isset', $return_url, NULL, XARVAR_DONT_SET);
     if (!empty($return_url)) {
-        xarResponseRedirect($return_url);
+        xarResponse::redirect($return_url);
     } else {
-        xarResponseRedirect(xarModURL('modules', 'admin', 'list'));
+        xarResponse::redirect(xarModURL('modules', 'admin', 'list'));
     }
 
-    xarResponseRedirect(xarModURL('modules', 'admin', 'modify',array('id' => $regId)));
+    xarResponse::redirect(xarModURL('modules', 'admin', 'modify',array('id' => $regId)));
 
     return true;
 }

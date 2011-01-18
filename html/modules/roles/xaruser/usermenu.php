@@ -302,11 +302,11 @@ function roles_user_usermenu($args)
             }
 
             // Redirect
-            xarResponseRedirect(xarModURL('roles', 'user', 'account'));
+            xarResponse::redirect(xarModURL('roles', 'user', 'account'));
             return true;
         case 'updateenhanced':
             // Redirect
-            xarResponseRedirect(xarModURL('roles', 'user', 'account'));
+            xarResponse::redirect(xarModURL('roles', 'user', 'account'));
             return true;
     }
     return $data;

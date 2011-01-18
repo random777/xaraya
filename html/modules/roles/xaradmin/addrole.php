@@ -153,9 +153,9 @@ function roles_admin_addrole()
 
     // redirect to the next page
     if (!empty($return_url)) {
-        xarResponseRedirect($return_url);
+        xarResponse::redirect($return_url);
     } else {
-        xarResponseRedirect(xarModURL('roles', 'admin', 'modifyrole',array('uid' => $uid)));
+        xarResponse::redirect(xarModURL('roles', 'admin', 'modifyrole',array('uid' => $uid)));
     }
 }
 ?>

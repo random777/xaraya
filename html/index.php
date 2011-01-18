@@ -102,7 +102,7 @@ function xarMain()
         }
 
         // We're all done, one ServerRequest made
-        xarEvt_trigger('ServerRequest');
+        xarEvents::trigger('ServerRequest');
 
         // Note : the page template may be set to something else in the module function
         if (xarTplGetPageTemplateName() == 'default' && $modType != 'admin') {

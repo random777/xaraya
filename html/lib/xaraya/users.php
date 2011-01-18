@@ -195,7 +195,7 @@ function xarUserLogIn($userName, $password, $rememberMe=0)
     //<jojodee> currently set in individual authsystem when success on login returned to it
 
     // User logged in successfully, trigger the proper event with the new userid
-    xarEvt_trigger('UserLogin',$userId);
+    xarEvents::trigger('UserLogin',$userId);
 
     xarSession::delVar('privilegeset');
     return true;
@@ -228,7 +228,7 @@ function xarUserLogOut()
     xarSessionSetVar('rand', array(time() . '-' . rand()));
 
     // User logged out successfully, trigger the proper event with the old userid
-    xarEvt_trigger('UserLogout',$userId);
+    xarEvents::trigger('UserLogout',$userId);
 
     return true;
 }

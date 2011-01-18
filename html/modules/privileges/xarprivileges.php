@@ -419,7 +419,7 @@ class xarMasks
                 $mask->setRealm(xarModGetVar('themes', 'default'));
                 break;
             case "domain":
-                $host = xarServerGetHost();
+                $host = xarServer::getHost();
                 $parts = explode('.',$host);
                 if (count($parts) < 2) {
                     $mask->setRealm('All');

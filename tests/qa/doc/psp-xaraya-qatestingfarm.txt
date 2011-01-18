@@ -69,7 +69,7 @@ Xaraya QA Testing sites
           * hack config.system.php to include the correct config file based
             on subdomain from /var/local/vhosts/xarbsd/config:
 
- get subdomain (first part of xarServerGetHost())
+ get subdomain (first part of xarServer::getHost())
      include ../../config/$subdomain.php
 
           * hack modules/installer/install.php to save config files to

@@ -44,7 +44,7 @@ function base_userapi_extractlinks($args)
         $server = $matches[2]; // possibly with port number
         $protocol = $matches[1];
     } else {
-        $server = xarServerGetHost();
+        $server = xarServer::getHost();
         $protocol = xarServer::getProtocol();
     }
 

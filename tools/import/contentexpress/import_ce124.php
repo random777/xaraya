@@ -22,7 +22,7 @@ xarCoreInit(XARCORE_SYSTEM_ALL);
 
 
 // pre-fill the module name (if any) for hooks
-xarRequestGetInfo();
+xarRequest::getInfo();
 
 if (!isset($step)) {
 // start the output buffer

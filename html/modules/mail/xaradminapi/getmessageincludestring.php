@@ -25,7 +25,7 @@ function mail_adminapi_getmessageincludestring($args)
     }
 
     if(!isset($module)){
-        list($module) = xarRequestGetInfo();
+        list($module) = xarRequest::getInfo();
     }
 
     // Get the template that defines the substitution vars

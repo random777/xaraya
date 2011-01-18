@@ -1,5 +1,5 @@
 <xar:style scope="module" module="base" file="navtabs" />
-<xar:set name="request">xarRequestGetInfo()</xar:set>
+<xar:set name="request">xarRequest::getInfo()</xar:set>
 <xar:set name="activetab">#$request.2#</xar:set>
 <div>
   <dl class="xar-tabs">

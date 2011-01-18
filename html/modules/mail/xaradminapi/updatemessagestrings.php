@@ -27,7 +27,7 @@ function mail_adminapi_updatemessagestrings($args)
         return;
     }
     if (empty($module)) {
-        list($module) = xarRequestGetInfo();
+        list($module) = xarRequest::getInfo();
     }
     if (empty($subject)) {
         $subject = '';

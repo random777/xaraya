@@ -26,7 +26,7 @@ function mail_adminapi_getmessagestrings($args)
     }
 
     if(!isset($module)){
-        list($module) = xarRequestGetInfo();
+        list($module) = xarRequest::getInfo();
     }
 
     $messaginghome = xarCoreGetVarDirPath() . "/messaging/" . $module;

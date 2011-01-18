@@ -1,5 +1,5 @@
 <xar:comment> we need to see if type is admin or user here, since we don't know who called us anymore </xar:comment>
-<xar:set name="tmpreq">#xarRequestGetInfo()#</xar:set>
+<xar:set name="tmpreq">#xarRequest::getInfo()#</xar:set>
 <xar:if condition="empty($viewfunc)">
     <xar:set name="viewfunc">'view'</xar:set>
 </xar:if>

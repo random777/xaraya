@@ -104,7 +104,7 @@ function xarServerGetBaseURI() {return xarServer::getBaseURI();}
 function xarServerGetVar($name) {return xarServer::getVar($name);}
 
 function xarRequestGetVar($name, $allowOnlyMethod = NULL) {return xarRequest::getVar($name, $allowOnlyMethod);}
-function xarRequestGetInfo() {return xarRequest::getInfo();}
+function xarRequest::getInfo() {return xarRequest::getInfo();}
 function xarRequestIsLocalReferer() {return xarRequest::isLocalReferer();}
 function xarResponseRedirect($redirectURL, $httpResponse=NULL) {return xarResponse::redirect($redirectURL, $httpResponse);}
 

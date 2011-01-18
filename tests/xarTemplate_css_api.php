@@ -574,7 +574,7 @@ function xarTplGetImage($modImage, $modName = NULL)
 
     // obtain current module name if not specified
     if(!isset($modName)){
-        list($modName) = xarRequestGetInfo();
+        list($modName) = xarRequest::getInfo();
     }
 
     // get module directory (could be different from module name)

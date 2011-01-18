@@ -31,7 +31,7 @@ include dirname(__FILE__).'/pnHTML.php';
 * pnModSetVar -> xarModSetVar
 * pnModDelVar -> xarModDelVar
 * pnModURL -> xarModURL
-* pnModGetName -> xarRequestGetInfo (use list() = $modName = xarRequestGetInfo() )
+* pnModGetName -> xarRequest::getInfo (use list() = $modName = xarRequest::getInfo() )
 * pnModGetIDFromName -> xarMod::getRegID
 * pnModLoad -> xarMod::load
 * pnModAPILoad -> xarMod::apiLoad
@@ -264,7 +264,7 @@ function pnUserGetAll($startnum = 1, $numitems = -1)
  */
 function pnModGetName()
 {
-    list($modName) = xarRequestGetInfo();
+    list($modName) = xarRequest::getInfo();
     return $modName;
 }
 

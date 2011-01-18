@@ -633,7 +633,7 @@ function xarSecAuthAction($testRealm, $testComponent, $testInstance, $testLevel,
 function xarSecGenAuthKey($modName = NULL)
 {
 //    if (empty($modName)) {
-//        list($modName) = xarRequestGetInfo();
+//        list($modName) = xarRequest::getInfo();
 //    }
 
     $rands = xarSessionGetVar('rand');
@@ -682,7 +682,7 @@ function xarSecGenAuthKey($modName = NULL)
  */
 function xarSecConfirmAuthKey($modName = NULL, $authIdVarName = 'authid', $showException = true)
 {
-    if(!isset($modName)) list($modName) = xarRequestGetInfo();
+    if(!isset($modName)) list($modName) = xarRequest::getInfo();
     $authid = xarRequest::getVar($authIdVarName);
 
     $rands = xarSessionGetVar('rand');

@@ -24,7 +24,7 @@ if(!xarVarFetch('step',     'isset', $step,      NULL, XARVAR_NOT_REQUIRED)) {re
 if(!xarVarFetch('startnum', 'isset', $startnum,  NULL, XARVAR_NOT_REQUIRED)) {return;}
 
 // pre-fill the module name (if any) for hooks
-xarRequestGetInfo();
+xarRequest::getInfo();
 
 if (!isset($step)) {
 // start the output buffer

@@ -21,7 +21,7 @@ function mail_adminapi_getmessagetemplates($args)
     extract($args);
 
     if (empty($module)) {
-        list($module) = xarRequestGetInfo();
+        list($module) = xarRequest::getInfo();
     }
 
     $messaginghome = xarCoreGetVarDirPath() . "/messaging/" . $module;

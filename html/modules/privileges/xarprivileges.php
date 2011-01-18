@@ -375,7 +375,7 @@ class xarMasks
 
             // get the masks pertaining to the current module and the component requested
             // <mikespub> why do you need this in the first place ?
-            if ($module == '') list($module) = xarRequestGetInfo();
+            if ($module == '') list($module) = xarRequest::getInfo();
 
             // I'm a bit lost on this line. Does this var ever get set?
             // <mikespub> this gets set in xarBlock_render, to replace the xarModSetVar /

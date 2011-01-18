@@ -49,7 +49,7 @@ function base_userapi_checklink($args)
         }
     } elseif (substr($url,0,1) == '/') {
         $server = xarServerGetHost();
-        $protocol = xarServerGetProtocol();
+        $protocol = xarServer::getProtocol();
         $url = $protocol . '://' . $server . $url;
         $islocal = true;
     } else {

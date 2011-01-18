@@ -204,7 +204,7 @@ function base_init()
        outside of installer. Consider setting config vars at later point rather than here.
     */
     $REQ_URI = parse_url(xarServerGetVar('HTTP_REFERER'));
-    // IIS seems to set HTTPS = off for some reason (cfr. xarServerGetProtocol)
+    // IIS seems to set HTTPS = off for some reason (cfr. xarServer::getProtocol)
     if (!empty($HTTPS) && $HTTPS != 'off' && $REQ_URI['scheme'] == 'https') {
         xarConfigSetVar('Site.Core.EnableSecureServer', true);
     } else {

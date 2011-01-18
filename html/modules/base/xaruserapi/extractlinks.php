@@ -45,7 +45,7 @@ function base_userapi_extractlinks($args)
         $protocol = $matches[1];
     } else {
         $server = xarServerGetHost();
-        $protocol = xarServerGetProtocol();
+        $protocol = xarServer::getProtocol();
     }
 
     $links = array();

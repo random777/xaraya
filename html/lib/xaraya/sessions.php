@@ -49,11 +49,11 @@ function xarSession_init(&$args)
     $sessionId = $session->id();
 
     // Get  client IP addr, so we can register or continue a session
-    $forwarded = xarServerGetVar('HTTP_X_FORWARDED_FOR');
+    $forwarded = xarServer::getVar('HTTP_X_FORWARDED_FOR');
     if (!empty($forwarded)) {
         $ipAddress = preg_replace('/,.*/', '', $forwarded);
     } else {
-        $ipAddress = xarServerGetVar('REMOTE_ADDR');
+        $ipAddress = xarServer::getVar('REMOTE_ADDR');
     }
 
     // If it's new, register it, otherwise use the existing.

@@ -33,7 +33,7 @@
                     <div id="header_tlcorner"><div id="header_trcorner"></div></div>
 
                     <div id="header_contentcore">
-                        <xar:set name="context">basename(xarServerGetVar('SCRIPT_NAME'))</xar:set>
+                        <xar:set name="context">basename(xarServer::getVar('SCRIPT_NAME'))</xar:set>
                         <xar:if condition="$context eq 'install.php'">
     						<h1>Xaraya Installer</h1>
 	    				    <p>

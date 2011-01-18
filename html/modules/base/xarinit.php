@@ -197,13 +197,13 @@ function base_init()
     xarConfigSetVar('Site.Core.TimeZone', '');
     xarConfigSetVar('Site.Core.EnableShortURLsSupport', false);
     // when installing via https, we assume that we want to support that :)
-    $HTTPS = xarServerGetVar('HTTPS');
+    $HTTPS = xarServer::getVar('HTTPS');
     /* jojodee - monitor this fix.
        Localized fix for installer where HTTPS shows incorrectly as being on in
        some environments. Fix is ok as long as we dont access directly
        outside of installer. Consider setting config vars at later point rather than here.
     */
-    $REQ_URI = parse_url(xarServerGetVar('HTTP_REFERER'));
+    $REQ_URI = parse_url(xarServer::getVar('HTTP_REFERER'));
     // IIS seems to set HTTPS = off for some reason (cfr. xarServer::getProtocol)
     if (!empty($HTTPS) && $HTTPS != 'off' && $REQ_URI['scheme'] == 'https') {
         xarConfigSetVar('Site.Core.EnableSecureServer', true);

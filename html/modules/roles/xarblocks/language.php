@@ -80,7 +80,7 @@ function roles_languageblock_display($blockinfo)
     $tplData['locales'] = $locales;
     $tplData['blockid'] = $blockinfo['bid'];
 
-    if (xarServerGetVar('REQUEST_METHOD') == 'GET') {
+    if (xarServer::getVar('REQUEST_METHOD') == 'GET') {
         // URL of this page
         $tplData['return_url'] = xarServer::getCurrentURL();
     } else {

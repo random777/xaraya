@@ -115,7 +115,7 @@ function xarMakeRoleRoot($name) { return true; }
  * Wrapper functions to support Xaraya 1 API Server functions
  *
 **/
-function xarServerGetVar($name) { return xarServer::getVar($name); }
+function xarServer::getVar($name) { return xarServer::getVar($name); }
 function xarServer::getBaseURI()  { return xarServer::getBaseURI();  }
 function xarServer::getHost()     { return xarServer::getHost();     }
 function xarServer::getProtocol() { return xarServer::getProtocol(); }

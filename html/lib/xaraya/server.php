@@ -989,7 +989,7 @@ function xarRequestIsAJAX()
         //
         // For those that don't, we catch a URL param named 'xhr',  which when
         // present and not null, also signifies AJAX context.
-        if (xarServerGetVar('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest') {
+        if (xarServer::getVar('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest') {
             $isAjax = true;
         } elseif (xarRequestGetVar('xhr') !== NULL) {
             $isAjax = true;

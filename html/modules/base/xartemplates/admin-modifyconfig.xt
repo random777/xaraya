@@ -384,7 +384,7 @@ jQuery('#"."displayform').validate({
                         </xar:mlstring>
                     </label>
                     <input type="text" id="referercheck" name="referercheck" value="#xarConfigGetVar('Site.Session.RefererCheck')#" maxlength="40" class="xar-form-textmedium" />
-                    <xar:ml><xar:mlstring>Default: #(1) for security level 'High'</xar:mlstring><xar:mlvar>#xarServerGetVar('HTTP_HOST')#</xar:mlvar></xar:ml>
+                    <xar:ml><xar:mlstring>Default: #(1) for security level 'High'</xar:mlstring><xar:mlvar>#xarServer::getVar('HTTP_HOST')#</xar:mlvar></xar:ml>
                 </div>
             </div>
             <div class="xar-form-footer">

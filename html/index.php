@@ -134,7 +134,7 @@ function xarMain()
         if (xarCurrentErrorType() != XAR_NO_EXCEPTION) return; // we found a non-core error
 
         xarVarFetch('pageName','str:1:', $pageName, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY);
-        if (xarServerGetVar('X-Requested-With') == 'XMLHTTPRequest' && $pageName == '') {
+        if (xarServer::getVar('X-Requested-With') == 'XMLHTTPRequest' && $pageName == '') {
             xarTplSetPageTemplateName('module');
         } elseif (!empty($pageName)) {
             xarTplSetPageTemplateName($pageName);

@@ -42,7 +42,7 @@ $prefix = xarDBGetSystemTablePrefix();
 
 // Get and set the database type
 $dbtype = xarDBGetType();
-$dbhost = xarDBGetHost();
+$dbhost = xarDB::getHost();
 $dbname = xarDBGetName();
 $dbuser = '';
 $dbpass = '';

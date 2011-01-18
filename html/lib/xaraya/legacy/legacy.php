@@ -75,7 +75,7 @@ function xarCore_getSystemVar($name)
  * @deprec
  * @see xarDB::getHost()
  */
-function xarDBGetHost() { return xarDB::getHost(); }
+function xarDB::getHost() { return xarDB::getHost(); }
 
 /**
  * Get the database name

@@ -1252,8 +1252,8 @@ function xarMod_init(&$args, $whatElseIsGoingLoaded)
     $GLOBALS['xarMod_generateShortURLs'] = $args['enableShortURLsSupport'];
     $GLOBALS['xarMod_generateXMLURLs'] = $args['generateXMLURLs'];
 
-    xarEvt_registerEvent('ModLoad');
-    xarEvt_registerEvent('ModAPILoad');
+    xarEvents::register('ModLoad');
+    xarEvents::register('ModAPILoad');
 
     // Modules Support Tables
     $systemPrefix = xarDBGetSystemTablePrefix();

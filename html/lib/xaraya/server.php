@@ -250,7 +250,7 @@ class xarServer extends Object
     {
         self::$allowShortURLs = $args['enableShortURLsSupport'];
         self::$generateXMLURLs = $args['generateXMLURLs'];
-        xarEvt_registerEvent('ServerRequest');
+        xarEvents::register('ServerRequest');
     }
     /**
      * Gets a server variable

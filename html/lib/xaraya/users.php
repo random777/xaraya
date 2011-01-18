@@ -80,9 +80,9 @@ function xarUser_init(&$args)
     xarTplSetThemeName(xarUserGetNavigationThemeName());
 
     // Register the UserLogin event
-    xarEvt_registerEvent('UserLogin');
+    xarEvents::register('UserLogin');
     // Register the UserLogout event
-    xarEvt_registerEvent('UserLogout');
+    xarEvents::register('UserLogout');
 
     return true;
 }

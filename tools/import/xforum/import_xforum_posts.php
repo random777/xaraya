@@ -48,7 +48,7 @@
         $pids = '';
     }
        // Get datbase setup
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
     $query = 'SELECT COUNT(*) FROM ' . $oldprefix . '_XForum_posts';

@@ -37,7 +37,7 @@ function roles_admin_modifyconfig()
                 }
             }
 
-            $dbconn   =& xarDBGetConn();
+            $dbconn   =& xarDB::getConn();
             $xartable =& xarDBGetTables();
             $acltable = xarDBGetSiteTablePrefix() . '_security_acl';
             $query    = "SELECT xar_partid FROM $acltable

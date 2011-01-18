@@ -23,7 +23,7 @@ function blocks_userapi_getcacheblock($args)
         return;
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
     $cacheBlockTable = $xartable['cache_blocks'];
 

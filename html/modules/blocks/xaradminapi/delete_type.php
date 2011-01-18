@@ -43,7 +43,7 @@ function blocks_adminapi_delete_type($args)
     }
 
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
     $block_types_table = $xartable['block_types'];

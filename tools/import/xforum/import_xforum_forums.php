@@ -26,7 +26,7 @@
         $forumusers = unserialize($forumusers);
     }
    // Get datbase setup
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
     $catids= unserialize(xarModGetVar('installer', 'catid'));
     $query = 'SELECT fid, name, status, lastpost,description, displayorder, posts, threads, fup

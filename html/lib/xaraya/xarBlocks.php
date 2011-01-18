@@ -163,7 +163,7 @@ function xarBlock_renderGroup($groupname, $template = NULL)
     }
     $blockCaching = xarCore_GetCached('xarcache', 'blockCaching');
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $tables =& xarDBGetTables();
 
     $blockGroupInstancesTable = $tables['block_group_instances'];

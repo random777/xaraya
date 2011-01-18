@@ -85,7 +85,7 @@ function dynamicdata_user_search($args)
     } else {
         $myfunc = 'search';
     }
-     $dbconn = xarDBGetConn();
+     $dbconn = xarDB::getConn();
     foreach ($objects as $itemid => $object) {
         // skip the internal objects
         if ($itemid < 3) continue;

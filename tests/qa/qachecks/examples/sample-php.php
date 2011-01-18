@@ -24,8 +24,8 @@ echo '<html>
   <body>';
 
 /* 2.4.3 dbconn */
-list($foo) = xarDBGetConn();
-$dbconn = xarDBGetConn();
+list($foo) = xarDB::getConn();
+$dbconn = xarDB::getConn();
 
 /* 2.6.1 use xarInclude */
 xarInclude ('hello.php');

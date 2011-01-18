@@ -19,7 +19,7 @@
  */
 function themes_adminapi_getdbthemes($args)
 {
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
     extract($args);
 

@@ -35,7 +35,7 @@ function modules_adminapi_gethookedmodules($args)
         return;
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable      =& xarDBGetTables();
 
     $bindvars = array();

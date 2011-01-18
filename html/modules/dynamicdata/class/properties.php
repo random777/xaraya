@@ -33,7 +33,7 @@ class Dynamic_Property_Master
     {
         // we can't use our own classes here, because we'd have an endless loop :-)
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $xartable =& xarDBGetTables();
 
         $dynamicprop = $xartable['dynamic_properties'];
@@ -238,7 +238,7 @@ class Dynamic_Property_Master
         }
 
         // Attempt to retreive properties from DB
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $xartable =& xarDBGetTables();
 
         $dynamicproptypes = $xartable['dynamic_properties_def'];

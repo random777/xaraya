@@ -34,7 +34,7 @@
         xarModSetVar('xarbb', 'mastercids.1', $xarbbcats);
  //  }
    // Get datbase setup
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
     $query = 'SELECT type , fid, name, displayorder,fup

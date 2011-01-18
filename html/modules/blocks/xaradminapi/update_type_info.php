@@ -45,7 +45,7 @@ function blocks_adminapi_update_type_info($args)
     );
     if (empty($block_info)) {return false;}
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
     $block_types_table =& $xartable['block_types'];

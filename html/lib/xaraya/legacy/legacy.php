@@ -144,7 +144,7 @@ function xarResponse::redirect($redirectURL)                { return xarControll
  * Wrapper function to support Xaraya 1 API Database functions
  *
 **/
-function &xarDBGetConn($index = 0)   { return xarDB::getConn($index);}
+function &xarDB::getConn($index = 0)   { return xarDB::getConn($index);}
 function xarDBGetSystemTablePrefix() { return xarDB::getPrefix(); }
 function xarDBGetSiteTablePrefix()   { return xarDBGetSystemTablePrefix(); }
 function &xarDBGetTables()           { return xarDB::getTables();}

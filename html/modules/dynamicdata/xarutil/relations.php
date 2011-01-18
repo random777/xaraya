@@ -49,7 +49,7 @@ function dynamicdata_util_relations($args)
 
     $data['prop'] = xarMod::apiFunc('dynamicdata','user','getproperty',array('type' => 'fieldtype', 'name' => 'dummy'));
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $data['tables'] = $dbconn->MetaTables();
     $data['objects'] = xarMod::apiFunc('dynamicdata','user','getobjects');
 

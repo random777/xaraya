@@ -489,7 +489,7 @@ function &xarDB__datadictInit()
 //          The xarTableDDL API doesn't really provide for this
 
     if (!isset($datadict)) {
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $datadict =& xarDBNewDataDict($dbconn, 'ALTERTABLE');
     }
 

@@ -113,7 +113,7 @@ function xarDBCreateTable($tableName, $fields, $databaseType="")
     $systemPrefix = xarDBGetSystemTablePrefix();
     $metaTable = $systemPrefix . '_tables';
     if ($tableName != $metaTable) {
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         while (list($field_name, $parameters) = each($fields)) {
             $nextId = $dbconn->GenId($metaTable);
             $query = "INSERT INTO $metaTable (
@@ -219,7 +219,7 @@ function xarDBAlterTable($tableName, $args, $databaseType = NULL)
         $systemPrefix = xarDBGetSystemTablePrefix();
         $metaTable = $systemPrefix . '_tables';
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $nextId = $dbconn->GenId($metaTable);
         $query = "INSERT INTO $metaTable (
                       xar_tableid, xar_table, xar_field, xar_type,
@@ -250,7 +250,7 @@ function xarDBAlterTable($tableName, $args, $databaseType = NULL)
         $systemPrefix = xarDBGetSystemTablePrefix();
         $metaTable = $systemPrefix . '_tables';
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $nextId = $dbconn->GenId($metaTable);
         $query = "UPDATE $metaTable SET xar_table = ? WHERE xar_table = ?";
         $bindvars = array((string) $args['new_name'], (string) $tableName);
@@ -317,7 +317,7 @@ function xarDBDropTable($tableName, $databaseType = NULL)
     $systemPrefix = xarDBGetSystemTablePrefix();
     $metaTable = $systemPrefix . '_tables';
     if ($tableName != $metaTable) {
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $query = "DELETE FROM $metaTable WHERE xar_table=?";
         $result =& $dbconn->Execute($query,array($tableName));
         xarErrorFree();
@@ -328,7 +328,7 @@ function xarDBDropTable($tableName, $databaseType = NULL)
             // Also drop the related sequence
             // TODO: please can we use something else? pwetty please?
             $seqSQL = "DROP SEQUENCE seq".$tableName;
-            $dbconn =& xarDBGetConn();
+            $dbconn =& xarDB::getConn();
             $result = $dbconn->Execute($seqSQL);
             // ignore exception for now
         case 'mysql':

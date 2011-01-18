@@ -76,7 +76,7 @@ if (isset($step)) {
 }
 
 // Initialize database settings
-$dbconn =& xarDBGetConn();
+$dbconn =& xarDB::getConn();
 $tables =& xarDBGetTables();
 
 

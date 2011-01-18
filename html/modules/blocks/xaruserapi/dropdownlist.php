@@ -55,7 +55,7 @@ function blocks_userapi_dropdownlist($args)
         $type = 'instance';
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
     $block_instances_table = $xartable['block_instances'];

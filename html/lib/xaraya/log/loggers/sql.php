@@ -65,7 +65,7 @@ class xarLogger_sql extends xarLogger
     {
         parent::setConfig($conf);
        // This generates errors and is not necessary here
-       // $this->_dbconn =& xarDBGetConn();
+       // $this->_dbconn =& xarDB::getConn();
 
         $this->_table = $conf['table'];
     }
@@ -82,7 +82,7 @@ class xarLogger_sql extends xarLogger
     {
         if (!$this->doLogLevel($level)) return false;
         // DB connection
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         /* Build the SQL query for this log entry insertion. */
         // Generate id
         $nextId = $dbconn->GenId($this->_table);

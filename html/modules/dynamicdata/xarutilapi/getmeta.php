@@ -31,7 +31,7 @@ function dynamicdata_utilapi_getmeta($args)
         return array($table => $propertybag[$table]);
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
 
     // Note: this only works if we use the same database connection
     if (!empty($db) && $db != xarDBGetName()) {

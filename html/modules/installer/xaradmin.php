@@ -428,7 +428,7 @@ function installer_admin_phase5()
     xarDBLoadTableMaintenanceAPI();
 
     if (isset($removetables) && $removetables) {
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $result = $dbconn->Execute($dbconn->metaTablesSQL);
         if(!$result) return;
         $tables = array();
@@ -720,7 +720,7 @@ function installer_admin_create_administrator()
     }
 
     // Load up database
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $tables =& xarDBGetTables();
 
     $blockGroupsTable = $tables['block_groups'];
@@ -962,7 +962,7 @@ function installer_admin_confirm_configuration()
         /*********************************************************************
         * Empty the privilege tables
         *********************************************************************/
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $sitePrefix = xarDBGetSiteTablePrefix();
         $query = "DELETE FROM " . $sitePrefix . '_privileges';
         if (!$dbconn->Execute($query)) return;
@@ -1045,7 +1045,7 @@ function installer_admin_confirm_configuration()
         $content['content'] = '';
 
         // Load up database
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $tables =& xarDBGetTables();
 
         $blockGroupsTable = $tables['block_groups'];
@@ -1137,7 +1137,7 @@ function installer_admin_cleanup()
     $remove = xarModDelVar('installer','modules');
 
     // Load up database
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $tables =& xarDBGetTables();
 
     $blockGroupsTable = $tables['block_groups'];
@@ -1290,7 +1290,7 @@ function installer_admin_upgrade2()
 
      $sitePrefix=xarDBGetSiteTablePrefix();
      $systemPrefix=xarDBGetSystemTablePrefix();
-     $dbconn =& xarDBGetConn();
+     $dbconn =& xarDB::getConn();
 /**
  * Version 1.0 Release Upgrades
  * Version 1.0 Release candidate upgrades are also included here

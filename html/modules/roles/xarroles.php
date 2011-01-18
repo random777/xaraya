@@ -44,7 +44,7 @@ class xarRoles
 
     function xarRoles()
     {
-        $this->dbconn =& xarDBGetConn();
+        $this->dbconn =& xarDB::getConn();
         $xartable =& xarDBGetTables();
         $this->rolestable = $xartable['roles'];
         $this->rolememberstable = $xartable['rolemembers'];
@@ -493,7 +493,7 @@ class xarRole
     {
         extract($pargs);
 
-        $this->dbconn =& xarDBGetConn();
+        $this->dbconn =& xarDB::getConn();
         $xartable =& xarDBGetTables();
         $this->rolestable = $xartable['roles'];
         $this->rolememberstable = $xartable['rolemembers'];

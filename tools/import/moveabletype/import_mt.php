@@ -70,7 +70,7 @@
 
 <?php
     } else {
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
 
         if (!xarMod::apiLoad('roles','admin')) {
         }

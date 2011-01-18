@@ -69,7 +69,7 @@ function modules_adminapi_getlist($args)
     if (!isset($orderBy)) $orderBy = 'name';
 
     // Determine the tables we need to consider
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $tables =& xarDBGetTables();
     $modulestable = $tables['modules'];
     $module_statesTables = array($tables['system/module_states'], $tables['site/module_states']);

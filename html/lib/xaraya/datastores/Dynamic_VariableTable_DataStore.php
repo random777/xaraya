@@ -41,7 +41,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             return;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $xartable =& xarDBGetTables();
 
         $dynamicdata = $xartable['dynamic_data'];
@@ -95,7 +95,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             return $itemid;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $xartable =& xarDBGetTables();
 
         $dynamicdata = $xartable['dynamic_data'];
@@ -134,7 +134,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             return $itemid;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $xartable =& xarDBGetTables();
 
         $dynamicdata = $xartable['dynamic_data'];
@@ -197,7 +197,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             return $itemid;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $xartable =& xarDBGetTables();
 
         $dynamicdata = $xartable['dynamic_data'];
@@ -245,7 +245,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             return;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $xartable =& xarDBGetTables();
         $dynamicdata = $xartable['dynamic_data'];
 
@@ -680,7 +680,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             $this->cache = $args['cache'];
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $xartable =& xarDBGetTables();
         $dynamicdata = $xartable['dynamic_data'];
 
@@ -821,7 +821,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
             return;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $xartable =& xarDBGetTables();
 
         $dynamicobjects = $xartable['dynamic_objects'];

@@ -20,7 +20,7 @@
 function roles_userapi_getallgroups($args)
 {
     extract($args);
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
 // Security Check

@@ -162,7 +162,7 @@ function xarUserLogIn($userName, $password, $rememberMe=0)
         return; // throw back
 
     // Set user auth module information
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
     $rolestable = $xartable['roles'];
@@ -597,7 +597,7 @@ function xarUser__getAuthModule($userId)
         }
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
     // Get user auth_module name
@@ -702,7 +702,7 @@ function xarUser__setUsersTableUserVar($name, $value, $userId)
 
 // TODO: replace with some roles API ?
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
     $rolestable = $xartable['roles'];

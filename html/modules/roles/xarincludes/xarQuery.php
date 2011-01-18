@@ -86,7 +86,7 @@ class xarQuery
         $this->output = array();
         $this->row = array();
         $this->bindvars = array();
-        $this->dbconn =& xarDBGetConn();
+        $this->dbconn =& xarDB::getConn();
     }
 
     /**
@@ -183,7 +183,7 @@ class xarQuery
      */
     function open()
     {
-        $this->openconnection(xarDBGetConn());
+        $this->openconnection(xarDB::getConn());
     }
     /**
      * set the use of limits
@@ -968,7 +968,7 @@ class xarQuery
     }
     function openconnection($x = '')
     {
-        if (empty($x)) $this->dbconn =& xarDBGetConn();
+        if (empty($x)) $this->dbconn =& xarDB::getConn();
         else $this->dbconn = $x;
     }
     function getconnection()

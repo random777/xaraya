@@ -210,7 +210,7 @@ function installer_adminapi_CheckForField($args)
         return;
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
     $query = "desc $table_name";
@@ -248,7 +248,7 @@ function installer_adminapi_GetFieldType($args)
         return;
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
 
     $query = "desc $table_name";
     $result =& $dbconn->Execute($query);
@@ -282,7 +282,7 @@ function installer_adminapi_CheckTableExists($args)
         return;
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $result = $dbconn->MetaTables();
     if (in_array($table_name, $result)){
         return true;

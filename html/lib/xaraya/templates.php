@@ -1643,7 +1643,7 @@ function xarTplRegisterTag($tag_module, $tag_name, $tag_attrs = array(), $tag_ha
     $tag = new xarTemplateTag($tag_module, $tag_name, $tag_attrs, $tag_handler, $flags);
     if(!$tag->getName()) return; // tagname was not set, exception pending
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
     $systemPrefix = xarDBGetSystemTablePrefix();
@@ -1684,7 +1684,7 @@ function xarTplUnregisterTag($tag_name)
         return false;
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
     $tag_table = $xartable['template_tags'];
@@ -1774,7 +1774,7 @@ function xarTplGetTagObjectFromName($tag_name)
         return $tag_objects[$tag_name];
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
     $systemPrefix = xarDBGetSystemTablePrefix();

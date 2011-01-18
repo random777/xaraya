@@ -73,7 +73,7 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
             return;
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
 
         $query = "SELECT $itemidfield, " . join(', ', $fieldlist)
             . " FROM " . join(', ', $tables) . $more
@@ -121,7 +121,7 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
         $fieldlist = array_keys($this->fields);
         if (count($fieldlist) < 1) return;
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
 
         // TODO: this won't work for objects with several static tables
         if (empty($itemid)) {
@@ -191,7 +191,7 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
         $fieldlist = array_keys($this->fields);
         if (count($fieldlist) < 1) return;
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
 
         $query = "UPDATE $table ";
         $join = 'SET ';
@@ -226,7 +226,7 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
         // can't really do much without the item id field at the moment
         if (empty($itemidfield)) return;
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
 
         $query = "DELETE FROM $table WHERE $itemidfield = ?";
         
@@ -309,7 +309,7 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
         // CHECKME: test working without the item id field
         //if (empty($itemidfield)) $isgrouped = 1;
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
 
         if ($isgrouped) {
             $query = "SELECT " . join(', ', $newfields)
@@ -469,7 +469,7 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
             }
         }
 
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
 
         if ($dbconn->databaseType == 'sqlite') {
             // WATCH OUT, STILL UNBALANCED
@@ -583,7 +583,7 @@ class Dynamic_FlatTable_DataStore extends Dynamic_SQL_DataStore
                 $itemids = array();
             }
 
-            $dbconn =& xarDBGetConn();
+            $dbconn =& xarDB::getConn();
 
             $query = "SELECT $itemidfield, " . join(', ', $fieldlist) . " FROM $table ";
 

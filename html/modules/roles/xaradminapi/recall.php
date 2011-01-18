@@ -33,7 +33,7 @@ function roles_adminapi_recall($args)
     }
 
     // Get database setup
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
     $rolestable = $xartable['roles'];
 

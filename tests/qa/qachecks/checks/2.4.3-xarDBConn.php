@@ -14,7 +14,7 @@ class XarDBConn extends QACheckRegexp
     var $name = "xarDBConn no longer returns an array";
     var $fatal = true;
     var $filetype = 'php';
-    var $regexps = array('/list\(.*?\)\s*=\s*xarDBGetConn/');
+    var $regexps = array('/list\(.*?\)\s*=\s*xarDB::getConn/');
 }
 
 /* add to the list of checks when imported */

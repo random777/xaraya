@@ -150,7 +150,7 @@ function dynamicdata_admin_query($args)
     $data['olditemid'] = $itemid;
     $data['objects'] = xarMod::apiFunc('dynamicdata','user','getobjects');
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $data['table'] = $table;
     $data['oldtable'] = $table;
     $data['tables'] = $dbconn->MetaTables();
@@ -274,7 +274,7 @@ function dynamicdata_admin_query($args)
         $grouplist = null;
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
 
 // TODO: clean up passing of where clauses
     $whereclause = '';

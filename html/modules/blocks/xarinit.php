@@ -18,7 +18,7 @@
 function blocks_init()
 {
     // Get database information
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
     $prefix = xarDBGetSystemTablePrefix();
 
@@ -183,7 +183,7 @@ function blocks_init()
     if (!$result) return;
 
     // create table for block instance specific output cache configuration
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
     // Cache blocks table is not in xartables
@@ -307,7 +307,7 @@ function blocks_upgrade($oldVersion)
         */
         xarRemoveInstances('blocks');
         //setup the new ones
-        $dbconn =& xarDBGetConn();
+        $dbconn =& xarDB::getConn();
         $xartable =& xarDBGetTables();
         $systemPrefix = xarDBGetSystemTablePrefix();
 

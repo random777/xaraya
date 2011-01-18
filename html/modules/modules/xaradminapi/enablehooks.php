@@ -39,7 +39,7 @@ function modules_adminapi_enablehooks($args)
         $callerItemType = '';
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
     // get all available/currently enabled hooks for this module

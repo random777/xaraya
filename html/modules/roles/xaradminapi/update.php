@@ -75,7 +75,7 @@ function roles_adminapi_update($args)
         $home = '';
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
     $rolesTable = $xartable['roles'];

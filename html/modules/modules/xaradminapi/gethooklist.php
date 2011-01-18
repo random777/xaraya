@@ -32,7 +32,7 @@ function modules_adminapi_gethooklist($args)
         $modName = '';
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable      =& xarDBGetTables();
 
     // TODO: allow finer selection of hooks based on type etc., and

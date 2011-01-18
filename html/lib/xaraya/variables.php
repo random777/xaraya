@@ -844,7 +844,7 @@ function xarVar__GetVarByAlias($modName = NULL, $name, $uid = NULL, $prep = NULL
     }
 
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $tables =& xarDBGetTables();
     $bindvars = array();
 
@@ -1018,7 +1018,7 @@ function xarVar__SetVarByAlias($modName = NULL, $name, $value, $prime = NULL, $d
             break;
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $tables =& xarDBGetTables();
 
     switch($type) {
@@ -1181,7 +1181,7 @@ function xarVar__DelVarByAlias($modName = NULL, $name, $uid = NULL, $type = 'mod
             break;
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $tables =& xarDBGetTables();
 
     switch($type) {

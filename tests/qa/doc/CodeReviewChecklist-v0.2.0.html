@@ -421,11 +421,11 @@ script.</td>
       <td style="vertical-align: top;">2.4.3<br>
       </td>
       <td style="vertical-align: top;"><span
- style="font-family: monospace;">xarDBGetConn()</span> no longer
+ style="font-family: monospace;">xarDB::getConn()</span> no longer
 returns an array.<br>
       </td>
       <td style="vertical-align: top;">Correct usage looks like this:<br>
-      <pre>   $dbconn =&amp; xarDBGetConn();</pre>
+      <pre>   $dbconn =&amp; xarDB::getConn();</pre>
       </td>
     </tr>
     <tr>
@@ -1021,7 +1021,7 @@ reference.<br>
       </td>
       <td style="vertical-align: top;">Adodb database objects are
 large, and you can save memory space by assigning them by reference:<br>
-      <pre>   $dbconn =&amp; xarDBGetConn();<br>   $result =&amp; $dbconn-&gt;Execute("some sql");<br></pre>
+      <pre>   $dbconn =&amp; xarDB::getConn();<br>   $result =&amp; $dbconn-&gt;Execute("some sql");<br></pre>
       </td>
     </tr>
   </tbody>

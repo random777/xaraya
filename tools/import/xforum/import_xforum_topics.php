@@ -42,7 +42,7 @@
         $postids = unserialize($posts);
     }
    // Get datbase setup
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
     $query = 'SELECT COUNT(*) FROM ' . $oldprefix . '_XForum_threads';
     $result =& $dbconn->Execute($query);

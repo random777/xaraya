@@ -50,7 +50,7 @@ function blocks_userapi_getallgroups($args)
         $orderby = '';
     }
 
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
     $xartable =& xarDBGetTables();
 
     $block_groups_table =& $xartable['block_groups'];

@@ -52,7 +52,7 @@ function roles_user_view($args)
     if (!xarSecurityCheck('ReadRole')) return;
 
     // Need the database connection for quoting strings.
-    $dbconn =& xarDBGetConn();
+    $dbconn =& xarDB::getConn();
 
     // FIXME: SQL injection risk here - use bind variables.
     // NOTE: Cannot use bind variables here, until we know the knock-on

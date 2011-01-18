@@ -17,7 +17,7 @@ include 'includes/xarCore.php';
 xarCoreInit(XARCORE_SYSTEM_ALL);
 
 // Get new database connection
-$dbconn =& xarDBNewConn();
+$dbconn =& xarDB::getConnection();
 
 // Get a data dictionary object with item create methods.
 $datadict =& xarDBNewDataDict($dbconn);

@@ -23,7 +23,7 @@ if(!xarVarFetch('logsql','isset', $logsql, 0, XARVAR_NOT_REQUIRED)) {return;}
 session_start(); // session variables required for monitoring
 
 // Get new database connection
-$dbconn =& xarDBNewConn();
+$dbconn =& xarDB::getConnection();
 
 
 // Create logging table if it doesn't exist.

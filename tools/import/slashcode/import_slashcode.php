@@ -108,7 +108,7 @@ if (!isset($step)) {
 $importdbserial = xarModGetVar('installer','importdb');
 if (!empty($importdbserial)) {
     $importdb = unserialize($importdbserial);
-    $dbimport =& xarDBNewConn($importdb);
+    $dbimport =& xarDB::getConnection($importdb);
     xarModSetVar('installer','importdbtype',$importdb['databaseType']);
 } else {
     $dbimport =& $dbconn;

@@ -134,7 +134,7 @@ class Dynamic_Calendar_Property extends Dynamic_Property
 //                            'filename' => 'calendar.js'));
 
         // $timeval = xarLocaleFormatDate($dateformat, $value);
-        $data['baseuri']    = xarServerGetBaseURI();
+        $data['baseuri']    = xarServer::getBaseURI();
         $data['dateformat'] = $dateformat;
         $data['jsID']       = str_replace(array('[', ']'), '_', $id);
         // $data['timeval']    = $timeval;

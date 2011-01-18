@@ -366,7 +366,7 @@ jQuery('#"."displayform').validate({
                         </xar:mlstring>
                     </label>
                     <input type="text" id="cookiepath" name="cookiepath" value="#xarConfigGetVar('Site.Session.CookiePath')#" class="xar-form-textmedium" />
-                    <xar:ml><xar:mlstring>Default: #(1) (limited to the Xaraya directory)</xar:mlstring><xar:mlvar>#xarServerGetBaseURI()#</xar:mlvar></xar:ml>
+                    <xar:ml><xar:mlstring>Default: #(1) (limited to the Xaraya directory)</xar:mlstring><xar:mlvar>#xarServer::getBaseURI()#</xar:mlvar></xar:ml>
                 </div>
                 <div class="xar-form-input-wrapper">
                     <label for="cookiedomain" title="#xarML('Override the default cookie domain')#" class="xar-form-label">

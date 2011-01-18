@@ -116,7 +116,7 @@ function xarMakeRoleRoot($name) { return true; }
  *
 **/
 function xarServerGetVar($name) { return xarServer::getVar($name); }
-function xarServerGetBaseURI()  { return xarServer::getBaseURI();  }
+function xarServer::getBaseURI()  { return xarServer::getBaseURI();  }
 function xarServer::getHost()     { return xarServer::getHost();     }
 function xarServer::getProtocol() { return xarServer::getProtocol(); }
 function xarServer::getBaseURL()  { return xarServer::getBaseURL();  }

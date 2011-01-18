@@ -63,7 +63,7 @@ include dirname(__FILE__).'/pnHTML.php';
 * pnSecGenAuthKey -> xarSecGenAuthKey
 *
 * SERVER FUNCTIONS (URL URI)
-* pnGetBaseURI -> xarServerGetBaseURI
+* pnGetBaseURI -> xarServer::getBaseURI
 * pnGetBaseURL -> xarServer::getBaseURL
 * pnRedirect -> xarResponseRedirect
 * pnIsRedirected -> xarResponseIsRedirected CHECK THIS ONE!!! Where is this function?
@@ -141,7 +141,7 @@ include dirname(__FILE__).'/pnHTML.php';
  */
 function pnGetBaseURI()
 {
-    return xarServerGetBaseURI();
+    return xarServer::getBaseURI();
 }
 
 /**

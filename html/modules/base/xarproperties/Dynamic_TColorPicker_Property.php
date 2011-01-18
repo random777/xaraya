@@ -88,7 +88,7 @@ class Dynamic_TColorPicker_Property extends Dynamic_Property
             $output .= ' <span class="xar-error">'.xarML('Invalid #(1)', $this->invalid) .'</span>';
         }
         */
-        $data['baseuri']   =xarServerGetBaseURI();
+        $data['baseuri']   =xarServer::getBaseURI();
         $data['name']     = $name;
         $data['id']       = $id;
         $data['size']     = $this->size;

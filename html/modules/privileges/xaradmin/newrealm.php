@@ -28,7 +28,7 @@ function privileges_admin_newrealm()
     if ($confirmed) {
         if (!xarSecConfirmAuthKey()) return;
 
-        $xartable =& xarDBGetTables();
+        $xartable =& xarDB::getTables();
         $q = new xarQuery('SELECT',$xartable['security_realms'],'xar_name');
         $q->eq('xar_name', $name);
         if(!$q->run()) return;

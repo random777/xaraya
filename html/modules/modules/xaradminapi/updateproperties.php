@@ -36,7 +36,7 @@ function modules_adminapi_updateproperties($args)
     if(!xarSecurityCheck('AdminModules',0,'All',"All:All:$regid")) return;
 
 // Update
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
     // CHECKME: this comes falling out of nowhere (from roles module)
     $q = new xarQuery('UPDATE', $xartable['modules']);
 //    if (isset($displayname)) $q->addfield('xar_directory', $displayname);

@@ -42,7 +42,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
         }
 
         $dbconn =& xarDB::getConn();
-        $xartable =& xarDBGetTables();
+        $xartable =& xarDB::getTables();
 
         $dynamicdata = $xartable['dynamic_data'];
 
@@ -96,7 +96,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
         }
 
         $dbconn =& xarDB::getConn();
-        $xartable =& xarDBGetTables();
+        $xartable =& xarDB::getTables();
 
         $dynamicdata = $xartable['dynamic_data'];
 
@@ -135,7 +135,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
         }
 
         $dbconn =& xarDB::getConn();
-        $xartable =& xarDBGetTables();
+        $xartable =& xarDB::getTables();
 
         $dynamicdata = $xartable['dynamic_data'];
 
@@ -198,7 +198,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
         }
 
         $dbconn =& xarDB::getConn();
-        $xartable =& xarDBGetTables();
+        $xartable =& xarDB::getTables();
 
         $dynamicdata = $xartable['dynamic_data'];
 
@@ -246,7 +246,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
         }
 
         $dbconn =& xarDB::getConn();
-        $xartable =& xarDBGetTables();
+        $xartable =& xarDB::getTables();
         $dynamicdata = $xartable['dynamic_data'];
 
         // easy case where we already know the items we want
@@ -431,7 +431,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
         // more difficult case where we need to create a pivot table, basically
         } elseif ($numitems > 0 || count($this->sort) > 0 || count($this->where) > 0 || count($this->groupby) > 0) {
 
-            $dbtype = xarDBGetType();
+            $dbtype = xarDB::getType();
             if (substr($dbtype,0,4) == 'oci8') {
                 $propval = 'TO_CHAR(xar_dd_value)';
             } elseif (substr($dbtype,0,5) == 'mssql') {
@@ -681,7 +681,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
         }
 
         $dbconn =& xarDB::getConn();
-        $xartable =& xarDBGetTables();
+        $xartable =& xarDB::getTables();
         $dynamicdata = $xartable['dynamic_data'];
 
         $propids = array_keys($this->fields);
@@ -822,7 +822,7 @@ class Dynamic_VariableTable_DataStore extends Dynamic_SQL_DataStore
         }
 
         $dbconn =& xarDB::getConn();
-        $xartable =& xarDBGetTables();
+        $xartable =& xarDB::getTables();
 
         $dynamicobjects = $xartable['dynamic_objects'];
 

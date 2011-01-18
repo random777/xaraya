@@ -334,7 +334,7 @@
 <xsl:template mode="xarinit_init_tables" match="xaraya_module">
     <xsl:variable name="module_prefix" select="registry/name" />
     $dbconn =&amp; xarDB::getConn();
-    $xartables = xarDBGetTables();
+    $xartables = xarDB::getTables();
     xarDBLoadTableMaintenanceAPI();
 
     <xsl:for-each select="database/table">
@@ -544,7 +544,7 @@ function <xsl:value-of select="$module_prefix" />_upgrade($oldversion)
      * REMOVE THE DATABASE TABLES AND DD OBJECTS
      */
     $dbconn =&amp; xarDB::getConn();
-    $xartables = xarDBGetTables();
+    $xartables = xarDB::getTables();
 
     // adodb does not provide the functionality to abstract table creates
     // across multiple databases.  Xaraya offers the xarDropeTable function

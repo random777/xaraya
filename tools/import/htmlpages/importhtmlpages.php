@@ -105,7 +105,7 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
     if (!xarMod::apiLoad('articles','admin')) {
         die("Unable to load the articles admin API");
     }
-    $tables =& xarDBGetTables();
+    $tables =& xarDB::getTables();
 
     if (!isset($reset)) {
         $reset = 0;

@@ -41,9 +41,9 @@ xarModSetVar('installer','old_max_execution_time',$old_max_execution_time);
 $prefix = xarDBGetSystemTablePrefix();
 
 // Get and set the database type
-$dbtype = xarDBGetType();
+$dbtype = xarDB::getType();
 $dbhost = xarDB::getHost();
-$dbname = xarDBGetName();
+$dbname = xarDB::getName();
 $dbuser = '';
 $dbpass = '';
 xarModSetVar('installer','dbtype',$dbtype);
@@ -77,7 +77,7 @@ if (isset($step)) {
 
 // Initialize database settings
 $dbconn =& xarDB::getConn();
-$tables =& xarDBGetTables();
+$tables =& xarDB::getTables();
 
 
 // Set some table variables

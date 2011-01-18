@@ -29,7 +29,7 @@ function modules_adminapi_getdbmodules($args)
         $modregid = $regId;
     }
 
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
 
     $dbModules = array();
 

@@ -46,7 +46,7 @@ function blocks_adminapi_create_type($args)
     }
 
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
     $block_types_table = $xartable['block_types'];
 
     $nextID = $dbconn->GenId($block_types_table);

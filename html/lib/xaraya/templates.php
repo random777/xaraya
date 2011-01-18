@@ -1644,7 +1644,7 @@ function xarTplRegisterTag($tag_module, $tag_name, $tag_attrs = array(), $tag_ha
     if(!$tag->getName()) return; // tagname was not set, exception pending
 
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
 
     $systemPrefix = xarDBGetSystemTablePrefix();
     $tag_table = $systemPrefix . '_template_tags';
@@ -1685,7 +1685,7 @@ function xarTplUnregisterTag($tag_name)
     }
 
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
 
     $tag_table = $xartable['template_tags'];
 
@@ -1775,7 +1775,7 @@ function xarTplGetTagObjectFromName($tag_name)
     }
 
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
 
     $systemPrefix = xarDBGetSystemTablePrefix();
     $tag_table = $systemPrefix . '_template_tags';

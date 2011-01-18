@@ -845,7 +845,7 @@ function xarVar__GetVarByAlias($modName = NULL, $name, $uid = NULL, $prep = NULL
 
 
     $dbconn =& xarDB::getConn();
-    $tables =& xarDBGetTables();
+    $tables =& xarDB::getTables();
     $bindvars = array();
 
     switch($type) {
@@ -1019,7 +1019,7 @@ function xarVar__SetVarByAlias($modName = NULL, $name, $value, $prime = NULL, $d
     }
 
     $dbconn =& xarDB::getConn();
-    $tables =& xarDBGetTables();
+    $tables =& xarDB::getTables();
 
     switch($type) {
         case 'modvar':
@@ -1182,7 +1182,7 @@ function xarVar__DelVarByAlias($modName = NULL, $name, $uid = NULL, $type = 'mod
     }
 
     $dbconn =& xarDB::getConn();
-    $tables =& xarDBGetTables();
+    $tables =& xarDB::getTables();
 
     switch($type) {
         case 'modvar':

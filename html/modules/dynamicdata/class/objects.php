@@ -380,7 +380,7 @@ class Dynamic_Object_Master
     {
         $nullreturn = NULL;
         $dbconn =& xarDB::getConn();
-        $xartable =& xarDBGetTables();
+        $xartable =& xarDB::getTables();
 
         $dynamicobjects = $xartable['dynamic_objects'];
 
@@ -443,7 +443,7 @@ class Dynamic_Object_Master
         }
 
         $dbconn =& xarDB::getConn();
-        $xartable =& xarDBGetTables();
+        $xartable =& xarDB::getTables();
 
         $dynamicobjects = $xartable['dynamic_objects'];
 
@@ -1320,7 +1320,7 @@ class Dynamic_Object extends Dynamic_Object_Master
             $args['moduleid'] = $this->moduleid;
         }
         $dbconn =& xarDB::getConn();
-        $xartable =& xarDBGetTables();
+        $xartable =& xarDB::getTables();
 
         $dynamicobjects = $xartable['dynamic_objects'];
 

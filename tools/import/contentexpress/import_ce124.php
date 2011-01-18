@@ -103,7 +103,7 @@ if (!isset($oldprefix) || $oldprefix == $prefix || !preg_match('/^[a-z0-9_-]+$/i
     if (xarMod::isAvailable('hitcount') && xarMod::apiLoad('hitcount','admin')) {
         $docounter = 1;
     }
-    $tables =& xarDBGetTables();
+    $tables =& xarDB::getTables();
 
     // STEP 1
 

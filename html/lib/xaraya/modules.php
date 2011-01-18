@@ -362,7 +362,7 @@ class xarMod extends Object implements IxarMod
     $tables['module_uservars']       = $systemPrefix . '_module_uservars';
     $tables['hooks']                 = $systemPrefix . '_hooks';
 
-    xarDB_importTables($tables);
+    xarDB::importTables($tables);
         return true;
     }
 
@@ -893,7 +893,7 @@ class xarMod extends Object implements IxarMod
         }
 
         $tablefunc = $modName . '_' . 'xartables';
-        if (function_exists($tablefunc)) xarDB_importTables($tablefunc());
+        if (function_exists($tablefunc)) xarDB::importTables($tablefunc());
 
         $loadedDbInfoCache[$modName] = true;
         return true;
@@ -1280,7 +1280,7 @@ function xarMod_init(&$args, $whatElseIsGoingLoaded)
     $tables['module_uservars']       = $systemPrefix . '_module_uservars';
     $tables['hooks']                 = $systemPrefix . '_hooks';
 
-    xarDB_importTables($tables);
+    xarDB::importTables($tables);
 
     // Subsystem initialized, register a handler to run when the request is over
     //register_shutdown_function ('xarMod__shutdown_handler');
@@ -1377,7 +1377,7 @@ function xarModDelAllVars($modName)
     //if (!isset($modBaseInfo)) return; // throw back
     if (isset($modBaseInfo)) { //only continue if the module info exists
         $dbconn =& xarDB::getConn();
-        $tables =& xarDBGetTables();
+        $tables =& xarDB::getTables();
 
         // Takes the right table basing on module mode
         if ($modBaseInfo['mode'] == XARMOD_MODE_SHARED) {
@@ -1563,7 +1563,7 @@ function xarModGetVarId($modName, $name)
     }
 
     $dbconn =& xarDB::getConn();
-    $tables =& xarDBGetTables();
+    $tables =& xarDB::getTables();
 
     // Takes the right table basing on module mode
     if ($modBaseInfo['mode'] == XARMOD_MODE_SHARED) {
@@ -1623,7 +1623,7 @@ function xarModGetInfo($modRegId, $type = 'module')
     xarLogMessage("xarModGetInfo ". $modRegId ." / " . $type);
 
     $dbconn =& xarDB::getConn();
-    $tables =& xarDBGetTables();
+    $tables =& xarDB::getTables();
 
     switch($type) {
         case 'module':
@@ -2075,7 +2075,7 @@ function xarModGetHookList($callerModName, $hookObject, $hookAction, $callerItem
 
     // Get database info
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
     $hookstable = $xartable['hooks'];
 
     // Get applicable hooks
@@ -2149,7 +2149,7 @@ function xarModIsHooked($hookModName, $callerModName = NULL, $callerItemType = '
     if (!isset($modHookedCache[$callerModName])) {
         // Get database info
         $dbconn =& xarDB::getConn();
-        $xartable =& xarDBGetTables();
+        $xartable =& xarDB::getTables();
         $hookstable = $xartable['hooks'];
 
         // Get applicable hooks
@@ -2384,7 +2384,7 @@ function xarMod_getBaseInfo($modName, $type = 'module')
     xarLogMessage("xarMod_getBaseInfo ". $modName ." / ". $type);
 
     $dbconn =& xarDB::getConn();
-    $tables =& xarDBGetTables();
+    $tables =& xarDB::getTables();
 
     $modulestable = $tables[$type.'s'];
     //The Shared Mode should not use 2 different tables!!!!!
@@ -2477,7 +2477,7 @@ function xarMod_getVarsByModule($modName, $type = 'module')
     }
 
     $dbconn =& xarDB::getConn();
-    $tables =& xarDBGetTables();
+    $tables =& xarDB::getTables();
 
     switch($type) {
         case 'module':
@@ -2552,7 +2552,7 @@ function xarMod_getVarsByName($varName, $type = 'module')
     }
 
     $dbconn =& xarDB::getConn();
-    $tables =& xarDBGetTables();
+    $tables =& xarDB::getTables();
 
     switch($type) {
     case 'module':
@@ -2646,9 +2646,9 @@ function xarMod__loadDbInfo($modName, $modDir)
     $pntablefunc = $modName . '_' . 'pntables';
 
     if (function_exists($tablefunc)) {
-        xarDB_importTables($tablefunc());
+        xarDB::importTables($tablefunc());
     } elseif (function_exists($pntablefunc)) {
-        xarDB_importTables($pntablefunc());
+        xarDB::importTables($pntablefunc());
     }
 
     $loadedDbInfoCache[$modName] = true;
@@ -2681,7 +2681,7 @@ function xarMod_getState($modRegId, $modMode = XARMOD_MODE_PER_SITE, $type = 'mo
     }
 
     $dbconn =& xarDB::getConn();
-    $tables =& xarDBGetTables();
+    $tables =& xarDB::getTables();
 
     switch($type) {
         case 'module':
@@ -2747,7 +2747,7 @@ function xarModRegisterHook($hookObject,
 
     // Get database info
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
     $hookstable = $xartable['hooks'];
 
     // Insert hook
@@ -2791,7 +2791,7 @@ function xarModUnregisterHook($hookObject,
 
     // Get database info
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
     $hookstable = $xartable['hooks'];
 
     // Remove hook

@@ -40,7 +40,7 @@ function modules_adminapi_enablehooks($args)
     }
 
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
 
     // get all available/currently enabled hooks for this module
     $sql = "SELECT xar_id, xar_object, xar_action, xar_smodule, xar_stype,

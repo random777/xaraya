@@ -79,11 +79,11 @@ function xarDB_init(&$args)
  */
 function xarDBGetConn($index=0) {return xarDB::getConn($index);}
 function xarDBNewConn($args = NULL) {return xarDB::getConnection($args,1);}
-//function &xarDBGetTables() {return xarDB::getTables();}
+function &xarDBGetTables() {return xarDB::getTables();}
 function xarDBGetHost() {return xarDB::getHost();}
-//function xarDBGetType() {return xarDB::getType();}
-//function xarDBGetName() {return xarDB::getName();}
-//function xarDB_importTables($tables=array()) {return xarDB::importTables($tables);}
+function xarDBGetType() {return xarDB::getType();}
+function xarDBGetName() {return xarDB::getName();}
+function xarDB_importTables($tables=array()) {return xarDB::importTables($tables);}
 //function xarDBGetSiteTablePrefix() {return xarDB::getPrefix();}
 
 
@@ -138,7 +138,7 @@ function xarDBdriverExists($dbType, $handler = 'adodb')
  * @global array xarDB_tables array of database tables
  * @return array array of database tables
  */
-function &xarDBGetTables()
+function ygetTables()
 {
     return $GLOBALS['xarDB_tables'];
 }
@@ -211,7 +211,7 @@ function &xarDBNewDataDict(&$dbconn, $mode = 'READONLY')
  * @access public
  * @return string
  */
-function xarDBGetType()
+function xaxgetType()
 {
     return $GLOBALS['xarDB_systemArgs']['databaseType'];
 }
@@ -222,7 +222,7 @@ function xarDBGetType()
  * @access public
  * @return string
  */
-function xarDBGetName()
+function ygetName()
 {
     return $GLOBALS['xarDB_systemArgs']['databaseName'];
 }
@@ -258,7 +258,7 @@ function xarDBGetSiteTablePrefix()
  * @access protected
  * @global xartable array
  */
-function xarDB_importTables($tables)
+function yimportTables($tables)
 {
     assert('is_array($tables)');
     $GLOBALS['xarDB_tables'] = array_merge($GLOBALS['xarDB_tables'], $tables);

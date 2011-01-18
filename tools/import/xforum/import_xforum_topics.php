@@ -43,7 +43,7 @@
     }
    // Get datbase setup
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
     $query = 'SELECT COUNT(*) FROM ' . $oldprefix . '_XForum_threads';
     $result =& $dbconn->Execute($query);
     if (!$result) {

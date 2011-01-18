@@ -57,7 +57,7 @@ function xarSecurity_init()
                     'module_states' => $prefix . '_module_states',
                     'security_privsets' => $prefix . '_security_privsets'
                     );
-    xarDB_importTables($tables);
+    xarDB::importTables($tables);
     //register_shutdown_function ('xarSecurity__shutdown_handler');
     return true;
 }

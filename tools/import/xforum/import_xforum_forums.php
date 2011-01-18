@@ -27,7 +27,7 @@
     }
    // Get datbase setup
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
     $catids= unserialize(xarModGetVar('installer', 'catid'));
     $query = 'SELECT fid, name, status, lastpost,description, displayorder, posts, threads, fup
               FROM `'.$oldprefix.'_XForum_forums`

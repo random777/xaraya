@@ -93,7 +93,7 @@ include dirname(__FILE__).'/pnHTML.php';
 * DATABASE FUNCTIONS
 * pnDBInit -> xarDBInit
 * pnDBGetConn -> xarDB::getConn
-* pnDBGetTables -> xarDBGetTables
+* pnDBGetTables -> xarDB::getTables
 *
 * VAR FUNCTIONS
 * pnVarPrepForStore -> xarPrepForStore
@@ -307,7 +307,7 @@ function pnModRegisterHook($hookObject,
 
     // Get database info
     $dbconn =& xarDB::getConn();
-    $pntable =& xarDBGetTables();
+    $pntable =& xarDB::getTables();
     $hookstable = $pntable['hooks'];
 
     // Insert hook
@@ -352,7 +352,7 @@ function pnModUnregisterHook($hookObject,
 
     // Get database info
     $dbconn =& xarDB::getConn();
-    $pntable =& xarDBGetTables();
+    $pntable =& xarDB::getTables();
     $hookstable = $pntable['hooks'];
 
     // Remove hook
@@ -653,7 +653,7 @@ function pnDBGetConn()
  */
 function pnDBGetTables()
 {
-    return xarDBGetTables();
+    return xarDB::getTables();
 }
 
 function pnDBInit()

@@ -35,7 +35,7 @@
  //  }
    // Get datbase setup
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
 
     $query = 'SELECT type , fid, name, displayorder,fup
               FROM `'.$oldprefix.'_XForum_forums`

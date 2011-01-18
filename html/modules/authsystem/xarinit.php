@@ -73,7 +73,7 @@ function authsystem_upgrade($oldVersion)
 
            // Get database setup
            $dbconn =& xarDB::getConn();
-           $xartable =& xarDBGetTables();
+           $xartable =& xarDB::getTables();
            $systemPrefix = xarDBGetSystemTablePrefix();
            $modulesTable = $systemPrefix .'_modules';
            $modid=xarMod::getRegID('authsystem');

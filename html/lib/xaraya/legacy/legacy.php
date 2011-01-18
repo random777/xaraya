@@ -83,7 +83,7 @@ function xarDB::getHost() { return xarDB::getHost(); }
  * @deprec
  * @see xarDB::getName();
  */
-function xarDBGetName() { return xarDB::getName(); }
+function xarDB::getName() { return xarDB::getName(); }
 
 /*
  * Wrapper functions to support Xaraya 1 API for configvars
@@ -147,10 +147,10 @@ function xarResponse::redirect($redirectURL)                { return xarControll
 function &xarDB::getConn($index = 0)   { return xarDB::getConn($index);}
 function xarDBGetSystemTablePrefix() { return xarDB::getPrefix(); }
 function xarDBGetSiteTablePrefix()   { return xarDBGetSystemTablePrefix(); }
-function &xarDBGetTables()           { return xarDB::getTables();}
+function &xarDB::getTables()           { return xarDB::getTables();}
 // Does this work?
 function xarDBLoadTableMaintenanceAPI() { return sys::import('xaraya.tableddl'); }
-function xarDBGetType()              { return xarDB::getType(); }
+function xarDB::getType()              { return xarDB::getType(); }
 function &xarDBNewDataDict(Connection &$dbconn, $mode = 'READONLY') 
 {
     throw new ApiDeprecationException(array('xarDBNewDataDict','[TO BE DETERMINED]'));

@@ -72,7 +72,7 @@ function xarUser_init(&$args)
                     'realms'           => $systemPrefix . '_security_realms',
                     'rolemembers' => $systemPrefix . '_rolemembers');
 
-    xarDB_importTables($tables);
+    xarDB::importTables($tables);
 
     $GLOBALS['xarUser_authenticationModules'] = $args['authenticationModules'];
 
@@ -163,7 +163,7 @@ function xarUserLogIn($userName, $password, $rememberMe=0)
 
     // Set user auth module information
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
 
     $rolestable = $xartable['roles'];
 
@@ -598,7 +598,7 @@ function xarUser__getAuthModule($userId)
     }
 
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
 
     // Get user auth_module name
     $rolestable = $xartable['roles'];
@@ -703,7 +703,7 @@ function xarUser__setUsersTableUserVar($name, $value, $userId)
 // TODO: replace with some roles API ?
 
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
 
     $rolestable = $xartable['roles'];
     $usercolumns = $xartable['users_column'];

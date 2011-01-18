@@ -31,7 +31,7 @@ function privileges_init()
 */
  // Get database information
     $dbconn =& xarDB::getConn();
-    $tables =& xarDBGetTables();
+    $tables =& xarDB::getTables();
     xarDBLoadTableMaintenanceAPI();
 
     $sitePrefix = xarDBGetSiteTablePrefix();
@@ -146,7 +146,7 @@ function privileges_init()
     $query = xarDBCreateIndex($tables['privileges'],$index);
     if (!$dbconn->Execute($query)) return;
 
-    xarDB_importTables(array('privileges' => xarDBGetSiteTablePrefix() . '_privileges'));
+    xarDB::importTables(array('privileges' => xarDBGetSiteTablePrefix() . '_privileges'));
 
     // prefix_privmembers
     /*********************************************************************
@@ -166,7 +166,7 @@ function privileges_init()
                                            'default'     => '0')));
     if (!$dbconn->Execute($query)) return;
 
-    xarDB_importTables(array('privmembers' => xarDBGetSiteTablePrefix() . '_privmembers'));
+    xarDB::importTables(array('privmembers' => xarDBGetSiteTablePrefix() . '_privmembers'));
 
     $index = array('name'      => 'i_'.$sitePrefix.'_privmembers_id',
                    'fields'    => array('xar_pid','xar_parentid'),
@@ -212,7 +212,7 @@ function privileges_init()
     $query = xarDBCreateIndex($tables['security_acl'],$index);
 
     if (!$dbconn->Execute($query)) return;
-    xarDB_importTables(array('security_acl' => xarDBGetSiteTablePrefix() . '_security_acl'));
+    xarDB::importTables(array('security_acl' => xarDBGetSiteTablePrefix() . '_security_acl'));
 
     // prefix_security_masks
     /*********************************************************************
@@ -290,7 +290,7 @@ function privileges_init()
     $query = xarDBCreateIndex($tables['security_masks'],$index);
     if (!$dbconn->Execute($query)) return;
 
-    xarDB_importTables(array('security_masks' => xarDBGetSiteTablePrefix() . '_security_masks'));
+    xarDB::importTables(array('security_masks' => xarDBGetSiteTablePrefix() . '_security_masks'));
 
     // prefix_security_instances
     /*********************************************************************
@@ -358,7 +358,7 @@ function privileges_init()
 
     if (!$dbconn->Execute($query)) return;
 
-    xarDB_importTables(array('security_instances' => xarDBGetSiteTablePrefix() . '_security_instances'));
+    xarDB::importTables(array('security_instances' => xarDBGetSiteTablePrefix() . '_security_instances'));
 
     // prefix_security_levels
     /*********************************************************************
@@ -463,7 +463,7 @@ function privileges_init()
     $result =& $dbconn->Execute($query);
     if (!$result) return;
 
-    xarDB_importTables(array('security_instances' => xarDBGetSiteTablePrefix() . '_security_instances'));
+    xarDB::importTables(array('security_instances' => xarDBGetSiteTablePrefix() . '_security_instances'));
 
 */
 
@@ -518,7 +518,7 @@ function privileges_delete()
 
  // Get database information
     $dbconn =& xarDB::getConn();
-    $tables =& xarDBGetTables();
+    $tables =& xarDB::getTables();
     xarDBLoadTableMaintenanceAPI();
 
     $query = xarDBDropTable($tables['privileges']);

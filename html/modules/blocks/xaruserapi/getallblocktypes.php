@@ -52,7 +52,7 @@ function blocks_userapi_getallblocktypes($args)
     }
 
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
     $block_types_table = $xartable['block_types'];
 
     // Fetch instance details.

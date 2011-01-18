@@ -20,7 +20,7 @@ function blocks_adminapi_resequence($args)
     extract($args);
 
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
 
     $bind = array();
     $where_clause = '';

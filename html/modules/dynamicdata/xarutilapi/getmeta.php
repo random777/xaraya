@@ -34,7 +34,7 @@ function dynamicdata_utilapi_getmeta($args)
     $dbconn =& xarDB::getConn();
 
     // Note: this only works if we use the same database connection
-    if (!empty($db) && $db != xarDBGetName()) {
+    if (!empty($db) && $db != xarDB::getName()) {
         $dbconn->SelectDB($db);
         $prefix = $db . '.';
     } else {
@@ -183,8 +183,8 @@ function dynamicdata_utilapi_getmeta($args)
     }
 
     // Note: this only works if we use the same database connection
-    if (!empty($db) && $db != xarDBGetName()) {
-        $dbconn->SelectDB(xarDBGetName());
+    if (!empty($db) && $db != xarDB::getName()) {
+        $dbconn->SelectDB(xarDB::getName());
     }
 
     return $metadata;

@@ -34,7 +34,7 @@ function xarBlock_init(&$args, $whatElseIsGoingLoaded)
         'block_types'           => $systemPrefix . '_block_types'
     );
 
-    xarDB_importTables($tables);
+    xarDB::importTables($tables);
 
     // Decide if we will be using the output caching system
     $outputCachePath = xarCoreGetVarDirPath() . '/cache/output/';
@@ -164,7 +164,7 @@ function xarBlock_renderGroup($groupname, $template = NULL)
     $blockCaching = xarCore_GetCached('xarcache', 'blockCaching');
 
     $dbconn =& xarDB::getConn();
-    $tables =& xarDBGetTables();
+    $tables =& xarDB::getTables();
 
     $blockGroupInstancesTable = $tables['block_group_instances'];
     $blockInstancesTable      = $tables['block_instances'];

@@ -31,7 +31,7 @@ function roles_adminapi_clearsessions($spared)
     }
 
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
     $sessionstable = $xartable['session_info'];
     $roles = new xarRoles();
     $lockdata=unserialize(xarModGetVar('roles', 'lockdata'));

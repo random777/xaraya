@@ -48,7 +48,7 @@ function xarDBCreateDatabase($databaseName, $databaseType = NULL)
         return;
     }
     if (empty($databaseType)) {
-        $databaseType = xarDBGetType();
+        $databaseType = xarDB::getType();
     }
 
     switch($databaseType) {
@@ -106,7 +106,7 @@ function xarDBCreateTable($tableName, $fields, $databaseType="")
     }
 
     if (empty($databaseType)) {
-        $databaseType = xarDBGetType();
+        $databaseType = xarDB::getType();
     }
 
     // save table definition
@@ -211,7 +211,7 @@ function xarDBAlterTable($tableName, $args, $databaseType = NULL)
     }
 
     if (empty($databaseType)) {
-        $databaseType = xarDBGetType();
+        $databaseType = xarDB::getType();
     }
 
     // save table definition
@@ -310,7 +310,7 @@ function xarDBDropTable($tableName, $databaseType = NULL)
         return;
     }
     if (empty($databaseType)) {
-        $databaseType = xarDBGetType();
+        $databaseType = xarDB::getType();
     }
 
     // remove table definition
@@ -384,7 +384,7 @@ function xarDBCreateIndex($tableName, $index, $databaseType = NULL)
     }
 
     if (empty($databaseType)) {
-        $databaseType = xarDBGetType();
+        $databaseType = xarDB::getType();
     }
 
     // Select the correct database type
@@ -451,7 +451,7 @@ function xarDBDropIndex($tableName, $index, $databaseType = NULL)
         return;
     }
     if (empty($databaseType)) {
-        $databaseType = xarDBGetType();
+        $databaseType = xarDB::getType();
     }
 
     // Select the correct database type

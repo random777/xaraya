@@ -61,7 +61,7 @@ function themes_adminapi_getthemelist($args)
 
     // Determine the tables we are going to use
     $dbconn =& xarDB::getConn();
-    $tables =& xarDBGetTables();
+    $tables =& xarDB::getTables();
     $themestable = $tables['themes'];
     $theme_statesTables = array($tables['system/theme_states'], $tables['site/theme_states']);
 

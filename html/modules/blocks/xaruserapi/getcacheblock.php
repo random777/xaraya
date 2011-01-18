@@ -24,7 +24,7 @@ function blocks_userapi_getcacheblock($args)
     }
 
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
     $cacheBlockTable = $xartable['cache_blocks'];
 
     $query = "SELECT xar_bid, xar_nocache, xar_page, xar_user, xar_expire

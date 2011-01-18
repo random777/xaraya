@@ -22,7 +22,7 @@
 function blocks_userapi_reactivate_menus()
 {
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
     $ublockstable = $xartable['userblocks'];
 
     $query="UPDATE $ublockstable

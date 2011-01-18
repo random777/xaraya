@@ -58,7 +58,7 @@ function roles_adminapi_create($args)
 
     // Get datbase setup
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
 
     $rolestable = $xartable['roles'];
 

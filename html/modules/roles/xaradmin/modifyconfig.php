@@ -38,7 +38,7 @@ function roles_admin_modifyconfig()
             }
 
             $dbconn   =& xarDB::getConn();
-            $xartable =& xarDBGetTables();
+            $xartable =& xarDB::getTables();
             $acltable = xarDBGetSiteTablePrefix() . '_security_acl';
             $query    = "SELECT xar_partid FROM $acltable
                          WHERE xar_permid   = ?";

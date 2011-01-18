@@ -63,7 +63,7 @@ function dynamicdata_utilapi_getstatic($args)
     }
 
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
 
 // TODO: support site tables as well
     $systemPrefix = xarDBGetSystemTablePrefix();

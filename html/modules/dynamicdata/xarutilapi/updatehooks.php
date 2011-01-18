@@ -78,7 +78,7 @@ function dynamicdata_utilapi_updatehooks($args)
             case 'categories':
                 // load table definitions et al.
                 xarMod::apiLoad('categories','user');
-                $xartable =& xarDBGetTables();
+                $xartable =& xarDB::getTables();
                 if (empty($xartable['categories_linkage'])) {
                     continue;
                 }
@@ -95,7 +95,7 @@ function dynamicdata_utilapi_updatehooks($args)
             case 'xlink':
                 // load table definitions et al.
                 xarMod::apiLoad($tohook,'user');
-                $xartable =& xarDBGetTables();
+                $xartable =& xarDB::getTables();
                 if (empty($xartable[$tohook])) {
                     continue;
                 }
@@ -108,7 +108,7 @@ function dynamicdata_utilapi_updatehooks($args)
             case 'comments':
                 // load table definitions et al.
                 xarMod::apiLoad('comments','user');
-                $xartable =& xarDBGetTables();
+                $xartable =& xarDB::getTables();
                 if (empty($xartable['comments'])) {
                     continue;
                 }
@@ -127,7 +127,7 @@ function dynamicdata_utilapi_updatehooks($args)
             case 'polls':
                 // load table definitions et al.
                 xarMod::apiLoad('polls','user');
-                $xartable =& xarDBGetTables();
+                $xartable =& xarDB::getTables();
                 if (empty($xartable['polls'])) {
                     continue;
                 }
@@ -148,7 +148,7 @@ function dynamicdata_utilapi_updatehooks($args)
             case 'uploads':
                 // load table definitions et al.
                 xarMod::apiLoad('uploads','user');
-                $xartable =& xarDBGetTables();
+                $xartable =& xarDB::getTables();
                 if (empty($xartable['file_associations'])) {
                     continue;
                 }

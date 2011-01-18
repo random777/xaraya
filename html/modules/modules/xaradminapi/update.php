@@ -40,7 +40,7 @@ function modules_adminapi_update($args)
     if(!xarSecurityCheck('AdminModules',0,'All',"All:All:$regid")) return;
 
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
 
     // Get module name
     $modinfo = xarModGetInfo($regid);

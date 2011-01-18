@@ -20,7 +20,7 @@
 function themes_adminapi_getdbthemes($args)
 {
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
     extract($args);
 
     // Check for $regid

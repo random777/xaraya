@@ -39,7 +39,7 @@ function modules_adminapi_regenerate()
 
     //Setup database object for module insertion
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
     $modules_table =& $xartable['modules'];
     // get current core version for dependency checks
     $core_cur = xarConfigGetVar('System.Core.VersionNum');

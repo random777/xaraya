@@ -25,7 +25,7 @@ function dynamicdata_adminapi_importpropertytypes( $args )
     extract( $args );
 
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
 
     $dynamicproptypes = $xartable['dynamic_properties_def'];
     $propDirs = array();
@@ -179,7 +179,7 @@ function dynamicdata_adminapi_importpropertytypes( $args )
 function updateDB( $proptype, $parent, $filepath )
 {
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
 
     $dynamicproptypes = $xartable['dynamic_properties_def'];
 

@@ -40,7 +40,7 @@ function themes_adminapi_checknew()
 
     //Setup database object for theme insertion
     $dbconn =& xarDB::getConn();
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
 
     // See if we have gained any themes since last generation
     foreach ($fileThemes as $name => $themeInfo) {

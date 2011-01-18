@@ -52,7 +52,7 @@ function roles_userapi_get($args)
 
     if (empty($type)) $type = 0;
 
-    $xartable =& xarDBGetTables();
+    $xartable =& xarDB::getTables();
     $rolestable = $xartable['roles'];
 
     // Get user

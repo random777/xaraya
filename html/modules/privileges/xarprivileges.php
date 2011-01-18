@@ -69,7 +69,7 @@ class xarMasks
     function xarMasks()
     {
         $this->dbconn =& xarDB::getConn();
-        $xartable =& xarDBGetTables();
+        $xartable =& xarDB::getTables();
         $this->privilegestable = $xartable['privileges'];
         $this->privmemberstable = $xartable['privmembers'];
         $this->maskstable = $xartable['security_masks'];
@@ -1685,7 +1685,7 @@ class xarPrivileges extends xarMasks
         extract($pargs);
 
         $this->dbconn =& xarDB::getConn();
-        $xartable =& xarDBGetTables();
+        $xartable =& xarDB::getTables();
         $this->privilegestable = $xartable['privileges'];
         $this->privmemberstable = $xartable['privmembers'];
         $this->rolestable = $xartable['roles'];
@@ -2031,7 +2031,7 @@ class xarPrivilege extends xarMask
         extract($pargs);
 
         $this->dbconn =& xarDB::getConn();
-        $xartable =& xarDBGetTables();
+        $xartable =& xarDB::getTables();
         $this->privilegestable = $xartable['privileges'];
         $this->privmemberstable = $xartable['privmembers'];
         $this->rolestable = $xartable['roles'];

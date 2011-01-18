@@ -19,7 +19,7 @@
   echo "<strong>$step. Importing users</strong><br/>\n";
    // Get datbase setup
   $dbconn =& xarDB::getConn();
-  $xartable =& xarDBGetTables();
+  $xartable =& xarDB::getTables();
 
   $query = 'SELECT COUNT(*) FROM ' . $oldprefix . '_XForum_members';
   $result =& $dbconn->Execute($query);

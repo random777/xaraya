@@ -81,7 +81,7 @@ function roles_admin_showusers()
         $q = new xarQuery();
         $q = $q->sessiongetvar('rolesquery');
     if (empty($q) || isset($reload)) {
-        $xartable =& xarDBGetTables();
+        $xartable =& xarDB::getTables();
         $q = new xarQuery('SELECT');
         $q->addtable($xartable['roles'],'r');
         $q->addfields(array(

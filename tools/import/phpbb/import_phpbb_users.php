@@ -199,7 +199,7 @@
         flush();
 // auto-step
         echo "<script>
-document.location = '" . xarServerGetBaseURL() . 'import_phpbb.php?module=roles&step=' . $step . '&startnum=' . $startnum . "'
+document.location = '" . xarServer::getBaseURL() . 'import_phpbb.php?module=roles&step=' . $step . '&startnum=' . $startnum . "'
 </script>";
     } else {
         // Enable dynamicdata hooks for roles

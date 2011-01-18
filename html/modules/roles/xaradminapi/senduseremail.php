@@ -53,7 +53,7 @@ function roles_adminapi_senduseremail($args)
             $user = xarMod::apiFunc('roles','user','get', array('uid' => $userid));
             if (!isset($pass)) $pass = '';
             if (!isset($ip)) $ip = '';
-            if (isset($user['valcode'])) $validationlink = xarServerGetBaseURL() . "val.php?v=".$user['valcode']."&u=".$userid;
+            if (isset($user['valcode'])) $validationlink = xarServer::getBaseURL() . "val.php?v=".$user['valcode']."&u=".$userid;
             else $validationlink = '';
 
             //user specific data

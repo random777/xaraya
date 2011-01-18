@@ -63,7 +63,7 @@ function base_javascriptapi_init($args)
 
     $GLOBALS['xarTpl_JavaScript'][$name][$file] = array(
             'type' => 'src',
-            'data' => xarServerGetBaseURL() . $filepath
+            'data' => xarServer::getBaseURL() . $filepath
         );
 
     // pass to framework init function for any extra processing

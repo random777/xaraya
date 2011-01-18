@@ -60,7 +60,7 @@ function modules_admin_modinfo()
         }
     }
     if (file_exists($modicon)){
-        $data['modiconurl']     = xarServerGetBaseURL() . xarVarPrepForDisplay($modicon);
+        $data['modiconurl']     = xarServer::getBaseURL() . xarVarPrepForDisplay($modicon);
         if ($data['modname'] == 'authsystem'
                   || substr($data['modclass'], 0, 4) == 'Core'){
             $data['modiconmsg'] = xarVarPrepForDisplay(xarML('Xaraya Core Module'));
@@ -68,7 +68,7 @@ function modules_admin_modinfo()
             $data['modiconmsg']     = xarML('as provided by the author');
         }
     } else{
-        $data['modiconurl']     = xarServerGetBaseURL() . 'modules/modules/xarimages/module-generic.png';
+        $data['modiconurl']     = xarServer::getBaseURL() . 'modules/modules/xarimages/module-generic.png';
         $data['modiconmsg']     = xarML('Original icon is missing... please ask this module developer to provide one in accordance with MDG');
     }
     $data['modauthor']          = preg_replace('/,/', '<br />', xarVarPrepForDisplay($modinfo['author']));

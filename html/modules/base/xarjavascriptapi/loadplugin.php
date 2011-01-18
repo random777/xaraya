@@ -85,7 +85,7 @@ function base_javascriptapi_loadplugin($args)
 
     $GLOBALS['xarTpl_JavaScript'][$framework . '_plugins'][$file] = array(
             'type' => 'src',
-            'data' => xarServerGetBaseURL() . $filepath
+            'data' => xarServer::getBaseURL() . $filepath
         );
 
     // pass to framework's loadplugin function

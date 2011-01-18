@@ -351,7 +351,7 @@
     if ($usercount > $numitems && $startnum + $numitems < $usercount) {
         $startnum += $numitems;
         echo '<a href="import_slashcode.php?module=roles&step=' . $step . '&startnum=' . $startnum . '">Go to step ' . $step . ' - users ' . $startnum . '+ of ' . $usercount . '</a><br/>';
-        $nexturl = xarServerGetBaseURL() . 'import_slashcode.php?module=roles&step=' . $step . '&startnum=' . $startnum;
+        $nexturl = xarServer::getBaseURL() . 'import_slashcode.php?module=roles&step=' . $step . '&startnum=' . $startnum;
 
     } else {
         // Enable dynamicdata hooks for roles

@@ -146,11 +146,11 @@ function base_menublock_display($blockinfo)
                         $basemodurl = xarConfigGetVar('BaseModURL');
                         if (!isset($basemodurl)) $basemodurl = 'index.php';
                         if ($url[0] == 'home') { //assumes no module called home
-                           if ((xarServer::getCurrentURL() == xarServerGetBaseURL())
-                              || (xarServer::getCurrentURL() == xarServerGetBaseURL().$basemodurl)) {
+                           if ((xarServer::getCurrentURL() == xarServer::getBaseURL())
+                              || (xarServer::getCurrentURL() == xarServer::getBaseURL().$basemodurl)) {
                            $here = 'true';
                            }
-                           $url = xarServerGetBaseURL();
+                           $url = xarServer::getBaseURL();
                         } else {
                             if ($url[0] == $thismodname &&
                                 (!isset($url[1]) || $url[1] == $thismodtype) &&

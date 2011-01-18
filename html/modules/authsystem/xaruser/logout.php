@@ -17,7 +17,7 @@
  */
 function authsystem_user_logout()
 {
-    $redirect=xarServerGetBaseURL();
+    $redirect=xarServer::getBaseURL();
 
     // Get input parameters
     if (!xarVarFetch('redirecturl','str:1:254',$redirecturl,$redirect,XARVAR_NOT_REQUIRED)) return;

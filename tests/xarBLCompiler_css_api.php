@@ -1853,7 +1853,7 @@ class xarTpl__XarUrlEntityNode extends xarTpl__EntityNode
 /**
  * xarTpl__XarBaseUrlEntityNode
  *
- * wraps xarServerGetBaseURL()
+ * wraps xarServer::getBaseURL()
  *
  * @package blocklayout
  * @access private
@@ -1862,7 +1862,7 @@ class xarTpl__XarBaseurlEntityNode extends xarTpl__EntityNode
 {
     function render()
     {
-        return "xarServerGetBaseURL()";
+        return "xarServer::getBaseURL()";
     }
 }
 

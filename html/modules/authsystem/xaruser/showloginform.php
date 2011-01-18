@@ -20,7 +20,7 @@ function authsystem_user_showloginform($args = array())
 {
 
     extract($args);
-    if (!isset($redirecturl)) $redirecturl = xarServerGetBaseURL();
+    if (!isset($redirecturl)) $redirecturl = xarServer::getBaseURL();
     xarVarFetch('redirecturl', 'str:1:254', $data['redirecturl'], $redirecturl, XARVAR_NOT_REQUIRED);
 
     $defaultauthdata=xarMod::apiFunc('roles','user','getdefaultauthdata');

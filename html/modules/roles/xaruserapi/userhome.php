@@ -45,11 +45,11 @@ function roles_userapi_userhome($args)
                 $basemodurl = xarConfigGetVar('BaseModURL');
                 if (!isset($basemodurl)) $basemodurl = 'index.php';
                 if ($url[0] == 'home') { //assumes no module called home
-                    if ((xarServer::getCurrentURL() == xarServerGetBaseURL())
-                        || (xarServer::getCurrentURL() == xarServerGetBaseURL().$basemodurl)) {
+                    if ((xarServer::getCurrentURL() == xarServer::getBaseURL())
+                        || (xarServer::getCurrentURL() == xarServer::getBaseURL().$basemodurl)) {
                         $here = 'true';
                     }
-                    $url = xarServerGetBaseURL();
+                    $url = xarServer::getBaseURL();
                 } else {
                     //jojodee - the following if set of lines was commented out - in contrast to the original code in the base menu
                     //Does anyone know why? I have it uncommented for consistency atm but perhaps it should be commented in both?

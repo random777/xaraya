@@ -85,7 +85,7 @@ function roles_languageblock_display($blockinfo)
         $tplData['return_url'] = xarServer::getCurrentURL();
     } else {
         // Base URL of the site
-        $tplData['return_url'] = xarServerGetBaseURL();
+        $tplData['return_url'] = xarServer::getBaseURL();
     }
 
     $blockinfo['content'] = $tplData;

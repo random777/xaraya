@@ -143,7 +143,7 @@ jQuery('#"."mailtype').change(function() { this.form.submit(); });
                     $siteurl 
                 </span>
                 <xar:mlstring>URL of the site</xar:mlstring>
-                ( #xarServerGetBaseURL()# ) 
+                ( #xarServer::getBaseURL()# ) 
             </p>
             <p>
                 <span class="xar-form-label" title="#$messagetitle#">

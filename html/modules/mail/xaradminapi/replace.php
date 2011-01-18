@@ -23,7 +23,7 @@ function mail_adminapi_replace($args)
     $sitename   = xarModGetVar('themes', 'SiteName');
     $siteslogan = xarModGetVar('themes', 'SiteSlogan');
     $siteadmin  = xarModGetVar('mail', 'adminname');
-    $siteurl    = xarServerGetBaseURL();
+    $siteurl    = xarServer::getBaseURL();
 
     $name = xarUserGetVar('name');
     $uid = xarUserGetVar('uid');

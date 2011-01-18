@@ -202,7 +202,7 @@ if ($importmodule == 'articles') {
         flush();
 // auto-step
         echo "<script>
-document.location = '" . xarServerGetBaseURL() . 'import_phpbb.php?step=' . $step . '&module=' . $importmodule . '&startnum=' . $startnum . "'
+document.location = '" . xarServer::getBaseURL() . 'import_phpbb.php?step=' . $step . '&module=' . $importmodule . '&startnum=' . $startnum . "'
 </script>";
     } else {
         echo '<a href="import_phpbb.php?step=' . ($step+1) . '&module=' . $importmodule . '">Go to step ' . ($step+1) . '</a><br/>';

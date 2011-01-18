@@ -163,7 +163,7 @@ function xarWebservicesMain()
         if (xarServerGetVar('QUERY_STRING') == 'wsdl') {
             // FIXME: for now wsdl description is in soapserver module
             // consider making the webservices module a container for wsdl files (multiple?)
-            header('Location: ' . xarServerGetBaseURL() . 'ws.php?type=soap&wsdl');
+            header('Location: ' . xarServer::getBaseURL() . 'ws.php?type=soap&wsdl');
         } else {
             // TODO: show something nice(r) ?
             echo '<a href="ws.php?wsdl">WSDL</a><br />

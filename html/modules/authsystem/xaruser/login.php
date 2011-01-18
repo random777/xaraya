@@ -73,7 +73,7 @@ function authsystem_user_login()
     if (!xarVarFetch('rememberme','checkbox',$rememberme,false,XARVAR_NOT_REQUIRED)) return;
 
     // By default redirect to the base URL on the site
-    $redirect=xarServerGetBaseURL();
+    $redirect=xarServer::getBaseURL();
     if (!xarVarFetch('redirecturl','pre:trim:str:1:254',$redirecturl,$redirect,XARVAR_NOT_REQUIRED)) return;
     // If the redirect URL contains authsystem go to base url
     // CHECKME: <mrb> why is this?
@@ -365,7 +365,7 @@ function authsystem_user_login()
                     if (!is_array($urldata) || !$urldata)
                     {
                         $externalurl=false;
-                        $redirecturl=xarServerGetBaseURL();
+                        $redirecturl=xarServer::getBaseURL();
                     } else
                     {
                         $externalurl=$urldata['externalurl'];

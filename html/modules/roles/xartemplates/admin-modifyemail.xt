@@ -249,7 +249,7 @@ jQuery('form#"."selecttemplate select').change(function() { this.form.submit(); 
                         <xar:data-label property="$properties[$name]" /> <xar:mlstring>(Dynamic property)</xar:mlstring>
                     </span>
                 </div>
-                <xar:mlstring>URL of the site</xar:mlstring>&#160;(#xarServerGetBaseURL()#)
+                <xar:mlstring>URL of the site</xar:mlstring>&#160;(#xarServer::getBaseURL()#)
             </xar:foreach>
         </xar:if>
     </form>

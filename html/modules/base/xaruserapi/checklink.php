@@ -30,7 +30,7 @@ function base_userapi_checklink($args)
     if (!isset($url)) $url = '';
     if (!isset($method)) $method = 'HEAD';
     if (!isset($skiplocal)) $skiplocal = true;
-    if (!isset($referer)) $referer = xarServerGetBaseURL();
+    if (!isset($referer)) $referer = xarServer::getBaseURL();
     if (!isset($follow)) $follow = true;
 
     $invalid = false;
@@ -53,7 +53,7 @@ function base_userapi_checklink($args)
         $url = $protocol . '://' . $server . $url;
         $islocal = true;
     } else {
-        $baseurl = xarServerGetBaseURL();
+        $baseurl = xarServer::getBaseURL();
         $url = $baseurl . $url;
         $islocal = true;
     }

@@ -119,7 +119,7 @@ function xarServerGetVar($name) { return xarServer::getVar($name); }
 function xarServerGetBaseURI()  { return xarServer::getBaseURI();  }
 function xarServerGetHost()     { return xarServer::getHost();     }
 function xarServerGetProtocol() { return xarServer::getProtocol(); }
-function xarServerGetBaseURL()  { return xarServer::getBaseURL();  }
+function xarServer::getBaseURL()  { return xarServer::getBaseURL();  }
 function xarServer::getCurrentURL($args = array(), $generateXMLURL = NULL, $target = NULL) { return xarServer::getCurrentURL($args, $generateXMLURL, $target); }
 function xarRequestGetVar($name, $allowOnlyMethod = NULL) { return xarController::getVar($name, $allowOnlyMethod);}
 function xarRequestGetInfo()                              { return xarController::$request->getInfo(); }

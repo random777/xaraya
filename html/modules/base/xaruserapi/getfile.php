@@ -70,7 +70,7 @@ function base_userapi_getfile($args)
         $url = $protocol . '://' . $server . $url;
         $islocal = true;
     } else {
-        $baseurl = xarServerGetBaseURL();
+        $baseurl = xarServer::getBaseURL();
         $url = $baseurl . $url;
         $islocal = true;
     }
@@ -158,7 +158,7 @@ function base_userapi_getfile($args)
             }
             return;
         }
-        $baseurl = xarServerGetBaseURL();
+        $baseurl = xarServer::getBaseURL();
         $request = "GET $url HTTP/1.0\r\nHost: $proxyhost\r\nUser-Agent: Xaraya (http://www.xaraya.com/)\r\nReferer: $baseurl\r\nConnection: close\r\n\r\n";
         $size = fwrite($fp, $request);
         if (!$size) {

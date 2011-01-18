@@ -65,7 +65,7 @@ function roles_user_display($args)
         $homeurldata =xarMod::apiFunc('roles','user','userhome',array('url'=>$url,'truecurrenturl'=>$item['returnurl']));
         if (!is_array($homeurldata) || !$homeurldata) {
             $externalurl = false;
-            $homeurl = xarServerGetBaseURL(array(),false);
+            $homeurl = xarServer::getBaseURL(array(),false);
         } else{
            $externalurl = $homeurldata['externalurl'];
            $homeurl     = $homeurldata['redirecturl'];

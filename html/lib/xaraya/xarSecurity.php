@@ -683,7 +683,7 @@ function xarSecGenAuthKey($modName = NULL)
 function xarSecConfirmAuthKey($modName = NULL, $authIdVarName = 'authid', $showException = true)
 {
     if(!isset($modName)) list($modName) = xarRequestGetInfo();
-    $authid = xarRequestGetVar($authIdVarName);
+    $authid = xarRequest::getVar($authIdVarName);
 
     $rands = xarSessionGetVar('rand');
     $now = time();

@@ -121,7 +121,7 @@ function xarServer::getHost()     { return xarServer::getHost();     }
 function xarServer::getProtocol() { return xarServer::getProtocol(); }
 function xarServer::getBaseURL()  { return xarServer::getBaseURL();  }
 function xarServer::getCurrentURL($args = array(), $generateXMLURL = NULL, $target = NULL) { return xarServer::getCurrentURL($args, $generateXMLURL, $target); }
-function xarRequestGetVar($name, $allowOnlyMethod = NULL) { return xarController::getVar($name, $allowOnlyMethod);}
+function xarRequest::getVar($name, $allowOnlyMethod = NULL) { return xarController::getVar($name, $allowOnlyMethod);}
 function xarRequestGetInfo()                              { return xarController::$request->getInfo(); }
 function xarRequestIsLocalReferer()                       { return xarController::isLocalReferer(); }
 function xarResponseRedirect($redirectURL)                { return xarController::redirect($redirectURL); }

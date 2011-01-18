@@ -55,7 +55,7 @@ class xarTpl__XarVarNode extends xarTpl__TplTagNode
                 $value = "xarThemeGetVar('".$themeName."', '".$name."')";
                 break;
             case 'request':
-                $value = 'xarRequestGetVar("'.$name.'")';
+                $value = 'xarRequest::getVar("'.$name.'")';
                 break;
             case 'local':
                 // Resolve the name, note that this works for both name="test" and name="$test"

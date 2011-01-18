@@ -930,7 +930,7 @@ function pnVarCleanFromInput()
             return;
         }
 
-        $var = xarRequestGetVar($name);
+        $var = xarRequest::getVar($name);
         if (!isset($var)) {
             array_push($resarray, NULL);
             continue;

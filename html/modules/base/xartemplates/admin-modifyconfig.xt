@@ -55,7 +55,7 @@ jQuery('#"."displayform').validate({
         </dt>
         <xar:if condition="$tab eq 'display'">
             <dd class="active">
-                <a href="#xarServerGetCurrentURL()#">
+                <a href="#xarServer::getCurrentURL()#">
                     <xar:mlstring>Site Display</xar:mlstring>
                 </a>
             </dd>
@@ -68,7 +68,7 @@ jQuery('#"."displayform').validate({
         </xar:if>
         <xar:if condition="$tab eq 'security'">
             <dd class="active">
-                <a href="#xarServerGetCurrentURL()#">
+                <a href="#xarServer::getCurrentURL()#">
                     <xar:mlstring>Sessions/Security</xar:mlstring>
                 </a>
             </dd>
@@ -81,7 +81,7 @@ jQuery('#"."displayform').validate({
         </xar:if>
         <xar:if condition="$tab eq 'locales'">
             <dd class="active">
-                <a href="#xarServerGetCurrentURL()#">
+                <a href="#xarServer::getCurrentURL()#">
                     <xar:mlstring>Languages and Locales</xar:mlstring>
                 </a>
             </dd>
@@ -94,7 +94,7 @@ jQuery('#"."displayform').validate({
         </xar:if>
         <xar:if condition="$tab eq 'other'">
             <dd class="active">
-                <a href="#xarServerGetCurrentURL()#">
+                <a href="#xarServer::getCurrentURL()#">
                     <xar:mlstring>Other</xar:mlstring>
                 </a>
             </dd>
@@ -107,7 +107,7 @@ jQuery('#"."displayform').validate({
         </xar:if>
         <xar:if condition="$tab eq 'javascript'">
             <dd class="active">
-                <a href="#xarServerGetCurrentURL()#">
+                <a href="#xarServer::getCurrentURL()#">
                     <xar:mlstring>JavaScript</xar:mlstring>
                 </a>
             </dd>

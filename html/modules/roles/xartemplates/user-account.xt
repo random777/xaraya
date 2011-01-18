@@ -2,7 +2,7 @@
     License: GPL http://www.gnu.org/copyleft/gpl.html 
 </xar:comment>
 <xar:set name="compare">
-    xarServerGetCurrentURL()
+    xarServer::getCurrentURL()
 </xar:set>
 <xar:set name="account">
     xarModURL('roles','user','account')
@@ -35,7 +35,7 @@
                 </dt>
                 <xar:if condition="($compare eq $current) or ($compare eq $account)">
                     <dd class="active">
-                        <a href="#xarServerGetCurrentURL()#">
+                        <a href="#xarServer::getCurrentURL()#">
                             <xar:mlstring>
                                 Display your profile 
                             </xar:mlstring>

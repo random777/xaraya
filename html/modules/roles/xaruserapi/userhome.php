@@ -45,8 +45,8 @@ function roles_userapi_userhome($args)
                 $basemodurl = xarConfigGetVar('BaseModURL');
                 if (!isset($basemodurl)) $basemodurl = 'index.php';
                 if ($url[0] == 'home') { //assumes no module called home
-                    if ((xarServerGetCurrentURL() == xarServerGetBaseURL())
-                        || (xarServerGetCurrentURL() == xarServerGetBaseURL().$basemodurl)) {
+                    if ((xarServer::getCurrentURL() == xarServerGetBaseURL())
+                        || (xarServer::getCurrentURL() == xarServerGetBaseURL().$basemodurl)) {
                         $here = 'true';
                     }
                     $url = xarServerGetBaseURL();

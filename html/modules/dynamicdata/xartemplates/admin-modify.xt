@@ -22,7 +22,7 @@
                     <xar:mlstring>Options:</xar:mlstring>
                 </dt>
                 <dd class="active">
-                  <a href="#xarServerGetCurrentUrl()#">
+                  <a href="#xarServer::getCurrentURL()#">
                     <xar:mlstring>Modify Object definition</xar:mlstring>
                   </a>
                 </dd>

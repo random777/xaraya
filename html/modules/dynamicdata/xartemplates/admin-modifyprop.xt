@@ -58,7 +58,7 @@
                     </a>
                 </dd>
                 <dd class="active">
-                  <a href="#xarServerGetCurrentUrl()#"><xar:mlstring>Modify Dynamic Properties</xar:mlstring></a>
+                  <a href="#xarServer::getCurrentURL()#"><xar:mlstring>Modify Dynamic Properties</xar:mlstring></a>
                 </dd>
                 <dd>
                     <a href="#xarModURL('dynamicdata','util','export',array('modid' => $modid,'itemtype' => $itemtype))#">

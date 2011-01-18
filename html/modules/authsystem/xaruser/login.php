@@ -326,7 +326,7 @@ function authsystem_user_login()
                 //only redirect to home page if this option is set
                 if (xarMod::apiFunc('roles','admin','checkduv',array('name' => 'setuserhome', 'state' => 1)))
                 {
-                    $truecurrenturl = xarServerGetCurrentURL(array(), false);
+                    $truecurrenturl = xarServer::getCurrentURL(array(), false);
                     $role = xarUFindRole($uname);
                     $url = $lastresort ? '[base]' : $role->getHome();
                     if (!isset($url) || empty($url))

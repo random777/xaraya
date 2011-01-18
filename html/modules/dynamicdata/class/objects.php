@@ -2124,7 +2124,7 @@ class Dynamic_Object_List extends Dynamic_Object_Master
 
         // Get current URL (this uses &amp; by default now)
         if (empty($currenturl)) {
-            $currenturl = xarServerGetCurrentURL();
+            $currenturl = xarServer::getCurrentURL();
         }
 
     // TODO: clean up generation of sort URL

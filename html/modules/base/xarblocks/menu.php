@@ -120,8 +120,8 @@ function base_menublock_display($blockinfo)
     $loggedin = xarUserIsLoggedIn();
 
     // Get current URL
-    $truecurrenturl = xarServerGetCurrentURL(array(), false);
-    $currenturl = xarServerGetCurrentURL();
+    $truecurrenturl = xarServer::getCurrentURL(array(), false);
+    $currenturl = xarServer::getCurrentURL();
 
     // Added Content For non-modules list.
     if (!empty($vars['content'])) {
@@ -146,8 +146,8 @@ function base_menublock_display($blockinfo)
                         $basemodurl = xarConfigGetVar('BaseModURL');
                         if (!isset($basemodurl)) $basemodurl = 'index.php';
                         if ($url[0] == 'home') { //assumes no module called home
-                           if ((xarServerGetCurrentURL() == xarServerGetBaseURL())
-                              || (xarServerGetCurrentURL() == xarServerGetBaseURL().$basemodurl)) {
+                           if ((xarServer::getCurrentURL() == xarServerGetBaseURL())
+                              || (xarServer::getCurrentURL() == xarServerGetBaseURL().$basemodurl)) {
                            $here = 'true';
                            }
                            $url = xarServerGetBaseURL();
@@ -372,8 +372,8 @@ function base_menublock_display($blockinfo)
         $showlogout = true;
     }
 
-    $rssurl         = xarServerGetCurrentURL(array('theme' => 'rss'));
-    $printurl       = xarServerGetCurrentURL(array('theme' => 'print'));
+    $rssurl         = xarServer::getCurrentURL(array('theme' => 'rss'));
+    $printurl       = xarServer::getCurrentURL(array('theme' => 'print'));
 
     if (isset($vars['displayprint'])) {
         $displayprint = $vars['displayprint'];

@@ -89,7 +89,7 @@ function dynamicdata_adminapi_importpropertytypes( $args )
                 }
                 $property = new $propertyClass($args);
 
-                // Get the base information that used to be hardcoded into /modules/dynamicdata/class/properties.php
+                // Get the base information that used to be hardcoded into /modules/dynamicdata/class/properties/properties.php
                 $baseInfo = $property->getBasePropertyInfo();
 
                 // Ensure that the base properties are all present.

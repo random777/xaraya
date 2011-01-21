@@ -14,6 +14,6 @@
 /**
  * Dynamic Data utilities
  */
-sys::import('modules.dynamicdata.class.objects');
+sys::import('modules.dynamicdata.class.objects.objects');
 
 ?>

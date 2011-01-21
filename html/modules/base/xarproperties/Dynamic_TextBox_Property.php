@@ -13,7 +13,7 @@
 */
 
 /* Include parent class */
-include_once "modules/dynamicdata/class/properties.php";
+sys::import('modules.dynamicdata.class.properties.properties');
 
 /**
  * handle the textbox property

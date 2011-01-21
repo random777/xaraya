@@ -11,8 +11,8 @@
  * @link http://xaraya.com/index.php/release/182.html
  * @author mikespub <mikespub@xaraya.com>
  */
-sys::import('modules.dynamicdata.class.properties');
-sys::import('modules.dynamicdata.class.datastores');
+sys::import('modules.dynamicdata.class.properties.properties');
+sys::import('modules.dynamicdata.class.datastores.datastores');
 
 /**
  * Metaclass for Dynamic Objects

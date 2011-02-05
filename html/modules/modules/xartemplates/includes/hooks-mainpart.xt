@@ -1,3 +1,4 @@
+<xar:base-js-framework module="base" name="jquery" />
 <xar:set name="hookscode">"
 jQuery('form#moduleselect select#hook').change(function() {
     this.form.submit();

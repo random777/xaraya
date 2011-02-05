@@ -46,7 +46,8 @@ class Dynamic_Calendar_Property extends Dynamic_Property
         }
         // default time is unspecified
         if (empty($value)) {
-              $this->value = -1;
+              //$this->value = -1;
+              $this->value = 0;
         } elseif (is_numeric($value)) {
             $this->value = $value;
         } elseif (is_array($value) && !empty($value['year'])) {
@@ -64,7 +65,8 @@ class Dynamic_Calendar_Property extends Dynamic_Property
             // this returns -1 when we have an invalid date (e.g. on purpose)
             $this->value = strtotime($value);
             // starting with PHP 5.1.0, strtotime returns false instead of -1
-            if ($this->value === false) $this->value = -1;
+            //if ($this->value === false) $this->value = -1;
+            if ($this->value === false) $this->value = 0;
             if ($this->value >= 0) {
                 // adjust for the user's timezone offset
                 $this->value -= xarMLS_userOffset($this->value) * 3600;
@@ -107,7 +109,8 @@ class Dynamic_Calendar_Property extends Dynamic_Property
         }
         // default time is unspecified
         if (empty($value)) {
-            $value = -1;
+            //$value = -1;
+            $value = 0;
         } elseif (!is_numeric($value) && is_string($value)) {
             // assume dates are stored in UTC format
             // TODO: check if we still need to add "00" for PostgreSQL timestamps or not
@@ -117,7 +120,8 @@ class Dynamic_Calendar_Property extends Dynamic_Property
             // this returns -1 when we have an invalid date (e.g. on purpose)
             $value = strtotime($value);
             // starting with PHP 5.1.0, strtotime returns false instead of -1
-            if ($value === false) $value = -1;
+            //if ($value === false) $value = -1;
+            if ($value === false) $value = 0;
         }
         if (!isset($dateformat)) {
             $dateformat = '%Y-%m-%d %H:%M:%S';
@@ -159,7 +163,8 @@ class Dynamic_Calendar_Property extends Dynamic_Property
         }
         // default time is unspecified
         if (empty($value)) {
-            $value = -1;
+            //$value = -1;
+            $value = 0;
         } elseif (!is_numeric($value) && is_string($value)) {
             // assume dates are stored in UTC format
             // TODO: check if we still need to add "00" for PostgreSQL timestamps or not
@@ -169,7 +174,8 @@ class Dynamic_Calendar_Property extends Dynamic_Property
             // this returns -1 when we have an invalid date (e.g. on purpose)
             $value = strtotime($value);
             // starting with PHP 5.1.0, strtotime returns false instead of -1
-            if ($value === false) $value = -1;
+            //if ($value === false) $value = -1;
+            if ($value === false) $value = 0;
         }
         if (!isset($dateformat)) {
             $dateformat = '%a, %d %B %Y %H:%M:%S %Z';

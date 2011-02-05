@@ -19,6 +19,6 @@
 $plugininfo['name']         = 'cycle';
 $plugininfo['id']           = 'cycle';
 $plugininfo['displayname']  = 'Cycle';
-$plugininfo['version']      = '2.71';
+$plugininfo['version']      = '2.94';
 $plugininfo['defaultfile']  = 'jquery.cycle.all.min.js'
 ?>

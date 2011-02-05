@@ -19,6 +19,6 @@
 $plugininfo['name']         = 'cluetip';
 $plugininfo['id']           = 'cluetip';
 $plugininfo['displayname']  = 'clueTip';
-$plugininfo['version']      = '1.0.4';
+$plugininfo['version']      = '1.0.7';
 $plugininfo['defaultfile']  = 'jquery.cluetip.js'
 ?>

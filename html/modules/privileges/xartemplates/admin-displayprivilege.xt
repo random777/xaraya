@@ -1,6 +1,6 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
-<xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
-<xar:base-js-plugin name="treeview" framework="jquery" file="jquery.treeview.min.js" style="jquery.treeview.css" />
+<xar:base-js-framework module="base" name="jquery" />
+<xar:base-js-plugin name="treeview" framework="jquery" style="jquery.treeview.css" />
 <xar:set name="treecode">"
 jQuery('div#"."treewrapper ".chr(62)." ul').treeview();
 jQuery('div#"."treewrapper span.xar-privtree-icons').css({'float': 'left', 'margin': '0 .5em'}); 

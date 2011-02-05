@@ -1,6 +1,7 @@
 <xar:comment>
     License: GPL http://www.gnu.org/copyleft/gpl.html
 </xar:comment>
+<xar:base-js-framework module="base" name="jquery" />
 <xar:set name="hookscode">"
 jQuery('div.fieldwrapper').css('display','none').parent().children('legend').click(function() {
     jQuery(this).parent().children('div.fieldwrapper').toggle();

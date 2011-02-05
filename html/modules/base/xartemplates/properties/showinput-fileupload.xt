@@ -1,7 +1,7 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 
 <xar:if condition="!empty($value)">
-    <xar:base-js-framework module="base" name="jquery" file="jquery-1.3.2.min.js" />
+    <xar:base-js-framework module="base" name="jquery" />
     <xar:set name="ddcode">"jQuery('#". $id . "_clear').click(function() { jQuery('#". $id . "_hidden'.value('');jQuery('#". $id . "_text'.children().remove(); });"</xar:set>  
     <xar:base-js-event name="ready" code="$ddcode" />
 

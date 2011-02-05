@@ -1,4 +1,5 @@
 <xar:comment>License: GPL http://www.gnu.org/copyleft/gpl.html</xar:comment>
+<xar:base-js-framework module="base" name="jquery" />
 <xar:set name="rolescode">"
 jQuery('#"."sitelock').click(function() {
     this.form.action='" . xarModURL('roles','admin','sitelock',array('cmd'=>'toggle'), false) . "';

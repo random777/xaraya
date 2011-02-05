@@ -19,6 +19,6 @@
 $plugininfo['name']         = 'countdown';
 $plugininfo['id']           = 'countdown';
 $plugininfo['displayname']  = 'Countdown';
-$plugininfo['version']      = '1.5.3';
+$plugininfo['version']      = '1.5.8';
 $plugininfo['defaultfile']  = 'jquery.countdown.pack.js'
 ?>

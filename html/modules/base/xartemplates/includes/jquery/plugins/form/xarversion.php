@@ -19,6 +19,6 @@
 $plugininfo['name']         = 'form';
 $plugininfo['id']           = 'form';
 $plugininfo['displayname']  = 'jQuery Form Plugin';
-$plugininfo['version']      = '2.32';
+$plugininfo['version']      = '2.63';
 $plugininfo['defaultfile']  = 'jquery.form.js'
 ?>

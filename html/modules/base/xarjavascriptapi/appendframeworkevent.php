@@ -66,15 +66,7 @@ function base_javascriptapi_appendframeworkevent($args)
     }
 
     // ensure framework init has happened
-    if (!isset($GLOBALS['xarTpl_JavaScript'][$framework])) {
-        $fwinit = xarModAPIFunc($modName, $framework, 'init', array());
-        if (!$fwinit) {
-            $msg = xarML('Framework #(1) init failed', $framework);
-            xarErrorSet(XAR_SYSTEM_EXCEPTION, 'BAD_PARAM',
-                            new SystemException($msg));
-            return;
-        }
-    }
+    if (!xarModAPIFunc('base','javascript','init', array('name' => $framework, 'modName' => $fwinfo['module']))) return '';
 
     // ensure framework events array is present
     if (!isset($GLOBALS['xarTpl_JavaScript'][$framework . '_events'])) {

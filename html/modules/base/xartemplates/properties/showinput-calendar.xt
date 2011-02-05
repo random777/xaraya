@@ -1,8 +1,9 @@
 <xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
 <xar:set name="alttext"><xar:mlstring>Click here to set the date</xar:mlstring></xar:set>
-<xar:base-js-plugin name="ui" framework="jquery" file="jquery-ui-1.7.2.custom.min.js" style="jquery-ui-1.7.2.custom.css" />
-<xar:base-js-plugin name="timepicker" framework="jquery" file="timepicker.js" />
-<xar:base-js-plugin name="bgiframe" framework="jquery" file="jquery.bgiframe.min.js" />
+<xar:base-js-framework module="base" name="jquery" />
+<xar:base-js-plugin name="ui" framework="jquery" style="jquery-ui-1.8.8.custom.css" />
+<xar:base-js-plugin name="timepicker" framework="jquery" />
+<xar:base-js-plugin name="bgiframe" framework="jquery" />
 <xar:set name="calcode">"
 jQuery('#" . $id . "').datepicker({
     altField: '#" . $id . "',

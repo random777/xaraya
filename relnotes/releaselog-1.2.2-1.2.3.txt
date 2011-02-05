@@ -1,0 +1,25 @@
+Release notes for Xaraya Core release 1.2.3
+
+Release 1.2.3 (relevant changes from 1.2.2 onwards included here)
+
+Possible incompatible changes, please check the following:
+    * Installing: see the file INSTALL.txt
+    * Upgrading : see the file UPGRADE.txt
+
+
+Major changes:
+    * No major code changes in this release
+
+General fixes and improvements:
+
+    * Add support for html5 DTD
+    * Dynamic_Calendar_Property now defaults to current date/time on first run
+    *
+    * Core templates referencing jQuery and its plugins updated
+    * Upgrade jQuery to v1.4.4
+    * Upgrade jQuery clueTip plugin to v1.0.7
+    * Upgrade jQuery Countdown plugin to v1.5.8
+    * Upgrade jQuery Cycle plugin to v2.94
+    * Upgrade jQuery datePicker plugin
+    * Upgrade jQuery Form plugin to v2.63
+    * Upgrade jQuery UI plugin to v1.8.8

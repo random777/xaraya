@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+    <div class="xar-mod-head">
+        <div class="xar-mod-title">Authsystem Authentication Administration</div>
+    </div>
+    <div class="xar-mod-body">
+        <xar:template type="module" module="base" file="admin-menu-skel"/>
+        <form id="admin_sitelock" name="admin_sitelock" method="post" action="#xarModURL('authsystem', 'admin', 'sitelock')#">
+
+            <fieldset>
+                <legend>Site Lock</legend>
+                <!-- @TODO: remove this debug info :o/ -->
+                <xar:if condition="!empty($statusmsg)">
+                    <xar:foreach in="$statusmsg" key="$msgtype" value="$msgs">
+                        <div class="xar-form-input-wrapper" id="statusmsg">
+                            <label for="#$msgtype#" class="xar-form-label">
+                                <xar:if condition="$msgtype eq 'valid'">
+                                    <img class="xar-icon" src="#xarTPLGetImage('icons/activate.png', 'base')#" title="#xarML('Lock status updated succesfully')#" alt="#xarML('success')#"/>&#160;
+                                    <span style="color: green;"><strong>Success!</strong></span>
+                                <xar:elseif condition="$msgtype eq 'warning'"/>
+                                    <img class="xar-icon" src="#xarTPLGetImage('icons/dialog-warning.png', 'base')#" title="#xarML('Lock status updated with warnings')#" alt="#xarML('warning')#"/>&#160;
+                                    <span style="color: orange;"><strong>Warning!</strong></span>
+                                <xar:elseif condition="$msgtype eq 'error'"/>
+                                    <img class="xar-icon" src="#xarTPLGetImage('icons/dialog-error.png', 'base')#" title="#xarML('Lock status updated with errors')#" alt="#xarML('error')#"/>&#160;
+                                    <span style="color: red;"><strong>Error!</strong></span>
+                                <xar:else/>
+                                    <xar:set name="msglabel">ucfirst($msgtype)</xar:set>
+                                    #$msglabel#
+                                </xar:if>
+                            </label>
+                            <xar:foreach in="$msgs" value="$msg">
+                                <div class="xar-form-container-after">
+                                    #$msg#
+                                </div>
+                            </xar:foreach>
+                        </div>
+                    </xar:foreach>
+                </xar:if>
+                <h4>Lock Status</h4>
+                <div class="xar-form-input-wrapper">
+                    <label for="locksite" class="xar-form-label">#$lockstatus#</label>
+                    <div class="xar-form-container-after">
+                        <input type="submit" name="locksite" id="locksite" value="#$locklabel#"/>
+                    </div>
+                </div>
+                <!-- @TODO: work out the details for doing this
+                <div class="xar-form-input-wrapper">
+                    <label for="lockstate" class="xar-form-label" title="#xarML('Restrict site display to front page or lockout message only')#">Restrict Site Display</label>
+                    <xar:set name="lockstates">array(
+                        array('id' => 0, 'name' => 'No Restriction'),
+                        array('id' => 1, 'name' => 'Home Page'),
+                        array('id' => 2, 'name' => 'Lockout Message'),
+                    )</xar:set>
+                    <div class="xar-form-container-after">
+                        <xar:data-input type="dropdown" name="lockstate" id="lockstate" options="$lockstates" value="$lockstate"/>
+                    </div>
+                </div>
+                -->
+                <div class="xar-form-input-wrapper">
+                    <label for="lockmessage" class="xar-form-label" title="#xarML('Message to display to users when the site is locked and they attempt to log in')#">Lockout Message</label>
+                    <div class="xar-form-container-after">
+                        <p>The following message will be displayed to users when the site is locked.</p>
+                        <textarea name="lockmessage" id="lockmessage" class="xar-form-textarealarge">#$lockmessage#</textarea>
+                    </div>
+                </div>
+                <h4>Permitted Users &amp; Groups</h4>
+                <p>Only roles in the following list are permitted to log in when the site is locked.  If the role is a group all users in that group will have access.</p>
+                <p><strong>Note</strong>: The designated site admin (set in Roles module) always has permission to log in and cannot be removed.</p>
+                <table class="xar-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User Name</th>
+                            <th>Display Name</th>
+                            <th>Type</th>
+                            <th class="xar-align-center">Notify</th>
+                            <th class="xar-align-right">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#$adminid#</td>
+                            <td>#$adminuname#</td>
+                            <td>#$adminname#</td>
+                            <td>Site Admin</td>
+                            <td class="xar-align-center"><xar:data-input type="checkbox" name="adminnotify" id="adminnotify" checked="$adminnotify"/></td>
+                            <td class="xar-align-right"><input type="checkbox" disabled="disabled"/></td>
+                        </tr>
+                        <xar:foreach in="$lockaccess" key="$id" value="$role">
+                            <tr>
+                                <td>#$id#</td>
+                                <td>#$role.uname#</td>
+                                <td>#$role.name#</td>
+                                <td>
+                                    <xar:if condition="$role['itemtype'] eq xarRoles::ROLES_GROUPTYPE">
+                                        Group
+                                    <xar:else/>
+                                        User
+                                    </xar:if>
+                                </td>
+                                <td class="xar-align-center">
+                                    <xar:set name="accessname">"lockaccess[".$id."][notify]"</xar:set>
+                                    <xar:set name="accessid">"lockaccess_".$id."_notify"</xar:set>
+                                    <xar:data-input type="checkbox" name="$accessname" id="$accessid" checked="$role['notify']"/>
+                                </td>
+                                <td class="xar-align-right">
+                                    <xar:set name="delname">"lockaccess[".$id."][delete]"</xar:set>
+                                    <xar:set name="delid">"lockaccess_".$id."_delete"</xar:set>
+                                    <xar:data-input type="checkbox" name="$delname" id="$delid"/>
+                                </td>
+                            </tr>
+                        </xar:foreach>
+                    </tbody>
+                </table>
+                <div class="xar-form-input-wrapper">
+                    <label for="newrole" class="xar-form-label" title="#xarML('Specify the name or uname of the user or group to add to the list')#">
+                        Add User or Group
+                    </label>
+                    <div class="xar-form-container-after">
+                        <xar:data-input type="textbox" name="newaccess" id="newaccess" class="xar-form-textlong"/>&#160;
+                        <label for="newnotify">Notify</label>&#160;
+                        <xar:data-input type="checkbox" name="newnotify" id="newnotify"/>
+                    </div>
+                </div>
+                <h4>Status Notification</h4>
+                <div class="xar-form-input-wrapper">
+                    <label for="locknotify" class="xar-form-label">Email Message</label>
+                    <div class="xar-form-container-after">
+                        <p>The following message will be sent by email to users with Notify checked in the above list whenever the site is locked or unlocked.</p>
+                        <textarea name="locknotify" id="locknotify" class="xar-form-textarealarge">#$locknotify#</textarea>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="xar-form-input-wrapper-after">
+                    <input type="hidden" name="authid" id="authid" value="#$authid#"/>
+                    <input type="hidden" name="phase" id="phase" value="update"/>
+                    <input type="hidden" name="return_url" id="return_url" value="#xarServer::getCurrentURL()#"/>
+                    <input type="submit" value="#xarML('Update Site Lock Configuration')#"/>
+                </div>
+            </fieldset>
+
+        </form>
+    </div>
+</xar:template>

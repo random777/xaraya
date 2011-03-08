@@ -30,6 +30,12 @@
                     </label>
                     <xar:data-input type="textbox" name="lockouttime" id="lockouttime" value="$lockouttime" size="2" maxlength="2"/>
                 </div>
+                <div class="xar-form-input-wrapper">
+                    <label for="lockoutnotify" class="xar-form-label" title="Send an email to the designated site admin when a lockout occurs">
+                        Notify on lockout :
+                    </label>
+                    <xar:data-input type="checkbox" name="lockoutnotify" id="lockoutnotify" checked="$lockoutnotify"/> (Sends an email to site admin detailing failed login)
+                </div>
             </fieldset>
             <fieldset>
                 <div class="xar-form-input-wrapper-after">

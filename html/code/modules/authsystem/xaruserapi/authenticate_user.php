@@ -20,6 +20,7 @@
  *        string  $args['pass'] password of user
  * @todo use roles api, not direct db
  * @return int id on successful authentication, XARUSER_AUTH_FAILED otherwise
+ * @TODO, deprecate this, use xarAuth::authenticate_user() instead
  */
 function authsystem_userapi_authenticate_user(Array $args=array())
 {

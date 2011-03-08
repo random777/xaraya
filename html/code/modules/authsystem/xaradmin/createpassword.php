@@ -10,6 +10,7 @@
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  * @link http://xaraya.com/index.php/release/42.html
+ * @CHECKME: <chris> is this used anywhere?
  */
 /**
  * createpassword - create a new password for the user

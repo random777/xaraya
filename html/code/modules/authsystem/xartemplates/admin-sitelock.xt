@@ -86,6 +86,7 @@
                             will be redirected to either the lockout_page, the login_page or the frontpage
                             Setting this option will automatically hide all user login forms and disable all
                             user login functions  -->
+                   <!--
                    <div class="xar-form-input-wrapper">
                        <xar:var name="locktitle">Set an admin login alias to obfuscate logins</xar:var>
                        <label for="login_alias" class="xar-form-label help" title="#$locktitle#">Admin Login Alias</label>
@@ -96,9 +97,11 @@
                            </xar:if>
                        </div>
                    </div>
+                   -->
                    <!-- Optionally specify a page to display when the site is locked
                             (the default is to allow anonymous access to the whole site) 
                             This option lets you limit users to a single page -->
+                   <!--
                    <div class="xar-form-input-wrapper">
                        <xar:var name="locktitle">Set a URL to redirect to when the site is locked</xar:var>
                        <label for="lockout_page" class="xar-form-label help" title="#$locktitle#">Locked Out Page</label>
@@ -109,6 +112,7 @@
                            </xar:if>
                        </div>
                    </div>
+                   -->
                    <!-- The default message to display in the login form when the site is locked
                             NOTE: by setting a different lockout page you can supply your own 
                             templated lockout message -->

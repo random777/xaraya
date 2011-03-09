@@ -140,6 +140,15 @@ function installer_admin_cleanup()
 
     }
 
+    sys::import('modules.authsystem.class.auth');
+    // checkme: is this necessary?
+    xarAuth::userLogout();
+    // log in admin user
+    if (!xarAuth::userLogin(xarModVars::get('roles', 'admin'), false)) {
+        $msg = xarML('Cannot log in the default administrator. Check your setup.');
+        throw new Exception($msg);
+    }
+    /*        
     xarUserLogOut();
     // log in admin user
     $uname = xarModVars::get('roles','lastuser');
@@ -149,7 +158,7 @@ function installer_admin_cleanup()
         $msg = xarML('Cannot log in the default administrator. Check your setup.');
         throw new Exception($msg);
     }
-
+    */
 
     xarModVars::delete('roles','adminpass');
 

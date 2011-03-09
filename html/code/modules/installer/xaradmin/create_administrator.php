@@ -71,8 +71,9 @@ function installer_admin_create_administrator()
     xarModVars::set('mail', 'adminname', $data['admin']->properties['name']->getValue());
     xarModVars::set('mail', 'adminmail', $data['admin']->properties['email']->getValue());
     xarModVars::set('themes', 'SiteCopyRight', '&copy; Copyright ' . date("Y") . ' ' . $data['admin']->properties['name']->getValue());
-    xarModVars::set('roles', 'lastuser', $data['admin']->properties['uname']->getValue());
-    xarModVars::set('roles', 'adminpass', $data['admin']->properties['password']->password);
+    // no longer needed for login process 
+    // xarModVars::set('roles', 'lastuser', $data['admin']->properties['uname']->getValue());
+    // xarModVars::set('roles', 'adminpass', $data['admin']->properties['password']->password);
 
 // CHECKME: misc. undefined module variables
     xarModVars::set('themes', 'variable_dump', false);

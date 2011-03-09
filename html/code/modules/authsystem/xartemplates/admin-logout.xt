@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+    <div class="xar-mod-head">
+        <span class="xar-mod-title">AuthSystem</span>
+    </div>
     <div class="xar-mod-body">
-        <div class="xar-mod-head">
-            <span class="xar-mod-title">Administration</span>
-        </div>
-        <h2>Confirm Logout</h2>
-        <p>Are you sure? Click "Cancel" to return to the previous admin panel</p>
-        <div class="xar-align-center">
-            <a href="#xarModURL('authsystem','user','logout')#">Logout</a>] [
-            <a href="javascript:top.history.go(-1)">Cancel</a>]
-        </div>
+        <form method="post" action="#xarModURL('authsystem', 'user', 'logout')#">
+            <fieldset>
+                <legend>Confirm Logout</legend>
+                <p>Are you sure? Click "Cancel" to return to the previous admin panel</p>
+                <div class="xar-align-center">
+                    <xar:var name="submitLabel">Logout</xar:var>
+                    <input type="submit" name="confirm" id="confirm" value="#$submitLabel#"/>&#160;
+                    [ <a href="javascript:top.history.go(-1)">Cancel</a> ]
+                </div>
+            </fieldset>
+        </form>
     </div>
 </xar:template>

@@ -21,19 +21,12 @@
 */
 function roles_user_main()
 {
+    $return_url = xarModURL('roles', 'user', 'account');
+    if (xarUserIsLoggedIn())
+        xarController::redirect($return_url);    
 
-    // Get the default authentication data - this supplies default auth module and corrected login and logout module
-    $defaultauthdata=xarMod::apiFunc('roles','user','getdefaultauthdata');
-
-    $loginmodule=$defaultauthdata['defaultloginmodname'];
-    $authmodule=$defaultauthdata['defaultauthmodname'];
-
-    if (xarUserIsLoggedIn()) {
-        xarController::redirect(xarModURL('roles', 'user', 'account'));
-    } else {
-        xarController::redirect(xarModURL($loginmodule, 'user', 'showloginform'));
-    }
-    return true;
+    xarController::redirect(xarModURL('authsystem', 'user', 'login', 
+        array('return_url' => urlencode($return_url))));    
 }
 
 ?>

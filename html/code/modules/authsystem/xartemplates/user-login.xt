@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+    <div class="xar-mod-head">
+        <span class="xar-mod-title">Login to an existing account</span>
+    </div>
+    <div class="xar-mod-body">
+        <xar:if condition="!empty($sitelock['locked']) and !empty($sitelock['lockout_msg'])">
+            <p>#$sitelock['lockout_msg']#</p>
+        </xar:if>
+        <form action="#xarModURL('authsystem','user','login')#" method="post" enctype="application/x-www-form-urlencoded">
+            <xar:if condition="!empty($invalid['login'])">
+                <p class="xar-error">#$invalid['login']#</p>
+            </xar:if>
+            <input type="hidden" name="phase" id="phase" value="auth"/>
+            <xar:if condition="!empty($loginform)">
+                <xar:foreach in="$loginform" key="$authmod" value="$login">
+                    #$login#
+                </xar:foreach>
+            </xar:if>
+        </form>
+    </div>
+</xar:template>

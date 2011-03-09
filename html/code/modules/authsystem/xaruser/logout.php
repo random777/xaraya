@@ -16,27 +16,33 @@
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
  * @return boolean true on success of redirect
  */
+sys::import('modules.authsystem.class.auth');
 function authsystem_user_logout()
 {
-    $redirect=xarServer::getBaseURL();
-    if (!xarUserIsLoggedIn())
-        xarController::redirect($redirect);
-
-    // Get input parameters
-    if (!xarVarFetch('redirecturl','str:1:254',$redirecturl,$redirect,XARVAR_NOT_REQUIRED)) return;
-
-    if (strstr($redirecturl, 'authsystem')) {
-        $redirecturl = $redirect;
-    }
+    if (xarSecurityCheck('AdminBase',0)) {
+        if (!xarVarFetch('confirm', 'checkbox',
+            $confirmed, false, XARVAR_NOT_REQUIRED)) return;
+        if (!$confirmed) {
+            return xarTplModule('authsystem', 'admin', 'logout');
+        }
+    }        
+        
+    if (!xarVarFetch('return_url', 'pre:trim:str:1:254',
+        $return_url, '', XARVAR_NOT_REQUIRED)) return;
     
-    sys::import('modules.authsystem.class.xarauth');
-    if (!xarAuth::logout()) {
-        $vars = array('authsystem', 'logout');
-        $msg = xarML('Problem Logging Out.  Module #(1) Function #(2)');        
-        throw new ForbiddenOperationException($vars,$msg);
-    }
+    if (empty($return_url) && xarController::isLocalReferer())
+        $return_url = xarServer::getVar('HTTP_REFERER');    
+    
+    if (empty($return_url) ||
+        preg_match('!authsystem!', $return_url) || 
+        preg_match('!admin!', $return_url))
+        $return_url = xarServer::getBaseURL();
 
-    xarController::redirect($redirecturl);
-    return true;
+    if (!xarAuth::userLogout())
+        // @checkme: forbidden operation? 
+        throw new ForbiddenOperationException(array('authsystem', 'logout'),
+            xarML('There was a problem Logging Out.  Module #(1) Function #(2)'));
+    
+    xarController::redirect($return_url);  
 }
 ?>

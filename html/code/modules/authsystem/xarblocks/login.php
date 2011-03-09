@@ -42,38 +42,36 @@ class Authsystem_LoginBlock extends BasicBlock implements iBlock
         $data = parent::display($args);
         if (empty($data)) return;
 
-        $vars = $data;
+        $vars = !empty($data['content']) ? $data['content'] : array();
+        
         if (!isset($vars['showlogout'])) $vars['showlogout'] = $this->showlogout;
         if (!isset($vars['logouttitle'])) $vars['logouttitle'] = $this->logouttitle;
-
-        // Display logout block if user is already logged in
-        // e.g. when the login/logout block also contains a search box
+        
+        $vars['blockid'] = $data['bid'];
         if (xarUserIsLoggedIn()) {
-            if (!empty($vars['showlogout'])) {
-                $args['name'] = xarUserGetVar('name');
-
-                // Since we are logged in, set the template base to 'logout'.
-                // FIXME: not allowed to set BL variables directly
-                $data['_bl_template_base'] = 'logout';
-
-                if (!empty($vars['logouttitle'])) {
-                    $data['title'] = $vars['logouttitle'];
-                }
-            } else {
-                return;
-            }
-        } elseif (xarServer::getVar('REQUEST_METHOD') == 'GET') {
-            // URL of this page
-            xarVarFetch('redirecturl',   'isset', $args['return_url']   , xarServer::getCurrentURL(array(),false), XARVAR_NOT_REQUIRED);
+            if (empty($vars['showlogout'])) return;
+            $vars['name'] = xarUserGetVar('name');
+            // Since we are logged in, set the template base to 'logout'.
+            // FIXME: not allowed to set BL variables directly
+            $data['_bl_template_base'] = 'logout';
+            if (!empty($vars['logouttitle']))
+                $data['title'] = $vars['logouttitle'];
         } else {
-            // Base URL of the site
-            xarVarFetch('redirecturl',   'isset', $args['return_url']   , xarServer::getBaseURL(), XARVAR_NOT_REQUIRED);
+            if (xarServer::getVar('REQUEST_METHOD') == 'GET') {
+                if (!xarVarFetch('return_url', 'pre:trim:str:1:254',
+                    $return_url, '', XARVAR_NOT_REQUIRED)) return;
+                if (empty($return_url))
+                    $return_url = xarServer::getCurrentURL(array());
+            }
+            if (empty($return_url))
+                $return_url = xarServer::getBaseURL();
+            $vars['return_url'] = $return_url;
+            sys::import('modules.authsystem.class.auth');
+            $login = xarAuth::getAuthSubject('AuthLogin', $vars);
+            $vars['loginform'] = $login->showformblock();
         }
-
-        // Used in the templates.
-        $args['blockid'] = $data['bid'];
-
-        $data['content'] = $args;
+        
+        $data['content'] = $vars;
         return $data;
     }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+            <xar:set name="id">'returnurl'.$blockid</xar:set>
+            <xar:set name="unameid">'uname'.$blockid</xar:set>
+            <xar:set name="passid">'pass'.$blockid</xar:set>
+            <xar:set name="remembermeid">'rememberme'.$blockid</xar:set>
+        <p>
+            <xar:data-input type="hidden" name="return_url" id="$id" value="$return_url"/>
+            <xar:var name="label">Enter your user name</xar:var>
+            <label for="#$unameid#" title="#$label#">Username:</label>
+            <xar:data-input type="textbox" class="xar-fullwidth" name="uname" id="$unameid" maxlength="64"/>
+        </p>
+        <p>
+            <xar:var name="label">Enter your password</xar:var>
+            <label for="#$passid#" title="#$label#">Password:</label>
+            <xar:data-input type="password" class="xar-fullwidth" name="pass" id="$passid" maxlength="64"/>
+        </p>
+        <p>
+            <xar:if condition="xarConfigVars::get(null,'Site.Session.SecurityLevel') ne 'High'">
+                <label class="xar-displayblock" for="#$remembermeid#">
+                    <xar:data-input type="checkbox" name="rememberme" id="$remembermeid" value="1"/>
+                    Don't ask for password
+                </label>
+            </xar:if>
+        </p>
+        <p>
+            <xar:var name="label">Log In</xar:var>
+            <input type="submit" value="#$label#"/>
+        </p>
+        <p>
+            <a href="#xarModURL('roles','user','lostpassword')#">Request new password</a>
+        </p>
+</xar:template>

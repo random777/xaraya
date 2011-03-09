@@ -33,7 +33,7 @@
                 <includeitem>modifyconfig</includeitem>
             </includes>
             <target>modifyconfig</target>
-            <title>Modify the Authsystem authentication configuration</title>
+            <title>Modify the AuthSystem module configuration</title>
             <label>Modify Configuration</label>
         </menuitem>
     </menuitems>

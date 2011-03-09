@@ -95,6 +95,8 @@ function xarSessionGetSecurityLevel()
  *
  * The old interface as wrappers for the class methods are here, see xarSession class
  * for the implementation
+ * Chris: this is counter-intuitive in relation to access to other variable types
+ * eg xarSession::getVar vs xarSessionVars::get, etc..
  */
 function xarSessionGetVar($name)         { return xarSession::getVar($name); }
 function xarSessionSetVar($name, $value) { return xarSession::setVar($name, $value); }
@@ -131,7 +133,7 @@ interface IsessionHandler
 class xarSession extends Object implements IsessionHandler
 {
     const  PREFIX='XARSV';     // Reserved by us for our session vars
-    const  COOKIE='XARAYASID'; // Our cookiename
+    const  COOKIE='XARAYASID'; // Our cookiename - FIXME: this shouldn't be hardcoded, it's configurable 
     private $db;               // We store sessioninfo in the database
     private $tbl;              // Container for the session info
     private $isNew = true;     // Flag signalling if we're dealing with a new session
@@ -349,6 +351,7 @@ class xarSession extends Object implements IsessionHandler
         }
         // Generate a random number, used for
         // some authentication
+        // chris: which authentication? 
         srand((double) microtime() * 1000000);
         $this->setVar('rand', rand());
 
@@ -578,6 +581,7 @@ class xarSession extends Object implements IsessionHandler
      *
      * @throws SQLException
      * @todo this seems a strange duck (only used in roles by the looks of it)
+     * chris: this is used in authsystem, move it there?
      */
     static function setUserInfo($userId, $rememberSession)
     {

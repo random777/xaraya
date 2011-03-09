@@ -15,8 +15,7 @@ class xarAuth extends xarEvents
         if ($userid == xarAuth::LAST_RESORT ||
             xarConfigVars::get(null,'Site.Session.SecurityLevel') == 'High')
             $rememberme = false;
-        // TODO: make this a class static in xarSession.php
-        if (!xarSession_setUserInfo($userid, $rememberme))
+        if (!xarSession::setUserInfo($userid, $rememberme))
             return false;
         self::notify('UserLogin', $userid);
         xarSession::delVar('privilegeset');
@@ -32,8 +31,7 @@ class xarAuth extends xarEvents
         // get the current userid to log out
         $userid = xarSessionGetVar('id');
         // Reset user session information
-        // TODO: make this a class static in xarSession.php
-        if (!xarSession_setUserInfo(_XAR_ID_UNREGISTERED, false))
+        if (!xarSession::setUserInfo(_XAR_ID_UNREGISTERED, false))
             return false;
         // User logged out successfully
         self::notify('UserLogout',$userid);

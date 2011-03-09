@@ -82,9 +82,6 @@ function xarUser_init(Array &$args)
 }
 
 /**
- * @TODO <chris> do login and logout functions belong in here, or in authsystem ?
-**/
-/**
  * Log the user in
  *
  * 
@@ -93,6 +90,10 @@ function xarUser_init(Array &$args)
  * @return boolean true if the user successfully logged in
  * @throws EmptyParameterException, SQLException
  */
+/* Chris: the login functionality is now provided by the authsystem
+ * and no longer matches this function which is now deprecated
+ * Leaving function here for now pending review, to be removed...
+**//*
 function xarUserLogIn($userName, $password, $rememberMe = 0)
 {
     if (xarUserIsLoggedIn()) return true;
@@ -194,12 +195,17 @@ function xarUserLogIn($userName, $password, $rememberMe = 0)
     xarSession::delVar('privilegeset');
     return true;
 }
+*/
 /**
  * Log the current logged in user out
  *
  * 
  * @return boolean true if the user successfully logged out
  */
+/* Chris: the logout functionality is now provided by the authsystem
+ * and no longer matches this function which is now deprecated
+ * Leaving function here for now pending review, to be removed...
+**//*
 function xarUserLogOut()
 {
     if (!xarUserIsLoggedIn()) {
@@ -223,7 +229,7 @@ function xarUserLogOut()
     xarSession::delVar('privilegeset');
     return true;
 }
-
+*/
     
 
 /**

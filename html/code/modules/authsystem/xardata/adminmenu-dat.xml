@@ -9,7 +9,16 @@
             <target>main</target>
             <label>Overview</label>
         </menuitem>
-		<menuitem>
+        <menuitem>
+            <mask>AdminAuthsystem</mask>
+            <includes>
+                <includeitem>security</includeitem>
+            </includes>
+            <target>security</target>
+            <title>Modify the AuthSystem security configuration</title>
+            <label>Security</label>
+        </menuitem>
+        <menuitem>
             <mask>AdminAuthsystem</mask>
             <includes>
                 <includeitem>sitelock</includeitem>
@@ -18,7 +27,7 @@
             <title>Prevent site log in by all but selected users</title>
             <label>Site Lock</label>
         </menuitem>
-		<menuitem>
+        <menuitem>
             <mask>AdminAuthsystem</mask>
             <includes>
                 <includeitem>modifyconfig</includeitem>

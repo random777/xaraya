@@ -110,11 +110,11 @@ function authsystem_upgrade($oldversion)
             // ServerRequest observer (for sitelock)
             //xarEvents::registerObserver('ServerRequest', 'authsystem');
             // Authentication subjects
-            //xarEvents::registerSubject('AuthLogin', 'user', 'authsystem');
-            //xarEvents::registerSubject('AuthLogout', 'user', 'authsystem');
+            xarEvents::registerSubject('AuthLogin', 'auth', 'authsystem', 'class', 'authsubjects');
+            //xarEvents::registerSubject('AuthLogout', 'auth', 'authsystem', 'class', 'authsubjects');
             // Authentication observers 
-            //xarEvents::registerObserver('AuthLogin', 'authsystem');
-            //xarEvents::registerObserver('AuthLogout', 'authsystem');
+            xarEvents::registerObserver('AuthLogin', 'authsystem', 'class', 'authobservers');
+            //xarEvents::registerObserver('AuthLogout', 'authsystem', 'class', 'authobservers');
 
             /* Define Module vars */
             $lockedout = (int) xarModVars::get('authsystem', 'lockouttime');

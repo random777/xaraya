@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+    <div class="xar-mod-head">
+        <span class="xar-mod-title">AuthSystem Administration</span>
+    </div>
+    <div class="xar-mod-body">
+        <xar:template type="module" file="admin-menu"/>
+        <h2>Modify AuthSystem Security Configuration</h2>
+        <form method="post" action="#xarModURL('authsystem', 'admin', 'security')#">
+            <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey()#"/>
+            <input type="hidden" name="phase" id="phase" value="update"/>
+            <input type="hidden" name="return_url" id="return_url" value="#$return_url#"/>
+            <fieldset>
+                <legend>Login Attempts</legend>
+                <div class="xar-form-input-wrapper">
+                    <xar:var name="label">The maximum number of login failure attempts allowed, mitigates brute force attacks</xar:var>
+                    <label for="login_attempts" class="xar-form-label help" title="#$label#">Maximum Attempts</label>
+                    <div class="xar-form-container-after">
+                        <xar:data-input type="integerbox" id="login_attempts" name="login_attempts" value="$login_attempts"/>
+                        (0 = Unlimited)
+                    </div>
+                </div>
+                <div class="xar-form-input-wrapper">
+                    <xar:var name="label">The length of time to wait before allowing logins from the same user after threshold was reached</xar:var>
+                    <label for="login_lockedout" class="xar-form-label help" title="#$label#">Lockout Period</label>
+                    <div class="xar-form-container-after">
+                        <xar:data-input type="integerbox" id="login_lockedout" name="login_lockedout" value="$login_lockedout"/>
+                        (minutes)
+                    </div>
+                </div>
+                <p>These settings mitigate against brute force log in attempts by forcing users who fail to authenticate to wait for a set period before being allowed to try again.</p>
+            </fieldset>
+            
+            <fieldset>
+                <div class="xar-form-container-after">
+                    <xar:var name="submitLabel">Update Security</xar:var>
+                    <input type="submit" value="#$submitLabel#"/>
+                </div>                   
+            </fieldset>
+        </form> 
+    </div>
+</xar:template>

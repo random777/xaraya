@@ -48,10 +48,8 @@ function authsystem_init()
                  'blockType' => 'login'));
     if (!$bid) return;
 
-    // Installation complete; <chris> don't check for upgrades here
-    // since we don't have all modules activated at install time 
-    // return authsystem_upgrade('2.0.0');
-    return true;
+    // Installation complete; check for upgrades
+    return authsystem_upgrade('2.0.0');
 }
 
 /**
@@ -75,22 +73,9 @@ function authsystem_activate()
     xarModVars::set('authsystem', 'lockouttime', 15);
     xarModVars::set('authsystem', 'lockouttries', 3);
     xarModVars::set('authsystem', 'uselockout', false);
-
-    /* Added sitelock module var at 2.3.0 */
-    $sitelock = array(
-        'locked' => 0,
-        'lockstate' => 0,
-        'lockmessage' => xarML('The site is currently locked. Thank you for your patience'),
-        'lockaccess' => array(),                
-        'locknotify' => '',
-        'adminnotify' => 0,
-    );
-    xarModVars::set('authsystem', 'sitelock', serialize($sitelock));
     
-    // Installation complete; <chris> no need to check for upgrades here
-    // all core modules should be automatically upgraded during core install/upgrade
-    // return authsystem_upgrade('2.0.0');
-    return true;
+    // Installation complete; check for upgrades
+    return authsystem_upgrade('2.0.0');
 }
 
 /**
@@ -103,10 +88,40 @@ function authsystem_upgrade($oldversion)
 {
     // Upgrade dependent on old version number
     switch ($oldversion) {
-        case '2.2.0': // Upgrades to 2.3.0 
+        case '2.0.0': // Upgrades to 2.2.0
             // Register event subjects
             xarEvents::registerSubject('UserLogin', 'user', 'authsystem');
             xarEvents::registerSubject('UserLogout', 'user', 'authsystem');
+        case '2.2.0':
+
+            // initialize the sitelock modvar object
+            // the class constructor takes care of dealing with the deprecated roles vars on first run
+            // the class methods take care of setting the modvar containing this class when it is unset
+            sys::import('modules.authsystem.class.sitelock');
+            $sitelock = SiteLock::getInstance();
+            unset($sitelock);
+
+            // Site lock subjects
+            xarEvents::registerSubject('AuthSiteLock', 'auth', 'authsystem', 'class', 'authsubjects');
+            xarEvents::registerSubject('AuthSiteUnlock', 'auth', 'authsystem', 'class', 'authsubjects');
+            // Site lock observers 
+            xarEvents::registerObserver('AuthSiteLock', 'authsystem', 'class', 'authobservers');
+            xarEvents::registerObserver('AuthSiteUnlock', 'authsystem', 'class', 'authobservers');
+            // ServerRequest observer (for sitelock)
+            //xarEvents::registerObserver('ServerRequest', 'authsystem');
+            // Authentication subjects
+            //xarEvents::registerSubject('AuthLogin', 'user', 'authsystem');
+            //xarEvents::registerSubject('AuthLogout', 'user', 'authsystem');
+            // Authentication observers 
+            //xarEvents::registerObserver('AuthLogin', 'authsystem');
+            //xarEvents::registerObserver('AuthLogout', 'authsystem');
+
+            /* Define Module vars */
+            $lockedout = (int) xarModVars::get('authsystem', 'lockouttime');
+            $uselockout = (bool) xarModVars::get('authsystem', 'uselockout');
+            $attempts = $uselockout == false ? 0 : (int) xarModVars::get('authsystem', 'lockouttries');
+            xarModVars::set('authsystem', 'login.lockedout', !empty($lockedout) ? $lockedout : 15);
+            xarModVars::set('authsystem', 'login.attempts', $attempts); 
 
       break;
     }

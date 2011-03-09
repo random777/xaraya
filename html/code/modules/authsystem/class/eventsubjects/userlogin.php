@@ -5,7 +5,7 @@ class AuthsystemUserLoginSubject extends EventSubject implements ixarEventSubjec
     protected $subject = 'UserLogin';
     public function __construct($userId)
     {
-        parent::__construct($userId);                             
+        parent::__construct($userId);
     }
 }
 ?>

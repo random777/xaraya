@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+    <div class="xar-form-input-wrapper">
+        <xar:var name="label">Send an email to all users who have locked access when the site lock is disengaged</xar:var>
+        <label for="authsystem_unlocked_notify" class="xar-form-label" title="#$label#">Notify Access List</label>
+        <div class="xar-form-container-after">
+            <xar:data-input type="checkbox" name="authsystem_unlocked_notify" id="authsystem_unlocked_notify" checked="$unlocked_notify"/> (notify users on the access list when the site is unlocked)    
+        </div>
+    </div>
+    <div class="xar-form-input-wrapper">
+        <label for="authsystem_unlocked_mail" class="xar-form-label">Notify Message</label>
+        <div class="xar-form-container-after">When Notify Access List is enabled, the following notification will be sent
+            <p>"<xar:var scope="module" module="themes" name="SiteName"/> was unlocked at [time] on [date] by [user]"</p>
+            <p>You can optionally append a message to the default notification below.</p>
+        </div>
+        <div class="xar-form-container-after">
+            <textarea name="authsystem_unlocked_mail" id="authsystem_unlocked_mail" cols="60" rows="4">#$unlocked_mail#</textarea>
+            <xar:if condition="!empty($invalid['unlocked_mail'])">
+                <p class="xar-error">#$invalid['unlocked_mail']#</p>
+            </xar:if>      
+        </div>
+    </div>
+</xar:template>

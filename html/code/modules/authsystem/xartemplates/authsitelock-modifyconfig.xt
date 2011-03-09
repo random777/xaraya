@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+    <div class="xar-form-input-wrapper">
+        <xar:var name="label">Send an email to all users who have locked access when the site lock is engaged</xar:var>
+        <label for="authsystem_locked_notify" class="xar-form-label" title="#$label#">Notify Access List</label>
+        <div class="xar-form-container-after">
+            <xar:data-input type="checkbox" name="authsystem_locked_notify" id="authsystem_locked_notify" checked="$locked_notify"/> (notify users on the access list when the site is locked)    
+        </div>
+    </div>
+    <div class="xar-form-input-wrapper">
+        <xar:var name="label">Optional message to append to the site locked notification email</xar:var>
+        <label for="authsystem_locked_mail" class="xar-form-label">Notify Message</label>
+        <div class="xar-form-container-after">When Notify Access List is enabled, the following notification will be sent
+            <p>"<xar:var scope="module" module="themes" name="SiteName"/> was locked at [time] on [date] by [user]"</p>
+            <p>You can optionally append a message to the default notification below.</p>
+        </div>
+        <div class="xar-form-container-after">
+            <textarea name="authsystem_locked_mail" id="authsystem_locked_mail" cols="60" rows="4">#$locked_mail#</textarea>
+            <xar:if condition="!empty($invalid['locked_mail'])">
+                <p class="xar-error">#$invalid['locked_mail']#</p>
+            </xar:if>      
+        </div>
+    </div>
+</xar:template>

@@ -1,220 +1,251 @@
 <?php
-function authsystem_admin_sitelock($args)
+/**
+ * @package modules
+ * @subpackage authsystem module
+ * @category Xaraya Web Applications Framework
+ * @version 2.2.0
+ * @copyright see the html/credits.html file in this release
+ * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
+ * @link http://www.xaraya.com
+ * @link http://xaraya.com/index.php/release/42.html
+ */
+/**
+ * Modify Site Lock Configuration
+**/
+sys::import('modules.authsystem.class.auth');
+function authsystem_admin_sitelock(Array $args=array())
 {
-    // @CHECKME: only allow access to this page to roles in the access list?
+    // Security
     if (!xarSecurityCheck('AdminAuthsystem')) return;
+    extract($args);
 
-    if (!xarVarFetch('phase', 'pre:trim:lower:enum:update', $phase, 'form', XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('tab', 'pre:trim:lower:str:1:',
+        $tab, null, XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('phase', 'pre:trim:lower:enum:update', 
+        $phase, 'form', XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('return_url', 'pre:trim:str:1:',
+        $return_url, '', XARVAR_NOT_REQUIRED)) return;    
 
-    $data = unserialize(xarModVars::get('authsystem', 'sitelock'));
+    // get the site lock object
+    sys::import('modules.authsystem.class.sitelock');
+    $sitelock = SiteLock::getInstance();
+    
+    $data = array();
+    $invalid = array();
 
-    // get designated site admin
-    $admin = xarRoles::get(xarModVars::get('roles','admin'));
+    // deal with any updates first
+    if ($phase == 'update') {
 
-    switch ($phase) {
+        if (!xarSecConfirmAuthKey())
+            return xarTplModule('privileges', 'user', 'errors', array('layout' => 'bad_author'));
 
-        case 'form':
-        default:
-            // prep stored settings for display
-            if (empty($data['lockaccess'])) $data['lockaccess'] = array();
-            // prep access list for display
-            foreach ($data['lockaccess'] as $id => $role) {
-                $r = xarRoles::get($id);
-                if (!$r) {
-                    unset($data['lockaccess'][$id]);
-                    continue;
-                }
-                $role['uname'] = $r->getUser();
-                $role['name'] = $r->getName();
-                $role['itemtype'] = $r->isUser() ? xarRoles::ROLES_USERTYPE : xarRoles::ROLES_GROUPTYPE;
-                $data['lockaccess'][$id] = $role;
-            }
-            // data for template
-            // @TODO: remove these defaults and set in modvar during init/install
-            if (empty($data['locknotify'])) $data['locknotify'] = '';
-            if (empty($data['adminnotify'])) $data['adminnotify'] = 0;
-            if (empty($data['lockmessage'])) $data['lockmessage'] = xarML('The site is currently locked, thank you for your patience.');
-            // designated site admin info
-            $data['adminid'] = $admin->getID();
-            $data['adminuname'] = $admin->getUser();
-            $data['adminname'] = $admin->getName();
-
-            if (empty($data['locked'])) {
-                $data['lockstatus'] = xarML('Site is unlocked');
-                $data['locklabel'] = xarML('Lock the site');
+        // check for lock toggle...        
+        if (!xarVarFetch('locktoggle', 'checkbox',
+            $locktoggle, false, XARVAR_NOT_REQUIRED)) return;
+        // toggle lock
+        if ($locktoggle) {
+            // determine current lock state 
+            // NOTE: we don't notify observers here, since we still have updates to process 
+            if ($sitelock->locked) {
+                // unlock the site
+                $result = $sitelock->unlockSite();
             } else {
-                $data['lockstatus'] = xarML('Site is locked');
-                $data['locklabel'] = xarML('Unlock the site');
+                // lock the site
+                $result = $sitelock->lockSite();
             }
-            $data['authid'] = xarSecGenAuthKey();
-            $data['statusmsg'] = xarSession::getVar('authsystem_status');
-            xarSession::setVar('authsystem_status', '');
-            return $data;
-        break;
+            if (!$result) 
+                // set invalid message
+                $invalid['locktoggle'] = xarML('Unable to #(1) the site',$sitelock->locked ? 'unlock':'lock');
+        }        
+        
+        // now deal with the config 
+        switch ($tab) {
+            
+            case 'lock':
+            default:
 
-        case 'update':
-            // Confirm authorisation code
-            if (!xarSecConfirmAuthKey()) {
-                return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
-            }
-            // prep input for storage
-            // site lock
-            if (!xarVarFetch('locksite', 'checkbox', $locksite, 0, XARVAR_NOT_REQUIRED)) return;
-            if (!xarVarFetch('lockstate', 'int:0:2', $lockstate, 0, XARVAR_NOT_REQUIRED)) return;
-            if (!xarVarFetch('lockmessage', 'str:1:', $lockmessage, '', XARVAR_NOT_REQUIRED)) return;
-            // locked access
-            if (!xarVarFetch('lockaccess', 'array', $lockaccess, array(), XARVAR_NOT_REQUIRED)) return;
-            // access for new role
-            if (!xarVarFetch('newaccess', 'str:1:', $newaccess, '', XARVAR_NOT_REQUIRED)) return;
-            if (!xarVarFetch('newnotify', 'checkbox', $newnotify, 0, XARVAR_NOT_REQUIRED)) return;
-            // message to send to notified roles
-            if (!xarVarFetch('locknotify', 'str:1:', $locknotify, '', XARVAR_NOT_REQUIRED)) return;
-            // notify designated site admin
-            if (!xarVarFetch('adminnotify', 'checkbox', $adminnotify, 0, XARVAR_NOT_REQUIRED)) return;
-            if (!xarVarFetch('return_url', 'str:1:', $return_url, '', XARVAR_NOT_REQUIRED)) return;
-
-            $validmsg = $warningmsg = $errormsg = array();
-            // update settings
-            $data['adminnotify'] = $adminnotify;
-            $data['lockstate'] = $lockstate;
-            $data['lockmessage'] = $lockmessage;
-            // update lock state change email notification message
-            $data['locknotify'] = $locknotify;
-
-            // Handle lock status change
-            if (!empty($locksite)) {
-                // Toggle the site lock
-                $data['locked'] = !empty($data['locked']) ? 0 : 1;
-                // build notification message
-                $subject = xarModVars::get('themes','SiteName') . ' Changed Lock Status';
-                $from = $admin->getEmail();
-                $byname = xarUserGetVar('name');
-                if (!empty($data['locked'])) {
-                    // site was just locked
-                    $message = 'The site ' . xarModVars::get('themes','SiteName') . ' has been locked by '.$byname.'.';
-                    // clear sessions of users not in the access list
-                    $spared = array_keys($data['lockaccess']);
-                    if(!xarMod::apiFunc('roles','admin','clearsessions', $spared)) {
-                        $errormsg[] = xarML('Could not clear sessions table when locking site');
-                    }
+                // get the auth sitelock event subject 
+                $locksubject = xarAuth::getAuthSubject('AuthSiteLock');
+                // check config for all sitelock event observers...
+                $isvalid = $locksubject->checkconfig();
+                if ($isvalid) {
+                    // fetch sitelock input
+                    if (!xarVarFetch('login_alias', 'pre:trim:str:1:', 
+                        $login_alias, '', XARVAR_NOT_REQUIRED)) return;
+                    if (!xarVarFetch('lockout_page', 'pre:trim:str:1:',
+                        $lockout_page, '', XARVAR_NOT_REQUIRED)) return;
+                    if (!xarVarFetch('lockout_msg', 'pre:trim:str:1:',
+                        $lockout_msg, '', XARVAR_NOT_REQUIRED)) return;
+                    
+                    // fetch took care of validation, just update the sitelock
+                    $sitelock->login_alias = $login_alias;
+                    $sitelock->lockout_page = $lockout_page;
+                    $sitelock->lockout_msg = $lockout_msg;
+                    
+                    // update config for all sitelock event observers 
+                    if (!$locksubject->updateconfig())
+                        // observer(s) failed to update...
+                        $invalid['sitelock'] = xarML('Failure updating one or more AuthSiteLock observers');
                 } else {
-                    // site was just unlocked
-                    $message = 'The site ' . xarModVars::get('themes','SiteName') . ' has been unlocked by '.$byname.'.';
+                    // observer(s) failed validation...
+                    $invalid['sitelock'] = xarML('Failure validating one or more AuthSiteLock observers');
                 }
-                if (!empty($data['locknotify'])) {
-                    $message .= "\n\n" . $data['locknotify'];
-                }
-                $notify = array();
-                // notify designated site admin
-                if (!empty($data['adminnotify'])) {
-                    $notify[$admin->getID()] = $admin;
-                }
-            }
+            
+            break;
+            
+            case 'unlock':
 
-            // handle roles access list
-            foreach ($data['lockaccess'] as $id => $role) {
-                if (isset($lockaccess[$id]) && !empty($lockaccess[$id]['delete'])) {
-                    unset($data['lockaccess'][$id]);
-                    continue;
+                // get the auth siteunlock event subject 
+                $unlocksubject = xarAuth::getAuthSubject('AuthSiteUnlock');
+                // check config for all siteunlock event observers...
+                $isvalid = $unlocksubject->checkconfig();
+                if ($isvalid) {
+                    // update config for all siteunlock event observers
+                    if (!$unlocksubject->updateconfig())
+                        // observer(s) failed to update...
+                        $invalid['sitelock'] = xarML('Failure updating one or more AuthSiteUnlock observers');
+                } else {
+                    // observer(s) failed validation...
+                    $invalid['sitelock'] = xarML('Failure validating one or more AuthSiteUnlock observers');
                 }
-                $r = xarRoles::get($id);
-                if (!$r) {
-                    unset($data['lockaccess'][$id]);
-                    continue;
-                }
-                $role['notify'] = isset($lockaccess[$id]) && !empty($lockaccess[$id]['notify']);
-                // if the lock status changed add users to notify list
-                if (!empty($locksite) && !empty($role['notify'])) {
-                    if ($r->isUser()) {
-                        // key by role id
-                        $notify[$id] = $r;
-                    } else {
-                        $group = $r->getUsers();
-                        if (!empty($group)) {
-                            foreach ($group as $member) {
-                                // key by role id
-                                $rid = $member->getID();
-                                $notify[$rid] = $member;
-                            }
+            
+            break;
+            
+            case 'access':
+                if (!xarVarFetch('admin_notify', 'checkbox',
+                    $admin_notify, false, XARVAR_NOT_REQUIRED)) return;
+                $sitelock->admin_notify = $admin_notify;
+                
+                if (!xarVarFetch('access', 'array',
+                    $access, array(), XARVAR_NOT_REQUIRED)) return;
+                if (!xarVarFetch('addrole', 'pre:trim:str:1:',
+                    $addrole, '', XARVAR_NOT_REQUIRED)) return;
+                
+                // synch the access list
+                if (!empty($access)) {
+                    foreach ($access as $rid => $role) {
+                        if (!isset($sitelock->access_list[$rid])) continue;
+                        if (!empty($role['remove'])) {
+                            unset($sitelock->access_list[$rid]);
+                            continue;
                         }
+                        $sitelock->access_list[$rid] = !empty($role['notify']);
                     }
                 }
-                $data['lockaccess'][$id] = $role;
-            }
-            // add role to list
-            if (!empty($newaccess)) {
-                $r = xaruFindRole($newaccess);
-                if (!$r) $r = xarFindRole($newaccess);
-                if ($r) {
-                    $newid = $r->getID();
-                    $data['lockaccess'][$newid] = array(
-                        'id' => $newid,
-                        'uname' => $r->getUser(),
-                        'name' => $r->getName(),
-                        'itemtype' => $r->isUser() ? xarRoles::ROLES_USERTYPE : xarRoles::ROLES_GROUPTYPE,
-                        'notify' => !empty($newnotify),
-                    );
-                    // if the status changed add user to notify list
-                    if (!empty($locksite) && !empty($data['lockaccess'][$newid]['notify'])) {
-                        $notify[$newid] = $r;
+                
+                // add role to list
+                if (!empty($addrole)) {
+                    // try for uname
+                    $r = xaruFindRole($addrole);
+                    // fall back to name
+                    if (!$r) $r = xarFindRole($addrole);
+                    if ($r) {
+                        if (!xarVarFetch('addnotify', 'checkbox',
+                            $addnotify, false, XARVAR_NOT_REQUIRED)) return;
+                        $newid = $r->getID();
+                        $sitelock->access_list[$newid] = $addnotify;
+                    } else {
+                        $invalid['addrole'] = xarML('Unable to add role "#(1)" to permitted users and groups, role does not exist', $addrole);
                     }
+                }                     
+            
+            break;
+
+        }
+        
+        // if the update was a success
+        if (empty($invalid)) {
+            // see if lock state changed
+            if ($locktoggle) {
+                if ($sitelock->locked) {
+                    // let observers know the site was locked 
+                    xarAuth::notify('AuthSiteLock');
                 } else {
-                    $errormsg[] = xarML('Unable to add role #(1) to permitted users and groups, role does not exist', $newaccess);
+                    // let observers know the site was unlocked 
+                    xarAuth::notify('AuthSiteUnlock');
                 }
             }
-
-            // store site lock settings
-            xarModVars::set('authsystem', 'sitelock', serialize($data));
-
-            // notify users on state change
-            if (!empty($notify) && is_array($notify)) {
-                $badmails = array();
-                foreach ($notify as $id => $role) {
-                    // @CHECKME: do we want to skip sending email to current user?
-                    //if (!$role->isUser() || $id == xarUserGetVar('id')) continue;
-                    if (!$role->isUser()) continue;
-                    $email = array(
-                        'info' => $role->getEmail(),
-                        'subject' => $subject,
-                        'message' => $message,
-                        'from' => $from,
-                    );
-                    if (!xarMod::apiFunc('mail','admin','sendmail', $email)) {
-                        $badmails[] = $role->getName();
-                    }
-                }
-
-                if(!empty($badmails)) {
-                    // return xarTplModule('roles','user','errors',array('layout' => 'mail_failed', 'badmails' => count($badmails)));
-                    $grammar = count($badmails == 1) ? 'role' : 'roles';
-                    $grammar1 = $data['locked'] ? 'locking' : 'unlocking';
-                    $errormsg[] = xarML('Unable to send email to the following #(1) when #(2) site...', $grammar, $grammar1);
-                    $errormsg[] = join(', ', $badmails);
-                }
-                $grammar3 = $data['locked'] ? 'locked' : 'unlocked';
-                if (empty($errormsg)) {
-                    $validmsg[] = xarML('Site was #(1)', $grammar3);
-                } else {
-                    $warningmsg[] = xarML('Site was #(1) with error(s), see below', $grammar3);
-                }
-            }
-            if (empty($locksite) && empty($errormsg)) {
-                $validmsg[] = xarML('Site lock configuration updated');
-            } elseif (empty($locksite) && !empty($errormsg)) {
-                $warningmsg[] = xarML('Site lock configuration updated with error(s), see below');
-            }
-
-            $statusmsg = array();
-            if (!empty($validmsg)) $statusmsg['valid'] = $validmsg;
-            if (!empty($warningmsg)) $statusmsg['warning'] = $warningmsg;
-            if (!empty($errormsg)) $statusmsg['error'] = $errormsg;
-            xarSessionSetVar('authsystem_status', $statusmsg);
-            if (empty($return_url)) $return_url = xarModURL('authsystem', 'admin', 'sitelock');
+            // redirect to form 
+            if (empty($return_url)) 
+                $return_url = xarModURL('authsystem', 'admin', 'sitelock', array('tab' => $tab));
             xarController::redirect($return_url);
+        }
+        // otherwise, fall through and render the errors
+    }
+    
+    // if we're here, either an update failed, or we're in form phase
+    switch ($tab) {
+
+        case 'lock':
+        default:
+        
+            // get the auth sitelock event subject 
+            if (!isset($locksubject))
+                $locksubject = xarAuth::getAuthSubject('AuthSiteLock');
+            // get sitelock listener configs 
+            $data['lockconfig'] = $locksubject->modifyconfig();
+            
+        break;
+            
+        case 'unlock':
+
+            // get the auth siteunlock event subject 
+            if (!isset($unlocksubject))
+                $unlocksubject = xarAuth::getAuthSubject('AuthSiteUnlock');
+            // get siteunlock listener configs 
+            $data['unlockconfig'] = $unlocksubject->modifyconfig();
+            
+        break;
+            
+        case 'access':
+
+            // get the designated site admin
+            if (!isset($admin)) 
+                $admin = xarRoles::get($sitelock->site_admin);
+            $data['admin'] = array(
+                'id' => $admin->getId(),
+                'name' => $admin->getName(),
+                'uname' => $admin->getUser(),
+                'notify' => $sitelock->admin_notify,
+            );
+
+            // build access list for display 
+            $access_list = array();
+            if (!empty($sitelock->access_list)) {
+                foreach ($sitelock->access_list as $rid => $notify) {
+                    $r = xarRoles::get($rid);
+                    // check role exists, could have been deleted
+                    // @todo: check state
+                    if (!$r) {
+                        // role removed, remove from list 
+                        unset($sitelock->access_list[$rid]);
+                        continue;
+                    }
+                    $access_list[$rid] = array(
+                        'id' => $r->getId(),
+                        'name' => $r->getName(),
+                        'uname' => $r->getUser(),
+                        'type' => $r->isUser() ? xarRoles::ROLES_USERTYPE : xarRoles::ROLES_GROUPTYPE,
+                        'notify' => $notify,
+                    );
+                }
+            }
+            $data['access_list'] = $access_list;
+            
+            $data['roletypes'] = array(
+                xarRoles::ROLES_USERTYPE => xarML('User'),
+                xarRoles::ROLES_GROUPTYPE => xarML('Group'),
+            );
 
         break;
-
+    
     }
-
+    
+    $data['sitelock'] = $sitelock->getInfo();
+    $data['tab'] = $tab;
+    $data['invalid'] = $invalid;
+    $data['return_url'] = $return_url;
+    
+    return $data;
 }
 ?>

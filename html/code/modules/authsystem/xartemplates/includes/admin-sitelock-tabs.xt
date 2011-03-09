@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+    <xar:style scope="module" module="base" file="navtabs"/>
+    <xar:set name="activetab">'xar-tab-active'</xar:set>
+    <xar:set name="activelink">'xar-accent xar-accent-outline'</xar:set>
+    <xar:set name="inactivetab">'xar-tab'</xar:set>
+    <xar:set name="inactivelink">'xar-norm xar-norm-outline'</xar:set>
+    <xar:set name="tab">!isset($tab)?null:$tab</xar:set>
+    <div>
+        <ul class="xar-tabs xar-alt xar-norm-outline">
+
+            <xar:var name="label">Select Site Lock configuration to view/modify</xar:var>
+            <li class="xar-tabs-label help" title="#$label#">Site Lock:</li>
+
+            <xar:set name="tabclass">empty($tab)?$activetab:$inactivetab</xar:set>
+            <xar:set name="linkclass">empty($tab)?$activelink:$inactivelink</xar:set>
+            <xar:var name="label">Configure actions to perform when the site is locked</xar:var>
+            <li class="#$tabclass#">
+                <a href="#xarServer::getCurrentUrl(array('tab' => null))#" title="#$label#" class="#$linkclass#">Lock Actions</a>
+            </li>
+
+            <xar:set name="tabclass">$tab=='unlock'?$activetab:$inactivetab</xar:set>
+            <xar:set name="linkclass">$tab=='unlock'?$activelink:$inactivelink</xar:set>
+            <xar:var name="label">Configure actions to perform when the site is unlocked</xar:var>
+            <li class="#$tabclass#">
+                <a href="#xarServer::getCurrentUrl(array('tab' => 'unlock'))#" title="#$label#" class="#$linkclass#">Unlock Actions</a>
+            </li>
+
+            <xar:set name="tabclass">$tab=='access'?$activetab:$inactivetab</xar:set>
+            <xar:set name="linkclass">$tab=='access'?$activelink:$inactivelink</xar:set>
+            <xar:var name="label">Configure users and groups permitted to log in when the site is locked</xar:var>
+            <li class="#$tabclass#">
+                <a href="#xarServer::getCurrentUrl(array('tab' => 'access'))#" title="#$label#" class="#$linkclass#">Access List</a>
+            </li>
+
+        </ul>
+    </div>    
+</xar:template>

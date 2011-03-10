@@ -50,9 +50,9 @@ function authsystem_user_login(Array $args=array())
     // are we mitigating brute force login attempts?
     $maxattempts = xarModVars::get('authsystem', 'login.attempts');
     if (!empty($maxattempts)) {
+        $lockedfor = xarModVars::get('authsystem', 'login.lockedout');
         $attempts = (int) xarSession::getVar('authsystem.login.attempts');
         if ($attempts >= $maxattempts) {
-            $lockedfor = xarModVars::get('authsystem', 'login.lockedout');
             $lockedat = xarSession::getVar('authsystem.login.lockedout');
             if (time() - $lockedat < 60 * $lockedfor) {
                 // user locked out due to failed attempts

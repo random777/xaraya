@@ -37,7 +37,7 @@ class AuthsystemShortController extends ShortActionController
             break;
 
             case 'login':
-                $data['func'] = 'showloginform';
+                $data['func'] = 'login';
             break;
 
             case 'logout':
@@ -49,7 +49,7 @@ class AuthsystemShortController extends ShortActionController
             break;
 
             default:
-                $data['func'] = 'showloginform';
+                $data['func'] = 'login';
             break;
         }
         return $data;
@@ -70,7 +70,9 @@ class AuthsystemShortController extends ShortActionController
             case 'showloginform':
                 $path[] = 'login';
                 break;
-
+            case 'login':
+                $path[] = 'login';
+                break;
             case 'logout':
                 $path[] = 'logout';
                 break;

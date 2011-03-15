@@ -21,7 +21,6 @@ class AuthsystemAuthSiteLockObserver extends EventObserver implements ixarEventO
 {
     public $module = 'authsystem';
 
-    private static $sitelock;
     // private variables used during configuration methods
     private $invalid;     // array of invalid fields
     private $fieldvalues; // the array of field values from input
@@ -29,10 +28,6 @@ class AuthsystemAuthSiteLockObserver extends EventObserver implements ixarEventO
     public function __construct()
     {
         // This listener uses the authsystem sitelock object for storage
-        // for convenience, we get that when the object is constructed
-        // NOTE: (Other modules supplying a listener should use their own storage for config options)
-        sys::import('modules.authsystem.class.sitelock');
-        self::$sitelock = SiteLock::getInstance();
     }
 /**
  * Notify observer
@@ -46,55 +41,55 @@ class AuthsystemAuthSiteLockObserver extends EventObserver implements ixarEventO
 **/
     public function notify(ixarEventSubject $subject)
     {
-        // we only supply one option here, send an email when the site is locked
+        // Purge enabled ?
+        if (AuthSystem::$sitelock->locked_purge) {
+            $access_list = array_keys(AuthSystem::$sitelock->getAccessList());
+            if(!xarMod::apiFunc('roles','admin','clearsessions', $access_list)) {
+                $msg = xarML('Could not clear sessions table');
+                throw new Exception($msg);
+            }        
+        }
         // Notifications enabled ?
-        if (self::$sitelock->locked_notify) {
-            $admin = xarRoles::get(self::$sitelock->site_admin);
-            $to_notify = array();
+        if (AuthSystem::$sitelock->locked_notify) {            
+            $access_list = AuthSystem::$sitelock->getAccessList();
+            $admin = xarRoles::get(AuthSystem::$sitelock->site_admin);
             // are we notifying admin?
-            if (self::$sitelock->admin_notify) {
-                $to_notify[$admin->getId()] = $admin->getEmail();
-            }
-            // are we notifying users and groups?
-            if (!empty(self::$sitelock->access_list)) {
-                foreach (self::$sitelock->access_list as $rid => $notify) {
-                    // not marked for notification?
-                    if (empty($notify)) continue;
-                    $r = xarRoles::get($rid);
-                    // not a role?
-                    if (!$r) {
-                        unset(self::$sitelock->access_list[$rid]);
-                        continue;
-                    // role is user?
-                    } elseif ($r->isUser()) {
-                        $to_notify[$r->getId()] = $r->getEmail();
-                    // role is group?
-                    } elseif ($g = $r->getUsers()) {
-                        foreach ($g as $u) {
-                            $to_notify[$u->getId()] = $u->getEmail();
-                        }
-                    }
-                }
+            if (AuthSystem::$sitelock->admin_notify) {
+                $access_list[$admin->getId()] = array('id' => $admin->getId(),'notify' => $admin->getEmail());
             }
             // do we have anyone to notify?
-            if (!empty($to_notify)) {
+            if (!empty($access_list)) {
                 // Build the email
                 $subject = xarML('Site Lock Notification');
                 $from = $admin->getEmail();
                 $message = xarML('The site #(1) was locked at #(2) on #(3) by #(4)',
                     xarModVars::get('themes', 'SiteName'),
-                    xarLocaleGetFormattedTime('long', self::$sitelock->locked_at),
-                    xarLocaleGetFormattedDate('long', self::$sitelock->locked_at),
-                    xarUserGetVar('name', self::$sitelock->locked_by));
-                if (!empty(self::$sitelock->locked_mail)) {
-                    $message .= "/n/n";
-                    $message .= self::$sitelock->locked_mail;
+                    xarLocaleGetFormattedTime('long', AuthSystem::$sitelock->locked_at),
+                    xarLocaleGetFormattedDate('long', AuthSystem::$sitelock->locked_at),
+                    xarUserGetVar('name', AuthSystem::$sitelock->locked_by));
+                // append message (if any)
+                if (!empty(AuthSystem::$sitelock->locked_mail)) {
+                    $message .= "\n\n";
+                    $message .= AuthSystem::$sitelock->locked_mail;
                 }
-                foreach ($to_notify as $email) {
+                // if admin logins are enabled, supply the login url 
+                if (AuthSystem::$security->login_state != AuthSystem::STATE_LOGIN_USER) {
+                    $message .= "\n\n";
+                    $message .= 'Login URL: ';
+                    if (!empty(AuthSystem::$security->login_alias)) {
+                        $message .= xarServer::getBaseURL().'index.php/authsystem/';
+                        $message .= AuthSystem::$security->login_alias;
+                    } else {
+                        $message .= xarModURL('authsystem', 'admin', 'login', array(), false);
+                    }
+                }   
+                foreach ($access_list as $user) {
+                    if (empty($user['notify'])) continue;
+                    // @TODO: bcc list? 
                     try {
                         xarMod::apiFunc('mail', 'admin', 'sendmail',
                             array(
-                                'info' => $email,
+                                'info' => $user['notify'],
                                 'subject' => $subject,
                                 'message' => $message,
                                 'from' => $from,
@@ -106,6 +101,8 @@ class AuthsystemAuthSiteLockObserver extends EventObserver implements ixarEventO
             }
         }
     }
+
+
 
 /**
  * the following methods are optional, and can be supplied to allow
@@ -179,9 +176,10 @@ class AuthsystemAuthSiteLockObserver extends EventObserver implements ixarEventO
             $data = array();
             // configuration for this listener
             // send notifications?
-            $data['locked_notify'] = self::$sitelock->locked_notify;
+            $data['locked_notify'] = AuthSystem::$sitelock->locked_notify;
             // the message to append
-            $data['locked_mail'] = self::$sitelock->locked_mail;
+            $data['locked_mail'] = AuthSystem::$sitelock->locked_mail;
+            $data['locked_purge'] = AuthSystem::$sitelock->locked_purge;
         }
         // the calling method expects templated output to be displayed within a form
         return xarTplModule('authsystem', 'authsitelock', 'modifyconfig', $data);
@@ -207,8 +205,11 @@ class AuthsystemAuthSiteLockObserver extends EventObserver implements ixarEventO
             $locked_mail, '', XARVAR_NOT_REQUIRED)) return;
         if (!xarVarFetch('authsystem_locked_notify', 'checkbox',
             $locked_notify, false, XARVAR_NOT_REQUIRED)) return;
-        self::$sitelock->locked_mail = $locked_mail;
-        self::$sitelock->locked_notify = $locked_notify;
+        if (!xarVarFetch('authsystem_locked_purge', 'checkbox',
+            $locked_purge, false, XARVAR_NOT_REQUIRED)) return;
+        AuthSystem::$sitelock->locked_mail = $locked_mail;
+        AuthSystem::$sitelock->locked_notify = $locked_notify;
+        AuthSystem::$sitelock->locked_purge = $locked_purge;
 
         // the calling method expects a boolean true on success
         return true;

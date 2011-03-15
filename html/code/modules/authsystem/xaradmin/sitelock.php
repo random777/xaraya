@@ -12,7 +12,7 @@
 /**
  * Modify Site Lock Configuration
 **/
-sys::import('modules.authsystem.class.auth');
+sys::import('modules.authsystem.class.authsystem');
 function authsystem_admin_sitelock(Array $args=array())
 {
     // Security
@@ -27,8 +27,7 @@ function authsystem_admin_sitelock(Array $args=array())
         $return_url, '', XARVAR_NOT_REQUIRED)) return;    
 
     // get the site lock object
-    sys::import('modules.authsystem.class.sitelock');
-    $sitelock = SiteLock::getInstance();
+    $sitelock = Authsystem::$sitelock;
     
     $data = array();
     $invalid = array();
@@ -57,6 +56,11 @@ function authsystem_admin_sitelock(Array $args=array())
                 // set invalid message
                 $invalid['locktoggle'] = xarML('Unable to #(1) the site',$sitelock->locked ? 'unlock':'lock');
         }        
+
+        // get the auth sitelock event subject 
+        $locksubject = AuthSystem::getAuthSubject('AuthSiteLock');
+        // get the auth siteunlock event subject 
+        $unlocksubject = AuthSystem::getAuthSubject('AuthSiteUnlock');
         
         // now deal with the config 
         switch ($tab) {
@@ -64,22 +68,17 @@ function authsystem_admin_sitelock(Array $args=array())
             case 'lock':
             default:
 
-                // get the auth sitelock event subject 
-                $locksubject = xarAuth::getAuthSubject('AuthSiteLock');
                 // check config for all sitelock event observers...
                 $isvalid = $locksubject->checkconfig();
-                if ($isvalid) {
+                if (!xarVarFetch('lockout_state', 'int:0:3',
+                    $lockout_state, 0, XARVAR_NOT_REQUIRED)) return;
+                if ($isvalid && empty($invalid)) {
                     // fetch sitelock input
-                    if (!xarVarFetch('login_alias', 'pre:trim:str:1:', 
-                        $login_alias, '', XARVAR_NOT_REQUIRED)) return;
-                    if (!xarVarFetch('lockout_page', 'pre:trim:str:1:',
-                        $lockout_page, '', XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('lockout_msg', 'pre:trim:str:1:',
                         $lockout_msg, '', XARVAR_NOT_REQUIRED)) return;
                     
                     // fetch took care of validation, just update the sitelock
-                    $sitelock->login_alias = $login_alias;
-                    $sitelock->lockout_page = $lockout_page;
+                    $sitelock->lockout_state = $lockout_state;
                     $sitelock->lockout_msg = $lockout_msg;
                     
                     // update config for all sitelock event observers 
@@ -95,8 +94,7 @@ function authsystem_admin_sitelock(Array $args=array())
             
             case 'unlock':
 
-                // get the auth siteunlock event subject 
-                $unlocksubject = xarAuth::getAuthSubject('AuthSiteUnlock');
+
                 // check config for all siteunlock event observers...
                 $isvalid = $unlocksubject->checkconfig();
                 if ($isvalid) {
@@ -158,11 +156,15 @@ function authsystem_admin_sitelock(Array $args=array())
             // see if lock state changed
             if ($locktoggle) {
                 if ($sitelock->locked) {
-                    // let observers know the site was locked 
-                    xarAuth::notify('AuthSiteLock');
+                    // let observers know site was locked
+                    $locksubject->notify();
+                    // enable the serverrequest observer so we can handle display
+                    xarEvents::registerObserver('ServerRequest', 'authsystem');
                 } else {
                     // let observers know the site was unlocked 
-                    xarAuth::notify('AuthSiteUnlock');
+                    $unlocksubject->notify();
+                    // disable the serverrequest observer 
+                    xarEvents::unregisterObserver('ServerRequest', 'authsystem');
                 }
             }
             // redirect to form 
@@ -179,19 +181,16 @@ function authsystem_admin_sitelock(Array $args=array())
         case 'lock':
         default:
         
-            // get the auth sitelock event subject 
-            if (!isset($locksubject))
-                $locksubject = xarAuth::getAuthSubject('AuthSiteLock');
+            // get the auth sitelock event subject
+            $locksubject = AuthSystem::getAuthSubject('AuthSiteLock');
             // get sitelock listener configs 
             $data['lockconfig'] = $locksubject->modifyconfig();
-            
         break;
             
         case 'unlock':
 
-            // get the auth siteunlock event subject 
-            if (!isset($unlocksubject))
-                $unlocksubject = xarAuth::getAuthSubject('AuthSiteUnlock');
+            // get the auth siteunlock event subject
+            $unlocksubject = AuthSystem::getAuthSubject('AuthSiteUnlock');
             // get siteunlock listener configs 
             $data['unlockconfig'] = $unlocksubject->modifyconfig();
             

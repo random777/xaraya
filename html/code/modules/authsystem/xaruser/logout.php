@@ -16,7 +16,7 @@
  * @author  Marc Lutolf <marcinmilan@xaraya.com>
  * @return boolean true on success of redirect
  */
-sys::import('modules.authsystem.class.auth');
+sys::import('modules.authsystem.class.authsystem');
 function authsystem_user_logout()
 {
     if (xarSecurityCheck('AdminBase',0)) {
@@ -38,7 +38,7 @@ function authsystem_user_logout()
         preg_match('!admin!', $return_url))
         $return_url = xarServer::getBaseURL();
 
-    if (!xarAuth::userLogout())
+    if (!AuthSystem::userLogout())
         // @checkme: forbidden operation? 
         throw new ForbiddenOperationException(array('authsystem', 'logout'),
             xarML('There was a problem Logging Out.  Module #(1) Function #(2)'));

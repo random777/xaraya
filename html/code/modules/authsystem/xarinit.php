@@ -111,10 +111,10 @@ function authsystem_upgrade($oldversion)
             //xarEvents::registerObserver('ServerRequest', 'authsystem');
             // Authentication subjects
             xarEvents::registerSubject('AuthLogin', 'auth', 'authsystem', 'class', 'authsubjects');
-            //xarEvents::registerSubject('AuthLogout', 'auth', 'authsystem', 'class', 'authsubjects');
+            xarEvents::registerSubject('AuthLoginForm', 'auth', 'authsystem', 'class', 'authsubjects');
             // Authentication observers 
             xarEvents::registerObserver('AuthLogin', 'authsystem', 'class', 'authobservers');
-            //xarEvents::registerObserver('AuthLogout', 'authsystem', 'class', 'authobservers');
+            xarEvents::registerObserver('AuthLoginForm', 'authsystem', 'class', 'authobservers');
 
             /* Define Module vars */
             $lockedout = (int) xarModVars::get('authsystem', 'lockouttime');

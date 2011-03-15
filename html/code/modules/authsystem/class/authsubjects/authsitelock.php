@@ -23,5 +23,16 @@ sys::import('modules.authsystem.class.authsubjects.authsubject');
 class AuthsystemAuthSiteLockSubject extends AuthsystemAuthSubject implements ixarEventSubject
 {
     protected $subject = 'AuthSiteLock';
+
+/**
+ * AuthLogin Subject constructor
+ * This subject is responsible for attaching its own observers ;)
+ * Here we attach all available AuthLogin observers and their info
+**/ 
+    public function __construct($args=null)
+    {
+        parent::__construct($args);                    
+    }
+
 }
 ?>

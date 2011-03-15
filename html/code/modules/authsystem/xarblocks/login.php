@@ -57,6 +57,12 @@ class Authsystem_LoginBlock extends BasicBlock implements iBlock
             if (!empty($vars['logouttitle']))
                 $data['title'] = $vars['logouttitle'];
         } else {
+            sys::import('modules.authsystem.class.authsystem');
+            // Check if current login state is admin 
+            if (AuthSystem::$security->login_state != AuthSystem::STATE_LOGIN_USER) {
+                // user logins are disabled
+                return;
+            } 
             if (xarServer::getVar('REQUEST_METHOD') == 'GET') {
                 if (!xarVarFetch('return_url', 'pre:trim:str:1:254',
                     $return_url, '', XARVAR_NOT_REQUIRED)) return;
@@ -66,9 +72,9 @@ class Authsystem_LoginBlock extends BasicBlock implements iBlock
             if (empty($return_url))
                 $return_url = xarServer::getBaseURL();
             $vars['return_url'] = $return_url;
-            sys::import('modules.authsystem.class.auth');
-            $login = xarAuth::getAuthSubject('AuthLogin', $vars);
-            $vars['loginform'] = $login->showformblock();
+
+            $loginform = AuthSystem::getAuthSubject('AuthLoginForm', $vars);
+            $vars['loginform'] = $loginform->showformblock();
         }
         
         $data['content'] = $vars;

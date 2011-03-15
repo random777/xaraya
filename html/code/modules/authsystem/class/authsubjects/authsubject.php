@@ -14,10 +14,39 @@
  *
  * @author Chris Powis <crisp@xaraya.com>
 **/
+sys::import('modules.authsystem.class.authsystem');
 sys::import('xaraya.structures.events.subject');
 abstract class AuthsystemAuthSubject extends EventSubject implements ixarEventSubject
 {
     protected $subject = 'AuthSubject';
+    protected $auth_modules = array();
+    protected $invalid = array();
+    protected $output = array();
+
+/**
+ * Auth subjects are responsible for attaching their own observers ;)
+**/ 
+    public function __construct($args=null)
+    {
+        parent::__construct($args);
+        $obs_mods = AuthSystem::getObservers($this);
+        foreach ($obs_mods as $obs_mod => $obs) {
+            try {
+                if (!AuthSystem::fileLoad($obs)) continue;
+                $obsmod = xarMod::getName($obs['module_id']);
+                $obs['module'] = $obsmod;
+                // define class (loadFile already checked it exists)
+                $className = ucfirst($obsmod) . $obs['event'] . "Observer";
+                $obsclass = new $className();
+                // attach observer to subject
+                $this->attach($obsclass);
+                // keep track of the observer info 
+                $this->auth_modules[$obsclass->module] = $obs;
+            } catch (Exception $e) {
+                continue;
+            }            
+        }                         
+    }
 
 /**
  * Notify observers
@@ -29,8 +58,18 @@ abstract class AuthsystemAuthSubject extends EventSubject implements ixarEventSu
 **/
     public function notify()
     {
-        // Notify listeners that the site was locked
+        // Notify observers 
         return parent::notify();
+    }
+    
+    final public function getAuthObservers()
+    {
+        return $this->auth_observers;
+    }
+
+    final public function getObservers()
+    {
+        return $this->observers;
     }
 
 /**
@@ -43,7 +82,6 @@ abstract class AuthsystemAuthSubject extends EventSubject implements ixarEventSu
 **/
     public function modifyconfig()
     {
-        $output = array();
         // notify observers that the site lock config is being modified
         foreach ($this->observers as $obs) {
             try {
@@ -51,12 +89,12 @@ abstract class AuthsystemAuthSubject extends EventSubject implements ixarEventSu
                 // modifyconfig method should return templated output
                 if (!empty($result) && is_string($result))
                     // put result in output array, keyed by observer module
-                    $output[$obs->module] = $result;
+                    $this->output[$obs->module] = $result;
             } catch (Exception $e) {
                 continue;
             }
         }
-        return $output;
+        return $this->output;
     }
 
 /**
@@ -69,20 +107,18 @@ abstract class AuthsystemAuthSubject extends EventSubject implements ixarEventSu
 **/
     public function checkconfig()
     {
-        $isvalid = true;
         // notify observers that the site lock config is being validated
         foreach ($this->observers as $obs) {
             try {
                 $result = $obs->checkconfig($this);
                 // checkconfig method should return bool
                 if ($result) continue;
-                // only takes one observer to fail, but we still have to notify the rest
-                $isvalid = false;
+                $this->invalid[$obs->module] = true;
             } catch (Exception $e) {
                 continue;
             }
         }
-        return $isvalid;
+        return empty($this->invalid);
     }
 
 /**
@@ -102,13 +138,17 @@ abstract class AuthsystemAuthSubject extends EventSubject implements ixarEventSu
                 $result = $obs->updateconfig($this);
                 // updateconfig method should return bool
                 if ($result) continue;
-                // only takes one observer to fail, but we still have to notify the rest
-                $isvalid = false;
+                $this->invalid[$obs->module] = true;
             } catch (Exception $e) {
                 continue;
             }
         }
-        return $isvalid;
+        return empty($this->invalid);
+    }
+
+    public function getInvalid()
+    {
+        return $this->invalid;
     }
 
 }

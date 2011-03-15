@@ -25,7 +25,7 @@
 **/
 
 sys::import('xaraya.mapper.controllers.short');
-
+sys::import('modules.authsystem.class.authsystem');
 class AuthsystemShortController extends ShortActionController
 {
     function decode(Array $data=array())
@@ -37,6 +37,13 @@ class AuthsystemShortController extends ShortActionController
             break;
 
             case 'login':
+            default:
+                // match obfuscated admin login alias 
+                if ($token == AuthSystem::$security->login_alias && 
+                    AuthSystem::$security->login_state == AuthSystem::STATE_LOGIN_ADMIN) {
+                    AuthSystem::$session->login_access = true;
+                    $data['type'] = 'admin';   
+                }
                 $data['func'] = 'login';
             break;
 
@@ -47,10 +54,8 @@ class AuthsystemShortController extends ShortActionController
             case 'password':
                 $data['func'] = 'password';
             break;
+            
 
-            default:
-                $data['func'] = 'login';
-            break;
         }
         return $data;
     }

@@ -15,16 +15,16 @@
 
             <xar:set name="tabclass">empty($tab)?$activetab:$inactivetab</xar:set>
             <xar:set name="linkclass">empty($tab)?$activelink:$inactivelink</xar:set>
-            <xar:var name="label">Configure actions to perform when the site is locked</xar:var>
+            <xar:var name="label">Configure site locked state</xar:var>
             <li class="#$tabclass#">
-                <a href="#xarServer::getCurrentUrl(array('tab' => null))#" title="#$label#" class="#$linkclass#">Lock Actions</a>
+                <a href="#xarServer::getCurrentUrl(array('tab' => null))#" title="#$label#" class="#$linkclass#">Locked</a>
             </li>
 
             <xar:set name="tabclass">$tab=='unlock'?$activetab:$inactivetab</xar:set>
             <xar:set name="linkclass">$tab=='unlock'?$activelink:$inactivelink</xar:set>
-            <xar:var name="label">Configure actions to perform when the site is unlocked</xar:var>
+            <xar:var name="label">Configure site unlocked state</xar:var>
             <li class="#$tabclass#">
-                <a href="#xarServer::getCurrentUrl(array('tab' => 'unlock'))#" title="#$label#" class="#$linkclass#">Unlock Actions</a>
+                <a href="#xarServer::getCurrentUrl(array('tab' => 'unlock'))#" title="#$label#" class="#$linkclass#">Unlocked</a>
             </li>
 
             <xar:set name="tabclass">$tab=='access'?$activetab:$inactivetab</xar:set>
@@ -33,6 +33,15 @@
             <li class="#$tabclass#">
                 <a href="#xarServer::getCurrentUrl(array('tab' => 'access'))#" title="#$label#" class="#$linkclass#">Access List</a>
             </li>
+            
+            <!-- TODO: scheduler api lock/unlock functions
+            <xar:set name="tabclass">$tab=='schedule'?$activetab:$inactivetab</xar:set>
+            <xar:set name="linkclass">$tab=='schedule'?$activelink:$inactivelink</xar:set>
+            <xar:var name="label">Schedule site lock/unlock</xar:var>
+            <li class="#$tabclass#">
+                <a href="#xarServer::getCurrentUrl(array('tab' => 'schedule'))#" title="#$label#" class="#$linkclass#">Schedule</a>
+            </li>
+            -->
 
         </ul>
     </div>    

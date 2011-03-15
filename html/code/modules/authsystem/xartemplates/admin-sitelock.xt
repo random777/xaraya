@@ -76,43 +76,8 @@
 
             <xar:template type="module" file="admin-sitelock-tabs"/>
             <xar:if condition="empty($tab)">
-                <!-- [Lock Actions] -->
-               <fieldset>
-                   <legend>Lock Actions</legend>
-                   <!-- Optionally set an alias entry point for admin logins
-                            This obfuscates the login when the site is locked, making the entry
-                            point index.php/authsystem/somealias for admins, users attempting
-                            direct access to index.php?module=authsystem&type=admin&func=login
-                            will be redirected to either the lockout_page, the login_page or the frontpage
-                            Setting this option will automatically hide all user login forms and disable all
-                            user login functions  -->
-                   <!--
-                   <div class="xar-form-input-wrapper">
-                       <xar:var name="locktitle">Set an admin login alias to obfuscate logins</xar:var>
-                       <label for="login_alias" class="xar-form-label help" title="#$locktitle#">Admin Login Alias</label>
-                       <div class="xar-form-container-after">
-                               index.php/authsystem/<input type="text" name="login_alias" id="login_alias" value="#$sitelock['login_alias']#"/>
-                           <xar:if condition="!empty($invalid['login_alias'])">
-                               <p class="xar-error">#$invalid['login_alias']#</p>
-                           </xar:if>
-                       </div>
-                   </div>
-                   -->
-                   <!-- Optionally specify a page to display when the site is locked
-                            (the default is to allow anonymous access to the whole site) 
-                            This option lets you limit users to a single page -->
-                   <!--
-                   <div class="xar-form-input-wrapper">
-                       <xar:var name="locktitle">Set a URL to redirect to when the site is locked</xar:var>
-                       <label for="lockout_page" class="xar-form-label help" title="#$locktitle#">Locked Out Page</label>
-                       <div class="xar-form-container-after">
-                           <input type="text" name="lockout_page" id="lockout_page" value="#$sitelock['lockout_page']#" class="xar-form-textxlong"/>
-                           <xar:if condition="!empty($invalid['lockout_page'])">
-                               <p class="xar-error">#$invalid['lockout_page']#</p>
-                           </xar:if>
-                       </div>
-                   </div>
-                   -->
+                <fieldset>
+                    <legend>Site Locked Configuration</legend>                
                    <!-- The default message to display in the login form when the site is locked
                             NOTE: by setting a different lockout page you can supply your own 
                             templated lockout message -->
@@ -126,23 +91,37 @@
                            </xar:if>
                        </div>
                    </div>
-                       
-                   <!-- Display configuration for AuthSiteLock event listeners 
+                   <div class="xar-form-input-wrapper">
+                       <xar:var name="locktitle">Restrict access to site when site lock is engaged</xar:var>
+                       <label for="lockout_page" class="xar-form-label help" title="#$locktitle#">Restrict Site Access</label>
+                       <div class="xar-form-container-after">
+                           <xar:data-input type="checkbox" name="lockout_state" id="lockout_state" checked="$sitelock['lockout_state']" />&#160;
+                           (restricts access to the login page)
+                           <xar:if condition="!empty($invalid['lockout_state'])">
+                               <p class="xar-error">#$invalid['lockout_state']#</p>
+                           </xar:if>
+                       </div>
+                   </div>
+
+                </fieldset>
+                <!-- [Lock Actions] -->
+                <fieldset>
+                    <legend>Site Locked Actions</legend>                       
+                    <!-- Display configuration for AuthSiteLock event listeners 
                             These are optionally supplied by other modules and usually contain
                             configuration for listeners notified when the site is locked -->
-                   <xar:if condition="!empty($lockconfig)">
-                       <xar:foreach in="$lockconfig" key="$lockmod" value="$lock">
+                    <xar:if condition="!empty($lockconfig)">
+                        <xar:foreach in="$lockconfig" key="$lockmod" value="$lock">
                                #$lock#
-                       </xar:foreach>
-                   </xar:if>
-
-               </fieldset>
-               <xar:var name="submitLabel">Update Lock Actions</xar:var>
+                        </xar:foreach>
+                    </xar:if>
+                </fieldset>
+                <xar:var name="submitLabel">Update Locked Config</xar:var>
     
             <xar:elseif condition="$tab eq 'unlock'"/>
                 <!-- [Unlock Actions] -->
                <fieldset>
-                   <legend>Unlock Actions</legend>
+                   <legend>Site Unlocked Actions</legend>
                        
                    <!-- Display configuration for AuthSiteUnlock event listeners
                             These are optionally supplied by other modules and usually contain
@@ -153,7 +132,7 @@
                        </xar:foreach>
                    </xar:if>
                </fieldset>
-               <xar:var name="submitLabel">Update Unlock Actions</xar:var>
+               <xar:var name="submitLabel">Update Unlocked Config</xar:var>
                 
             <xar:elseif condition="$tab eq 'access'"/>
                 <!-- [Access] -->

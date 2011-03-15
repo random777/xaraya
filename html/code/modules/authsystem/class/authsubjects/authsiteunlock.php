@@ -23,5 +23,33 @@ sys::import('modules.authsystem.class.authsubjects.authsubject');
 class AuthsystemAuthSiteUnlockSubject extends AuthsystemAuthSubject implements ixarEventSubject
 {
     protected $subject = 'AuthSiteUnlock';
+
+/**
+ * AuthSiteUnlock Subject constructor
+ * This subject is responsible for attaching its own observers ;)
+ * Here we attach all available AuthSiteUnlock observers and their info
+**/ 
+    public function __construct($args=null)
+    {
+        parent::__construct($args);
+        // get AuthSiteUnlock subject observers
+        /**/
+        $obs_mods = AuthSystem::getObservers($this);
+        foreach ($obs_mods as $obs_mod => $obs) {
+            try {
+                if (!AuthSystem::fileLoad($obs)) continue;
+                $obsmod = xarMod::getName($obs['module_id']);
+                $obs['module'] = $obsmod;
+                // define class (loadFile already checked it exists)
+                $className = ucfirst($obsmod) . $obs['event'] . "Observer";
+                $obsclass = new $className();
+                // attach observer to subject
+                $this->attach($obsclass);
+            } catch (Exception $e) {
+                continue;
+            }            
+        }   
+                      
+    }
 }
 ?>

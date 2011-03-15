@@ -21,7 +21,6 @@ class AuthsystemAuthSiteUnlockObserver extends EventObserver implements ixarEven
 {
     public $module = 'authsystem';
 
-    private static $sitelock;
     // private variables used during configuration methods
     private $invalid;     // array of invalid fields
     private $fieldvalues; // the array of field values from input
@@ -29,10 +28,6 @@ class AuthsystemAuthSiteUnlockObserver extends EventObserver implements ixarEven
     public function __construct()
     {
         // This listener uses the authsystem sitelock object for storage
-        // for convenience, we get that when the object is constructed
-        // NOTE: (Other modules supplying a listener should use their own storage for config options)
-        sys::import('modules.authsystem.class.sitelock');
-        self::$sitelock = SiteLock::getInstance();
     }
 
 /**
@@ -48,22 +43,22 @@ class AuthsystemAuthSiteUnlockObserver extends EventObserver implements ixarEven
     public function notify(ixarEventSubject $subject)
     {
         // we only supply one option here, send an email when the site is unlocked
-        if (self::$sitelock->unlocked_notify) {
-            $admin = xarRoles::get(self::$sitelock->site_admin);
+        if (AuthSystem::$sitelock->unlocked_notify) {
+            $admin = xarRoles::get(AuthSystem::$sitelock->site_admin);
             $to_notify = array();
             // are we notifying admin?
-            if (self::$sitelock->admin_notify) {
+            if (AuthSystem::$sitelock->admin_notify) {
                 $to_notify[$admin->getId()] = $admin->getEmail();
             }
             // are we notifying users and groups?
-            if (!empty(self::$sitelock->access_list)) {
-                foreach (self::$sitelock->access_list as $rid => $notify) {
+            if (!empty(AuthSystem::$sitelock->access_list)) {
+                foreach (AuthSystem::$sitelock->access_list as $rid => $notify) {
                     // not marked for notification?
                     if (empty($notify)) continue;
                     $r = xarRoles::get($rid);
                     // not a role?
                     if (!$r) {
-                        unset(self::$sitelock->access_list[$rid]);
+                        unset(AuthSystem::$sitelock->access_list[$rid]);
                         continue;
                     // role is user?
                     } elseif ($r->isUser()) {
@@ -83,12 +78,12 @@ class AuthsystemAuthSiteUnlockObserver extends EventObserver implements ixarEven
                 $from = $admin->getEmail();
                 $message = xarML('The site #(1) was unlocked at #(2) on #(3) by #(4)',
                     xarModVars::get('themes', 'SiteName'),
-                    xarLocaleGetFormattedTime('long', self::$sitelock->unlocked_at),
-                    xarLocaleGetFormattedDate('long', self::$sitelock->unlocked_at),
-                    xarUserGetVar('name', self::$sitelock->unlocked_by));
-                if (!empty(self::$sitelock->unlocked_mail)) {
+                    xarLocaleGetFormattedTime('long', AuthSystem::$sitelock->unlocked_at),
+                    xarLocaleGetFormattedDate('long', AuthSystem::$sitelock->unlocked_at),
+                    xarUserGetVar('name', AuthSystem::$sitelock->unlocked_by));
+                if (!empty(AuthSystem::$sitelock->unlocked_mail)) {
                     $message .= "/n/n";
-                    $message .= self::$sitelock->unlocked_mail;
+                    $message .= AuthSystem::$sitelock->unlocked_mail;
                 }
                 foreach ($to_notify as $email) {
                     try {
@@ -136,8 +131,8 @@ class AuthsystemAuthSiteUnlockObserver extends EventObserver implements ixarEven
     public function modifyconfig(ixarEventSubject $subject)
     {
         $data = array();
-        $data['unlocked_mail'] = self::$sitelock->unlocked_mail;
-        $data['unlocked_notify'] = self::$sitelock->unlocked_notify;
+        $data['unlocked_mail'] = AuthSystem::$sitelock->unlocked_mail;
+        $data['unlocked_notify'] = AuthSystem::$sitelock->unlocked_notify;
         // the calling method expects templated output to be displayed within a form
         return xarTplModule('authsystem', 'authsiteunlock', 'modifyconfig', $data);
     }
@@ -158,8 +153,8 @@ class AuthsystemAuthSiteUnlockObserver extends EventObserver implements ixarEven
             $unlocked_notify, false, XARVAR_NOT_REQUIRED)) return;
         if (!xarVarFetch('authsystem_unlocked_mail', 'pre:trim:str:1:',
             $unlocked_mail, '', XARVAR_NOT_REQUIRED)) return;
-        self::$sitelock->unlocked_notify = $unlocked_notify;
-        self::$sitelock->unlocked_mail = $unlocked_mail;
+        AuthSystem::$sitelock->unlocked_notify = $unlocked_notify;
+        AuthSystem::$sitelock->unlocked_mail = $unlocked_mail;
         // the calling method expects a boolean true on success
         return true;
     }

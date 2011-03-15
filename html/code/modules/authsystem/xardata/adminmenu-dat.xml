@@ -9,6 +9,18 @@
             <target>main</target>
             <label>Overview</label>
         </menuitem>
+        <!--
+        <menuitem>
+            <mask>AdminAuthsystem</mask>
+            <includes>
+                <includeitem>authentication</includeitem>
+                <includeitem>modify</includeitem>
+            </includes>
+            <target>authentication</target>
+            <title>Modify the AuthSystem authentication configuration</title>
+            <label>Authentication</label>
+        </menuitem>
+        -->
         <menuitem>
             <mask>AdminAuthsystem</mask>
             <includes>

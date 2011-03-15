@@ -2,6 +2,13 @@
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
     <div class="xar-form-input-wrapper">
+        <xar:var name="label">Purge (log out) all users who do not have locked access when the site lock is engaged</xar:var>
+        <label for="authsystem_locked_notify" class="xar-form-label" title="#$label#">Purge Logged In Users</label>
+        <div class="xar-form-container-after">
+            <xar:data-input type="checkbox" name="authsystem_locked_purge" id="authsystem_locked_purge" checked="$locked_purge"/> (log out users not on the access list when the site is locked)    
+        </div>
+    </div>
+    <div class="xar-form-input-wrapper">
         <xar:var name="label">Send an email to all users who have locked access when the site lock is engaged</xar:var>
         <label for="authsystem_locked_notify" class="xar-form-label" title="#$label#">Notify Access List</label>
         <div class="xar-form-container-after">

@@ -14,9 +14,9 @@
  *
  * @author Chris Powis <crisp@xaraya.com>
 **/
-sys::import('modules.authsystem.class.auth');
+sys::import('modules.authsystem.class.authsystem');
 sys::import('xaraya.structures.variableobject');
-Class SiteLock extends xarVariableObject
+Class AuthsystemSitelock extends xarVariableObject
 {
     // required properties, these are never stored
     protected static $instance;
@@ -24,6 +24,8 @@ Class SiteLock extends xarVariableObject
     protected static $scope    = 'module';
     protected static $module   = 'authsystem';
 
+    const SITE_STATE_OPEN = 0;
+    const SITE_STATE_LOGIN = 1;
     // public properties we want to store
     public $locked = false;  // the current state of the site lock
     public $locked_by;       // user id who last locked the site
@@ -31,18 +33,25 @@ Class SiteLock extends xarVariableObject
     public $unlocked_by;     // user id who last unlocked the site
     public $unlocked_at;     // time the site was last unlocked
 
-    public $login_alias;     // the alias to use for the admin login url
-    public $lockout_page;    // the page to display when site is locked
+    public $lockout_state;   // restrict access to login|lockout_page
     public $lockout_msg;     // the message to display on login page when site is locked
 
+    public $lockout_states;
+
+    // SiteLock Actions
     public $locked_notify;   // notify users when site is locked
     public $locked_mail;     // message to be sent to users notified when site is locked
+    public $locked_purge;    // purge logged in users when site is locked
+
+    // SiteUnlock Actions
     public $unlocked_notify; // notify users when site is unlocked
     public $unlocked_mail;   // message to be sent to users notified when site is unlocked
 
     public $access_list;     // user and group ids allowed to login when site is locked
     public $site_admin;      // designated site admin
     public $admin_notify;    // notify admin on lock state change
+    
+    public $schedule;        // array of times to lock/unlock the site
 
     public function __construct()
     {
@@ -71,6 +80,10 @@ Class SiteLock extends xarVariableObject
         $this->locked_mail = !empty($locked_mail) ? $locked_mail : '';
         $this->unlocked_mail = !empty($unlocked_mail) ? $unlocked_mail : '';
         $this->access_list = !empty($access_list) ? $access_list : array();
+        $this->lockout_states = array(
+            self::SITE_STATE_OPEN => array('id' => self::SITE_STATE_OPEN, 'name' => xarML('No Restrictions')),
+            self::SITE_STATE_LOGIN => array('id' => self::SITE_STATE_LOGIN, 'name' => xarML('Login Page')),
+        ); 
     }
 
     public function lockSite()
@@ -108,32 +121,41 @@ Class SiteLock extends xarVariableObject
         if (!isset($id))
             $id = xarUserGetVar('id');
         // user is site admin or last resort admin?
-        if ($id == $this->site_admin || $id == xarAuth::LAST_RESORT) return true;
+        if ($id == $this->site_admin || $id == AuthSystem::LAST_RESORT) return true;
         // check if user is on the access list
+        $access_list = $this->getAccessList();
+        if (isset($access_list[$id])) return true;
+        return false;
+    }
+
+    public function getAccessList()
+    {
+        $list = array();
         if (!empty($this->access_list)) {
-            foreach (array_keys($this->access_list) as $rid) {
+            foreach ($this->access_list as $rid => $notify) {
                 $r = xarRoles::get($rid);
+                // not a role?
                 if (!$r) {
                     unset($this->access_list[$rid]);
                     continue;
-                }
-                // id matches a user on the list
-                if ($r->isUser() && $r->getId() == $id) {
-                    // access granted
-                    return true;
-                // check group access
-                } elseif (!$r->isUser()) {
-                    $g = $r->getUsers();
-                    if (!empty($g)) {
-                        foreach ($g as $u) {
-                            // id matches group member, access granted
-                            if ($u->getId() == $id) return true;
-                        }
+                // role is user?
+                } elseif ($r->isUser()) {
+                    $list[$r->getId()] = array(
+                        'id' => $r->getId(),
+                        'notify' => $notify ? $r->getEmail() : false,
+                    );
+                // role is group?
+                } elseif ($g = $r->getUsers()) {
+                    foreach ($g as $u) {
+                        $list[$u->getId()] = array(
+                            'id' => $u->getId(),
+                            'notify' => $notify ? $u->getEmail() : false,
+                        );
                     }
                 }
             }
         }
-        return false;
+        return $list;        
     }
 
     public function getInfo()

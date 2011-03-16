@@ -159,10 +159,12 @@ function base_admin_modifyconfig()
                     if (!xarVarFetch('cookiepath','str:1:',$cookiePath,'',XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('cookiedomain','str:1:',$cookieDomain,'',XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('referercheck','str:1:',$refererCheck,'',XARVAR_NOT_REQUIRED)) return;
-
+                    /*
+                     * Auth module order is managed by the AuthSystem
                     sys::import('modules.dynamicdata.class.properties.master');
                     $orderselect = DataPropertyMaster::getProperty(array('name' => 'orderselect'));
                     $orderselect->checkInput('authmodules');
+                    */
 
                     //Filtering Options
                     // Security Levels
@@ -175,11 +177,13 @@ function base_admin_modifyconfig()
                     xarConfigVars::set(null, 'Site.Session.CookieDomain', $cookieDomain);
                     xarConfigVars::set(null, 'Site.Session.RefererCheck', $refererCheck);
 
+                    /*
+                     * Auth module order is managed by the AuthSystem
                     // Authentication modules
                     if (!empty($orderselect->order)) {
                         xarConfigVars::set(null, 'Site.User.AuthenticationModules', $orderselect->order);
                     }
-                    
+                    **/
                     // Encryption
                     if (!xarVarFetch('cipher','str:1',$cipher,'blowfish',XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('mode','str:1',$mode,'cbc',XARVAR_NOT_REQUIRED)) return;

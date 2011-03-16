@@ -320,13 +320,18 @@ class xarSecurity extends Object
             if (self::$exceptionredirect && !xarUserIsLoggedIn()) {
                 // The current authentication module will handle the authentication
                 //Redirect to login for anon users, and take their current url as well for redirect after login
-                $redirectURL = xarModURL(xarModVars::get('roles','defaultauthmodule'),'user','showloginform',array('redirecturl'=> $requrl),false);
+                // <chris/> the authsystem deals with auth by all modules...
+                $redirectURL = xarModURL('authsystem','user','login',array('return_url'=> urlencode($requrl)),false);
             } else {
                 // Redirect to the privileges error page
-                $redirectURL = xarModURL('privileges','user','errors',array('layout' => 'no_privileges', 'redirecturl'=> $requrl),false);
+                // @FIXME: use return_url consistently 
+                $redirectURL = xarModURL('privileges','user','errors',array('layout' => 'no_privileges', 'redirecturl'=> urlencode($requrl)),false);
             }
             // Remove &amp; entites to prevent redirect breakage
-            $redirectURL = str_replace('&amp;', '&', $redirectURL);
+            // <chris/> xarModURL() dealt with &amp; (genXMLUrls = false) already, 
+            // applying urlencode() to the return url prevents breakage :) 
+            // $redirectURL = str_replace('&amp;', '&', $redirectURL);
+            // @CHECKME: why not xarController::redirect() here? 
             $header = "Location: " . $redirectURL;
             header($header, TRUE, 302);
             exit();

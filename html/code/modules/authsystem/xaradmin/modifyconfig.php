@@ -18,6 +18,7 @@
  * 
  * @return mixed data array for the template display or output display string if invalid data submitted
  */
+sys::import('modules.authsystem.class.authsystem');
 function authsystem_admin_modifyconfig()
 {
     // Security
@@ -26,27 +27,30 @@ function authsystem_admin_modifyconfig()
     if (!xarVarFetch('phase', 'pre:trim:lower:enum:update', 
         $phase, 'modify', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
 
-    $data['module_settings'] = xarMod::apiFunc('base','admin','getmodulesettings',array('module' => 'authsystem'));
+    $data['module_settings'] = xarMod::apiFunc('base','admin','getmodulesettings',
+        array('module' => 'authsystem'));
     $data['module_settings']->setFieldList('items_per_page, use_module_alias, module_alias_name, enable_short_urls');
     $data['module_settings']->getItem();
-    switch (strtolower($phase)) {
-        case 'modify':
-        default:
-            break;
 
-        case 'update':
-            // Confirm authorisation code
-            if (!xarSecConfirmAuthKey()) {
-                return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
-            }        
-            $isvalid = $data['module_settings']->checkInput();
-            if (!$isvalid) {
-                return xarTplModule('authsystem','admin','modifyconfig', $data);        
-            } else {
-                $itemid = $data['module_settings']->updateItem();
-            }
-            break;
+    if ($phase == 'update') {
+        // Confirm authorisation code
+        if (!xarSecConfirmAuthKey())
+            return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
+        
+        $isvalid = $data['module_settings']->checkInput();
+        if ($isvalid) {
+            if (!xarVarFetch('exception_redirect', 'checkbox',
+                $exception_redirect, false, XARVAR_NOT_REQUIRED)) return;
+            xarModVars::set('privileges', 'exceptionredirect', $exception_redirect);
+            $data['module_settings']->updateItem();
+            if (empty($return_url))
+                $return_url = xarModURL('authsystem', 'admin', 'modifyconfig');
+            xarController::redirect($return_url);
+        }
     }
+    
+    $data['security'] = AuthSystem::$security->getInfo();
+    
     return $data;
 }
 ?>

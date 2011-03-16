@@ -289,6 +289,7 @@
                                 </xar:set>
                             <input type="text" id="sessiontimeout" name="sessiontimeout" value="#$value#" maxlength="3" class="xar-form-textshort"/>
                         </div>
+                        <!-- Auth module order is managed by the AuthSystem
                         <div class="xar-form-input-wrapper">
                             <xar:set name="authmodules">
                                 <xar:var scope="config" name="Site.User.AuthenticationModules"/>
@@ -302,6 +303,7 @@
                                 #$authmodules[0]#
                             </xar:if>
                         </div>
+                        -->
                         <div class="xar-form-input-wrapper">
                             <xar:var name="label">Override the default cookie name</xar:var>
                             <label for="cookiename" title="#$label##" class="xar-form-label">

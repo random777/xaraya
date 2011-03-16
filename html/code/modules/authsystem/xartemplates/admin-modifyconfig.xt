@@ -10,11 +10,22 @@
         <form method="post" action="#xarServer::getCurrentURL()#" enctype="application/x-www-form-urlencoded">
             <xar:data-form object="$module_settings"/>
             <fieldset>
+                <legend>Site Wide Settings</legend>
+                <div class="xar-form-input-wrapper">
+                    <xar:var name="label">Redirect anonymous users with no privileges to the login form</xar:var>
+                    <label for="exception_redirect" class="xar-form-label" title="#$label#">Exception Redirect:</label>              
+                    <div class="xar-form-container-after">
+                        <xar:data-input type="checkbox" name="exception_redirect" id="exception_redirect" checked="$security['exception_redirect']"/>&#160;
+                        (redirect anonymous users to the login form if they don't have the required privileges)                    
+                    </div>  
+                </div>
+            </fieldset>
+            <fieldset>
                 <div class="xar-form-input-wrapper-after">
                     <xar:data-input type="hidden" name="phase" id="phase" value="update"/>
                     <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey()#"/>
-                    <xar:var name="label">Update</xar:var>
-                    <xar:button type="submit" label="$label"/>
+                    <xar:var name="submitLabel">Update</xar:var>
+                    <xar:button type="submit" label="$submitLabel"/>
                 </div>
             </fieldset>
         </form>

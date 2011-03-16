@@ -14,71 +14,71 @@
             <xar:if condition="!empty($security)">
                 <fieldset>
                     <legend>Login Access</legend>
-                            <div class="xar-form-input-wrapper">
-                                <label for="security_user_login" class="xar-form-label">Login Form Access</label>
-                                <div class="xar-form-container-after">
-                                    <xar:data-input type="dropdown" name="security_login_state" id="security_login_state" value="$security['login_state']" options="$auth_states" onchange="this.form.submit();return false;"/>
-                                </div>
-                            </div>
-                            <xar:if condition="$security['login_state'] eq AuthSystem::STATE_LOGIN_ADMIN">
-                            <div class="xar-form-input-wrapper">
-                                <label for="security_login_alias" class="xar-form-label">Admin Login Alias</label>
-                                <div class="xar-form-container-after">
-                                    <xar:data-input type="textbox" class="xar-form-textlong" name="security_login_alias" id="security_login_alias" value="$security['login_alias']"/>&#160;  
+                    <div class="xar-form-input-wrapper">
+                        <label for="security_user_login" class="xar-form-label">Login Form Access</label>
+                        <div class="xar-form-container-after">
+                            <xar:data-input type="dropdown" name="security_login_state" id="security_login_state" value="$security['login_state']" options="$auth_states" onchange="this.form.submit();return false;"/>
+                        </div>
+                    </div>
+                    <xar:if condition="$security['login_state'] eq AuthSystem::STATE_LOGIN_ADMIN">
+                    <div class="xar-form-input-wrapper">
+                        <label for="security_login_alias" class="xar-form-label">Admin Login Alias</label>
+                        <div class="xar-form-container-after">
+                            <xar:data-input type="textbox" class="xar-form-textlong" name="security_login_alias" id="security_login_alias" value="$security['login_alias']"/>&#160;  
                                 Obfuscates access to Admin Login Form UI   
-                                </div>
-                            </div>
-                            <xar:else/>
-                                <input type="hidden" name="security_login_alias" id="security_login_alias" value="#$security['login_alias']#"/>
-                            </xar:if>                                    
-                            <div class="xar-form-input-wrapper">
-                                <label class="xar-form-label">Login Form URL</label>
-                                <div class="xar-form-container-after">
-                                    <xar:if condition="$security['login_state'] eq AuthSystem::STATE_LOGIN_ADMIN">
-                                        <xar:if condition="!empty($security['login_alias'])">
+                        </div>
+                    </div>
+                    <xar:else/>
+                        <input type="hidden" name="security_login_alias" id="security_login_alias" value="#$security['login_alias']#"/>
+                    </xar:if>                                    
+                    <div class="xar-form-input-wrapper">
+                        <label class="xar-form-label">Login Form URL</label>
+                        <div class="xar-form-container-after">
+                            <xar:if condition="$security['login_state'] eq AuthSystem::STATE_LOGIN_ADMIN">
+                                <xar:if condition="!empty($security['login_alias'])">
                                         #xarServer::getBaseURL()#index.php/authsystem/#$security.login_alias#
-                                        <xar:else/>
+                                <xar:else/>
                                         #xarModURL('authsystem', 'admin', 'login')#
-                                        </xar:if>
-                                    <xar:else/>
+                                </xar:if>
+                            <xar:else/>
                                         #xarModURL('authsystem', 'user', 'login')#
-                                    </xar:if>
-                                </div>
-                            </div>
+                            </xar:if>
+                        </div>
+                    </div>
                 </fieldset>
                 <fieldset>
                     <legend>Login Attempts</legend>
-                <div class="xar-form-input-wrapper">
-                    <xar:var name="label">The maximum number of login failure attempts allowed, mitigates brute force attacks</xar:var>
-                    <label for="security_login_attempts" class="xar-form-label help" title="#$label#">Maximum Attempts</label>
-                    <div class="xar-form-container-after">
-                        <xar:data-input type="integerbox" id="security_login_attempts" name="security_login_attempts" value="$security['login_attempts']"/>
+                    <div class="xar-form-input-wrapper">
+                        <xar:var name="label">The maximum number of login failure attempts allowed, mitigates brute force attacks</xar:var>
+                        <label for="security_login_attempts" class="xar-form-label help" title="#$label#">Maximum Attempts</label>
+                        <div class="xar-form-container-after">
+                            <xar:data-input type="integerbox" id="security_login_attempts" name="security_login_attempts" value="$security['login_attempts']"/>
                         (0 = Unlimited)
+                        </div>
                     </div>
-                </div>
-                <div class="xar-form-input-wrapper">
-                    <xar:var name="label">The length of time to wait before allowing logins from the same user after threshold was reached</xar:var>
-                    <label for="security_lockout_period" class="xar-form-label help" title="#$label#">Lockout Period</label>
-                    <div class="xar-form-container-after">
-                        <xar:data-input type="integerbox" id="security_lockout_period" name="security_lockout_period" value="$security['lockout_period']"/>
+                    <div class="xar-form-input-wrapper">
+                        <xar:var name="label">The length of time to wait before allowing logins from the same user after threshold was reached</xar:var>
+                        <label for="security_lockout_period" class="xar-form-label help" title="#$label#">Lockout Period</label>
+                        <div class="xar-form-container-after">
+                            <xar:data-input type="integerbox" id="security_lockout_period" name="security_lockout_period" value="$security['lockout_period']"/>
                         (minutes)
+                        </div>
                     </div>
-                </div>
-                <div class="xar-form-input-wrapper">
-                    <xar:var name="label">Indicate if failed login attempts should be written to the log</xar:var>
-                    <label for="security_log_attempts" class="xar-form-label">Log Failed Attempts</label>
-                    <div class="xar-form-container-after">
-                        <xar:data-input type="checkbox" name="security_log_attempts" id="security_log_attempts" checked="$security['log_attempts']"/> (write IP  and time of failure to log)                    
+                    <div class="xar-form-input-wrapper">
+                        <xar:var name="label">Indicate if failed login attempts should be written to the log</xar:var>
+                        <label for="security_log_attempts" class="xar-form-label">Log Failed Attempts</label>
+                        <div class="xar-form-container-after">
+                            <xar:data-input type="checkbox" name="security_log_attempts" id="security_log_attempts" checked="$security['log_attempts']"/> (write IP  and time of failure to log)                    
+                        </div>
                     </div>
-                </div>
-                <div class="xar-form-input-wrapper">
-                    <xar:var name="label">Indicate if details of lockouts should be emailed to site admin</xar:var>
-                    <label for="security_lockout_notify" class="xar-form-label">Notify Lock Outs</label>
-                    <div class="xar-form-container-after">
-                        <xar:data-input type="checkbox" name="security_lockout_notify" id="security_lockout)_notify" checked="$security['lockout_notify']"/> (email IP and time of lock out to site admin)                    
+                    <div class="xar-form-input-wrapper">
+                        <xar:var name="label">Indicate if details of lockouts should be emailed to site admin</xar:var>
+                        <label for="security_lockout_notify" class="xar-form-label">Notify Lock Outs</label>
+                        <div class="xar-form-container-after">
+                            <xar:data-input type="checkbox" name="security_lockout_notify" id="security_lockout)_notify" checked="$security['lockout_notify']"/> (email IP and time of lock out to site admin)                    
+                        </div>
                     </div>
-                </div>
-                <p>These settings mitigate against brute force log in attempts by forcing users who fail to authenticate to wait for a set period before being allowed to try again.</p>
+                    <p>These settings mitigate against brute force log in attempts by forcing users who fail to authenticate to wait for a set period before being allowed to try again.</p>
                 </fieldset>
             </xar:if>
             

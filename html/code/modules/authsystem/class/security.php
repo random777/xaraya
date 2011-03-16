@@ -31,7 +31,9 @@ Class AuthsystemSecurity extends xarVariableObject
     public $login_attempts = 3;     // maximum login attempts before lockout
     public $lockout_period = 15;    // period to lockout for when attempts exceeded
     public $lockout_notify = false; // optionally send email to admin detailing lockout (time, ip and uname)
-    public $log_attempts   = false; // optionally log failed attempts (time, ip and uname) 
+    public $log_attempts   = false; // optionally log failed attempts (time, ip and uname)
+    
+    public $exception_redirect = false;
 
     public function checkAccess($newattempt=false)
     {
@@ -129,6 +131,7 @@ Class AuthsystemSecurity extends xarVariableObject
 
     public function __wakeup()
     {
+        $this->exception_redirect = xarModVars::get('privileges', 'exceptionredirect');
     }
 
     public function __sleep()

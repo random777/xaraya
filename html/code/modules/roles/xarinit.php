@@ -194,13 +194,6 @@ function roles_activate()
     $rolefields['uname'] = 'administrators';
     $rolefields['parentid'] = $topid;
     $admingroup = $group->createItem($rolefields);
-    $lockdata = array('roles' => array( array('id' => $admingroup,
-                                              'name' => $rolefields['name'],
-                                              'notify' => TRUE)),
-                                              'message' => '',
-                                              'locked' => 0,
-                                              'notifymsg' => '');
-    xarModVars::set('roles', 'lockdata', serialize($lockdata));
 
     // The SiteManagers group
     $rolefields['name'] = 'SiteManagers';

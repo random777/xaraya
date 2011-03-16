@@ -80,10 +80,12 @@ abstract class AuthsystemAuthSubject extends EventSubject implements ixarEventSu
  * @throws none
  * @return array of observer responses
 **/
-    public function modifyconfig()
+    public function modifyconfig($authmod=null)
     {
         // notify observers that the site lock config is being modified
         foreach ($this->observers as $obs) {
+            if (isset($authmod) && $obs->module != $authmod) continue;
+            if (!method_exists($obs, 'modifyconfig')) continue;
             try {
                 $result = $obs->modifyconfig($this);
                 // modifyconfig method should return templated output
@@ -105,11 +107,13 @@ abstract class AuthsystemAuthSubject extends EventSubject implements ixarEventSu
  * @throws none
  * @return bool true if all observers validated succesfully
 **/
-    public function checkconfig()
+    public function checkconfig($authmod=null)
     {
         // notify observers that the site lock config is being validated
         foreach ($this->observers as $obs) {
             try {
+                if (isset($authmod) && $obs->module != $authmod) continue;
+                if (!method_exists($obs, 'checkconfig')) continue;
                 $result = $obs->checkconfig($this);
                 // checkconfig method should return bool
                 if ($result) continue;
@@ -129,11 +133,13 @@ abstract class AuthsystemAuthSubject extends EventSubject implements ixarEventSu
  * @throws none
  * @return bool true if all observers updated succesfully
 **/
-    public function updateconfig()
+    public function updateconfig($authmod=null)
     {
         $isvalid = true;
         // notify observers that the site lock config is being updated
         foreach ($this->observers as $obs) {
+            if (isset($authmod) && $obs->module != $authmod) continue;
+            if (!method_exists($obs, 'updateconfig')) continue;
             try {
                 $result = $obs->updateconfig($this);
                 // updateconfig method should return bool

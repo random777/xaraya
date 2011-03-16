@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+    <div class="xar-mod-head">
+        <span class="xar-mod-title">AuthSystem Administration</span>
+    </div>
+    <div class="xar-mod-body">
+        <xar:template type="module" file="admin-menu"/>
+        <h2>Modify AuthSystem Authentication Configuration</h2>
+        <xar:template type="module" file="admin-authentication-tabs"/>
+        <h3>Modify #$authmod# Authentication Module</h3>
+        <form method="post" action="#xarModURL('authsystem', 'admin', 'modify')#">
+            <input type="hidden" name="authmod" id="authmod" value="#$authmod#"/>
+            <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey()#"/>
+            <input type="hidden" name="phase" id="phase" value="update"/>
+            <xar:if condition="$auth_capable">
+            <fieldset>
+                <legend>#$authmod# Authentication Options</legend>
+                <div class="xar-form-input-wrapper">
+                    <label for="auth_active" class="xar-form-label">Authentication Enabled?</label>
+                    <xar:if condition="$authmod != 'authsystem'">
+                    <xar:data-input type="checkbox" name="auth_active" id="auth_active" checked="$auth_active"/>
+                    <xar:else/>
+                    <input type="hidden" name="auth_active" id="auth_active" value="1"/>
+                    <input type="checkbox" name="auth_active_disabled" id="auth_active_disabled" checked="checked" disabled="disabled"/>
+                    </xar:if>
+                </div>
+                <!-- show config supplied by this module -->
+                <xar:if condition="!empty($auth_config)">
+                    #$auth_config#
+                </xar:if>
+            </fieldset>
+            </xar:if>
+            <xar:if condition="$form_capable">
+            <fieldset>
+                <legend>#$authmod# Login Form Options</legend>            
+                <div class="xar-form-input-wrapper">
+                    <label for="form_active" class="xar-form-label">Display Enabled?</label>
+                    <xar:if condition="$authmod != 'authsystem'">
+                    <xar:data-input type="checkbox" name="form_active" id="form_active" checked="$form_active"/>
+                    <xar:else/>
+                    <input type="hidden" name="form_active" id="form_active" value="1"/>
+                    <input type="checkbox" name="form_active_disabled" id="form_active_disabled" checked="checked" disabled="disabled"/>
+                    </xar:if>
+                </div>
+                <!-- show config supplied by this module -->
+                <xar:if condition="!empty($form_config)">
+                    #$form_config#
+                </xar:if>
+            </fieldset>
+            </xar:if>
+            <fieldset>
+                <div class="xar-form-input-wrapper-after">
+                    <xar:var name="submitLabel">Update Module</xar:var>
+                    <input type="submit" value="#$submitLabel#"/>                
+                </div>            
+            </fieldset>
+            
+        </form>
+
+    </div>
+</xar:template>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+    <div class="xar-mod-head">
+        <span class="xar-mod-title">AuthSystem Administration</span>
+    </div>
+    <div class="xar-mod-body">
+        <xar:template type="module" file="admin-menu"/>
+        <h2>Modify AuthSystem Authentication Configuration</h2>
+        <xar:template type="module" file="admin-authentication-tabs"/>
+        <form method="post" action="#xarModURL('authsystem', 'admin', 'authentication')#">
+            <input type="hidden" name="tab" id="tab" value="#$tab#"/>
+            <input type="hidden" name="phase" id="phase" value="update"/>
+            <input type="hidden" name="authid" id="authid" value="#$authid#"/>
+
+            <xar:if condition="empty($tab) or $tab eq 'form'">
+
+                <fieldset>
+                    <!-- set labels based on tab -->
+                    <xar:if condition="empty($tab)">
+                        <legend>Authentication Module Configuration</legend>
+                        <xar:var name="listname">Authentication Order</xar:var>
+                        <xar:var name="activelabel">Active</xar:var>
+                        <xar:set name="activekey">'is_active'</xar:set>
+                        <xar:var name="submitLabel">Update Auth Modules</xar:var>
+                        <p>Here you can toggle the state and set the order in which authentication modules will be called when a user attempts to log in.</p>
+                        <p>NOTE: The AuthSystem module authentication is always enabled.</p>
+                    <xar:elseif condition="$tab eq 'form'"/>
+                        <legend>Login Form Configuration</legend>
+                        <xar:var name="listname">Login Form Display Order</xar:var>
+                        <xar:var name="activelabel">Display</xar:var>
+                        <xar:set name="activekey">'is_displayed'</xar:set>
+                        <xar:var name="submitLabel">Update Login Form</xar:var>
+                        <p>Here you can manage the display and order in which authentication modules will be shown in the login form.</p>
+                        <p>NOTE: The AuthSystem module authentication is always enabled.</p>
+                    </xar:if>
+                    <xar:set name="upicon">#xarTplGetImage('icons/go-up.png', 'base')#</xar:set>
+                    <xar:set name="downicon">#xarTplGetImage('icons/go-down.png', 'base')#</xar:set>
+                    <xar:set name="modifyicon">#xarTplGetImage('icons/modify.png', 'base')#</xar:set>
+                    <xar:var name="upalt">Up</xar:var>
+                    <xar:var name="downalt">Down</xar:var>
+                    <xar:var name="modifyalt">Modify</xar:var>
+                    <xar:var name="uptitle">Move this auth module up the list</xar:var>
+                    <xar:var name="downtitle">Move this auth module down the list</xar:var>
+                    <xar:var name="modifytitle">Modify configuration of this auth module</xar:var>
+                    <xar:if condition="!empty($invalid['reorder'])">
+                        <p class="xar-error">#$invalid.reorder#</p>
+                    </xar:if>            
+                    <table class="xar-fullwidth">
+                        <caption class="xar-align-left">
+                        #$listname#
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th>Module</th>
+                                <th>#$activelabel#</th>
+                                <th class="xar-align-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <xar:if condition="!empty($auth_mods)">
+                            <tbody>
+                                <xar:foreach in="$auth_mods" key="$modname" value="$authmod">
+                                    <tr>
+                                        <td>
+                                            <xar:set name="inputname">'modlist['.$modname.']'</xar:set>
+                                            <xar:set name="inputid">'modlist_'.$modname</xar:set>
+                                            <input type="hidden" name="#$inputname#" id="#$inputid#"/>
+                                        #$modname#
+                                        </td>
+                                        <td>
+                                            <xar:set name="typename">$inputname.'['.$activekey.']'</xar:set>
+                                            <xar:set name="typeid">$inputid.'_'.$activekey</xar:set>
+                                            <xar:if condition="$modname eq 'authsystem'">
+                                                <input type="checkbox" name="#$typename#" id="#$typeid#" checked="checked" value="1" disabled="disabled"/>
+                                            <xar:elseif condition="!empty($tab) and empty($authmod['is_active'])"/>
+                                                <input type="checkbox" name="#$typename#" id="#$typeid#" value="1" disabled="disabled"/>
+                                            <xar:else/>
+                                                <xar:data-input type="checkbox" name="$typename" id="$typeid" checked="$authmod[$activekey]"/>
+                                            </xar:if>
+                                        </td>
+                                        <td class="xar-align-right">
+                                            <a title="#$modifytitle#" class="xar-icon" href="#xarModURL('authsystem', 'admin', 'modify', array('authmod' => $modname))#"><img alt="#$modifyalt#" src="#$modifyicon#" class="xar-icon"/></a>
+                                            <xar:if condition="!empty($authmod['upurl'])">
+                                                <a title="#$uptitle#" class="xar-icon" href="#xarServer::getCurrentURL(array('tab' => $tab, 'phase' => 'reorder', 'direction' => 'up', 'authmod' => $modname, 'authid' => $authid))#"><img src="#$upicon#" alt="#$upalt#" class="xar-icon"/></a>
+                                            <xar:else/>
+                                                <a title="#$uptitle#" class="xar-icon"><img src="#$upicon#" class="xar-icon-disabled" alt="#$upalt#"/></a>
+                                            </xar:if>
+                                            <xar:if condition="!empty($authmod['downurl'])">
+                                                <a title="#$downtitle#" class="xar-icon" href="#xarServer::getCurrentURL(array('tab' => $tab, 'phase' => 'reorder', 'direction' => 'down', 'authmod' => $modname, 'authid' => $authid))#"><img src="#$downicon#" alt="#$downalt#" class="xar-icon"/></a>
+                                            <xar:else/>
+                                                <a title="#$downtitle#" class="xar-icon"><img src="#$downicon#" alt="#$downalt#" class="xar-icon-disabled"/></a>
+                                            </xar:if>
+                                        </td>
+                                    </tr>
+                                </xar:foreach>
+                            </tbody>
+                        </xar:if>
+                    </table>
+                </fieldset>      
+            
+            <xar:else/>
+                <p>Unknown Function</p>
+            </xar:if>
+            <xar:if condition="!empty($submitLabel)">
+                <fieldset>
+                    <div class="xar-form-input-wrapper-after">
+                        <input type="submit" value="#$submitLabel#"/>
+                    </div>
+                </fieldset>
+            </xar:if>
+            
+        </form>            
+    </div>
+</xar:template>

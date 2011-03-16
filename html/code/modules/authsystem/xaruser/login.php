@@ -52,7 +52,7 @@ function authsystem_user_login(Array $args=array())
     if (xarUserIsLoggedIn()) {
         xarController::redirect($return_url);
     }
-//AuthSystem::$session->login_access = false;
+
     // Make sure user can access this form 
     if (!AuthSystem::$session->login_access) {
         // Check if current login state is admin 
@@ -63,8 +63,6 @@ function authsystem_user_login(Array $args=array())
                 // so we display the locked page template 
                 return xarTplModule('authsystem','user','errors',
                     array('layout' => 'site_locked', 'message'  => AuthSystem::$sitelock->lockout_msg));
-                $data['sitelock'] = AuthSystem::$sitelock->getInfo();
-                return xarTplModule('authsystem', 'user', 'locked', $data);
             } else {
                 // site is unlocked or there are no viewing restrictions 
                 // user logins are disabled and we can assume we didn't come from
@@ -206,12 +204,12 @@ function authsystem_user_login(Array $args=array())
         }                  
     }
     
-    
     // if we're here, either we're in form phase or we have an invalid login
     // get the login form object  
     $loginform = AuthSystem::getAuthSubject('AuthLoginForm', $loginargs);
     // pass the data to the template    
     $data['loginform'] = $loginform->showform();
+
     $data['invalid'] = $invalid;
     $data['return_url'] = $return_url;
     $data['sitelock'] = AuthSystem::$sitelock->getInfo();

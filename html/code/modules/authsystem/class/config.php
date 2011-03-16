@@ -67,6 +67,8 @@ Class AuthsystemConfig extends xarVariableObject
                     $items[$index] = $temp;
                 }
                 break;
+            } else {
+                $items[$index] = $authmod;
             }
         }
         $this->$list = $items; 

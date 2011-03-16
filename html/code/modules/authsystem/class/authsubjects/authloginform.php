@@ -30,7 +30,8 @@ class AuthsystemAuthLoginFormSubject extends AuthsystemAuthSubject implements ix
 **/ 
     public function __construct($args=null)
     {
-        parent::__construct($args);
+        $this->setArgs($args);
+        //parent::__construct($args);
         // get AuthLoginForm subject observers
         $auth_mods = AuthSystem::getObservers($this);
         // get config 
@@ -64,7 +65,7 @@ class AuthsystemAuthLoginFormSubject extends AuthsystemAuthSubject implements ix
                 // we set all unknown auth modules active, otherwise use current setting
                 $obs['is_active'] = !isset($auth_state[$obs_mod]) || !empty($auth_state[$obs_mod]);
                 // only show form if auth module is active and form state is display
-                $obs['is_displayed'] = $obs['is_active'] && !empty($obs_state[$obs_mod]);
+                $obs['is_displayed'] = $obs['is_active'] && (!isset($obs_state[$obs_mod]) || !empty($obs_state[$obs_mod]));
                 $obs['upurl'] = !empty($key) && isset($obs_order[$key-1]);
                 $obs['downurl'] = $key < count($obs_order)-1 && isset($obs_order[$key+1]);
                 // attach observer to subject

@@ -31,7 +31,8 @@ class AuthsystemAuthLoginSubject extends AuthsystemAuthSubject implements ixarEv
 **/ 
     public function __construct($args=null)
     {
-        parent::__construct($args);
+        $this->setArgs($args);
+        //parent::__construct($args);
         // get all AuthLogin subject observers
         $auth_mods = AuthSystem::getObservers($this);        
         // get the configured AuthLogin observer order

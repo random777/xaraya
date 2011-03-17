@@ -24,12 +24,7 @@
  */
 function authsystem_init()
 {
-    //Set the default authmodule if not already set
-    $isdefaultauth = xarModVars::get('roles','defaultauthmodule');
-    if (empty($isdefaultauth)) {
-       xarModVars::get('roles', 'defaultauthmodule', 'authsystem');
-    }
-
+    // @CHECKME: is this necessary during init? surely it should have these defaults to begin with?
     $dbconn =& xarDB::getConn();
     $xartable =& xarDB::getTables();
     $modulesTable = xarDB::getPrefix() .'_modules';
@@ -68,11 +63,6 @@ function authsystem_activate()
     xarRegisterMask('EditAuthsystem','All','authsystem','All','All','ACCESS_EDIT');
     xarRegisterMask('ManageAuthsystem','All','authsystem','All','All','ACCESS_DELETE');
     xarRegisterMask('AdminAuthsystem','All','authsystem','All','All','ACCESS_ADMIN');
-
-    /* Define Module vars */
-    xarModVars::set('authsystem', 'lockouttime', 15);
-    xarModVars::set('authsystem', 'lockouttries', 3);
-    xarModVars::set('authsystem', 'uselockout', false);
     
     // Installation complete; check for upgrades
     return authsystem_upgrade('2.0.0');
@@ -93,21 +83,22 @@ function authsystem_upgrade($oldversion)
             xarEvents::registerSubject('UserLogin', 'user', 'authsystem');
             xarEvents::registerSubject('UserLogout', 'user', 'authsystem');
         case '2.2.0':
-
+            sys::import('modules.authsystem.class.authsystem');
+            // Register AuthSystem specific event subjects and observers
             // Site lock subjects
-            xarEvents::registerSubject('AuthSiteLock', 'auth', 'authsystem', 'class', 'authsubjects');
-            xarEvents::registerSubject('AuthSiteUnlock', 'auth', 'authsystem', 'class', 'authsubjects');
+            AuthSystem::registerSubject('AuthSiteLock', 'auth', 'authsystem', 'class', 'authsubjects');
+            AuthSystem::registerSubject('AuthSiteUnlock', 'auth', 'authsystem', 'class', 'authsubjects');
             // Site lock observers 
-            xarEvents::registerObserver('AuthSiteLock', 'authsystem', 'class', 'authobservers');
-            xarEvents::registerObserver('AuthSiteUnlock', 'authsystem', 'class', 'authobservers');
+            AuthSystem::registerObserver('AuthSiteLock', 'authsystem', 'class', 'authobservers');
+            AuthSystem::registerObserver('AuthSiteUnlock', 'authsystem', 'class', 'authobservers');
             // ServerRequest observer (for sitelock)
             //xarEvents::registerObserver('ServerRequest', 'authsystem');
             // Authentication subjects
-            xarEvents::registerSubject('AuthLogin', 'auth', 'authsystem', 'class', 'authsubjects');
-            xarEvents::registerSubject('AuthLoginForm', 'auth', 'authsystem', 'class', 'authsubjects');
+            AuthSystem::registerSubject('AuthLogin', 'auth', 'authsystem', 'class', 'authsubjects');
+            AuthSystem::registerSubject('AuthLoginForm', 'auth', 'authsystem', 'class', 'authsubjects');
             // Authentication observers 
-            xarEvents::registerObserver('AuthLogin', 'authsystem', 'class', 'authobservers');
-            xarEvents::registerObserver('AuthLoginForm', 'authsystem', 'class', 'authobservers');
+            AuthSystem::registerObserver('AuthLogin', 'authsystem', 'class', 'authobservers');
+            AuthSystem::registerObserver('AuthLoginForm', 'authsystem', 'class', 'authobservers');
 
       break;
     }

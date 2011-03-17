@@ -24,6 +24,7 @@
  * @throws   exceptions raised valcode does not match
  * @TODO jojodee - validation process, duplication of functions and call to registration module needs to be rethought
  *         Rethink to provide cleaner separation between roles, authentication and registration
+ * @TODO chris - see todo
  */
 function roles_user_getvalidation()
 {
@@ -66,12 +67,13 @@ function roles_user_getvalidation()
     }
 
     $defaultauthdata=xarMod::apiFunc('roles','user','getdefaultauthdata');
+    /*
     $defaultloginmodname=$defaultauthdata['defaultloginmodname'];
     $authmodule=$defaultauthdata['defaultauthmodname'];
-
+    */
     //Set some general vars that we need in various options
     $pending = xarModVars::get($regmodule, 'explicitapproval');
-    $loginlink =xarModURL($defaultloginmodname,'user','main');
+    $loginlink =xarModURL('authsystem','user','login');
 
     $tplvars=array();
     $tplvars['loginlink']=$loginlink;

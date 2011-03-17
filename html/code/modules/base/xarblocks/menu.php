@@ -97,12 +97,8 @@ class Base_MenuBlock extends MenuBlock implements iBlock
 
         if (xarUserIsLoggedIn()) {
             if (!empty($vars['showlogout'])) {
-                $authmoduledata = xarMod::apiFunc('roles','user','getdefaultauthdata');
-                $authmodlogout = $authmoduledata['defaultloginmodname'];
-                if (xarSecurityCheck('AdminBase',0)) {
-                    $vars['logouturl'] = xarModURL('authsystem', 'user', 'logout');
-                } else {
-                    $vars['logouturl'] = xarModURL('authsystem','user', 'logout', array());
+                $vars['logouturl'] = xarModURL('authsystem', 'user', 'logout');
+                if (!xarSecurityCheck('AdminBase',0)) {
                     $vars['showback'] = 0;
                 }
             }

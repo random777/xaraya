@@ -143,7 +143,6 @@ function roles_admin_modifyconfig()
     }
 
     $data['hooks'] = $hooks;
-    //$data['defaultauthmod']    = xarModVars::get('roles', 'defaultauthmodule');
     $data['defaultregmod']     = xarModVars::get('roles', 'defaultregmodule');
     $data['allowuserhomeedit'] = (bool)xarModVars::get('roles', 'allowuserhomeedit');
     $data['requirevalidation'] = (bool)xarModVars::get('roles', 'requirevalidation');
@@ -160,7 +159,6 @@ function roles_admin_modifyconfig()
             }
             switch ($data['tab']) {
                 case 'general':
-                    //if (!xarVarFetch('defaultauthmodule', 'int:1:',   $defaultauthmodule, xarMod::getRegID('authsystem'), XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
                     if (!xarVarFetch('defaultregmodule',  'int:1:',   $defaultregmodule, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
                     if (!xarVarFetch('siteadmin',         'int:1',    $siteadmin,        (int)xarModVars::get('roles','admin'), XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('defaultgroup',      'str:1',    $defaultgroup,     'Users', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY)) return;
@@ -171,8 +169,7 @@ function roles_admin_modifyconfig()
                     } else {
                         $itemid = $data['module_settings']->updateItem();
                     }
-
-                    //xarModVars::set('roles', 'defaultauthmodule', $defaultauthmodule);
+                    
                     xarModVars::set('roles', 'defaultregmodule', $defaultregmodule);
                     xarModVars::set('roles', 'defaultgroup', $defaultgroup);
                     xarModVars::set('roles', 'admin', $siteadmin);

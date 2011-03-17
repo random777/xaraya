@@ -18,21 +18,16 @@
  */
 function roles_user_usermenu(Array $args=array())
 {
+    if (!xarUserIsLoggedIn()){
+        xarController::redirect(xarModURL('authsystem','user','login'));
+    }
+    
     if (!xarSecurityCheck('ViewRoles')) return;
     extract($args);
 
     if (!xarVarFetch('moduleload', 'pre:trim:str:1', $moduleload, '', XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('returnurl', 'pre:trim:str:1', $returnurl, '', XARVAR_NOT_REQUIRED)) return;
-    //let's make sure other modules that refer here get to a default and existing login or logout form
-    $defaultauthdata      = xarMod::apiFunc('roles','user','getdefaultauthdata');
-    $defaultauthmodname   = $defaultauthdata['defaultauthmodname'];
-    $defaultloginmodname  = $defaultauthdata['defaultloginmodname'];
-    $defaultlogoutmodname = $defaultauthdata['defaultlogoutmodname'];
-
-    if (!xarUserIsLoggedIn()){
-        xarController::redirect(xarModURL($defaultloginmodname,'user','showloginform'));
-    }
-
+    
     $id = xarUserGetVar('id');
 
     if (empty($moduleload)) {
@@ -240,16 +235,13 @@ function roles_user_usermenu(Array $args=array())
                 $menutabs[] = array(
                     'label' => xarML('Logout'),
                     'title' => xarML('Logout from the site'),
-                    'url' => xarModURL($defaultlogoutmodname, 'user', 'logout'),
+                    'url' => xarModURL('authsystem', 'user', 'logout'),
                     'active' => false
                 );
                 $data['menutabs'] = $menutabs;
                 $data['authid'] = xarSecGenAuthKey('roles');
                 $data['id']          = xarUserGetVar('id');
                 $data['name']         = xarUserGetVar('name');
-                $data['logoutmodule'] = $defaultlogoutmodname;
-                $data['loginmodule']  = $defaultloginmodname;
-                $data['authmodule']   = $defaultauthmodname;
                 $data['moduleload'] = '';
                 $data['tab'] = 'basic';
                 if (empty($message)) $data['message'] = '';
@@ -326,7 +318,7 @@ function roles_user_usermenu(Array $args=array())
             $menutabs[] = array(
                 'label' => xarML('Logout'),
                 'title' => xarML('Logout from the site'),
-                'url' => xarModURL($defaultlogoutmodname, 'user', 'logout'),
+                'url' => xarModURL('authsystem', 'user', 'logout'),
                 'active' => false
             );
 
@@ -370,9 +362,6 @@ function roles_user_usermenu(Array $args=array())
             $data['menutabs'] = $menutabs;
             $data['id']          = $id;
             $data['name']         = xarUserGetVar('name');
-            $data['logoutmodule'] = $defaultlogoutmodname;
-            $data['loginmodule']  = $defaultloginmodname;
-            $data['authmodule']   = $defaultauthmodname;
             $data['moduleload'] = $moduleload;
             $data['tab'] = '';
             if (empty($message)) $data['message'] = '';

@@ -125,15 +125,6 @@
                 </fieldset>
                 <fieldset>
                     <legend>Default Registration Module</legend>
-                    <!-- This is no longer used, the default is now always the authsystem module
-                    <div class="xar-form-input-wrapper">
-                        <xar:var name="label">Select the module that manages authentication of users</xar:var>
-                        <label for="defaultauthmodule" title="#$label#" class="xar-form-label">
-                            Authentication:
-                        </label>
-                        <xar:data-input type="module" name="defaultauthmodule" class="Authentication" value="$defaultauthmod" validation="name" firstline="Choose a module"/>
-                    </div>
-                    -->
                     <div class="xar-form-input-wrapper">
                         <xar:var name="label">Select the module that manages registration of users</xar:var>
                         <label for="defaultregmodule" title="#$label#" class="xar-form-label">

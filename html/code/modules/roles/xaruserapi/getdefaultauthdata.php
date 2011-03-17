@@ -14,6 +14,9 @@
 /**
  * getdefaultauthdata  - get the default authentication module date from roles
  * The login and logout may not be supplied by the authentication module and so could be different
+ * <chris> - this is now deprecated and will be removed very soon
+ * the authsystem is responsible for authentication *always* now, auth modules
+ * are 'plugged in' to the authsystem to extend its capabilites and the authsystem manages them
  *
  * @author Jo Dalle Nogare <jojodee@xaraya.com>
  * @param array    $args array of optional parameters<br/>

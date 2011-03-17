@@ -24,12 +24,6 @@ function roles_user_account()
     if(!xarVarFetch('moduleload','str', $moduleload, '', XARVAR_NOT_REQUIRED)) {return;}
     if (!xarVarFetch('tab', 'pre:trim:str:1', $tab, '', XARVAR_NOT_REQUIRED)) return;
 
-    //let's make sure other modules that refer here get to a default and existing login or logout form
-    $defaultauthdata      = xarMod::apiFunc('roles','user','getdefaultauthdata');
-    $defaultauthmodname   = $defaultauthdata['defaultauthmodname'];
-    $defaultloginmodname  = $defaultauthdata['defaultloginmodname'];
-    $defaultlogoutmodname = $defaultauthdata['defaultlogoutmodname'];
-
     if (!xarUserIsLoggedIn()){
         // bring the user back here after login :)
         $return_url = xarModURL('roles', 'user', 'account');
@@ -90,7 +84,7 @@ function roles_user_account()
         $menutabs[] = array(
             'label' => xarML('Logout'),
             'title' => xarML('Logout from the site'),
-            'url' => xarModURL($defaultlogoutmodname, 'user', 'logout'),
+            'url' => xarModURL('authsystem', 'user', 'logout'),
             'active' => false
         );
 
@@ -201,9 +195,6 @@ function roles_user_account()
     }
     $data['id']          = xarUserGetVar('id');
     $data['name']         = xarUserGetVar('name');
-    $data['logoutmodule'] = $defaultlogoutmodname;
-    $data['loginmodule']  = $defaultloginmodname;
-    $data['authmodule']   = $defaultauthmodname;
     $data['moduleload'] = $moduleload;
     $data['tab'] = $tab;
     if (empty($message)) $data['message'] = '';

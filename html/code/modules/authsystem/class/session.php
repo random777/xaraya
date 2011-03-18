@@ -42,9 +42,10 @@ Class AuthsystemSession extends xarVariableObject
     {
         // reset access on login state change, or site locked and lockout state change...
         if (AuthSystem::$security->login_state != $this->login_state ||
-            (AuthSystem::$sitelock-locked && AuthSystem::$sitelock->lockout_state != $this->lockout_state)) {
+            (AuthSystem::$sitelock->locked && AuthSystem::$sitelock->lockout_state != $this->lockout_state)) {
             $this->login_access = false;
             $this->login_state = AuthSystem::$security->login_state;
+            $this->lockout_state = AuthSystem::$sitelock->lockout_state;
         }
     }
 

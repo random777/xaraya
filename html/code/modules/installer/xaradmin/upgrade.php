@@ -52,6 +52,7 @@ function installer_admin_upgrade()
     $data['versions'] = array(
                                 '2.1.1',
                                 '2.1.2',
+                                '2.1.3',
                                 '2.2.0',
     );
     
@@ -83,6 +84,9 @@ function installer_admin_upgrade()
         $data['upgrades'] =& $upgrades;
 
     } elseif ($data['phase'] == 3) {
+        // Security
+        if (!xarSecurityCheck('AdminInstaller')) return; 
+        
         $data['active_step'] = 3;
         // Align the db and filesystem version info
         xarConfigVars::set(null, 'System.Core.VersionId', xarCore::VERSION_ID);

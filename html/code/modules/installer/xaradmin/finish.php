@@ -35,6 +35,10 @@ function installer_admin_finish()
     // Default for the site time zone is the system time zone
     xarConfigVars::set(null, 'Site.Core.TimeZone', xarSystemVars::get(sys::CONFIG, 'SystemTimeZone'));
 
+    // Defaults for templating engine options 
+    xarConfigVars::set(null, 'Site.BL.CompressWhitespace', 1);
+    xarConfigVars::set(null, 'Site.BL.MemCacheTemplates', false);
+
     switch ($returnurl) {
         case ('base'):
             xarController::redirect(xarModURL('base','admin','modifyconfig'));

@@ -24,9 +24,13 @@ function blocks_admin_modify_instance()
     if (!xarVarFetch('tab', 'pre:trim:lower:str:1', $tab, 'config', XARVAR_NOT_REQUIRED)) return;
     
     // Security
-    if (empty($bid)) return xarResponse::notFound();
+    if (empty($bid)) return xarController::notFound();
     // @CHECKME: exception if the block is not found, does get do that?
     $instance = xarMod::apiFunc('blocks', 'user', 'get', array('bid' => $bid));
+    
+    // Security
+    if (!xarSecurityCheck('AdminBlocks', 0, 'Instance')) {return;}
+    
     // user needs admin access to modify block instance (name, title, etc)
     $adminaccess = xarSecurityCheck('',0,'Block',$instance['type'] . ":" . $instance['name'] . ":" . "$instance[bid]",$instance['module'],'',0,800);
 

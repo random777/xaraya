@@ -12,7 +12,10 @@
  * @link http://xaraya.com/index.php/release/68.html
  */
 /**
+ * Modify the configuration settings of this module
+ *
  * Standard GUI function to display and update the configuration settings of the module based on input data.
+ *
  * @author John Robeson
  * @author Greg Allan
  * @return mixed data array for the template display or output display string if invalid data submitted
@@ -91,6 +94,17 @@ function base_admin_modifyconfig()
         $data['modes'] = $modes;
     }
 
+    sys::import('modules.dynamicdata.class.properties.master');
+    $combobox = DataPropertyMaster::getProperty(array('name' => 'combobox'));
+    $combobox->checkInput('logfilename');
+    $data['logfilename'] = !empty($combobox->value) ? $combobox->value : xarSystemVars::get(sys::CONFIG, 'Log.Filename');
+
+    $picker = DataPropertyMaster::getProperty(array('name' => 'filepicker'));
+    $picker->initialization_basedirectory = sys::varpath() . "/logs/";
+    $picker->setExtensions('txt,html');
+    $picker->display_fullname = true;
+    $data['logfiles'] = $picker->getOptions();
+
     switch (strtolower($phase)) {
         case 'modify':
         default:
@@ -136,7 +150,6 @@ function base_admin_modifyconfig()
                     xarConfigVars::set(null, 'Site.Core.FixHTMLEntities', $FixHTMLEntities);
                     break;
                 case 'security':
-                    if (!xarVarFetch('secureserver','checkbox',$secureServer,true,XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('securitylevel','str:1:',$securityLevel)) return;
                     if (!xarVarFetch('sessionduration','int:1:',$sessionDuration,30,XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('sessiontimeout','int:1:',$sessionTimeout,10,XARVAR_NOT_REQUIRED)) return;
@@ -145,6 +158,8 @@ function base_admin_modifyconfig()
                     if (!xarVarFetch('cookiepath','str:1:',$cookiePath,'',XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('cookiedomain','str:1:',$cookieDomain,'',XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('referercheck','str:1:',$refererCheck,'',XARVAR_NOT_REQUIRED)) return;
+                    if (!xarVarFetch('secureserver','checkbox',$secureServer,true,XARVAR_NOT_REQUIRED)) return;
+                    if (!xarVarFetch('sslport','int',$sslport,443,XARVAR_NOT_REQUIRED)) return;
 
                     sys::import('modules.dynamicdata.class.properties.master');
                     $orderselect = DataPropertyMaster::getProperty(array('name' => 'orderselect'));
@@ -152,7 +167,6 @@ function base_admin_modifyconfig()
 
                     //Filtering Options
                     // Security Levels
-                    xarConfigVars::set(null, 'Site.Core.EnableSecureServer', $secureServer);
                     xarConfigVars::set(null, 'Site.Session.SecurityLevel', $securityLevel);
                     xarConfigVars::set(null, 'Site.Session.Duration', $sessionDuration);
                     xarConfigVars::set(null, 'Site.Session.InactivityTimeout', $sessionTimeout);
@@ -160,6 +174,8 @@ function base_admin_modifyconfig()
                     xarConfigVars::set(null, 'Site.Session.CookiePath', $cookiePath);
                     xarConfigVars::set(null, 'Site.Session.CookieDomain', $cookieDomain);
                     xarConfigVars::set(null, 'Site.Session.RefererCheck', $refererCheck);
+                    xarConfigVars::set(null, 'Site.Core.EnableSecureServer', $secureServer);
+                    xarConfigVars::set(null, 'Site.Core.SecureServerPort', $sslport);
 
                     // Authentication modules
                     if (!empty($orderselect->order)) {
@@ -212,6 +228,12 @@ function base_admin_modifyconfig()
 
                     xarController::redirect(xarModURL('base', 'admin', 'modifyconfig', array('tab' => 'locales')));
                     break;
+                case 'logging':                    
+                    if (!xarVarFetch('logenabled','int',$logenabled,0,XARVAR_NOT_REQUIRED)) return;
+                    $variables = array('Log.Enabled' => $logenabled, 'Log.Filename' => $data['logfilename']);
+                    xarMod::apiFunc('installer','admin','modifysystemvars', array('variables'=> $variables));
+                    xarController::redirect(xarModURL('base', 'admin', 'modifyconfig', array('tab' => 'logging')));
+                    break;
                 case 'other':
                     if (!xarVarFetch('loadlegacy',   'checkbox', $loadLegacy,    xarConfigVars::get(null, 'Site.Core.LoadLegacy'), XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('proxyhost',    'str:1:',   $proxyhost,     xarModVars::get('base', 'proxyhost'), XARVAR_NOT_REQUIRED)) return;
@@ -242,6 +264,7 @@ function base_admin_modifyconfig()
                         xarConfigVars::set(null, 'Site.Core.TimeZone', "UTC");
                         xarConfigVars::set(null, 'Site.MLS.DefaultTimeOffset', 0);
                     }
+                    xarModVars::set('roles', 'usertimezone', xarConfigVars::get(null, 'Site.Core.TimeZone'));
                     xarController::redirect(xarModURL('base', 'admin', 'modifyconfig', array('tab' => 'other')));
                     break;
             }

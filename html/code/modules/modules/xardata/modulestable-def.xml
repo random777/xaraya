@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema name="xaraya">
+  <table name="modules">
+    <column id="modules.id" name="id" required="true" auto="true">
+      <number size="11" decimals="0"/>
+    </column>
+    <column id="modules.name" name="name" required="true" auto="false">
+      <text size="64" defaultvalue=""/>
+    </column>
+    <column id="modules.regid" name="regid" required="false" auto="false">
+      <number size="11" decimals="0"/>
+    </column>
+    <column id="modules.directory" name="directory" required="true" auto="false">
+      <text size="64" defaultvalue=""/>
+    </column>
+    <column id="modules.version" name="version" required="true" auto="false">
+      <text size="10" defaultvalue=""/>
+    </column>
+    <column id="modules.class" name="class" required="true" auto="false">
+      <text size="64" defaultvalue=""/>
+    </column>
+    <column id="modules.category" name="category" required="true" auto="false">
+      <text size="64" defaultvalue=""/>
+    </column>
+    <column id="modules.admin_capable" name="admin_capable" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="modules.user_capable" name="user_capable" required="true" auto="false">
+      <number size="11" defaultvalue="0" decimals="0"/>
+    </column>
+    <column id="modules.state" name="state" required="true" auto="false">
+      <number size="11" defaultvalue="1" decimals="0"/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <column ref="modules.id"/>
+      </primary>
+    </constraints>
+  </table>
+</schema>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE schema PUBLIC "-//XAR//DTD DDL 1.0 Strict//EN" "http://xaraya.com/schema/DTD/ddl-strict.dtd">
+<schema name="xaraya">
+  <table name="themes">
+    <column id="themes.id" name="id" required="true" auto="true">
+      <number unsigned="true"/>
+    </column>
+    <column id="themes.name" name="name" required="true">
+      <text size="64"/>
+    </column>
+    <column id="themes.regid" name="regid" required="true">
+      <number unsigned="true"/>
+    </column>
+    <column id="themes.directory" name="directory" required="true">
+      <text size="64"/>
+    </column>
+    <column id="themes.version" name="version" required="true">
+      <text size="10"/>
+    </column>
+    <column id="themes.state" name="state" required="true">
+      <number size="4" unsigned="true" default="1"/>
+    </column>
+    <constraints>
+      <primary name="id">
+        <column ref="themes.id"/>
+      </primary>
+    </constraints>
+  </table>
+</schema>

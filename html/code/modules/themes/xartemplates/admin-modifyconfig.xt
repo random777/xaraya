@@ -95,18 +95,18 @@
                         #$varlabel#                   
                     </div>
                 </div>
-                <div class="xar-row">
-                    <div class="xar-form-input-wrapper" id="user_themes_id">
+                <div class="xar-row" id="user_themes_id">
+                    <div class="xar-col">
                         <xar:var name="varlabel">Select themes users may choose from</xar:var>
                         <label for="user_themes" class="xar-form-label" title="#$varlabel#">
                             User Themes                    
                         </label>
-                        <div class="xar-form-container-after">
+                    </div>
+                    <div class="xar-col">
+                        <p class="xar-note">
                             #$varlabel#
-                        </div>
-                        <div class="xar-form-container-after">
-                            <xar:data-input property="$user_themes" name="user_themes" id="user_themes" layout="vertical"/>
-                        </div>         
+                        </p>
+                        <xar:data-input property="$user_themes" name="user_themes" id="user_themes" layout="vertical"/>         
                     </div>          
                 </div>
                 <xar:if condition="empty($enable_user_menu)">                

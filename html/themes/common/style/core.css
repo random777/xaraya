@@ -4,5 +4,26 @@
         Over-ride per theme by copying file to html/themes/themename/style/core.css
  ----[/comment]  */
 /* - Default core css files to import - */
+/* <chris> - the core-xhtml1 strict css is marked for deprecation
+           - if tabs css is 'required' in all pages, the classes should be moved to this file */
 @import url(xarcore-xhtml1-strict.css);
 @import url(tabs.css);
+
+/* [Xaraya 2.3+ (Kingston) Core CSS] */
+/* @TODO use a different prefix to namespace classes */
+
+/* FORMS */
+.xar-row {
+    display: block;
+    }
+.xar-col {
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+    }
+.xar-row .xar-col:first-child {
+    width: 35%;
+    }
+.xar-row .xar-col:last-child {
+    width: 65%;
+    }

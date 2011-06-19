@@ -77,15 +77,16 @@
                             <!-- Hooked to none -->
                             <div class="xar-row">
                                 <div class="xar-col">
+                                    <label for="#$subject_id#_hookstate_0">Do NOT enable #$observers[$curhook]['displayname']# hooks in #$modinfo['displayname']#</label>
+                                </div>
+                                <div class="xar-col">
                                     <xar:if condition="$modinfo['hookstate'] eq 0">
                                         <input type="radio" id="#$subject_id#_hookstate_0" name="#$subject_name#[hookstate]" value="0" checked="checked" onclick="setDisplayOff('#$subject_id#_itemtypes');setDisplayOff('#$subject_id#_itemtypes_0');"/>
                                     <xar:else/>
                                         <input type="radio" id="#$subject_id#_hookstate_0" name="#$subject_name#[hookstate]" value="0" onclick="setDisplayOff('#$subject_id#_itemtypes');setDisplayOff('#$subject_id#_itemtypes_0');"/>
                                     </xar:if>
                                 </div>
-                                <div class="xar-col">
-                                    <label for="#$subject_id#_hookstate_0">Do NOT enable #$observers[$curhook]['displayname']# hooks in #$modinfo['displayname']#</label>
-                                </div>
+
                             </div>
                             <!-- hooked to all scopes, all itemtypes -->
                             <div class="xar-row">

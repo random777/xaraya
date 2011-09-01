@@ -191,13 +191,13 @@ class Base_MenuBlock extends MenuBlock implements iBlock
                 }
 
                 // convert the old user_content/lines to userlinks array
-                if (!empty($this->content['lines'])) {
+                if (isset($this->content['lines'])) {
                     $userlinks = array();
                     foreach ($this->content['lines'] as $id => $line) {
                         $userlinks[] = array(
                             'id' => $id,
-                            'name' => $line['label'],
-                            'label' => $line['label'],
+                            'name' => $line['name'],
+                            'label' => $line['name'],
                             'title' => $line['description'],
                             'url' => $line['url'],
                             'visible' => $line['visible'],

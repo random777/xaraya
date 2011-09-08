@@ -10,37 +10,36 @@
  * @link http://xaraya.com/index.php/release/200.html
  */
 
-function sql_220_14()
+sys::import('modules.installer.class.upgrade_step');
+
+class sql_220_14 extends UpgradeStep
 {
-    // Define parameters
-    $table = xarDB::getPrefix() . '_dynamic_objects';
-    
-    // Define the task and result
-    $data['success'] = true;
-    $data['task'] = xarML("
-        Adding an access field to the objects table
-    ");
-    $data['reply'] = xarML("
-        Success!
-    ");
-    
-    // Run the query
-    $dbconn  = xarDB::getConn();
-    try {
-        $dbconn->begin();
-        $query = "ALTER TABLE $table ADD COLUMN access TEXT";              
-        $dbconn->Execute($query);        
-        $dbconn->commit();
-        
-    } catch (Exception $e) { throw($e);
-        // Damn
-        $dbconn->rollback();
-        $data['success'] = false;
-        $data['reply'] = xarML("
-        Failed!
-        ");
+    public function __construct() {
+        parent::__construct();
+        $this->task = xarML("
+                        Adding an access field to the objects table
+                        ");
     }
-    return $data;   
-    
+
+    public function run()
+    {    
+        // Define parameters
+        $table = xarDB::getPrefix() . '_dynamic_objects';
+        
+        // Run the query
+        $dbconn  = xarDB::getConn();
+        try {
+            $dbconn->begin();
+            $query = "ALTER TABLE $table ADD COLUMN access TEXT";              
+            $dbconn->Execute($query);        
+            $dbconn->commit();
+            
+        } catch (Exception $e) { throw($e);
+            // Damn
+            $dbconn->rollback();
+            $this->fail();
+        }
+        return $this->success;
+    }
 }
 ?>

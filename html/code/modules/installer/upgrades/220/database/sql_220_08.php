@@ -10,37 +10,37 @@
  * @link http://xaraya.com/index.php/release/200.html
  */
 
-function sql_220_08()
+sys::import('modules.installer.class.upgrade_step');
+
+class sql_220_08 extends UpgradeStep
 {
-    // Define parameters
-    $table = xarDB::getPrefix() . '_modules';
-
-    // Define the task and result
-    $data['success'] = true;
-    $data['task'] = xarML("
-        Re-classifying Authsystem to Users & Groups
-    ");
-    $data['reply'] = xarML("
-        Success!
-    ");
-
-    // Run the query
-    $dbconn = xarDB::getConn();
-    try {
-        $dbconn->begin();
-        $data['sql'] = "
-        UPDATE $table SET `category` = 'Users & Groups' WHERE `name` = 'authsystem';
-        ";
-        $dbconn->Execute($data['sql']);
-        $dbconn->commit();
-    } catch (Exception $e) {
-        // Damn
-        $dbconn->rollback();
-        $data['success'] = false;
-        $data['reply'] = xarML("
-        Failed!
-        ");
+    public function __construct() {
+        parent::__construct();
+        $this->task = xarML("
+                        Re-classifying Authsystem to Users & Groups
+                        ");
     }
-    return $data;
+
+    public function run()
+    {    
+        // Define parameters
+        $table = xarDB::getPrefix() . '_modules';
+    
+        // Run the query
+        $dbconn = xarDB::getConn();
+        try {
+            $dbconn->begin();
+            $data['sql'] = "
+            UPDATE $table SET `category` = 'Users & Groups' WHERE `name` = 'authsystem';
+            ";
+            $dbconn->Execute($data['sql']);
+            $dbconn->commit();
+        } catch (Exception $e) {
+            // Damn
+            $dbconn->rollback();
+            $this->fail();
+        }
+        return $this->success;
+    }
 }
 ?>

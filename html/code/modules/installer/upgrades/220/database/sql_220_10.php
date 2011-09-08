@@ -10,28 +10,28 @@
  * @link http://xaraya.com/index.php/release/200.html
  */
 
-function sql_220_10()
-{
-    // Define the task and result
-    $data['success'] = true;
-    $data['task'] = xarML("
-        Move the debug users to Roles module
-    ");
-    $data['reply'] = xarML("
-        Success!
-    ");
+sys::import('modules.installer.class.upgrade_step');
 
-    try {
-        xarConfigVars::set(null, 'Site.User.DebugAdmins', array('admin'));
-        xarModVars::delete('dynamicdata','debugusers');
-    } catch (Exception $e) {
-        // Damn
-        $dbconn->rollback();
-        $data['success'] = false;
-        $data['reply'] = xarML("
-        Failed!
-        ");
+class sql_220_10 extends UpgradeStep
+{
+    public function __construct() {
+        parent::__construct();
+        $this->task = xarML("
+                        Move the debug users to Roles module
+                        ");
     }
-    return $data;
+
+    public function run()
+    {    
+        try {
+            xarConfigVars::set(null, 'Site.User.DebugAdmins', array('admin'));
+            xarModVars::delete('dynamicdata','debugusers');
+        } catch (Exception $e) {
+            // Damn
+            $dbconn->rollback();
+            $this->fail();
+        }
+        return $this->success;
+    }
 }
 ?>

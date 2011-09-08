@@ -12,38 +12,38 @@
  * @link http://xaraya.com/index.php/release/200.html
  */
 
-function sql_210_06()
+sys::import('modules.installer.class.upgrade_step');
+
+class sql_210_06 extends UpgradeStep
 {
-    // Define parameters
-    $privileges = xarDB::getPrefix() . '_privileges';
-    $privmembers = xarDB::getPrefix() . '_privmembers';
-
-    // Define the task and result
-    $data['success'] = true;
-    $data['task'] = xarML("
-        Removing the 'DenyBlocks' privilege
-    ");
-    $data['reply'] = xarML("
-        Success!
-    ");
-
-    // Run the query
-    $dbconn = xarDB::getConn();
-    try {
-        $dbconn->begin();
-        $data['sql'] = "
-        DELETE p, pm FROM $privileges p INNER JOIN $privmembers pm WHERE p.id = pm.privilege_id AND p.name = 'DenyBlocks' AND p.itemtype= 2;
-        ";
-        $dbconn->Execute($data['sql']);
-        $dbconn->commit();
-    } catch (Exception $e) {
-        // Damn
-        $dbconn->rollback();
-        $data['success'] = false;
-        $data['reply'] = xarML("
-        Failed!
-        ");
+    public function __construct() {
+        parent::__construct();
+        $this->task = xarML("
+                        Removing the 'DenyBlocks' privilege
+                        ");
     }
-    return $data;
+
+    public function run()
+    {    
+        // Define parameters
+        $privileges = xarDB::getPrefix() . '_privileges';
+        $privmembers = xarDB::getPrefix() . '_privmembers';
+    
+        // Run the query
+        $dbconn = xarDB::getConn();
+        try {
+            $dbconn->begin();
+            $data['sql'] = "
+            DELETE p, pm FROM $privileges p INNER JOIN $privmembers pm WHERE p.id = pm.privilege_id AND p.name = 'DenyBlocks' AND p.itemtype= 2;
+            ";
+            $dbconn->Execute($data['sql']);
+            $dbconn->commit();
+        } catch (Exception $e) {
+            // Damn
+            $dbconn->rollback();
+            $this->fail();
+        }
+        return $this->success;
+    }
 }
 ?>

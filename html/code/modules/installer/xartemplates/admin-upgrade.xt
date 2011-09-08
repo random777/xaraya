@@ -150,14 +150,14 @@
                         <xar:else/>
                             <xar:foreach in="$upgrade['tasks']" value="$task">
                                 <tr>
-                                    <td>#$task['description']#</td>
-                                    <xar:if condition="$task['success']">
+                                    <td>#$task:task#</td>
+                                    <xar:if condition="$task->success">
                                         <xar:set name="reply_color">'green'</xar:set>
                                     <xar:else/>
                                         <xar:set name="reply_color">'red'</xar:set>
                                     </xar:if>
-                                    <td style="color: #$reply_color#">#$task['reply']#</td>
-                                    <td>#$task['reference']#</td>
+                                    <td style="color: #$reply_color#">#$task:reply#</td>
+                                    <td>#$task:name#</td>
                                 </tr>
                             </xar:foreach>
                         </xar:if>

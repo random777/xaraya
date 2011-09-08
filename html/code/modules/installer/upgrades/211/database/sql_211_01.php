@@ -11,50 +11,51 @@
  * @link http://xaraya.com/index.php/release/200.html
  */
 
-function sql_211_01()
-{
-    // Define parameters
-    $table = xarDB::getPrefix() . '_modules';
+sys::import('modules.installer.class.upgrade_step');
 
-    // Define the task and result
-    $data['success'] = true;
-    $data['task'] = xarML("
-        Upgrading the core module version numbers
-    ");
-    $data['reply'] = xarML("
-        Success!
-    ");
-    $core_modules = array(
-                            'authsystem',
-                            'base',
-                            'blocks',
-                            'dynamicdata',
-                            'installer',
-                            'mail',
-                            'modules',
-                            'privileges',
-                            'roles',
-                            'themes',
-    );
-    // Run the query
-    $dbconn = xarDB::getConn();
-    try {
-        $dbconn->begin();
-        foreach ($core_modules as $core_module) {
-            $data['sql'] = "
-            UPDATE $table SET version = '2.1.1' WHERE `name` = '" . $core_module . "';
-            ";
-            $dbconn->Execute($data['sql']);
-        }
-        $dbconn->commit();
-    } catch (Exception $e) {
-        // Damn
-        $dbconn->rollback();
-        $data['success'] = false;
-        $data['reply'] = xarML("
-        Failed!
-        ");
+class sql_211_01 extends UpgradeStep
+{
+    public function __construct() {
+        parent::__construct();
+        $this->task = xarML("
+                        Upgrading the core module version numbers
+                        ");
     }
-    return $data;
+
+    public function run()
+    {    
+        // Define parameters
+        $table = xarDB::getPrefix() . '_modules';
+    
+        $core_modules = array(
+                                'authsystem',
+                                'base',
+                                'blocks',
+                                'dynamicdata',
+                                'installer',
+                                'mail',
+                                'modules',
+                                'privileges',
+                                'roles',
+                                'themes',
+        );
+        // Run the query
+        $dbconn = xarDB::getConn();
+        try {
+            $dbconn->begin();
+            foreach ($core_modules as $core_module) {
+                $data['sql'] = "
+                UPDATE $table SET version = '2.1.1' WHERE `name` = '" . $core_module . "';
+                ";
+                $dbconn->Execute($data['sql']);
+            }
+            $dbconn->commit();
+        } catch (Exception $e) {
+            // Damn
+            $dbconn->rollback();
+            $this->fail();
+        }
+        return $this->success;
+    }
 }
 ?>

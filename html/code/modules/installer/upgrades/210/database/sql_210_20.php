@@ -12,31 +12,31 @@
  * @link http://xaraya.com/index.php/release/200.html
  */
 
-function sql_210_20()
+sys::import('modules.installer.class.upgrade_step');
+
+class sql_210_20 extends UpgradeStep
 {
-    // Define parameters
-    $module_vars = xarDB::getPrefix() . '_module_vars';
-    $roles = xarDB::getPrefix() . '_roles';
-
-    // Define the task and result
-    $data['success'] = true;
-    $data['task'] = xarML("
-        Add the version build configuration variable
-    ");
-    $data['reply'] = xarML("
-        Success!
-    ");
-
-    // Run the query
-    try {
-        xarConfigVars::set(null, 'System.Core.VersionRev', xarCore::VERSION_REV);
-    } catch (Exception $e) {
-        // Damn
-        $data['success'] = false;
-        $data['reply'] = xarML("
-        Failed!
-        ");
+    public function __construct() {
+        parent::__construct();
+        $this->task = xarML("
+                        Add the version build configuration variable
+                        ");
     }
-    return $data;
+
+    public function run()
+    {    
+        // Define parameters
+        $module_vars = xarDB::getPrefix() . '_module_vars';
+        $roles = xarDB::getPrefix() . '_roles';
+    
+        // Run the query
+        try {
+            xarConfigVars::set(null, 'System.Core.VersionRev', xarCore::VERSION_REV);
+        } catch (Exception $e) {
+            // Damn
+            $this->fail();
+        }
+        return $this->success;
+    }
 }
 ?>

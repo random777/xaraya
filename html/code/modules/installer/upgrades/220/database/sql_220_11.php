@@ -10,27 +10,27 @@
  * @link http://xaraya.com/index.php/release/200.html
  */
 
-function sql_220_11()
-{
-    // Define the task and result
-    $data['success'] = true;
-    $data['task'] = xarML("
-        Create a configvar to hold the SSL port
-    ");
-    $data['reply'] = xarML("
-        Success!
-    ");
+sys::import('modules.installer.class.upgrade_step');
 
-    try {
-        xarConfigVars::set(null, 'Site.Core.SecureServerPort', 443);
-    } catch (Exception $e) {
-        // Damn
-        $dbconn->rollback();
-        $data['success'] = false;
-        $data['reply'] = xarML("
-        Failed!
-        ");
+class sql_220_11 extends UpgradeStep
+{
+    public function __construct() {
+        parent::__construct();
+        $this->task = xarML("
+                        Create a configvar to hold the SSL port
+                        ");
     }
-    return $data;
+
+    public function run()
+    {    
+        try {
+            xarConfigVars::set(null, 'Site.Core.SecureServerPort', 443);
+        } catch (Exception $e) {
+            // Damn
+            $dbconn->rollback();
+            $this->fail();
+        }
+        return $this->success;
+    }
 }
 ?>

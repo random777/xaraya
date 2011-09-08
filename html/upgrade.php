@@ -110,14 +110,15 @@ class Upgrader extends Object
 
     public static function loadFile($path)
     {
-        $checkpath = sys::code() . 'modules/installer/' . $path;
-        if (!file_exists($checkpath)) {
-            self::$errormessage = xarML("The required file '#(1)' was not found.", $checkpath);
-            return false;
+        if (file_exists($path)) {
+        } else {
+            $path = sys::code() . 'modules/installer/' . $path;
+            if (!file_exists($path)) {
+                self::$errormessage = xarML("The required file '#(1)' was not loaded.", $path);
+                return false;
+            }
         }
-        $importpath = str_replace('/','.','modules/installer/' . $path);
-        $importpath = substr($importpath,0,strlen($importpath)-4);
-        sys::import($importpath);
+        include_once($path);
         return true;
     }
 

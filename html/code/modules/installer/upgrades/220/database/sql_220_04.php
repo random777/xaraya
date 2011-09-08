@@ -10,41 +10,40 @@
  * @link http://xaraya.com/index.php/release/200.html
  */
 
-function sql_220_04()
-{
-    // Define the task and result
-    $data['success'] = true;
-    $data['task'] = xarML("
-        Initialising event system and registering subjects and observers
-    ");
-    $data['reply'] = xarML("
-        Success!
-    ");    
+sys::import('modules.installer.class.upgrade_step');
 
-    try {
-        // initialise event system
-        $systemArgs = array();
-        xarEvents::init($systemArgs);        
-        // Register base module event subjects
-        xarEvents::registerSubject('Event', 'event', 'base');
-        xarEvents::registerSubject('ServerRequest', 'server', 'base');
-        xarEvents::registerSubject('SessionCreate', 'session', 'base');
-        // Register base module event observers
-        xarEvents::registerObserver('Event', 'base');
-        // Register modules module event subjects
-        xarEvents::registerSubject('ModLoad', 'module', 'modules');
-        xarEvents::registerSubject('ModApiLoad', 'module', 'modules');
-        // Register authsystem event subjects
-        xarEvents::registerSubject('UserLogin', 'user', 'authsystem');
-        xarEvents::registerSubject('UserLogout', 'user', 'authsystem');
-    } catch (Exception $e) {
-        // Damn
-        $data['success'] = false;
-        $data['reply'] = xarML("
-        Failed!
-        ");
+class sql_220_04 extends UpgradeStep
+{
+    public function __construct() {
+        parent::__construct();
+        $this->task = xarML("
+                        Initialising event system and registering subjects and observers
+                        ");
     }
-    return $data;   
-    
+
+    public function run()
+    {    
+        try {
+            // initialise event system
+            $systemArgs = array();
+            xarEvents::init($systemArgs);        
+            // Register base module event subjects
+            xarEvents::registerSubject('Event', 'event', 'base');
+            xarEvents::registerSubject('ServerRequest', 'server', 'base');
+            xarEvents::registerSubject('SessionCreate', 'session', 'base');
+            // Register base module event observers
+            xarEvents::registerObserver('Event', 'base');
+            // Register modules module event subjects
+            xarEvents::registerSubject('ModLoad', 'module', 'modules');
+            xarEvents::registerSubject('ModApiLoad', 'module', 'modules');
+            // Register authsystem event subjects
+            xarEvents::registerSubject('UserLogin', 'user', 'authsystem');
+            xarEvents::registerSubject('UserLogout', 'user', 'authsystem');
+        } catch (Exception $e) {
+            // Damn
+            $this->fail();
+        }
+        return $this->success;
+    }
 }
 ?>

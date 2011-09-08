@@ -1,0 +1,31 @@
+<adminmenu>
+    <menuitems>
+        <menuitem>
+            <includes>
+                <includeitem>main</includeitem>
+                <includeitem>overview</includeitem>
+            </includes>
+            <target>main</target>
+            <title>Show the overview screen</title>
+            <label>Overview</label>
+        </menuitem>
+        <menuitem>
+            <mask>AdminInstaller</mask>
+            <includes>
+                <includeitem>view_status</includeitem>
+            </includes>
+            <target>view_status</target>
+            <title>Review the status of the database tables</title>
+            <label>Database Status</label>
+        </menuitem>
+        <menuitem>
+            <mask>AdminInstaller</mask>
+            <includes>
+                <includeitem>run_update</includeitem>
+            </includes>
+            <target>run_update</target>
+            <title>Choose and run an update</title>
+            <label>Run Update</label>
+        </menuitem>
+    </menuitems>
+</adminmenu>

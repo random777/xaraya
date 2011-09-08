@@ -10,45 +10,44 @@
  * @link http://xaraya.com/index.php/release/200.html
  */
 
-function sql_230_05()
+sys::import('modules.installer.class.upgrade_step');
+
+class sql_230_05 extends UpgradeStep
 {
-    // Define parameters
-    $module = 'modules';
-
-    // Define the task and result
-    $data['success'] = true;
-    $data['task'] = xarML("
-        Registering Mod* event subjects and observers
-    ");
-    $data['reply'] = xarML("
-        Success!
-    ");    
-    
-    try {
-        $systemArgs = array();
-        xarEvents::init($systemArgs);
-        // register modules module event subjects
-        xarEvents::registerSubject('ModInitialise', 'module', 'modules');
-        xarEvents::registerSubject('ModActivate', 'module', 'modules');
-        xarEvents::registerSubject('ModDeactivate', 'module', 'modules');
-        xarEvents::registerSubject('ModRemove', 'module', 'modules');
-
-        // Register modules module event observers
-        xarEvents::registerObserver('ModInitialise', 'modules');
-        xarEvents::registerObserver('ModActivate', 'modules');
-        xarEvents::registerObserver('ModDeactivate', 'modules');
-        xarEvents::registerObserver('ModRemove', 'modules');
-        
-        // Register blocks module event observers 
-        xarEvents::registerObserver('ModRemove', 'blocks');
-    } catch (Exception $e) {
-        // Damn
-        $data['success'] = false;
-        $data['reply'] = xarML("
-        Failed!
-        ");
+    public function __construct() {
+        parent::__construct();
+        $this->task = xarML("
+                        Registering Mod* event subjects and observers
+                        ");
     }
-    return $data;
-
+    // Run the query
+    public function run()
+    {        
+        // Define parameters
+        $module = 'modules';
+        
+        try {
+            $systemArgs = array();
+            xarEvents::init($systemArgs);
+            // register modules module event subjects
+            xarEvents::registerSubject('ModInitialise', 'module', 'modules');
+            xarEvents::registerSubject('ModActivate', 'module', 'modules');
+            xarEvents::registerSubject('ModDeactivate', 'module', 'modules');
+            xarEvents::registerSubject('ModRemove', 'module', 'modules');
+    
+            // Register modules module event observers
+            xarEvents::registerObserver('ModInitialise', 'modules');
+            xarEvents::registerObserver('ModActivate', 'modules');
+            xarEvents::registerObserver('ModDeactivate', 'modules');
+            xarEvents::registerObserver('ModRemove', 'modules');
+            
+            // Register blocks module event observers 
+            xarEvents::registerObserver('ModRemove', 'blocks');
+        } catch (Exception $e) {
+            // Damn
+            $this->fail();
+        }
+        return $this->success;
+    }
 }
 ?>

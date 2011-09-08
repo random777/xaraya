@@ -10,39 +10,38 @@
  * @link http://xaraya.com/index.php/release/200.html
  */
 
-function sql_220_15()
+sys::import('modules.installer.class.upgrade_step');
+
+class sql_220_15 extends UpgradeStep
 {
-    // Define parameters
-    $propertytable = xarDB::getPrefix() . '_dynamic_properties';
-    $objecttable = xarDB::getPrefix() . '_dynamic_objects';
-    
-    // Define the task and result
-    $data['success'] = true;
-    $data['task'] = xarML("
-        Adding an access property to the objects object
-    ");
-    $data['reply'] = xarML("
-        Success!
-    ");
-    
-    // Run the query
-    $dbconn  = xarDB::getConn();
-    try {
-        $dbconn->begin();
-        $query = "INSERT INTO $propertytable (name, label, object_id, type, defaultvalue, source, status, seq,configuration)
-    VALUES ('access', 'Access', 1, 2, '', '" . $objecttable . ".access', 67, 10, 'a:0:{}')";              
-        $dbconn->Execute($query);        
-        $dbconn->commit();
-        
-    } catch (Exception $e) { throw($e);
-        // Damn
-        $dbconn->rollback();
-        $data['success'] = false;
-        $data['reply'] = xarML("
-        Failed!
-        ");
+    public function __construct() {
+        parent::__construct();
+        $this->task = xarML("
+                        Adding an access property to the objects object
+                        ");
     }
-    return $data;   
-    
+
+    public function run()
+    {    
+        // Define parameters
+        $propertytable = xarDB::getPrefix() . '_dynamic_properties';
+        $objecttable = xarDB::getPrefix() . '_dynamic_objects';
+        
+        // Run the query
+        $dbconn  = xarDB::getConn();
+        try {
+            $dbconn->begin();
+            $query = "INSERT INTO $propertytable (name, label, object_id, type, defaultvalue, source, status, seq,configuration)
+        VALUES ('access', 'Access', 1, 2, '', '" . $objecttable . ".access', 67, 10, 'a:0:{}')";              
+            $dbconn->Execute($query);        
+            $dbconn->commit();
+            
+        } catch (Exception $e) { throw($e);
+            // Damn
+            $dbconn->rollback();
+            $this->fail();
+        }
+        return $this->success;
+    }
 }
 ?>

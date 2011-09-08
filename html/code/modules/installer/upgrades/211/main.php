@@ -22,25 +22,21 @@ function main_upgrade_211()
                     );
     foreach ($upgrades as $upgrade) {
         if (!Upgrader::loadFile('upgrades/211/database/' . $upgrade . '.php')) {
-            $data['upgrade']['tasks'][] = array(
+            $data['failures'][] = array(
                 'reply' => xarML('Failed!'),
                 'description' => Upgrader::$errormessage,
-                'reference' => $check,
+                'reference' => $step->getFileName(),
                 'success' => false,
             );
-            $data['upgrade']['errormessage'] = xarML('Some checks failed. Check the reference(s) above to determine the cause.');
+            $data['errormessage'] = xarML('Some checks failed. Check the reference(s) above to determine the cause.');
             continue;
         }
-        $result = $upgrade();
-        $data['upgrade']['tasks'][] = array(
-                            'reply' => $result['reply'],
-                            'description' => $result['task'],
-                            'reference' => $upgrade,
-                            'success' => $result['success'],
-                            );        
-        if (!$result['success']) {
-            $data['upgrade']['errormessage'] = xarML('Some parts of the upgrade failed. Check the reference(s) above to determine the cause.');
-//            break;
+        $classname = substr($upgrade->getFileName(),0,strlen($upgrade->getFileName()) - 4);
+        $class = new $classname();
+        $result = $class->run();
+        $data['upgrade']['tasks'][] = $class;        
+        if (!$result) {
+            $data['errormessage'] = xarML('Some parts of the upgrade failed. Check the reference(s) above to determine the cause.');
         }
     }
     return $data;

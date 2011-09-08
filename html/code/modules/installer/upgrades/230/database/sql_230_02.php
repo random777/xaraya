@@ -10,37 +10,36 @@
  * @link http://xaraya.com/index.php/release/200.html
  */
 
-function sql_230_02()
+sys::import('modules.installer.class.upgrade_step');
+
+class sql_230_02 extends UpgradeStep
 {
-    // Define parameters
-    $table = xarDB::getPrefix() . '_themes';
-    
-    // Define the task and result
-    $data['success'] = true;
-    $data['task'] = xarML("
-        Adding a configuration field to the themes table
-    ");
-    $data['reply'] = xarML("
-        Success!
-    ");
-    
-    // Run the query
-    $dbconn  = xarDB::getConn();
-    try {
-        $dbconn->begin();
-        $query = "ALTER TABLE $table ADD COLUMN configuration TEXT";              
-        $dbconn->Execute($query);        
-        $dbconn->commit();
-        
-    } catch (Exception $e) { throw($e);
-        // Damn
-        $dbconn->rollback();
-        $data['success'] = false;
-        $data['reply'] = xarML("
-        Failed!
-        ");
+    public function __construct() {
+        parent::__construct();
+        $this->task = xarML("
+                        Adding a configuration field to the themes table
+                        ");
     }
-    return $data;   
+
+    public function run()
+    {        
+        // Define parameters
+        $table = xarDB::getPrefix() . '_themes';
     
+        // Run the query
+        $dbconn  = xarDB::getConn();
+        try {
+            $dbconn->begin();
+            $query = "ALTER TABLE $table ADD COLUMN configuration TEXT";              
+            $dbconn->Execute($query);        
+            $dbconn->commit();
+            
+        } catch (Exception $e) { throw($e);
+            // Damn
+            $dbconn->rollback();
+            $this->fail();
+        }
+        return $this->success;
+    }    
 }
 ?>

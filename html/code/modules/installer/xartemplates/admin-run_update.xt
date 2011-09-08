@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+    <xar:template file="admin-mod-head"/>
+    <div class="xar-mod-body">
+    
+        <xar:foreach in="$version_data" key="$version" value="$upgrade">
+            <table style="margin-top:10px; width:100%">
+                <tr>
+                    <th style="border-bottom: dotted 1px; text-align: left">Tasks in upgrade to version #$version#</th>
+                    <th style="border-bottom: dotted 1px; width:10%; text-align: left">Result</th>
+                    <th style="border-bottom: dotted 1px; width:10%; text-align: left">Reference</th>
+                </tr>
+                <xar:if condition="empty($upgrade['tasks'])">
+                    <tr>
+                        <td colspan="3" style="text-align: center">
+                            No tasks completed
+                        </td>
+                    </tr>
+                <xar:else/>
+                    <xar:foreach in="$upgrade['tasks']" value="$task">
+                        <tr>
+                            <td>#$task:task#</td>
+                            <xar:if condition="$task->success">
+                                <xar:set name="reply_color">'green'</xar:set>
+                            <xar:else/>
+                                <xar:set name="reply_color">'red'</xar:set>
+                            </xar:if>
+                            <td style="color: #$reply_color#">#$task:reply#</td>
+                            <td>#$task:name#</td>
+                        </tr>
+                    </xar:foreach>
+                </xar:if>
+            </table>
+            
+            <xar:if condition="!empty($upgrade['failures'])">
+                <table style="margin-top:10px; width:100%">
+                    <tr>
+                        <th style="border-bottom: dotted 1px; text-align: left">Failed tasks in upgrade to version #$version#</th>
+                        <th style="border-bottom: dotted 1px; width:10%; text-align: left">Result</th>
+                        <th style="border-bottom: dotted 1px; width:10%; text-align: left">Reference</th>
+                    </tr>
+                    <xar:foreach in="$upgrade['failures']" value="$failure">
+                        <tr>
+                            <td>#$failure.description#</td>
+                            <xar:if condition="$failure.success">
+                                <xar:set name="reply_color">'green'</xar:set>
+                            <xar:else/>
+                                <xar:set name="reply_color">'red'</xar:set>
+                            </xar:if>
+                            <td style="color: #$reply_color#">#$failure.reply#</td>
+                            <td>#$failure.reference#</td>
+                        </tr>
+                    </xar:foreach>
+                </table>
+            </xar:if>
+
+            <xar:if condition="!empty($upgrade['message']) AND empty($upgrade['errormessage'])">
+                <h3>#$upgrade['message']#</h3>
+            <xar:else/>
+                <h3>#$upgrade['errormessage']#</h3>
+            </xar:if>
+        </xar:foreach>
+        Note: Some of these database changes cannot be repeated. Please do not try to use the back button on your browser to go back to the previous page or refresh this page.
+    </div>
+</xar:template>

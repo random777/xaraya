@@ -54,7 +54,7 @@
       <number unsigned="true"/>
     </column>
     <column id="module_itemvars.value" name="value">
-      <text/>
+      <longtext/>
     </column>
     <constraints>
       <primary name="module_var_id">

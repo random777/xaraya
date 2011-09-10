@@ -21,8 +21,13 @@
       <number size="1"/>
     </column>
     <column id="dynamic_configurations.configuration" name="configuration" required="true">
-      <text/>
+      <mediumtext/>
     </column>
+    <constraints>
+      <primary name="id">
+        <column ref="dynamic_configurations.id"/>
+      </primary>
+    </constraints>
     <description>End of dynamic_data</description>
   </table>
 
@@ -37,7 +42,7 @@
       <number unsigned="true"/>
     </column>
     <column id="dynamic_data.value" name="value">
-      <text/>
+      <mediumtext/>
     </column>
     <constraints>
       <primary name="id">
@@ -52,6 +57,7 @@
     </constraints>
     <description>End of dynamic_data</description>
   </table>
+  
   <table name="dynamic_objects">
     <column id="dynamic_objects.id" name="id" required="true" auto="true">
       <number unsigned="true"/>
@@ -80,6 +86,9 @@
     <column id="dynamic_objects.maxid" name="maxid" required="true">
       <number unsigned="true" default="0"/>
     </column>
+    <column id="dynamic_objects.access" name="access">
+      <text/>
+    </column>
     <column id="dynamic_objects.config" name="config">
       <text/>
     </column>
@@ -99,6 +108,7 @@
       </unique>
     </constraints>
   </table>
+  
   <table name="dynamic_properties">
     <column id="dynamic_properties.id" name="id" required="true" auto="true">
       <number unsigned="true"/>
@@ -141,6 +151,7 @@
       </unique>
     </constraints>
   </table>
+  
   <table name="dynamic_properties_def">
     <column id="dynamic_properties_def.id" name="id" required="true" auto="true">
       <number unsigned="true"/>
@@ -170,7 +181,7 @@
       <number unsigned="true" default="0"/>
     </column>
     <column id="dynamic_properties_def.args" name="args" required="true">
-      <text/>
+      <mediumtext/>
     </column>
     <column id="dynamic_properties_def.aliases" name="aliases">
       <text size="254"/>

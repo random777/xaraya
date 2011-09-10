@@ -12,7 +12,7 @@
       <text size="64"/>
     </column>
     <column id="module_vars.value" name="value">
-      <text/>
+      <longtext/>
     </column>
     <constraints>
       <primary name="id">

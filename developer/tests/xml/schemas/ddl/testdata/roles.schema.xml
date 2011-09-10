@@ -10,10 +10,10 @@
     <constraints>
       <!--ERROR: the table has no primary key-->
       <index name="i_rolememb_parentid">
-        <columnref id="rolemembers.parentid"/>
+        <column ref="rolemembers.parentid"/>
       </index>
       <index name="i_rolememb_id">
-        <columnref id="rolemembers.id"/>
+        <column ref="rolemembers.id"/>
       </index>
     </constraints>
   </table>
@@ -53,22 +53,22 @@
     </column>
     <constraints>
       <primary>
-        <columnref id="roles.id"/>
+        <column ref="roles.id"/>
       </primary>
       <index name="i_roles_uname">
-        <columnref id="roles.uname"/>
+        <column ref="roles.uname"/>
       </index>
       <index name="i_roles_type">
-        <columnref id="roles.type"/>
+        <column ref="roles.type"/>
       </index>
       <index name="i_roles_state">
-        <columnref id="roles.state"/>
+        <column ref="roles.state"/>
       </index>
       <index name="i_roles_name">
-        <columnref id="roles.name"/>
+        <column ref="roles.name"/>
       </index>
       <index name="i_roles_email">
-        <columnref id="roles.email"/>
+        <column ref="roles.email"/>
       </index>
     </constraints>
   </table>

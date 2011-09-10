@@ -30,7 +30,7 @@
                                 <xar:attribute name="decimals">
                                 #$column:getScale()?$column:getScale():0#</xar:attribute>
                             </number>
-                            <xar:else />
+                        <xar:else />
                             <number>
                                 <!-- Size should be easy, if creole has done it's job. No number without size -->
                                 <xar:attribute name="size">#$column:getSize()#</xar:attribute>
@@ -64,43 +64,43 @@
                 </column>
             </xar:foreach>
             <constraints>
-                <!-- Primary keys -->
-                <xar:set name="primary">#$table:getPrimaryKey()#</xar:set>
-                <xar:if condition="is_object($primary)">
-                    <primary name="#$primary:getName()#">
-                        <xar:foreach in="$primary:getColumns()" value="$primColumn">
-              <columnref id="#$tablename#.#$primColumn:getName()#" />
-                        </xar:foreach>
-                    </primary>
-                    <xar:else />
-                    <xar:comment>ERROR: the table has no primary key</xar:comment>
+              <!-- Primary keys -->
+              <xar:set name="primary">#$table:getPrimaryKey()#</xar:set>
+              <xar:if condition="is_object($primary)">
+                <primary name="#$primary:getName()#">
+                  <xar:foreach in="$primary:getColumns()" value="$primColumn">
+                    <columnref id="#$tablename#.#$primColumn:getName()#" />
+                  </xar:foreach>
+                </primary>
+              <xar:else />
+              <xar:comment>ERROR: the table has no primary key</xar:comment>
+            </xar:if>
+            <!-- Indexes -->
+            <xar:set name="indexes">#$table:getIndexes()#</xar:set>
+              <xar:foreach in="$indexes" value="$index">
+                <xar:set name="indexname">#$index:getName()#</xar:set>
+                <xar:if condition="strpos($indexname, $tableprefix) === 0">
+                  <xar:set name="indexname">substr($indexname,strlen($tableprefix)+1)</xar:set>
                 </xar:if>
-                <!-- Indexes -->
-                <xar:set name="indexes">#$table:getIndexes()#</xar:set>
-                <xar:foreach in="$indexes" value="$index">
-          <xar:set name="indexname">#$index:getName()#</xar:set>
-          <xar:if condition="strpos($indexname, $tableprefix) === 0">
-            <xar:set name="indexname">substr($indexname,strlen($tableprefix)+1)</xar:set>
-          </xar:if>
-                    <xar:if condition="$index:isUnique()">
-            <unique name="#$indexname#">
-                            <xar:foreach in="#$index:getColumns()#" value="$indexColumn">
-                <xar:if condition="strpos($tablename, $tableprefix) === 0">
-                  <xar:set name="tablename">substr($tablename,strlen($tableprefix)+1)</xar:set>
+                <xar:if condition="$index:isUnique()">
+                  <unique name="#$indexname#">
+                    <xar:foreach in="#$index:getColumns()#" value="$indexColumn">
+                      <xar:if condition="strpos($tablename, $tableprefix) === 0">
+                        <xar:set name="tablename">substr($tablename,strlen($tableprefix)+1)</xar:set>
+                      </xar:if>
+                      <columnref id="#$tablename#.#$indexColumn:getName()#" />
+                    </xar:foreach>
+                  </unique>
+                <xar:else />
+                  <index  name="#$indexname#">
+                    <xar:foreach in="#$index:getColumns()#" value="$indexColumn">
+                      <columnref id="#$tablename#.#$indexColumn:getName()#" />
+                    </xar:foreach>
+                  </index>
                 </xar:if>
-                <columnref id="#$tablename#.#$indexColumn:getName()#" />
-                            </xar:foreach>
-                        </unique>
-                        <xar:else />
-            <index  name="#$indexname#">
-                            <xar:foreach in="#$index:getColumns()#" value="$indexColumn">
-                <columnref id="#$tablename#.#$indexColumn:getName()#" />
-                            </xar:foreach>
-                        </index>
-                    </xar:if>
-                </xar:foreach>
+              </xar:foreach>
             </constraints>
-      <description>End of #$tablename#</description>
+            <description>End of #$tablename#</description>
         </table>
     </xar:foreach>
 </schema>

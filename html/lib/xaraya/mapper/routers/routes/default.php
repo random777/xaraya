@@ -36,6 +36,7 @@ class DefaultRoute extends xarRoute
                             'func'   => 'main',
                                 );
         parent::__construct($defaults, $dispatcher);
+        $this->name = "default";
     }
 
     public function match(xarRequest $request, $partial=false)
@@ -79,8 +80,7 @@ class DefaultRoute extends xarRoute
         
         $this->parts['params'] = $params;
         
-        $request->setRoute('default');
-        return true;
+        return $this->routeMatched($request);
     }
 }
 ?>

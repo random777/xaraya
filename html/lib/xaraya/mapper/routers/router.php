@@ -49,8 +49,8 @@ class xarRouter extends Object
     {
         $this->addDefaultRoutes();
         foreach (array_reverse($this->routes) as $name => $route) {
-            if ($params = $route->match($request)) {
-                $request->setRoute($name);
+            if ($route->match($request)) {
+                $request->setRoute($route);
                 $this->currentRoute = $name;
                 return true;
             }
@@ -78,7 +78,7 @@ class xarRouter extends Object
 
     public function getRoute($name=null)
     {
-        if (null == $name) return $this->currentRoute;
+        if (null == $name) $name = $this->currentRoute;
         return $this->routes[$name];
     }
 

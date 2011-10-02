@@ -9,8 +9,6 @@
     </xar:if>
     <!-- 
     <xar:if condition="xarModVars::get('dynamicdata','use_module_icons')">
-        <!-- we already have an icon in admin-view -->
-        <!-- indeed we do -->
             <a href="#xarModURL('dynamicdata','admin','new')#" title="Create New Data Object">
                 <xar:img scope="theme" file="icons/add.png" class="xar-icon" alt="new"/>
             </a>

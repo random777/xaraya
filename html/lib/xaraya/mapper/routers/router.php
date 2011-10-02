@@ -28,21 +28,35 @@ class xarRouter extends Object
     public function addDefaultRoutes()
     {
         if (empty($this->routes['default'])) {
+            sys::import('xaraya.structures.relativedirectoryiterator');
+            $routesdir = 'xaraya/mapper/routers/routes';
+            $dir = new RelativeDirectoryIterator(sys::lib() . $routesdir);
+    
             $dispatcher = xarController::getDispatcher();
-
-            sys::import('xaraya.mapper.routers.routes.default');
-            $route = new DefaultRoute(array(), $dispatcher);
-            $this->routes['default'] = $route;
-
-            sys::import('xaraya.mapper.routers.routes.short');
-            $route = new ShortRoute(array(), $dispatcher);
-            $this->routes['short'] = $route;
-
-            /* Add more routes here
-            */
+            
+            // Loop through the routes directory
+            for ($dir->rewind();$dir->valid();$dir->next()) {
+                if ($dir->isDir()) continue; // no dirs
+                if ($dir->getExtension() != 'php') continue; // only php files
+                if ($dir->isDot()) continue; // others we don't want
+    
+                $file = $dir->getPathName();
+                if (!isset($loaded[$file])) {
+                    $filename = substr(basename($file),0,-4);
+                    $route = str_replace('/','.',$routesdir . "/" . $filename);
+                    try {
+                        sys::import($route);
+                        $classname = UCFirst($filename).'Route';
+                        $this->routes[$filename] = new $classname(array(), $dispatcher);
+                        
+                    } catch (Exception $e) {
+                        throw new Exception(xarML('The file #(1) could not be loaded', $route . '.php'));
+                    }
+                    $loaded[$file] = true;
+                }
+            }
         }
-        
-        return $this;
+        return true;
     }
 
     public function route(xarRequest $request)

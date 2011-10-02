@@ -13,7 +13,7 @@
  * @author Marc Lutolf <mfl@netspan.ch>
 **/
 
-sys::import('xaraya.mapper.routers.routes.interfaces');
+sys::import('xaraya.mapper.routers.interfaces');
 
 class xarRoute extends Object implements iRoute
 {

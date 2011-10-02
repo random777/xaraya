@@ -24,7 +24,7 @@
  * 4. The order of the params is irrelvant
 **/
 
-sys::import('xaraya.mapper.routers.routes.base');
+sys::import('xaraya.mapper.routers.base');
 
 class DefaultRoute extends xarRoute
 {

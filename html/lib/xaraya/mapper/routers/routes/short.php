@@ -27,7 +27,7 @@
  * 7. Further key/value pairs can be added after the "?"
 **/
 
-sys::import('xaraya.mapper.routers.routes.base');
+sys::import('xaraya.mapper.routers.base');
 
 class ShortRoute extends xarRoute
 {

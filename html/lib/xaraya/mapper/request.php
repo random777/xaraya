@@ -204,21 +204,33 @@ class xarRequest extends Object
             $regex = ValueValidations::get('regexp');
         }
         if (isset($params['module'])) {
-            $isvalid =  $regex->validate($params['module'], array('/^[a-z][a-z_0-9]*$/'));
+            try {
+                $isvalid =  $regex->validate($params['module'], array('/^[a-z][a-z_0-9]*$/'));
+            } catch (Exception $e) {
+                $isvalid =  false;
+            }
             $modName = $isvalid ? $params['module'] : null;
         } else {
             $modName = null;
         }
         
         if (isset($params['type'])) {
-            $isvalid =  $regex->validate($params['type'], array('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/'));
+            try {
+                $isvalid =  $regex->validate($params['type'], array('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/'));
+            } catch (Exception $e) {
+                $isvalid =  false;
+            }
             $modType = $isvalid ? $params['type'] : $this->getType();
         } else {
             $modType = $this->getType();
         }
 
         if (isset($params['func'])) {
-            $isvalid =  $regex->validate($params['func'], array('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/'));
+            try {
+                $isvalid =  $regex->validate($params['func'], array('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/'));
+            } catch (Exception $e) {
+                $isvalid =  false;
+            }
             $funcName = $isvalid ? $params['func'] : $this->getFunction();
         } else {
             $funcName = $this->getFunction();

@@ -78,9 +78,11 @@ class xarRequest extends Object
             // We now have a URL. Set it.
             $this->url = $url;
             
-            if (!empty($params['module'])) $this->setModule($params['module']);
-            if (!empty($params['type'])) $this->setType($params['type']);
-            if (!empty($params['func'])) $this->setFunction($params['func']);
+            $parts = $this->validate($params);
+
+            if (!empty($parts[0])) $this->setModule($parts[0]);
+            if (!empty($parts[1])) $this->setType($parts[1]);
+            if (!empty($parts[2])) $this->setFunction($parts[2]);
 
             // See if this is an object call; easiest to start like this 
             xarVarFetch('object', 'regexp:/^[a-z][a-z_0-9]*$/', $objectName, NULL, XARVAR_NOT_REQUIRED);

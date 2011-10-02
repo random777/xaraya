@@ -167,6 +167,7 @@ class xarRequest extends Object
 
         if (!empty($parts[0])) {
             // We found a module
+            // Type and func were either found or the defauts added. We can move on
             $info = $parts;
             return $info;
         }
@@ -188,9 +189,9 @@ class xarRequest extends Object
     // ---------------------------------------
         // Still no valid URL; return the default values
         if (empty($this->defaultRequestInfo)) {
-            $this->defaultRequestInfo = array(xarModVars::get('modules', 'defaultmodule'),
-                                              xarModVars::get('modules', 'defaultmoduletype'),
-                                              xarModVars::get('modules', 'defaultmodulefunction'));
+            $this->defaultRequestInfo = array($this->getModule(),
+                                              $this->getType(),
+                                              $this->getFunction());
         }
         return $this->defaultRequestInfo;
     }
@@ -207,20 +208,18 @@ class xarRequest extends Object
             $modName = null;
         }
         
-        $defaultvalue = xarModVars::get('modules', 'defaultmoduletype');
         if (isset($params['type'])) {
             $isvalid =  $regex->validate($params['type'], array('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/'));
-            $modType = $isvalid ? $params['type'] : $defaultvalue;
+            $modType = $isvalid ? $params['type'] : $this->getType();
         } else {
-            $modType = $defaultvalue;
+            $modType = $this->getType();
         }
 
-        $defaultvalue = xarModVars::get('modules', 'defaultmodulefunction');
         if (isset($params['func'])) {
             $isvalid =  $regex->validate($params['func'], array('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/'));
-            $funcName = $isvalid ? $params['func'] : $defaultvalue;
+            $funcName = $isvalid ? $params['func'] : $this->getFunction();
         } else {
-            $funcName = $defaultvalue;
+            $funcName = $this->getFunction();
         }
         return array($modName,$modType,$funcName);
     }

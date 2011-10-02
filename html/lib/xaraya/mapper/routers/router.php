@@ -27,7 +27,7 @@ class xarRouter extends Object
 
     public function addDefaultRoutes()
     {
-        if (empty($this->routes['default'])) {
+        if (empty($this->routes)) {
             sys::import('xaraya.structures.relativedirectoryiterator');
             $routesdir = 'xaraya/mapper/routers/routes';
             $dir = new RelativeDirectoryIterator(sys::lib() . $routesdir);
@@ -47,8 +47,7 @@ class xarRouter extends Object
                     try {
                         sys::import($route);
                         $classname = UCFirst($filename).'Route';
-                        $this->routes[$filename] = new $classname(array(), $dispatcher);
-                        
+                        $this->routes[$filename] = new $classname(array(), $dispatcher);                        
                     } catch (Exception $e) {
                         throw new Exception(xarML('The file #(1) could not be loaded', $route . '.php'));
                     }

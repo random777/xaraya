@@ -79,10 +79,12 @@ class xarRequest extends Object
             $this->url = $url;
             
             // Get hte current route
-            // $router = xarController::getRouter();
-            // $router->route($this);
-            // var_dump($this->route);exit;
+            $router = xarController::getRouter();
+            $router->route($this);
             
+            
+            // var_dump($this->route);exit;
+            /*
             $parts = $this->validate($params);
 
             if (!empty($parts[0])) $this->setModule($parts[0]);
@@ -135,7 +137,7 @@ class xarRequest extends Object
             $this->setFunctionArgs($params);
             // At this point the request has assembled the module or object it belongs to and any query parameters.
             // What is still to be defined by routing are the type (for modules) and function/function arguments or method (for objects).            
-        }
+        */}
     }
     
     /**

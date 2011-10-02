@@ -78,6 +78,11 @@ class xarRequest extends Object
             // We now have a URL. Set it.
             $this->url = $url;
             
+            // Get hte current route
+            // $router = xarController::getRouter();
+            // $router->route($this);
+            // var_dump($this->route);exit;
+            
             $parts = $this->validate($params);
 
             if (!empty($parts[0])) $this->setModule($parts[0]);

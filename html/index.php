@@ -60,6 +60,7 @@ function xarMain()
 
     // Create the object that models this request
     $request = xarController::getRequest();
+    // Find the route we will use
     xarController::normalizeRequest();
 
     // Default Page Title

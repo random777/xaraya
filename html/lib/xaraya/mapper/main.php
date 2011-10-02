@@ -232,6 +232,7 @@ class xarController extends Object
         if (null == self::$router) {
             sys::import('xaraya.mapper.routers.router');
             self::setRouter(new xarRouter());
+            self::$router->addDefaultRoutes();
         }
         return self::$router;
     }
@@ -286,7 +287,8 @@ class xarController extends Object
         // deprecate the per module shorturl setting in favour of a dropdown of routes too :-?
         /*
         if (xarMod::$genShortUrls) {
-            $request->setRoute('short');
+            $route = new ShortRoute(array(), self::$dispatcher);
+            $request->setRoute($route);
         } else {
             $router = self::getRouter();
             $request->setRoute($router->getRoute());

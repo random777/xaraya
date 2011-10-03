@@ -28,7 +28,7 @@ class xarRequest extends Object
     protected $funcargs  = array();
     protected $object    = 'objects';
     protected $method    = 'view';
-    protected $route     = 'default';
+    protected $route     = null;
     
     public $defaultRequestInfo = array();
     public $isObjectURL        = false;
@@ -78,10 +78,9 @@ class xarRequest extends Object
             // We now have a URL. Set it.
             $this->url = $url;
             
-            // Get hte current route
+            // Get the current route
             $router = xarController::getRouter();
             $router->route($this);
-            
             
             // var_dump($this->route);exit;
             /*

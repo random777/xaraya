@@ -61,14 +61,20 @@ class xarRouter extends Object
     public function route(xarRequest $request)
     {
         $this->addDefaultRoutes();
+        $found = false;
         foreach (array_reverse($this->routes) as $name => $route) {
             if ($route->match($request)) {
-                $request->setRoute($route);
-                $this->currentRoute = $name;
-                return true;
+                $found = true;
+                break;
             }
         }
-        return false;
+        if (!$found) {
+            $name = xarConfigVars::get(null,'Site.Core.EnableShortURLsSupport');
+            $route = $this->routes[$name];
+        }
+        $request->setRoute($route);
+        $this->currentRoute = $name;
+        return true;
     }
 
     public function assemble($userParams=array(), $name=null, $reset=false, $encode=true)

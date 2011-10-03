@@ -69,7 +69,7 @@ class xarRouter extends Object
             }
         }
         if (!$found) {
-            $name = xarConfigVars::get(null,'Site.Core.EnableShortURLsSupport');
+            $name = xarConfigVars::get(null,'Site.Core.DefaultRoute');
             $route = $this->routes[$name];
         }
         $request->setRoute($route);

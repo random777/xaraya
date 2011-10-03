@@ -255,7 +255,7 @@
                         </div>
                     	<div class="xar-col">
                             <xar:set name="value">
-                                <xar:var scope="config" name="Site.Core.EnableShortURLsSupport"/>
+                                <xar:var scope="config" name="Site.Core.DefaultRoute"/>
                             </xar:set>
                             <xar:var name="firstline">Automatic</xar:var>
                             <xar:set name="firstline">"'',$firstline"</xar:set>
@@ -266,7 +266,7 @@
                                     array('id' => 'short', 'name' => xarML('Short URLs')),
                                 )
                             </xar:set>
-                            <xar:data-input type="dropdown" name="shorturl" id="shorturl" value="$value" options="$options"/>
+                            <xar:data-input type="dropdown" name="defaultroute" id="defaultroute" value="$value" options="$options"/>
                             &#160;
                             <a href="#xarModURL('base','admin','htaccess')#">Edit the htaccess file</a>
                         </div>

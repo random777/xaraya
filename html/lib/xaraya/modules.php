@@ -195,7 +195,7 @@ interface IxarMod
  */
 class xarMod extends Object implements IxarMod
 {
-    static $genShortUrls = false;
+    static $defaultRoute = null;
     static $genXmlUrls   = true;
 
     /**
@@ -204,7 +204,7 @@ class xarMod extends Object implements IxarMod
      */
     static function init(Array $args=array())
     {
-        self::$genShortUrls = $args['enableShortURLsSupport'];
+        self::$defaultRoute = $args['defaultRoute'];
         self::$genXmlUrls   = $args['generateXMLURLs'];
 
         // Register the events for this subsystem

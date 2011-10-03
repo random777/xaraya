@@ -31,9 +31,9 @@ class DefaultRoute extends xarRoute
     public function __construct(Array $defaults=array(), xarDispatcher $dispatcher=null)
     {
         $this->defaults += array(
-                            'module' => 'base',
-                            'type'   => 'user',
-                            'func'   => 'main',
+                            'module' => xarController::$module,
+                            'type'   => xarController::$type,
+                            'func'   => xarController::$func,
                                 );
         parent::__construct($defaults, $dispatcher);
         $this->name = "default";

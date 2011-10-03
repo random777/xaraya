@@ -248,19 +248,9 @@
                     <legend>General Display Options</legend>
                     <div class="xar-row">
                     	<div class="xar-col">
-                        <!--
-                            <xar:var name="label">Enable short url support throughout Xaraya.</xar:var>
+                            <xar:var name="label">Define the default type for URL requests</xar:var>
                             <label for="shorturl" title="#$label#" class="xar-form-label">
-                                Enable Short URL Support
-                            </label>
-                            <xar:set name="checked">
-                                <xar:var scope="config" name="Site.Core.EnableShortURLsSupport"/>
-                            </xar:set>
-                            <xar:data-input type="checkbox" name="shorturl" id="shorturl" checked="$checked"/>
-                        -->
-                            <xar:var name="label">Enable short url support throughout Xaraya.</xar:var>
-                            <label for="shorturl" title="#$label#" class="xar-form-label">
-                                Default Route
+                                Default Request Type
                             </label>
                         </div>
                     	<div class="xar-col">

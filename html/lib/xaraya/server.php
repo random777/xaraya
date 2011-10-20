@@ -134,7 +134,7 @@ class xarServer extends Object
     const PROTOCOL_HTTP  = 'http';
     const PROTOCOL_HTTPS = 'https';
 
-    public static $allowShortURLs = true;
+    public static $defaultRoute = true;
     public static $generateXMLURLs = true;
 
     /**
@@ -143,7 +143,7 @@ class xarServer extends Object
      */
     static function init(Array $args=array())
     {
-        self::$allowShortURLs = $args['enableShortURLsSupport'];
+        self::$defaultRoute = $args['defaultRoute'];
         self::$generateXMLURLs = $args['generateXMLURLs'];
         // This event is now registered during base module init        
         //xarEvents::register('ServerRequest');

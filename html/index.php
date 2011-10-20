@@ -60,6 +60,7 @@ function xarMain()
 
     // Create the object that models this request
     $request = xarController::getRequest();
+    // Find the route we will use
     xarController::normalizeRequest();
 
     // Default Page Title
@@ -75,7 +76,7 @@ function xarMain()
             xarVarSetCached('Themes.name','CurrentTheme', $themeName);
         }
     // admin theme 
-    } elseif (xarUserIsLoggedIn() && $request->getType() == 'admin') {
+    } elseif (xarUserIsLoggedIn() && strtolower($request->getType()) == 'admin') {
         $themeName = xarModVars::get('themes', 'admin_theme');
         if (!empty($themeName) && xarThemeIsAvailable($themeName)) {
             $themeName = xarVarPrepForOS($themeName);
@@ -144,18 +145,18 @@ function xarMain()
         xarEvents::notify('ServerRequest');
         
         // Set page template
-        if (xarUserIsLoggedIn() && $request->getType() == 'admin' && xarTpl::getPageTemplateName() == 'default') {
+        if (xarUserIsLoggedIn() && strtolower($request->getType()) == 'admin' && xarTpl::getPageTemplateName() == 'default') {
              // Use the admin-$modName.xt page if available when $modType is admin
             // falling back on admin.xt if the former isn't available
             if (!xarTpl::setPageTemplateName('admin-'.$request->getModule())) {
                 xarTpl::setPageTemplateName('admin');
             }
-        } elseif (xarUserIsLoggedIn() && $request->getType() == 'user' && xarTpl::getPageTemplateName() == 'default') {
+        } elseif (xarUserIsLoggedIn() && strtolower($request->getType()) == 'user' && xarTpl::getPageTemplateName() == 'default') {
             // Same thing for user side where user is logged in
             if (!xarTpl::setPageTemplateName('user-'.$request->getModule())) {
                 xarTpl::setPageTemplateName('user');
             }
-        } elseif ($request->getType() == 'user' && xarTplGetPageTemplateName() == 'default') {
+        } elseif (strtolower($request->getType()) == 'user' && xarTplGetPageTemplateName() == 'default') {
             // For the anonymous user, see if a module specific page exists
             if (!xarTplSetPageTemplateName('user-'.$request->getModule())) {
                 xarTplSetPageTemplateName($request->getModule());

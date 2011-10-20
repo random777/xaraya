@@ -40,7 +40,7 @@ class xarController extends Object
      */
     static function init(Array $args=array())
     {
-        self::$allowShortURLs = $args['enableShortURLsSupport'];
+//        self::$allowShortURLs = $args['enableShortURLsSupport'];
 
         // The following allows you to modify the BaseModURL from the config file
         // it can be used to configure Xaraya for mod_rewrite by
@@ -237,6 +237,7 @@ class xarController extends Object
         if (null == self::$router) {
             sys::import('xaraya.mapper.routers.router');
             self::setRouter(new xarRouter());
+            self::$router->addDefaultRoutes();
         }
         return self::$router;
     }
@@ -290,8 +291,9 @@ class xarController extends Object
         // assuming multiple routes aren't in use, of course, although we could perhaps
         // deprecate the per module shorturl setting in favour of a dropdown of routes too :-?
         /*
-        if (xarMod::$genShortUrls) {
-            $request->setRoute('short');
+        if (xarMod::$defaultRoute == 'short') {
+            $route = new ShortRoute(array(), self::$dispatcher);
+            $request->setRoute($route);
         } else {
             $router = self::getRouter();
             $request->setRoute($router->getRoute());

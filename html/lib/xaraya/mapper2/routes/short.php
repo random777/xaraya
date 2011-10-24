@@ -56,7 +56,8 @@ class ShortRoute extends BaseRoute
                 $url->setFunc('view');
             }
             $url->setPath($path);
-            $url->setDispatcher('object');
+            $url->setArgs($url->getQuery());
+            $url->setDispatcher('object');            
             return $url;
         }
             
@@ -102,6 +103,7 @@ class ShortRoute extends BaseRoute
             $url->setType('user');
             $url->setFunc('main');
         }
+        $url->setArgs($url->getQuery());
         $url->setDispatcher('default');
         return $url;        
     }

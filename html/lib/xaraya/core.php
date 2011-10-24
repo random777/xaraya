@@ -415,7 +415,7 @@ function xarCoreInit($whatToLoad = xarCore::SYSTEM_ALL)
         $systemArgs = array('defaultRoute' => xarConfigVars::get(null, 'Site.Core.DefaultRoute'),
                             'generateXMLURLs' => true);
         xarServer::init($systemArgs);
-        sys::import('xaraya.mapper.main');
+        sys::import('xaraya.mapper2.controller');
         xarController::init($systemArgs);
     //    xarController::$response->init($systemArgs);
     

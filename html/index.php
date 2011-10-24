@@ -58,6 +58,9 @@ function xarMain()
     // Load the core with all optional systems loaded
     xarCoreInit(XARCORE_SYSTEM_ALL);
 
+    // mapper2: 
+    //$request = xarController::getRequest();
+
     // Create the object that models this request
     $request = xarController::getRequest();
     // Find the route we will use
@@ -120,11 +123,13 @@ function xarMain()
         if (xarCoreIsDebuggerActive()) {
             ob_start();
         }
-
+        
         // Process the request
         xarController::dispatch($request);
         // Retrieve the output to send to the browser
-        $mainModuleOutput = xarController::$response->getOutput();
+        //$mainModuleOutput = xarController::$response->getOutput();
+        // mapper2:
+        $mainModuleOutput = $request->getResponse()->getOutput();
 
         if (xarCoreIsDebuggerActive()) {
             if (ob_get_length() > 0) {

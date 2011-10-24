@@ -26,6 +26,7 @@ class xarUrl2 extends Object implements ixarUrl
 
     protected $decoder;
     protected $encoder;
+    protected $dispatcher;
 
 /**
  * constructor
@@ -81,6 +82,16 @@ class xarUrl2 extends Object implements ixarUrl
     public function getEncoder()
     {
         return $this->encoder;
+    }
+
+    public function setDispatcher($dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+    
+    public function getDispatcher()
+    {
+        return $this->dispatcher;
     }
 
 /**

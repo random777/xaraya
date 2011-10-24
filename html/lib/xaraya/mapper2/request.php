@@ -36,16 +36,6 @@ class xarRequest extends xarUrl2 implements ixarRequest
     {
         $this->dispatched = (bool) $flag;
     }
-
-    public function setDispatcher($dispatcher)
-    {
-        $this->dispatcher = $dispatcher;
-    }
-    
-    public function getDispatcher()
-    {
-        return $this->dispatcher;
-    }
     
     public function getInfo()
     {            

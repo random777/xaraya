@@ -44,8 +44,22 @@ class ShortRoute extends BaseRoute
         $path = $url->getPath();
         // no path parts, not ours
         if (empty($path)) return;
-        // if the first path part is object it's shortobject's job to sort it out
-        if ($path[0] == 'object') return;
+        // try decoding object shorturl
+        if ($path[0] == 'object' && !empty($path[1])) {
+            $url->setModule($path[0]);
+            $url->setType($path[1]);
+            if (!empty($path[2])) {
+                $url->setFunc($path[2]);
+                if ($path[2] == 'view')
+                    unset($path[2]);
+            } else {
+                $url->setFunc('view');
+            }
+            $url->setPath($path);
+            $url->setDispatcher('object');
+            return $url;
+        }
+            
         // first path part is module or alias   
         $alias = $path[0];
         $module = xarModAlias::resolve($alias);

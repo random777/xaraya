@@ -50,19 +50,19 @@ interface ixarRequest extends ixarUrl
 
 interface ixarRouter
 {
-    function __construct($routes);
     function encode(ixarUrl $url);
     function decode(ixarUrl $url);
     function attach(ixarRoute $route);
     function detach(ixarRoute $route);
     function isAttached($name);
     function getRoute($name);
+    function loadRoute($route);
 }
 
-interface ixarRoute
+interface ixarRoute extends ixarRouter
 {
-    function encode(ixarUrl $url);
-    function decode(ixarUrl $url);
+    function getName();
+    function getDispatcher();
 }
 
 interface ixarDispatcher

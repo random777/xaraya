@@ -7,7 +7,20 @@ class DefaultRoute extends BaseRoute
     
     public function encode(ixarUrl $url)
     {
-        // set default params 
+        // try object encoding first
+        if ($url->getModule() == 'object') {
+            // set default params 
+            $query = array('object' => $url->getType(), 'method' => $url->getFunc());
+            // merge any function args 
+            $query += $url->getArgs();
+            // remove unnecessary params
+            if ($url->getFunc() == 'view')
+                unset($query['method']);        
+            // set query params 
+            $url->setQuery($query);
+            return $url;
+        }
+        // not an object, default encoding 
         $query = array('module' => $url->getModule(), 'type' => $url->getType(), 'func' => $url->getFunc());
         // merge any function args 
         $query += $url->getArgs();
@@ -23,8 +36,28 @@ class DefaultRoute extends BaseRoute
     
     public function decode(ixarUrl $url)
     {
-        $args = $url->getQuery();
         // try setting decoded params from query 
+        $args = $url->getQuery();
+
+        // try object decode first
+        if (!empty($args['object'])) {
+            $url->setModule('object');
+            $url->setType($args['object']);
+            unset($args['object']);
+            if (!empty($args['method'])) {
+                $url->setFunc($args['method']);
+                unset($args['method']);
+            } else {
+                $url->setFunc('view');
+            }
+            // set function arguments
+            $url->setArgs($args);
+            // set object dispatcher
+            $url->setDispatcher('object');
+            return $url;
+        }
+
+        // not an object, must be a module 
         if (!empty($args['module'])) {
             $url->setModule($args['module']);
             unset($args['module']);
@@ -55,6 +88,8 @@ class DefaultRoute extends BaseRoute
             $url->setFunc('main');                   
         // set function arguments
         $url->setArgs($args);
+        // set default dispatcher
+        $url->setDispatcher('default');
         return $url;        
     }
 }

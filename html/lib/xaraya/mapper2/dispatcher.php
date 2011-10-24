@@ -9,7 +9,7 @@ class xarDispatcher extends Object
         if ($request->isDispatched())
             return $request->getResponse()->getOutput();
         // get the dispatcher the decoding route uses 
-        $dispatcher = xarController::getRouter()->getRoute($request->getDecoder())->getDispatcher();
+        $dispatcher = $request->getDispatcher();
         sys::import('xaraya.mapper2.dispatchers.'.$dispatcher);
         $responseClass = ucfirst($dispatcher).'Dispatcher';
         $response = new $responseClass();

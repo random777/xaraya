@@ -3,10 +3,11 @@
  * The Router
  * Responsible for actioning routing requests
 **/
-class xarRouter extends Object
+class xarRouter extends Object implements ixarRouter
 {
     private $routes;    
     private $suffix = 'Route';
+    protected $defaultroute;
 
 /**
  * constructor
@@ -16,18 +17,12 @@ class xarRouter extends Object
 **/ 
     public function __construct($routes=array())
     {
-        // attach any routes supplied in the order they were given 
-        foreach ($routes as $route) {
-            sys::import('xaraya.mapper2.routes.'.$route);
-            $routeCls = ucfirst($route).$this->suffix;
-            $this->attach(new $routeCls());
-        }
-        // the default route is always available
-        if (!$this->isAttached('default')) {
-            sys::import('xaraya.mapper2.routes.default');
-            $routeCls = 'Default'.$this->suffix;
-            $this->attach(new $routeCls());
-        }
+        $this->defaultroute = xarConfigVars::get(null, 'Site.Core.DefaultRoute');
+        // attach any routes supplied in the order they were given (used when decoding) 
+        foreach ($routes as $route) 
+            $this->loadRoute($route);
+        // the default route is always available        
+        $this->loadRoute('default');
     }
 
 /**
@@ -38,10 +33,18 @@ class xarRouter extends Object
 **/    
     public function encode(ixarUrl $url)
     {
-        // try each route in turn, break on first positive response
+        // we want to keep encoding as tight as possible 
+        // if the default encoding is available, use it 
+        if ($this->isAttached($this->defaultroute)) {
+            if ($this->getRoute($this->defaultroute)->encode($url)) {
+                $url->setEncoder($this->defaultroute);
+                return $url;
+            }
+        }
+        // if default encode failed, try the others for a match 
         foreach ($this->routes as $route) 
             if ($route->encode($url)) {
-                $url->setEncoder($route->getName());            
+                $url->setEncoder($route->getName());           
                 break;
             }
         // pass back the url object
@@ -55,6 +58,7 @@ class xarRouter extends Object
 **/      
     public function decode(ixarUrl $url)
     {
+        // we want to keep decoding as loose as possible 
         // try each route in turn, break on first positive response
         foreach ($this->routes as $route) 
             if ($route->decode($url)) {
@@ -86,6 +90,33 @@ class xarRouter extends Object
     {
         if (!$this->isAttached($name)) return;
         return $this->routes[$name];
+    }
+
+    public function loadRoute($route)
+    {
+        if (!$this->isAttached($route)) {
+            try {
+                sys::import("xaraya.mapper2.routes.$route");
+                $routeClass = ucfirst($route).$this->suffix;
+                if (class_exists($routeClass) && is_subclass_of($routeClass, 'ixarRoute'))
+                    $this->attach(new $routeClass());
+            } catch (Exception $e) { }
+        }
+        return $this->isAttached($route);
+    }
+    
+    public static function getFiles()
+    {
+        static $files = array();
+        if (!empty($files)) return $files;
+        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator(sys::lib().'xaraya/mapper2/routes')) as $file) {
+            if ($file->isDir() || 
+                pathinfo($file, PATHINFO_EXTENSION) != 'php' ||
+                $file->getBaseName('.php') == 'base') continue;
+            $route = $file->getBaseName('.php');
+            $files[$route] = "xaraya.mapper2.routes.$route";
+        }
+        return $files;
     }
 }
 ?>

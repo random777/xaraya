@@ -20,7 +20,7 @@
             </xar:foreach>
         </ul>
         <h3>#$tabs[$tab]['label']#</h3>   
-        <form action="#xarModUrl('base', 'admin', 'mapper')#" method="post">
+        <form action="#xarModUrl('base', 'admin', 'mapper')#" method="#$formaction#">
 
             <xar:if condition="$tab eq 'decode'">
                 <fieldset>
@@ -88,7 +88,9 @@
                     </div>
                     </fieldset>
                 </xar:if>
+
             <xar:elseif condition="$tab eq 'encode'"/>
+
                 <fieldset>
                     <legend>Encode URL</legend>
                     <div class="xar-row">
@@ -139,6 +141,15 @@
                             <input type="text" name="encode_entrypoint" id="encode_entrypoint" value="#$encode_entrypoint#" class="xar-form-textlong"/>
                         </div>
                     </div> 
+                    <div class="xar-row">
+                        <div class="xar-col">
+                            <label for="encode_route" title="Select route to use for encoding">Route:</label>
+                        </div>
+                        <div class="xar-col">
+                            <xar:data-input type="dropdown" name="encode_route" id="encode_route" value="$encode_route" options="$routes" class="xar-form-textlong"/>
+                        </div>
+                    </div> 
+
                 </fieldset>
                 <xar:var name="submitLabel">Encode</xar:var>
                 <xar:if condition="!empty($encoded)">
@@ -160,109 +171,42 @@
                         </div>
                     </div>
                 </xar:if>                                          
+
+            <xar:elseif condition="$tab eq 'config'"/>
+
+                <fieldset>
+                    <legend>Mapper Encoding</legend>
+                    <div class="xar-row">
+                        <div class="xar-col">
+                            <label for="default_route" title="Select the default route to use when encoding urls">Default Route:</label>
+                        </div>
+                        <div class="xar-col">
+                            <xar:data-input type="dropdown" name="default_route" id="default_route" value="$default_route" options="$routes" class="xar-form-textlong"/>
+                        </div>
+                    </div>
+                </fieldset>                 
+                <xar:var name="submitLabel">Update Config</xar:var>
+
             </xar:if>
             
             <xar:if condition="!empty($submitLabel)">
                 <fieldset>
                     <div class="xar-row">
                         <div class="xar-align-center">
+                            <xar:if condition="$formaction eq 'post'">
+                                <input type="hidden" name="module" id="module" value="base"/>
+                                <input type="hidden" name="type" id="type" value="admin"/>
+                                <input type="hidden" name="func" id="func" value="mapper"/>
+                                <input type="hidden" name="phase" id="phase" value="update"/>
+                                <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey()#"/>
+                            </xar:if>
                             <input type="hidden" name="tab" id="tab" value="#$tab#"/>
-                            <input type="hidden" name="phase" id="phase" value="update"/>
-                            <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey()#"/>
                             <input type="submit" value="#$submitLabel#"/>
                         </div>
                     </div>
                 </fieldset>
             </xar:if>
         </form>
-        <xar:if condition="false">
         
-        <form action="#xarModUrl('base', 'admin', 'mapper')#" method="post">
-            <fieldset>
-                <legend>Decode</legend>
-                <div class="xar-row">
-                    <div class="xar-col">
-                        <label for="url" title="Enter a xaraya URL to decode">URL:</label>
-                    </div>
-                    <div class="xar-col">
-                        <input type="text" name="url" id="url" value="#$url#" class="xar-form-textxxlong"/>
-                    </div>
-                </div>
-            </fieldset>
-            <xar:if condition="!empty($decoded)">
-                <h3>Decoded Result</h3>
-                <div class="xar-row">
-                    <div class="xar-col">
-                        Decoded URL:
-                    </div>
-                    <div class="xar-col">
-                        <a href="#$decoded['url']#">#$decoded['url']#</a>
-                    </div>
-                </div>
-                <div class="xar-row">
-                    <div class="xar-col">
-                        Decoded By:
-                    </div>
-                    <div class="xar-col">
-                        #$decoded['route']# route
-                    </div>
-                </div>
-                <div class="xar-row">
-                    <div class="xar-col">
-                        Module:
-                    </div>
-                    <div class="xar-col">
-                        #$decoded['module']#
-                    </div>
-                </div>
-                <div class="xar-row">
-                    <div class="xar-col">
-                        Type:
-                    </div>
-                    <div class="xar-col">
-                        #$decoded['type']#
-                    </div>
-                </div>
-                <div class="xar-row">
-                    <div class="xar-col">
-                        Function:
-                    </div>
-                    <div class="xar-col">
-                        #$decoded['func']#
-                    </div>
-                </div>
-                <div class="xar-row">
-                    <div class="xar-col">
-                        Args:
-                    </div>
-                    <div class="xar-col">
-                        #$decoded['query']#
-                    </div>
-                </div>
-            </xar:if>
-            <fieldset>
-                <legend>Encode</legend>
-            
-            </fieldset>
-            <xar:if condition="!empty($encoded)">
-                <h3>Encoded Result</h3>
-                <div class="xar-row">
-                    <div class="xar-col">
-                        Encoded URL:
-                    </div>
-                    <div class="xar-col">
-                        <a href="#$encoded#">#$encoded#</a>
-                    </div>
-                </div>
-            </xar:if>
-            <fieldset>
-                <div class="xar-row">
-                    <div class="xar-align-center">
-                        <input type="submit" value="test"/>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-        </xar:if>
     </div>
 </xar:template>

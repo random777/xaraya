@@ -47,7 +47,7 @@ class xarController extends Object
         if (is_object($object) && is_subclass_of($object, 'ixarRouter'))
             return self::$router = $object;
         sys::import('xaraya.mapper2.router');
-        return self::$router = new xarRouter();    
+        return self::$router = new xarRouter(array('short'));    
     }
     
     public static function getDispatcher($object=null)
@@ -144,6 +144,71 @@ class xarController extends Object
     {
         $value = is_array($value) ? array_map(array('self','__stripslashes'), $value) : stripslashes($value);
         return $value;
+    }
+
+    /**
+     * Check to see if this is a local referral
+     *
+     * 
+     * @return boolean true if locally referred, false if not
+     * chris, this belongs in request object or xarServer
+     */
+    static function isLocalReferer()
+    {
+        $server  = xarServer::getHost();
+        $referer = xarServer::getVar('HTTP_REFERER');
+
+        if (!empty($referer) && preg_match("!^https?://$server(:\d+|)/!", $referer)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Carry out a redirect
+     *
+     * 
+     * @param redirectURL string the URL to redirect to
+     * chris, this belongs in request object or xarServer
+     */
+    static function redirect($url, $httpResponse=NULL)
+    {
+        xarCache::noCache();
+        $redirectURL = urldecode($url); // this is safe if called multiple times.
+        if (headers_sent() == true) return false;
+
+        // Remove &amp; entities to prevent redirect breakage
+        $redirectURL = str_replace('&amp;', '&', $redirectURL);
+
+        if (substr($redirectURL, 0, 4) != 'http') {
+            // Removing leading slashes from redirect url
+            $redirectURL = preg_replace('!^/*!', '', $redirectURL);
+
+            // Get base URL
+            $baseurl = xarServer::getBaseURL();
+
+            $redirectURL = $baseurl.$redirectURL;
+        }
+
+        if (preg_match('/IIS/', xarServer::getVar('SERVER_SOFTWARE')) && preg_match('/CGI/', xarServer::getVar('GATEWAY_INTERFACE')) ) {
+            $header = "Refresh: 0; URL=$redirectURL";
+        } else {
+            $header = "Location: $redirectURL";
+        }// if
+
+        // default response is temp redirect
+        if (!preg_match('/^301|302|303|307/', $httpResponse)) {
+            $httpResponse = 302;
+        }
+
+        // Start all over again
+        header($header, TRUE, $httpResponse);
+
+        // NOTE: we *could* return for pure '1 exit point' but then we'd have to keep track of more,
+        // so for now, we exit here explicitly. Besides the end of index.php this should be the only
+        // exit point.
+        exit();
     }
     
 }

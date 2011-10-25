@@ -21,8 +21,9 @@ class xarUrl2 extends Object implements ixarUrl
     protected $args = array();          // function args
     protected $xmlurls = true;       // gen xml url 
     protected $target;        // fragment
-    // @checkme: there seems to be some ambiguity between baseURI and baseModURL in layout.system.php
-    protected $entrypoint = 'index.php';    // todo: see checkme
+
+    protected $entrypath;     // BaseURI
+    protected $entrypoint;    // BaseModURL
 
     protected $decoder;
     protected $encoder;
@@ -116,8 +117,16 @@ class xarUrl2 extends Object implements ixarUrl
         if (!preg_match("!^https?://$server!", $url)) return;
         // ok, we have a local url, let's see if it's a xaraya url
         $urlparts = parse_url($url);
-
-
+        
+        if ($this->getEntryPath() || $this->getEntryPoint()) {
+            // no path parts, not a xar url
+            if (empty($urlparts['path'])) return;
+            $entryparts = $this->getEntryPath().'/'.$this->getEntryPoint();
+            // first part of path should match BaseURI/BaseModURL
+            if (strpos($urlparts['path'], $entryparts) !== 0) return;
+            $urlparts['path'] = substr($urlparts['path'], strlen($entryparts));
+        }
+        /*            
         // see if we have an entry point defined 
         if (!empty($this->entrypoint)) {
             // transform the path into an array 
@@ -128,6 +137,7 @@ class xarUrl2 extends Object implements ixarUrl
             // the entry point is accounted for, remove it from the path
             array_shift($urlparts['path']);
         }
+        */
         // if we're here, we're assuming this is a xaraya url, set the URL parts
         if (!empty($urlparts['path']))
             $this->setPath($urlparts['path']);
@@ -206,11 +216,23 @@ class xarUrl2 extends Object implements ixarUrl
         if (is_string($target))
             $this->target = $target;
     }
-    
-    public function setEntryPoint($entrypoint)
+
+    public function setEntryPath($entrypath=null)
     {
-        if (is_string($entrypoint))
+        if (is_string($entrypath)) {
+            $this->entrypath = $entrypath;
+        } else {
+            $this->entrypath = xarController::getEntryPath();
+        }
+    }
+
+    public function setEntryPoint($entrypoint=null)
+    {
+        if (is_string($entrypoint)) {
             $this->entrypoint = $entrypoint;
+        } else {
+            $this->entrypoint = xarController::getEntryPoint();
+        }
     }
 
 /**
@@ -241,8 +263,10 @@ class xarUrl2 extends Object implements ixarUrl
     {
         $path = $this->path;
         // put the entrypoint back in the path 
-        if (!empty($this->entrypoint) && (empty($path[0]) || $path[0] != $this->entrypoint))
-            array_unshift($path, $this->entrypoint);
+        if ($this->getEntryPath() || $this->getEntryPoint()) {
+            $entryparts = $this->getEntryPath().'/'.$this->getEntryPoint();
+            array_unshift($path, trim($entryparts, '/'));
+        }
         if (!empty($path))
             return implode('/', array_map('rawurlencode', $path));
         return '';
@@ -323,8 +347,18 @@ class xarUrl2 extends Object implements ixarUrl
         return $this->target;
     }
 
+
+    public function getEntryPath()
+    {
+        if (!isset($this->entrypath))
+            return xarController::getEntryPath();
+        return $this->entrypath;
+    }
+
     public function getEntryPoint()
     {
+        if (!isset($this->entrypoint))
+            return xarController::getEntryPoint();
         return $this->entrypoint;
     }
         

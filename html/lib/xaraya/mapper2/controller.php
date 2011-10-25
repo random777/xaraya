@@ -6,8 +6,11 @@ class xarController extends Object
     // @todo evaluate the need for these    
     public static $allowShortURLs = true;
     public static $shortURLVariables;
-    
-    // static objects 
+
+    protected static $entrypath;    // BaseURI 
+    protected static $entrypoint;   // BaseModURL
+        
+    // static objects, ideally these should be protected and accessed via get* methods
     public static $request;
     public static $router;
     public static $dispatcher;
@@ -17,6 +20,35 @@ class xarController extends Object
     {
         //self::getRouter()->decode(self::getRequest());
         self::getResponse();
+        try {
+            self::$entrypoint =  xarSystemVars::get(sys::LAYOUT, 'BaseModURL');
+        } catch(Exception $e) {
+            self::$entrypoint = 'index.php';
+        }
+    }
+
+    public static function getEntryPath()
+    {
+        if (isset(self::$entrypath))
+            return self::$entrypath;
+        try {
+            self::$entrypath =  xarSystemVars::get(sys::LAYOUT, 'BaseURI');
+        } catch(Exception $e) {
+            self::$entrypath = '';
+        }            
+        return self::$entrypath;
+    }
+
+    public static function getEntryPoint()
+    {
+        if (isset(self::$entrypoint))
+            return self::$entrypoint;
+        try {
+            self::$entrypoint =  xarSystemVars::get(sys::LAYOUT, 'BaseModURL');
+        } catch(Exception $e) {
+            self::$entrypoint = 'index.php';
+        }          
+        return self::$entrypoint;
     }
         
     public static function getRequest($object=null)

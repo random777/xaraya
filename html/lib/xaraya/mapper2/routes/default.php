@@ -70,7 +70,7 @@ class DefaultRoute extends BaseRoute
     }
 
 /**
- * Encoding
+ * Decoding
  * Default decoding for xaraya urls 
  * object urls ?object=foo[&method=bar][& ...]
  * mod urls    ?module=foo[&type=bar][&func=foobar][& ...]

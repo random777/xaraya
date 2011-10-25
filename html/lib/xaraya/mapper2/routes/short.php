@@ -32,12 +32,17 @@ class ShortRoute extends BaseRoute
             // use default module if none specified 
             if (empty($module)) {
                 $module = xarModVars::get('modules', 'defaultmodule');
+                $url->setModule($module);
                 // use default type only if default module and none specified
-                if (empty($type))
+                if (empty($type)) {
                     $type = xarModVars::get('modules', 'defaultmoduletype');
+                    $url->setType($type);
+                }
                 // use default type only if default module and none specified
-                if (empty($func))
+                if (empty($func)) {
                     $func = xarModVars::get('modules', 'defaultmodulefunction');
+                    $url->setFunc($func);
+                }
             }
             $path[] = $module;
             // add path parts for values that aren't defaults
@@ -104,6 +109,9 @@ class ShortRoute extends BaseRoute
             // looks like it's a shorturl
             // NOTE: the module is all we can reliably determine
             $url->setModule($module);
+            if (!empty($path[1]) && ($path[1] == 'user' || $path[1] == 'admin'))
+                // this is a best guess, path[1] could be any name the module route gave it
+                $url->setType($path[1]);
             // set args from query params 
             $url->setArgs($args);
             // try loading module specific route

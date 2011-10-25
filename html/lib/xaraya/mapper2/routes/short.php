@@ -7,106 +7,153 @@ class ShortRoute extends BaseRoute
     
     public function encode(ixarUrl $url)
     {
-        $query = $url->getArgs();
-        $path = array();
+        // when encoding, mod, type, func and args will be available from $url    
         $module = $url->getModule();
-        // object shorturl object/method encoding
+        $type = $url->getType();
+        $func = $url->getFunc();  
+        // we want to build an array forming the path parts
+        $path = array();        
         if ($module == 'object') {
-            $path[] = 'object';
-            $path[] = $url->getType();
-            if ($url->getFunc() != 'view')
-                $path[] = $url->getFunc();
-            unset($query['object'], $query['method']);
-            $url->setPath($path);
-            $url->setQuery($query);
-            return $url;
+            // object encoding, check if type is admin
+            if ($type == 'admin') {
+                // there are no admin type object functions, pass this to dd admin
+                $path[] = 'dynamicdata';
+                $path[] = 'admin';
+            } else {
+                // assume this is a standalone object, type is the name of the object
+                $path[] = 'object';
+                $path[] = $type;
+                // func is the name of the method
+                if ($func != 'view')
+                    $path[] = $func;
+            }
+        } else {        
+            // module encoding
+            // use default module if none specified 
+            if (empty($module)) {
+                $module = xarModVars::get('modules', 'defaultmodule');
+                // use default type only if default module and none specified
+                if (empty($type))
+                    $type = xarModVars::get('modules', 'defaultmoduletype');
+                // use default type only if default module and none specified
+                if (empty($func))
+                    $func = xarModVars::get('modules', 'defaultmodulefunction');
+            }
+            $path[] = $module;
+            // add path parts for values that aren't defaults
+            if ($type != 'user')
+                $path[] = $type;
+            if ($func != 'main')
+                $path[] = $func;
         }
+        // query parts come from function args
+        $query = $url->getArgs();
+        // shouldn't be any, but just in case, remove params from query 
+        unset($query['object'], $query['method'], $query['module'], $query['type'], $query['func']);
+        // set the path
+        $url->setPath($path);
+        // set the query
+        $url->setQuery($query);
         // try loading module specific route
         if ($this->loadRoute($module)) {
             if ($this->getRoute($module)->encode($url)) {
+                // return url object 
                 return $url;
             }
         }
-        // default shorturl module/[type]/[func] encoding 
-        $path[] = $module;
-        if ($url->getType() != 'user')
-            $path[] = $url->getType();
-        if ($url->getFunc() != 'main')
-            $path[] = $url->getFunc();
-        unset($query['module'], $query['type'], $query['func']);
-        $url->setPath($path);
-        $url->setQuery($query);            
+        // return the url object
         return $url;
     }
     
     public function decode(ixarUrl $url)
     {
-        // we're interested in the path
+        // when decoding, path and query params are available from $url
         $path = $url->getPath();
-        // no path parts, not ours
+        // no path parts, not ours 
         if (empty($path)) return;
-        // try decoding object shorturl
-        if ($path[0] == 'object' && !empty($path[1])) {
-            $url->setModule($path[0]);
-            $url->setType($path[1]);
-            if (!empty($path[2])) {
-                $url->setFunc($path[2]);
-                if ($path[2] == 'view')
-                    unset($path[2]);
-            } else {
-                $url->setFunc('view');
-            }
-            $url->setPath($path);
-            $url->setArgs($url->getQuery());
-            $url->setDispatcher('object');            
-            return $url;
-        }
-            
-        // first path part is module or alias   
-        $alias = $path[0];
-        $module = xarModAlias::resolve($alias);
-        // try loading module specific route
-        if ($this->loadRoute($module)) {
-            if ($this->getRoute($module)->decode($url)) {
-                return $url;
-            }
-        }
-        // ok, must be default encoding
-        $url->setModule($module);
-        // since we only ever encode 3 path parts, we know what the path might contain
-        if (!empty($path[2])) {
-            // matched module/type/func
-            $url->setType($path[1]);
-            $url->setFunc($path[2]);
-            if ($path[2] == 'main')
-                unset($path[2]);
-            if ($path[1] == 'user')
-                unset($path[1]); 
-        } elseif (!empty($path[1])) {
-            // matched either module/type or module/func
-            // @todo: we really need to be able to discover a modules supported types  
+        $args = $url->getQuery();
+        // ok, we have some path parts, this could be ours
+        if ($path[0] == 'object') {
+            // if this is really an object path we should have at least 2 path parts object/[objectname]
+            if (empty($path[1])) return;
+            // object decode
             if ($path[1] == 'admin') {
-                $url->setType($path[1]);
+                // there are no admin type object functions, pass this to dd admin
+                // NOTE: if this happens someone must have typed it into the browser
+                $url->setModule('dynamicdata');
+                $url->setType('admin');
                 $url->setFunc('main');
-            } elseif ($path[1] == 'user') {
-                $url->setType($path[1]);
-                unset($path[1]);
-                $url->setFunc('main');
+                $url->setDispatcher('default');
             } else {
-                // we're going to assume this is a func, but it could be a type (see todo)
-                $url->setType('user');
-                $url->setFunc($path[1]);
-                if ($path[1] == 'main')
-                    unset($path[1]);
+                $url->setModule('object');
+                $url->setType($path[1]);
+                if (!empty($path[2])) {
+                    $url->setFunc($path[2]);
+                } else {
+                    $url->setFunc('view');
+                }
+                $url->setDispatcher('object');
             }
         } else {
-            // matched nothing, use defaults
-            $url->setType('user');
-            $url->setFunc('main');
+            // module decode
+            // the first path part could be the name of (or alias for) an available module 
+            $alias = $path[0]; 
+            $module = xarModAlias::resolve($alias);
+            // if it's not a valid module, it's not ours
+            if (!xarMod::isAvailable($module)) return;
+            // looks like it's a shorturl
+            // NOTE: the module is all we can reliably determine
+            $url->setModule($module);
+            // set args from query params 
+            $url->setArgs($args);
+            // try loading module specific route
+            if ($this->loadRoute($module)) 
+                $this->getRoute($module)->decode($url);
+            // if mod specific route didn't set type use defaults 
+            if (!$url->getType()) {
+                // try to determine function type
+                if ($url->getModule() == xarModVars::get('modules', 'defaultmodule')) {
+                    // default module, use default type 
+                    $url->setType(xarModVars::get('modules', 'defaultmoduletype'));
+                } elseif (!empty($path[1]) && ($path[1] == 'user' || $path[1] == 'admin')) {
+                    // this is a best guess, path[1] could be any name the module route gave it
+                    $url->setType($path[1]);                
+                } else {
+                    // fall back 
+                    $url->setType('user');
+                }
+            }
+            // if mod specific route didn't set func use defaults 
+            if (!$url->getFunc()) {
+                // try to determine func
+                if ($url->getModule() == xarModVars::get('modules', 'defaultmodule') &&
+                    $url->getType() == xarModVars::get('modules', 'defaultmoduletype')) {
+                    // default module, type use default func
+                    $url->setFunc(xarModVars::get('modules', 'defaultmodulefunction'));
+                } elseif (!empty($path[1])) {
+                    if ($path[1] == 'user' || $path[1] == 'admin') {
+                        if (!empty($path[2])) {
+                            $url->setFunc($path[2]);
+                        } else {
+                            $url->setFunc('main');
+                        }
+                    } else {
+                        $url->setFunc($path[1]);
+                    }
+                } else {
+                    $url->setFunc('main');
+                }
+            }
+            // get arguments back
+            $args = $url->getArgs();
+            $url->setDispatcher('default');   
         }
-        $url->setArgs($url->getQuery());
-        $url->setDispatcher('default');
-        return $url;        
+        // remove params from args
+        unset($args['object'], $args['method'], $args['module'], $args['type'], $args['func']);
+        // set function args
+        $url->setArgs($args);        
+        // and return the url object
+        return $url;      
     }
 }
 ?>

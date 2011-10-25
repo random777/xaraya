@@ -15,7 +15,7 @@
 
 class xarResponse extends Object
 {
-    //public $output;
+    public $output;
     
     /**
      * initialize
@@ -93,6 +93,6 @@ class xarResponse extends Object
         return xarController::redirect($url);
     }
 
-    //function getOutput() { return $this->output; }
+    function getOutput() { return $this->output; }
 }
 ?>

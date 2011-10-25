@@ -37,7 +37,7 @@ class BaseRoute extends xarRouter implements ixarRoute
         if (!$this->isAttached($module)) {
             try {
                 sys::import("modules.{$module}.routes.{$this->name}");
-                $routeClass = ucfirst($module).'Route'.ucfirst($this->name);
+                $routeClass = ucfirst($module).ucfirst($this->name).'Route';
                 if (class_exists($routeClass) && is_subclass_of($routeClass, 'ixarRoute'))
                     $this->attach(new $routeClass());
             } catch (Exception $e) { }

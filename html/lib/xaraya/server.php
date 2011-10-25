@@ -406,6 +406,10 @@ class xarServer extends Object
      */
     static function getObjectURL($objectName = NULL, $methodName = 'view', $args = array(), $generateXMLURL = NULL, $fragment = NULL, $entrypoint = array())
     {
+        
+        return xarController::URL('object', $objectName, $methodName, $args, $generateXMLURL, $fragment, $entrypoint);
+
+/*        
         // 1. override any existing 'method' in args, and place before the rest
         if (!empty($methodName)) {
             $args = array('method' => $methodName) + $args;
@@ -455,6 +459,7 @@ class xarServer extends Object
 
         // Return the URL.
         return self::getBaseURL() . $path;
+*/
     }
 }
 

@@ -1,5 +1,6 @@
 <?php
 sys::import('xaraya.mapper2.interfaces');
+sys::import('xaraya.mapper2.url');
 class xarController extends Object
 {
     // @todo evaluate the need for these    
@@ -10,10 +11,12 @@ class xarController extends Object
     public static $request;
     public static $router;
     public static $dispatcher;
+    public static $response;
         
     public static function init(Array $args=array())
     {
         //self::getRouter()->decode(self::getRequest());
+        self::getResponse();
     }
         
     public static function getRequest($object=null)
@@ -36,6 +39,18 @@ class xarController extends Object
     public static function dispatch()
     {
         self::getDispatcher()->dispatch(self::getRequest());
+    }
+
+    public static function getResponse($object=null)
+    {
+        if (isset(self::$response))
+            return self::$response;
+        if (is_string($object) && class_exists($object) && is_subclass_of($object, 'xarResponse'))
+            return self::$response = new $object();
+        if (is_object($object) && is_subclass_of($object, 'xarResponse'))
+            return self::$response = $object;
+        sys::import('xaraya.mapper2.response');
+        return self::$response = new xarResponse();    
     }
     
     public static function getRouter($object=null)

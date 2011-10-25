@@ -12,6 +12,7 @@ class ShortRoute extends BaseRoute
         $module = $url->getModule();
         // object shorturl object/method encoding
         if ($module == 'object') {
+            $path[] = 'object';
             $path[] = $url->getType();
             if ($url->getFunc() != 'view')
                 $path[] = $url->getFunc();

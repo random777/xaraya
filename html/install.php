@@ -108,7 +108,8 @@ sys::import('xaraya.variables');
 sys::import('xaraya.server');
 sys::import('xaraya.mls');
 sys::import('xaraya.templates');
-sys::import('xaraya.mapper.main');
+//sys::import('xaraya.mapper.main');
+sys::import('xaraya.mapper2.controller');
 
 // Start Logging Facilities as soon as possible
 $systemArgs = array();

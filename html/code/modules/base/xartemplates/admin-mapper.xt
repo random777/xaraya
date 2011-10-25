@@ -21,7 +21,11 @@
         </ul>
         <h3>#$tabs[$tab]['label']#</h3>   
         <form action="#xarModUrl('base', 'admin', 'mapper')#" method="#$formaction#">
-
+            <xar:if condition="$formaction eq 'get'">
+                <input type="hidden" name="module" id="module" value="base"/>
+                <input type="hidden" name="type" id="type" value="admin"/>
+                <input type="hidden" name="func" id="func" value="mapper"/>
+            </xar:if>
             <xar:if condition="$tab eq 'decode'">
                 <fieldset>
                     <legend>Decode URL</legend>
@@ -193,13 +197,8 @@
                 <fieldset>
                     <div class="xar-row">
                         <div class="xar-align-center">
-                            <xar:if condition="$formaction eq 'post'">
-                                <input type="hidden" name="module" id="module" value="base"/>
-                                <input type="hidden" name="type" id="type" value="admin"/>
-                                <input type="hidden" name="func" id="func" value="mapper"/>
-                                <input type="hidden" name="phase" id="phase" value="update"/>
-                                <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey()#"/>
-                            </xar:if>
+                            <input type="hidden" name="phase" id="phase" value="update"/>
+                            <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey()#"/>
                             <input type="hidden" name="tab" id="tab" value="#$tab#"/>
                             <input type="submit" value="#$submitLabel#"/>
                         </div>

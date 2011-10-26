@@ -2,6 +2,8 @@
 sys::import('xaraya.mapper2.routes.base');
 class BaseShortRoute extends BaseRoute 
 {
+    protected $name = 'base';
+
     public function encode(ixarUrl $url)
     {
         // when encoding, mod, type, func and args will be available from $url

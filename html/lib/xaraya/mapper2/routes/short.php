@@ -109,6 +109,8 @@ class ShortRoute extends BaseRoute
             // looks like it's a shorturl
             // NOTE: the module is all we can reliably determine
             $url->setModule($module);
+            if ($module != $alias)
+                $url->setModuleAlias($alias);
             if (!empty($path[1]) && ($path[1] == 'user' || $path[1] == 'admin'))
                 // this is a best guess, path[1] could be any name the module route gave it
                 $url->setType($path[1]);
@@ -116,7 +118,7 @@ class ShortRoute extends BaseRoute
             $url->setArgs($args);
             // try loading module specific route
             if ($this->loadRoute($module)) 
-                $this->getRoute($module)->decode($url);
+                $this->getRoute($module)->decode($url);      
             // if mod specific route didn't set type use defaults 
             if (!$url->getType()) {
                 // try to determine function type

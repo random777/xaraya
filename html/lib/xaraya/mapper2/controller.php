@@ -20,11 +20,6 @@ class xarController extends Object
     {
         //self::getRouter()->decode(self::getRequest());
         self::getResponse();
-        try {
-            self::$entrypoint =  xarSystemVars::get(sys::LAYOUT, 'BaseModURL');
-        } catch(Exception $e) {
-            self::$entrypoint = 'index.php';
-        }
     }
 
     public static function getEntryPath()
@@ -66,6 +61,14 @@ class xarController extends Object
     public static function normalizeRequest()
     {
         self::getRouter()->decode(self::getRequest());
+        // SEO: if the url wasn't decoded by the default route, re-encode using default
+        if (xarServer::getVar('REQUEST_METHOD') == 'GET' && 
+            self::getRequest()->getDecoder() != self::getRouter()->getDefaultRoute() &&
+            self::getRouter()->encode(self::getRequest())) {
+            // if we're not already there, redirect 
+            if (self::getRequest()->getUrl() != xarServer::getCurrentUrl())
+                self::redirect(self::getRequest()->getUrl(), 301);
+        }
     }
 
     public static function dispatch()

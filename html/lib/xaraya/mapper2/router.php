@@ -104,6 +104,11 @@ class xarRouter extends Object implements ixarRouter
         }
         return $this->isAttached($route);
     }
+
+    public function getDefaultRoute()
+    {
+        return $this->defaultroute;
+    }
     
     public static function getFiles()
     {

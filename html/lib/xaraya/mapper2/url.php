@@ -16,6 +16,7 @@ class xarUrl2 extends Object implements ixarUrl
     
     // xarModURL parameters 
     protected $module;        // module name
+    protected $modulealias;   // module alias
     protected $type;          // function type
     protected $func;          // function name
     protected $args = array();          // function args
@@ -117,7 +118,8 @@ class xarUrl2 extends Object implements ixarUrl
         if (!preg_match("!^https?://$server!", $url)) return;
         // ok, we have a local url, let's see if it's a xaraya url
         $urlparts = parse_url($url);
-        
+
+        // see if we have an entry path/point defined         
         if ($this->getEntryPath() || $this->getEntryPoint()) {
             // no path parts, not a xar url
             if (empty($urlparts['path'])) return;
@@ -126,26 +128,13 @@ class xarUrl2 extends Object implements ixarUrl
             if (strpos($urlparts['path'], $entryparts) !== 0) return;
             $urlparts['path'] = substr($urlparts['path'], strlen($entryparts));
         }
-        /*            
-        // see if we have an entry point defined 
-        if (!empty($this->entrypoint)) {
-            // transform the path into an array 
-            $urlparts['path'] = !empty($urlparts['path']) ? 
-                array_map('trim', explode('/', trim($urlparts['path'], '/'))) : array();
-            // if the first path part doesn't match, it's not a xaraya url 
-            if (empty($urlparts['path'][0]) || $urlparts['path'][0] != $this->entrypoint) return;
-            // the entry point is accounted for, remove it from the path
-            array_shift($urlparts['path']);
-        }
-        */
+
         // if we're here, we're assuming this is a xaraya url, set the URL parts
         if (!empty($urlparts['path']))
             $this->setPath($urlparts['path']);
         if (!empty($urlparts['query']))
             $this->setQuery($urlparts['query']);
-        // @checkme: not sure how useful fragment is here :-?
-        if (!empty($urlparts['fragment']))
-            $this->setFragment($urlparts['fragment']);
+
         // finally, set the url 
         $this->url = $url;        
     }
@@ -168,7 +157,7 @@ class xarUrl2 extends Object implements ixarUrl
  * Param setters
 **/
 
-    public function setParams($module=null, $type=null, $func=null, $args=array(), $xmlurls=null, $target=null, $entrypoint=null)
+    public function setParams($module=null, $type='user', $func='main', $args=array(), $xmlurls=null, $target=null, $entrypoint=null)
     {
         $this->setModule($module);
         $this->setType($type);
@@ -183,6 +172,12 @@ class xarUrl2 extends Object implements ixarUrl
     {
         if (preg_match('/^[a-z][a-z_0-9]*$/', $module))
             $this->module = $module;
+    }
+
+    public function setModuleAlias($alias)
+    {
+        if (preg_match('/^[a-z][a-z_0-9]*$/', $alias))
+            $this->modulealias = $alias;        
     }
     
     public function setType($type)
@@ -256,12 +251,14 @@ class xarUrl2 extends Object implements ixarUrl
 
     public function getPath()
     {
+        if (empty($this->path))
+            return $this->path = array();
         return $this->path;
     }
     
     public function getPathString()
     {
-        $path = $this->path;
+        $path = $this->getPath();
         // put the entrypoint back in the path 
         if ($this->getEntryPoint())
             array_unshift($path, $this->getEntryPoint());
@@ -272,20 +269,15 @@ class xarUrl2 extends Object implements ixarUrl
     
     public function getQuery()
     {
+        if (empty($this->query))
+            return $this->query = array();
         return $this->query;
     }
     
     public function getQueryString()
     {
-        if (!empty($this->query))
-            return http_build_query($this->query, '', $this->xmlurls ? '&amp;' : '&');
-        return '';
-    }
-    
-    public function getFragment()
-    {
-        if (!empty($this->fragment))
-            return $this->fragment;
+        if ($query = $this->getQuery())
+            return http_build_query($query, '', $this->xmlurls ? '&amp;' : '&');
         return '';
     }
 
@@ -311,6 +303,11 @@ class xarUrl2 extends Object implements ixarUrl
         return $this->module;
     }
 
+    public function getModuleAlias()
+    {
+        return $this->modulealias;
+    }
+
     public function getType()
     {
         return $this->type;
@@ -330,8 +327,8 @@ class xarUrl2 extends Object implements ixarUrl
     
     public function getArgsString()
     {
-        if (!empty($this->args))
-            return http_build_query($this->args, '', $this->xmlurls ? '&amp;' : '&');
+        if ($args = $this->getArgs())
+            return http_build_query($args, '', $this->xmlurls ? '&amp;' : '&');
         return '';    
     }
 

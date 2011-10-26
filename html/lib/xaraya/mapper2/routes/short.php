@@ -24,7 +24,7 @@ class ShortRoute extends BaseRoute
                 $path[] = 'object';
                 $path[] = $type;
                 // func is the name of the method
-                if ($func != 'view')
+                if ($func && $func != 'view')
                     $path[] = $func;
             }
         } else {        
@@ -46,9 +46,9 @@ class ShortRoute extends BaseRoute
             }
             $path[] = $module;
             // add path parts for values that aren't defaults
-            if ($type != 'user')
+            if ($type && $type != 'user')
                 $path[] = $type;
-            if ($func != 'main')
+            if ($func && $func != 'main')
                 $path[] = $func;
         }
         // query parts come from function args

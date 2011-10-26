@@ -60,11 +60,16 @@ class ShortRoute extends BaseRoute
         // set the query
         $url->setQuery($query);
         // try loading module specific route
-        if ($this->loadRoute($module)) {
-            if ($this->getRoute($module)->encode($url)) {
-                // return url object 
-                return $url;
-            }
+        if ($this->loadRoute($module)) 
+            $this->getRoute($module)->encode($url);
+        // module encoder may have set an alias to use 
+        if ($url->getModuleAlias() && $url->getModuleAlias() != $url->getModule()) {
+            $path = $url->getPath();
+            $path[0] = $url->getModuleAlias();
+            $url->setPath($path);
+        } else {
+            // todo: there should be a way to define alias to use as default 
+            // this was previously a combination of modvars if supplied ad hoc by module dev
         }
         // return the url object
         return $url;
@@ -109,8 +114,7 @@ class ShortRoute extends BaseRoute
             // looks like it's a shorturl
             // NOTE: the module is all we can reliably determine
             $url->setModule($module);
-            if ($module != $alias)
-                $url->setModuleAlias($alias);
+            $url->setModuleAlias($alias);
             if (!empty($path[1]) && ($path[1] == 'user' || $path[1] == 'admin'))
                 // this is a best guess, path[1] could be any name the module route gave it
                 $url->setType($path[1]);

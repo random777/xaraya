@@ -9,7 +9,6 @@ class xarRequest extends xarUrl2 implements ixarRequest
     public function __construct()
     {
         parent::__construct(xarServer::getCurrentURL());
-        print_r($this);
         // $this->setUrl(xarServer::getCurrentURL());
     }
 

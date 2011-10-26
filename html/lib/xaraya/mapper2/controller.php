@@ -34,7 +34,7 @@ class xarController extends Object
         try {
             self::$entrypath =  xarSystemVars::get(sys::LAYOUT, 'BaseURI');
         } catch(Exception $e) {
-            self::$entrypath = '';
+            self::$entrypath = xarServer::getBaseURI();
         }            
         return self::$entrypath;
     }

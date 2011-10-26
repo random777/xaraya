@@ -263,10 +263,8 @@ class xarUrl2 extends Object implements ixarUrl
     {
         $path = $this->path;
         // put the entrypoint back in the path 
-        if ($this->getEntryPath() || $this->getEntryPoint()) {
-            $entryparts = $this->getEntryPath().'/'.$this->getEntryPoint();
-            array_unshift($path, trim($entryparts, '/'));
-        }
+        if ($this->getEntryPoint())
+            array_unshift($path, $this->getEntryPoint());
         if (!empty($path))
             return implode('/', array_map('rawurlencode', $path));
         return '';

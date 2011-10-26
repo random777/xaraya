@@ -55,6 +55,11 @@ class xarUrl2 extends Object implements ixarUrl
             $this->setParams($module, $type, $func, $args, $xmlurls, $target, $entrypoint);
         }
     }
+
+    public function __toString()
+    {
+        return $this->getUrl();
+    }
     
     public function isDecoded()
     {

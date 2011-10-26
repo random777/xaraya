@@ -8,6 +8,7 @@ class xarDispatcher extends Object
         // if this request was dispatched just return the output
         if ($request->isDispatched())
             return $request->getResponse()->getOutput();
+        $_GET = array_merge($_GET, $request->getArgs());
         // get the dispatcher the decoding route uses 
         $dispatcher = $request->getDispatcher();
         sys::import('xaraya.mapper2.dispatchers.'.$dispatcher);

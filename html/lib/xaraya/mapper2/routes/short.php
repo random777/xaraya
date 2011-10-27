@@ -62,15 +62,23 @@ class ShortRoute extends BaseRoute
         // try loading module specific route
         if ($this->loadRoute($module)) 
             $this->getRoute($module)->encode($url);
+        // remove the module from the path if this is the base mod, type and func and there are no arguments
+        if ($module == xarModVars::get('modules', 'defaultmodule') &&
+            $type == xarModVars::get('modules', 'defaultmoduletype') &&
+            $func == xarModVars::get('modules', 'defaultmodulefunction') &&
+            !$url->getQuery()) {
+            $path = $url->getPath();
+            array_shift($path);
+            $url->setPath($path);  
         // module encoder may have set an alias to use 
-        if ($url->getModuleAlias() && $url->getModuleAlias() != $url->getModule()) {
+        } elseif ($url->getModuleAlias() && $url->getModuleAlias() != $url->getModule()) {
             $path = $url->getPath();
             $path[0] = $url->getModuleAlias();
             $url->setPath($path);
         } else {
             // todo: there should be a way to define alias to use as default 
             // this was previously a combination of modvars if supplied ad hoc by module dev
-        }
+        }         
         // return the url object
         return $url;
     }

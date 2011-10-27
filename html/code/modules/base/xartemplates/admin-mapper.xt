@@ -197,8 +197,10 @@
                 <fieldset>
                     <div class="xar-row">
                         <div class="xar-align-center">
+                            <xar:if condition="$formaction eq 'post'">
                             <input type="hidden" name="phase" id="phase" value="update"/>
                             <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey()#"/>
+                            </xar:if>
                             <input type="hidden" name="tab" id="tab" value="#$tab#"/>
                             <input type="submit" value="#$submitLabel#"/>
                         </div>

@@ -5,7 +5,7 @@
  * @package modules
  * @subpackage privileges module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -14,7 +14,10 @@
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  */
 /**
+ * Modify the configuration settings of this module
+ *
  * Standard GUI function to display and update the configuration settings of the module based on input data.
+ *
  * @return mixed data array for the template display or output display string if invalid data submitted
  */
 function privileges_admin_modifyconfig()
@@ -108,7 +111,7 @@ function privileges_admin_modifyconfig()
         case 'update':
             // Confirm authorisation code
             if (!xarSecConfirmAuthKey()) {
-                return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
+                return xarTpl::module('privileges','user','errors',array('layout' => 'bad_author'));
             }        
             switch ($data['tab']) {
                 case 'general':
@@ -118,7 +121,7 @@ function privileges_admin_modifyconfig()
 
                     $isvalid = $data['module_settings']->checkInput();
                     if (!$isvalid) {
-                        return xarTplModule('privileges','admin','modifyconfig', $data);        
+                        return xarTpl::module('privileges','admin','modifyconfig', $data);        
                     } else {
                         $itemid = $data['module_settings']->updateItem();
                     }

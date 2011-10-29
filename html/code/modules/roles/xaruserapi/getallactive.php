@@ -5,7 +5,7 @@
  * @package modules
  * @subpackage roles module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -63,7 +63,7 @@ function roles_userapi_getallactive(Array $args=array())
     }
 
     $query .= " AND itemtype = ? ORDER BY " . $order;
-    $bindvars[] = 2;
+    $bindvars[] = xarRoles::ROLES_USERTYPE;
     $stmt = $dbconn->prepareStatement($query);
 
     // cfr. xarcachemanager - this approach might change later

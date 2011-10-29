@@ -5,7 +5,7 @@
  * @package modules
  * @subpackage modules module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -171,7 +171,7 @@ class Installer extends Object
             $extInfo = xarMod::getInfo($regid);
         } catch (NotFoundExceptions $e) {
             //Add this module to the unsatisfiable list
-            $this->unsatisfiable[] = $regid;
+            $this->unsatisfiable[$regid] = $regid;
             //Return now, we cant find more info about this module
             return true;
         }
@@ -180,7 +180,7 @@ class Installer extends Object
             foreach ($extInfo['extensions'] as $extension) {
                 if (!empty($extension) && !extension_loaded($extension)) {
                     //Add this extension to the unsatisfiable list
-                    $this->unsatisfiable[] = $extension;
+                    $this->unsatisfiable[$extension] = $extension;
                 }
             }
         }
@@ -211,7 +211,7 @@ class Installer extends Object
         //without its proper dependencies
         if (count($this->unsatisfiable)) {
             //Then this module is unsatisfiable too
-            $this->unsatisfiable[] = $extInfo;
+            $this->unsatisfiable[$extInfo['regid']] = $extInfo;
         } elseif (count($this->satisfiable)) {
             //Then this module is satisfiable too
             //As if it were initialised, then all dependencies would have
@@ -227,10 +227,10 @@ class Installer extends Object
 
             switch ($extInfo['state']) {
                 case XARMOD_STATE_ACTIVE:
-                case XARMOD_STATE_UPGRADED:      $this->satisfied[] = $extInfo; break;
+                case XARMOD_STATE_UPGRADED:      $this->satisfied[$extInfo['regid']] = $extInfo; break;
                 case XARMOD_STATE_INACTIVE:
-                case XARMOD_STATE_UNINITIALISED: $this->satisfiable[] = $extInfo; break;
-                default:                         $this->unsatisfiable[] = $extInfo; break;
+                case XARMOD_STATE_UNINITIALISED: $this->satisfiable[$extInfo['regid']] = $extInfo; break;
+                default:                         $this->unsatisfiable[$extInfo['regid']] = $extInfo; break;
             }
         }
         $dependencies = array(
@@ -301,9 +301,9 @@ class Installer extends Object
         //TODO: Add version checks later on
         switch ($extInfo['state']) {
             case XARMOD_STATE_ACTIVE:
-            case XARMOD_STATE_UPGRADED:  $this->active[] = $extInfo; break;
+            case XARMOD_STATE_UPGRADED:  $this->active[$extInfo['regid']] = $extInfo; break;
             case XARMOD_STATE_INACTIVE:
-            default:                     $this->initialised[] = $extInfo; break;
+            default:                     $this->initialised[$extInfo['regid']] = $extInfo; break;
         }
 
         $dependents = array(
@@ -317,7 +317,7 @@ class Installer extends Object
     {
         if ($this->extType == 'modules') $this->assembledependencies($regid);
         if ($this->extType == 'themes') $this->modulestack->push($regid);
-        $this->installdependencies($regid);
+        return $this->installdependencies($regid);
     }
     
     public function assembledependencies($regid=null)
@@ -395,7 +395,9 @@ class Installer extends Object
             default:                    $initialised = false; break;
         }
 
-        if ($regid == $topid) {
+        // @checkme: <chris/> this doesn't look right
+        // file exists and url point to modules but extType must equal themes ? 
+        if ($regid == $topid && ($this->extType == 'themes')) {
             // First time we've come to this module
             // Is there an install page?
             if (!$initialised && file_exists(sys::code() . 'modules/' . $extInfo['osdirectory'] . '/xartemplates/includes/installoptions.xt')) {
@@ -422,11 +424,16 @@ class Installer extends Object
 
         // if this is a theme we're done
         if ($this->extType == 'themes') {
+            // Reinit the theme configurations
+            // @todo: this belongs in the ThemeActivate observer 
+            sys::import('modules.themes.class.initialization');
+            ThemeInitialization::importConfigurations();
+            // Show the theme list
             xarController::redirect(xarModURL($this->extType, 'admin', 'list', array('state' => 0)));
             return true;
         }
-        
-        PropertyRegistration::importPropertyTypes(true, array('modules/' . $extInfo['directory'] . '/xarproperties'));
+        // this is now handled by the modules module ModActivate event observer
+        // PropertyRegistration::importPropertyTypes(true, array('modules/' . $extInfo['directory'] . '/xarproperties'));
 
         $nextmodule = $this->modulestack->peek();
         if (empty($nextmodule)) {

@@ -4,7 +4,7 @@
  * @package modules
  * @subpackage blocks module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -21,13 +21,17 @@
  *        string   $args['blockType'] the block type (deprecated)<br/>
  *        string   $args['module'] the module name<br/>
  *        string   $args['type'] the block type
- * @return ID of block type registered (even if already registered)
+ * @return integer ID of block type registered (even if already registered)
  * @return true on success, false on failure
  * @throws DATABASE_ERROR, BAD_PARAM
  */
+/**
+ * IMPORTANT: this function is marked for deprecation
+ * The blocks subsystem now automatically creates block types
+ * when modules are activated
+**/
 function blocks_adminapi_register_block_type(Array $args=array())
 {
-    return xarMod::apiFunc('blocks', 'admin', 'create_type', $args);
+    return true;
 }
-
 ?>

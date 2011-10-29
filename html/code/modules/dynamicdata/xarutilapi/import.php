@@ -3,7 +3,7 @@
  * @package modules
  * @subpackage dynamicdata module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -22,9 +22,6 @@
  */
 function dynamicdata_utilapi_import(Array $args=array())
 {
-    if(!xarSecurityCheck('AdminDynamicData')) return;
-
-
     extract($args);
 
     if (!isset($prefix)) $prefix = xarDB::getPrefix();
@@ -85,7 +82,7 @@ function dynamicdata_utilapi_import(Array $args=array())
         if ($dupexists && !$overwrite) {
             $msg = 'Duplicate definition for #(1) #(2)';
             $vars = array('object',xarVarPrepForDisplay($args['name']));
-            throw new DuplicateException($vars,$msg);
+            throw new DuplicateException(null,$args['name']);
         }
 
         $object = DataObjectMaster::getObject(array('name' => 'objects'));
@@ -138,7 +135,9 @@ function dynamicdata_utilapi_import(Array $args=array())
             foreach ($oldproperties as $propertyitem)
                 $dataproperty->deleteItem(array('itemid' => $propertyitem->id));
         } else {
-            $objectid = $object->createItem($args);
+            // Load the object properties directly with the values to bypass their setValue methods
+            $object->setFieldValues($args,1);
+            $objectid = $object->createItem();
         }
 
         // Now do the item's properties

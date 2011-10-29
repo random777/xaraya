@@ -5,7 +5,7 @@
  * @package core
  * @subpackage controllers
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -78,6 +78,10 @@ class xarRequest extends Object
             // We now have a URL. Set it.
             $this->url = $url;
             
+            if (!empty($params['module'])) $this->setModule($params['module']);
+            if (!empty($params['type'])) $this->setType($params['type']);
+            if (!empty($params['func'])) $this->setFunction($params['func']);
+
             // See if this is an object call; easiest to start like this 
             xarVarFetch('object', 'regexp:/^[a-z][a-z_0-9]*$/', $objectName, NULL, XARVAR_NOT_REQUIRED);
             // Found a module object name

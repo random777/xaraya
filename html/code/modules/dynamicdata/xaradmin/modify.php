@@ -3,7 +3,7 @@
  * @package modules
  * @subpackage dynamicdata module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -30,16 +30,16 @@ function dynamicdata_admin_modify(Array $args=array())
 
     if(!xarVarFetch('objectid', 'id',    $objectid,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('name',     'isset', $name,      NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('module_id','isset', $module_id,  NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('module_id','isset', $module_id, NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('itemtype', 'isset', $itemtype,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('join',     'isset', $join,      NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('table',    'isset', $table,     NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('notfresh', 'isset', $notfresh,  NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('tplmodule','isset', $tplmodule, NULL, XARVAR_DONT_SET)) {return;}
 
-    if(!xarVarFetch('itemid',   'isset', $itemid)) {return;}
+    if(!xarVarFetch('itemid',   'isset', $itemid,    NULL, XARVAR_DONT_SET)) {return;}
     if(!xarVarFetch('template', 'isset', $template,  NULL, XARVAR_DONT_SET)) {return;}
-    if(!xarVarFetch('preview',  'isset', $preview,     NULL, XARVAR_DONT_SET)) {return;}
+    if(!xarVarFetch('preview',  'isset', $preview,   NULL, XARVAR_DONT_SET)) {return;}
 
     $data = xarMod::apiFunc('dynamicdata','admin','menu');
     if (!xarVarFetch('tab', 'pre:trim:lower:str:1', $data['tab'], 'edit', XARVAR_NOT_REQUIRED)) return;
@@ -52,9 +52,10 @@ function dynamicdata_admin_modify(Array $args=array())
                                          'table'    => $table,
                                          'itemid'   => $itemid,
                                          'tplmodule' => $tplmodule));
-    if (empty($object)) return;
     
     // Security
+    if (empty($object)) return xarResponse::NotFound();
+    if (empty($itemid)) return xarResponse::NotFound();
     if (!$object->checkAccess('update'))
         return xarResponse::Forbidden(xarML('Update #(1) is forbidden', $object->label));
 
@@ -76,6 +77,8 @@ function dynamicdata_admin_modify(Array $args=array())
             if ($object->objectid == 1) {
                 // check security of the parent object
                 $tmpobject = DataObjectMaster::getObject(array('objectid' => $object->itemid));
+                if (empty($tmpobject))
+                    return xarResponse::NotFound();
                 if (!$tmpobject->checkAccess('config'))
                     return xarResponse::Forbidden(xarML('Configure #(1) is forbidden', $tmpobject->label));
 
@@ -110,24 +113,24 @@ function dynamicdata_admin_modify(Array $args=array())
 
             if ($object->objectid == 1) {
                 $data['label'] = $object->properties['label']->value;
-                xarTplSetPageTitle(xarML('Modify DataObject #(1)', $data['label']));
+                xarTpl::setPageTitle(xarML('Modify DataObject #(1)', $data['label']));
             } else {
                 $data['label'] = $object->label;
-                xarTplSetPageTitle(xarML('Modify Item #(1) in #(2)', $data['itemid'], $data['label']));
+                xarTpl::setPageTitle(xarML('Modify Item #(1) in #(2)', $data['itemid'], $data['label']));
             }
 
         break;
 
         case 'clone':
-            // user needs admin access to changethe access rules
+            // user needs admin access to change the access rules
             $data['adminaccess'] = xarSecurityCheck('',0,'All',$object->objectid . ":" . $name . ":" . "$itemid",0,'',0,800);
             $data['name'] = $object->properties['name']->value;
             if ($object->objectid == 1) {
                 $data['label'] = $object->properties['label']->value;
-                xarTplSetPageTitle(xarML('Clone DataObject #(1)', $data['label']));
+                xarTpl::setPageTitle(xarML('Clone DataObject #(1)', $data['label']));
             } else {
                 $data['label'] = $object->label;
-                xarTplSetPageTitle(xarML('Modify Item #(1) in #(2)', $data['itemid'], $data['label']));
+                xarTpl::setPageTitle(xarML('Modify Item #(1) in #(2)', $data['itemid'], $data['label']));
             }
         break;
     }
@@ -138,9 +141,9 @@ function dynamicdata_admin_modify(Array $args=array())
             
     if (file_exists(sys::code() . 'modules/' . $args['tplmodule'] . '/xartemplates/admin-modify.xt') ||
         file_exists(sys::code() . 'modules/' . $args['tplmodule'] . '/xartemplates/admin-modify-' . $args['template'] . '.xt')) {
-        return xarTplModule($args['tplmodule'],'admin','modify',$data,$args['template']);
+        return xarTpl::module($args['tplmodule'],'admin','modify',$data,$args['template']);
     } else {
-        return xarTplModule('dynamicdata','admin','modify',$data,$args['template']);
+        return xarTpl::module('dynamicdata','admin','modify',$data,$args['template']);
     }
 }
 

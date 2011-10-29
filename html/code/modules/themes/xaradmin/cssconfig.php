@@ -5,7 +5,7 @@
  * @package modules
  * @subpackage themes module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -42,7 +42,7 @@ function themes_admin_cssconfig()
         case "common":
             // get and verify modvars and files - all reporting inline in the form
             $data['csslinkoption'] = xarModVars::get('themes', 'csslinkoption');
-            $cssfilepath = 'modules/themes/xarstyles/';
+            $cssfilepath = sys::code() . 'modules/themes/xarstyles/';
             $filemissing = xarML('none (missing)');
             $notlinked = xarML('none - use for template debugging only!!');
             if($data['csslinkoption'] == '') {

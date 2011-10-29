@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
+    <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
+    <!--  Process only if there is JavaScript present -->
+    <xar:if condition="!empty($javascript) and is_array($javascript)">
+        <xar:foreach in="$javascript" value="$positions">
+            <xar:if condition="empty($positions)"><xar:continue/></xar:if>
+            <xar:foreach in="$positions" value="$types">
+                <xar:if condition="empty($types)"><xar:contine/></xar:if>
+                <xar:foreach in="$types" value="$scopes">
+                    <xar:if condition="empty($scopes)"><xar:continue/></xar:if>
+                    <xar:foreach in="$scopes" value="$script">
+                        <xar:if condition="$script['type'] eq 'lib'">
+    <script type="text/javascript" src="#$script['url']#">
+    </script>                        
+                        <xar:elseif condition="$script['type'] eq 'plugin'"/>
+                        
+                        <xar:elseif condition="$script['type'] eq 'src'"/>
+    <script type="text/javascript" src="#$script['url']#">&#160;
+    </script>                        
+                        <xar:elseif condition="$script['type'] eq 'code'"/>
+    <script type="text/javascript">
+        #$script['code']#
+    </script>                        
+                        <xar:elseif condition="$script['type'] eq 'event'"/>
+                        
+                        </xar:if>
+                    </xar:foreach>
+                </xar:foreach>
+            </xar:foreach>
+        </xar:foreach>
+    </xar:if>
+</xar:template>

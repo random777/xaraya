@@ -5,7 +5,7 @@
  * @package modules
  * @subpackage roles module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -16,7 +16,7 @@
  * @author Marc Lutolf <marcinmilan@xaraya.com>
  * @param array    $args array of optional parameters<br/>
  *        string   $args['id'] role id
- * @return $ancestors array containing name, id
+ * @return array array containing name, id of the ancstors
  */
 function roles_userapi_getancestors(Array $args=array())
 {

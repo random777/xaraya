@@ -3,7 +3,7 @@
  * @package modules
  * @subpackage dynamicdata module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -203,7 +203,7 @@ class DataPropertyMaster extends Object
                 {
                     // @todo: The preg determines the module name (in a sloppy way, FIX this)
                     // @todo: do we still do properties from includes/properties?
-                    xarMLSLoadTranslations($propertyInfo['filepath']);
+                    xarMLSLoadTranslations(sys::code() . $propertyInfo['filepath']);
                 }
                 else
                     xarLogMessage("WARNING: Property translations for $propertyClass NOT loaded");

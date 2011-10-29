@@ -3,7 +3,7 @@
  * @package modules
  * @subpackage dynamicdata module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -228,9 +228,6 @@ class PropertyRegistration extends DataContainer
                 // the module is active.
                 $propDirs = $dirs;
             } else {
-                // Clear the cache
-                self::ClearCache();
-
                 if (!xarVarGetCached('installer','installing')) {
                     // Repopulate the configurations table
                     $tables = xarDB::getTables();
@@ -252,6 +249,9 @@ class PropertyRegistration extends DataContainer
                         $propDirs[] = $dir;
                     }
                 }
+
+                // Clear the cache
+                self::ClearCache();
             }
 
             // Get list of properties in properties directories
@@ -301,7 +301,10 @@ class PropertyRegistration extends DataContainer
                     try {
                         sys::import($dp);
                     } catch (Exception $e) {
-                        throw new Exception(xarML('The file #(1) could not be loaded', $dp . '.php'));
+                        // Die silently for now
+                        // $debugadmins = xarConfigVars::get(null, 'Site.User.DebugAdmins');
+                        // if (xarModVars::get('dynamicdata','debugmode') && in_array(xarUserGetVar('uname'),$debugadmins))                       
+                        //    echo xarML('The file #(1) could not be loaded', $dp . '.php');
                     }
                     $loaded[$file] = true;
                 }

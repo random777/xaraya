@@ -3,7 +3,7 @@
  * @package modules
  * @subpackage base module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -133,6 +133,8 @@ class SelectProperty extends DataProperty
                 $data['options'][] = array('id' => $data['value'], 'name' => $data['value']);
             }
         }
+        // optionally add hidden previous_value field 
+        if (!isset($data['previousvalue'])) $data['previousvalue'] = false;
         if(!isset($data['onchange'])) $data['onchange'] = null; // let tpl decide what to do
         $data['extraparams'] =!empty($extraparams) ? $extraparams : "";
         if(isset($data['rows'])) $this->display_rows = $data['rows']; 
@@ -174,7 +176,7 @@ class SelectProperty extends DataProperty
         if (!empty($this->initialization_function)) {
             @eval('$items = ' . $this->initialization_function .';');
             if (!isset($items) || !is_array($items)) $items = array();
-            if (isset($items[0]) && is_array($items[0])) {
+            if (is_array(reset($items))) {
                 foreach($items as $id => $name) {
                     $options[] = array('id' => $name['id'], 'name' => $name['name']);
                 }
@@ -302,7 +304,11 @@ class SelectProperty extends DataProperty
         }
 
         // we're interested in one of the known options (= default behaviour)
-        $options = $this->getOptions();
+        if (count($this->options) > 0) {
+            $options = $this->options;
+        } else {
+            $options = $this->getOptions();
+        }
         foreach ($options as $option) {
             if ($option['id'] == $this->value) {
                 if ($check) return true;

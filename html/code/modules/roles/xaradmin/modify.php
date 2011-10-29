@@ -3,7 +3,7 @@
  * @package modules
  * @subpackage roles module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -26,6 +26,7 @@ function roles_admin_modify()
     if (!xarVarFetch('duvs', 'array', $data['duvs'], array(), XARVAR_NOT_REQUIRED)) return;
 
     $data['object'] = xarRoles::get($id);
+    if (empty($data['object'])) return xarResponse::NotFound();
     $data['object']->properties['name']->display_layout = 'single';
     $data['itemtype'] = $data['object']->getType();
 
@@ -86,7 +87,7 @@ function roles_admin_modify()
 
         if (!$isvalid) {
             // Bad data: redisplay the form with error messages
-            return xarTplModule('roles','admin','modify', $data);        
+            return xarTpl::module('roles','admin','modify', $data);        
         } else {
             // Good data: create the item
             $itemid = $data['object']->updateItem(array('itemid' => $data['itemid']));

@@ -3,7 +3,7 @@
  * @package modules
  * @subpackage dynamicdata module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -42,16 +42,18 @@ function dynamicdata_admin_create(Array $args=array())
     if(!xarVarFetch('tplmodule',    'isset', $tplmodule,   'dynamicdata', XARVAR_NOT_REQUIRED)) {return;}
 
     if (!xarSecConfirmAuthKey()) {
-        return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
+        return xarTpl::module('privileges','user','errors',array('layout' => 'bad_author'));
     }        
-
-    // Security
-    if(!xarSecurityCheck('AddDynamicData')) return;
 
     $myobject = & DataObjectMaster::getObject(array('objectid' => $objectid,
                                          'join'     => $join,
                                          'table'    => $table,
                                          'itemid'   => $itemid));
+
+    // Security (Bug: 
+    if (!$myobject->checkAccess('create'))
+        return xarResponse::Forbidden(xarML('Create #(1) is forbidden', $myobject->label));
+
     $isvalid = $myobject->checkInput();
 
     // recover any session var information
@@ -78,7 +80,7 @@ function dynamicdata_admin_create(Array $args=array())
         if(!isset($template)) {
             $template = $myobject->name;
         }
-        return xarTplModule($tplmodule,'admin','new',$data,$template);
+        return xarTpl::module($tplmodule,'admin','new',$data,$template);
     }
 
     $itemid = $myobject->createItem();

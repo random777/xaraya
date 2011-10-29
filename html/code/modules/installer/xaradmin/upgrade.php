@@ -3,7 +3,7 @@
  * @package modules
  * @subpackage installer module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -14,14 +14,11 @@
  * @return array data for the template display
  */
 function installer_admin_upgrade()
-{
-    // Security
-    if (!xarSecurityCheck('AdminInstaller')) return; 
-    
+{    
     if(!xarVarFetch('phase','int', $data['phase'], 1, XARVAR_DONT_SET)) {return;}
 
     // Version information
-    $fileversion = XARCORE_VERSION_NUM;
+    $fileversion = xarCore::VERSION_NUM;
     $dbversion = xarConfigVars::get(null, 'System.Core.VersionNum');
     sys::import('xaraya.version');
     
@@ -35,6 +32,7 @@ function installer_admin_upgrade()
         $data['upgradable'] = xarVersion::compare($fileversion, '2.0.0') > 0;
     }
     
+    // @checkme <chris/> what are these for?
     // Core modules
     $data['coremodules'] = array(
                                 42    => 'authsystem',
@@ -50,31 +48,78 @@ function installer_admin_upgrade()
     );
     $data['versions'] = array(
                                 '2.1.1',
+                                '2.1.2',
+                                '2.1.3',
+                                '2.2.0',
+                                '2.3.0',
     );
     
         
+    if ($data['phase'] != 1) {
+        // Get the password of the designated site administrator
+        $adminid = xarModVars::get('roles','admin');
+        sys::import('modules.dynamicdata.class.objects.master');
+        $role = DataObjectMaster::getObject(array('name' => 'roles_users'));
+        $role->getItem(array('itemid' => $adminid));
+        $adminpass = $role->properties['password']->value;
+        $role->properties['password']->value = '';
+        
+        // Get the password from the last page, either entered by the user (and needs to be encrypted)
+        // or stored on a previous page
+        if(!xarVarFetch('password','str', $data['password'], '', XARVAR_NOT_REQUIRED)) {return;}
+        if(!xarVarFetch('pass','str', $pass, '', XARVAR_NOT_REQUIRED)) {return;}
+
+        // Encrypt if needed using the encryption scheme of the roles module
+        if (!empty($pass)) {
+            $data['password'] = $role->properties['password']->setValue($pass);
+            $userpass = $role->properties['password']->value;
+        } else {
+            $userpass = $data['password'];
+        }
+
+        // If they don't coincide, bail
+        if ($adminpass != $userpass) {        
+            xarController::redirect(xarServer::getCurrentURL(array('phase' => 1, 'error' => 1)));
+        }
+        $data['password'] = $adminpass;
+    }
+    
     if ($data['phase'] == 1) {
         $data['active_step'] = 1;
+        if(!xarVarFetch('error','int', $data['error'], 0, XARVAR_NOT_REQUIRED)) {return;}
 
     } elseif ($data['phase'] == 2) {
         $data['active_step'] = 2;
-
+        
+        
+    } elseif ($data['phase'] == 3) {
+        $data['active_step'] = 3;
         // Get the list of version upgrades
         Upgrader::loadFile('upgrades/upgrade_list.php');
         $upgrade_list = installer_adminapi_get_upgrade_list();
 
         // Run the upgrades
-        foreach ($upgrade_list as $upgrade_version) {
-            if (!Upgrader::loadFile('upgrades/' . $upgrade_version .'/main.php')) {
-                $data['upgrade']['errormessage'] = Upgrader::$errormessage;
-                return $data;
+        $upgrades = array();
+        foreach ($upgrade_list as $abbr_version => $upgrade_version) {
+            // only run upgrades from dbversion onwards
+            if (xarVersion::compare($upgrade_version, $dbversion) <= 0) continue;
+            if (!Upgrader::loadFile('upgrades/' . $abbr_version .'/main.php')) {
+                $upgrades[$upgrade_version]['message'] = xarML('There are no upgrades for version #(1)', $upgrade_version);
+                $upgrades[$upgrade_version]['tasks'] = array();
+                //return $data;
+            } else {
+                $upgrade_function = 'main_upgrade_' . $abbr_version;
+                $result = $upgrade_function();
+                $upgrades[$upgrade_version] = $result['upgrade'];
             }
-            $upgrade_function = 'main_upgrade_' . $upgrade_version;
-            $data = array_merge($data,$upgrade_function());
         }
+        $data['upgrades'] =& $upgrades;
 
-    } elseif ($data['phase'] == 3) {
-        $data['active_step'] = 3;
+    } elseif ($data['phase'] == 4) {
+        $data['active_step'] = 4;
+        // Flush the property cache as a matter of course
+        $success = xarMod::apiFunc('dynamicdata','admin','importpropertytypes');
+
         // Align the db and filesystem version info
         xarConfigVars::set(null, 'System.Core.VersionId', xarCore::VERSION_ID);
         xarConfigVars::set(null, 'System.Core.VersionNum', xarCore::VERSION_NUM);
@@ -89,6 +134,8 @@ function installer_admin_upgrade()
         // Run the checks
         $checks = array();
         foreach ($check_list as $abbr_version => $check_version) {
+            // @checkme <chris/> only run checks for current version ?
+            // if (xarVersion::compare($check_version, $dbversion) != 0) continue;
             if (!Upgrader::loadFile('checks/' . $abbr_version .'/main.php')) {
                 $checks[$check_version]['message'] = xarML('There are no checks for version #(1)', $check_version);
                 $checks[$check_version]['tasks'] = array();
@@ -101,9 +148,9 @@ function installer_admin_upgrade()
         }
         $data['checks'] =& $checks;
 
-    } elseif ($data['phase'] == 4) {
-        $data['active_step'] = 4;
-//        xarController::redirect(xarServer::getCurrentURL(array('phase' => 4)));
+    } elseif ($data['phase'] == 5) {
+        $data['active_step'] = 5;
+//        xarController::redirect(xarServer::getCurrentURL(array('phase' => 5)));
     }
     return $data;
 }

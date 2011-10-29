@@ -5,7 +5,7 @@
  * @package core
  * @subpackage server
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -153,7 +153,7 @@ class xarServer extends Object
      *
      * Returns the value of $name server variable.
      * Accepted values for $name are exactly the ones described by the
-     * {@link http://www.php.net/manual/en/reserved.variables.html PHP manual}.
+     * {@link http://www.php.net/manual/en/reserved.variables.server.php PHP manual}.
      * If the server variable doesn't exist void is returned.
      *
      * 
@@ -258,13 +258,16 @@ class xarServer extends Object
     static function getProtocol()
     {
         if (method_exists('xarConfigVars','Get')) {
-            if (xarConfigVars::get(null, 'Site.Core.EnableSecureServer') == true) {
-                if (preg_match('/^http:/', self::getVar('REQUEST_URI'))) {
-                    return 'http';
+            try {
+                if (xarConfigVars::get(null, 'Site.Core.EnableSecureServer') == true) {
+                    if (preg_match('/^http:/', self::getVar('REQUEST_URI'))) {
+                        return 'http';
+                    }
+                    $serverport = $_SERVER['SERVER_PORT'];
+                    return ($serverport == xarConfigVars::get(null, 'Site.Core.SecureServerPort')) ? self::PROTOCOL_HTTPS : self::PROTOCOL_HTTP;
                 }
-                $HTTPS = self::getVar('HTTPS');
-                // IIS seems to set HTTPS = off for some reason
-                return (!empty($HTTPS) && $HTTPS != 'off') ? self::PROTOCOL_HTTP : self::PROTOCOL_HTTPS;
+            } catch (Exception $e) {
+                return self::PROTOCOL_HTTP;
             }
         }
         return self::PROTOCOL_HTTP;
@@ -370,7 +373,8 @@ class xarServer extends Object
                         } else {
                             $request = str_replace("&$find",'',$request);
                         }
-                    } elseif (!empty($v)) {
+                    // <chris/> !empty is too greedy here, $v=0, $v='', et-al are valid 
+                    } elseif (!is_null($v)) {
                         $request .= "$k=$v&";
                     }
                 }

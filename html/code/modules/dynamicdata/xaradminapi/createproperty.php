@@ -3,7 +3,7 @@
  * @package modules
  * @subpackage dynamicdata module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -27,7 +27,7 @@
  *        string   $args['status'] status of the property to create (disabled/active/...)<br/>
  *        integer  $args['seq'] order of the property to create<br/>
  *        string   $args['configuration'] configuration of the property to create
- * @return int property ID on success, null on failure
+ * @return integer property ID on success, null on failure
  * @throws BAD_PARAM, NO_PERMISSION
  */
 function dynamicdata_adminapi_createproperty(Array $args=array())

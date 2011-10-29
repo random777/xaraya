@@ -5,7 +5,7 @@
  * @package core
  * @subpackage themes
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -60,7 +60,6 @@ function xarThemeGetInfo($regId) { return xarMod::getInfo($regId, $type = 'theme
  */
 function xarThemeIsAvailable($themeName) { return xarMod::isAvailable($themeName, $type = 'theme'); }
 
-
 // PROTECTED FUNCTIONS
 
 /**
@@ -94,7 +93,7 @@ function xarTheme_getVarsByTheme($themeName)
     // mod  = themes
     // item = the theme
     // For now, return the vars of the themes module
-    return xarModVars::load('themes');
+    return xarModVars::preload('themes');
 }
 
 ?>

@@ -5,7 +5,7 @@
  * @package modules
  * @subpackage base module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -16,7 +16,7 @@
  *
  * @author  John Cox <admin@dinerminor.com>
  * @access  public
- * @return  true on success or void on failure
+ * @return  boolean true on success, false on failure
 */
 function base_adminapi_waitingcontent()
 {

@@ -3,7 +3,7 @@
  * @package modules
  * @subpackage dynamicdata module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -346,7 +346,7 @@ class DataObjectLinks extends Object
                     $where[] = $link['extra'];
                 }
                 if (!empty($where)) {
-//echo var_dump($where);
+
                     $linkedlist->getItems(array('where' => implode(' and ', $where)));
 /* CHECKME: turn linkedto, linkedfrom and parents into a single object ?
                     if (!empty($linkedlist->itemids) && count($linkedlist->itemids) == 1) {
@@ -442,7 +442,6 @@ class DataObjectLinks extends Object
                     $where[] = $link['extra'];
                 }
                 if (!empty($where)) {
-//echo var_dump($where);
                     $linkedcount = $linkedlist->countItems(array('where' => implode(' and ', $where)));
                 }
 
@@ -498,7 +497,6 @@ class DataObjectLinks extends Object
                 } else {
                     // now what ?
                 }
-//echo var_dump($linkedcount);
             }
 
             $link['label'] = $linkedlist->label;

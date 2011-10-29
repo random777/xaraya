@@ -3,7 +3,7 @@
  * @package modules
  * @subpackage dynamicdata module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -47,7 +47,7 @@ function dynamicdata_admin_access(Array $args=array())
     $data['template'] = $object->template;
     $data['itemid'] = $object->itemid;
     $data['label'] = $object->properties['label']->value;
-    xarTplSetPageTitle(xarML('Manage Access Rules for #(1)', $data['label']));
+    xarTpl::setPageTitle(xarML('Manage Access Rules for #(1)', $data['label']));
 
     // check security of the parent object ... or DD Admin as fail-safe here
     $tmpobject = DataObjectMaster::getObject(array('objectid' => $object->itemid));
@@ -57,15 +57,15 @@ function dynamicdata_admin_access(Array $args=array())
         return xarResponse::Forbidden(xarML('Configure #(1) is forbidden', $tmpobject->label));
     unset($tmpobject);
 
-    // Get the object's configuration
-    if (!empty($object->properties['config']) && !empty($object->properties['config']->value)) {
+    // Get the object's access rules
+    if (!empty($object->properties['access']) && !empty($object->properties['access']->value)) {
         try {
-            $configuration = unserialize($object->properties['config']->value);
+            $objectaccess = unserialize($object->properties['access']->value);
         } catch (Exception $e) {
-            $configuration = array();
+            $objectaccess = array();
         }
     } else {
-        $configuration = array();
+        $objectaccess = array();
     }
 
     // Specify access levels
@@ -93,7 +93,7 @@ function dynamicdata_admin_access(Array $args=array())
 
     if (!empty($confirm)) {
         if (!xarSecConfirmAuthKey()) {
-            return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
+            return xarTpl::module('privileges','user','errors',array('layout' => 'bad_author'));
         }
 
         // Get the access information from the template
@@ -101,7 +101,7 @@ function dynamicdata_admin_access(Array $args=array())
         $accessproperty = DataPropertyMaster::getProperty(array('name' => 'access'));
         foreach ($data['levels'] as $level => $info) {
             $isvalid = $accessproperty->checkInput($object->name . '_' . $level);
-            $configuration['access'][$level] = $accessproperty->value;
+            $objectaccess['access'][$level] = $accessproperty->value;
         }
 */
         if(!xarVarFetch('do_access', 'isset', $do_access, NULL, XARVAR_DONT_SET)) {return;}
@@ -110,6 +110,7 @@ function dynamicdata_admin_access(Array $args=array())
         $accesslist = array();
         if (!empty($do_access)) {
             if(!xarVarFetch('access', 'isset', $access, array(), XARVAR_DONT_SET)) {return;}
+
             foreach ($data['levels'] as $level => $info) {
                 if (empty($access[$level])) {
                     continue;
@@ -126,10 +127,10 @@ function dynamicdata_admin_access(Array $args=array())
                 }
             }
             // serialize the access list first
-            $configuration['access'] = serialize($accesslist);
+            $objectaccess['access'] = serialize($accesslist);
         } else {
             // clear the access list first
-            unset($configuration['access']);
+            unset($objectaccess['access']);
         }
 
         // define the new filter list
@@ -146,15 +147,15 @@ function dynamicdata_admin_access(Array $args=array())
         }
         if (!empty($filterlist)) {
             // serialize the filter list first
-            $configuration['filters'] = serialize($filterlist);
+            $objectaccess['filters'] = serialize($filterlist);
         } else {
             // clear the filter list first
-            unset($configuration['filters']);
+            unset($objectaccess['filters']);
         }
 
-        // then serialize the configuration for update
-        $configstring = serialize($configuration);
-        $itemid = $object->updateItem(array('config' => $configstring));
+        // then serialize the access rules for update
+        $accessstring = serialize($objectaccess);
+        $itemid = $object->updateItem(array('access' => $accessstring));
 
         if(!xarVarFetch('return_url', 'isset', $return_url,  NULL, XARVAR_DONT_SET)) {return;}
         if (!empty($return_url)) {
@@ -167,10 +168,10 @@ function dynamicdata_admin_access(Array $args=array())
         return true;
     }
 
-    if (!empty($configuration['access'])) {
+    if (!empty($objectaccess['access'])) {
         // unserialize the access list
         try{
-            $data['access'] = unserialize($configuration['access']);
+            $data['access'] = unserialize($objectaccess['access']);
         } catch (Exception $e) {
             $data['access'] = array();
         }
@@ -197,10 +198,10 @@ function dynamicdata_admin_access(Array $args=array())
         $data['do_access'] = 1;
     }
 
-    if (!empty($configuration['filters'])) {
+    if (!empty($objectaccess['filters'])) {
         // unserialize the filter list
         try{
-            $filterlist = unserialize($configuration['filters']);
+            $filterlist = unserialize($objectaccess['filters']);
         } catch (Exception $e) {
             $filterlist = array();
         }
@@ -240,9 +241,9 @@ function dynamicdata_admin_access(Array $args=array())
 
     if (file_exists(sys::code() . 'modules/' . $data['tplmodule'] . '/xartemplates/admin-access.xt') ||
         file_exists(sys::code() . 'modules/' . $data['tplmodule'] . '/xartemplates/admin-access-' . $data['template'] . '.xt')) {
-        return xarTplModule($data['tplmodule'],'admin','access',$data,$data['template']);
+        return xarTpl::module($data['tplmodule'],'admin','access',$data,$data['template']);
     } else {
-        return xarTplModule('dynamicdata','admin','access',$data,$data['template']);
+        return xarTpl::module('dynamicdata','admin','access',$data,$data['template']);
     }
 }
 

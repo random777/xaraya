@@ -3,7 +3,7 @@
  * @package modules
  * @subpackage roles module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -127,9 +127,6 @@ function roles_user_account()
             $object->tplmodule = 'roles';   // roles/xartemplates/objects/
             $object->template = 'account';  // showdisplay- || showform- account.xt
             if (empty($tab) || $tab == 'profile') {
-                // set up the roles_user object for display
-                $fieldlist = 'name,uname,state,regdate';
-                $object->setFieldList($fieldlist);
             } elseif ($tab == 'basic') {
                 // set up the roles_user object for edit
                 if (xarModVars::get('roles','setuserlastlogin')) {
@@ -198,12 +195,12 @@ function roles_user_account()
         $data['menutabs'] = $menutabs;
         
     }
-    $data['id']          = xarUserGetVar('id');
+    $data['id']           = xarUserGetVar('id');
     $data['name']         = xarUserGetVar('name');
     $data['logoutmodule'] = $defaultlogoutmodname;
     $data['loginmodule']  = $defaultloginmodname;
     $data['authmodule']   = $defaultauthmodname;
-    $data['moduleload'] = $moduleload;
+    $data['moduleload']   = $moduleload;
     $data['tab'] = $tab;
     if (empty($message)) $data['message'] = '';
 

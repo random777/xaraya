@@ -5,7 +5,7 @@
  * @package modules
  * @subpackage roles module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -58,8 +58,6 @@ function roles_user_display(Array $args=array())
             $object->tplmodule = $args['tplmodule'];   // roles/xartemplates/objects/
             $object->template = $args['template'];  // showdisplay-account.xt
             $object->layout = $args['layout'];
-            $fieldlist = 'name,uname,state,regdate';
-            $object->setFieldList($fieldlist);
             $object->getItem(array('itemid' => $id));
             $data['object'] = $object;
             $data['uname'] = $object->properties['uname']->getValue();
@@ -75,7 +73,7 @@ function roles_user_display(Array $args=array())
                                        array('id' => $id));
         $data['hooks'] = xarModCallHooks('item', 'display', $id, $item);
 
-        xarTplSetPageTitle(xarVarPrepForDisplay($data['name']));
+        xarTpl::setPageTitle(xarVarPrepForDisplay($data['name']));
     } else {
         $data['id'] = $id;
         $data['uname'] = '';
@@ -85,7 +83,7 @@ function roles_user_display(Array $args=array())
     $data['itemtypename'] = $types[$itemtype]['label'];
     $data['layout'] = $args['layout'];
 
-    return xarTplModule($args['tplmodule'],'user','display',$data,$args['template']);
+    return xarTpl::module($args['tplmodule'],'user','display',$data,$args['template']);
 }
 
 ?>

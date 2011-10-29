@@ -3,7 +3,7 @@
  * @package core
  * @subpackage events
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -73,15 +73,12 @@ class xarEvents extends Object implements ixarEvents
     **/
     public static function notify($event, $args=array())
     {
-        // check module subsystem is up before running (SessionCreate is raised during install)
-        if (!class_exists('xarMod')) return;
-        
-        // get info for specified event
-        $info = static::getSubject($event);
-        if (empty($info)) return;
-       
+
         // Attempt to load subject 
         try {
+            // get info for specified event
+            $info = static::getSubject($event);
+            if (empty($info)) return;
             // file load takes care of validation for us 
             if (!self::fileLoad($info)) return; 
             $module = xarMod::getName($info['module_id']);
@@ -142,6 +139,7 @@ class xarEvents extends Object implements ixarEvents
             }
         } catch (Exception $e) {
             // Events never fail, ever!
+            xarLogMessage("xarEvents::notify: failed notifying $event subject observers");
             $response = false;
         }
         
@@ -208,8 +206,6 @@ class xarEvents extends Object implements ixarEvents
     
     final public static function register($event,$module,$area='class',$type='eventobservers',$func='notify', $itemtype, $scope="") 
     {
-        // check module subsystem is up before running
-        if (!class_exists('xarMod')) return;
 
         $info = array(
             'event' => $event,

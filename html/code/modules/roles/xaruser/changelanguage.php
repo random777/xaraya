@@ -4,7 +4,7 @@
  * @package modules
  * @subpackage roles module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -18,7 +18,7 @@
  */
 function roles_user_changelanguage()
 {
-    if (!xarVarFetch('locale',     'str:1:', $locale,     NULL, XARVAR_NOT_REQUIRED)) return;
+    if (!xarVarFetch('locale',     'str:1:', $locale,     xarMLSGetCurrentLocale(), XARVAR_NOT_REQUIRED)) return;
     if (!xarVarFetch('return_url', 'str:1:', $return_url, xarServer::getVar('HTTP_REFERER'), XARVAR_NOT_REQUIRED)) return;
 
     $locales = xarMLSListSiteLocales();

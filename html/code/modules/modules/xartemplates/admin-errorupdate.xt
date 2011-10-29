@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
     <!-- License: GPL http://www.gnu.org/copyleft/gpl.html -->
-    <div class="xar-mod-head">
-        <span class="xar-mod-title">Modules Administration</span>
-    </div>
+    <xar:template file="admin-mod-head"/>
     <div class="xar-mod-body">
         <h2>Module Error Information</h2>
         <!-- Error Information -->
@@ -40,7 +38,7 @@
         <p>If modules files are up to date, you can update the database to the current version.
         Only do this if you are absolutely certain the module files are up to date.</p>
         <p>
-            <a href="#xarModURL('privileges','admin','updateversion',array('id'=>$regId))#">Click here to update
+            <a href="#xarModURL('modules','admin','updateversion',array('id'=>$regId))#">Click here to update
             the module version in the database.</a>
         </p>
     </div>

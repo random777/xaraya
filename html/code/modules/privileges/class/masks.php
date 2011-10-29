@@ -5,7 +5,7 @@
  * @package modules
  * @subpackage privileges module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -208,7 +208,7 @@ class xarMasks extends xarSecurity
      * @author  Marc Lutolf <marcinmilan@xaraya.com>
      * @access  public
      * @param   string $levelname the
-     * @return  int access level
+     * @return  integer access level
     */
     public static function xarSecLevel($levelname)
     {
@@ -279,7 +279,7 @@ class xarMasks extends xarSecurity
      * @author  Marc Lutolf <marcinmilan@xaraya.com>
      * @access  public
      * @param   array representing the privilege set
-     * @return  none
+     * @return  void
     */
     public static function normalizeprivset(&$privset)
     {

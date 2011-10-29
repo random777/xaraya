@@ -5,14 +5,17 @@
  * @package modules
  * @subpackage roles module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
  * @link http://xaraya.com/index.php/release/27.html
  */
 /**
+ * Modify the configuration settings of this module
+ *
  * Standard GUI function to display and update the configuration settings of the module based on input data.
+ *
  * @return mixed data array for the template display or output display string if invalid data submitted
  */
 function roles_admin_modifyconfig()
@@ -112,10 +115,11 @@ function roles_admin_modifyconfig()
             $data['module_settings'] = xarMod::apiFunc('base','admin','getmodulesettings',array('module' => 'roles'));
             $data['module_settings']->setFieldList('items_per_page, use_module_alias, module_alias_name, enable_short_urls, enable_user_menu, user_menu_link');
             $data['module_settings']->getItem();
+
             $data['user_settings'] = xarMod::apiFunc('base', 'admin', 'getusersettings', array('module' => 'roles', 'itemid' => 0));
             $settings = explode(',',xarModVars::get('roles', 'duvsettings'));
-            $required = array('usereditaccount', 'allowemail', 'requirevalidation', 'displayrolelist', 'searchbyemail');
-            $skiplist = array('userhome', 'primaryparent', 'passwordupdate', 'duvsettings', 'userlastlogin', 'emailformat');
+            $required = array('usereditaccount', 'primaryparent', 'allowemail', 'emailformat', 'requirevalidation', 'displayrolelist', 'searchbyemail');
+            $skiplist = array('userhome', 'passwordupdate', 'duvsettings', 'userlastlogin', 'usertimezone', 'useremailformat');
             $homelist = array('allowuserhomeedit', 'allowexternalurl', 'loginredirect');
             if (!in_array('userhome', $settings)) {
                 $skiplist = array_merge($skiplist, $homelist);
@@ -152,7 +156,7 @@ function roles_admin_modifyconfig()
         case 'update':
             // Confirm authorisation code
             if (!xarSecConfirmAuthKey()) {
-                return xarTplModule('privileges','user','errors',array('layout' => 'bad_author'));
+                return xarTpl::module('privileges','user','errors',array('layout' => 'bad_author'));
             }
             switch ($data['tab']) {
                 case 'general':
@@ -163,7 +167,7 @@ function roles_admin_modifyconfig()
 
                     $isvalid = $data['module_settings']->checkInput();
                     if (!$isvalid) {
-                        return xarTplModule('roles','admin','modifyconfig', $data);
+                        return xarTpl::module('roles','admin','modifyconfig', $data);
                     } else {
                         $itemid = $data['module_settings']->updateItem();
                     }
@@ -189,15 +193,29 @@ function roles_admin_modifyconfig()
                 case 'duvs':
                     $isvalid = $data['user_settings']->checkInput();
                     if (!$isvalid) {
-                        return xarTplModule('roles','admin','modifyconfig', $data);
+                        return xarTpl::module('roles','admin','modifyconfig', $data);
                     } else {
                         $itemid = $data['user_settings']->updateItem();
                     }
                     break;
+                case 'debugging':
+                    if (!xarVarFetch('debugadmins', 'str', $candidates, '', XARVAR_NOT_REQUIRED)) return;
+
+                    // Get the users to be shown the debug messages
+                    if (empty($candidates)) {
+                        $candidates = array();
+                    } else {
+                        $candidates = explode(',',$candidates);
+                    }
+                    $debugadmins = array();
+                    foreach ($candidates as $candidate) {
+                        $admin = xarMod::apiFunc('roles','user','get',array('uname' => trim($candidate)));
+                        if(!empty($admin)) $debugadmins[] = $admin['uname'];
+                    }
+                    xarConfigVars::set(null, 'Site.User.DebugAdmins', $debugadmins);
+                break;
             }
-//            if (!xarVarFetch('allowinvisible', 'checkbox', $allowinvisible, false, XARVAR_NOT_REQUIRED)) return;
-            // Update module variables
-//            xarModVars::set('roles', 'allowinvisible', $allowinvisible);
+            xarController::redirect(xarModURL('roles','admin','modifyconfig',array('tab' => $data['tab'])));
             break;
     }
     return $data;

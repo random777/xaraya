@@ -5,7 +5,7 @@
  * @package modules
  * @subpackage installer module
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -40,7 +40,7 @@ function installer_admin_phase3()
 
     //Defaults
     $systemConfigIsWritable   = false;
-    $systemConfigDistIsWritable   = false;
+    $systemConfigDistIsReadable   = false;
     $cacheTemplatesIsWritable = false;
     $rssTemplatesIsWritable   = false;
     $metRequiredPHPVersion    = false;
@@ -59,9 +59,11 @@ function installer_admin_phase3()
     }
 
     // If there is no system.config file, attempt to create it
-    $systemConfigDistIsReadable = is_writable($systemConfigDistFile);
+    $systemConfigDistIsReadable = is_readable($systemConfigDistFile);
     if ($systemConfigDistIsReadable && !file_exists($systemConfigFile)) {
-        copy($systemConfigDistFile, $systemConfigFile);
+        try {
+            copy($systemConfigDistFile, $systemConfigFile);
+        } catch (Exception $e) {}
     }
     
     $systemConfigIsWritable     = is_writable($systemConfigFile);
@@ -84,6 +86,7 @@ function installer_admin_phase3()
     $data['xmlextension']             = extension_loaded('xml');
     $data['xslextension']             = extension_loaded('xsl');
     $data['mysqlextension']           = extension_loaded('mysql');
+    $data['mysqliextension']          = extension_loaded('mysqli');
     $data['pgsqlextension']           = extension_loaded('pgsql');
     $data['sqliteextension']          = extension_loaded('sqlite');
     $data['pdosqliteextension']       = extension_loaded('pdo_sqlite');

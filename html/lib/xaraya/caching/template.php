@@ -5,7 +5,7 @@
  * @package core
  * @subpackage caching
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -152,9 +152,6 @@ class xarTemplateCache extends Object implements ixarTemplateCache
         if ( file_exists($cacheFile) &&
              ( !file_exists($fileName) ||
                ( filemtime($fileName) < filemtime($cacheFile)
-                // TODO: this is obviously just to make my life easier during xslt compiler development
-                // it needs to be moved somewhere else (for one, because it is going to be configurable)
-                && filemtime(sys::lib() . 'blocklayout/xslt/xar2php.xsl') < filemtime($cacheFile)
                ) ) ) return false; // not dirty
 
         return true; // either cache not active of entry needs recompilation

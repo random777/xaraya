@@ -5,7 +5,7 @@
  * @package core
  * @subpackage variables
  * @category Xaraya Web Applications Framework
- * @version 2.2.0
+ * @version 2.3.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://www.xaraya.com
@@ -116,12 +116,13 @@ class xarConfigVars extends xarVars implements IxarVars
         try  {
           $dbconn = xarDB::getConn();
           $tables = xarDB::getTables();
+          $varstable = $tables['config_vars'];
         } catch (Exception $e) {
           // No tables, probably installing
           if($value == null) throw new VariableNotFoundException($name, "Variable #(1) not found (no tables found, in fact)");
           return $value;
         } 
-        $varstable = $tables['config_vars'];
+
         $query = "SELECT name, value FROM $varstable WHERE module_id is null AND name = ?";
 
         $stmt = $dbconn->prepareStatement($query);
@@ -168,11 +169,12 @@ class xarConfigVars extends xarVars implements IxarVars
         try {
           $dbconn = xarDB::getConn();
           $tables = xarDB::getTables();
+          $varstable = $tables['config_vars'];
         } catch (Exception $e) {
           return false;
         }
         
-        $query = "SELECT name, value FROM $tables[config_vars] WHERE module_id is null";
+        $query = "SELECT name, value FROM $varstable WHERE module_id is null";
         $stmt = $dbconn->prepareStatement($query);
         $result = $stmt->executeQuery(array(),ResultSet::FETCHMODE_ASSOC);
 

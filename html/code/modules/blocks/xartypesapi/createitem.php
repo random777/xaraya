@@ -81,8 +81,7 @@ function blocks_typesapi_createitem(Array $args=array())
     $query = "INSERT INTO $types_table
               (id, module_id, state, type, category, info)
               VALUES (?,?,?,?,?,?)";
-    $bindvars = array($dbconn->genId($types_table), $module_id, $state, $type, $category, $info);        
-
+    $bindvars = array($dbconn->genId($types_table), (int)$module_id, $state, $type, $category, $info);        
     $result = $dbconn->Execute($query,$bindvars);
     if (!$result) return;
     $id = $dbconn->PO_Insert_ID($types_table, 'id');

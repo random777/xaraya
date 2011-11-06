@@ -88,7 +88,7 @@ class ShortRoute extends BaseRoute
         // when decoding, path and query params are available from $url
         $path = $url->getPath();
         // no path parts, not ours 
-        if (empty($path)) return;
+        if (empty($path[0])) return;
         $args = $url->getQuery();
         // ok, we have some path parts, this could be ours
         if ($path[0] == 'object') {

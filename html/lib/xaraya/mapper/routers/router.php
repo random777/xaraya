@@ -27,35 +27,54 @@ class xarRouter extends Object
 
     public function addDefaultRoutes()
     {
-        if (empty($this->routes['default'])) {
+        if (empty($this->routes)) {
+            sys::import('xaraya.structures.relativedirectoryiterator');
+            $routesdir = 'xaraya/mapper/routers/routes';
+            $dir = new RelativeDirectoryIterator(sys::lib() . $routesdir);
+    
             $dispatcher = xarController::getDispatcher();
-
-            sys::import('xaraya.mapper.routers.routes.default');
-            $route = new DefaultRoute(array(), $dispatcher);
-            $this->routes['default'] = $route;
-
-            sys::import('xaraya.mapper.routers.routes.short');
-            $route = new ShortRoute(array(), $dispatcher);
-            $this->routes['short'] = $route;
-
-            /* Add more routes here
-            */
+            
+            // Loop through the routes directory
+            for ($dir->rewind();$dir->valid();$dir->next()) {
+                if ($dir->isDir()) continue; // no dirs
+                if ($dir->getExtension() != 'php') continue; // only php files
+                if ($dir->isDot()) continue; // others we don't want
+    
+                $file = $dir->getPathName();
+                if (!isset($loaded[$file])) {
+                    $filename = substr(basename($file),0,-4);
+                    $route = str_replace('/','.',$routesdir . "/" . $filename);
+                    try {
+                        sys::import($route);
+                        $classname = UCFirst($filename).'Route';
+                        $this->routes[$filename] = new $classname(array(), $dispatcher);                        
+                    } catch (Exception $e) {
+                        throw new Exception(xarML('The file #(1) could not be loaded', $route . '.php'));
+                    }
+                    $loaded[$file] = true;
+                }
+            }
         }
-        
-        return $this;
+        return true;
     }
 
     public function route(xarRequest $request)
     {
         $this->addDefaultRoutes();
+        $found = false;
         foreach (array_reverse($this->routes) as $name => $route) {
-            if ($params = $route->match($request)) {
-                $request->setRoute($name);
-                $this->currentRoute = $name;
-                return true;
+            if ($route->match($request)) {
+                $found = true;
+                break;
             }
         }
-        return false;
+        if (!$found) {
+            $name = xarConfigVars::get(null,'Site.Core.DefaultRoute');
+            $route = $this->routes[$name];
+        }
+        $request->setRoute($route);
+        $this->currentRoute = $name;
+        return true;
     }
 
     public function assemble($userParams=array(), $name=null, $reset=false, $encode=true)
@@ -78,7 +97,7 @@ class xarRouter extends Object
 
     public function getRoute($name=null)
     {
-        if (null == $name) return $this->currentRoute;
+        if (null == $name) $name = $this->currentRoute;
         return $this->routes[$name];
     }
 

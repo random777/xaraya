@@ -127,7 +127,7 @@ function base_admin_modifyconfig()
                     if (!xarVarFetch('defaulttype',    'str:1:', $defaultModuleType, xarModVars::get('modules', 'defaultmoduletype'), XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('defaultfunction','str:1:', $defaultModuleFunction,xarModVars::get('modules', 'defaultmodulefunction'),XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('defaultdatapath','str:1:', $defaultDataPath, xarModVars::get('modules', 'defaultdatapath'),XARVAR_NOT_REQUIRED)) return;
-                    if (!xarVarFetch('shorturl','checkbox',$enableShortURLs,false,XARVAR_NOT_REQUIRED)) return;
+                    if (!xarVarFetch('defaultroute','str:1:',$defaultroute,false,XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('htmlenitites','checkbox',$FixHTMLEntities,false,XARVAR_NOT_REQUIRED)) return;
 
                     $isvalid = $data['module_settings']->checkInput();
@@ -145,7 +145,7 @@ function base_admin_modifyconfig()
                     xarModVars::set('base','AlternatePageTemplateName', $alternatePageTemplateName);
 
                     xarModUserVars::set('roles','userhome', xarModURL($defaultModuleName, $defaultModuleType, $defaultModuleFunction),1);
-                    xarConfigVars::set(null, 'Site.Core.EnableShortURLsSupport', $enableShortURLs);
+                    xarConfigVars::set(null, 'Site.Core.DefaultRoute', $defaultroute);
                     // enable short urls for the base module itself too
                     xarConfigVars::set(null, 'Site.Core.FixHTMLEntities', $FixHTMLEntities);
                     break;

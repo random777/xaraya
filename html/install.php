@@ -108,14 +108,15 @@ sys::import('xaraya.variables');
 sys::import('xaraya.server');
 sys::import('xaraya.mls');
 sys::import('xaraya.templates');
-sys::import('xaraya.mapper.main');
+//sys::import('xaraya.mapper.main');
+sys::import('xaraya.mapper2.controller');
 
 // Start Logging Facilities as soon as possible
 $systemArgs = array();
 xarLog_init($systemArgs);
 
 // Start HTTP Protocol Server/Request/Response utilities
-$systemArgs = array('enableShortURLsSupport' =>false,
+$systemArgs = array('defaultRoute'           => 'default',
                     'defaultModuleName'      => 'installer',
                     'defaultModuleType'      => 'admin',
                     'defaultModuleFunction'  => 'main',
@@ -130,7 +131,7 @@ xarController::init($systemArgs);
 // @checkme <chris/> themesBaseDirectory is not accounted for in xarTpl::init()
 // the value comes from Site.BL.ThemesDirectory and falls back to 'themes'
 // any reason we need to define it here?
-$systemArgs = array('enableTemplatesCaching' => false,
+$systemArgs = array('enableTemplatesCaching' => true,
                     'themesBaseDirectory'    => 'themes',
                     'defaultThemeDir'        => 'installer',
                     'generateXMLURLs'        => false);

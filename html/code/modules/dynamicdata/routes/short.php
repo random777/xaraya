@@ -56,7 +56,7 @@ class DynamicdataShortRoute extends BaseRoute
                         $path[] = $name;
                     }
                     if (!empty($query['catid'])) {
-                        $path[] = 'c' . $catid;
+                        $path[] = 'c' . $query['catid'];
                         unset($query['catid']);
                     }         
                 }

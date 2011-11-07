@@ -114,8 +114,24 @@ class xarController extends Object
 
     public static function URL($module=null, $type='user', $func='main', $args=array(), $xmlurls=null, $target=null, $entrypoint=null)
     {
-        $encoded = self::getRouter()->encode(new xarUrl2($module, $type, $func, $args, $xmlurls, $target, $entrypoint));
-        return $encoded->getUrl();
+        $cacheKey = self::getUrlHash($module, $type, $func, $args, $xmlurls, $target, $entrypoint);        
+        static $_urls = array();
+        if (isset($_urls[$cacheKey]))
+            return $_urls[$cacheKey];        
+                
+        $_urls[$cacheKey] = self::getRouter()->encode(new xarUrl2($module, $type, $func, $args, $xmlurls, $target, $entrypoint));
+        return $_urls[$cacheKey];
+    }
+
+    private static function getUrlHash($module, $type, $func, $args, $xmlurls, $target, $entrypoint)
+    {
+        $hash = "$module:$type:$func:";
+        ksort($args);
+        $hash .= serialize($args);
+        $hash .= (int) $xmlurls;
+        $hash .= (string) $target;
+        $hash .= (string) $entrypoint;
+        return md5($hash);
     }
 
     // copy/pasted functions from mapper/main 

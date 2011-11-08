@@ -114,16 +114,18 @@ class xarController extends Object
 
     public static function URL($module=null, $type='user', $func='main', $args=array(), $xmlurls=null, $target=null, $entrypoint=null)
     {
-        $cacheKey = self::getUrlHash($module, $type, $func, $args, $xmlurls, $target, $entrypoint);        
-        static $_urls = array();
-        if (isset($_urls[$cacheKey]))
-            return $_urls[$cacheKey];        
-                
-        $_urls[$cacheKey] = self::getRouter()->encode(new xarUrl2($module, $type, $func, $args, $xmlurls, $target, $entrypoint));
-        return $_urls[$cacheKey];
+        $cacheKey = self::getCacheKey($module, $type, $func, $args, $xmlurls, $target, $entrypoint);        
+        // try the cache
+        if (xarCoreCache::isCached('Site.Url.Object', $cacheKey)) 
+            return xarCoreCache::getCached('Site.Url.Object', $cacheKey);       
+            
+        $url = self::getRouter()->encode(new xarUrl2($module, $type, $func, $args, $xmlurls, $target, $entrypoint));
+        // cache the url 
+        xarCoreCache::setCached('Site.Url.Object', $cacheKey, $url);
+        return $url;
     }
 
-    private static function getUrlHash($module, $type, $func, $args, $xmlurls, $target, $entrypoint)
+    private static function getCacheKey($module, $type, $func, $args, $xmlurls, $target, $entrypoint)
     {
         $hash = "$module:$type:$func:";
         ksort($args);

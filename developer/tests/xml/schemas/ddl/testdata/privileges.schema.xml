@@ -30,21 +30,21 @@
     </column>
     <constraints>
       <primary>
-        <columnref id="privileges.id"/>
+        <column ref="privileges.id"/>
       </primary>
       <index name="i_privileges_realm_id">
-        <columnref id="privileges.realm_id"/>
+        <column ref="privileges.realm_id"/>
       </index>
       <index name="i_privileges_name">
-        <columnref id="privileges.name"/>
-        <columnref id="privileges.module_id"/>
-        <columnref id="privileges.type"/>
+        <column ref="privileges.name"/>
+        <column ref="privileges.module_id"/>
+        <column ref="privileges.type"/>
       </index>
       <index name="i_privileges_module">
-        <columnref id="privileges.module_id"/>
+        <column ref="privileges.module_id"/>
       </index>
       <index name="i_privileges_level">
-        <columnref id="privileges.level"/>
+        <column ref="privileges.level"/>
       </index>
     </constraints>
   </table>
@@ -58,10 +58,10 @@
     <constraints>
       <!--ERROR: the table has no primary key-->
       <index name="i_privmembers_pid">
-        <columnref id="privmembers.id"/>
+        <column ref="privmembers.id"/>
       </index>
       <index name="i_privmembers_parentid">
-        <columnref id="privmembers.parentid"/>
+        <column ref="privmembers.parentid"/>
       </index>
     </constraints>
   </table>
@@ -74,18 +74,18 @@
     </column>
     <constraints>
       <primary>
-        <columnref id="security_acl.partid"/>
-        <columnref id="security_acl.permid"/>
+        <column ref="security_acl.partid"/>
+        <column ref="security_acl.permid"/>
       </primary>
       <index name="i_security_acl_permid">
-        <columnref id="security_acl.permid"/>
+        <column ref="security_acl.permid"/>
       </index>
       <index name="i_security_acl_partid">
-        <columnref id="security_acl.partid"/>
+        <column ref="security_acl.partid"/>
       </index>
       <index name="(security_acl autoindex 1)">
-        <columnref id="security_acl.partid"/>
-        <columnref id="security_acl.permid"/>
+        <column ref="security_acl.partid"/>
+        <column ref="security_acl.permid"/>
       </index>
     </constraints>
   </table>
@@ -125,7 +125,7 @@
     </column>
     <constraints>
       <primary>
-        <columnref id="security_instances.id"/>
+        <column ref="security_instances.id"/>
       </primary>
     </constraints>
   </table>
@@ -138,7 +138,7 @@
     </column>
     <constraints>
       <primary>
-        <columnref id="security_realms.id"/>
+        <column ref="security_realms.id"/>
       </primary>
     </constraints>
   </table>

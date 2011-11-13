@@ -1,0 +1,23 @@
+<schema xmlns="http://xaraya.com/2007/schema">
+  <!--
+      This file contains standard prototypes we would like to use in 
+      generating the model. It should be placed inside a convenient location
+      from where it can be included.
+  -->
+  <prototypes>
+    <!-- 
+        If a table needs an autoincrement/serial/sequenced id 
+        From within your schema, use it like this:
+        
+        <column ref="auto_id_column"/>
+        
+        and it will be generated automagically for you.
+    -->
+    <column id="auto_id_column" name="id" required="true" auto="true">
+      <description>
+          This column generates numbers automatically. A nameless id. No
+          meaning should be given to the number, it is 'just a number'
+      <number size="11" decimals="0"/>
+    </column>
+  </prototypes>
+</schema>

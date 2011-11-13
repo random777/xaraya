@@ -160,7 +160,7 @@ function base_init()
     xarConfigVars::set(null, 'Site.BL.ThemesDirectory','themes');
     xarConfigVars::set(null, 'Site.Core.FixHTMLEntities',true);
     xarConfigVars::set(null, 'Site.Core.TimeZone', 'Etc/UTC');
-    xarConfigVars::set(null, 'Site.Core.EnableShortURLsSupport', false);
+    xarConfigVars::set(null, 'Site.Core.DefaultRoute', 'default');
     
     // when installing via https, we assume that we want to support that :)
     $HTTPS = xarServer::getVar('HTTPS');
@@ -204,7 +204,7 @@ function base_init()
     xarConfigVars::set(null, 'Site.User.AuthenticationModules',$authModules);
 
     // Start Modules Support
-    $systemArgs = array('enableShortURLsSupport' => false,
+    $systemArgs = array('defaultRoute' => false,
                         'generateXMLURLs' => false);
     xarMod::init($systemArgs);
     

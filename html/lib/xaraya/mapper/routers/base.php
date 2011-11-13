@@ -13,10 +13,12 @@
  * @author Marc Lutolf <mfl@netspan.ch>
 **/
 
-sys::import('xaraya.mapper.routers.routes.interfaces');
+sys::import('xaraya.mapper.routers.interfaces');
 
 class xarRoute extends Object implements iRoute
 {
+    protected $name      = null;
+
     protected $delimiter = "/";
     protected $request;
     protected $dispatcher;
@@ -28,7 +30,7 @@ class xarRoute extends Object implements iRoute
     protected $moduleKey = 'module';
     protected $typeKey   = 'type';
     protected $funcKey   = 'func';
-
+    
     public function __construct(Array $defaults=array(), xarDispatcher $dispatcher=null)
     {
         $this->defaults += $defaults;
@@ -73,6 +75,17 @@ class xarRoute extends Object implements iRoute
         }
         
         return false;
+    }
+
+    public function routeMatched(xarRequest $request)
+    {
+        $request->setRoute($this);
+        return true;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 }
 ?>

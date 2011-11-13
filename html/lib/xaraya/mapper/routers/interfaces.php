@@ -17,6 +17,7 @@ interface iRoute
 {
     public function __construct(Array $defaults=array(), xarDispatcher $dispatcher=null);
     public function match(xarRequest $request, $partial=false);
+    public function getName();
 }
 
 ?>

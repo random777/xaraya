@@ -27,7 +27,7 @@
  * 7. Further key/value pairs can be added after the "?"
 **/
 
-sys::import('xaraya.mapper.routers.routes.base');
+sys::import('xaraya.mapper.routers.base');
 
 class ShortRoute extends xarRoute
 {
@@ -37,6 +37,7 @@ class ShortRoute extends xarRoute
     {
         if (isset($dispatcher)) $this->dispatcher = $dispatcher;
         parent::__construct($defaults, $dispatcher);
+        $this->name = "short";
     }
 
     public function match(xarRequest $request, $partial=false)
@@ -47,9 +48,6 @@ class ShortRoute extends xarRoute
         // Get the request's URL string
         $path = $request->getURL();
 
-        $params = array();
-        $parts = array();
-        
         // Get everything between the entry point and the beginning of the query part of the URL
         if ($pos = strpos($path, '?')) $path = substr($path, 0, $pos);
         $path = substr($path, strlen(xarServer::getBaseURL() . $request->entryPoint));
@@ -61,6 +59,17 @@ class ShortRoute extends xarRoute
             $matchedPath = $path;
         }
 
+        // Get the module part and validate it. Can be an alias; the dispatcher should know
+        $path = explode($this->delimiter, $path);
+        if ($this->dispatcher && $this->dispatcher->isValidModule($path[0])) {
+            return $this->routeMatched($request);
+        }
+        return false;
+
+/*
+        $params = array();
+        $parts = array();
+        
         // Get the module part and validate it. Can be an alias; the dispatcher should know
         $path = explode($this->delimiter, $path);
         if ($this->dispatcher && $this->dispatcher->isValidModule($path[0])) {
@@ -98,6 +107,7 @@ class ShortRoute extends xarRoute
         
         // Add in any missing parts as defaults
         return $this->parts + $this->defaults;
+*/
     }
 }
 ?>

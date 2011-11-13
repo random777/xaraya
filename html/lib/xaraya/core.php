@@ -390,13 +390,11 @@ function xarCoreInit($whatToLoad = xarCore::SYSTEM_ALL)
         /**
          * Start Modules Subsystem
          *
-         * @todo <mrb> why is this optional?
          * @todo <marco> Figure out how to dynamically compute generateXMLURLs argument based on browser request or XHTML site compliance. For now just pass true.
-         * @todo <mrb> i thought it was configurable
         **/
         if ($whatToLoad & xarCore::SYSTEM_MODULES) {
             sys::import('xaraya.modules');
-            $systemArgs = array('enableShortURLsSupport' => xarConfigVars::get(null, 'Site.Core.EnableShortURLsSupport'),
+            $systemArgs = array('defaultRoute' => xarConfigVars::get(null, 'Site.Core.DefaultRoute'),
                                 'generateXMLURLs' => true);
             xarMod::init($systemArgs);
             $whatToLoad ^= xarCore::BIT_MODULES;
@@ -414,10 +412,10 @@ function xarCoreInit($whatToLoad = xarCore::SYSTEM_ALL)
          *
          */
         sys::import('xaraya.server');
-        $systemArgs = array('enableShortURLsSupport' => xarConfigVars::get(null, 'Site.Core.EnableShortURLsSupport'),
+        $systemArgs = array('defaultRoute' => xarConfigVars::get(null, 'Site.Core.DefaultRoute'),
                             'generateXMLURLs' => true);
         xarServer::init($systemArgs);
-        sys::import('xaraya.mapper.main');
+        sys::import('xaraya.mapper2.controller');
         xarController::init($systemArgs);
     //    xarController::$response->init($systemArgs);
     

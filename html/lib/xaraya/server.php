@@ -134,7 +134,7 @@ class xarServer extends Object
     const PROTOCOL_HTTP  = 'http';
     const PROTOCOL_HTTPS = 'https';
 
-    public static $allowShortURLs = true;
+    public static $defaultRoute = true;
     public static $generateXMLURLs = true;
 
     /**
@@ -143,7 +143,7 @@ class xarServer extends Object
      */
     static function init(Array $args=array())
     {
-        self::$allowShortURLs = $args['enableShortURLsSupport'];
+        self::$defaultRoute = $args['defaultRoute'];
         self::$generateXMLURLs = $args['generateXMLURLs'];
         // This event is now registered during base module init        
         //xarEvents::register('ServerRequest');
@@ -406,6 +406,10 @@ class xarServer extends Object
      */
     static function getObjectURL($objectName = NULL, $methodName = 'view', $args = array(), $generateXMLURL = NULL, $fragment = NULL, $entrypoint = array())
     {
+        
+        return xarController::URL('object', $objectName, $methodName, $args, $generateXMLURL, $fragment, $entrypoint);
+
+/*        
         // 1. override any existing 'method' in args, and place before the rest
         if (!empty($methodName)) {
             $args = array('method' => $methodName) + $args;
@@ -455,6 +459,7 @@ class xarServer extends Object
 
         // Return the URL.
         return self::getBaseURL() . $path;
+*/
     }
 }
 

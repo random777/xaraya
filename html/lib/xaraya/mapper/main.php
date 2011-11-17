@@ -40,7 +40,7 @@ class xarController extends Object
      */
     static function init(Array $args=array())
     {
-        self::$allowShortURLs = $args['enableShortURLsSupport'];
+//        self::$allowShortURLs = $args['enableShortURLsSupport'];
 
         // The following allows you to modify the BaseModURL from the config file
         // it can be used to configure Xaraya for mod_rewrite by
@@ -61,6 +61,7 @@ class xarController extends Object
      * @return mixed
      * @todo change order (POST normally overrides GET)
      * @todo have a look at raw post data options (xmlhttp postings)
+     * chris, this belongs in the request object 
      */
     static function getVar($name, $allowOnlyMethod = NULL)
     {
@@ -126,12 +127,14 @@ class xarController extends Object
         return $value;
     }
 
+    // chris: the request is a fixed URI, shouldn't be possible to overwrite 
     static function setRequest($url=null)
     {
         sys::import('xaraya.mapper.request');
         self::$request = new xarRequest($url);
     }
 
+    // chris: since the request is a fixed URI, this is really a one time deal 
     static function getRequest($url=null)
     {
         if (empty(self::$request) || !empty($url)) self::setRequest($url);
@@ -139,6 +142,7 @@ class xarController extends Object
     }
 
     // Find the route for this request
+    // chris, since the request is a fixed URI, this is really a one time deal
     static function normalizeRequest($request=null)
     {
         if (!empty($request)) self::$request = $request;
@@ -156,6 +160,7 @@ class xarController extends Object
         self::$response = new xarResponse();
         try {
             do {
+                // chris: set true then check if true?
                 self::$request->setDispatched(true);
                 if (!self::$request->isDispatched()) continue;
                 self::$dispatcher->dispatch(self::$request, self::$response);
@@ -170,6 +175,7 @@ class xarController extends Object
      *
      * 
      * @return boolean true if locally referred, false if not
+     * chris, this belongs in request object or xarServer
      */
     static function isLocalReferer()
     {
@@ -188,6 +194,7 @@ class xarController extends Object
      *
      * 
      * @param redirectURL string the URL to redirect to
+     * chris, this belongs in request object or xarServer
      */
     static function redirect($url, $httpResponse=NULL)
     {
@@ -237,6 +244,7 @@ class xarController extends Object
         if (null == self::$router) {
             sys::import('xaraya.mapper.routers.router');
             self::setRouter(new xarRouter());
+            self::$router->addDefaultRoutes();
         }
         return self::$router;
     }
@@ -261,10 +269,12 @@ class xarController extends Object
      * @param entrypoint array of arguments for different entrypoint than index.php
      * @return mixed absolute URL for call, or false on failure
      * @todo allow for an alternative entry point (e.g. stream.php) without affecting the other parameters
+     * this is a url encode function, it doesn't belong here 
      */
     static function URL($modName=NULL, $modType='user', $funcName='main', $args=array(), $generateXMLURL=NULL, $fragment=NULL, $entrypoint=array())
     {
         // No module specified - just jump to the home page.
+        // fixme: there may be arguments and a fragment unaccounted for here
         if (empty($modName)) return xarServer::getBaseURL() . self::$entryPoint;
 
         // If an entry point has been set, then modify the URL entry point and modType.
@@ -277,10 +287,14 @@ class xarController extends Object
         }
 
         // Create a new request and make its route the current route
+        // @fixme: the request shouldn't be initialised again here, it is what it is
+        // we're encoding a url, not dispatching a request 
         $args['module'] = $modName;
         $args['type'] = $modType;
         $args['func'] = $funcName;
         sys::import('xaraya.mapper.request');
+        // fixme: xarRequest expects a string, not an array 
+        // @fixme: the request shouldn't be initialised again here, it is what it is
         $request = new xarRequest($args);
         // <chris/> wrt to the problem of xaraya not obeying a particular route
         // when the main entry point, sans params, is accessed...
@@ -290,8 +304,9 @@ class xarController extends Object
         // assuming multiple routes aren't in use, of course, although we could perhaps
         // deprecate the per module shorturl setting in favour of a dropdown of routes too :-?
         /*
-        if (xarMod::$genShortUrls) {
-            $request->setRoute('short');
+        if (xarMod::$defaultRoute == 'short') {
+            $route = new ShortRoute(array(), self::$dispatcher);
+            $request->setRoute($route);
         } else {
             $router = self::getRouter();
             $request->setRoute($router->getRoute());

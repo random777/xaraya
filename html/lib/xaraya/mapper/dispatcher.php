@@ -21,13 +21,15 @@ class xarDispatcher extends Object
 
     public function findController(xarRequest $request)
     {
-        if (file_exists(sys::code() . 'modules/' . $request->getModule() . '/controllers/' . $request->getRoute() . '.php')) {
-            sys::import('modules.' . $request->getModule() . '.controllers.' . $request->getRoute());
-            $controllername = UCFirst($request->getModule()) . UCFirst($request->getRoute()) . 'Controller';
+        $route = $request->getRoute();
+        $routename = $route->getName();
+        if (file_exists(sys::code() . 'modules/' . $request->getModule() . '/controllers/' . $routename . '.php')) {
+            sys::import('modules.' . $request->getModule() . '.controllers.' . $routename);
+            $controllername = UCFirst($request->getModule()) . UCFirst($routename) . 'Controller';
             $controller = new $controllername($request);
         } else {
-            sys::import('xaraya.mapper.controllers.' . $request->getRoute());
-            $controllername = UCFirst($request->getRoute()) . 'ActionController';
+            sys::import('xaraya.mapper.controllers.' . $routename);
+            $controllername = UCFirst($routename) . 'ActionController';
             $controller = new $controllername($request);
         }
         $request->setActionString($controller->getActionString($request));

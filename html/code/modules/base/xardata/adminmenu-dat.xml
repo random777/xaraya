@@ -45,5 +45,14 @@
             <title>Modify Base configuration values</title>
             <label>Modify Configuration</label>
         </menuitem>
+        <menuitem>
+            <mask>AdminBase</mask>
+            <includes>
+                <includeitem>mapper</includeitem>
+            </includes>
+            <target>mapper</target>
+            <title>Mapper testing</title>
+            <label>Mapper</label>
+        </menuitem>
     </menuitems>
 </adminmenu>

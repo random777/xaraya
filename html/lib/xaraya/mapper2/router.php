@@ -17,11 +17,13 @@ class xarRouter extends Object implements ixarRouter
 **/ 
     public function __construct($routes=array())
     {
-        $this->defaultroute = xarConfigVars::get(null, 'Site.Core.DefaultRoute');
+        $this->defaultroute = xarConfigVars::get(null, 'Site.Core.DefaultRoute', 'default');
+        // always load the admin defined encoding route first
+        $this->loadRoute($this->defaultroute);
         // attach any routes supplied in the order they were given (used when decoding) 
-        foreach ($routes as $route) 
+        foreach ($routes as $route)
             $this->loadRoute($route);
-        // the default route is always available        
+        // the default xaraya (long urls) route is always loaded as last resort  
         $this->loadRoute('default');
     }
 
@@ -58,6 +60,9 @@ class xarRouter extends Object implements ixarRouter
 **/      
     public function decode(ixarUrl $url)
     {
+        // throw back external urls 
+        if ($url->isExternal()) 
+            return $url;
         // we want to keep decoding as loose as possible 
         // try each route in turn, break on first positive response
         foreach ($this->routes as $route) 

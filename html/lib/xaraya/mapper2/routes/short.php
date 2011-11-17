@@ -118,7 +118,7 @@ class ShortRoute extends BaseRoute
             $alias = $path[0]; 
             $module = xarModAlias::resolve($alias);
             // if it's not a valid module, it's not ours
-            if (!xarMod::isAvailable($module)) return;
+            //if (!xarMod::isAvailable($module)) return;
             // looks like it's a shorturl
             // NOTE: the module is all we can reliably determine
             $url->setModule($module);

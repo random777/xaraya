@@ -62,6 +62,7 @@ class xarController extends Object
     {
         self::getRouter()->decode(self::getRequest());
         // SEO: if the url wasn't decoded by the default route, re-encode using default
+        /*
         if (xarServer::getVar('REQUEST_METHOD') == 'GET' && 
             self::getRequest()->getDecoder() != self::getRouter()->getDefaultRoute() &&
             self::getRouter()->encode(self::getRequest())) {
@@ -69,6 +70,7 @@ class xarController extends Object
             if (self::getRequest()->getUrl() != xarServer::getCurrentUrl())
                 self::redirect(self::getRequest()->getUrl(), 301);
         }
+        */
     }
 
     public static function dispatch()

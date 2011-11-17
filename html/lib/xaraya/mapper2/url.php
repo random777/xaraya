@@ -8,6 +8,7 @@ class xarUrl2 extends Object implements ixarUrl
 {
     // the url 
     protected $url;       
+    protected $external = false;
 
     // the url parts 
     protected $path = array();          // url path part
@@ -109,39 +110,57 @@ class xarUrl2 extends Object implements ixarUrl
         if (empty($url)) return;
         // sanitize url - allows a-z0-9 $ - _ . + ! * ' ( ) , { } | \ \ ^ ~ [ ] ` > < # % " ; / ? : @ & = .
         $url = filter_var($url,  FILTER_SANITIZE_URL);
-        // @checkme: allow relative urls to be decoded here ?
         // strip leading slash if we were given a relative path
-        //if (substr($url, 0, 1) == '/') $url = substr($url, 1);
+        if (substr($url, 0, 1) == '/') $url = substr($url, 1);
         // add the baseurl if this is a relative path 
-        //if (!filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED & FILTER_FLAG_HOST_REQUIRED))
-        //    $url = xarServer::getBaseURL() . $url;
-        // @checkme: or, just throw back urls without a scheme/hostname ?
-        if (!filter_var($url, FILTER_VALIDATE_URL, 
-            FILTER_FLAG_SCHEME_REQUIRED & FILTER_FLAG_HOST_REQUIRED)) return;
+        if (!filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED & FILTER_FLAG_HOST_REQUIRED))
+            $url = xarServer::getBaseURL() . $url;
         // we're only interested in decoding local urls  
         $server = xarServer::getHost();
-        if (!preg_match("!^https?://$server!", $url)) return;
-        // ok, we have a local url, let's see if it's a xaraya url
-        $urlparts = parse_url($url);
-
-        // see if we have an entry path/point defined         
-        if ($this->getEntryPath() || $this->getEntryPoint()) {
-            // no path parts, not a xar url
-            if (empty($urlparts['path'])) return;
-            $entryparts = $this->getEntryPath().'/'.$this->getEntryPoint();
-            // first part of path should match BaseURI/BaseModURL
-            if (strpos($urlparts['path'], $entryparts) !== 0) return;
-            $urlparts['path'] = substr($urlparts['path'], strlen($entryparts));
+        if (!preg_match("!^https?://$server!", $url)) {
+            $this->external = true;
+            $this->url = $url;
+            return;
         }
+        
+        // ok, we have a local url, assume it's a xaraya url
+        $urlparts = parse_url($url);
+        // see if we have path parts (if not, it's the baseurl or index.php was removed by mod_rewrite)
+        if (!empty($urlparts['path'])) {
+             // have path, parse it now
+             $this->setPath($urlparts['path']);
+             // get the parsed path back
+             $pathparts = $this->getPath();
 
-        // if we're here, we're assuming this is a xaraya url, set the URL parts
-        if (!empty($urlparts['path']))
-            $this->setPath($urlparts['path']);
+             // if we have an entry path defined in layout.sys, it should be the first part of the path
+             if ($entrypath = $this->getEntryPath()) {
+                 // turn the entry path into an array 
+                 $entryparts = array_map('trim', explode('/', trim($entrypath, '/')));
+                 // intersect arrays where index AND values match ($arr1[0] = 'foo' === $arr2[0] = 'foo')
+                 $matches = array_intersect_assoc($pathparts, $entryparts);
+                 // config says we should have an entry path, if it doesn't match, throw back 
+                 if (empty($matches)) return;
+                 // remove entry parts from path now we've accounted for them
+                 while (!empty($matches[0])) {
+                     array_shift($pathparts);
+                     array_shift($matches);
+                 }
+            }
+            
+            // next part of the path could be the entry point if not removed by mod_rewrite
+            if (!empty($pathparts[0]) &&
+                ($pathparts[0] == $this->getEntryPoint() || $pathparts[0] == 'index.php'))
+                array_shift($pathparts);
+            
+            // now we can set the pathparts with entry path/point removed 
+            $this->setPath($pathparts);
+        }
+        // set the query params 
         if (!empty($urlparts['query']))
             $this->setQuery($urlparts['query']);
 
         // finally, set the url 
-        $this->url = $url;        
+        $this->url = $url;     
     }
 
     public function setPath($path)
@@ -241,6 +260,8 @@ class xarUrl2 extends Object implements ixarUrl
 
     public function getUrl()
     {
+        if ($this->external)
+            return $this->url;
         $url = xarServer::getBaseURL();
         $path = $this->getPathString();
         if (!empty($path))
@@ -252,6 +273,11 @@ class xarUrl2 extends Object implements ixarUrl
         if (!empty($target))
             $url .= '#' . $target;
         return $this->url = $url;
+    }
+
+    public function isExternal()
+    {
+        return $this->external;
     }
 
     public function getPath()

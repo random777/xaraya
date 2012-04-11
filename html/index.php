@@ -62,42 +62,9 @@ function xarMain()
     $request = xarController::getRequest();
     xarController::normalizeRequest();
 
-    // Default Page Title
-    $SiteSlogan = xarModVars::get('themes', 'SiteSlogan');
-    xarTpl::setPageTitle(xarVarPrepForDisplay($SiteSlogan));
-
     // Theme Override
-    xarVarFetch('theme','str:1:',$themeName,'',XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY);
-    if (!empty($themeName)) {
-        $themeName = xarVarPrepForOS($themeName);
-        if (xarThemeIsAvailable($themeName)){
-            xarTpl::setThemeName($themeName);
-            xarVarSetCached('Themes.name','CurrentTheme', $themeName);
-        }
-    // admin theme 
-    } elseif (xarUserIsLoggedIn() && $request->getType() == 'admin') {
-        $themeName = xarModVars::get('themes', 'admin_theme');
-        if (!empty($themeName) && xarThemeIsAvailable($themeName)) {
-            $themeName = xarVarPrepForOS($themeName);
-            xarTpl::setThemeName(strtolower($themeName));
-            xarVarSetCached('Themes.name','CurrentTheme', $themeName);
-        }            
-    // User Override (configured in themes admin modifyconfig)
-    } elseif ((bool) xarModVars::get('themes', 'enable_user_menu') == true) {
-        // users are allowed to set theme in profile, get user setting...
-        $themeName = xarModUserVars::get('themes', 'default_theme');
-        // get the list of permitted themes
-        $user_themes = xarModVars::get('themes', 'user_themes');
-        $user_themes = !empty($user_themes) ? explode(',',$user_themes) : array();
-
-        // check we have a valid theme 
-        if (!empty($themeName) && xarThemeIsAvailable($themeName) && 
-            !empty($user_themes) && in_array($themeName, $user_themes)) {
-            $themeName = xarVarPrepForOS($themeName);
-            xarTpl::setThemeName(strtolower($themeName));
-            xarVarSetCached('Themes.name','CurrentTheme', $themeName);
-        }
-    }
+    xarVarFetch('theme','str:1:',$theme,'',XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY);
+    xarDevice::configTheme($theme);
 
     // Get a cache key for this page if it's suitable for page caching
     $cacheKey = xarCache::getPageKey();
@@ -144,23 +111,9 @@ function xarMain()
         xarEvents::notify('ServerRequest');
         
         // Set page template
-        if (xarUserIsLoggedIn() && $request->getType() == 'admin' && xarTpl::getPageTemplateName() == 'default') {
-             // Use the admin-$modName.xt page if available when $modType is admin
-            // falling back on admin.xt if the former isn't available
-            if (!xarTpl::setPageTemplateName('admin-'.$request->getModule())) {
-                xarTpl::setPageTemplateName('admin');
-            }
-        } elseif (xarUserIsLoggedIn() && $request->getType() == 'user' && xarTpl::getPageTemplateName() == 'default') {
-            // Same thing for user side where user is logged in
-            if (!xarTpl::setPageTemplateName('user-'.$request->getModule())) {
-                xarTpl::setPageTemplateName('user');
-            }
-        } elseif ($request->getType() == 'user' && xarTplGetPageTemplateName() == 'default') {
-            // For the anonymous user, see if a module specific page exists
-            if (!xarTplSetPageTemplateName('user-'.$request->getModule())) {
-                xarTplSetPageTemplateName($request->getModule());
-            }
-        }
+        $device = xarDevice::getRequestingDevice();
+        
+        xarDevice::configPageTemplate();
 
         xarVarFetch('pageName','str:1:', $pageName, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY);
         if (!empty($pageName)){

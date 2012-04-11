@@ -182,6 +182,11 @@ function base_admin_modifyconfig()
                         xarConfigVars::set(null, 'Site.User.AuthenticationModules', $orderselect->order);
                     }
                     
+                    // Device Detection Support
+                    if (!xarVarFetch('devicedetection','int',$devicedetection,0,XARVAR_NOT_REQUIRED)) return;
+                    $variables = array('Device.Detection' => $devicedetection);
+                    xarMod::apiFunc('installer','admin','modifysystemvars', array('variables'=> $variables));
+
                     // Encryption
                     if (!xarVarFetch('cipher','str:1',$cipher,'blowfish',XARVAR_NOT_REQUIRED)) return;
                     if (!xarVarFetch('mode','str:1',$mode,'cbc',XARVAR_NOT_REQUIRED)) return;

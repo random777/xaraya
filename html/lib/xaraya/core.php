@@ -418,9 +418,17 @@ function xarCoreInit($whatToLoad = xarCore::SYSTEM_ALL)
                             'generateXMLURLs' => true);
         xarServer::init($systemArgs);
         sys::import('xaraya.mapper.main');
+        
         xarController::init($systemArgs);
     //    xarController::$response->init($systemArgs);
     
+        /**
+         * Load the device class and initialize
+        **/
+        sys::import('xaraya.device');
+        $systemArgs = array();
+        xarDevice::init($systemArgs);
+        
         /*
          * Bring Multi Language System online
          *

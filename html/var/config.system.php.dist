@@ -49,6 +49,11 @@ $systemConfiguration['Log.Filename'] = 'xarayalog.txt';
  */
  $systemConfiguration['SystemTimeZone'] = 'UTC';
 
+/* Device Support
+ * This option enables device detection in server requests
+ */
+ $systemConfiguration['Device.Detection'] = '0';
+
 /*
  * Global error level, optional
  * If set it is passed directly into the error_reporting() function of PHP

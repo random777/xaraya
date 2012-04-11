@@ -425,6 +425,23 @@
                         </div>
                     </fieldset>
                     <fieldset>
+                        <legend>Device Support</legend>
+                        <div class="xar-row">
+                            <div class="xar-col">
+                                <xar:var name="label">Support routines to detect requesting devices</xar:var>
+                                <label for="secureserver" title="#$label#" class="xar-form-label">
+                                    Support Device Detection
+                                </label>
+                            </div>
+                            <div class="xar-col">
+                                <xar:set name="checked">
+                                    xarSystemVars::get(sys::CONFIG, 'Device.Detection')
+                                </xar:set>
+                                <xar:data-input type="checkbox" name="devicedetection" id="devicedetection" checked="$checked"/>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
                         <legend>SSL Support</legend>
                         <div class="xar-row">
                             <div class="xar-col">

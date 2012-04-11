@@ -62,7 +62,7 @@ function xarMain()
     $request = xarController::getRequest();
     xarController::normalizeRequest();
 
-    // Theme Override
+    // Set the theme. This happens early, because the choice of theme may influence the code
     xarVarFetch('theme','str:1:',$theme,'',XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY);
     xarDevice::configTheme($theme);
 
@@ -107,18 +107,11 @@ function xarMain()
         }
 
         // We're all done, one ServerRequest made
-        //xarEvents::trigger('ServerRequest');
         xarEvents::notify('ServerRequest');
         
-        // Set page template
-        $device = xarDevice::getRequestingDevice();
-        
-        xarDevice::configPageTemplate();
-
+        // Set page template. This happens after the code is done   
         xarVarFetch('pageName','str:1:', $pageName, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY);
-        if (!empty($pageName)){
-            xarTpl::setPageTemplateName($pageName);
-        }
+        xarDevice::configPageTemplate($pageName);
 
         // Render page with the output
         $pageOutput = xarTpl::renderPage($mainModuleOutput);

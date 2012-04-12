@@ -212,6 +212,7 @@ function installer_admin_phase5()
     sys::import('xaraya.blocks');
     // load events so register functions work 
     sys::import('xaraya.events');
+    sys::import('xaraya.mapper.events');
 
     // 1. Load base and modules module
     $modules = array('base','modules');

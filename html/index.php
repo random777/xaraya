@@ -63,8 +63,11 @@ function xarMain()
     xarController::normalizeRequest();
 
     // Theme Override
+    // @todo: this belongs in the default PreDispatch observer 
     xarVarFetch('theme','str:1:',$theme,'',XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY);
-    xarDevice::configTheme($theme);
+    // trigger pre dispatch event 
+    xarMapperEvents::notify('PreDispatch');
+    //xarDevice::configTheme($theme);
 
     // Get a cache key for this page if it's suitable for page caching
     $cacheKey = xarCache::getPageKey();
@@ -111,10 +114,12 @@ function xarMain()
         xarEvents::notify('ServerRequest');
         
         // Set page template
-        $device = xarDevice::getRequestingDevice();
-        
-        xarDevice::configPageTemplate();
+        //$device = xarDevice::getRequestingDevice();        
+        //xarDevice::configPageTemplate();
+        // trigger post dispatch event
+        xarMapperEvents::notify('PostDispatch');
 
+        // @todo: this belongs in the default PostDispatch observer
         xarVarFetch('pageName','str:1:', $pageName, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY);
         if (!empty($pageName)){
             xarTpl::setPageTemplateName($pageName);

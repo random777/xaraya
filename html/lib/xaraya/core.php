@@ -421,13 +421,14 @@ function xarCoreInit($whatToLoad = xarCore::SYSTEM_ALL)
         
         xarController::init($systemArgs);
     //    xarController::$response->init($systemArgs);
-    
+        // load mapper events
+        sys::import('xaraya.mapper.events');
         /**
          * Load the device class and initialize
         **/
-        sys::import('xaraya.device');
-        $systemArgs = array();
-        xarDevice::init($systemArgs);
+        //sys::import('xaraya.device');
+        //$systemArgs = array();
+        //xarDevice::init($systemArgs);
         
         /*
          * Bring Multi Language System online

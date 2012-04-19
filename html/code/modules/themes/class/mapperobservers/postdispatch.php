@@ -10,10 +10,13 @@ class ThemesPostDispatchObserver extends EventObserver implements ixarEventObser
     
     public function notify(ixarEventSubject $subject)
     {
-        // post request default page template handling  
-        $set = false;
-        if (xarTpl::getPageTemplateName() != 'default') return $set;
-        
+        // Check for an override
+        xarVarFetch('pageName','str:1:', $pageName, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY);
+        if (!empty($pageName) && $pageName  != 'default'){
+            xarTpl::setPageTemplateName($pageName);
+            return true;
+        }
+
         $set = true;
         $request = xarController::getRequest();
         if (!xarUserIsLoggedIn() && $request->getType() == 'user') {

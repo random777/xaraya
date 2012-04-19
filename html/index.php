@@ -63,11 +63,8 @@ function xarMain()
     xarController::normalizeRequest();
 
     // Set the theme. This happens early, because the choice of theme may influence the code
-    // @todo: this belongs in the default PreDispatch observer 
-    xarVarFetch('theme','str:1:',$theme,'',XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY);
     // trigger pre dispatch event 
     xarMapperEvents::notify('PreDispatch');
-    //xarDevice::configTheme($theme);
 
     // Get a cache key for this page if it's suitable for page caching
     $cacheKey = xarCache::getPageKey();
@@ -113,9 +110,6 @@ function xarMain()
         xarEvents::notify('ServerRequest');
         
         // Set page template. This happens after the code is done   
-        //$device = xarDevice::getRequestingDevice();        
-        //xarDevice::configPageTemplate();
-        // trigger post dispatch event
         xarMapperEvents::notify('PostDispatch');
 
         // @todo: this belongs in the default PostDispatch observer

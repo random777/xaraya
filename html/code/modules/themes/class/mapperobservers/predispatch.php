@@ -17,6 +17,10 @@ class ThemesPreDispatchObserver extends EventObserver implements ixarEventObserv
         xarTpl::setPageTitle(xarVarPrepForDisplay($SiteSlogan));
 
         $request = xarController::getRequest();
+
+        // Check if a theme variable was passed in the request
+        xarVarFetch('theme','str:1:',$theme,'',XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY);
+
         if (empty($theme) && xarUserIsLoggedIn() && $request->getType() == 'admin') {
             // Admin theme 
             $theme = xarModVars::get('themes', 'admin_theme');

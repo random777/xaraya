@@ -386,7 +386,7 @@ class xarEvents extends Object implements ixarEvents
     }
         
 
-    public static function unregisterSubject($event, $module)
+    public static function unregisterSubject($event, $module=0)
     {
         $subjecttype = static::getSubjectType();
         if (!self::unregister($event, $module, $subjecttype)) return;
@@ -395,7 +395,7 @@ class xarEvents extends Object implements ixarEvents
         return true;
     }
     
-    public static function unregisterObserver($event, $module)
+    public static function unregisterObserver($event, $module=0)
     {
         $observertype = static::getObserverType();
         if (!self::unregister($event, $module, $observertype)) return;
@@ -411,7 +411,7 @@ class xarEvents extends Object implements ixarEvents
         $invalid = array();
         if (empty($event) || !is_string($event) || strlen($event) > 255)
             $invalid[] = 'event';
-        if (empty($module) || (!is_string($module) && !is_numeric($module)) ) {
+        if (!isset($module) || (!is_string($module) && !is_numeric($module)) ) {
             $invalid[] = 'module';
         } else {
             if (is_numeric($module)) {
@@ -419,16 +419,17 @@ class xarEvents extends Object implements ixarEvents
             } else {
                 $module_id = xarMod::getRegID($module);
             }
-            if (!empty($module_id))
+            if (!empty($module_id)) {
                 $modinfo = xarMod::getInfo($module_id);
-            if (empty($modinfo))
-                $invalid[] = 'module';
+                if (empty($modinfo))
+                    $invalid[] = 'module';
+            }
         }
-        if (empty($itemtype) || !is_numeric($itemtype)) {
+        if (!isset($itemtype) || !is_numeric($itemtype)) {
             $invalid[] = 'itemtype';
         }
         if (!empty($invalid)) {
-            $vars = array(join(', ', $invalid), 'register', 'xarEvent');
+            $vars = array(join(', ', $invalid), 'unregister', 'xarEvent');
             $msg = "Invalid #(1) for method #(2)() in class #(3)";
             throw new BadParameterException($vars, $msg);
         }
@@ -438,9 +439,17 @@ class xarEvents extends Object implements ixarEvents
         $bindvars = array();
         $emstable = $tables['eventsystem'];
                 
-        // remove event item
-        $query = "DELETE FROM $emstable WHERE event = ? AND module_id = ? AND itemtype = ?";
-        $bindvars = array($event, $module_id, $itemtype);
+        // remove event(s)
+        $query = "DELETE FROM $emstable WHERE event = ?";
+        $bindvars[] = $event;
+        if ($module_id !== 0) {
+            $query .= " AND module_id = ?";
+            $bindvars[] = $module_id;
+        }
+        if ($itemtype !== 0) {
+            $query .= " AND itemtype = ?";
+            $bindvars[] = $itemtype;
+        }
         $result = &$dbconn->Execute($query,$bindvars);
         if (!$result) return;
 

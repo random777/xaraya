@@ -137,7 +137,6 @@ function themes_upgrade($oldversion)
             xarMapperEvents::registerSubject('PreDispatch', 'mapper', 'themes');
             xarMapperEvents::registerSubject('PostDispatch', 'mapper', 'themes');
             // register mapper event observers
-            // @TODO: these belong in themes 
             xarMapperEvents::registerObserver('PreDispatch', 'themes');
             xarMapperEvents::registerObserver('PostDispatch', 'themes');             
       break;

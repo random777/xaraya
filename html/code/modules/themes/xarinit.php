@@ -132,6 +132,14 @@ function themes_upgrade($oldversion)
     // Upgrade dependent on old version number
     switch ($oldversion) {
         default:
+        case '2.3.0':
+            // register mapper event subjects 
+            xarMapperEvents::registerSubject('PreDispatch', 'mapper', 'themes');
+            xarMapperEvents::registerSubject('PostDispatch', 'mapper', 'themes');
+            // register mapper event observers
+            // @TODO: these belong in themes 
+            xarMapperEvents::registerObserver('PreDispatch', 'themes');
+            xarMapperEvents::registerObserver('PostDispatch', 'themes');             
       break;
     }
     return true;

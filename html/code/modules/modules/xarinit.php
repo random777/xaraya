@@ -431,14 +431,6 @@ function modules_upgrade($oldversion)
             xarEvents::registerObserver('ModDeactivate', 'modules');
             xarEvents::registerObserver('ModRemove', 'modules');
 
-        case '2.3.0':
-            // register mapper event subjects 
-            xarMapperEvents::registerSubject('PreDispatch', 'mapper', 'base');
-            xarMapperEvents::registerSubject('PostDispatch', 'mapper', 'base');
-            // register mapper event observers
-            // @TODO: these belong in themes 
-            xarMapperEvents::registerObserver('PreDispatch', 'base');
-            xarMapperEvents::registerObserver('PostDispatch', 'base');             
             break;
     }
     return true;

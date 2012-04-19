@@ -407,7 +407,6 @@ function xarCoreInit($whatToLoad = xarCore::SYSTEM_ALL)
             $current_SYSTEM_level = $new_SYSTEM_level;
             return true;
         }
-
     
         /*
          * Bring HTTP Protocol Server/Request/Response utilities into the story
@@ -420,9 +419,10 @@ function xarCoreInit($whatToLoad = xarCore::SYSTEM_ALL)
         sys::import('xaraya.mapper.main');
         
         xarController::init($systemArgs);
-    //    xarController::$response->init($systemArgs);
-        // load mapper events
+        
+        // Load the mapper events
         sys::import('xaraya.mapper.events');
+        
         /**
          * Load the device class and initialize
         **/

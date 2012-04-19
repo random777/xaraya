@@ -120,7 +120,6 @@ function xarMain()
 
         // @todo: this belongs in the default PostDispatch observer
         xarVarFetch('pageName','str:1:', $pageName, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY);
-        xarDevice::configPageTemplate($pageName);
 
         // Render page with the output
         $pageOutput = xarTpl::renderPage($mainModuleOutput);

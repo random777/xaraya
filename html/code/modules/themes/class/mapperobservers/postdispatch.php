@@ -2,10 +2,9 @@
 /**
  * PreRequest Subject Observer
  *
- * @TODO: this really belongs in themes
 **/
 sys::import('xaraya.structures.events.observer');
-class BasePostDispatchObserver extends EventObserver implements ixarEventObserver
+class ThemesPostDispatchObserver extends EventObserver implements ixarEventObserver
 {
     public $module = 'base';
     

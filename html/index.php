@@ -112,9 +112,6 @@ function xarMain()
         // Set page template. This happens after the code is done   
         xarMapperEvents::notify('PostDispatch');
 
-        // @todo: this belongs in the default PostDispatch observer
-        xarVarFetch('pageName','str:1:', $pageName, '', XARVAR_NOT_REQUIRED, XARVAR_PREP_FOR_DISPLAY);
-
         // Render page with the output
         $pageOutput = xarTpl::renderPage($mainModuleOutput);
 
